@@ -7,6 +7,8 @@ import (
 	"strings"
 	"testing"
 
+	"strconv"
+
 	"github.com/gogo/protobuf/proto"
 	"github.com/stretchr/testify/assert"
 	gitplumbing "gopkg.in/src-d/go-git.v4/plumbing"
@@ -343,7 +345,7 @@ func TestCouplesConsumeManyFiles(t *testing.T) {
 	for i := 0; i < len(changes); i++ {
 		changes[i] = &object.Change{
 			From: object.ChangeEntry{},
-			To:   object.ChangeEntry{Name: string(i)},
+			To:   object.ChangeEntry{Name: strconv.Itoa(i)},
 		}
 	}
 	deps[plumbing.DependencyTreeChanges] = changes

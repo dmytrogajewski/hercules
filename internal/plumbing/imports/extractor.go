@@ -4,13 +4,13 @@ import (
 	"runtime"
 	"sync"
 
-	"github.com/src-d/imports"
-	_ "github.com/src-d/imports/languages/all" // register the supported languages
 	"gopkg.in/src-d/go-git.v4"
 	gitplumbing "gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
 	"gopkg.in/src-d/go-git.v4/utils/merkletrie"
 	"gopkg.in/src-d/hercules.v10/internal/core"
+	"gopkg.in/src-d/hercules.v10/internal/extractor"
+	"gopkg.in/src-d/hercules.v10/internal/importmodel"
 	"gopkg.in/src-d/hercules.v10/internal/plumbing"
 )
 
@@ -121,7 +121,7 @@ func (ex *Extractor) Initialize(repository *git.Repository) error {
 func (ex *Extractor) Consume(deps map[string]interface{}) (map[string]interface{}, error) {
 	changes := deps[plumbing.DependencyTreeChanges].(object.Changes)
 	cache := deps[plumbing.DependencyBlobCache].(map[gitplumbing.Hash]*plumbing.CachedBlob)
-	result := map[gitplumbing.Hash]imports.File{}
+	result := map[gitplumbing.Hash]importmodel.File{}
 	jobs := make(chan *object.Change, ex.Goroutines)
 	resultSync := sync.Mutex{}
 	wg := sync.WaitGroup{}
@@ -136,7 +136,7 @@ func (ex *Extractor) Consume(deps map[string]interface{}) (map[string]interface{
 						blob.Size, ex.MaxFileSize)
 					continue
 				}
-				file, err := imports.Extract(change.To.TreeEntry.Name, blob.Data)
+				file, err := extractor.Extract(change.To.TreeEntry.Name, blob.Data)
 				if err != nil {
 					ex.l.Errorf("failed to extract imports from %s %s: %v",
 						change.To.TreeEntry.Name, change.To.TreeEntry.Hash.String(), err)

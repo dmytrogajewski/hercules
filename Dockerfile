@@ -1,41 +1,52 @@
-FROM golang:1.13 AS builder
-ENV PROTOBUF_VERSION 3.5.1
-COPY . /root/src
-RUN apt-get update && \
-    apt-get install -y unzip make && \
-    curl -SLo protoc.zip https://github.com/google/protobuf/releases/download/v$PROTOBUF_VERSION/protoc-$PROTOBUF_VERSION-linux-x86_64.zip && \
-    unzip -d /usr/local protoc.zip && \
-    rm protoc.zip && \
-    cd /root/src && \
-    curl -L "https://storage.googleapis.com/tensorflow/libtensorflow/libtensorflow-cpu-$(go env GOOS)-x86_64-1.7.0.tar.gz" | tar -C /usr/local -xz && \
-    make
+# Multi-stage build for Hercules
+FROM golang:1.24-alpine AS builder
 
-FROM ubuntu:18.04
-COPY --from=builder /root/src/hercules /usr/local/bin
-COPY python /root/src
-ENV LC_ALL en_US.UTF-8
-RUN apt-get update && \
-    apt-get upgrade -y  && \
-    apt-get install -y --no-install-suggests --no-install-recommends locales ca-certificates python3 python3-dev python3-distutils libyaml-dev libyaml-0-2 libxml2-dev libxml2 curl git g++ && \
-    locale-gen en_US.UTF-8 && \
-    echo '#!/bin/bash\n\
-\n\
-echo\n\
-echo "	$@"\n\
-echo\n\' > /browser && \
-    chmod +x /browser && \
-    curl https://bootstrap.pypa.io/get-pip.py | python3 - pip==18.1 && \
-    pip3 install --no-cache-dir --no-build-isolation cython && \
-    sed -i 's/DEFAULT_MATPLOTLIB_BACKEND = None/DEFAULT_MATPLOTLIB_BACKEND = "Agg"/' /root/src/labours/cli.py && \
-    pip3 install --no-cache-dir /root/src && \
-    pip3 install --no-cache-dir "tensorflow<2.0" && \
-    rm -rf /root/src && \
-    apt-get remove -y python3-dev libyaml-dev libxml2-dev curl git g++ && \
-    apt-get autoremove -y && \
-    rm -rf /usr/share/doc /usr/share/man && \
-    rm -rf /var/lib/apt/lists/* && \
-    apt-get clean
+# Install build dependencies
+RUN apk add --no-cache git ca-certificates tzdata
 
-EXPOSE 8000
-ENV BROWSER /browser
-ENV COUPLES_SERVER_TIME 7200
+# Set working directory
+WORKDIR /app
+
+# Copy go mod files
+COPY go.mod go.sum ./
+
+# Download dependencies
+RUN go mod download
+
+# Copy source code
+COPY . .
+
+# Build the application with CGO disabled for better compatibility
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build \
+    -ldflags="-w -s -X gopkg.in/src-d/hercules.v10.BinaryGitHash=$(git rev-parse HEAD)" \
+    -o hercules ./cmd/hercules
+
+# Final stage
+FROM gcr.io/distroless/static:nonroot
+
+# Set working directory
+WORKDIR /app
+
+# Copy binary from builder stage
+COPY --from=builder /app/hercules /usr/local/bin/hercules
+
+# Copy documentation
+COPY --from=builder /app/docs /usr/local/share/hercules/docs
+COPY --from=builder /app/README.md /usr/local/share/hercules/
+COPY --from=builder /app/config.yaml.example /etc/hercules/config.yaml.example
+
+# Switch to non-root user
+USER nonroot
+
+# Expose default ports
+EXPOSE 8080 9090
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+    CMD wget --no-verbose --tries=1 --spider http://localhost:8080/health || exit 1
+
+# Default command
+ENTRYPOINT ["/usr/local/bin/hercules"]
+
+# Default arguments
+CMD ["server", "--config", "/etc/hercules/config.yaml"] 

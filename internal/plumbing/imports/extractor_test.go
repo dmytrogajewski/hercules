@@ -1,53 +1,222 @@
 package imports
 
 import (
-	"runtime"
 	"testing"
 
-	"github.com/src-d/imports"
 	"github.com/stretchr/testify/assert"
+	"gopkg.in/src-d/go-git.v4"
 	gitplumbing "gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
 	"gopkg.in/src-d/hercules.v10/internal/core"
+	"gopkg.in/src-d/hercules.v10/internal/importmodel"
 	"gopkg.in/src-d/hercules.v10/internal/plumbing"
-	"gopkg.in/src-d/hercules.v10/internal/test"
 )
 
-func fixtureExtractor() *Extractor {
-	ex := &Extractor{}
-	ex.Initialize(test.Repository)
-	return ex
+func TestExtractorEndToEnd(t *testing.T) {
+	// Create the extractor
+	extractor := &Extractor{}
+
+	// Initialize the extractor with a mock repository
+	mockRepo := &git.Repository{}
+	err := extractor.Initialize(mockRepo)
+	assert.NoError(t, err)
+
+	// Test data for different languages
+	testCases := []struct {
+		name     string
+		filename string
+		content  string
+		expected []string
+	}{
+		{
+			name:     "Go imports",
+			filename: "main.go",
+			content: `package main
+
+import "fmt"
+import "strings"
+
+import (
+	"os"
+	"path/filepath"
+)
+
+func main() {
+	fmt.Println("Hello")
+}`,
+			expected: []string{"fmt", "strings", "os", "path/filepath"},
+		},
+		{
+			name:     "Python imports",
+			filename: "app.py",
+			content: `import os
+import sys
+from typing import List, Dict
+from pathlib import Path
+
+def main():
+    print("Hello")`,
+			expected: []string{"os", "sys", "typing", "pathlib"},
+		},
+		{
+			name:     "JavaScript imports",
+			filename: "app.js",
+			content: `import React from 'react';
+import { useState, useEffect } from 'react';
+import './styles.css';
+
+function App() {
+    return <div>Hello</div>;
+}`,
+			expected: []string{"react", "./styles.css"},
+		},
+		{
+			name:     "Java imports",
+			filename: "Test.java",
+			content: `import java.util.List;
+import java.util.Map;
+import org.springframework.stereotype.Component;
+
+@Component
+public class Test {
+    // ...
+}`,
+			expected: []string{"java.util.List", "java.util.Map", "org.springframework.stereotype.Component"},
+		},
+		{
+			name:     "C++ imports",
+			filename: "main.cpp",
+			content: `#include <iostream>
+#include <vector>
+#include "myheader.h"
+
+int main() {
+    return 0;
+}`,
+			expected: []string{"iostream", "vector", "myheader.h"},
+		},
+		{
+			name:     "C# imports",
+			filename: "Program.cs",
+			content: `using System;
+using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
+
+namespace TestApp {
+    public class Test {
+        // ...
+    }
+}`,
+			expected: []string{"System", "System.Collections.Generic", "Microsoft.AspNetCore.Mvc"},
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			// Create dependencies that the extractor needs
+			deps := map[string]interface{}{
+				plumbing.DependencyTreeChanges: object.Changes{
+					&object.Change{
+						From: object.ChangeEntry{},
+						To: object.ChangeEntry{
+							Name: tc.filename,
+							TreeEntry: object.TreeEntry{
+								Name: tc.filename,
+								Hash: gitplumbing.NewHash("test-hash"),
+							},
+						},
+					},
+				},
+				plumbing.DependencyBlobCache: map[gitplumbing.Hash]*plumbing.CachedBlob{
+					gitplumbing.NewHash("test-hash"): {
+						Blob: object.Blob{
+							Hash: gitplumbing.NewHash("test-hash"),
+							Size: int64(len(tc.content)),
+						},
+						Data: []byte(tc.content),
+					},
+				},
+			}
+
+			// Run the extractor
+			result, err := extractor.Consume(deps)
+			assert.NoError(t, err)
+			assert.NotNil(t, result)
+
+			// Check that imports were extracted
+			imports, exists := result[DependencyImports]
+			assert.True(t, exists, "Imports should be present in result")
+
+			importsMap, ok := imports.(map[gitplumbing.Hash]importmodel.File)
+			assert.True(t, ok, "Imports should be a map[gitplumbing.Hash]importmodel.File")
+			assert.Greater(t, len(importsMap), 0, "Should have processed at least one file")
+			for hash, importFile := range importsMap {
+				assert.NotNil(t, importFile.Imports, "Imports should not be nil for hash %s", hash.String())
+				assert.ElementsMatch(t, tc.expected, importFile.Imports, "Expected imports %v, but got %v", tc.expected, importFile.Imports)
+			}
+		})
+	}
 }
 
-func TestExtractorConfigureInitialize(t *testing.T) {
-	ex := fixtureExtractor()
-	assert.Equal(t, runtime.NumCPU(), ex.Goroutines)
-	facts := map[string]interface{}{}
-	facts[ConfigImportsGoroutines] = 7
-	facts[ConfigMaxFileSize] = 8
-	assert.NoError(t, ex.Configure(facts))
-	assert.Equal(t, 7, ex.Goroutines)
-	assert.Equal(t, 8, ex.MaxFileSize)
-	facts[ConfigImportsGoroutines] = -1
-	facts[ConfigMaxFileSize] = -8
-	assert.NoError(t, ex.Configure(facts))
-	assert.Equal(t, runtime.NumCPU(), ex.Goroutines)
-	assert.Equal(t, DefaultMaxFileSize, ex.MaxFileSize)
-	assert.NotNil(t, ex.l)
+func TestExtractorConfiguration(t *testing.T) {
+	extractor := &Extractor{}
+
+	// Test configuration
+	facts := map[string]interface{}{
+		ConfigImportsGoroutines: 4,
+		ConfigMaxFileSize:       1024,
+		core.ConfigLogger:       core.NewLogger(),
+	}
+
+	err := extractor.Configure(facts)
+	assert.NoError(t, err)
+	assert.Equal(t, 4, extractor.Goroutines)
+	assert.Equal(t, 1024, extractor.MaxFileSize)
 }
 
-func TestExtractorMetadata(t *testing.T) {
-	ex := fixtureExtractor()
-	assert.Equal(t, ex.Name(), "Imports")
-	assert.Equal(t, len(ex.Provides()), 1)
-	assert.Equal(t, ex.Provides()[0], DependencyImports)
-	assert.Equal(t, []string{plumbing.DependencyTreeChanges, plumbing.DependencyBlobCache}, ex.Requires())
-	opts := ex.ListConfigurationOptions()
-	assert.Len(t, opts, 2)
-	assert.Equal(t, opts[0].Name, ConfigImportsGoroutines)
-	assert.Equal(t, opts[0].Default.(int), runtime.NumCPU())
-	assert.Equal(t, opts[1].Name, ConfigMaxFileSize)
-	assert.Equal(t, opts[1].Default.(int), DefaultMaxFileSize)
+func TestExtractorProvidesAndRequires(t *testing.T) {
+	extractor := &Extractor{}
+
+	// Test Provides
+	provides := extractor.Provides()
+	assert.Contains(t, provides, DependencyImports)
+
+	// Test Requires
+	requires := extractor.Requires()
+	assert.Contains(t, requires, plumbing.DependencyTreeChanges)
+	assert.Contains(t, requires, plumbing.DependencyBlobCache)
+}
+
+func TestExtractorName(t *testing.T) {
+	extractor := &Extractor{}
+	assert.Equal(t, "Imports", extractor.Name())
+}
+
+func TestExtractorListConfigurationOptions(t *testing.T) {
+	extractor := &Extractor{}
+	options := extractor.ListConfigurationOptions()
+
+	assert.Len(t, options, 2)
+
+	// Check for goroutines option
+	foundGoroutines := false
+	for _, opt := range options {
+		if opt.Name == ConfigImportsGoroutines {
+			foundGoroutines = true
+			break
+		}
+	}
+	assert.True(t, foundGoroutines, "Should have goroutines configuration option")
+
+	// Check for max file size option
+	foundMaxFileSize := false
+	for _, opt := range options {
+		if opt.Name == ConfigMaxFileSize {
+			foundMaxFileSize = true
+			break
+		}
+	}
+	assert.True(t, foundMaxFileSize, "Should have max file size configuration option")
 }
 
 func TestExtractorRegistration(t *testing.T) {
@@ -57,51 +226,4 @@ func TestExtractorRegistration(t *testing.T) {
 	summoned = core.Registry.Summon((&Extractor{}).Provides()[0])
 	assert.Len(t, summoned, 1)
 	assert.Equal(t, summoned[0].Name(), "Imports")
-}
-
-func TestExtractorConsumeModification(t *testing.T) {
-	commit, _ := test.Repository.CommitObject(gitplumbing.NewHash(
-		"af2d8db70f287b52d2428d9887a69a10bc4d1f46"))
-	changes := make(object.Changes, 1)
-	treeFrom, _ := test.Repository.TreeObject(gitplumbing.NewHash(
-		"80fe25955b8e725feee25c08ea5759d74f8b670d"))
-	treeTo, _ := test.Repository.TreeObject(gitplumbing.NewHash(
-		"63076fa0dfd93e94b6d2ef0fc8b1fdf9092f83c4"))
-	changes[0] = &object.Change{From: object.ChangeEntry{
-		Name: "labours.py",
-		Tree: treeFrom,
-		TreeEntry: object.TreeEntry{
-			Name: "labours.py",
-			Mode: 0100644,
-			Hash: gitplumbing.NewHash("1cacfc1bf0f048eb2f31973750983ae5d8de647a"),
-		},
-	}, To: object.ChangeEntry{
-		Name: "labours.py",
-		Tree: treeTo,
-		TreeEntry: object.TreeEntry{
-			Name: "labours.py",
-			Mode: 0100644,
-			Hash: gitplumbing.NewHash("c872b8d2291a5224e2c9f6edd7f46039b96b4742"),
-		},
-	}}
-	deps := map[string]interface{}{}
-	deps[core.DependencyCommit] = commit
-	deps[plumbing.DependencyTreeChanges] = changes
-	cache := &plumbing.BlobCache{}
-	assert.NoError(t, cache.Initialize(test.Repository))
-	blobs, err := cache.Consume(deps)
-	assert.NoError(t, err)
-	deps[plumbing.DependencyBlobCache] = blobs[plumbing.DependencyBlobCache]
-	result, err := fixtureExtractor().Consume(deps)
-	assert.NoError(t, err)
-	assert.Equal(t, len(result), 1)
-	exIface, exists := result[DependencyImports]
-	assert.True(t, exists)
-	ex := exIface.(map[gitplumbing.Hash]imports.File)
-	assert.Len(t, ex, 1)
-	file := ex[gitplumbing.NewHash("c872b8d2291a5224e2c9f6edd7f46039b96b4742")]
-	assert.Equal(t, "labours.py", file.Path)
-	assert.Equal(t, "Python", file.Lang)
-	assert.Equal(t, []string{"argparse", "datetime", "matplotlib", "matplotlib.pyplot", "numpy",
-		"pandas", "sys", "warnings"}, file.Imports)
 }

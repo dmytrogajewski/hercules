@@ -69,7 +69,7 @@ func init() {
 		}
 	}
 	Repository, err = git.Clone(memory.NewStorage(), nil, &git.CloneOptions{
-		URL: "https://github.com/src-d/hercules",
+		URL: "https://github.com/dmytrogajewski/hercules",
 	})
 	if err != nil {
 		panic(err)
