@@ -1,0 +1,215 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hercules
+  labels:
+    app: hercules
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hercules
+  template:
+    metadata:
+      labels:
+        app: hercules
+    spec:
+      containers:
+      - name: hercules
+        image: ghcr.io/dmytrogajewski/hercules:latest
+        ports:
+        - containerPort: 8080
+          name: http
+        - containerPort: 9090
+          name: grpc
+        env:
+        - name: HERCULES_SERVER_PORT
+          value: "8080"
+        - name: HERCULES_CACHE_ENABLED
+          value: "true"
+        - name: HERCULES_CACHE_BACKEND
+          value: "s3"
+        - name: HERCULES_CACHE_S3_BUCKET
+          value: "hercules-cache"
+        - name: HERCULES_CACHE_S3_REGION
+          value: "us-east-1"
+        - name: HERCULES_CACHE_S3_PREFIX
+          value: "hercules"
+        - name: HERCULES_CACHE_TTL
+          value: "168h"
+        - name: HERCULES_ANALYSIS_MAX_CONCURRENT_ANALYSES
+          value: "5"
+        - name: HERCULES_ANALYSIS_TIMEOUT
+          value: "30m"
+        # AWS credentials from secret (optional if using IAM roles)
+        - name: HERCULES_CACHE_AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: hercules-secrets
+              key: aws-access-key-id
+              optional: true
+        - name: HERCULES_CACHE_AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: hercules-secrets
+              key: aws-secret-access-key
+              optional: true
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "1000m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        volumeMounts:
+        - name: config
+          mountPath: /etc/hercules
+          readOnly: true
+        - name: cache
+          mountPath: /tmp/hercules-cache
+      volumes:
+      - name: config
+        configMap:
+          name: hercules-config
+      - name: cache
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hercules-service
+  labels:
+    app: hercules
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    name: http
+  - port: 9090
+    targetPort: 9090
+    protocol: TCP
+    name: grpc
+  selector:
+    app: hercules
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hercules-config
+data:
+  config.yaml: |
+    server:
+      port: 8080
+      host: "0.0.0.0"
+      read_timeout: "30s"
+      write_timeout: "30s"
+      idle_timeout: "60s"
+    
+    grpc:
+      enabled: true
+      port: 9090
+      host: "0.0.0.0"
+    
+    cache:
+      enabled: true
+      backend: "s3"
+      s3_bucket: "hercules-cache"
+      s3_region: "us-east-1"
+      s3_prefix: "hercules"
+      ttl: "168h"
+    
+    analysis:
+      default_tick_size: 24
+      default_granularity: 30
+      default_sampling: 30
+      max_concurrent_analyses: 5
+      timeout: "30m"
+    
+    logging:
+      level: "info"
+      format: "json"
+      output: "stdout"
+    
+    repository:
+      clone_timeout: "10m"
+      max_file_size: "1MB"
+      allowed_protocols: ["https", "http", "ssh", "git"]
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: hercules-secrets
+type: Opaque
+data:
+  # Base64 encoded values (optional - can use IAM roles instead)
+  aws-access-key-id: ""  # echo -n "your-access-key" | base64
+  aws-secret-access-key: ""  # echo -n "your-secret-key" | base64
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hercules-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: hercules.your-domain.com
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hercules-service
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - hercules.your-domain.com
+    secretName: hercules-tls
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: hercules-hpa
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: hercules
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+    scaleUp:
+      stabilizationWindowSeconds: 60 

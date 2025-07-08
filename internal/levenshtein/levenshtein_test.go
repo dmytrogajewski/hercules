@@ -5,7 +5,6 @@
 package levenshtein
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -34,9 +33,8 @@ func TestDistance(t *testing.T) {
 	for index, distanceTest := range distanceTests {
 		result := lev.Distance(distanceTest.first, distanceTest.second)
 		if result != distanceTest.wanted {
-			output := fmt.Sprintf("%v \t distance of %v and %v should be %v but was %v.",
+			t.Errorf("%v \t distance of %v and %v should be %v but was %v.",
 				index, distanceTest.first, distanceTest.second, distanceTest.wanted, result)
-			t.Errorf(output)
 		}
 	}
 }

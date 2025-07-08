@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  hercules:
+    build: .
+    ports:
+      - "8080:8080"
+      - "9090:9090"
+    environment:
+      - HERCULES_SERVER_PORT=8080
+      - HERCULES_CACHE_ENABLED=true
+      - HERCULES_CACHE_BACKEND=s3
+      - HERCULES_CACHE_S3_BUCKET=hercules-cache
+      - HERCULES_CACHE_S3_REGION=us-east-1
+      - HERCULES_CACHE_S3_ENDPOINT=http://minio:9000
+      - HERCULES_CACHE_S3_PREFIX=hercules
+      - HERCULES_CACHE_TTL=24h
+      - HERCULES_CACHE_AWS_ACCESS_KEY_ID=minioadmin
+      - HERCULES_CACHE_AWS_SECRET_ACCESS_KEY=minioadmin
+    volumes:
+      - hercules-cache:/tmp/hercules-cache
+      - ./config.yaml:/etc/hercules/config.yaml:ro
+    depends_on:
+      - minio
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  minio:
+    image: minio/minio:latest
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # Optional: Redis for session storage (if needed)
+  # redis:
+  #   image: redis:7-alpine
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis-data:/data
+  #   restart: unless-stopped
+
+volumes:
+  hercules-cache:
+  minio-data:
+  # redis-data: 
