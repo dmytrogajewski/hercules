@@ -3,7 +3,6 @@ package grpcserver
 import (
 	"context"
 	"fmt"
-	"log"
 	"net"
 	"sync"
 	"time"
@@ -15,6 +14,7 @@ import (
 
 	"github.com/dmytrogajewski/hercules"
 	"github.com/dmytrogajewski/hercules/internal/config"
+	"github.com/dmytrogajewski/hercules/internal/core"
 	"github.com/dmytrogajewski/hercules/internal/pb"
 )
 
@@ -26,6 +26,7 @@ type Server struct {
 	jobsMutex sync.RWMutex
 	grpcSrv   *grpc.Server
 	addr      string
+	logger    core.Logger
 }
 
 type Job struct {
@@ -38,12 +39,13 @@ type Job struct {
 	Results   map[string]*pb.AnalysisResult
 }
 
-func NewServer(cfg *config.Config, addr string) *Server {
+func NewServer(cfg *config.Config, addr string, logger core.Logger) *Server {
 	return &Server{
 		config:  cfg,
 		jobs:    make(map[string]*Job),
 		grpcSrv: grpc.NewServer(),
 		addr:    addr,
+		logger:  logger,
 	}
 }
 
@@ -51,9 +53,10 @@ func (s *Server) Start() error {
 	pb.RegisterHerculesServiceServer(s.grpcSrv, s)
 	lis, err := net.Listen("tcp", s.addr)
 	if err != nil {
+		s.logger.Errorf("Failed to listen: %v", err)
 		return err
 	}
-	log.Printf("Starting Hercules gRPC server on %s", s.addr)
+	s.logger.Infof("Starting Hercules gRPC server on %s", s.addr)
 	return s.grpcSrv.Serve(lis)
 }
 

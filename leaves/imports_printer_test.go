@@ -35,7 +35,7 @@ func TestImportsPerDeveloperMeta(t *testing.T) {
 	ass.Equal(ipd.Flag(), "imports-per-dev")
 	assert.Len(t, ipd.ListConfigurationOptions(), 0)
 	assert.True(t, len(ipd.Description()) > 0)
-	logger := core.NewLogger()
+	logger := core.GetLogger()
 	assert.NoError(t, ipd.Configure(map[string]interface{}{
 		core.ConfigLogger: logger,
 		identity.FactIdentityDetectorReversedPeopleDict: []string{"1", "2"},

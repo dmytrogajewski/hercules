@@ -331,7 +331,7 @@ func NewPipeline(repository *git.Repository) *Pipeline {
 		items:      []PipelineItem{},
 		facts:      map[string]interface{}{},
 		features:   map[string]bool{},
-		l:          NewLogger(),
+		l:          GetLogger(),
 	}
 }
 

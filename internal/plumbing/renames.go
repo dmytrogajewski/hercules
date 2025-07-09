@@ -127,7 +127,7 @@ func (ra *RenameAnalysis) Configure(facts map[string]interface{}) error {
 // Initialize resets the temporary caches and prepares this PipelineItem for a series of Consume()
 // calls. The repository which is going to be analysed is supplied as an argument.
 func (ra *RenameAnalysis) Initialize(repository *git.Repository) error {
-	ra.l = core.NewLogger()
+	ra.l = core.GetLogger()
 	if ra.SimilarityThreshold < 0 || ra.SimilarityThreshold > 100 {
 		ra.l.Warnf("adjusted the similarity threshold to %d\n",
 			RenameAnalysisDefaultThreshold)

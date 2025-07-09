@@ -20,6 +20,7 @@ import (
 
 	"github.com/Masterminds/sprig"
 	"github.com/dmytrogajewski/hercules"
+	"github.com/dmytrogajewski/hercules/internal/config"
 	"github.com/dmytrogajewski/hercules/internal/core"
 	"github.com/dmytrogajewski/hercules/internal/pb"
 	"github.com/dmytrogajewski/hercules/internal/plumbing/uast"
@@ -81,7 +82,7 @@ func loadRepository(uri string, cachePath string, disableStatus bool, sshIdentit
 			backend = filesystem.NewStorage(osfs.New(cachePath), cache.NewObjectLRUDefault())
 			_, err = os.Stat(cachePath)
 			if !os.IsNotExist(err) {
-				log.Printf("warning: deleted %s\n", cachePath)
+				core.GetLogger().Warnf("warning: deleted %s\n", cachePath)
 				os.RemoveAll(cachePath)
 			}
 		} else {
@@ -96,7 +97,7 @@ func loadRepository(uri string, cachePath string, disableStatus bool, sshIdentit
 		if sshIdentity != "" {
 			auth, err := loadSSHIdentity(sshIdentity)
 			if err != nil {
-				log.Printf("Failed loading SSH Identity %s\n", err)
+				core.GetLogger().Warnf("Failed loading SSH Identity %s\n", err)
 			}
 			cloneOptions.Auth = auth
 		}
@@ -163,7 +164,7 @@ func loadPlugins() {
 	for path := range pluginFlags {
 		_, err := plugin.Open(path)
 		if err != nil {
-			log.Printf("Failed to load plugin from %s %s\n", path, err)
+			core.GetLogger().Warnf("Failed to load plugin from %s %s\n", path, err)
 		}
 	}
 }
@@ -188,23 +189,7 @@ or several analysis targets. The list of the available targets is printed in --h
 targets can be added using the --plugin system.`,
 	Args: cobra.RangeArgs(1, 2),
 	Run: func(cmd *cobra.Command, args []string) {
-		f, _ := os.Create("debug_names.txt")
-		defer f.Close()
-		fmt.Fprintln(os.Stderr, "[DEBUG] Registered pipeline item names:")
-		fmt.Fprintln(f, "[DEBUG] Registered pipeline item names:")
-		for _, k := range hercules.Registry.RegisteredNames() {
-			fmt.Fprintln(os.Stderr, "  ", k)
-			fmt.Fprintln(f, "  ", k)
-		}
-		fmt.Fprintln(os.Stderr, "[DEBUG] Leaf names from GetLeaves():")
-		fmt.Fprintln(f, "[DEBUG] Leaf names from GetLeaves():")
 		leaves := hercules.Registry.GetLeaves()
-		for _, leaf := range leaves {
-			fmt.Fprintln(os.Stderr, "  ", leaf.Name())
-			fmt.Fprintln(f, "  ", leaf.Name())
-		}
-		f.Sync()
-		os.Stderr.Sync()
 		flags := cmd.Flags()
 		getBool := func(name string) bool {
 			value, err := flags.GetBool(name)
@@ -255,7 +240,7 @@ targets can be added using the --plugin system.`,
 
 		// core logic
 		if cmdlineDeployed == nil {
-			fmt.Fprintln(os.Stderr, "[DEBUG] cmdlineDeployed was nil, initializing empty map.")
+			core.GetLogger().Infof("[DEBUG] cmdlineDeployed was nil, initializing empty map.")
 			cmdlineDeployed = make(map[string]*bool)
 		}
 		pipeline := hercules.NewPipeline(repository)
@@ -351,12 +336,12 @@ targets can be added using the --plugin system.`,
 			}
 		}
 		// Debug: Print pipeline items and their dependencies
-		fmt.Println("[DEBUG] Pipeline items to be initialized:")
-		for _, item := range pipeline.Items() {
-			fmt.Printf("  - %s\n", item.Name())
-			fmt.Printf("    Provides: %v\n", item.Provides())
-			fmt.Printf("    Requires: %v\n", item.Requires())
-		}
+		// fmt.Println("[DEBUG] Pipeline items to be initialized:")
+		// for _, item := range pipeline.Items() {
+		// 	fmt.Printf("  - %s\n", item.Name())
+		// 	fmt.Printf("    Provides: %v\n", item.Provides())
+		// 	fmt.Printf("    Requires: %v\n", item.Requires())
+		// }
 		err = pipeline.Initialize(cmdlineFacts)
 		if err != nil {
 			log.Fatal(err)
@@ -411,23 +396,23 @@ func printResults(
 	fmt.Println("  commits:", commonResult.CommitsNumber)
 	fmt.Println("  run_time:", commonResult.RunTime.Nanoseconds()/1e6)
 
-	fmt.Fprintln(os.Stderr, "[DEBUG] Results map keys:")
-	for k := range results {
-		if k == nil {
-			fmt.Fprintln(os.Stderr, "  <nil>")
-		} else {
-			fmt.Fprintln(os.Stderr, "  ", k.Name())
-		}
-	}
-	fmt.Fprintln(os.Stderr, "[DEBUG] Deployed leaf names:")
-	for _, item := range deployed {
-		fmt.Fprintln(os.Stderr, "  ", item.Name())
-	}
-	os.Stderr.Sync()
-	fmt.Fprintf(os.Stderr, "[DEBUG] Results map len: %d\n", len(results))
-	fmt.Fprintf(os.Stderr, "[DEBUG] Deployed slice len: %d\n", len(deployed))
+	// fmt.Fprintln(os.Stderr, "[DEBUG] Results map keys:")
+	// for k := range results {
+	// 	if k == nil {
+	// 		fmt.Fprintln(os.Stderr, "  <nil>")
+	// 	} else {
+	// 		fmt.Fprintln(os.Stderr, "  ", k.Name())
+	// 	}
+	// }
+	// fmt.Fprintln(os.Stderr, "[DEBUG] Deployed leaf names:")
+	// for _, item := range deployed {
+	// 	fmt.Fprintln(os.Stderr, "  ", item.Name())
+	// }
+	// os.Stderr.Sync()
+	// fmt.Fprintf(os.Stderr, "[DEBUG] Results map len: %d\n", len(results))
+	// fmt.Fprintf(os.Stderr, "[DEBUG] Deployed slice len: %d\n", len(deployed))
 	if len(results) == 0 {
-		fmt.Fprintln(os.Stderr, "[DEBUG] Results map is empty!")
+		// fmt.Fprintln(os.Stderr, "[DEBUG] Results map is empty!")
 		panic("Results map is empty after pipeline.Run; check pipeline deployment and run logic.")
 	}
 	// Build a map from leaf name to result
@@ -438,10 +423,10 @@ func printResults(
 		}
 		leafResults[k.Name()] = v
 	}
-	fmt.Fprintln(os.Stderr, "[DEBUG] leafResults map keys:")
-	for k := range leafResults {
-		fmt.Fprintln(os.Stderr, "  ", k)
-	}
+	// fmt.Fprintln(os.Stderr, "[DEBUG] leafResults map keys:")
+	// for k := range leafResults {
+	// 	fmt.Fprintln(os.Stderr, "  ", k)
+	// }
 	for _, item := range deployed {
 		result, ok := leafResults[item.Name()]
 		if !ok {
@@ -710,15 +695,53 @@ func init() {
 		panic(err)
 	}
 	hercules.PathifyFlagValue(rootFlags.Lookup("ssh-identity"))
+	rootFlags.String("log-file", "", "Path to log file. If not set, logging is disabled.")
+	rootFlags.String("log-format", "plain", "Log format: 'plain' or 'json'. Default is 'plain'.")
 	cmdlineFacts, cmdlineDeployed = hercules.Registry.AddFlags(rootFlags)
 	rootCmd.SetUsageFunc(formatUsage)
 	rootCmd.AddCommand(versionCmd)
 	versionCmd.SetUsageFunc(versionCmd.UsageFunc())
 }
 
+func selectLogger(serverMode bool, logFile string) core.Logger {
+	if serverMode {
+		return core.NewSlogLogger(os.Stdout)
+	} else if logFile != "" {
+		f, err := os.OpenFile(logFile, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+		if err == nil {
+			return core.NewFileLogger(f)
+		} else {
+			return &core.NoOpLogger{}
+		}
+	} else {
+		return &core.NoOpLogger{}
+	}
+}
+
 func main() {
+	// Load config
+	cfg, err := config.LoadConfig("")
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Failed to load config:", err)
+		os.Exit(1)
+	}
+
+	// Detect server mode
+	serverMode := cfg.GRPC.Enabled || cfg.Server.Enabled
+
+	// Parse --log-file flag
+	logFile := ""
+	for i, arg := range os.Args {
+		if arg == "--log-file" && i+1 < len(os.Args) {
+			logFile = os.Args[i+1]
+		}
+	}
+
+	logger := selectLogger(serverMode, logFile)
+	core.SetLogger(logger)
+
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintln(os.Stderr, err)
+		logger.Error(os.Stderr, err)
 		os.Exit(1)
 	}
 }

@@ -8,6 +8,7 @@ import (
 	"unicode/utf8"
 
 	"github.com/dmytrogajewski/hercules"
+	"github.com/dmytrogajewski/hercules/internal/core"
 	"github.com/gogo/protobuf/proto"
 	"github.com/sergi/go-diff/diffmatchpatch"
 	"gopkg.in/src-d/go-git.v4"
@@ -31,7 +32,7 @@ type ChurnAnalysis struct {
 	// references IdentityDetector.ReversedPeopleDict
 	reversedPeopleDict []string
 
-	l hercules.Logger
+	l core.Logger
 }
 
 type editInfo struct {
@@ -106,7 +107,7 @@ func (churn *ChurnAnalysis) Description() string {
 
 // Configure applies the parameters specified in the command line. Map keys correspond to "Name".
 func (churn *ChurnAnalysis) Configure(facts map[string]interface{}) error {
-	if l, exists := facts[hercules.ConfigLogger].(hercules.Logger); exists {
+	if l, exists := facts[core.ConfigLogger].(core.Logger); exists {
 		churn.l = l
 	}
 	if val, exists := facts[ConfigChurnTrackPeople].(bool); exists {
@@ -120,7 +121,7 @@ func (churn *ChurnAnalysis) Configure(facts map[string]interface{}) error {
 
 // Initialize resets the internal temporary data structures and prepares the object for Consume().
 func (churn *ChurnAnalysis) Initialize(repository *git.Repository) error {
-	churn.l = hercules.NewLogger()
+	churn.l = core.GetLogger()
 	churn.global = []editInfo{}
 	churn.people = map[int][]editInfo{}
 	churn.OneShotMergeProcessor.Initialize()

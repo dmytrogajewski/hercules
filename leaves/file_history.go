@@ -90,7 +90,7 @@ func (history *FileHistoryAnalysis) Configure(facts map[string]interface{}) erro
 // Initialize resets the temporary caches and prepares this PipelineItem for a series of Consume()
 // calls. The repository which is going to be analysed is supplied as an argument.
 func (history *FileHistoryAnalysis) Initialize(repository *git.Repository) error {
-	history.l = core.NewLogger()
+	history.l = core.GetLogger()
 	history.files = map[string]*FileHistory{}
 	history.OneShotMergeProcessor.Initialize()
 	return nil

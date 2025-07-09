@@ -28,7 +28,7 @@ func TestCommitsMeta(t *testing.T) {
 	opts := ca.ListConfigurationOptions()
 	assert.Len(t, opts, 0)
 	assert.Equal(t, ca.Flag(), "commits-stat")
-	logger := core.NewLogger()
+	logger := core.GetLogger()
 	assert.NoError(t, ca.Configure(map[string]interface{}{
 		core.ConfigLogger: logger,
 	}))

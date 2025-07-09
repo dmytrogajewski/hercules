@@ -69,7 +69,7 @@ func (lsc *LinesStatsCalculator) Configure(facts map[string]interface{}) error {
 // Initialize resets the temporary caches and prepares this PipelineItem for a series of Consume()
 // calls. The repository which is going to be analysed is supplied as an argument.
 func (lsc *LinesStatsCalculator) Initialize(repository *git.Repository) error {
-	lsc.l = core.NewLogger()
+	lsc.l = core.GetLogger()
 	return nil
 }
 

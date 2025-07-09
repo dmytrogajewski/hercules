@@ -153,7 +153,7 @@ func (shotness *ShotnessAnalysis) Configure(facts map[string]interface{}) error 
 // Initialize resets the temporary caches and prepares this PipelineItem for a series of Consume()
 // calls. The repository which is going to be analysed is supplied as an argument.
 func (shotness *ShotnessAnalysis) Initialize(repository *git.Repository) error {
-	shotness.l = core.NewLogger()
+	shotness.l = core.GetLogger()
 	shotness.nodes = map[string]*nodeShotness{}
 	shotness.files = map[string]map[string]*nodeShotness{}
 	shotness.OneShotMergeProcessor.Initialize()
@@ -441,6 +441,9 @@ func (shotness *ShotnessAnalysis) serializeBinary(result *ShotnessResult, writer
 }
 
 func (shotness *ShotnessAnalysis) extractNodes(root uast_nodes.Node) (map[string]uast_nodes.Node, error) {
+	if root == nil {
+		return map[string]uast_nodes.Node{}, nil
+	}
 	it, err := tools.Filter(root, shotness.XpathStruct)
 	if err != nil {
 		return nil, err
@@ -450,7 +453,10 @@ func (shotness *ShotnessAnalysis) extractNodes(root uast_nodes.Node) (map[string
 	// otherwise due to UAST quirks there may be false positives
 	internal := map[uast_nodes.Comparable]bool{}
 	for _, ext := range structs {
-		mainNode := ext.(uast_nodes.Node)
+		mainNode, ok := ext.(uast_nodes.Node)
+		if !ok || mainNode == nil {
+			continue
+		}
 		if internal[uast_nodes.UniqueKey(mainNode)] {
 			continue
 		}
@@ -459,7 +465,10 @@ func (shotness *ShotnessAnalysis) extractNodes(root uast_nodes.Node) (map[string
 			return nil, err
 		}
 		for subs.Next() {
-			sub := subs.Node().(uast_nodes.Node)
+			sub, ok := subs.Node().(uast_nodes.Node)
+			if !ok || sub == nil {
+				continue
+			}
 			if uast_nodes.UniqueKey(sub) != uast_nodes.UniqueKey(mainNode) {
 				internal[uast_nodes.UniqueKey(sub)] = true
 			}
@@ -467,7 +476,10 @@ func (shotness *ShotnessAnalysis) extractNodes(root uast_nodes.Node) (map[string
 	}
 	res := map[string]uast_nodes.Node{}
 	for _, ext := range structs {
-		node := ext.(uast_nodes.Node)
+		node, ok := ext.(uast_nodes.Node)
+		if !ok || node == nil {
+			continue
+		}
 		if internal[uast_nodes.UniqueKey(node)] {
 			continue
 		}
@@ -475,7 +487,15 @@ func (shotness *ShotnessAnalysis) extractNodes(root uast_nodes.Node) (map[string
 		if err != nil {
 			return nil, err
 		}
-		res[string(nodeName.(uast_nodes.Object)["Name"].(uast_nodes.String))] = node
+		obj, ok := nodeName.(uast_nodes.Object)
+		if !ok {
+			continue
+		}
+		nameVal, ok := obj["Name"].(uast_nodes.String)
+		if !ok {
+			continue
+		}
+		res[string(nameVal)] = node
 	}
 	return res, nil
 }

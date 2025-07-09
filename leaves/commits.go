@@ -102,7 +102,7 @@ func (ca *CommitsAnalysis) Description() string {
 // Initialize resets the temporary caches and prepares this PipelineItem for a series of Consume()
 // calls. The repository which is going to be analysed is supplied as an argument.
 func (ca *CommitsAnalysis) Initialize(repository *git.Repository) error {
-	ca.l = core.NewLogger()
+	ca.l = core.GetLogger()
 	return nil
 }
 

@@ -149,7 +149,7 @@ func (sent *CommentSentimentAnalysis) validate() {
 // Initialize resets the temporary caches and prepares this PipelineItem for a series of Consume()
 // calls. The repository which is going to be analysed is supplied as an argument.
 func (sent *CommentSentimentAnalysis) Initialize(repository *git.Repository) error {
-	sent.l = core.NewLogger()
+	sent.l = core.GetLogger()
 	sent.commentsByTick = map[int][]string{}
 	sent.xpather = &uast_items.ChangesXPather{XPath: "//uast:Comment"}
 	sent.validate()

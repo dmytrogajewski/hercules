@@ -32,7 +32,7 @@ func TestFileHistoryMeta(t *testing.T) {
 	assert.Equal(t, fh.Requires()[2], identity.DependencyAuthor)
 	assert.Len(t, fh.ListConfigurationOptions(), 0)
 	assert.Nil(t, fh.Configure(nil))
-	logger := core.NewLogger()
+	logger := core.GetLogger()
 	assert.NoError(t, fh.Configure(map[string]interface{}{
 		core.ConfigLogger: logger,
 	}))

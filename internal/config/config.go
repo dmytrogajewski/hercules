@@ -20,6 +20,7 @@ type Config struct {
 
 // ServerConfig holds server-specific configuration
 type ServerConfig struct {
+	Enabled      bool          `mapstructure:"enabled"`
 	Port         int           `mapstructure:"port"`
 	Host         string        `mapstructure:"host"`
 	ReadTimeout  time.Duration `mapstructure:"read_timeout"`
@@ -125,6 +126,7 @@ func LoadConfig(configPath string) (*Config, error) {
 // setDefaults sets default configuration values
 func setDefaults(v *viper.Viper) {
 	// Server defaults
+	v.SetDefault("server.enabled", false)
 	v.SetDefault("server.port", 8080)
 	v.SetDefault("server.host", "0.0.0.0")
 	v.SetDefault("server.read_timeout", "30s")

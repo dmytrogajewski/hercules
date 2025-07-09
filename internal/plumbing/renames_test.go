@@ -44,7 +44,7 @@ func TestRenameAnalysisMeta(t *testing.T) {
 	assert.Equal(t, ra.SimilarityThreshold, 70)
 	assert.Equal(t, ra.Timeout, time.Second)
 
-	logger := core.NewLogger()
+	logger := core.GetLogger()
 	assert.NoError(t, ra.Configure(map[string]interface{}{
 		core.ConfigLogger: logger,
 	}))

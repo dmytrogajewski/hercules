@@ -166,15 +166,7 @@ func prepareRunPlan(commits []*object.Commit, hibernationDistance int,
 	mergedDag, mergedSeq := mergeDag(hashes, dag)
 	orderNodes := bindOrderNodes(mergedDag)
 	collapseFastForwards(orderNodes, hashes, mergedDag, dag, mergedSeq)
-	/*fmt.Printf("digraph Hercules {\n")
-	for i, c := range orderNodes(false, false) {
-		commit := hashes[c]
-		fmt.Printf("  \"%s\"[label=\"[%d] %s\"]\n", commit.Hash.String(), i, commit.Hash.String()[:6])
-		for _, child := range mergedDag[commit.Hash] {
-			fmt.Printf("  \"%s\" -> \"%s\"\n", commit.Hash.String(), child.Hash.String())
-		}
-	}
-	fmt.Printf("}\n")*/
+	// Debug print of the DAG is disabled. Use logger if needed.
 	plan := generatePlan(orderNodes, hashes, mergedDag, dag, mergedSeq)
 	plan = collectGarbage(plan)
 	if hibernationDistance > 0 {
@@ -308,7 +300,7 @@ func leaveRootComponent(
 				continue
 			}
 			for _, h := range set {
-				log.Printf("warning: dropped %s from the analysis - disjoint", h.String())
+				GetLogger().Warnf("warning: dropped %s from the analysis - disjoint", h.String())
 				delete(dag, h)
 				delete(hashes, h.String())
 			}

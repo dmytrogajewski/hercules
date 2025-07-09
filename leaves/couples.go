@@ -124,7 +124,7 @@ func (couples *CouplesAnalysis) Description() string {
 // Initialize resets the temporary caches and prepares this PipelineItem for a series of Consume()
 // calls. The repository which is going to be analysed is supplied as an argument.
 func (couples *CouplesAnalysis) Initialize(repository *git.Repository) error {
-	couples.l = core.NewLogger()
+	couples.l = core.GetLogger()
 	couples.people = make([]map[string]int, couples.PeopleNumber+1)
 	for i := range couples.people {
 		couples.people[i] = map[string]int{}

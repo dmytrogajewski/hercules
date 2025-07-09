@@ -13,13 +13,15 @@ import (
 	"sync"
 	"time"
 
+	"go/ast"
+
 	"github.com/Jeffail/tunny"
 	sitter "github.com/alexaandru/go-tree-sitter-bare"
 	"github.com/dmytrogajewski/hercules/internal/core"
 	"github.com/dmytrogajewski/hercules/internal/pb"
 	items "github.com/dmytrogajewski/hercules/internal/plumbing"
 	uastconvert "github.com/dmytrogajewski/hercules/internal/uastconvert"
-	"github.com/gogo/protobuf/proto"
+	"github.com/golang/protobuf/proto"
 	bblfsh "gopkg.in/bblfsh/client-go.v3"
 	"gopkg.in/bblfsh/sdk.v2/uast/nodes"
 	"gopkg.in/bblfsh/sdk.v2/uast/nodes/nodesproto"
@@ -213,7 +215,7 @@ func (exr *Extractor) Configure(facts map[string]interface{}) error {
 // Initialize resets the temporary caches and prepares this PipelineItem for a series of Consume()
 // calls. The repository which is going to be analysed is supplied as an argument.
 func (exr *Extractor) Initialize(repository *git.Repository) error {
-	exr.l = core.NewLogger()
+	exr.l = core.GetLogger()
 	if exr.UseEmbeddedOnly {
 		// Do not set up Babelfish clients or pool
 		exr.ProcessedFiles = map[string]int{}
@@ -320,11 +322,29 @@ func (exr *Extractor) Consume(deps map[string]interface{}) (map[string]interface
 				uastNode, err := tryEmbeddedUASTProvider(change.To.Name, cache[change.To.TreeEntry.Hash].Data)
 				if err == nil && uastNode != nil {
 					if node, ok := uastNode.(nodes.Node); ok {
-						uasts[change.To.TreeEntry.Hash] = node
+						if node != nil {
+							uasts[change.To.TreeEntry.Hash] = node
+						}
 					} else if ptr, ok := uastNode.(*sitter.Node); ok {
-						uasts[change.To.TreeEntry.Hash] = uastconvert.ConvertSitterNodeToUAST(ptr, cache[change.To.TreeEntry.Hash].Data)
+						converted := uastconvert.ConvertSitterNodeToUAST(ptr, cache[change.To.TreeEntry.Hash].Data)
+						if converted != nil {
+							uasts[change.To.TreeEntry.Hash] = converted
+						}
 					} else if val, ok := uastNode.(sitter.Node); ok {
-						uasts[change.To.TreeEntry.Hash] = uastconvert.ConvertSitterNodeToUAST(&val, cache[change.To.TreeEntry.Hash].Data)
+						converted := uastconvert.ConvertSitterNodeToUAST(&val, cache[change.To.TreeEntry.Hash].Data)
+						if converted != nil {
+							uasts[change.To.TreeEntry.Hash] = converted
+						}
+					} else if astFile, ok := uastNode.(*ast.File); ok {
+						converted := uastconvert.ConvertAstFileToUAST(astFile)
+						if converted != nil {
+							uasts[change.To.TreeEntry.Hash] = converted
+						}
+					} else if tsResult, ok := uastNode.(*TreeSitterResult); ok {
+						converted := uastconvert.ConvertSitterNodeToUAST(&tsResult.Root, cache[change.To.TreeEntry.Hash].Data)
+						if converted != nil {
+							uasts[change.To.TreeEntry.Hash] = converted
+						}
 					} else {
 						exr.l.Warnf("Unknown UAST node type for file %s: %T", change.To.Name, uastNode)
 						continue
@@ -369,7 +389,9 @@ func (exr *Extractor) Consume(deps map[string]interface{}) (map[string]interface
 		if err == nil && uastNode != nil {
 			// Robustly handle all Tree-sitter node types and nodes.Node
 			if node, ok := uastNode.(nodes.Node); ok {
-				uasts[change.To.TreeEntry.Hash] = node
+				if node != nil {
+					uasts[change.To.TreeEntry.Hash] = node
+				}
 			} else if ptr, ok := uastNode.(*sitter.Node); ok {
 				uasts[change.To.TreeEntry.Hash] = uastconvert.ConvertSitterNodeToUAST(ptr, cache[change.To.TreeEntry.Hash].Data)
 			} else if val, ok := uastNode.(sitter.Node); ok {
@@ -525,7 +547,7 @@ func (uc *Changes) Configure(facts map[string]interface{}) error {
 // Initialize resets the temporary caches and prepares this PipelineItem for a series of Consume()
 // calls. The repository which is going to be analysed is supplied as an argument.
 func (uc *Changes) Initialize(repository *git.Repository) error {
-	uc.l = core.NewLogger()
+	uc.l = core.GetLogger()
 	uc.cache = map[plumbing.Hash]nodes.Node{}
 	return nil
 }
@@ -547,7 +569,10 @@ func (uc *Changes) Consume(deps map[string]interface{}) (map[string]interface{},
 		switch action {
 		case merkletrie.Insert:
 			hashTo := change.To.TreeEntry.Hash
-			uastTo := uasts[hashTo]
+			uastTo, ok := uasts[hashTo]
+			if !ok || uastTo == nil {
+				continue // skip files with no UAST
+			}
 			commit = append(commit, Change{Before: nil, After: uastTo, Change: change})
 			uc.cache[hashTo] = uastTo
 		case merkletrie.Delete:
@@ -557,7 +582,10 @@ func (uc *Changes) Consume(deps map[string]interface{}) (map[string]interface{},
 		case merkletrie.Modify:
 			hashFrom := change.From.TreeEntry.Hash
 			hashTo := change.To.TreeEntry.Hash
-			uastTo := uasts[hashTo]
+			uastTo, ok := uasts[hashTo]
+			if !ok || uastTo == nil {
+				continue // skip files with no UAST
+			}
 			commit = append(commit, Change{Before: uc.cache[hashFrom], After: uastTo, Change: change})
 			delete(uc.cache, hashFrom)
 			uc.cache[hashTo] = uastTo
@@ -656,7 +684,7 @@ func (saver *ChangesSaver) Configure(facts map[string]interface{}) error {
 // Initialize resets the temporary caches and prepares this PipelineItem for a series of Consume()
 // calls. The repository which is going to be analysed is supplied as an argument.
 func (saver *ChangesSaver) Initialize(repository *git.Repository) error {
-	saver.l = core.NewLogger()
+	saver.l = core.GetLogger()
 	saver.repository = repository
 	saver.result = [][]Change{}
 	saver.OneShotMergeProcessor.Initialize()

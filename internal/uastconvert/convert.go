@@ -7,6 +7,8 @@ import (
 	"fmt"
 	"sort"
 
+	"go/ast"
+
 	sitter "github.com/alexaandru/go-tree-sitter-bare"
 	uast_nodes "gopkg.in/bblfsh/sdk.v2/uast/nodes"
 )
@@ -132,6 +134,48 @@ func ConvertSitterNodeToUAST(node *sitter.Node, source []byte) uast_nodes.Object
 		}
 	}
 	return rootObj
+}
+
+// ConvertAstFileToUAST converts a *ast.File (Go AST) to a uast_nodes.Object (UAST node).
+func ConvertAstFileToUAST(file *ast.File) uast_nodes.Object {
+	if file == nil {
+		return nil
+	}
+	root := uast_nodes.Object{}
+	root["Type"] = uast_nodes.String("GoFile")
+	if file.Name != nil {
+		root["Name"] = uast_nodes.String(file.Name.Name)
+	}
+	// Add package doc if present
+	if file.Doc != nil && len(file.Doc.List) > 0 {
+		root["Doc"] = uast_nodes.String(file.Doc.Text())
+	}
+	// Add Decls as children
+	decls := make([]uast_nodes.Node, 0, len(file.Decls))
+	for _, decl := range file.Decls {
+		if decl == nil {
+			continue
+		}
+		// For now, just add the type name of the decl
+		switch d := decl.(type) {
+		case *ast.FuncDecl:
+			fn := uast_nodes.Object{}
+			fn["Type"] = uast_nodes.String("GoFuncDecl")
+			if d.Name != nil {
+				fn["Name"] = uast_nodes.String(d.Name.Name)
+			}
+			decls = append(decls, fn)
+		default:
+			// Add a generic node for other decls
+			other := uast_nodes.Object{}
+			other["Type"] = uast_nodes.String("GoDecl")
+			decls = append(decls, other)
+		}
+	}
+	if len(decls) > 0 {
+		root["Decls"] = uast_nodes.Array(decls)
+	}
+	return root
 }
 
 // HashNode computes a SHA256 hash of the UAST node for comparison and deduplication.
