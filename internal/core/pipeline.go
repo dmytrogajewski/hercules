@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -655,7 +654,7 @@ func (pipeline *Pipeline) resolve(dumpPath string) error {
 	if dumpPath != "" {
 		// If there is a floating difference, uncomment this:
 		// fmt.Fprint(os.Stderr, graphCopy.DebugDump())
-		ioutil.WriteFile(dumpPath, []byte(graphCopy.Serialize(strplan)), 0666)
+		os.WriteFile(dumpPath, []byte(graphCopy.Serialize(strplan)), 0666)
 		absPath, _ := filepath.Abs(dumpPath)
 		pipeline.l.Infof("Wrote the DAG to %s\n", absPath)
 	}
@@ -828,7 +827,7 @@ func (pipeline *Pipeline) Run(commits []*object.Commit) (map[LeafPipelineItem]in
 			for _, item := range branches[firstItem] {
 				startTime := time.Now()
 				update, err := item.Consume(state)
-				runTimePerItem[item.Name()] += time.Now().Sub(startTime).Seconds()
+				runTimePerItem[item.Name()] += time.Since(startTime).Seconds()
 				if err != nil {
 					pipeline.l.Errorf("%s failed on commit #%d (%d) %s: %v\n",
 						item.Name(), commitIndex+1, index+1, step.Commit.Hash.String(), err)
@@ -854,7 +853,7 @@ func (pipeline *Pipeline) Run(commits []*object.Commit) (map[LeafPipelineItem]in
 			for i, clone := range cloneItems(branches[firstItem], len(step.Items)-1) {
 				branches[step.Items[i+1]] = clone
 			}
-			runTimePerItem["*.Fork"] += time.Now().Sub(startTime).Seconds()
+			runTimePerItem["*.Fork"] += time.Since(startTime).Seconds()
 		case runActionMerge:
 			startTime := time.Now()
 			merged := make([][]PipelineItem, len(step.Items))
@@ -862,7 +861,7 @@ func (pipeline *Pipeline) Run(commits []*object.Commit) (map[LeafPipelineItem]in
 				merged[i] = branches[b]
 			}
 			mergeItems(merged)
-			runTimePerItem["*.Merge"] += time.Now().Sub(startTime).Seconds()
+			runTimePerItem["*.Merge"] += time.Since(startTime).Seconds()
 		case runActionEmerge:
 			if firstItem == rootBranchIndex {
 				branches[firstItem] = pipeline.items
@@ -881,7 +880,7 @@ func (pipeline *Pipeline) Run(commits []*object.Commit) (map[LeafPipelineItem]in
 							pipeline.l.Errorf("Failed to hibernate %s: %v\n", item.Name(), err)
 							return nil, err
 						}
-						runTimePerItem[item.Name()+".Hibernation"] += time.Now().Sub(startTime).Seconds()
+						runTimePerItem[item.Name()+".Hibernation"] += time.Since(startTime).Seconds()
 					}
 				}
 			}
@@ -895,7 +894,7 @@ func (pipeline *Pipeline) Run(commits []*object.Commit) (map[LeafPipelineItem]in
 							pipeline.l.Errorf("Failed to boot %s: %v\n", item.Name(), err)
 							return nil, err
 						}
-						runTimePerItem[item.Name()+".Hibernation"] += time.Now().Sub(startTime).Seconds()
+						runTimePerItem[item.Name()+".Hibernation"] += time.Since(startTime).Seconds()
 					}
 				}
 			}

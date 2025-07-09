@@ -5,7 +5,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"runtime/debug"
 	"sort"
@@ -112,7 +111,7 @@ func loadMessage(fileName string, repos *[]string) (
 		errs = append(errs, "Cannot parse "+fileName+": file size is 0")
 		return nil, nil, errs
 	}
-	buffer, err := ioutil.ReadFile(fileName)
+	buffer, err := os.ReadFile(fileName)
 	if err != nil {
 		errs = append(errs, "Cannot read "+fileName+": "+err.Error())
 		return nil, nil, errs

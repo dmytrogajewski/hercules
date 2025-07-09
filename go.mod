@@ -47,7 +47,7 @@ require (
 	gopkg.in/src-d/go-git.v4 v4.13.1
 	gopkg.in/src-d/go-siva.v1 v1.4.0 // indirect
 	gopkg.in/vmarkovtsev/BiDiSentiment.v1 v1.0.0-20180316061023-3aa38b36bf9a
-	gopkg.in/yaml.v2 v2.4.0 // indirect
+	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (
