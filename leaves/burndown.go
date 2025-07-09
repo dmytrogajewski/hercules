@@ -13,8 +13,11 @@ import (
 	"time"
 	"unicode/utf8"
 
+	"encoding/json"
+
 	"github.com/gogo/protobuf/proto"
 	"github.com/sergi/go-diff/diffmatchpatch"
+	"github.com/spf13/viper"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
@@ -181,7 +184,8 @@ const (
 type sparseHistory = map[int]map[int]int64
 
 // DenseHistory is the matrix [number of samples][number of bands] -> number of lines.
-//                                    y                  x
+//
+//	y                  x
 type DenseHistory = [][]int64
 
 // Name of this PipelineItem. Uniquely identifies the type, used for mapping keys, etc.
@@ -587,6 +591,9 @@ func (analyser *BurndownAnalysis) Serialize(result interface{}, binary bool, wri
 	}
 	if binary {
 		return analyser.serializeBinary(&burndownResult, writer)
+	}
+	if viper.GetBool("hercules.json_output") {
+		return analyser.serializeJSON(&burndownResult, writer)
 	}
 	analyser.serializeText(&burndownResult, writer)
 	return nil
@@ -1090,6 +1097,18 @@ func (analyser *BurndownAnalysis) serializeBinary(result *BurndownResult, writer
 	}
 	_, err = writer.Write(serialized)
 	return err
+}
+
+func (analyser *BurndownAnalysis) serializeJSON(result *BurndownResult, writer io.Writer) error {
+	output := map[string]interface{}{
+		"granularity": result.granularity,
+		"sampling":    result.sampling,
+		"tick_size":   int(result.tickSize.Seconds()),
+		"project":     result.GlobalHistory,
+	}
+	enc := json.NewEncoder(writer)
+	enc.SetIndent("", "  ")
+	return enc.Encode(output)
 }
 
 func sortedKeys(m map[string]DenseHistory) []string {

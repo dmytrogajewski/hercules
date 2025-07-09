@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -22,9 +23,10 @@ import (
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-	"golang.org/x/crypto/ssh/terminal"
+	"github.com/spf13/viper"
+	"golang.org/x/term"
 	progress "gopkg.in/cheggaaa/pb.v1"
-	"gopkg.in/src-d/go-billy-siva.v4"
+	sivafs "gopkg.in/src-d/go-billy-siva.v4"
 	"gopkg.in/src-d/go-billy.v4/memfs"
 	"gopkg.in/src-d/go-billy.v4/osfs"
 	"gopkg.in/src-d/go-git.v4"
@@ -36,6 +38,7 @@ import (
 	"gopkg.in/src-d/go-git.v4/storage/memory"
 	"gopkg.in/src-d/hercules.v10"
 	"gopkg.in/src-d/hercules.v10/internal/pb"
+	"gopkg.in/yaml.v2"
 )
 
 // oneLineWriter splits the output data by lines and outputs one on top of another using '\r'.
@@ -163,6 +166,16 @@ func loadPlugins() {
 	}
 }
 
+// Helper: returns true if all dependencies are satisfied by the provided set
+func dependenciesSatisfied(requires []string, provided map[string]struct{}) bool {
+	for _, dep := range requires {
+		if _, ok := provided[dep]; !ok {
+			return false
+		}
+	}
+	return true
+}
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "hercules",
@@ -192,9 +205,12 @@ targets can be added using the --plugin system.`,
 		commitsFile := getString("commits")
 		head := getBool("head")
 		protobuf := getBool("pb")
+		json := getBool("json")
+		yamlFlag := getBool("yaml")
 		profile := getBool("profile")
 		disableStatus := getBool("quiet")
 		sshIdentity := getString("ssh-identity")
+		allAnalyses := getBool("all")
 
 		if profile {
 			go func() {
@@ -259,6 +275,39 @@ targets can be added using the --plugin system.`,
 		}
 		cmdlineFacts[hercules.ConfigPipelineCommits] = commits
 		dryRun, _ := cmdlineFacts[hercules.ConfigPipelineDryRun].(bool)
+		if allAnalyses {
+			leaves := hercules.Registry.GetLeaves()
+			provided := map[string]struct{}{
+				hercules.DependencyCommit:  {},
+				hercules.DependencyIndex:   {},
+				hercules.DependencyIsMerge: {},
+			}
+			selected := map[string]bool{}
+			changed := true
+			for changed {
+				changed = false
+				for _, leaf := range leaves {
+					if selected[leaf.Flag()] {
+						continue
+					}
+					requires := leaf.Requires()
+					if dependenciesSatisfied(requires, provided) {
+						selected[leaf.Flag()] = true
+						for _, prov := range leaf.Provides() {
+							provided[prov] = struct{}{}
+						}
+						changed = true
+					}
+				}
+			}
+			for _, leaf := range leaves {
+				if selected[leaf.Flag()] {
+					*cmdlineDeployed[leaf.Flag()] = true
+				} else {
+					fmt.Fprintf(os.Stderr, "[WARN] Skipping analysis '%s' due to unsatisfied dependencies: %v\n", leaf.Flag(), leaf.Requires())
+				}
+			}
+		}
 		var deployed []hercules.LeafPipelineItem
 		for name, valPtr := range cmdlineDeployed {
 			if *valPtr {
@@ -279,14 +328,24 @@ targets can be added using the --plugin system.`,
 		if !disableStatus {
 			fmt.Fprint(os.Stderr, "\033[2K\r")
 			// if not a terminal, the user will not see the output, so show the status
-			if !terminal.IsTerminal(int(os.Stdout.Fd())) {
+			if !term.IsTerminal(int(os.Stdout.Fd())) {
 				fmt.Fprint(os.Stderr, "writing...\r")
 			}
 		}
-		if !protobuf {
-			printResults(uri, deployed, results)
-		} else {
+		// Output format precedence: pb > json > yaml (default)
+		if protobuf && (json || yamlFlag) {
+			log.Fatal("--pb cannot be combined with --json or --yaml")
+		}
+		if json && yamlFlag {
+			log.Fatal("--json and --yaml cannot be used together")
+		}
+		if protobuf {
 			protobufResults(uri, deployed, results)
+		} else if json {
+			viper.Set("hercules.json_output", true)
+			jsonResults(uri, deployed, results)
+		} else {
+			printResults(uri, deployed, results)
 		}
 	},
 }
@@ -344,6 +403,66 @@ func protobufResults(
 		panic(err)
 	}
 	os.Stdout.Write(serialized)
+}
+
+func yamlToJSONCompatible(v interface{}) interface{} {
+	// Recursively convert map[interface{}]interface{} to map[string]interface{}
+	switch x := v.(type) {
+	case map[interface{}]interface{}:
+		m2 := make(map[string]interface{}, len(x))
+		for k, v2 := range x {
+			m2[fmt.Sprint(k)] = yamlToJSONCompatible(v2)
+		}
+		return m2
+	case []interface{}:
+		for i, v2 := range x {
+			x[i] = yamlToJSONCompatible(v2)
+		}
+		return x
+	default:
+		return x
+	}
+}
+
+func jsonResults(
+	uri string, deployed []hercules.LeafPipelineItem,
+	results map[hercules.LeafPipelineItem]interface{}) {
+
+	commonResult := results[nil].(*hercules.CommonAnalysisResult)
+
+	// Create the main JSON structure
+	output := map[string]interface{}{
+		"hercules": map[string]interface{}{
+			"version":         hercules.BinaryVersion,
+			"hash":            hercules.BinaryGitHash,
+			"repository":      uri,
+			"begin_unix_time": commonResult.BeginTime,
+			"end_unix_time":   commonResult.EndTime,
+			"commits":         commonResult.CommitsNumber,
+			"run_time":        commonResult.RunTime.Nanoseconds() / 1e6,
+		},
+	}
+
+	// Add results for each deployed item
+	for _, item := range deployed {
+		result := results[item]
+		buffer := &bytes.Buffer{}
+		if err := item.Serialize(result, false, buffer); err != nil {
+			panic(err)
+		}
+		var yamlData interface{}
+		if err := yaml.Unmarshal(buffer.Bytes(), &yamlData); err != nil {
+			output[item.Name()] = buffer.String()
+		} else {
+			output[item.Name()] = yamlToJSONCompatible(yamlData)
+		}
+	}
+
+	jsonData, err := json.MarshalIndent(output, "", "  ")
+	if err != nil {
+		panic(err)
+	}
+	os.Stdout.Write(jsonData)
 }
 
 // trimRightSpace removes the trailing whitespace characters.
@@ -497,9 +616,12 @@ func init() {
 	rootFlags.Bool("first-parent", false, "Follow only the first parent in the commit history - "+
 		"\"git log --first-parent\".")
 	rootFlags.Bool("pb", false, "The output format will be Protocol Buffers instead of YAML.")
-	rootFlags.Bool("quiet", !terminal.IsTerminal(int(os.Stdin.Fd())),
+	rootFlags.Bool("json", false, "The output format will be JSON instead of YAML.")
+	rootFlags.Bool("yaml", false, "The output format will be YAML (default, mutually exclusive with --json and --pb).")
+	rootFlags.Bool("quiet", !term.IsTerminal(int(os.Stdin.Fd())),
 		"Do not print status updates to stderr.")
 	rootFlags.Bool("profile", false, "Collect the profile to hercules.pprof.")
+	rootFlags.Bool("all", false, "Run all available analyses (mutually exclusive with individual analysis flags).")
 	rootFlags.String("ssh-identity", "", "Path to SSH identity file (e.g., ~/.ssh/id_rsa) to clone from an SSH remote.")
 	err = rootCmd.MarkFlagFilename("ssh-identity")
 	if err != nil {
