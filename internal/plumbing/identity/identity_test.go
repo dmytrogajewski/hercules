@@ -10,12 +10,12 @@ import (
 	"testing"
 	"unsafe"
 
+	"github.com/dmytrogajewski/hercules/internal/core"
+	"github.com/dmytrogajewski/hercules/internal/test"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
 	"gopkg.in/src-d/go-git.v4/plumbing/storer"
-	"gopkg.in/src-d/hercules.v10/internal/core"
-	"gopkg.in/src-d/hercules.v10/internal/test"
 )
 
 func fixtureIdentityDetector() *Detector {

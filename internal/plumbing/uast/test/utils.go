@@ -3,10 +3,10 @@ package test
 import (
 	"io/ioutil"
 
-	"gopkg.in/bblfsh/client-go.v3"
+	core_test "github.com/dmytrogajewski/hercules/internal/test"
+	bblfsh "gopkg.in/bblfsh/client-go.v3"
 	"gopkg.in/bblfsh/sdk.v2/uast/nodes"
 	"gopkg.in/src-d/go-git.v4/plumbing"
-	core_test "gopkg.in/src-d/hercules.v10/internal/test"
 )
 
 // ParseBlobFromTestRepo extracts the UAST from the file by it's hash and name.

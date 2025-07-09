@@ -3,8 +3,8 @@ package extractor
 import (
 	"testing"
 
+	"github.com/dmytrogajewski/hercules/internal/importmodel"
 	"github.com/stretchr/testify/assert"
-	"gopkg.in/src-d/hercules.v10/internal/importmodel"
 )
 
 func TestExtractGoImports(t *testing.T) {

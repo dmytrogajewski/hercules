@@ -19,6 +19,10 @@ import (
 	"unicode"
 
 	"github.com/Masterminds/sprig"
+	"github.com/dmytrogajewski/hercules"
+	"github.com/dmytrogajewski/hercules/internal/core"
+	"github.com/dmytrogajewski/hercules/internal/pb"
+	"github.com/dmytrogajewski/hercules/internal/plumbing/uast"
 	"github.com/gogo/protobuf/proto"
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
@@ -36,8 +40,6 @@ import (
 	"gopkg.in/src-d/go-git.v4/storage"
 	"gopkg.in/src-d/go-git.v4/storage/filesystem"
 	"gopkg.in/src-d/go-git.v4/storage/memory"
-	"gopkg.in/src-d/hercules.v10"
-	"gopkg.in/src-d/hercules.v10/internal/pb"
 	"gopkg.in/yaml.v2"
 )
 
@@ -186,6 +188,23 @@ or several analysis targets. The list of the available targets is printed in --h
 targets can be added using the --plugin system.`,
 	Args: cobra.RangeArgs(1, 2),
 	Run: func(cmd *cobra.Command, args []string) {
+		f, _ := os.Create("debug_names.txt")
+		defer f.Close()
+		fmt.Fprintln(os.Stderr, "[DEBUG] Registered pipeline item names:")
+		fmt.Fprintln(f, "[DEBUG] Registered pipeline item names:")
+		for _, k := range hercules.Registry.RegisteredNames() {
+			fmt.Fprintln(os.Stderr, "  ", k)
+			fmt.Fprintln(f, "  ", k)
+		}
+		fmt.Fprintln(os.Stderr, "[DEBUG] Leaf names from GetLeaves():")
+		fmt.Fprintln(f, "[DEBUG] Leaf names from GetLeaves():")
+		leaves := hercules.Registry.GetLeaves()
+		for _, leaf := range leaves {
+			fmt.Fprintln(os.Stderr, "  ", leaf.Name())
+			fmt.Fprintln(f, "  ", leaf.Name())
+		}
+		f.Sync()
+		os.Stderr.Sync()
 		flags := cmd.Flags()
 		getBool := func(name string) bool {
 			value, err := flags.GetBool(name)
@@ -211,6 +230,7 @@ targets can be added using the --plugin system.`,
 		disableStatus := getBool("quiet")
 		sshIdentity := getString("ssh-identity")
 		allAnalyses := getBool("all")
+		uastProvider := getString("uast-provider")
 
 		if profile {
 			go func() {
@@ -234,6 +254,10 @@ targets can be added using the --plugin system.`,
 		repository := loadRepository(uri, cachePath, disableStatus, sshIdentity)
 
 		// core logic
+		if cmdlineDeployed == nil {
+			fmt.Fprintln(os.Stderr, "[DEBUG] cmdlineDeployed was nil, initializing empty map.")
+			cmdlineDeployed = make(map[string]*bool)
+		}
 		pipeline := hercules.NewPipeline(repository)
 		pipeline.SetFeaturesFromFlags()
 		var bar *progress.ProgressBar
@@ -274,52 +298,75 @@ targets can be added using the --plugin system.`,
 			log.Fatalf("failed to list the commits: %v", err)
 		}
 		cmdlineFacts[hercules.ConfigPipelineCommits] = commits
-		dryRun, _ := cmdlineFacts[hercules.ConfigPipelineDryRun].(bool)
+		if uastProvider != "" {
+			cmdlineFacts[uast.ConfigUASTProvider] = uastProvider
+		}
 		if allAnalyses {
-			leaves := hercules.Registry.GetLeaves()
-			provided := map[string]struct{}{
-				hercules.DependencyCommit:  {},
-				hercules.DependencyIndex:   {},
-				hercules.DependencyIsMerge: {},
+			repository := loadRepository(uri, cachePath, disableStatus, sshIdentity)
+			// Deploy all leaves and all plumbing items in a single pipeline
+			hercules.Registry = core.NewPipelineItemRegistry()
+			cmdlineDeployed := map[string]*bool{}
+			b := true
+			for _, leaf := range leaves {
+				cmdlineDeployed[leaf.Name()] = &b
 			}
-			selected := map[string]bool{}
-			changed := true
-			for changed {
-				changed = false
-				for _, leaf := range leaves {
-					if selected[leaf.Flag()] {
-						continue
-					}
-					requires := leaf.Requires()
-					if dependenciesSatisfied(requires, provided) {
-						selected[leaf.Flag()] = true
-						for _, prov := range leaf.Provides() {
-							provided[prov] = struct{}{}
-						}
-						changed = true
-					}
-				}
+			pipeline := hercules.NewPipeline(repository)
+			pipeline.SetFeaturesFromFlags()
+			// Deploy all plumbing items
+			for _, item := range hercules.Registry.GetPlumbingItems() {
+				pipeline.DeployItem(item)
+			}
+			// Deploy all leaves
+			for _, leaf := range leaves {
+				pipeline.DeployItem(leaf)
+			}
+			err := pipeline.Initialize(cmdlineFacts)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "[ERROR] Failed to initialize pipeline for --all: %v\n", err)
+				return
+			}
+			results, err := pipeline.Run(commits)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "[ERROR] Failed to run pipeline for --all: %v\n", err)
+				return
 			}
 			for _, leaf := range leaves {
-				if selected[leaf.Flag()] {
-					*cmdlineDeployed[leaf.Flag()] = true
-				} else {
-					fmt.Fprintf(os.Stderr, "[WARN] Skipping analysis '%s' due to unsatisfied dependencies: %v\n", leaf.Flag(), leaf.Requires())
+				result := results[leaf]
+				fmt.Printf("%s:\n", leaf.Name())
+				if err := leaf.Serialize(result, false, os.Stdout); err != nil {
+					panic(err)
 				}
+			}
+			return
+		}
+
+		var deployed []hercules.LeafPipelineItem
+		// Handle individual analysis flags
+		for _, leaf := range leaves {
+			flagName := leaf.Flag()
+			if getBool(flagName) {
+				b := true
+				cmdlineDeployed[leaf.Name()] = &b
+				pipeline.DeployItem(leaf)
 			}
 		}
-		var deployed []hercules.LeafPipelineItem
-		for name, valPtr := range cmdlineDeployed {
-			if *valPtr {
-				item := pipeline.DeployItem(hercules.Registry.Summon(name)[0])
-				if !dryRun {
-					deployed = append(deployed, item.(hercules.LeafPipelineItem))
-				}
-			}
+		// Debug: Print pipeline items and their dependencies
+		fmt.Println("[DEBUG] Pipeline items to be initialized:")
+		for _, item := range pipeline.Items() {
+			fmt.Printf("  - %s\n", item.Name())
+			fmt.Printf("    Provides: %v\n", item.Provides())
+			fmt.Printf("    Requires: %v\n", item.Requires())
 		}
 		err = pipeline.Initialize(cmdlineFacts)
 		if err != nil {
 			log.Fatal(err)
+		}
+		// After initialization, collect deployed leaves
+		deployed = nil
+		for _, item := range pipeline.Items() {
+			if leaf, ok := item.(hercules.LeafPipelineItem); ok {
+				deployed = append(deployed, leaf)
+			}
 		}
 		results, err := pipeline.Run(commits)
 		if err != nil {
@@ -364,8 +411,43 @@ func printResults(
 	fmt.Println("  commits:", commonResult.CommitsNumber)
 	fmt.Println("  run_time:", commonResult.RunTime.Nanoseconds()/1e6)
 
+	fmt.Fprintln(os.Stderr, "[DEBUG] Results map keys:")
+	for k := range results {
+		if k == nil {
+			fmt.Fprintln(os.Stderr, "  <nil>")
+		} else {
+			fmt.Fprintln(os.Stderr, "  ", k.Name())
+		}
+	}
+	fmt.Fprintln(os.Stderr, "[DEBUG] Deployed leaf names:")
 	for _, item := range deployed {
-		result := results[item]
+		fmt.Fprintln(os.Stderr, "  ", item.Name())
+	}
+	os.Stderr.Sync()
+	fmt.Fprintf(os.Stderr, "[DEBUG] Results map len: %d\n", len(results))
+	fmt.Fprintf(os.Stderr, "[DEBUG] Deployed slice len: %d\n", len(deployed))
+	if len(results) == 0 {
+		fmt.Fprintln(os.Stderr, "[DEBUG] Results map is empty!")
+		panic("Results map is empty after pipeline.Run; check pipeline deployment and run logic.")
+	}
+	// Build a map from leaf name to result
+	leafResults := make(map[string]interface{})
+	for k, v := range results {
+		if k == nil {
+			continue
+		}
+		leafResults[k.Name()] = v
+	}
+	fmt.Fprintln(os.Stderr, "[DEBUG] leafResults map keys:")
+	for k := range leafResults {
+		fmt.Fprintln(os.Stderr, "  ", k)
+	}
+	for _, item := range deployed {
+		result, ok := leafResults[item.Name()]
+		if !ok {
+			fmt.Fprintf(os.Stderr, "[WARNING] No result for analysis %s\n", item.Name())
+			continue
+		}
 		fmt.Printf("%s:\n", item.Name())
 		if err := item.Serialize(result, false, os.Stdout); err != nil {
 			panic(err)

@@ -6,14 +6,14 @@ import (
 	"io"
 	"io/ioutil"
 
+	"github.com/dmytrogajewski/hercules/internal"
+	"github.com/dmytrogajewski/hercules/internal/core"
 	"github.com/pkg/errors"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/config"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
 	"gopkg.in/src-d/go-git.v4/utils/merkletrie"
-	"gopkg.in/src-d/hercules.v10/internal"
-	"gopkg.in/src-d/hercules.v10/internal/core"
 )
 
 // ErrorBinary is raised in CachedBlob.CountLines() if the file is binary.
@@ -319,3 +319,5 @@ func (blobCache *BlobCache) getBlob(entry *object.ChangeEntry, fileGetter FileGe
 func init() {
 	core.Registry.Register(&BlobCache{})
 }
+
+var _ core.PipelineItem = (*BlobCache)(nil)

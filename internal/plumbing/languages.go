@@ -6,11 +6,13 @@ import (
 	"github.com/src-d/enry/v2"
 	"gopkg.in/src-d/go-git.v4/utils/merkletrie"
 
+	"github.com/dmytrogajewski/hercules/internal/core"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	"gopkg.in/src-d/hercules.v10/internal/core"
 )
+
+var _ core.PipelineItem = (*LanguagesDetection)(nil)
 
 // LanguagesDetection run programming language detection over the changed files.
 type LanguagesDetection struct {

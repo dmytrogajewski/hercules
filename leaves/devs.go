@@ -8,15 +8,15 @@ import (
 	"strings"
 	"time"
 
+	"github.com/dmytrogajewski/hercules/internal/core"
+	"github.com/dmytrogajewski/hercules/internal/pb"
+	items "github.com/dmytrogajewski/hercules/internal/plumbing"
+	"github.com/dmytrogajewski/hercules/internal/plumbing/identity"
+	"github.com/dmytrogajewski/hercules/internal/yaml"
 	"github.com/gogo/protobuf/proto"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	"gopkg.in/src-d/hercules.v10/internal/core"
-	"gopkg.in/src-d/hercules.v10/internal/pb"
-	items "gopkg.in/src-d/hercules.v10/internal/plumbing"
-	"gopkg.in/src-d/hercules.v10/internal/plumbing/identity"
-	"gopkg.in/src-d/hercules.v10/internal/yaml"
 )
 
 // DevsAnalysis calculates the number of commits through time per developer.
@@ -438,6 +438,8 @@ func (dr DevsResult) GetTickSize() time.Duration {
 func (dr DevsResult) GetIdentities() []string {
 	return dr.reversedPeopleDict
 }
+
+var _ core.PipelineItem = (*DevsAnalysis)(nil)
 
 func init() {
 	core.Registry.Register(&DevsAnalysis{})

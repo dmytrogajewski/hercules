@@ -10,13 +10,13 @@ import (
 	"testing"
 	"time"
 
+	"github.com/dmytrogajewski/hercules/internal/pb"
+	"github.com/dmytrogajewski/hercules/internal/test"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	"gopkg.in/src-d/hercules.v10/internal/pb"
-	"gopkg.in/src-d/hercules.v10/internal/test"
 )
 
 type testPipelineItem struct {

@@ -2,7 +2,6 @@ package core
 
 import (
 	"fmt"
-	"reflect"
 	"sort"
 	"strings"
 	"unsafe"
@@ -13,42 +12,42 @@ import (
 
 // PipelineItemRegistry contains all the known PipelineItem-s.
 type PipelineItemRegistry struct {
-	provided     map[string][]reflect.Type
-	registered   map[string]reflect.Type
-	flags        map[string]reflect.Type
+	provided     map[string][]PipelineItem
+	registered   map[string]PipelineItem
+	flags        map[string]PipelineItem
 	featureFlags arrayFeatureFlags
+}
+
+// NewPipelineItemRegistry creates a new PipelineItemRegistry with initialized fields.
+func NewPipelineItemRegistry() *PipelineItemRegistry {
+	return &PipelineItemRegistry{
+		provided:     map[string][]PipelineItem{},
+		registered:   map[string]PipelineItem{},
+		flags:        map[string]PipelineItem{},
+		featureFlags: arrayFeatureFlags{Flags: []string{}, Choices: map[string]bool{}},
+	}
 }
 
 // Register adds another PipelineItem to the registry.
 func (registry *PipelineItemRegistry) Register(example PipelineItem) {
-	t := reflect.TypeOf(example)
-	registry.registered[example.Name()] = t
+	registry.registered[example.Name()] = example
 	if fpi, ok := example.(LeafPipelineItem); ok {
-		registry.flags[fpi.Flag()] = t
+		registry.flags[fpi.Flag()] = example
 	}
 	for _, dep := range example.Provides() {
-		ts := registry.provided[dep]
-		if ts == nil {
-			ts = []reflect.Type{}
-		}
-		ts = append(ts, t)
-		registry.provided[dep] = ts
+		registry.provided[dep] = append(registry.provided[dep], example)
 	}
 }
 
 // Summon searches for PipelineItem-s which provide the specified entity or named after
-// the specified string. It materializes all the found types and returns them.
+// the specified string. It returns the registered prototypes (caller must clone if needed).
 func (registry *PipelineItemRegistry) Summon(providesOrName string) []PipelineItem {
-	if registry.provided == nil {
-		return nil
-	}
-	ts := registry.provided[providesOrName]
 	var items []PipelineItem
-	for _, t := range ts {
-		items = append(items, reflect.New(t.Elem()).Interface().(PipelineItem))
+	if ps, ok := registry.provided[providesOrName]; ok {
+		items = append(items, ps...)
 	}
-	if t, exists := registry.registered[providesOrName]; exists {
-		items = append(items, reflect.New(t.Elem()).Interface().(PipelineItem))
+	if item, exists := registry.registered[providesOrName]; exists {
+		items = append(items, item)
 	}
 	return items
 }
@@ -62,7 +61,7 @@ func (registry *PipelineItemRegistry) GetLeaves() []LeafPipelineItem {
 	sort.Strings(keys)
 	items := []LeafPipelineItem{}
 	for _, key := range keys {
-		items = append(items, reflect.New(registry.flags[key].Elem()).Interface().(LeafPipelineItem))
+		items = append(items, registry.flags[key].(LeafPipelineItem))
 	}
 	return items
 }
@@ -76,9 +75,9 @@ func (registry *PipelineItemRegistry) GetPlumbingItems() []PipelineItem {
 	sort.Strings(keys)
 	items := []PipelineItem{}
 	for _, key := range keys {
-		iface := reflect.New(registry.registered[key].Elem()).Interface()
+		iface := registry.registered[key]
 		if _, ok := iface.(LeafPipelineItem); !ok {
-			items = append(items, iface.(PipelineItem))
+			items = append(items, iface)
 		}
 	}
 	return items
@@ -87,8 +86,7 @@ func (registry *PipelineItemRegistry) GetPlumbingItems() []PipelineItem {
 // GetFeaturedItems returns all FeaturedPipelineItem-s registered.
 func (registry *PipelineItemRegistry) GetFeaturedItems() map[string][]PipelineItem {
 	features := map[string][]PipelineItem{}
-	for _, t := range registry.registered {
-		item := reflect.New(t.Elem()).Interface().(PipelineItem)
+	for _, item := range registry.registered {
 		deps := registry.CollectAllDependencies(item)
 		deps = append(deps, item)
 		depFeatures := map[string]bool{}
@@ -135,6 +133,15 @@ func (registry *PipelineItemRegistry) CollectAllDependencies(item PipelineItem) 
 		return result[i].Name() < result[j].Name()
 	})
 	return result
+}
+
+// RegisteredNames returns a slice of all registered pipeline item names.
+func (registry *PipelineItemRegistry) RegisteredNames() []string {
+	names := make([]string, 0, len(registry.registered))
+	for k := range registry.registered {
+		names = append(names, k)
+	}
+	return names
 }
 
 var pathFlagTypeMasquerade bool
@@ -205,12 +212,11 @@ func (registry *PipelineItemRegistry) AddFlags(flagSet *pflag.FlagSet) (
 	map[string]interface{}, map[string]*bool) {
 	flags := map[string]interface{}{}
 	deployed := map[string]*bool{}
-	for name, it := range registry.registered {
+	for name, item := range registry.registered {
 		formatHelp := func(desc string) string {
 			return fmt.Sprintf("%s [%s]", desc, name)
 		}
-		itemIface := reflect.New(it.Elem()).Interface()
-		for _, opt := range itemIface.(PipelineItem).ListConfigurationOptions() {
+		for _, opt := range item.ListConfigurationOptions() {
 			var iface interface{}
 			getPtr := func() unsafe.Pointer {
 				return unsafe.Pointer(uintptr(unsafe.Pointer(&iface)) + unsafe.Sizeof(&iface))
@@ -246,12 +252,12 @@ func (registry *PipelineItemRegistry) AddFlags(flagSet *pflag.FlagSet) (
 			}
 			flags[opt.Name] = iface
 		}
-		if fpi, ok := itemIface.(FeaturedPipelineItem); ok {
+		if fpi, ok := item.(FeaturedPipelineItem); ok {
 			for _, f := range fpi.Features() {
 				registry.featureFlags.Choices[f] = true
 			}
 		}
-		if fpi, ok := itemIface.(LeafPipelineItem); ok {
+		if fpi, ok := item.(LeafPipelineItem); ok {
 			deployed[fpi.Name()] = flagSet.Bool(
 				fpi.Flag(), false, fmt.Sprintf("Runs %s analysis.", fpi.Name()))
 		}
@@ -296,8 +302,8 @@ func (registry *PipelineItemRegistry) AddFlags(flagSet *pflag.FlagSet) (
 
 // Registry contains all known pipeline item types.
 var Registry = &PipelineItemRegistry{
-	provided:     map[string][]reflect.Type{},
-	registered:   map[string]reflect.Type{},
-	flags:        map[string]reflect.Type{},
+	provided:     map[string][]PipelineItem{},
+	registered:   map[string]PipelineItem{},
+	flags:        map[string]PipelineItem{},
 	featureFlags: arrayFeatureFlags{Flags: []string{}, Choices: map[string]bool{}},
 }

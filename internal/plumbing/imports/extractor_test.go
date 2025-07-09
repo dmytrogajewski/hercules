@@ -3,13 +3,13 @@ package imports
 import (
 	"testing"
 
+	"github.com/dmytrogajewski/hercules/internal/core"
+	"github.com/dmytrogajewski/hercules/internal/importmodel"
+	"github.com/dmytrogajewski/hercules/internal/plumbing"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/src-d/go-git.v4"
 	gitplumbing "gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	"gopkg.in/src-d/hercules.v10/internal/core"
-	"gopkg.in/src-d/hercules.v10/internal/importmodel"
-	"gopkg.in/src-d/hercules.v10/internal/plumbing"
 )
 
 func TestExtractorEndToEnd(t *testing.T) {

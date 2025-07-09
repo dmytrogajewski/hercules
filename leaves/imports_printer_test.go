@@ -5,14 +5,14 @@ import (
 	"testing"
 	"time"
 
-	imports2 "github.com/src-d/imports"
+	"github.com/dmytrogajewski/hercules/internal/core"
+	"github.com/dmytrogajewski/hercules/internal/importmodel"
+	"github.com/dmytrogajewski/hercules/internal/plumbing"
+	"github.com/dmytrogajewski/hercules/internal/plumbing/identity"
+	"github.com/dmytrogajewski/hercules/internal/plumbing/imports"
+	"github.com/dmytrogajewski/hercules/internal/test"
 	"github.com/stretchr/testify/assert"
 	gitplumbing "gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/hercules.v10/internal/core"
-	"gopkg.in/src-d/hercules.v10/internal/plumbing"
-	"gopkg.in/src-d/hercules.v10/internal/plumbing/identity"
-	"gopkg.in/src-d/hercules.v10/internal/plumbing/imports"
-	"gopkg.in/src-d/hercules.v10/internal/test"
 )
 
 func fixtureImportsPerDev() *ImportsPerDeveloper {
@@ -72,11 +72,11 @@ func TestImportsPerDeveloperConsumeFinalize(t *testing.T) {
 	deps[core.DependencyIsMerge] = false
 	deps[identity.DependencyAuthor] = 0
 	deps[plumbing.DependencyTick] = 1
-	imps := map[gitplumbing.Hash]imports2.File{}
+	imps := map[gitplumbing.Hash]importmodel.File{}
 	imps[gitplumbing.NewHash("291286b4ac41952cbd1389fda66420ec03c1a9fe")] =
-		imports2.File{Lang: "Go", Path: "test.go", Imports: []string{"sys"}}
+		importmodel.File{Lang: "Go", Imports: []string{"sys"}}
 	imps[gitplumbing.NewHash("c29112dbd697ad9b401333b80c18a63951bc18d9")] =
-		imports2.File{Lang: "Python", Path: "test.py", Imports: []string{"sys"}}
+		importmodel.File{Lang: "Python", Imports: []string{"sys"}}
 	deps[imports.DependencyImports] = imps
 	ipd := fixtureImportsPerDev()
 	ipd.reversedPeopleDict = []string{"1", "2"}

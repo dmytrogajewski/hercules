@@ -4,15 +4,17 @@ import (
 	"runtime"
 	"sync"
 
+	"github.com/dmytrogajewski/hercules/internal/core"
+	"github.com/dmytrogajewski/hercules/internal/extractor"
+	"github.com/dmytrogajewski/hercules/internal/importmodel"
+	"github.com/dmytrogajewski/hercules/internal/plumbing"
 	"gopkg.in/src-d/go-git.v4"
 	gitplumbing "gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
 	"gopkg.in/src-d/go-git.v4/utils/merkletrie"
-	"gopkg.in/src-d/hercules.v10/internal/core"
-	"gopkg.in/src-d/hercules.v10/internal/extractor"
-	"gopkg.in/src-d/hercules.v10/internal/importmodel"
-	"gopkg.in/src-d/hercules.v10/internal/plumbing"
 )
+
+var _ core.PipelineItem = (*Extractor)(nil)
 
 // Extractor reports the imports in the changed files.
 type Extractor struct {

@@ -3,14 +3,16 @@ package uast
 import (
 	"unicode/utf8"
 
+	"github.com/dmytrogajewski/hercules/internal/core"
+	"github.com/dmytrogajewski/hercules/internal/plumbing"
 	"github.com/sergi/go-diff/diffmatchpatch"
 	"gopkg.in/bblfsh/client-go.v3/tools"
 	"gopkg.in/bblfsh/sdk.v2/uast"
 	"gopkg.in/bblfsh/sdk.v2/uast/nodes"
 	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/hercules.v10/internal/core"
-	"gopkg.in/src-d/hercules.v10/internal/plumbing"
 )
+
+var _ core.PipelineItem = (*FileDiffRefiner)(nil)
 
 // FileDiffRefiner uses UASTs to improve the human interpretability of diffs.
 // It is a PipelineItem.

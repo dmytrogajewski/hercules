@@ -2,21 +2,20 @@ package core
 
 import (
 	"os"
-	"reflect"
 	"testing"
 
+	"github.com/dmytrogajewski/hercules/internal/test"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/hercules.v10/internal/test"
 )
 
 func getRegistry() *PipelineItemRegistry {
 	return &PipelineItemRegistry{
-		provided:     map[string][]reflect.Type{},
-		registered:   map[string]reflect.Type{},
-		flags:        map[string]reflect.Type{},
+		provided:     map[string][]PipelineItem{},
+		registered:   map[string]PipelineItem{},
+		flags:        map[string]PipelineItem{},
 		featureFlags: arrayFeatureFlags{Flags: []string{}, Choices: map[string]bool{}},
 	}
 }

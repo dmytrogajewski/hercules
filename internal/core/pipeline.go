@@ -12,13 +12,13 @@ import (
 	"strings"
 	"time"
 
+	"github.com/dmytrogajewski/hercules/internal/pb"
+	"github.com/dmytrogajewski/hercules/internal/toposort"
 	"github.com/pkg/errors"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
 	"gopkg.in/src-d/go-git.v4/plumbing/storer"
-	"gopkg.in/src-d/hercules.v10/internal/pb"
-	"gopkg.in/src-d/hercules.v10/internal/toposort"
 )
 
 // ConfigurationOptionType represents the possible types of a ConfigurationOption's value.
@@ -443,6 +443,11 @@ func (pipeline *Pipeline) Len() int {
 	return len(pipeline.items)
 }
 
+// Items returns the list of deployed pipeline items in execution order.
+func (pipeline *Pipeline) Items() []PipelineItem {
+	return pipeline.items
+}
+
 // Commits returns the list of commits from the history similar to `git log` over the HEAD.
 // `firstParent` specifies whether to leave only the first parent after each merge
 // (`git log --first-parent`) - effectively decreasing the accuracy but increasing performance.
@@ -661,6 +666,34 @@ func (pipeline *Pipeline) resolve(dumpPath string) error {
 	return nil
 }
 
+// validatePipeline checks that all dependencies are satisfied in the pipeline.
+func (pipeline *Pipeline) validatePipeline() error {
+	// Collect all provided keys
+	provided := map[string]bool{}
+	for _, item := range pipeline.items {
+		for _, key := range item.Provides() {
+			provided[key] = true
+		}
+	}
+	// Check all required keys
+	missing := map[string][]string{} // key -> []item.Name()
+	for _, item := range pipeline.items {
+		for _, key := range item.Requires() {
+			if !provided[key] {
+				missing[key] = append(missing[key], item.Name())
+			}
+		}
+	}
+	if len(missing) > 0 {
+		msg := "[ERROR] Pipeline validation failed. Unsatisfied dependencies:\n"
+		for key, items := range missing {
+			msg += "  - '" + key + "' required by: " + strings.Join(items, ", ") + "\n"
+		}
+		return errors.New(msg)
+	}
+	return nil
+}
+
 // Initialize prepares the pipeline for the execution (Run()). This function
 // resolves the execution DAG, Configure()-s and Initialize()-s the items in it in the
 // topological dependency order. `facts` are passed inside Configure(). They are mutable.
@@ -706,6 +739,11 @@ func (pipeline *Pipeline) Initialize(facts map[string]interface{}) error {
 	dumpPath, _ := facts[ConfigPipelineDAGPath].(string)
 	err := pipeline.resolve(dumpPath)
 	if err != nil {
+		return err
+	}
+	// Validate pipeline dependencies
+	if err := pipeline.validatePipeline(); err != nil {
+		pipeline.l.Critical(err.Error())
 		return err
 	}
 	if dumpPlan, exists := facts[ConfigPipelineDumpPlan].(bool); exists {

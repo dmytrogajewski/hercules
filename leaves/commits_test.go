@@ -5,16 +5,16 @@ import (
 	"sort"
 	"testing"
 
+	"github.com/dmytrogajewski/hercules/internal/core"
+	"github.com/dmytrogajewski/hercules/internal/pb"
+	items "github.com/dmytrogajewski/hercules/internal/plumbing"
+	"github.com/dmytrogajewski/hercules/internal/plumbing/identity"
+	"github.com/dmytrogajewski/hercules/internal/test"
+	"github.com/dmytrogajewski/hercules/internal/test/fixtures"
 	"github.com/gogo/protobuf/proto"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	"gopkg.in/src-d/hercules.v10/internal/core"
-	"gopkg.in/src-d/hercules.v10/internal/pb"
-	items "gopkg.in/src-d/hercules.v10/internal/plumbing"
-	"gopkg.in/src-d/hercules.v10/internal/plumbing/identity"
-	"gopkg.in/src-d/hercules.v10/internal/test"
-	"gopkg.in/src-d/hercules.v10/internal/test/fixtures"
 )
 
 func TestCommitsMeta(t *testing.T) {

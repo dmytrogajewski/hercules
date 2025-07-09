@@ -6,9 +6,9 @@ package uast
 import (
 	"testing"
 
+	"github.com/dmytrogajewski/hercules/internal/test"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/bblfsh/sdk.v2/uast/nodes"
-	"gopkg.in/src-d/hercules.v10/internal/test"
 )
 
 func TestChangesXPatherExtractChanged(t *testing.T) {

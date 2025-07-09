@@ -14,6 +14,11 @@ import (
 	"time"
 
 	"github.com/Jeffail/tunny"
+	sitter "github.com/alexaandru/go-tree-sitter-bare"
+	"github.com/dmytrogajewski/hercules/internal/core"
+	"github.com/dmytrogajewski/hercules/internal/pb"
+	items "github.com/dmytrogajewski/hercules/internal/plumbing"
+	uastconvert "github.com/dmytrogajewski/hercules/internal/uastconvert"
 	"github.com/gogo/protobuf/proto"
 	bblfsh "gopkg.in/bblfsh/client-go.v3"
 	"gopkg.in/bblfsh/sdk.v2/uast/nodes"
@@ -22,10 +27,11 @@ import (
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
 	"gopkg.in/src-d/go-git.v4/utils/merkletrie"
-	"gopkg.in/src-d/hercules.v10/internal/core"
-	"gopkg.in/src-d/hercules.v10/internal/pb"
-	items "gopkg.in/src-d/hercules.v10/internal/plumbing"
 )
+
+var _ core.PipelineItem = (*Extractor)(nil)
+var _ core.PipelineItem = (*Changes)(nil)
+var _ core.PipelineItem = (*ChangesSaver)(nil)
 
 // Extractor retrieves UASTs from Babelfish server which correspond to changed files in a commit.
 // It is a PipelineItem.
@@ -42,6 +48,9 @@ type Extractor struct {
 	pool    *tunny.Pool
 
 	l core.Logger
+	// Add a Provider field to Extractor
+	Provider        UASTProvider
+	UseEmbeddedOnly bool // NEW: if true, only use embedded providers
 }
 
 const (
@@ -60,6 +69,9 @@ const (
 	// ConfigUASTIgnoreMissingDrivers is the name of the configuration option (Extractor.Configure())
 	// which sets the ignored missing driver names.
 	ConfigUASTIgnoreMissingDrivers = "UAST.IgnoreMissingDrivers"
+	// ConfigUASTProvider is the name of the configuration option (Extractor.Configure())
+	// which sets the UAST provider type ("embedded" or "babelfish").
+	ConfigUASTProvider = "UAST.Provider"
 	// DefaultBabelfishEndpoint is the default address of the Babelfish parsing server.
 	DefaultBabelfishEndpoint = "0.0.0.0:9432"
 	// DefaultBabelfishTimeout is the default value of the RPC timeout in seconds.
@@ -150,7 +162,12 @@ func (exr *Extractor) ListConfigurationOptions() []core.ConfigurationOption {
 		Description: "Do not warn about missing drivers for the specified languages.",
 		Flag:        "bblfsh-ignored-drivers",
 		Type:        core.StringsConfigurationOption,
-		Default:     DefaultIgnoredMissingDrivers},
+		Default:     DefaultIgnoredMissingDrivers}, {
+		Name:        ConfigUASTProvider,
+		Description: "The UAST provider type to use.",
+		Flag:        "uast-provider",
+		Type:        core.StringConfigurationOption,
+		Default:     "babelfish"},
 	}
 	return options[:]
 }
@@ -181,6 +198,15 @@ func (exr *Extractor) Configure(facts map[string]interface{}) error {
 			exr.IgnoredMissingDrivers[name] = true
 		}
 	}
+	if val, exists := facts[ConfigUASTProvider].(string); exists {
+		if val == "embedded" {
+			exr.Provider = nil         // Embedded providers are handled automatically by tryEmbeddedUASTProvider
+			exr.UseEmbeddedOnly = true // NEW: mark to use only embedded
+		} else {
+			exr.Provider = nil // Default to Babelfish behavior
+			exr.UseEmbeddedOnly = false
+		}
+	}
 	return nil
 }
 
@@ -188,6 +214,21 @@ func (exr *Extractor) Configure(facts map[string]interface{}) error {
 // calls. The repository which is going to be analysed is supplied as an argument.
 func (exr *Extractor) Initialize(repository *git.Repository) error {
 	exr.l = core.NewLogger()
+	if exr.UseEmbeddedOnly {
+		// Do not set up Babelfish clients or pool
+		exr.ProcessedFiles = map[string]int{}
+		if exr.IgnoredMissingDrivers == nil {
+			exr.IgnoredMissingDrivers = map[string]bool{}
+			for _, name := range DefaultIgnoredMissingDrivers {
+				exr.IgnoredMissingDrivers[name] = true
+			}
+		}
+		return nil
+	}
+	// If Provider is set (embedded), skip Babelfish setup
+	if exr.Provider != nil {
+		return nil
+	}
 	if exr.Context == nil {
 		exr.Context = func() (context.Context, context.CancelFunc) {
 			return context.WithTimeout(context.Background(),
@@ -267,6 +308,36 @@ func (exr *Extractor) Consume(deps map[string]interface{}) (map[string]interface
 			Errors: &errs,
 		})
 	}
+	if exr.UseEmbeddedOnly {
+		// Only use embedded providers
+		for _, change := range treeDiffs {
+			action, err := change.Action()
+			if err != nil {
+				return nil, err
+			}
+			switch action {
+			case merkletrie.Insert, merkletrie.Modify:
+				uastNode, err := tryEmbeddedUASTProvider(change.To.Name, cache[change.To.TreeEntry.Hash].Data)
+				if err == nil && uastNode != nil {
+					if node, ok := uastNode.(nodes.Node); ok {
+						uasts[change.To.TreeEntry.Hash] = node
+					} else if ptr, ok := uastNode.(*sitter.Node); ok {
+						uasts[change.To.TreeEntry.Hash] = uastconvert.ConvertSitterNodeToUAST(ptr, cache[change.To.TreeEntry.Hash].Data)
+					} else if val, ok := uastNode.(sitter.Node); ok {
+						uasts[change.To.TreeEntry.Hash] = uastconvert.ConvertSitterNodeToUAST(&val, cache[change.To.TreeEntry.Hash].Data)
+					} else {
+						exr.l.Warnf("Unknown UAST node type for file %s: %T", change.To.Name, uastNode)
+						continue
+					}
+					continue
+				}
+				exr.l.Warnf("No embedded UAST provider for file %s: %v", change.To.Name, err)
+			case merkletrie.Delete:
+				continue
+			}
+		}
+		return map[string]interface{}{DependencyUasts: uasts}, nil
+	}
 	for _, change := range treeDiffs {
 		action, err := change.Action()
 		if err != nil {
@@ -292,6 +363,31 @@ func (exr *Extractor) Consume(deps map[string]interface{}) (map[string]interface
 			return nil, errors.New(joined)
 		}
 		exr.l.Error(joined)
+	}
+	for _, change := range treeDiffs {
+		uastNode, err := tryEmbeddedUASTProvider(change.To.Name, cache[change.To.TreeEntry.Hash].Data)
+		if err == nil && uastNode != nil {
+			// Robustly handle all Tree-sitter node types and nodes.Node
+			if node, ok := uastNode.(nodes.Node); ok {
+				uasts[change.To.TreeEntry.Hash] = node
+			} else if ptr, ok := uastNode.(*sitter.Node); ok {
+				uasts[change.To.TreeEntry.Hash] = uastconvert.ConvertSitterNodeToUAST(ptr, cache[change.To.TreeEntry.Hash].Data)
+			} else if val, ok := uastNode.(sitter.Node); ok {
+				uasts[change.To.TreeEntry.Hash] = uastconvert.ConvertSitterNodeToUAST(&val, cache[change.To.TreeEntry.Hash].Data)
+			} else {
+				exr.l.Warnf("Unknown UAST node type for file %s: %T", change.To.Name, uastNode)
+				continue
+			}
+			continue
+		}
+		if exr.Provider != nil {
+			uastNode, err = exr.Provider.Parse(change.To.Name, cache[change.To.TreeEntry.Hash].Data)
+			if err == nil && uastNode != nil {
+				uasts[change.To.TreeEntry.Hash] = uastNode.(nodes.Node)
+				continue
+			}
+		}
+		exr.l.Warnf("No UAST provider for file %s", change.To.Name)
 	}
 	return map[string]interface{}{DependencyUasts: uasts}, nil
 }
@@ -345,6 +441,32 @@ func (exr *Extractor) extractTask(client *bblfsh.Client, data interface{}) inter
 		task.Dest[task.Hash] = node
 	}
 	return nil
+}
+
+// tryEmbeddedUASTProvider returns the UAST node for supported file types, or (nil, error) if not supported.
+func tryEmbeddedUASTProvider(filename string, content []byte) (interface{}, error) {
+	if strings.HasSuffix(filename, ".go") {
+		return (&GoEmbeddedProvider{}).Parse(filename, content)
+	} else if strings.HasSuffix(filename, ".java") {
+		return (&TreeSitterJavaProvider{}).Parse(filename, content)
+	} else if strings.HasSuffix(filename, ".kt") {
+		return (&TreeSitterKotlinProvider{}).Parse(filename, content)
+	} else if strings.HasSuffix(filename, ".swift") {
+		return (&TreeSitterSwiftProvider{}).Parse(filename, content)
+	} else if strings.HasSuffix(filename, ".js") || strings.HasSuffix(filename, ".jsx") {
+		return (&TreeSitterJavaScriptProvider{}).Parse(filename, content)
+	} else if strings.HasSuffix(filename, ".rs") {
+		return (&TreeSitterRustProvider{}).Parse(filename, content)
+	} else if strings.HasSuffix(filename, ".php") {
+		return (&TreeSitterPHPProvider{}).Parse(filename, content)
+	} else if strings.HasSuffix(filename, ".py") {
+		return (&TreeSitterPythonProvider{}).Parse(filename, content)
+	} else if strings.HasSuffix(filename, ".ts") {
+		return (&TreeSitterTypeScriptProvider{}).Parse(filename, content)
+	} else if strings.HasSuffix(filename, ".tsx") {
+		return (&TreeSitterTSXProvider{}).Parse(filename, content)
+	}
+	return nil, errors.New("unsupported file type")
 }
 
 // Change is the type of the items in the list of changes which is provided by Changes.

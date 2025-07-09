@@ -339,7 +339,7 @@ git checkout -b feature/new-analysis
 package leaves
 
 import (
-    "gopkg.in/src-d/hercules.v10/internal/core"
+    "github.com/dmytrogajewski/hercules/internal/core"
 )
 
 type NewAnalysis struct {

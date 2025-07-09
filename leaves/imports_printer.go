@@ -8,17 +8,19 @@ import (
 	"sort"
 	"time"
 
+	"github.com/dmytrogajewski/hercules/internal/core"
+	"github.com/dmytrogajewski/hercules/internal/importmodel"
+	"github.com/dmytrogajewski/hercules/internal/pb"
+	"github.com/dmytrogajewski/hercules/internal/plumbing"
+	"github.com/dmytrogajewski/hercules/internal/plumbing/identity"
+	"github.com/dmytrogajewski/hercules/internal/plumbing/imports"
+	"github.com/dmytrogajewski/hercules/internal/yaml"
 	"github.com/gogo/protobuf/proto"
-	imports2 "github.com/src-d/imports"
 	"gopkg.in/src-d/go-git.v4"
 	gitplumbing "gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/hercules.v10/internal/core"
-	"gopkg.in/src-d/hercules.v10/internal/pb"
-	"gopkg.in/src-d/hercules.v10/internal/plumbing"
-	"gopkg.in/src-d/hercules.v10/internal/plumbing/identity"
-	"gopkg.in/src-d/hercules.v10/internal/plumbing/imports"
-	"gopkg.in/src-d/hercules.v10/internal/yaml"
 )
+
+var _ core.PipelineItem = (*ImportsPerDeveloper)(nil)
 
 // ImportsMap is the type of the mapping from dev indexes to languages to import names to ticks to
 // usage counts. Ticks start counting from 0 and correspond to the earliest commit timestamp
@@ -120,7 +122,7 @@ func (ipd *ImportsPerDeveloper) Consume(deps map[string]interface{}) (map[string
 		return nil, nil
 	}
 	author := deps[identity.DependencyAuthor].(int)
-	imps := deps[imports.DependencyImports].(map[gitplumbing.Hash]imports2.File)
+	imps := deps[imports.DependencyImports].(map[gitplumbing.Hash]importmodel.File)
 	aimps := ipd.imports[author]
 	tick := deps[plumbing.DependencyTick].(int)
 	if aimps == nil {

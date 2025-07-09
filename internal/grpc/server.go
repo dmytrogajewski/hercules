@@ -13,9 +13,9 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"gopkg.in/src-d/hercules.v10"
-	"gopkg.in/src-d/hercules.v10/internal/config"
-	"gopkg.in/src-d/hercules.v10/internal/pb"
+	"github.com/dmytrogajewski/hercules"
+	"github.com/dmytrogajewski/hercules/internal/config"
+	"github.com/dmytrogajewski/hercules/internal/pb"
 )
 
 // Server wraps the gRPC server and job management
