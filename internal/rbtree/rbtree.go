@@ -613,9 +613,7 @@ type node struct {
 	color               bool // black or red
 }
 
-//
 // Internal node attribute accessors
-//
 func getColor(n uint32, allocator []node) bool {
 	if n == 0 {
 		return black
@@ -862,7 +860,6 @@ func (tree *RBTree) doDelete(n uint32) {
 }
 
 // Move n to the pred's place, and vice versa
-//
 func (tree *RBTree) swapNodes(n, pred uint32) {
 	doAssert(pred != n)
 	alloc := tree.storage()
@@ -1011,9 +1008,11 @@ func (tree *RBTree) replaceNode(oldn, newn uint32) {
 }
 
 /*
-    X		     Y
-  A   Y	    =>     X   C
-     B C 	  A B
+	X		     Y
+
+A   Y	    =>     X   C
+
+	B C 	  A B
 */
 func (tree *RBTree) rotateLeft(x uint32) {
 	alloc := tree.storage()
@@ -1037,9 +1036,10 @@ func (tree *RBTree) rotateLeft(x uint32) {
 }
 
 /*
-     Y           X
-   X   C  =>   A   Y
-  A B             B C
+	  Y           X
+	X   C  =>   A   Y
+
+A B             B C
 */
 func (tree *RBTree) rotateRight(y uint32) {
 	alloc := tree.storage()

@@ -5,7 +5,7 @@ import (
 	"log"
 	"math"
 
-	"gopkg.in/src-d/hercules.v10/internal"
+	"gopkg.in/src-d/hercules.v10/internal/mathutil"
 	"gopkg.in/src-d/hercules.v10/internal/rbtree"
 )
 
@@ -213,7 +213,7 @@ func (file *File) Update(time int, pos int, insLength int, delLength int) {
 			}
 			break
 		}
-		delta := internal.Min(int(nextIter.Item().Key), pos+delLength) - internal.Max(int(node.Key), pos)
+		delta := mathutil.Min(int(nextIter.Item().Key), pos+delLength) - mathutil.Max(int(node.Key), pos)
 		if delta == 0 && insLength == 0 && origin.Key == uint32(pos) && prevOrigin.Value == node.Value {
 			origin = *node
 			tree.DeleteWithIterator(iter)
