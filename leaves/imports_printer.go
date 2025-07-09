@@ -100,7 +100,7 @@ func (ipd *ImportsPerDeveloper) Configure(facts map[string]interface{}) error {
 // Initialize resets the temporary caches and prepares this PipelineItem for a series of Consume()
 // calls. The repository which is going to be analysed is supplied as an argument.
 func (ipd *ImportsPerDeveloper) Initialize(repository *git.Repository) error {
-	ipd.l = core.NewLogger()
+	ipd.l = core.GetLogger()
 	ipd.imports = ImportsMap{}
 	ipd.OneShotMergeProcessor.Initialize()
 	if ipd.TickSize == 0 {

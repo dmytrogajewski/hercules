@@ -31,7 +31,7 @@ func TestTicksSinceStartMeta(t *testing.T) {
 	assert.Equal(t, tss.Provides()[0], DependencyTick)
 	assert.Equal(t, len(tss.Requires()), 0)
 	assert.Len(t, tss.ListConfigurationOptions(), 1)
-	logger := core.NewLogger()
+	logger := core.GetLogger()
 	assert.NoError(t, tss.Configure(map[string]interface{}{
 		core.ConfigLogger: logger,
 	}))

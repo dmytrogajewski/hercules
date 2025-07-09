@@ -148,7 +148,7 @@ func (treediff *TreeDiff) Configure(facts map[string]interface{}) error {
 // Initialize resets the temporary caches and prepares this PipelineItem for a series of Consume()
 // calls. The repository which is going to be analysed is supplied as an argument.
 func (treediff *TreeDiff) Initialize(repository *git.Repository) error {
-	treediff.l = core.NewLogger()
+	treediff.l = core.GetLogger()
 	treediff.previousTree = nil
 	treediff.repository = repository
 	if treediff.Languages == nil {

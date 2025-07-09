@@ -105,7 +105,7 @@ func (ex *Extractor) Configure(facts map[string]interface{}) error {
 // Initialize resets the temporary caches and prepares this PipelineItem for a series of Consume()
 // calls. The repository which is going to be analysed is supplied as an argument.
 func (ex *Extractor) Initialize(repository *git.Repository) error {
-	ex.l = core.NewLogger()
+	ex.l = core.GetLogger()
 	if ex.Goroutines < 1 {
 		ex.Goroutines = runtime.NumCPU()
 	}

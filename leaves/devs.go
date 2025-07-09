@@ -130,7 +130,7 @@ func (devs *DevsAnalysis) Initialize(repository *git.Repository) error {
 	if devs.tickSize == 0 {
 		return errors.New("tick size must be specified")
 	}
-	devs.l = core.NewLogger()
+	devs.l = core.GetLogger()
 	devs.ticks = map[int]map[int]*DevTick{}
 	devs.OneShotMergeProcessor.Initialize()
 	return nil

@@ -30,7 +30,7 @@ func TestFileDiffMeta(t *testing.T) {
 	assert.Equal(t, fd.ListConfigurationOptions()[1].Name, items.ConfigFileWhitespaceIgnore)
 	assert.Equal(t, fd.ListConfigurationOptions()[2].Name, items.ConfigFileDiffTimeout)
 	assert.NoError(t, fd.Configure(map[string]interface{}{
-		core.ConfigLogger:                  core.NewLogger(),
+		core.ConfigLogger:                  core.GetLogger(),
 		items.ConfigFileDiffDisableCleanup: true,
 		items.ConfigFileWhitespaceIgnore:   true,
 		items.ConfigFileDiffTimeout:        500,

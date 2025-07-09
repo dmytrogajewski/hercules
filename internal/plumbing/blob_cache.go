@@ -135,7 +135,7 @@ func (blobCache *BlobCache) Configure(facts map[string]interface{}) error {
 	if l, exists := facts[core.ConfigLogger].(core.Logger); exists {
 		blobCache.l = l
 	} else {
-		blobCache.l = core.NewLogger()
+		blobCache.l = core.GetLogger()
 	}
 	if val, exists := facts[ConfigBlobCacheFailOnMissingSubmodules].(bool); exists {
 		blobCache.FailOnMissingSubmodules = val
@@ -146,7 +146,7 @@ func (blobCache *BlobCache) Configure(facts map[string]interface{}) error {
 // Initialize resets the temporary caches and prepares this PipelineItem for a series of Consume()
 // calls. The repository which is going to be analysed is supplied as an argument.
 func (blobCache *BlobCache) Initialize(repository *git.Repository) error {
-	blobCache.l = core.NewLogger()
+	blobCache.l = core.GetLogger()
 	blobCache.repository = repository
 	blobCache.cache = map[plumbing.Hash]*CachedBlob{}
 	return nil

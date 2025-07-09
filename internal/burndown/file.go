@@ -2,7 +2,6 @@ package burndown
 
 import (
 	"fmt"
-	"log"
 	"math"
 
 	"github.com/dmytrogajewski/hercules/internal/mathutil"
@@ -66,10 +65,10 @@ func NewFile(time int, length int, allocator *rbtree.Allocator, updaters ...Upda
 	file := &File{tree: rbtree.NewRBTree(allocator), updaters: updaters}
 	file.updateTime(time, time, length)
 	if time < 0 || time > math.MaxUint32 {
-		log.Panicf("time is out of allowed range: %d", time)
+		panic(fmt.Sprintf("time is out of allowed range: %d", time))
 	}
 	if length > math.MaxUint32 {
-		log.Panicf("length is out of allowed range: %d", length)
+		panic(fmt.Sprintf("length is out of allowed range: %d", length))
 	}
 	if length > 0 {
 		file.tree.Insert(rbtree.Item{Key: 0, Value: uint32(time)})
@@ -94,10 +93,10 @@ func NewFileFromTree(keys []int, vals []int, allocator *rbtree.Allocator, update
 	for i, key := range keys {
 		val := vals[i]
 		if key < 0 || key >= math.MaxUint32 {
-			log.Panicf("key is out of allowed range: [%d]=%d", i, key)
+			panic(fmt.Sprintf("key is out of allowed range: [%d]=%d", i, key))
 		}
 		if val < 0 || val > math.MaxUint32 {
-			log.Panicf("val is out of allowed range: [%d]=%d", i, val)
+			panic(fmt.Sprintf("val is out of allowed range: [%d]=%d", i, val))
 		}
 		file.tree.Insert(rbtree.Item{Key: uint32(key), Value: uint32(val)})
 	}
@@ -285,12 +284,12 @@ func (file *File) Merge(day int, others ...*File) {
 	myself := file.flatten()
 	for _, other := range others {
 		if other == nil {
-			log.Panic("merging with a nil file")
+			panic("merging with a nil file")
 		}
 		lines := other.flatten()
 		if len(myself) != len(lines) {
-			log.Panicf("file corruption, lines number mismatch during merge %d != %d",
-				len(myself), len(lines))
+			panic(fmt.Sprintf("file corruption, lines number mismatch during merge %d != %d",
+				len(myself), len(lines)))
 		}
 		for i, l := range myself {
 			ol := lines[i]
@@ -346,19 +345,19 @@ func (file File) Dump() string {
 // 3. Node keys must monotonically increase and never duplicate.
 func (file File) Validate() {
 	if file.tree.Min().Item().Key != 0 {
-		log.Panic("the tree must start with key 0")
+		panic("the tree must start with key 0")
 	}
 	if file.tree.Max().Item().Value != TreeEnd {
-		log.Panicf("the last value in the tree must be %d", TreeEnd)
+		panic(fmt.Sprintf("the last value in the tree must be %d", TreeEnd))
 	}
 	prevKey := uint32(math.MaxUint32)
 	for iter := file.tree.Min(); !iter.Limit(); iter = iter.Next() {
 		node := iter.Item()
 		if node.Key == prevKey {
-			log.Panicf("duplicate tree key: %d", node.Key)
+			panic(fmt.Sprintf("duplicate tree key: %d", node.Key))
 		}
 		if node.Value == TreeMergeMark {
-			log.Panicf("unmerged lines left: %d", node.Key)
+			panic(fmt.Sprintf("unmerged lines left: %d", node.Key))
 		}
 		prevKey = node.Key
 	}

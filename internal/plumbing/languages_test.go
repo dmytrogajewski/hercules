@@ -21,7 +21,7 @@ func TestLanguagesDetectionMeta(t *testing.T) {
 	opts := ls.ListConfigurationOptions()
 	assert.Len(t, opts, 0)
 	assert.NoError(t, ls.Configure(nil))
-	logger := core.NewLogger()
+	logger := core.GetLogger()
 	assert.NoError(t, ls.Configure(map[string]interface{}{
 		core.ConfigLogger: logger,
 	}))

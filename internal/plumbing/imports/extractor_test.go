@@ -165,7 +165,7 @@ func TestExtractorConfiguration(t *testing.T) {
 	facts := map[string]interface{}{
 		ConfigImportsGoroutines: 4,
 		ConfigMaxFileSize:       1024,
-		core.ConfigLogger:       core.NewLogger(),
+		core.ConfigLogger:       core.GetLogger(),
 	}
 
 	err := extractor.Configure(facts)

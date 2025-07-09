@@ -3,9 +3,9 @@ package uast
 import (
 	"bytes"
 	"io"
-	"log"
 	"sort"
 
+	"github.com/dmytrogajewski/hercules/internal/core"
 	"github.com/minio/highwayhash"
 	"gopkg.in/bblfsh/client-go.v3/tools"
 	"gopkg.in/bblfsh/sdk.v2/uast/nodes"
@@ -54,7 +54,7 @@ func (xpather ChangesXPather) filter(root nodes.Node, origin plumbing.Hash) []no
 	}
 	filtered, err := tools.Filter(root, xpather.XPath)
 	if err != nil {
-		log.Printf("libuast filter error on object %s: %v", origin.String(), err)
+		core.GetLogger().Warnf("libuast filter error on object %s: %v", origin.String(), err)
 		return []nodes.Node{}
 	}
 	var result []nodes.Node

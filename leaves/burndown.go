@@ -264,7 +264,7 @@ func (analyser *BurndownAnalysis) Configure(facts map[string]interface{}) error 
 	if l, exists := facts[core.ConfigLogger].(core.Logger); exists {
 		analyser.l = l
 	} else {
-		analyser.l = core.NewLogger()
+		analyser.l = core.GetLogger()
 	}
 	if val, exists := facts[ConfigBurndownGranularity].(int); exists {
 		analyser.Granularity = val
@@ -318,7 +318,7 @@ func (analyser *BurndownAnalysis) Description() string {
 // Initialize resets the temporary caches and prepares this PipelineItem for a series of Consume()
 // calls. The repository which is going to be analysed is supplied as an argument.
 func (analyser *BurndownAnalysis) Initialize(repository *git.Repository) error {
-	analyser.l = core.NewLogger()
+	analyser.l = core.GetLogger()
 	if analyser.Granularity <= 0 {
 		analyser.l.Warnf("adjusted the granularity to %d ticks\n",
 			DefaultBurndownGranularity)

@@ -35,7 +35,7 @@ func TestCouplesMeta(t *testing.T) {
 	assert.Equal(t, c.Requires()[1], plumbing.DependencyTreeChanges)
 	assert.Equal(t, c.Flag(), "couples")
 	assert.Len(t, c.ListConfigurationOptions(), 0)
-	logger := core.NewLogger()
+	logger := core.GetLogger()
 	assert.NoError(t, c.Configure(map[string]interface{}{
 		core.ConfigLogger: logger,
 	}))

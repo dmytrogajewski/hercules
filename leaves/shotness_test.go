@@ -52,7 +52,7 @@ func TestShotnessMeta(t *testing.T) {
 	assert.Equal(t, sh.XpathStruct, "xpath!")
 	assert.Equal(t, sh.XpathName, "another!")
 
-	logger := core.NewLogger()
+	logger := core.GetLogger()
 	assert.NoError(t, sh.Configure(map[string]interface{}{
 		core.ConfigLogger: logger,
 	}))
