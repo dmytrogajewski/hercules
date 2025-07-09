@@ -6,11 +6,11 @@ import (
 	"path"
 	"testing"
 
+	"github.com/dmytrogajewski/hercules/internal/core"
+	uast_items "github.com/dmytrogajewski/hercules/internal/plumbing/uast"
+	"github.com/dmytrogajewski/hercules/internal/test"
+	"github.com/dmytrogajewski/hercules/leaves"
 	"github.com/stretchr/testify/assert"
-	"gopkg.in/src-d/hercules.v10/internal/core"
-	uast_items "gopkg.in/src-d/hercules.v10/internal/plumbing/uast"
-	"gopkg.in/src-d/hercules.v10/internal/test"
-	"gopkg.in/src-d/hercules.v10/leaves"
 )
 
 func TestPipelineSerialize(t *testing.T) {

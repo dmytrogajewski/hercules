@@ -1,3 +1,4 @@
+//go:build tensorflow
 // +build tensorflow
 
 package leaves
@@ -10,18 +11,20 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/dmytrogajewski/hercules/internal/core"
+	"github.com/dmytrogajewski/hercules/internal/pb"
+	items "github.com/dmytrogajewski/hercules/internal/plumbing"
+	uast_items "github.com/dmytrogajewski/hercules/internal/plumbing/uast"
 	"github.com/gogo/protobuf/proto"
 	"gopkg.in/bblfsh/sdk.v2/uast"
 	"gopkg.in/bblfsh/sdk.v2/uast/nodes"
 	progress "gopkg.in/cheggaaa/pb.v1"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/hercules.v10/internal/core"
-	"gopkg.in/src-d/hercules.v10/internal/pb"
-	items "gopkg.in/src-d/hercules.v10/internal/plumbing"
-	uast_items "gopkg.in/src-d/hercules.v10/internal/plumbing/uast"
 	sentiment "gopkg.in/vmarkovtsev/BiDiSentiment.v1"
 )
+
+var _ core.PipelineItem = (*CommentSentimentAnalysis)(nil)
 
 // CommentSentimentAnalysis measures comment sentiment through time.
 type CommentSentimentAnalysis struct {

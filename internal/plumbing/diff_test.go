@@ -5,16 +5,16 @@ import (
 	"time"
 	"unicode/utf8"
 
+	"github.com/dmytrogajewski/hercules"
+	"github.com/dmytrogajewski/hercules/internal"
+	"github.com/dmytrogajewski/hercules/internal/core"
+	items "github.com/dmytrogajewski/hercules/internal/plumbing"
+	"github.com/dmytrogajewski/hercules/internal/test"
+	"github.com/dmytrogajewski/hercules/internal/test/fixtures"
 	"github.com/sergi/go-diff/diffmatchpatch"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	"gopkg.in/src-d/hercules.v10"
-	"gopkg.in/src-d/hercules.v10/internal"
-	"gopkg.in/src-d/hercules.v10/internal/core"
-	items "gopkg.in/src-d/hercules.v10/internal/plumbing"
-	"gopkg.in/src-d/hercules.v10/internal/test"
-	"gopkg.in/src-d/hercules.v10/internal/test/fixtures"
 )
 
 func TestFileDiffMeta(t *testing.T) {

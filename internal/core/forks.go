@@ -7,9 +7,9 @@ import (
 	"reflect"
 	"sort"
 
+	"github.com/dmytrogajewski/hercules/internal/toposort"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	"gopkg.in/src-d/hercules.v10/internal/toposort"
 )
 
 // OneShotMergeProcessor provides the convenience method to consume merges only once.
@@ -387,7 +387,7 @@ func mergeDag(
 			continue
 		}
 		c := head
-		for true {
+		for {
 			nextParents := parents[c]
 			var next plumbing.Hash
 			for p := range nextParents {
@@ -401,7 +401,7 @@ func mergeDag(
 		}
 		head = c
 		var seq []*object.Commit
-		for true {
+		for {
 			visited[c] = true
 			seq = append(seq, hashes[c.String()])
 			if len(dag[c]) != 1 {

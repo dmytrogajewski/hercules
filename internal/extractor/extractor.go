@@ -4,7 +4,7 @@ import (
 	"regexp"
 	"strings"
 
-	"gopkg.in/src-d/hercules.v10/internal/importmodel"
+	"github.com/dmytrogajewski/hercules/internal/importmodel"
 )
 
 // Extractor extracts imports from source code

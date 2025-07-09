@@ -6,16 +6,18 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/dmytrogajewski/hercules/internal/core"
+	"github.com/dmytrogajewski/hercules/internal/pb"
+	items "github.com/dmytrogajewski/hercules/internal/plumbing"
+	"github.com/dmytrogajewski/hercules/internal/plumbing/identity"
 	"github.com/gogo/protobuf/proto"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
 	"gopkg.in/src-d/go-git.v4/utils/merkletrie"
-	"gopkg.in/src-d/hercules.v10/internal/core"
-	"gopkg.in/src-d/hercules.v10/internal/pb"
-	items "gopkg.in/src-d/hercules.v10/internal/plumbing"
-	"gopkg.in/src-d/hercules.v10/internal/plumbing/identity"
 )
+
+var _ core.PipelineItem = (*FileHistoryAnalysis)(nil)
 
 // FileHistoryAnalysis contains the intermediate state which is mutated by Consume(). It should implement
 // LeafPipelineItem.

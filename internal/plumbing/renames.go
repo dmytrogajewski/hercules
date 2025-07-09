@@ -9,14 +9,14 @@ import (
 	"time"
 	"unicode/utf8"
 
+	"github.com/dmytrogajewski/hercules/internal/core"
+	"github.com/dmytrogajewski/hercules/internal/levenshtein"
+	"github.com/dmytrogajewski/hercules/internal/mathutil"
 	"github.com/sergi/go-diff/diffmatchpatch"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
 	"gopkg.in/src-d/go-git.v4/utils/merkletrie"
-	"gopkg.in/src-d/hercules.v10/internal/core"
-	"gopkg.in/src-d/hercules.v10/internal/levenshtein"
-	"gopkg.in/src-d/hercules.v10/internal/mathutil"
 )
 
 // RenameAnalysis improves TreeDiff's results by searching for changed blobs under different

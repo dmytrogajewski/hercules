@@ -12,12 +12,14 @@ all: ${GOBIN}/hercules${EXE}
 
 # Run all tests with CGO disabled (for cross-platform compatibility)
 test: all
-	CGO_ENABLED=0 go test ./...
+	CGO_ENABLED=1 go test ./...
 
 # Run all tests with CGO disabled and verbose output
 testv: all
-	CGO_ENABLED=0 go test ./... -v
+	CGO_ENABLED=1 go test ./... -v
 
+clean:
+	rm ./hercules
 ${GOBIN}/protoc-gen-gogo${EXE}:
 	go build github.com/gogo/protobuf/protoc-gen-gogo
 
@@ -44,5 +46,5 @@ cmd/hercules/plugin_template_source.go: cmd/hercules/plugin.template
 	cd cmd/hercules && go generate
 
 ${GOBIN}/hercules${EXE}: *.go */*.go */*/*.go */*/*/*.go internal/pb/pb.pb.go internal/pb/hercules.pb.go cmd/hercules/plugin_template_source.go
-	LDFLAGS="-X gopkg.in/src-d/hercules.v10.BinaryGitHash=$(shell git rev-parse HEAD)"; \
-	CGO_ENABLED=0 go build -tags "$(TAGS)" -ldflags "$$LDFLAGS" -o ${GOBIN}/hercules${EXE} ./cmd/hercules
+	LDFLAGS="-X github.com/dmytrogajewski/hercules.BinaryGitHash=$(shell git rev-parse HEAD)"; \
+	CGO_ENABLED=1 go build -tags "$(TAGS)" -ldflags "$$LDFLAGS" -o ${GOBIN}/hercules${EXE} ./cmd/hercules
