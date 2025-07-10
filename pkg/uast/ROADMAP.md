@@ -120,6 +120,17 @@
 
 ---
 
+## Phase 7: Public Go APIs (Navigation, Streaming, Mutation via DSL)
+
+### 7.1 Navigation & Query APIs (DSL-based)
+- [ ] Implement `Node.FindDSL(query string) []*Node` (query nodes using the UAST DSL)
+- [ ] Implement `uast.PreOrder(root *Node) <-chan *Node` (streaming pre-order iterator)
+- [ ] Implement `uast.HasRole(node *Node, role Role) bool` (role check utility)
+- [ ] Implement `uast.Transform(root *Node, fn func(*Node) bool)` (mutation API)
+- [ ] All navigation/query APIs use the UAST DSL, not XPath
+
+---
+
 ## Test Plan Summary
 
 - **Unit tests** for all core structs, methods, and DSL parsing.
