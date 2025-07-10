@@ -1,0 +1,70 @@
+language: go
+extensions: [".go"]
+parser: tree-sitter
+mapping:
+  source_file:
+    type: go:file
+  function_declaration:
+    type: go:function
+    roles: [Function, Declaration]
+    props:
+      name: Name
+  identifier:
+    type: Identifier
+    roles: [Name]
+  parameter_list:
+    type: ParameterList
+  parameter_declaration:
+    type: Parameter
+    roles: [Parameter, Declaration]
+  block:
+    type: Block
+  return_statement:
+    type: Return
+    roles: [Return]
+  call_expression:
+    type: Call
+    roles: [Call]
+  selector_expression:
+    type: Selector
+  field_identifier:
+    type: Field
+    roles: [Name]
+  argument_list:
+    type: ArgumentList
+  interpreted_string_literal:
+    type: Literal
+    roles: [Literal]
+  interpreted_string_literal_content:
+    type: Literal
+    roles: [Literal]
+  pointer_type:
+    type: PointerType
+  qualified_type:
+    type: QualifiedType
+  type_identifier:
+    type: Type
+    roles: [Type]
+  slice_type:
+    type: SliceType
+  composite_literal:
+    type: CompositeLiteral
+  literal_value:
+    type: LiteralValue
+  keyed_element:
+    type: KeyValue
+    roles: [Key, Value]
+  literal_element:
+    type: Literal
+    roles: [Literal]
+  func_literal:
+    type: Lambda
+    roles: [Lambda]
+  expression_statement:
+    type: ExpressionStatement
+  package_clause:
+    type: Package
+    roles: [Package, Declaration]
+  package_identifier:
+    type: Identifier
+    roles: [Name] 

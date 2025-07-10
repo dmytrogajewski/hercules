@@ -1,0 +1,21 @@
+# UAST Implementation Rules
+
+- Always use `Parser` (`parser.go`) as the entrypoint for UAST parsing.
+- Provider loading must use `loader.go` and mapping files; do not hardcode providers.
+- Provider instantiation (native, treesitter, external) must go through `factory.go`.
+- `TreeSitterProvider` logic should remain isolated and only be updated for interface changes.
+- All new languages must have a mapping file and test coverage.
+- All code must be clean, idiomatic Go, with top-down function ordering, minimal comments, and descriptive names.
+- All changes must be accompanied by tests; run `make test` after every change.
+- Do not reintroduce legacy `EmbeddedProvider` or `Factory` abstractions.
+- Use table-driven tests for all new features.
+- Keep modules under 500 lines; split if necessary.
+- Prefer non-recursive implementations for conversion code.
+- In server mode, logs go to stdout as slog JSON; in CLI mode, logs go to a file.
+- Use `spf13/viper` for config and `gofr` for web server if needed.
+- Use distroless base images for Docker.
+- Use latest Tree-sitter version (0.25) for UAST parsing.
+- Do not use Babelfish when `--uast-provider=embedded` is set.
+- Always run `make clean && make` before `make test`.
+- Remove all debug logs from stdout unless debug flag is set.
+- All code must be self-explanatory; avoid comments except for public API and complex logic. 

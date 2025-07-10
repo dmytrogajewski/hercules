@@ -8,7 +8,7 @@ endif
 PKG = $(shell go env GOOS)_$(shell go env GOARCH)
 TAGS ?=
 
-all: ${GOBIN}/hercules${EXE}
+all: ${GOBIN}/hercules${EXE} ${GOBIN}/uast${EXE}
 
 # Run all tests with CGO disabled (for cross-platform compatibility)
 test: all
@@ -20,6 +20,7 @@ testv: all
 
 clean:
 	rm ./hercules
+	rm -f ./uast
 ${GOBIN}/protoc-gen-gogo${EXE}:
 	go build github.com/gogo/protobuf/protoc-gen-gogo
 
@@ -48,3 +49,7 @@ cmd/hercules/plugin_template_source.go: cmd/hercules/plugin.template
 ${GOBIN}/hercules${EXE}: *.go */*.go */*/*.go */*/*/*.go internal/pb/pb.pb.go internal/pb/hercules.pb.go cmd/hercules/plugin_template_source.go
 	LDFLAGS="-X github.com/dmytrogajewski/hercules.BinaryGitHash=$(shell git rev-parse HEAD)"; \
 	CGO_ENABLED=1 go build -tags "$(TAGS)" -ldflags "$$LDFLAGS" -o ${GOBIN}/hercules${EXE} ./cmd/hercules
+
+${GOBIN}/uast${EXE}: *.go */*.go */*/*.go */*/*/*.go
+	LDFLAGS="-X github.com/dmytrogajewski/hercules.BinaryGitHash=$(shell git rev-parse HEAD)"; \
+	CGO_ENABLED=1 go build -tags "$(TAGS)" -ldflags "$$LDFLAGS" -o ${GOBIN}/uast${EXE} ./cmd/uast
