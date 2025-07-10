@@ -57,7 +57,7 @@ Reduce          <- "reduce" _ '(' _ expr:FunctionRef _ ')' {
 // Infix operator precedence: == != > < >= <= lowest, then + -, then * /
 Infix           <- Eq
 
-Eq              <- left:Rel rest:(_ eqop _ Rel)* {
+Eq              <- left:Rel rest:(_ eqop _ Rel / _ hasop _ Rel)* {
   if len(rest.([]any)) == 0 {
     return left, nil
   }
@@ -221,3 +221,5 @@ FunctionRef     <- name:Ident { return &CallNode{Name: string(name.([]byte)), Ar
 Ident           <- [a-zA-Z_][a-zA-Z0-9_]* { return c.text, nil }
 
 _               <- [ \t\n\r]* { return nil, nil }
+
+hasop           <- "has"

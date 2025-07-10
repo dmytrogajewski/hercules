@@ -177,6 +177,41 @@ func lowerCall(n *CallNode) (QueryFunc, error) {
 			return out
 		}, nil
 	}
+	// Support 'has' for membership: Call(has, Field(x), Literal(y))
+	if n.Name == "has" && len(n.Args) == 2 {
+		leftField, ok := n.Args[0].(*FieldNode)
+		if !ok {
+			return nil, fmt.Errorf("'has' left operand must be a field")
+		}
+		rightLit, ok := n.Args[1].(*LiteralNode)
+		if !ok {
+			return nil, fmt.Errorf("'has' right operand must be a literal")
+		}
+		return func(nodes []*Node) []*Node {
+			var out []*Node
+			for _, node := range nodes {
+				var found bool
+				switch leftField.Name {
+				case "roles":
+					// O(1) hash-set lookup for roles
+					roleSet := make(map[string]struct{}, len(node.Roles))
+					for _, r := range node.Roles {
+						roleSet[string(r)] = struct{}{}
+					}
+					_, found = roleSet[fmt.Sprint(rightLit.Value)]
+				default:
+					// fallback: not supported
+					found = false
+				}
+				if found {
+					out = append(out, &Node{Type: "Literal", Token: "true"})
+				} else {
+					out = append(out, &Node{Type: "Literal", Token: "false"})
+				}
+			}
+			return out
+		}, nil
+	}
 	return nil, fmt.Errorf("unsupported call: %s", n.Name)
 }
 
