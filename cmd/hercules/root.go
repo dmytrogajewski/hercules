@@ -737,8 +737,14 @@ func main() {
 		}
 	}
 
+	// Debug output
+	fmt.Fprintf(os.Stderr, "DEBUG: serverMode=%v, logFile=%q\n", serverMode, logFile)
+
 	logger := selectLogger(serverMode, logFile)
 	core.SetLogger(logger)
+
+	// Debug output
+	fmt.Fprintf(os.Stderr, "DEBUG: selected logger type: %T\n", logger)
 
 	if err := rootCmd.Execute(); err != nil {
 		logger.Error(os.Stderr, err)
