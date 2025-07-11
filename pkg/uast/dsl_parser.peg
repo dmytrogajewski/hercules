@@ -1,225 +1,59 @@
-{
 package uast
-import (
-	"fmt"
-	"strconv"
-)
+
+type QueryDSL Peg {
+    
 }
 
-Start           <- expr:Expr !. { return expr, nil }
-                / Invalid
+Query <- Spacing Pipeline !.
 
-Expr            <- Pipeline
+Pipeline <- Expr (Spacing '|' '>' Spacing Expr)*
 
-Pipeline        <- first:Stage rest:(_ pipeop _ Stage)* {
-  out := []DSLNode{first}
-  for _, r := range rest.([]any) {
-    if r == nil {
-      continue
-    }
-    arr, ok := r.([]any)
-    if !ok || len(arr) < 4 || arr[3] == nil {
-      continue
-    }
-    node, ok := arr[3].(DSLNode)
-    if !ok {
-      continue
-    }
-    out = append(out, node)
-  }
-  if len(out) == 1 { return out[0], nil }
-  return &PipelineNode{Stages: out}, nil
-}
+Expr <- Filter / Map / Reduce / OrExpr
 
-pipeop          <- '|' '>'
+Filter <- 'filter' ((Spacing '(' Spacing Predicate Spacing ')') / (Spacing Predicate))
 
-Stage           <- Map / Filter / Reduce / Infix / Invalid
-Invalid         <- . { panic(fmt.Errorf("parse error at 1:1: unexpected token '%s'", string(c.text))) }
+Map <- 'map' ((Spacing '(' Spacing OrExpr Spacing ')') / (Spacing OrExpr))
 
-Primary         <- '(' _ expr:Expr _ ')' { return expr, nil }
-                / Call 
-                / Field 
-                / Literal 
-                / FunctionRef
+Reduce <- 'reduce' ((Spacing '(' Spacing ReducerName Spacing ')') / (Spacing ReducerName))
 
-Map             <- "map" _ '(' _ expr:Infix _ ')' {
-  return &MapNode{Expr: expr}, nil
-}
+ReducerName <- [a-zA-Z_][a-zA-Z0-9_]*
 
-Filter          <- "filter" _ '(' _ expr:Infix _ ')' {
-  return &FilterNode{Expr: expr}, nil
-}
+Predicate <- OrExpr
 
-Reduce          <- "reduce" _ '(' _ expr:FunctionRef _ ')' {
-  return &ReduceNode{Expr: expr}, nil
-}
+OrExpr <- AndExpr (Spacing '|' '|' Spacing AndExpr)*
 
-// Infix operator precedence: == != > < >= <= lowest, then + -, then * /
-Infix           <- Eq
+AndExpr <- NotExpr (Spacing '&' '&' Spacing NotExpr)*
 
-Eq              <- left:Rel rest:(_ eqop _ Rel / _ hasop _ Rel)* {
-  if len(rest.([]any)) == 0 {
-    return left, nil
-  }
-  out := left
-  for _, r := range rest.([]any) {
-    if r == nil {
-      continue
-    }
-    arr, ok := r.([]any)
-    if !ok || len(arr) < 4 || arr[1] == nil || arr[3] == nil {
-      continue
-    }
-    right, ok := arr[3].(DSLNode)
-    if !ok {
-      continue
-    }
-    op := string(arr[1].([]byte))
-    out = &CallNode{Name: op, Args: []DSLNode{out, right}}
-  }
-  return out, nil
-}
+NotExpr <- ('!' Spacing PrimaryExpr) / PrimaryExpr
 
-eqop            <- "==" / "!="
+PrimaryExpr <- Membership / Comparison / ParenExpr / FieldAccess / Literal
 
-Rel             <- left:Add rest:(_ relop _ Add)* {
-  if len(rest.([]any)) == 0 {
-    return left, nil
-  }
-  out := left
-  for _, r := range rest.([]any) {
-    if r == nil {
-      continue
-    }
-    arr, ok := r.([]any)
-    if !ok || len(arr) < 4 || arr[1] == nil || arr[3] == nil {
-      continue
-    }
-    right, ok := arr[3].(DSLNode)
-    if !ok {
-      continue
-    }
-    op := string(arr[1].([]byte))
-    out = &CallNode{Name: op, Args: []DSLNode{out, right}}
-  }
-  return out, nil
-}
+ParenExpr <- '(' Spacing OrExpr Spacing ')'
 
-relop           <- ">=" / "<=" / ">" / "<"
+Comparison <- Value Spacing CompOp Spacing Value
 
-Add             <- left:Mul rest:(_ addop _ Mul)* {
-  if len(rest.([]any)) == 0 {
-    return left, nil
-  }
-  out := left
-  for _, r := range rest.([]any) {
-    if r == nil {
-      continue
-    }
-    arr, ok := r.([]any)
-    if !ok || len(arr) < 4 || arr[1] == nil || arr[3] == nil {
-      continue
-    }
-    right, ok := arr[3].(DSLNode)
-    if !ok {
-      continue
-    }
-    op := string(arr[1].([]byte))
-    out = &CallNode{Name: op, Args: []DSLNode{out, right}}
-  }
-  return out, nil
-}
+CompOp <- ('=' '=') / ('!' '=') / ('>' '=') / ('<' '=') / '>' / '<'
 
-addop           <- "+" / "-"
+Membership <- FieldAccess Spacing 'has' Spacing Value
 
-Mul             <- left:Primary rest:(_ mulop _ Primary)* {
-  if len(rest.([]any)) == 0 {
-    return left, nil
-  }
-  out := left
-  for _, r := range rest.([]any) {
-    if r == nil {
-      continue
-    }
-    arr, ok := r.([]any)
-    if !ok || len(arr) < 4 || arr[1] == nil || arr[3] == nil {
-      continue
-    }
-    right, ok := arr[3].(DSLNode)
-    if !ok {
-      continue
-    }
-    op := string(arr[1].([]byte))
-    out = &CallNode{Name: op, Args: []DSLNode{out, right}}
-  }
-  return out, nil
-}
+FieldAccess <- '.' Identifier ('.' Identifier)*
 
-mulop           <- "*" / "/"
+Value <- FieldAccess / Literal
 
-Call            <- name:Ident _ '(' _ args:ArgList? _ ')' {
-  var argNodes []DSLNode
-  if args != nil { argNodes = args.([]DSLNode) }
-  return &CallNode{Name: string(name.([]byte)), Args: argNodes}, nil
-}
+Literal <- String / Number / Boolean
 
-ArgList         <- first:Expr rest:(_ ',' _ Expr)* {
-  out := []DSLNode{first}
-  for _, r := range rest.([]any) {
-    if r == nil {
-      continue
-    }
-    arr, ok := r.([]any)
-    if !ok || len(arr) < 4 || arr[3] == nil {
-      continue
-    }
-    expr, ok := arr[3].(DSLNode)
-    if !ok {
-      continue
-    }
-    out = append(out, expr)
-  }
-  return out, nil
-}
+String <- ('"' (!'"' .)* '"') / ('\'' (!'\'' .)* '\'')
 
-Field           <- '.' name:Ident { return &FieldNode{Name: string(name.([]byte))}, nil }
+Number <- [0-9]+ ('.' [0-9]+)?
 
-Literal         <- Int / String
+Boolean <- 'true' / 'false'
 
-Int             <- [0-9]+ { v, _ := strconv.Atoi(string(c.text)); return &LiteralNode{Value: v}, nil }
+Identifier <- [a-zA-Z_][a-zA-Z0-9_]*
 
-String          <- '"' chars:Char* '"' {
-  s := ""
-  switch v := chars.(type) {
-  case string:
-    s = v
-  case []rune:
-    s = string(v)
-  case []byte:
-    s = string(v)
-  case []interface{}:
-    for _, c := range v {
-      switch x := c.(type) {
-      case rune:
-        s += string(x)
-      case byte:
-        s += string(x)
-      case string:
-        s += x
-      case []uint8:
-        s += string(x)
-      }
-    }
-  }
-  return &LiteralNode{Value: s}, nil
-}
+Spacing <- (Space / Comment)*
 
-Char            <- [^"\n]
+Space <- ' ' / '\t' / '\n' / '\r'
 
-FunctionRef     <- name:Ident { return &CallNode{Name: string(name.([]byte)), Args: nil}, nil }
+Comment <- ('#' (!EndOfLine .)* EndOfLine) / ('//' (!EndOfLine .)* EndOfLine)
 
-Ident           <- [a-zA-Z_][a-zA-Z0-9_]* { return c.text, nil }
-
-_               <- [ \t\n\r]* { return nil, nil }
-
-hasop           <- "has"
+EndOfLine <- '\r\n' / '\n' / '\r'

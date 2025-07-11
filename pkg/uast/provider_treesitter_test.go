@@ -12,6 +12,16 @@ func TestTreeSitterProvider_Parse_Go(t *testing.T) {
 	provider := &TreeSitterProvider{
 		language: sitter.NewLanguage(tsgo.GetLanguage()),
 		langName: "go",
+		mapping: map[string]Mapping{
+			"source_file": {
+				Type: "go:file",
+			},
+			"function_declaration": {
+				Type:  "go:function",
+				Roles: []string{"Function", "Declaration"},
+				Props: map[string]any{"name": "Name"},
+			},
+		},
 	}
 	node, err := provider.Parse("main.go", src)
 	if err != nil {

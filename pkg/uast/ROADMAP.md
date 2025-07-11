@@ -79,9 +79,13 @@
 - Next: Expand DSL runtime (3.2), add more operators, transformations, and integration.
 
 ### 3.2 DSL Runtime
-- [x] Implement query execution engine (iterator pipeline).
+- [x] Implement query execution engine (pipeline of Go closures).
 - [x] Implement transformation primitives (`map`, `filter`, `reduce`, etc).
 - [x] Write integration tests: query strings → expected node sets.
+- [ ] Refactor DSL runtime to use a true iterator abstraction (like go-jq), replacing the current pipeline of Go closures with composable iterator types for streaming and lazy evaluation.
+  - [ ] Design iterator interface and composable stages (map, filter, reduce, etc).
+  - [ ] Refactor pipeline lowering to produce iterator chains.
+  - [ ] Update tests to cover iterator-based execution.
 
 ---
 

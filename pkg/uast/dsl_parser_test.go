@@ -1,6 +1,8 @@
 package uast
 
 import (
+	"fmt"
+	"os"
 	"testing"
 )
 
@@ -22,6 +24,15 @@ func TestDSLParser_Parse_Valid(t *testing.T) {
 			ast, err := ParseDSL(tc.input)
 			if err != nil {
 				t.Fatalf("unexpected error: %v", err)
+			}
+			if tc.input == "map(.children) |> filter(.type == \"FunctionDecl\")" {
+				// DEBUG: print the raw AST structure
+				parser := &QueryDSL{Buffer: tc.input}
+				_ = parser.Init()
+				_ = parser.Parse()
+				root := parser.tokens32.AST()
+				fmt.Println("DEBUG RAW AST:")
+				root.Print(os.Stdout, tc.input)
 			}
 			got := stringifyAST(ast)
 			if got != tc.wantAST {
@@ -217,5 +228,13 @@ func main() {
 		if got[i] != want[i] {
 			t.Errorf("got %v, want %v", got, want)
 		}
+	}
+}
+
+func TestDSLParser_Parse_MembershipAndLogical(t *testing.T) {
+	query := "filter(.type == \"Function\" && .roles has \"Exported\")"
+	_, err := ParseDSL(query)
+	if err != nil {
+		t.Fatalf("ParseDSL failed: %v", err)
 	}
 }

@@ -186,3 +186,69 @@ func (n *Node) ReplaceChild(old, new *Node) bool {
 	}
 	return false
 }
+
+// FindDSL parses and executes a DSL query, returning all matching nodes.
+func (n *Node) FindDSL(query string) ([]*Node, error) {
+	ast, err := ParseDSL(query)
+	if err != nil {
+		return nil, err
+	}
+	qf, err := LowerDSL(ast)
+	if err != nil {
+		return nil, err
+	}
+	return qf([]*Node{n}), nil
+}
+
+// PreOrder returns a channel streaming nodes in pre-order traversal.
+func PreOrder(root *Node) <-chan *Node {
+	ch := make(chan *Node)
+	go func() {
+		if root == nil {
+			close(ch)
+			return
+		}
+		stack := []*Node{root}
+		for len(stack) > 0 {
+			n := stack[len(stack)-1]
+			stack = stack[:len(stack)-1]
+			ch <- n
+			for i := len(n.Children) - 1; i >= 0; i-- {
+				stack = append(stack, n.Children[i])
+			}
+		}
+		close(ch)
+	}()
+	return ch
+}
+
+// HasRole returns true if the node has the given role (O(1) lookup).
+func HasRole(node *Node, role Role) bool {
+	if node == nil || len(node.Roles) == 0 {
+		return false
+	}
+	for _, r := range node.Roles {
+		if r == role {
+			return true
+		}
+	}
+	return false
+}
+
+// Transform traverses the tree and applies fn to each node (pre-order, in-place).
+func Transform(root *Node, fn func(*Node) bool) {
+	if root == nil {
+		return
+	}
+	stack := []*Node{root}
+	for len(stack) > 0 {
+		n := stack[len(stack)-1]
+		stack = stack[:len(stack)-1]
+		if !fn(n) {
+			continue
+		}
+		for i := len(n.Children) - 1; i >= 0; i-- {
+			stack = append(stack, n.Children[i])
+		}
+	}
+}
