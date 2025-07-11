@@ -108,13 +108,53 @@ func printErrAndExit(format string, args ...interface{}) {
 }
 
 func queryCmd() *cobra.Command {
-	return &cobra.Command{
-		Use:   "query",
+	var (
+		infile string
+		out    string
+	)
+	cmd := &cobra.Command{
+		Use:   "query [flags] <dsl-query>",
 		Short: "Run DSL queries on UAST (input: file/stdin, output: JSON)",
+		Args:  cobra.MinimumNArgs(1),
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Println("query: not implemented yet")
+			query := args[0]
+			var input io.Reader = os.Stdin
+			if infile != "" && infile != "-" {
+				f, err := os.Open(infile)
+				if err != nil {
+					printErrAndExit("failed to open input file: %v", err)
+				}
+				defer f.Close()
+				input = f
+			}
+			var node uast.Node
+			dec := json.NewDecoder(input)
+			if err := dec.Decode(&node); err != nil {
+				printErrAndExit("failed to decode UAST JSON: %v", err)
+			}
+			results, err := node.FindDSL(query)
+			if err != nil {
+				printErrAndExit("query error: %v", err)
+			}
+			var output io.Writer = os.Stdout
+			if out != "" {
+				f, err := os.Create(out)
+				if err != nil {
+					printErrAndExit("failed to create output file: %v", err)
+				}
+				defer f.Close()
+				output = f
+			}
+			enc := json.NewEncoder(output)
+			enc.SetIndent("", "  ")
+			if err := enc.Encode(results); err != nil {
+				printErrAndExit("failed to encode query result as JSON: %v", err)
+			}
 		},
 	}
+	cmd.Flags().StringVar(&infile, "in", "-", "Input UAST JSON file (default: stdin)")
+	cmd.Flags().StringVar(&out, "out", "", "Output file (default: stdout)")
+	return cmd
 }
 
 func fmtCmd() *cobra.Command {

@@ -24,7 +24,7 @@ func TestLoadProviders_Embedded(t *testing.T) {
 	if goProv.Parser != "tree-sitter" {
 		t.Errorf("expected parser 'tree-sitter', got %q", goProv.Parser)
 	}
-	if goProv.Mapping["function_declaration"].Type != "go:function" {
+	if goProv.Mapping["function_declaration"].Type != "Function" {
 		t.Errorf("expected mapping for function_declaration")
 	}
 }

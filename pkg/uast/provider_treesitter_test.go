@@ -14,10 +14,10 @@ func TestTreeSitterProvider_Parse_Go(t *testing.T) {
 		langName: "go",
 		mapping: map[string]Mapping{
 			"source_file": {
-				Type: "go:file",
+				Type: "File",
 			},
 			"function_declaration": {
-				Type:  "go:function",
+				Type:  "Function",
 				Roles: []string{"Function", "Declaration"},
 				Props: map[string]any{"name": "Name"},
 			},
@@ -30,21 +30,21 @@ func TestTreeSitterProvider_Parse_Go(t *testing.T) {
 	if node == nil {
 		t.Fatalf("Parse returned nil node")
 	}
-	if node.Type != "go:file" {
-		t.Errorf("expected root type 'go:file', got %q", node.Type)
+	if node.Type != "File" {
+		t.Errorf("expected root type 'File', got %q", node.Type)
 	}
 	if len(node.Children) == 0 {
 		t.Errorf("expected children, got none")
 	}
 	foundFunc := false
 	for _, child := range node.Children {
-		if child.Type == "go:function" {
+		if child.Type == "Function" {
 			foundFunc = true
 			break
 		}
 	}
 	if !foundFunc {
-		t.Errorf("expected at least one child of type 'go:function'")
+		t.Errorf("expected at least one child of type 'Function'")
 	}
 }
 
@@ -63,10 +63,10 @@ func TestEmbeddedProvider_LanguageDetectionAndParsing(t *testing.T) {
 		wantChildren bool
 		wantErr      bool
 	}{
-		{"Go file", "main.go", "package main\nfunc main() {}", "go", "go:file", "", true, false},
-		{"Empty file", "empty.go", "", "go", "go:file", "", false, false},
+		{"Go file", "main.go", "package main\nfunc main() {}", "go", "File", "", true, false},
+		{"Empty file", "empty.go", "", "go", "", "", false, false},
 		{"Unsupported ext", "file.txt", "hello", "", "", "", false, true},
-		{"Invalid code", "broken.go", "func {", "go", "go:file", "", true, false},
+		{"Invalid code", "broken.go", "func {", "go", "File", "", true, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -79,6 +79,12 @@ func TestEmbeddedProvider_LanguageDetectionAndParsing(t *testing.T) {
 			}
 			if err != nil {
 				t.Errorf("Unexpected error: %v", err)
+				return
+			}
+			if tt.wantType == "" {
+				if node != nil {
+					t.Errorf("Expected nil node for empty file, got non-nil")
+				}
 				return
 			}
 			if node == nil {

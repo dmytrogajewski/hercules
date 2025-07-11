@@ -2,7 +2,6 @@ package uast
 
 import (
 	"fmt"
-	"log"
 )
 
 // AST node types for the DSL
@@ -106,13 +105,8 @@ func lowerFilter(n *FilterNode) (QueryFunc, error) {
 		var out []*Node
 		for _, node := range nodes {
 			for _, child := range node.Children {
-				log.Printf("[DEBUG] lowerFilter: checking child Type=%s Props=%v", child.Type, child.Props)
 				res := predFunc([]*Node{child})
-				if len(res) > 0 {
-					log.Printf("[DEBUG] lowerFilter: predicate result for child Type=%s: %v", child.Type, res[0].Token)
-				}
 				if len(res) > 0 && res[0].Type == "Literal" && res[0].Token == "true" {
-					log.Printf("[DEBUG] lowerFilter: matched child Type=%s Props=%v", child.Type, child.Props)
 					out = append(out, child)
 				}
 			}
@@ -210,7 +204,6 @@ func lowerCall(n *CallNode) (QueryFunc, error) {
 				for _, n := range r {
 					rTokens = append(rTokens, n.Token)
 				}
-				log.Printf("[DEBUG] lowerCall &&: node.Type=%s lTrue=%v rTrue=%v lTokens=%v rTokens=%v", node.Type, lTrue, rTrue, lTokens, rTokens)
 				if lTrue && rTrue {
 					out = append(out, &Node{Type: "Literal", Token: "true"})
 				} else {
@@ -242,7 +235,6 @@ func lowerCall(n *CallNode) (QueryFunc, error) {
 				if len(right) > 0 {
 					rval = right[0].Token
 				}
-				log.Printf("[DEBUG] lowerCall ==: node.Type=%s left=%q right=%q", node.Type, lval, rval)
 				if len(left) > 0 && len(right) > 0 && lval == rval {
 					out = append(out, &Node{Type: "Literal", Token: "true"})
 				} else {
@@ -268,7 +260,6 @@ func lowerCall(n *CallNode) (QueryFunc, error) {
 				leftVals := leftFunc([]*Node{node})
 				rightVals := rightFunc(nil)
 				if len(leftVals) == 0 || len(rightVals) == 0 {
-					log.Printf("[DEBUG] lowerCall has: leftVals or rightVals is empty for node.Type=%s", node.Type)
 					out = append(out, &Node{Type: "Literal", Token: "false"})
 					continue
 				}
@@ -280,7 +271,6 @@ func lowerCall(n *CallNode) (QueryFunc, error) {
 						break
 					}
 				}
-				log.Printf("[DEBUG] lowerCall has: node.Token=%q leftVals=%v rightVals=%v found=%v", node.Token, leftVals, rightVals, found)
 				if found {
 					out = append(out, &Node{Type: "Literal", Token: "true"})
 				} else {

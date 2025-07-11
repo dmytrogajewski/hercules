@@ -2,8 +2,8 @@ package uast
 
 import (
 	"context"
+	"errors"
 	"fmt"
-	"strings"
 
 	sitter "github.com/alexaandru/go-tree-sitter-bare"
 )
@@ -17,38 +17,14 @@ type TreeSitterProvider struct {
 func (p *TreeSitterProvider) Parse(filename string, content []byte) (*Node, error) {
 	parser := sitter.NewParser()
 	parser.SetLanguage(p.language)
-
-	if len(content) == 0 || len(strings.TrimSpace(string(content))) == 0 {
-		return &Node{
-			Type:     fmt.Sprintf("%s:file", p.langName),
-			Token:    "",
-			Pos:      &Positions{StartLine: 0, StartCol: 0, StartOffset: 0, EndLine: 0, EndCol: 0, EndOffset: 0},
-			Children: []*Node{},
-		}, nil
-	}
-
 	tree, err := parser.ParseString(context.Background(), nil, content)
 	if err != nil {
-		return nil, fmt.Errorf("parse error: %w", err)
+		return nil, fmt.Errorf("tree-sitter: failed to parse: %w", err)
 	}
-
 	root := tree.RootNode()
-	if !root.IsNamed() || root.ChildCount() == 0 {
-		return &Node{
-			Type:     fmt.Sprintf("%s:file", p.langName),
-			Token:    filename,
-			Pos:      &Positions{StartLine: 0, StartCol: 0, StartOffset: 0, EndLine: 0, EndCol: 0, EndOffset: 0},
-			Children: []*Node{},
-		}, nil
+	if root.IsNull() {
+		return nil, errors.New("tree-sitter: no root node")
 	}
-
-	// --- DEBUG: Print AST node types ---
-	fmt.Printf("[DEBUG] Tree-sitter root node type: %s\n", root.Type())
-	for i := uint32(0); i < root.NamedChildCount(); i++ {
-		child := root.NamedChild(i)
-		fmt.Printf("[DEBUG] Child %d: type=%s, start=%d, end=%d\n", i, child.Type(), child.StartByte(), child.EndByte())
-	}
-	// --- END DEBUG ---
 
 	tsNode := &TreeSitterNode{
 		Root:     root,
@@ -57,8 +33,11 @@ func (p *TreeSitterProvider) Parse(filename string, content []byte) (*Node, erro
 		Source:   content,
 		Mapping:  p.mapping,
 	}
-
-	return tsNode.ToCanonicalNode(), nil
+	canonical := tsNode.ToCanonicalNode()
+	if canonical == nil {
+		return nil, nil
+	}
+	return canonical, nil
 }
 
 func (p *TreeSitterProvider) Language() string {
@@ -90,6 +69,11 @@ func (n *TreeSitterNode) ToCanonicalNode() *Node {
 	}
 	props := map[string]string{}
 	var roles []Role
+
+	// Handle skip_if_empty for source_file
+	if kind == "source_file" && hasMapping && mapping.SkipIfEmpty && len(children) == 0 {
+		return nil
+	}
 
 	// SPEC: For the root node (source_file), always use 'lang:file' as the canonical type
 	typeStr := n.Language + ":" + kind

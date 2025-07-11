@@ -136,7 +136,7 @@ func world() {}`
 	// Collect all nodes in the tree
 	nodes := uast.Find(func(n *Node) bool { return true })
 	// Query: get all function nodes' types
-	dsl := "filter(.type == \"go:function\") |> map(.type)"
+	dsl := "filter(.type == \"Function\") |> map(.type)"
 	ast, err := ParseDSL(dsl)
 	if err != nil {
 		t.Fatalf("DSL parse error: %v", err)
@@ -150,7 +150,7 @@ func world() {}`
 	for _, n := range out {
 		got = append(got, n.Token)
 	}
-	want := []string{"go:function", "go:function"}
+	want := []string{"Function", "Function"}
 	if len(got) != len(want) {
 		t.Errorf("got %v, want %v", got, want)
 		return
@@ -197,14 +197,14 @@ func main() {
 	}
 	// Collect all nodes in the tree
 	nodes := uast.Find(func(n *Node) bool { return true })
-	// Print Props and Token for all go:function and go:method nodes
+	// Print Props and Token for all Function and Method nodes
 	for _, n := range nodes {
-		if n.Type == "go:function" || n.Type == "go:method" {
+		if n.Type == "Function" || n.Type == "Method" {
 			t.Logf("%s Props: %v, Token: %q", n.Type, n.Props, n.Token)
 		}
 	}
 	// Query: get all function/method names
-	dsl := "filter(.type == \"go:function\" || .type == \"go:method\") |> map(.name)"
+	dsl := "filter(.type == \"Function\" || .type == \"Method\") |> map(.name)"
 	ast, err := ParseDSL(dsl)
 	if err != nil {
 		t.Fatalf("DSL parse error: %v", err)

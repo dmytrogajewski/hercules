@@ -3,18 +3,33 @@ extensions: [".go"]
 parser: tree-sitter
 mapping:
   source_file:
-    type: go:file
+    type: File
+    skip_if_empty: true
   function_declaration:
-    type: go:function
+    type: Function
     roles: [Function, Declaration]
     props:
       name: Name
   method_declaration:
-    type: go:method
+    type: Method
     roles: [Method, Declaration]
     props:
       name: Name
       receiver: Receiver
+  import_declaration:
+    type: Import
+  import_spec_list:
+    type: ImportList
+  import_spec:
+    type: ImportSpec
+  var_declaration:
+    type: Variable
+  var_spec:
+    type: VariableSpec
+  expression_list:
+    type: ExpressionList
+  comment:
+    type: Comment
   identifier:
     type: Identifier
     roles: [Name]

@@ -255,20 +255,6 @@ func TestFindDSL_BasicAndMembership(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			// Print roles for each child node for debugging
-			for i, n := range tree.Children {
-				t.Logf("[DEBUG] Child %d: Type=%s Token=%s Roles=%v", i, n.Type, n.Token, n.Roles)
-			}
-			if tt.name == "all exported functions" {
-				ast, err := ParseDSL(tt.query)
-				if err != nil {
-					t.Fatalf("DSL parse error: %v", err)
-				}
-				t.Logf("[DEBUG] Parsed DSL AST: %#v", ast)
-				if filter, ok := ast.(*FilterNode); ok {
-					t.Logf("[DEBUG] Filter predicate AST: %#v", filter.Expr)
-				}
-			}
 			got, err := tree.FindDSL(tt.query)
 			if err != nil {
 				t.Fatalf("FindDSL error: %v", err)
@@ -285,11 +271,10 @@ func TestFindDSL_BasicAndMembership(t *testing.T) {
 	// Add a minimal test for membership parsing
 	t.Run("membership parsing", func(t *testing.T) {
 		query := ".roles has \"Exported\""
-		ast, err := ParseDSL(query)
+		_, err := ParseDSL(query)
 		if err != nil {
 			t.Fatalf("ParseDSL error: %v", err)
 		}
-		t.Logf("[DEBUG] Membership query AST: %#v", ast)
 	})
 }
 
