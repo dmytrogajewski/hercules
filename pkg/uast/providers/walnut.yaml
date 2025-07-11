@@ -1,0 +1,22 @@
+language: walnut
+extensions: [".cwal"]
+parser: tree-sitter
+mapping:
+  module:
+    type: File
+    skip_if_empty: true
+  data_statement:
+    type: Data
+    roles: [Declaration]
+  timeline_statement:
+    type: Timeline
+  when_statement:
+    type: When
+  match_statement:
+    type: Match
+  for_control_statement:
+    type: For
+    roles: [Loop]
+  identifier:
+    type: Identifier
+    roles: [Name] 

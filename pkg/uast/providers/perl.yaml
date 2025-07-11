@@ -1,0 +1,83 @@
+language: perl
+extensions: [".pl", ".pm"]
+parser: tree-sitter
+mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
+  subroutine_declaration_statement:
+    type: Function
+    roles: [Function, Declaration]
+    props:
+      name: Name
+  method_declaration_statement:
+    type: Method
+    roles: [Method, Declaration]
+    props:
+      name: Name
+  class_statement:
+    type: Class
+    roles: [Class, Declaration]
+    props:
+      name: Name
+  role_statement:
+    type: Interface
+    roles: [Interface, Declaration]
+    props:
+      name: Name
+  package_statement:
+    type: Module
+    roles: [Module, Declaration]
+    props:
+      name: Name
+  use_statement:
+    type: Import
+    roles: [Import]
+  identifier:
+    type: Identifier
+    roles: [Name]
+  parameter:
+    type: Parameter
+    roles: [Parameter, Declaration]
+  parameter_list:
+    type: ParameterList
+  block:
+    type: Block
+  return_statement:
+    type: Return
+    roles: [Return]
+  call_expression:
+    type: Call
+    roles: [Call]
+  argument_list:
+    type: ArgumentList
+  string:
+    type: Literal
+    roles: [Literal]
+  integer:
+    type: Literal
+    roles: [Literal]
+  float:
+    type: Literal
+    roles: [Literal]
+  comment:
+    type: Comment
+    roles: [Comment]
+  if_statement:
+    type: If
+  for_statement:
+    type: For
+    roles: [Loop]
+  while_statement:
+    type: While
+    roles: [Loop]
+  assignment:
+    type: Assignment
+    roles: [Assignment]
+  array:
+    type: List
+  hash:
+    type: Dict
+  lambda:
+    type: Lambda
+    roles: [Lambda] 

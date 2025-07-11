@@ -1,0 +1,16 @@
+language: wtf
+extensions: [".wtf"]
+parser: tree-sitter
+mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
+  use:
+    type: Import
+    roles: [Import]
+  package_header:
+    type: Package
+    roles: [Package, Declaration]
+  ident:
+    type: Identifier
+    roles: [Name] 

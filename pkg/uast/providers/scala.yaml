@@ -1,0 +1,83 @@
+language: scala
+extensions: [".scala"]
+parser: tree-sitter
+mapping:
+  compilation_unit:
+    type: File
+    skip_if_empty: true
+  function_definition:
+    type: Function
+    roles: [Function, Declaration]
+    props:
+      name: Name
+  class_definition:
+    type: Class
+    roles: [Class, Declaration]
+    props:
+      name: Name
+  object_definition:
+    type: Object
+    roles: [Class, Declaration]
+    props:
+      name: Name
+  trait_definition:
+    type: Interface
+    roles: [Interface, Declaration]
+    props:
+      name: Name
+  enum_definition:
+    type: Enum
+    roles: [Enum, Declaration]
+    props:
+      name: Name
+  import_declaration:
+    type: Import
+    roles: [Import]
+  identifier:
+    type: Identifier
+    roles: [Name]
+  parameter:
+    type: Parameter
+    roles: [Parameter, Declaration]
+  parameter_list:
+    type: ParameterList
+  block:
+    type: Block
+  return_statement:
+    type: Return
+    roles: [Return]
+  call_expression:
+    type: Call
+    roles: [Call]
+  argument_list:
+    type: ArgumentList
+  string_literal:
+    type: Literal
+    roles: [Literal]
+  integer_literal:
+    type: Literal
+    roles: [Literal]
+  float_literal:
+    type: Literal
+    roles: [Literal]
+  comment:
+    type: Comment
+    roles: [Comment]
+  if_expression:
+    type: If
+  for_expression:
+    type: For
+    roles: [Loop]
+  while_expression:
+    type: While
+    roles: [Loop]
+  assignment:
+    type: Assignment
+    roles: [Assignment]
+  array_literal:
+    type: List
+  map_literal:
+    type: Dict
+  lambda_expression:
+    type: Lambda
+    roles: [Lambda] 

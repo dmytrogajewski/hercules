@@ -1,0 +1,26 @@
+language: virdant
+extensions: [".virdant"]
+parser: tree-sitter
+mapping:
+  package:
+    type: Module
+  package_import:
+    type: Import
+  moddef:
+    type: Module
+    props:
+      name: name
+      members: body
+  structdef:
+    type: Struct
+    props:
+      name: name
+      field: field
+  uniondef:
+    type: Union
+    props:
+      name: name
+  socketdef:
+    type: Class
+    props:
+      name: name 

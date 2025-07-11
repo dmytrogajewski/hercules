@@ -1,0 +1,21 @@
+language: vento
+extensions: [".vento"]
+parser: tree-sitter
+mapping:
+  template:
+    type: File
+  tag:
+    type: Call
+    props:
+      code: code
+      keyword: keyword
+  content:
+    type: Expression
+  filter:
+    type: Call
+  keyword:
+    type: Identifier
+  code_snippet:
+    type: Code
+  comment:
+    type: Comment 

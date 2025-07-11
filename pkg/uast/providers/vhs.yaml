@@ -1,0 +1,40 @@
+language: vhs
+extensions: [".tape"]
+parser: tree-sitter
+mapping:
+  program:
+    type: File
+  command:
+    type: Statement
+  control:
+    type: Call
+  shift:
+    type: Call
+  alt:
+    type: Call
+  output:
+    type: Call
+  sleep:
+    type: Call
+  type:
+    type: Call
+  backspace:
+    type: Call
+  down:
+    type: Call
+  enter:
+    type: Call
+  escape:
+    type: Call
+  left:
+    type: Call
+  right:
+    type: Call
+  set:
+    type: Assignment
+  env:
+    type: Assignment
+  require:
+    type: Import
+  source:
+    type: Import 

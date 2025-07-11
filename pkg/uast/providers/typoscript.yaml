@@ -1,0 +1,20 @@
+language: typoscript
+extensions: [".typoscript"]
+parser: tree-sitter
+mapping:
+  typoscript:
+    type: File
+  assignment_line:
+    type: Assignment
+  reference_line:
+    type: Reference
+  modification_line:
+    type: Assignment
+  deletion_line:
+    type: Deletion
+  copy_line:
+    type: Copy
+  configuration_block:
+    type: Block
+  comment:
+    type: Comment 

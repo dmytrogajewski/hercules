@@ -1,0 +1,24 @@
+language: uxntal
+extensions: [".tal"]
+parser: tree-sitter
+mapping:
+  program:
+    type: File
+  macro:
+    type: Function
+    props:
+      name: name
+  subroutine:
+    type: Function
+    props:
+      name: name
+  opcode:
+    type: Call
+  include:
+    type: Import
+  label:
+    type: Label
+  number:
+    type: Literal
+  identifier:
+    type: Identifier 

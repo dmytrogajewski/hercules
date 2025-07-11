@@ -1,0 +1,24 @@
+language: vrl
+extensions: [".vrl"]
+parser: tree-sitter
+mapping:
+  program:
+    type: File
+  if_statement:
+    type: If
+  binary_expression:
+    type: BinaryExpression
+    props:
+      left: left
+      right: right
+      operator: operator
+  unary_expression:
+    type: UnaryExpression
+  return:
+    type: Return
+  abort:
+    type: Throw
+  _assignment_expr:
+    type: Assignment
+  _term:
+    type: Expression 

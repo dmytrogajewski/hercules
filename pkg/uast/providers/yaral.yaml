@@ -1,0 +1,15 @@
+language: yaral
+extensions: [".yaral"]
+parser: tree-sitter
+mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
+  rule_definition:
+    type: Rule
+    roles: [Declaration]
+    props:
+      name: Name
+  identifier:
+    type: Identifier
+    roles: [Name] 

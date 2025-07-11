@@ -1,0 +1,18 @@
+language: vhdl
+extensions: [".vhdl", ".vhd"]
+parser: tree-sitter
+mapping:
+  design_file:
+    type: File
+  design_unit:
+    type: Module
+  library_clause:
+    type: Import
+  use_clause:
+    type: Import
+  context_reference:
+    type: Import
+  block_declarative_item:
+    type: Declaration
+  concurrent_statement:
+    type: Statement 

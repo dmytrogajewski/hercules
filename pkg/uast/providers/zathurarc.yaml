@@ -1,0 +1,29 @@
+language: zathurarc
+extensions: [".zathurarc"]
+parser: tree-sitter
+mapping:
+  file:
+    type: File
+    skip_if_empty: true
+  set_directive:
+    type: Assignment
+    roles: [Assignment]
+  include_directive:
+    type: Import
+    roles: [Import]
+  map_directive:
+    type: Map
+  unmap_directive:
+    type: Unmap
+  int:
+    type: Literal
+    roles: [Literal]
+  float:
+    type: Literal
+    roles: [Literal]
+  string:
+    type: Literal
+    roles: [Literal]
+  bool:
+    type: Literal
+    roles: [Literal] 

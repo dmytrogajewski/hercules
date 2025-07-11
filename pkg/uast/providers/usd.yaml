@@ -1,0 +1,18 @@
+language: usd
+extensions: [".usd"]
+parser: tree-sitter
+mapping:
+  module:
+    type: File
+  attribute_assignment:
+    type: Assignment
+  attribute_declaration:
+    type: Variable
+  prim_definition:
+    type: Class
+  relationship_assignment:
+    type: Assignment
+  relationship_declaration:
+    type: Variable
+  comment:
+    type: Comment 

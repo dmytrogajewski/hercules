@@ -1,0 +1,41 @@
+language: vim
+extensions: [".vim"]
+parser: tree-sitter
+mapping:
+  script_file:
+    type: File
+  function_definition:
+    type: Function
+    props:
+      name: name
+      body: body
+  let_statement:
+    type: Assignment
+    props:
+      value: value
+  const_statement:
+    type: Assignment
+    props:
+      value: value
+  set_statement:
+    type: Assignment
+    props:
+      value: value
+  return_statement:
+    type: Return
+  while_loop:
+    type: While
+    props:
+      body: body
+  for_loop:
+    type: For
+    props:
+      body: body
+  if_statement:
+    type: If
+    props:
+      body: body
+  call_statement:
+    type: Call
+    props:
+      name: name 

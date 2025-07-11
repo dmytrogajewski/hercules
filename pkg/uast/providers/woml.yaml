@@ -1,0 +1,20 @@
+language: woml
+extensions: [".woml"]
+parser: tree-sitter
+mapping:
+  doc:
+    type: File
+    skip_if_empty: true
+  entryObject:
+    type: Dict
+  entryList:
+    type: List
+  entryText:
+    type: Literal
+    roles: [Literal]
+  pair:
+    type: KeyValue
+    roles: [Key, Value]
+  identifier:
+    type: Identifier
+    roles: [Name] 

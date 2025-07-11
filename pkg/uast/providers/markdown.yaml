@@ -1,0 +1,60 @@
+language: markdown
+extensions: [".md", ".markdown"]
+parser: tree-sitter
+mapping:
+  document:
+    type: File
+  section:
+    type: Section
+  atx_heading:
+    type: Heading
+    props:
+      level: level
+      heading_content: text
+  setext_heading:
+    type: Heading
+    props:
+      level: level
+      heading_content: text
+  paragraph:
+    type: Paragraph
+  block_quote:
+    type: BlockQuote
+  list:
+    type: List
+  list_item:
+    type: ListItem
+  thematic_break:
+    type: ThematicBreak
+  indented_code_block:
+    type: CodeBlock
+  fenced_code_block:
+    type: CodeBlock
+    props:
+      info_string: language
+  html_block:
+    type: HtmlBlock
+  link_reference_definition:
+    type: LinkReference
+  link_label:
+    type: LinkLabel
+  link_destination:
+    type: LinkDestination
+  link_title:
+    type: LinkTitle
+  pipe_table:
+    type: Table
+  pipe_table_header:
+    type: TableHeader
+  pipe_table_row:
+    type: TableRow
+  pipe_table_cell:
+    type: TableCell
+  entity_reference:
+    type: EntityReference
+  numeric_character_reference:
+    type: NumericCharacterReference
+  code_fence_content:
+    type: Code
+  comment:
+    type: Comment 
