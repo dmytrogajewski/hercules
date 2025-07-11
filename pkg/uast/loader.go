@@ -20,9 +20,10 @@ type ProviderConfig struct {
 }
 
 type Mapping struct {
-	Type  string                 `yaml:"type"`
-	Roles []string               `yaml:"roles,omitempty"`
-	Props map[string]interface{} `yaml:"props,omitempty"`
+	Type        string                 `yaml:"type"`
+	Roles       []string               `yaml:"roles,omitempty"`
+	Props       map[string]interface{} `yaml:"props,omitempty"`
+	SkipIfEmpty bool                   `yaml:"skip_if_empty,omitempty"`
 }
 
 type Providers map[string]*ProviderConfig // language -> config
