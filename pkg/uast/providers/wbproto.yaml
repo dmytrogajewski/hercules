@@ -1,0 +1,18 @@
+language: wbproto
+extensions: [".wbproto"]
+parser: tree-sitter
+mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
+  proto:
+    type: Proto
+    roles: [Declaration]
+    props:
+      name: Name
+  extern:
+    type: Import
+    roles: [Import]
+  identifier:
+    type: Identifier
+    roles: [Name] 

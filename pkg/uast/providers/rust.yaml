@@ -1,0 +1,93 @@
+language: rust
+extensions: [".rs"]
+parser: tree-sitter
+mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
+  function_item:
+    type: Function
+    roles: [Function, Declaration]
+    props:
+      name: Name
+  struct_item:
+    type: Struct
+    roles: [Struct, Declaration]
+    props:
+      name: Name
+  enum_item:
+    type: Enum
+    roles: [Enum, Declaration]
+    props:
+      name: Name
+  trait_item:
+    type: Interface
+    roles: [Interface, Declaration]
+    props:
+      name: Name
+  mod_item:
+    type: Module
+    roles: [Module, Declaration]
+    props:
+      name: Name
+  use_declaration:
+    type: Import
+    roles: [Import]
+  identifier:
+    type: Identifier
+    roles: [Name]
+  parameters:
+    type: ParameterList
+  parameter:
+    type: Parameter
+    roles: [Parameter, Declaration]
+  block:
+    type: Block
+  return_expression:
+    type: Return
+    roles: [Return]
+  call_expression:
+    type: Call
+    roles: [Call]
+  argument_list:
+    type: ArgumentList
+  string_literal:
+    type: Literal
+    roles: [Literal]
+  integer_literal:
+    type: Literal
+    roles: [Literal]
+  float_literal:
+    type: Literal
+    roles: [Literal]
+  comment:
+    type: Comment
+    roles: [Comment]
+  if_expression:
+    type: If
+  for_expression:
+    type: For
+    roles: [Loop]
+  while_expression:
+    type: While
+    roles: [Loop]
+  match_expression:
+    type: Match
+  let_declaration:
+    type: Variable
+    roles: [Declaration]
+  assignment_expression:
+    type: Assignment
+    roles: [Assignment]
+  array_expression:
+    type: List
+  tuple_expression:
+    type: Tuple
+  struct_expression:
+    type: Struct
+  field_expression:
+    type: Field
+    roles: [Member]
+  attribute_item:
+    type: Decorator
+    roles: [Attribute] 

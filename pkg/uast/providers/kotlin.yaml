@@ -1,0 +1,78 @@
+language: kotlin
+extensions: [".kt", ".kts"]
+parser: tree-sitter
+mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
+  function_declaration:
+    type: Function
+    roles: [Function, Declaration]
+    props:
+      name: Name
+  class_declaration:
+    type: Class
+    roles: [Class, Declaration]
+    props:
+      name: Name
+  object_declaration:
+    type: Object
+    roles: [Class, Declaration]
+    props:
+      name: Name
+  interface_declaration:
+    type: Interface
+    roles: [Interface, Declaration]
+    props:
+      name: Name
+  import_header:
+    type: Import
+    roles: [Import]
+  identifier:
+    type: Identifier
+    roles: [Name]
+  parameter:
+    type: Parameter
+    roles: [Parameter, Declaration]
+  parameter_list:
+    type: ParameterList
+  block:
+    type: Block
+  return_statement:
+    type: Return
+    roles: [Return]
+  call_expression:
+    type: Call
+    roles: [Call]
+  argument_list:
+    type: ArgumentList
+  string_literal:
+    type: Literal
+    roles: [Literal]
+  integer_literal:
+    type: Literal
+    roles: [Literal]
+  float_literal:
+    type: Literal
+    roles: [Literal]
+  comment:
+    type: Comment
+    roles: [Comment]
+  if_expression:
+    type: If
+  for_expression:
+    type: For
+    roles: [Loop]
+  while_expression:
+    type: While
+    roles: [Loop]
+  assignment:
+    type: Assignment
+    roles: [Assignment]
+  array_literal:
+    type: List
+  map_literal:
+    type: Dict
+  lambda_literal:
+    type: Lambda
+    roles: [Lambda] 

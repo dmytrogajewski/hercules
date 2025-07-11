@@ -1,0 +1,88 @@
+language: python
+extensions: [".py"]
+parser: tree-sitter
+mapping:
+  module:
+    type: File
+    skip_if_empty: true
+  function_definition:
+    type: Function
+    roles: [Function, Declaration]
+    props:
+      name: Name
+  class_definition:
+    type: Class
+    roles: [Class, Declaration]
+    props:
+      name: Name
+  import_statement:
+    type: Import
+    roles: [Import]
+  import_from_statement:
+    type: Import
+    roles: [Import]
+  identifier:
+    type: Identifier
+    roles: [Name]
+  parameter:
+    type: Parameter
+    roles: [Parameter, Declaration]
+  parameters:
+    type: ParameterList
+  block:
+    type: Block
+  return_statement:
+    type: Return
+    roles: [Return]
+  call:
+    type: Call
+    roles: [Call]
+  argument_list:
+    type: ArgumentList
+  string:
+    type: Literal
+    roles: [Literal]
+  integer:
+    type: Literal
+    roles: [Literal]
+  float:
+    type: Literal
+    roles: [Literal]
+  comment:
+    type: Comment
+    roles: [Comment]
+  if_statement:
+    type: If
+  for_statement:
+    type: For
+    roles: [Loop]
+  while_statement:
+    type: While
+    roles: [Loop]
+  with_statement:
+    type: With
+  try_statement:
+    type: Try
+  except_clause:
+    type: Catch
+  finally_clause:
+    type: Finally
+  lambda:
+    type: Lambda
+    roles: [Lambda]
+  assignment:
+    type: Assignment
+    roles: [Assignment]
+  list:
+    type: List
+  dictionary:
+    type: Dict
+  tuple:
+    type: Tuple
+  set:
+    type: Set
+  attribute:
+    type: Attribute
+  decorator:
+    type: Decorator
+    roles: [Attribute] 

@@ -1,0 +1,16 @@
+language: unison
+extensions: [".u"]
+parser: tree-sitter
+mapping:
+  unison:
+    type: File
+  type_declaration:
+    type: Type
+  term_declaration:
+    type: Function
+  effect_declaration:
+    type: Class
+  use_clause:
+    type: Import
+  fold:
+    type: Call 

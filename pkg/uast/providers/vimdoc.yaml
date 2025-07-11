@@ -1,0 +1,20 @@
+language: vimdoc
+extensions: [".txt"]
+parser: tree-sitter
+mapping:
+  help_file:
+    type: Document
+  block:
+    type: Section
+  modeline:
+    type: Directive
+  tag:
+    type: Anchor
+    props:
+      name: name
+  url:
+    type: Link
+    props:
+      content: content
+  codespan:
+    type: Code 

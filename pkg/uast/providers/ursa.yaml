@@ -1,0 +1,18 @@
+language: ursa
+extensions: [".ursa"]
+parser: tree-sitter
+mapping:
+  module:
+    type: File
+  statement:
+    type: Statement
+  let:
+    type: Assignment
+  use:
+    type: Import
+  break:
+    type: Break
+  continue:
+    type: Continue
+  return:
+    type: Return 

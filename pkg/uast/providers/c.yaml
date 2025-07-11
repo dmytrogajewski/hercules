@@ -1,0 +1,81 @@
+language: c
+extensions: [".c", ".h"]
+parser: tree-sitter
+mapping:
+  translation_unit:
+    type: File
+    skip_if_empty: true
+  function_definition:
+    type: Function
+    roles: [Function, Declaration]
+    props:
+      name: Name
+  declaration:
+    type: Variable
+    roles: [Declaration]
+  type_definition:
+    type: Type
+    roles: [Type, Declaration]
+  identifier:
+    type: Identifier
+    roles: [Name]
+  parameter_declaration:
+    type: Parameter
+    roles: [Parameter, Declaration]
+  parameter_list:
+    type: ParameterList
+  compound_statement:
+    type: Block
+  return_statement:
+    type: Return
+    roles: [Return]
+  call_expression:
+    type: Call
+    roles: [Call]
+  argument_list:
+    type: ArgumentList
+  string_literal:
+    type: Literal
+    roles: [Literal]
+  number_literal:
+    type: Literal
+    roles: [Literal]
+  comment:
+    type: Comment
+    roles: [Comment]
+  if_statement:
+    type: If
+  for_statement:
+    type: For
+    roles: [Loop]
+  while_statement:
+    type: While
+    roles: [Loop]
+  do_statement:
+    type: DoWhile
+    roles: [Loop]
+  switch_statement:
+    type: Switch
+  case_statement:
+    type: Case
+  break_statement:
+    type: Break
+  continue_statement:
+    type: Continue
+  assignment_expression:
+    type: Assignment
+    roles: [Assignment]
+  array_declarator:
+    type: List
+  struct_specifier:
+    type: Struct
+    roles: [Struct, Declaration]
+  enum_specifier:
+    type: Enum
+    roles: [Enum, Declaration]
+  field_declaration:
+    type: Field
+    roles: [Member, Declaration]
+  preproc_include:
+    type: Import
+    roles: [Import] 

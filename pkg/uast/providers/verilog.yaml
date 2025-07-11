@@ -1,0 +1,34 @@
+language: verilog
+extensions: [".v", ".sv"]
+parser: tree-sitter
+mapping:
+  source_file:
+    type: File
+  module_declaration:
+    type: Module
+  function_declaration:
+    type: Function
+  task_declaration:
+    type: Function
+  parameter_declaration:
+    type: Parameter
+  port_declaration:
+    type: Parameter
+  always_construct:
+    type: Block
+  initial_construct:
+    type: Block
+  generate_region:
+    type: Block
+  if_statement:
+    type: If
+  for_statement:
+    type: For
+  while_statement:
+    type: While
+  case_statement:
+    type: Switch
+  assignment:
+    type: Assignment
+  call:
+    type: Call 

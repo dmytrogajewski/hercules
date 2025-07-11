@@ -1,0 +1,20 @@
+language: yaml
+extensions: [".yaml", ".yml"]
+parser: tree-sitter
+mapping:
+  stream:
+    type: File
+    skip_if_empty: true
+  document:
+    type: Document
+  mapping:
+    type: Dict
+  sequence:
+    type: List
+  block_node:
+    type: Block
+  flow_node:
+    type: Block
+  scalar:
+    type: Literal
+    roles: [Literal] 

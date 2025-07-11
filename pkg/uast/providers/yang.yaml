@@ -1,0 +1,17 @@
+language: yang
+extensions: [".yang"]
+parser: tree-sitter
+mapping:
+  yang:
+    type: File
+    skip_if_empty: true
+  module:
+    type: Module
+    roles: [Module, Declaration]
+    props:
+      name: Name
+  submodule:
+    type: Module
+    roles: [Module, Declaration]
+    props:
+      name: Name 

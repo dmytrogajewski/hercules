@@ -1,0 +1,24 @@
+language: vue
+extensions: [".vue"]
+parser: tree-sitter
+mapping:
+  document:
+    type: File
+    skip_if_empty: true
+  element:
+    type: Element
+  script_element:
+    type: Script
+  style_element:
+    type: Style
+  interpolation:
+    type: Interpolation
+  template_element:
+    type: Template
+  text:
+    type: Text
+  comment:
+    type: Comment
+    roles: [Comment]
+  attribute:
+    type: Attribute 

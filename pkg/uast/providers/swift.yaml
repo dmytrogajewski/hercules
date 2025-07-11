@@ -1,0 +1,83 @@
+language: swift
+extensions: [".swift"]
+parser: tree-sitter
+mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
+  function_declaration:
+    type: Function
+    roles: [Function, Declaration]
+    props:
+      name: Name
+  class_declaration:
+    type: Class
+    roles: [Class, Declaration]
+    props:
+      name: Name
+  struct_declaration:
+    type: Struct
+    roles: [Struct, Declaration]
+    props:
+      name: Name
+  enum_declaration:
+    type: Enum
+    roles: [Enum, Declaration]
+    props:
+      name: Name
+  protocol_declaration:
+    type: Interface
+    roles: [Interface, Declaration]
+    props:
+      name: Name
+  import_declaration:
+    type: Import
+    roles: [Import]
+  identifier:
+    type: Identifier
+    roles: [Name]
+  parameter:
+    type: Parameter
+    roles: [Parameter, Declaration]
+  parameter_list:
+    type: ParameterList
+  block:
+    type: Block
+  return_statement:
+    type: Return
+    roles: [Return]
+  call_expression:
+    type: Call
+    roles: [Call]
+  argument_list:
+    type: ArgumentList
+  string_literal:
+    type: Literal
+    roles: [Literal]
+  integer_literal:
+    type: Literal
+    roles: [Literal]
+  float_literal:
+    type: Literal
+    roles: [Literal]
+  comment:
+    type: Comment
+    roles: [Comment]
+  if_statement:
+    type: If
+  for_statement:
+    type: For
+    roles: [Loop]
+  while_statement:
+    type: While
+    roles: [Loop]
+  assignment_expression:
+    type: Assignment
+    roles: [Assignment]
+  array_literal:
+    type: List
+  dictionary_literal:
+    type: Dict
+  closure_expression:
+    type: Lambda
+    roles: [Lambda] 
