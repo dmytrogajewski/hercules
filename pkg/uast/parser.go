@@ -16,8 +16,13 @@ type LanguageProvider interface {
 	Language() string
 }
 
-// NewParser creates a new Parser with configuration-based language providers
-func NewParser() (*Parser, error) {
+// ParserOptions allows configuring parser behavior (e.g., unmapped node logic)
+type ParserOptions struct {
+	IncludeUnmapped bool
+}
+
+// NewParserWithOptions creates a new Parser with options (e.g., IncludeUnmapped)
+func NewParserWithOptions(opts ParserOptions) (*Parser, error) {
 	configs, err := LoadProviders()
 	if err != nil {
 		return nil, err
@@ -27,7 +32,7 @@ func NewParser() (*Parser, error) {
 		configs:   configs,
 	}
 	for language, providerConfig := range configs {
-		provider := NewProviderForLanguage(language, providerConfig)
+		provider := NewProviderForLanguageWithOptions(language, providerConfig, opts)
 		if provider != nil {
 			p.providers[language] = provider
 		}
@@ -35,9 +40,19 @@ func NewParser() (*Parser, error) {
 	return p, nil
 }
 
+// NewParser creates a new Parser with default options (backward compatibility)
+func NewParser() (*Parser, error) {
+	return NewParserWithOptions(ParserOptions{})
+}
+
 // NewProviderForLanguage instantiates a provider for a given language/config (delegates to factory)
 func NewProviderForLanguage(language string, config *ProviderConfig) LanguageProvider {
 	return FactoryCreateProvider(language, config)
+}
+
+// NewProviderForLanguageWithOptions instantiates a provider for a given language/config with options
+func NewProviderForLanguageWithOptions(language string, config *ProviderConfig, opts ParserOptions) LanguageProvider {
+	return FactoryCreateProviderWithOptions(language, config, opts)
 }
 
 func (p *Parser) Parse(filename string, content []byte) (*Node, error) {

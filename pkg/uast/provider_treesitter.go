@@ -9,9 +9,10 @@ import (
 )
 
 type TreeSitterProvider struct {
-	language *sitter.Language
-	langName string
-	mapping  map[string]Mapping // kind -> Mapping
+	language        *sitter.Language
+	langName        string
+	mapping         map[string]Mapping // kind -> Mapping
+	IncludeUnmapped bool
 }
 
 func (p *TreeSitterProvider) Parse(filename string, content []byte) (*Node, error) {
@@ -27,11 +28,12 @@ func (p *TreeSitterProvider) Parse(filename string, content []byte) (*Node, erro
 	}
 
 	tsNode := &TreeSitterNode{
-		Root:     root,
-		Tree:     tree,
-		Language: p.langName,
-		Source:   content,
-		Mapping:  p.mapping,
+		Root:            root,
+		Tree:            tree,
+		Language:        p.langName,
+		Source:          content,
+		Mapping:         p.mapping,
+		IncludeUnmapped: p.IncludeUnmapped,
 	}
 	canonical := tsNode.ToCanonicalNode()
 	if canonical == nil {
@@ -45,11 +47,12 @@ func (p *TreeSitterProvider) Language() string {
 }
 
 type TreeSitterNode struct {
-	Root     sitter.Node
-	Tree     *sitter.Tree
-	Language string
-	Source   []byte
-	Mapping  map[string]Mapping // kind -> Mapping
+	Root            sitter.Node
+	Tree            *sitter.Tree
+	Language        string
+	Source          []byte
+	Mapping         map[string]Mapping // kind -> Mapping
+	IncludeUnmapped bool
 }
 
 func (n *TreeSitterNode) ToCanonicalNode() *Node {
@@ -59,23 +62,24 @@ func (n *TreeSitterNode) ToCanonicalNode() *Node {
 	for i := uint32(0); i < n.Root.NamedChildCount(); i++ {
 		child := n.Root.NamedChild(i)
 		childNode := &TreeSitterNode{
-			Root:     child,
-			Tree:     n.Tree,
-			Language: n.Language,
-			Source:   n.Source,
-			Mapping:  n.Mapping,
+			Root:            child,
+			Tree:            n.Tree,
+			Language:        n.Language,
+			Source:          n.Source,
+			Mapping:         n.Mapping,
+			IncludeUnmapped: n.IncludeUnmapped,
 		}
-		children = append(children, childNode.ToCanonicalNode())
+		c := childNode.ToCanonicalNode()
+		if c != nil {
+			children = append(children, c)
+		}
 	}
 	props := map[string]string{}
 	var roles []Role
-
-	// Handle skip_if_empty for source_file
-	if kind == "source_file" && hasMapping && mapping.SkipIfEmpty && len(children) == 0 {
+	// Relaxed: only skip if file is truly empty (no content)
+	if kind == "source_file" && hasMapping && mapping.SkipIfEmpty && len(children) == 0 && len(n.Source) == 0 {
 		return nil
 	}
-
-	// SPEC: For the root node (source_file), always use 'lang:file' as the canonical type
 	typeStr := n.Language + ":" + kind
 	if kind == "source_file" {
 		typeStr = n.Language + ":file"
@@ -102,15 +106,26 @@ func (n *TreeSitterNode) ToCanonicalNode() *Node {
 				}
 			}
 		}
+		return &Node{
+			Type:     typeStr,
+			Token:    n.Token(),
+			Pos:      n.Positions(),
+			Props:    props,
+			Roles:    roles,
+			Children: children,
+		}
 	}
-	return &Node{
-		Type:     typeStr,
-		Token:    n.Token(),
-		Pos:      n.Positions(),
-		Props:    props,
-		Roles:    roles,
-		Children: children,
+	if n.IncludeUnmapped || kind == "source_file" {
+		return &Node{
+			Type:     typeStr,
+			Token:    n.Token(),
+			Pos:      n.Positions(),
+			Props:    props,
+			Roles:    roles,
+			Children: children,
+		}
 	}
+	return nil
 }
 
 // containsString checks if a slice contains a string
