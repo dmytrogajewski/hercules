@@ -8,6 +8,7 @@ import (
 	sitter "github.com/alexaandru/go-tree-sitter-bare"
 )
 
+// TreeSitterProvider implements the UAST provider interface using Tree-sitter.
 type TreeSitterProvider struct {
 	language        *sitter.Language
 	langName        string
@@ -15,6 +16,8 @@ type TreeSitterProvider struct {
 	IncludeUnmapped bool
 }
 
+// Parse parses the given file content and returns the root UAST node.
+// Returns an error if parsing fails.
 func (p *TreeSitterProvider) Parse(filename string, content []byte) (*Node, error) {
 	parser := sitter.NewParser()
 	parser.SetLanguage(p.language)
@@ -42,10 +45,12 @@ func (p *TreeSitterProvider) Parse(filename string, content []byte) (*Node, erro
 	return canonical, nil
 }
 
+// Language returns the language name for this provider.
 func (p *TreeSitterProvider) Language() string {
 	return p.langName
 }
 
+// TreeSitterNode wraps a Tree-sitter node for conversion to UAST.
 type TreeSitterNode struct {
 	Root            sitter.Node
 	Tree            *sitter.Tree
@@ -55,11 +60,13 @@ type TreeSitterNode struct {
 	IncludeUnmapped bool
 }
 
+// ToCanonicalNode converts the TreeSitterNode to a canonical UAST Node.
 func (n *TreeSitterNode) ToCanonicalNode() *Node {
 	kind := n.Root.Type()
 	mapping, hasMapping := n.Mapping[kind]
-	children := make([]*Node, 0)
-	for i := uint32(0); i < n.Root.NamedChildCount(); i++ {
+	childCount := n.Root.NamedChildCount()
+	children := make([]*Node, 0, childCount)
+	for i := uint32(0); i < childCount; i++ {
 		child := n.Root.NamedChild(i)
 		childNode := &TreeSitterNode{
 			Root:            child,
@@ -106,24 +113,14 @@ func (n *TreeSitterNode) ToCanonicalNode() *Node {
 				}
 			}
 		}
-		return &Node{
-			Type:     typeStr,
-			Token:    n.Token(),
-			Pos:      n.Positions(),
-			Props:    props,
-			Roles:    roles,
-			Children: children,
-		}
+		node := NewNode(0, typeStr, n.Token(), roles, n.Positions(), props)
+		node.Children = children
+		return node
 	}
 	if n.IncludeUnmapped || kind == "source_file" {
-		return &Node{
-			Type:     typeStr,
-			Token:    n.Token(),
-			Pos:      n.Positions(),
-			Props:    props,
-			Roles:    roles,
-			Children: children,
-		}
+		node := NewNode(0, typeStr, n.Token(), roles, n.Positions(), props)
+		node.Children = children
+		return node
 	}
 	return nil
 }
@@ -138,6 +135,7 @@ func containsString(slice []string, s string) bool {
 	return false
 }
 
+// Token returns the string token for this node, if any.
 func (n *TreeSitterNode) Token() string {
 	if n.Root.ChildCount() == 0 {
 		start := n.Root.StartByte()
@@ -149,6 +147,7 @@ func (n *TreeSitterNode) Token() string {
 	return ""
 }
 
+// Positions returns the source code positions for this node.
 func (n *TreeSitterNode) Positions() *Positions {
 	return &Positions{
 		StartLine:   int(n.Root.StartPoint().Row),

@@ -32,10 +32,9 @@ func main() {
 
 func parseCmd() *cobra.Command {
 	var (
-		lang            string
-		out             string
-		format          string
-		includeUnmapped bool
+		lang   string
+		out    string
+		format string
 	)
 	cmd := &cobra.Command{
 		Use:   "parse [file]",
@@ -61,9 +60,7 @@ func parseCmd() *cobra.Command {
 			if err != nil {
 				printErrAndExit("failed to read input: %v", err)
 			}
-			parser, err := uast.NewParserWithOptions(uast.ParserOptions{
-				IncludeUnmapped: includeUnmapped,
-			})
+			parser, err := uast.NewParser()
 			if err != nil {
 				printErrAndExit("failed to initialize parser: %v", err)
 			}
@@ -102,7 +99,6 @@ func parseCmd() *cobra.Command {
 	cmd.Flags().StringVar(&lang, "lang", "", "Language (overrides file extension)")
 	cmd.Flags().StringVar(&out, "out", "", "Output file (default: stdout)")
 	cmd.Flags().StringVar(&format, "format", "json", "Output format: json|proto (default: json)")
-	cmd.Flags().BoolVar(&includeUnmapped, "include-unmapped", false, "Include unmapped grammar nodes in UAST output (default: false)")
 	return cmd
 }
 

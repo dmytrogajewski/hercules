@@ -10,6 +10,23 @@ TAGS ?=
 
 all: ${GOBIN}/hercules${EXE} ${GOBIN}/uast${EXE}
 
+# Install binaries to system PATH
+install: all
+	@echo "Installing hercules and uast binaries..."
+	@if [ -w /usr/local/bin ]; then \
+		cp ${GOBIN}/hercules${EXE} /usr/local/bin/; \
+		cp ${GOBIN}/uast${EXE} /usr/local/bin/; \
+		echo "Installed to /usr/local/bin"; \
+	elif [ -w $(shell go env GOPATH)/bin ]; then \
+		cp ${GOBIN}/hercules${EXE} $(shell go env GOPATH)/bin/; \
+		cp ${GOBIN}/uast${EXE} $(shell go env GOPATH)/bin/; \
+		echo "Installed to $(shell go env GOPATH)/bin"; \
+	else \
+		echo "Error: Cannot write to /usr/local/bin or $(shell go env GOPATH)/bin"; \
+		echo "Please run with sudo or ensure GOPATH/bin is in your PATH"; \
+		exit 1; \
+	fi
+
 # Run all tests with CGO disabled (for cross-platform compatibility)
 test: all
 	CGO_ENABLED=1 go test ./...
@@ -18,9 +35,94 @@ test: all
 testv: all
 	CGO_ENABLED=1 go test ./... -v
 
+# Run UAST performance benchmarks
+bench: all
+	CGO_ENABLED=1 go test -bench=. -benchmem ./pkg/uast
+
+# Run UAST performance benchmarks with verbose output
+benchv: all
+	CGO_ENABLED=1 go test -bench=. -benchmem -v ./pkg/uast
+
+# Run UAST performance benchmarks with CPU profiling
+benchcpu: all
+	CGO_ENABLED=1 go test -bench=. -benchmem -cpuprofile=cpu.prof ./pkg/uast
+
+# Run UAST performance benchmarks with memory profiling
+benchmem: all
+	CGO_ENABLED=1 go test -bench=. -benchmem -memprofile=mem.prof ./pkg/uast
+
+# Run UAST performance benchmarks with both CPU and memory profiling
+benchprofile: all
+	CGO_ENABLED=1 go test -bench=. -benchmem -cpuprofile=cpu.prof -memprofile=mem.prof ./pkg/uast
+
+# Run benchmarks and generate performance plots
+benchplot: all
+	CGO_ENABLED=1 go test -bench=. -benchmem ./pkg/uast > benchmark_results.txt 2>&1
+	python3 scripts/benchmark_plot.py benchmark_results.txt
+
+# Run benchmarks with verbose output and generate plots
+benchplotv: all
+	CGO_ENABLED=1 go test -bench=. -benchmem -v ./pkg/uast > benchmark_results.txt 2>&1
+	python3 scripts/benchmark_plot.py benchmark_results.txt
+
+# Run comprehensive benchmark suite with organized results
+bench: all
+	python3 scripts/benchmark_runner.py
+
+# Run benchmarks without plots
+bench-no-plots: all
+	python3 scripts/benchmark_runner.py --no-plots
+
+# Generate report for latest benchmark run
+report:
+	python3 scripts/benchmark_report.py
+
+# Generate report for specific run
+report-run:
+	python3 scripts/benchmark_report.py $(RUN_NAME)
+
+# List all benchmark runs
+bench-list:
+	python3 scripts/benchmark_report.py --list
+
+# Compare latest run with previous
+compare:
+	python3 scripts/benchmark_comparison.py $(shell python3 scripts/benchmark_report.py --list | head -1)
+
+# Compare specific runs
+compare-runs:
+	python3 scripts/benchmark_comparison.py $(CURRENT_RUN) --baseline $(BASELINE_RUN)
+
+# Compare last two benchmark runs (simple command)
+compare-last:
+	@echo "Comparing last two benchmark runs..."
+	@LATEST=$$(python3 scripts/benchmark_report.py --list | grep -v "Available benchmark runs:" | head -1 | xargs); \
+	PREVIOUS=$$(python3 scripts/benchmark_report.py --list | grep -v "Available benchmark runs:" | head -2 | tail -1 | xargs); \
+	echo "Latest: $$LATEST"; \
+	echo "Previous: $$PREVIOUS"; \
+	python3 scripts/benchmark_comparison.py "$$LATEST" --baseline "$$PREVIOUS"
+
+# Run benchmarks with profiling and generate plots
+benchplotprofile: all
+	CGO_ENABLED=1 go test -bench=. -benchmem -cpuprofile=cpu.prof -memprofile=mem.prof ./pkg/uast > benchmark_results.txt 2>&1
+	python3 scripts/benchmark_plot.py benchmark_results.txt
+
+# Run specific benchmark and generate plots (usage: make benchplot-simple BENCH=BenchmarkParse)
+benchplot-simple: all
+	CGO_ENABLED=1 go test -bench=$(BENCH) -benchmem ./pkg/uast > benchmark_results.txt 2>&1
+	python3 scripts/benchmark_plot.py benchmark_results.txt
+
+# Run benchmarks with timeout and generate plots (usage: make benchplot-timeout TIMEOUT=30s)
+benchplot-timeout: all
+	CGO_ENABLED=1 go test -bench=. -benchmem -timeout=$(TIMEOUT) ./pkg/uast > benchmark_results.txt 2>&1
+	python3 scripts/benchmark_plot.py benchmark_results.txt
+
 clean:
 	rm ./hercules
 	rm -f ./uast
+	rm -f *.prof
+	rm -f benchmark_results.txt
+	rm -rf benchmark_plots/
 ${GOBIN}/protoc-gen-gogo${EXE}:
 	go build github.com/gogo/protobuf/protoc-gen-gogo
 

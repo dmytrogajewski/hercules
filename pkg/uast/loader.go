@@ -26,42 +26,114 @@ type Mapping struct {
 	SkipIfEmpty bool                   `yaml:"skip_if_empty,omitempty"`
 }
 
-type Providers map[string]*ProviderConfig // language -> config
+type Providers map[string]*ProviderConfig
 
-// LoadProviders loads all provider YAMLs from the embedded FS (pkg/uast/providers/).
 func LoadProviders() (Providers, error) {
 	providers := Providers{}
-	entries, err := fs.ReadDir(providerFS, "providers")
+	entries, err := readProviderEntries()
 	if err != nil {
 		return nil, err
 	}
 	for _, entry := range entries {
-		if entry.IsDir() || filepath.Ext(entry.Name()) != ".yaml" {
+		if shouldSkipEntry(entry) {
 			continue
 		}
-		data, err := providerFS.ReadFile("providers/" + entry.Name())
+		cfg, err := loadProviderConfig(entry)
 		if err != nil {
 			return nil, err
 		}
-		var cfg ProviderConfig
-		if err := yaml.Unmarshal(data, &cfg); err != nil {
-			return nil, err
+		if isDuplicateProvider(providers, cfg.Language) {
+			return nil, createDuplicateProviderError(cfg.Language)
 		}
-		if cfg.Language == "" {
-			return nil, errors.New("missing language in " + entry.Name())
-		}
-		if cfg.Parser == "" {
-			return nil, errors.New("missing parser in " + entry.Name())
-		}
-		for kind, mapping := range cfg.Mapping {
-			if mapping.Type == "" {
-				return nil, errors.New("missing type for " + cfg.Language + ":" + kind)
-			}
-		}
-		if _, exists := providers[cfg.Language]; exists {
-			return nil, errors.New("duplicate provider for language " + cfg.Language)
-		}
-		providers[cfg.Language] = &cfg
+		providers[cfg.Language] = cfg
 	}
 	return providers, nil
+}
+
+func readProviderEntries() ([]fs.DirEntry, error) {
+	return fs.ReadDir(providerFS, "providers")
+}
+
+func shouldSkipEntry(entry fs.DirEntry) bool {
+	return entry.IsDir() || !isYamlFile(entry.Name())
+}
+
+func isYamlFile(name string) bool {
+	return filepath.Ext(name) == ".yaml"
+}
+
+func loadProviderConfig(entry fs.DirEntry) (*ProviderConfig, error) {
+	data, err := readProviderFile(entry.Name())
+	if err != nil {
+		return nil, err
+	}
+	cfg, err := parseProviderConfig(data)
+	if err != nil {
+		return nil, err
+	}
+	if isMissingLanguage(cfg) {
+		return nil, createMissingLanguageError(entry.Name())
+	}
+	if isMissingParser(cfg) {
+		return nil, createMissingParserError(entry.Name())
+	}
+	if hasInvalidMapping(cfg) {
+		return nil, createInvalidMappingError(cfg.Language)
+	}
+	return cfg, nil
+}
+
+func readProviderFile(name string) ([]byte, error) {
+	return providerFS.ReadFile("providers/" + name)
+}
+
+func parseProviderConfig(data []byte) (*ProviderConfig, error) {
+	var cfg ProviderConfig
+	err := yaml.Unmarshal(data, &cfg)
+	if err != nil {
+		return nil, err
+	}
+	return &cfg, nil
+}
+
+func isMissingLanguage(cfg *ProviderConfig) bool {
+	return cfg.Language == ""
+}
+
+func createMissingLanguageError(filename string) error {
+	return errors.New("missing language in " + filename)
+}
+
+func isMissingParser(cfg *ProviderConfig) bool {
+	return cfg.Parser == ""
+}
+
+func createMissingParserError(filename string) error {
+	return errors.New("missing parser in " + filename)
+}
+
+func hasInvalidMapping(cfg *ProviderConfig) bool {
+	for _, mapping := range cfg.Mapping {
+		if isMissingMappingType(mapping) {
+			return true
+		}
+	}
+	return false
+}
+
+func isMissingMappingType(mapping Mapping) bool {
+	return mapping.Type == ""
+}
+
+func createInvalidMappingError(language string) error {
+	return errors.New("missing type for " + language + ":kind")
+}
+
+func isDuplicateProvider(providers Providers, language string) bool {
+	_, exists := providers[language]
+	return exists
+}
+
+func createDuplicateProviderError(language string) error {
+	return errors.New("duplicate provider for language " + language)
 }

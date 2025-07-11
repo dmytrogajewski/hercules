@@ -8,11 +8,15 @@ Query <- Spacing Pipeline !.
 
 Pipeline <- Expr (Spacing '|' '>' Spacing Expr)*
 
-Expr <- Filter / Map / Reduce / OrExpr
+Expr <- RFilter / RMap / Filter / Map / Reduce / OrExpr
 
 Filter <- 'filter' ((Spacing '(' Spacing Predicate Spacing ')') / (Spacing Predicate))
 
+RFilter <- 'rfilter' ((Spacing '(' Spacing Predicate Spacing ')') / (Spacing Predicate))
+
 Map <- 'map' ((Spacing '(' Spacing OrExpr Spacing ')') / (Spacing OrExpr))
+
+RMap <- 'rmap' ((Spacing '(' Spacing OrExpr Spacing ')') / (Spacing OrExpr))
 
 Reduce <- 'reduce' ((Spacing '(' Spacing ReducerName Spacing ')') / (Spacing ReducerName))
 
