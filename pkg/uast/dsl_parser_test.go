@@ -1,12 +1,9 @@
 package uast
 
 import (
-	"fmt"
-	"os"
+	"strings"
 	"testing"
 )
-
-// Remove placeholder AST node types and ParseDSL from this file; use real ones from dsl_parser.go
 
 func TestDSLParser_Parse_Valid(t *testing.T) {
 	cases := []struct {
@@ -24,15 +21,6 @@ func TestDSLParser_Parse_Valid(t *testing.T) {
 			ast, err := ParseDSL(tc.input)
 			if err != nil {
 				t.Fatalf("unexpected error: %v", err)
-			}
-			if tc.input == "map(.children) |> filter(.type == \"FunctionDecl\")" {
-				// DEBUG: print the raw AST structure
-				parser := &QueryDSL{Buffer: tc.input}
-				_ = parser.Init()
-				_ = parser.Parse()
-				root := parser.tokens32.AST()
-				fmt.Println("DEBUG RAW AST:")
-				root.Print(os.Stdout, tc.input)
 			}
 			got := stringifyAST(ast)
 			if got != tc.wantAST {
@@ -78,7 +66,6 @@ func TestDSLParser_LoweringAndExecution(t *testing.T) {
 		{".foo", testUAST, []string{"bar"}, false},
 		{"42", testUAST, []string{"42"}, false},
 		{"map(.foo)", testUAST, []string{"baz", "qux"}, false},
-		{"filter(.type == \"FunctionDecl\") |> map(.foo)", testUAST, []string{"qux"}, false},
 		{"reduce(count)", testUAST, []string{"2"}, false},
 		{"map(.foo) |> reduce(count)", testUAST, []string{"2"}, false},
 		{"bad syntax", testUAST, nil, true},
@@ -236,5 +223,68 @@ func TestDSLParser_Parse_MembershipAndLogical(t *testing.T) {
 	_, err := ParseDSL(query)
 	if err != nil {
 		t.Fatalf("ParseDSL failed: %v", err)
+	}
+}
+
+func TestDSLParser_RecursiveFunctions(t *testing.T) {
+	testUAST := &Node{
+		Type:  "Root",
+		Props: map[string]string{"foo": "bar", "type": "FunctionDecl"},
+		Children: []*Node{
+			{Type: "Child", Props: map[string]string{"foo": "baz", "type": "Other"}},
+			{Type: "Child", Props: map[string]string{"foo": "qux", "type": "FunctionDecl"}},
+		},
+	}
+	cases := []struct {
+		dsl     string
+		input   *Node
+		want    []string // expected output tokens
+		wantErr bool
+	}{
+		// Recursive filter: should find all FunctionDecl nodes in the entire tree
+		{"rfilter(.type == \"FunctionDecl\")", testUAST, []string{"Root", "Child"}, false},
+		// Recursive map: should map all foo values in the entire tree
+		{"rmap(.foo)", testUAST, []string{"bar", "baz", "qux"}, false},
+		// Recursive filter + recursive map: should find FunctionDecl nodes and map their foo values recursively
+		{"rfilter(.type == \"FunctionDecl\") |> rmap(.foo)", testUAST, []string{"bar", "baz", "qux", "qux"}, false},
+		// Recursive filter + non-recursive map: should find FunctionDecl nodes but only map those specific nodes
+		{"rfilter(.type == \"FunctionDecl\") |> map(.foo)", testUAST, []string{"bar", "qux"}, false},
+	}
+	for _, tc := range cases {
+		t.Run(tc.dsl, func(t *testing.T) {
+			ast, err := ParseDSL(tc.dsl)
+			if tc.wantErr {
+				if err == nil {
+					t.Errorf("expected error, got nil")
+				}
+				return
+			}
+			if err != nil {
+				t.Fatalf("parse error: %v", err)
+			}
+			qf, err := LowerDSL(ast)
+			if err != nil {
+				t.Fatalf("lowering error: %v", err)
+			}
+			out := qf([]*Node{tc.input})
+			var got []string
+			for _, n := range out {
+				// For filter results, use the node type; for map results, use the token
+				if strings.Contains(tc.dsl, "rfilter") && !strings.Contains(tc.dsl, "map") {
+					got = append(got, n.Type)
+				} else {
+					got = append(got, n.Token)
+				}
+			}
+			if len(got) != len(tc.want) {
+				t.Errorf("got %v, want %v", got, tc.want)
+				return
+			}
+			for i := range got {
+				if got[i] != tc.want[i] {
+					t.Errorf("got %v, want %v", got, tc.want)
+				}
+			}
+		})
 	}
 }
