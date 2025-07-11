@@ -42,6 +42,14 @@ func (p *TreeSitterProvider) Parse(filename string, content []byte) (*Node, erro
 		}, nil
 	}
 
+	// --- DEBUG: Print AST node types ---
+	fmt.Printf("[DEBUG] Tree-sitter root node type: %s\n", root.Type())
+	for i := uint32(0); i < root.NamedChildCount(); i++ {
+		child := root.NamedChild(i)
+		fmt.Printf("[DEBUG] Child %d: type=%s, start=%d, end=%d\n", i, child.Type(), child.StartByte(), child.EndByte())
+	}
+	// --- END DEBUG ---
+
 	tsNode := &TreeSitterNode{
 		Root:     root,
 		Tree:     tree,

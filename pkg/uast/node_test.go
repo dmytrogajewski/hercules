@@ -3,6 +3,7 @@ package uast
 import (
 	"encoding/json"
 	"reflect"
+	"strings"
 	"testing"
 )
 
@@ -231,5 +232,104 @@ func TestNodeNavigationEdgeCases(t *testing.T) {
 	anc := empty.Ancestors(&Node{Id: 999})
 	if len(anc) != 0 {
 		t.Errorf("Ancestors on single node should be empty")
+	}
+}
+
+func TestFindDSL_BasicAndMembership(t *testing.T) {
+	tree := &Node{
+		Type: "Root",
+		Children: []*Node{
+			{Type: "Function", Roles: []Role{"Exported"}, Token: "foo"},
+			{Type: "Function", Roles: []Role{"Private"}, Token: "bar"},
+			{Type: "String", Token: "hello"},
+		},
+	}
+	tests := []struct {
+		name  string
+		query string
+		want  []string // expected tokens
+	}{
+		{"all exported functions", "filter(.type == \"Function\" && .roles has \"Exported\")", []string{"foo"}},
+		{"all functions", "filter(.type == \"Function\")", []string{"foo", "bar"}},
+		{"all strings", "filter(.type == \"String\")", []string{"hello"}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			// Print roles for each child node for debugging
+			for i, n := range tree.Children {
+				t.Logf("[DEBUG] Child %d: Type=%s Token=%s Roles=%v", i, n.Type, n.Token, n.Roles)
+			}
+			if tt.name == "all exported functions" {
+				ast, err := ParseDSL(tt.query)
+				if err != nil {
+					t.Fatalf("DSL parse error: %v", err)
+				}
+				t.Logf("[DEBUG] Parsed DSL AST: %#v", ast)
+				if filter, ok := ast.(*FilterNode); ok {
+					t.Logf("[DEBUG] Filter predicate AST: %#v", filter.Expr)
+				}
+			}
+			got, err := tree.FindDSL(tt.query)
+			if err != nil {
+				t.Fatalf("FindDSL error: %v", err)
+			}
+			var tokens []string
+			for _, n := range got {
+				tokens = append(tokens, n.Token)
+			}
+			if !reflect.DeepEqual(tokens, tt.want) {
+				t.Errorf("FindDSL(%q) = %v, want %v", tt.query, tokens, tt.want)
+			}
+		})
+	}
+	// Add a minimal test for membership parsing
+	t.Run("membership parsing", func(t *testing.T) {
+		query := ".roles has \"Exported\""
+		ast, err := ParseDSL(query)
+		if err != nil {
+			t.Fatalf("ParseDSL error: %v", err)
+		}
+		t.Logf("[DEBUG] Membership query AST: %#v", ast)
+	})
+}
+
+func TestPreOrder_Stream(t *testing.T) {
+	root := &Node{Type: "Root"}
+	child1 := &Node{Type: "A"}
+	child2 := &Node{Type: "B"}
+	root.Children = []*Node{child1, child2}
+	var got []string
+	for n := range PreOrder(root) {
+		got = append(got, n.Type)
+	}
+	want := []string{"Root", "A", "B"}
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("PreOrder = %v, want %v", got, want)
+	}
+}
+
+func TestHasRole(t *testing.T) {
+	n := &Node{Roles: []Role{"Exported", "Test"}}
+	if !HasRole(n, "Exported") {
+		t.Error("HasRole should return true for present role")
+	}
+	if HasRole(n, "Missing") {
+		t.Error("HasRole should return false for absent role")
+	}
+	if HasRole(nil, "Exported") {
+		t.Error("HasRole should return false for nil node")
+	}
+}
+
+func TestTransform_Mutation(t *testing.T) {
+	root := &Node{Type: "Root", Children: []*Node{{Type: "String", Token: "  hello  "}}}
+	Transform(root, func(n *Node) bool {
+		if n.Type == "String" {
+			n.Token = strings.TrimSpace(n.Token)
+		}
+		return true
+	})
+	if got := root.Children[0].Token; got != "hello" {
+		t.Errorf("Transform did not mutate string: got %q, want %q", got, "hello")
 	}
 }

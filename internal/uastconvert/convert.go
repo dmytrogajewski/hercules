@@ -156,17 +156,29 @@ func ConvertAstFileToUAST(file *ast.File) uast_nodes.Object {
 		if decl == nil {
 			continue
 		}
-		// For now, just add the type name of the decl
 		switch d := decl.(type) {
 		case *ast.FuncDecl:
 			fn := uast_nodes.Object{}
-			fn["Type"] = uast_nodes.String("GoFuncDecl")
-			if d.Name != nil {
-				fn["Name"] = uast_nodes.String(d.Name.Name)
+			if d.Recv != nil && len(d.Recv.List) > 0 {
+				// Method
+				fn["Type"] = uast_nodes.String("go:method")
+				if d.Name != nil {
+					fn["Name"] = uast_nodes.String(d.Name.Name)
+				}
+				// Store receiver name (first identifier in Recv)
+				recv := d.Recv.List[0]
+				if len(recv.Names) > 0 {
+					fn["Receiver"] = uast_nodes.String(recv.Names[0].Name)
+				}
+			} else {
+				// Function
+				fn["Type"] = uast_nodes.String("go:function")
+				if d.Name != nil {
+					fn["Name"] = uast_nodes.String(d.Name.Name)
+				}
 			}
 			decls = append(decls, fn)
 		default:
-			// Add a generic node for other decls
 			other := uast_nodes.Object{}
 			other["Type"] = uast_nodes.String("GoDecl")
 			decls = append(decls, other)

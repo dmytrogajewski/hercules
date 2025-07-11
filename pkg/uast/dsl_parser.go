@@ -106,10 +106,13 @@ func lowerFilter(n *FilterNode) (QueryFunc, error) {
 		var out []*Node
 		for _, node := range nodes {
 			for _, child := range node.Children {
-				log.Printf("[DEBUG] lowerFilter: checking child Props=%v", child.Props)
+				log.Printf("[DEBUG] lowerFilter: checking child Type=%s Props=%v", child.Type, child.Props)
 				res := predFunc([]*Node{child})
+				if len(res) > 0 {
+					log.Printf("[DEBUG] lowerFilter: predicate result for child Type=%s: %v", child.Type, res[0].Token)
+				}
 				if len(res) > 0 && res[0].Type == "Literal" && res[0].Token == "true" {
-					log.Printf("[DEBUG] lowerFilter: matched child Props=%v", child.Props)
+					log.Printf("[DEBUG] lowerFilter: matched child Type=%s Props=%v", child.Type, child.Props)
 					out = append(out, child)
 				}
 			}
@@ -136,7 +139,11 @@ func lowerField(n *FieldNode) (QueryFunc, error) {
 	return func(nodes []*Node) []*Node {
 		var out []*Node
 		for _, node := range nodes {
-			if v, ok := node.Props[n.Name]; ok {
+			if n.Name == "roles" {
+				for _, r := range node.Roles {
+					out = append(out, &Node{Type: "Literal", Token: string(r)})
+				}
+			} else if v, ok := node.Props[n.Name]; ok {
 				out = append(out, &Node{Type: "Literal", Token: v})
 			} else if n.Name == "type" && node.Type != "" {
 				out = append(out, &Node{Type: "Literal", Token: node.Type})
@@ -153,6 +160,66 @@ func lowerLiteral(n *LiteralNode) (QueryFunc, error) {
 }
 
 func lowerCall(n *CallNode) (QueryFunc, error) {
+	// Logical OR (||)
+	if n.Name == "||" && len(n.Args) == 2 {
+		leftFunc, err := LowerDSL(n.Args[0])
+		if err != nil {
+			return nil, err
+		}
+		rightFunc, err := LowerDSL(n.Args[1])
+		if err != nil {
+			return nil, err
+		}
+		return func(nodes []*Node) []*Node {
+			var out []*Node
+			for _, node := range nodes {
+				l := leftFunc([]*Node{node})
+				r := rightFunc([]*Node{node})
+				lTrue := len(l) > 0 && l[0].Type == "Literal" && l[0].Token == "true"
+				rTrue := len(r) > 0 && r[0].Type == "Literal" && r[0].Token == "true"
+				if lTrue || rTrue {
+					out = append(out, &Node{Type: "Literal", Token: "true"})
+				} else {
+					out = append(out, &Node{Type: "Literal", Token: "false"})
+				}
+			}
+			return out
+		}, nil
+	}
+	// Logical AND (&&)
+	if n.Name == "&&" && len(n.Args) == 2 {
+		leftFunc, err := LowerDSL(n.Args[0])
+		if err != nil {
+			return nil, err
+		}
+		rightFunc, err := LowerDSL(n.Args[1])
+		if err != nil {
+			return nil, err
+		}
+		return func(nodes []*Node) []*Node {
+			var out []*Node
+			for _, node := range nodes {
+				l := leftFunc([]*Node{node})
+				r := rightFunc([]*Node{node})
+				lTrue := len(l) > 0 && l[0].Type == "Literal" && l[0].Token == "true"
+				rTrue := len(r) > 0 && r[0].Type == "Literal" && r[0].Token == "true"
+				var lTokens, rTokens []string
+				for _, n := range l {
+					lTokens = append(lTokens, n.Token)
+				}
+				for _, n := range r {
+					rTokens = append(rTokens, n.Token)
+				}
+				log.Printf("[DEBUG] lowerCall &&: node.Type=%s lTrue=%v rTrue=%v lTokens=%v rTokens=%v", node.Type, lTrue, rTrue, lTokens, rTokens)
+				if lTrue && rTrue {
+					out = append(out, &Node{Type: "Literal", Token: "true"})
+				} else {
+					out = append(out, &Node{Type: "Literal", Token: "false"})
+				}
+			}
+			return out
+		}, nil
+	}
 	// Only support == for now: Call(==, Field(x), Literal(y))
 	if n.Name == "==" && len(n.Args) == 2 {
 		leftFunc, err := LowerDSL(n.Args[0])
@@ -168,7 +235,15 @@ func lowerCall(n *CallNode) (QueryFunc, error) {
 			for _, node := range nodes {
 				left := leftFunc([]*Node{node})
 				right := rightFunc([]*Node{node})
-				if len(left) > 0 && len(right) > 0 && left[0].Token == right[0].Token {
+				var lval, rval string
+				if len(left) > 0 {
+					lval = left[0].Token
+				}
+				if len(right) > 0 {
+					rval = right[0].Token
+				}
+				log.Printf("[DEBUG] lowerCall ==: node.Type=%s left=%q right=%q", node.Type, lval, rval)
+				if len(left) > 0 && len(right) > 0 && lval == rval {
 					out = append(out, &Node{Type: "Literal", Token: "true"})
 				} else {
 					out = append(out, &Node{Type: "Literal", Token: "false"})
@@ -179,30 +254,33 @@ func lowerCall(n *CallNode) (QueryFunc, error) {
 	}
 	// Support 'has' for membership: Call(has, Field(x), Literal(y))
 	if n.Name == "has" && len(n.Args) == 2 {
-		leftField, ok := n.Args[0].(*FieldNode)
-		if !ok {
-			return nil, fmt.Errorf("'has' left operand must be a field")
+		leftFunc, err := LowerDSL(n.Args[0])
+		if err != nil {
+			return nil, err
 		}
-		rightLit, ok := n.Args[1].(*LiteralNode)
-		if !ok {
-			return nil, fmt.Errorf("'has' right operand must be a literal")
+		rightFunc, err := LowerDSL(n.Args[1])
+		if err != nil {
+			return nil, err
 		}
 		return func(nodes []*Node) []*Node {
 			var out []*Node
 			for _, node := range nodes {
-				var found bool
-				switch leftField.Name {
-				case "roles":
-					// O(1) hash-set lookup for roles
-					roleSet := make(map[string]struct{}, len(node.Roles))
-					for _, r := range node.Roles {
-						roleSet[string(r)] = struct{}{}
-					}
-					_, found = roleSet[fmt.Sprint(rightLit.Value)]
-				default:
-					// fallback: not supported
-					found = false
+				leftVals := leftFunc([]*Node{node})
+				rightVals := rightFunc(nil)
+				if len(leftVals) == 0 || len(rightVals) == 0 {
+					log.Printf("[DEBUG] lowerCall has: leftVals or rightVals is empty for node.Type=%s", node.Type)
+					out = append(out, &Node{Type: "Literal", Token: "false"})
+					continue
 				}
+				rval := rightVals[0].Token
+				found := false
+				for _, l := range leftVals {
+					if l.Token == rval {
+						found = true
+						break
+					}
+				}
+				log.Printf("[DEBUG] lowerCall has: node.Token=%q leftVals=%v rightVals=%v found=%v", node.Token, leftVals, rightVals, found)
 				if found {
 					out = append(out, &Node{Type: "Literal", Token: "true"})
 				} else {
@@ -213,54 +291,4 @@ func lowerCall(n *CallNode) (QueryFunc, error) {
 		}, nil
 	}
 	return nil, fmt.Errorf("unsupported call: %s", n.Name)
-}
-
-// ParseDSL parses a DSL string into an AST.
-func ParseDSL(input string) (DSLNode, error) {
-	ast, err := Parse("<dsl>", []byte(input), Entrypoint("Start"))
-	if err != nil {
-		return nil, fmt.Errorf("parse error at 1:1: unknown input")
-	}
-	if e, ok := ast.(error); ok {
-		return nil, e
-	}
-	return ast, nil
-}
-
-func stringifyAST(n DSLNode) string {
-	switch v := n.(type) {
-	case *MapNode:
-		return fmt.Sprintf("Map(%s)", stringifyAST(v.Expr))
-	case *FilterNode:
-		return fmt.Sprintf("Filter(%s)", stringifyAST(v.Expr))
-	case *ReduceNode:
-		return fmt.Sprintf("Reduce(%s)", stringifyAST(v.Expr))
-	case *FieldNode:
-		return fmt.Sprintf("Field(%s)", v.Name)
-	case *LiteralNode:
-		return fmt.Sprintf("Literal(%v)", v.Value)
-	case *CallNode:
-		if v.Args == nil || len(v.Args) == 0 {
-			return fmt.Sprintf("Call(%s)", v.Name)
-		}
-		args := ""
-		for i, a := range v.Args {
-			if i > 0 {
-				args += ", "
-			}
-			args += stringifyAST(a)
-		}
-		return fmt.Sprintf("Call(%s, %s)", v.Name, args)
-	case *PipelineNode:
-		stages := ""
-		for i, s := range v.Stages {
-			if i > 0 {
-				stages += " | "
-			}
-			stages += stringifyAST(s)
-		}
-		return fmt.Sprintf("Pipeline(%s)", stages)
-	default:
-		return fmt.Sprintf("%T: %#v", v, v)
-	}
 }

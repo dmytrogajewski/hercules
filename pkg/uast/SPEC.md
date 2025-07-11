@@ -3,6 +3,8 @@
 ## 1. Overview
 The Unified Abstract Syntax Tree (UAST) is a canonical, language-agnostic representation of source code, designed for static analysis, refactoring, and cross-language tooling. UAST nodes are produced from Tree-sitter ASTs using a mapping-driven conversion process, and support robust navigation, querying, and transformation via Go APIs and a DSL.
 
+> **Implementation:** The UAST DSL parser is implemented using a PEG grammar ([pointlander/peg](https://github.com/pointlander/peg)) in Go. The parser produces an AST, which is lowered to Go closures for efficient, type-safe execution over UAST nodes. All type, role, and property assignment is mapping-driven from YAML files per language. The implementation is non-recursive (explicit stack for AST/UAST traversal), and the test suite covers all grammar features, including membership, boolean logic, and pipelines.
+
 ## 2. Canonical Node Structure
 Each UAST node is represented by the following Go struct:
 
@@ -177,6 +179,7 @@ The following is the recommended set of canonical, language-agnostic UAST roles.
 
 ### 3.1 Mapping Files
 - Each language has a YAML/JSON mapping file (e.g., `go.yaml`) that maps Tree-sitter node kinds to UAST types, roles, and optional property extraction rules.
+- The mapping is loaded at startup and is required for correct operation of the parser and UAST conversion.
 - Example:
   ```yaml
   language: go
@@ -188,7 +191,6 @@ The following is the recommended set of canonical, language-agnostic UAST roles.
       type: Identifier
       roles: [Name]
   ```
-- The mapping is loaded at startup and used for all conversions.
 
 ### 3.2 Conversion Algorithm
 - Parse source code with Tree-sitter to obtain a parse tree.
@@ -200,7 +202,7 @@ The following is the recommended set of canonical, language-agnostic UAST roles.
   - Set `Token` for leaves (surface text).
   - Set `Pos` from byte/line/col info.
   - Set `Props` for extra data.
-  - Recursively build `Children`.
+  - Build `Children` using an explicit stack (non-recursive).
 - If a node kind is not mapped, use a fallback type (e.g., `lang:kind`).
 
 ## 4. Serialization
@@ -224,6 +226,8 @@ The following is the recommended set of canonical, language-agnostic UAST roles.
 - All mapped properties are present in `Props`.
 - All children are ordered as in the source AST.
 - All code is non-recursive (explicit stack for traversal).
+- All type/role/property assignment is mapping-driven from YAML mapping files.
+- The test suite covers all grammar features and edge cases.
 - All public APIs and mapping formats are documented.
 
 ## 8. Example
