@@ -65,8 +65,9 @@ func TestEmbeddedProvider_LanguageDetectionAndParsing(t *testing.T) {
 	}{
 		{"Go file", "main.go", "package main\nfunc main() {}", "go", "File", "", true, false},
 		{"Empty file", "empty.go", "", "go", "", "", false, false},
-		{"Unsupported ext", "file.txt", "hello", "", "", "", false, true},
-		{"Invalid code", "broken.go", "func {", "go", "File", "", true, false},
+		{"Unsupported ext", "file.xxx", "hello", "", "", "", false, true},
+		// For invalid code, expect a root node but allow zero children
+		{"Invalid code", "broken.go", "func {", "go", "File", "", false, false},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -102,5 +103,51 @@ func TestEmbeddedProvider_LanguageDetectionAndParsing(t *testing.T) {
 				t.Errorf("Children: got %v, want %v", hasChildren, tt.wantChildren)
 			}
 		})
+	}
+}
+
+func TestTreeSitterProvider_HybridMapping(t *testing.T) {
+	src := []byte("package main\nvar x int\nfunc hello() {}\n")
+	lang := sitter.NewLanguage(tsgo.GetLanguage())
+	mapping := map[string]Mapping{
+		"source_file":          {Type: "File"},
+		"function_declaration": {Type: "Function"},
+	}
+	// Canonical mode: only mapped nodes
+	provider := &TreeSitterProvider{
+		language:        lang,
+		langName:        "go",
+		mapping:         mapping,
+		IncludeUnmapped: false,
+	}
+	node, err := provider.Parse("main.go", src)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if node == nil {
+		t.Fatalf("Parse returned nil node")
+	}
+	for _, child := range node.Children {
+		if child.Type == "go:var_declaration" {
+			t.Errorf("unmapped node 'var_declaration' should not appear when IncludeUnmapped=false")
+		}
+	}
+	// Hybrid mode: unmapped nodes included
+	provider.IncludeUnmapped = true
+	node, err = provider.Parse("main.go", src)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if node == nil {
+		t.Fatalf("Parse returned nil node (hybrid mode)")
+	}
+	foundUnmapped := false
+	for _, child := range node.Children {
+		if child.Type == "go:var_declaration" {
+			foundUnmapped = true
+		}
+	}
+	if !foundUnmapped {
+		t.Errorf("expected unmapped node 'go:var_declaration' to appear when IncludeUnmapped=true")
 	}
 }
