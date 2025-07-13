@@ -1,29 +1,20 @@
 language: markdown
-extensions: [".md", ".markdown"]
+extensions:
+- .md
+- .markdown
 parser: tree-sitter
 mapping:
-  document:
+  source_file:
     type: File
+    skip_if_empty: true
   section:
     type: Section
-  atx_heading:
-    type: Heading
-    props:
-      level: level
-      heading_content: text
-  setext_heading:
-    type: Heading
-    props:
-      level: level
-      heading_content: text
   paragraph:
     type: Paragraph
   block_quote:
     type: BlockQuote
   list:
     type: List
-  list_item:
-    type: ListItem
   thematic_break:
     type: ThematicBreak
   indented_code_block:
@@ -44,8 +35,6 @@ mapping:
     type: LinkTitle
   pipe_table:
     type: Table
-  pipe_table_header:
-    type: TableHeader
   pipe_table_row:
     type: TableRow
   pipe_table_cell:
@@ -56,5 +45,3 @@ mapping:
     type: NumericCharacterReference
   code_fence_content:
     type: Code
-  comment:
-    type: Comment 

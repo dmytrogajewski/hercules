@@ -1,9 +1,11 @@
 language: vimdoc
-extensions: [".txt"]
+extensions:
+- .txt
 parser: tree-sitter
 mapping:
-  help_file:
-    type: Document
+  source_file:
+    type: File
+    skip_if_empty: true
   block:
     type: Section
   modeline:
@@ -17,4 +19,4 @@ mapping:
     props:
       content: content
   codespan:
-    type: Code 
+    type: Code

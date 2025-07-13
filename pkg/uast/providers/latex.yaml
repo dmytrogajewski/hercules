@@ -1,0 +1,51 @@
+language: latex
+extensions:
+- .tex
+- .ltx
+parser: tree-sitter
+mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
+  math_environment:
+    type: MathEnvironment
+    roles:
+    - Declaration
+    props:
+      name: Name
+  text:
+    type: Text
+  subscript:
+    type: Subscript
+  superscript:
+    type: Superscript
+  caption:
+    type: Caption
+  label:
+    type: Label
+    roles:
+    - Name
+  section:
+    type: Section
+    roles:
+    - Declaration
+    props:
+      title: Title
+  subsection:
+    type: Subsection
+    roles:
+    - Declaration
+    props:
+      title: Title
+  chapter:
+    type: Chapter
+    roles:
+    - Declaration
+    props:
+      title: Title
+  part:
+    type: Part
+    roles:
+    - Declaration
+    props:
+      title: Title

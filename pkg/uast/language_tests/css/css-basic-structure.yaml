@@ -1,0 +1,132 @@
+suite: basic-structure
+name: css-basic-structure
+
+parse_cases:
+  - name: simple_rule
+    input: |
+      .container {
+        color: red;
+        font-size: 16px;
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Rule"
+          roles: ["Rule"]
+          children:
+            - type: "Selector"
+              roles: ["Selector"]
+              props:
+                name: ".container"
+            - type: "Block"
+              roles: ["Block"]
+              children:
+                - type: "Declaration"
+                  roles: ["Declaration"]
+                  children:
+                    - type: "Property"
+                      roles: ["Property"]
+                      props:
+                        name: "color"
+                    - type: "Value"
+                      roles: ["Value"]
+                      children:
+                        - type: "Literal"
+                          roles: ["Literal"]
+                          token: "red"
+                - type: "Declaration"
+                  roles: ["Declaration"]
+                  children:
+                    - type: "Property"
+                      roles: ["Property"]
+                      props:
+                        name: "font-size"
+                    - type: "Value"
+                      roles: ["Value"]
+                      children:
+                        - type: "Literal"
+                          roles: ["Literal"]
+                          token: "16px"
+
+  - name: multiple_rules
+    input: |
+      .header {
+        background: blue;
+      }
+      .footer {
+        background: green;
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Rule"
+          roles: ["Rule"]
+          children:
+            - type: "Selector"
+              roles: ["Selector"]
+              props:
+                name: ".header"
+            - type: "Block"
+              roles: ["Block"]
+              children:
+                - type: "Declaration"
+                  roles: ["Declaration"]
+                  children:
+                    - type: "Property"
+                      roles: ["Property"]
+                      props:
+                        name: "background"
+                    - type: "Value"
+                      roles: ["Value"]
+                      children:
+                        - type: "Literal"
+                          roles: ["Literal"]
+                          token: "blue"
+        - type: "Rule"
+          roles: ["Rule"]
+          children:
+            - type: "Selector"
+              roles: ["Selector"]
+              props:
+                name: ".footer"
+            - type: "Block"
+              roles: ["Block"]
+              children:
+                - type: "Declaration"
+                  roles: ["Declaration"]
+                  children:
+                    - type: "Property"
+                      roles: ["Property"]
+                      props:
+                        name: "background"
+                    - type: "Value"
+                      roles: ["Value"]
+                      children:
+                        - type: "Literal"
+                          roles: ["Literal"]
+                          token: "green"
+
+query_cases:
+  - name: find_selectors
+    input: |
+      .selector1 { color: red; }
+      .selector2 { color: blue; }
+    query: "filter(.type == \"Selector\")"
+    output:
+      results:
+        - type: "Selector"
+          roles: ["Selector"]
+          props:
+            name: ".selector1"
+        - type: "Selector"
+          roles: ["Selector"]
+          props:
+            name: ".selector2"
+
+  - name: find_selector_names
+    input: |
+      .my-selector { color: red; }
+    query: "filter(.type == \"Selector\") |> map(.name)"
+    output:
+      results:
+        - token: ".my-selector" 

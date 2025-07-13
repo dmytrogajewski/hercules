@@ -1,5 +1,6 @@
 language: yuck
-extensions: [".yuck"]
+extensions:
+- .yuck
 parser: tree-sitter
 mapping:
   source_file:
@@ -9,7 +10,8 @@ mapping:
     type: Block
   loop_widget:
     type: For
-    roles: [Loop]
+    roles:
+    - Loop
   list:
     type: List
   array:
@@ -18,18 +20,23 @@ mapping:
     type: Keyword
   symbol:
     type: Identifier
-    roles: [Name]
+    roles:
+    - Name
   literal:
     type: Literal
-    roles: [Literal]
+    roles:
+    - Literal
   string:
     type: Literal
-    roles: [Literal]
+    roles:
+    - Literal
   expr:
     type: Expression
   number:
     type: Literal
-    roles: [Literal]
+    roles:
+    - Literal
   boolean:
     type: Literal
-    roles: [Literal] 
+    roles:
+    - Literal

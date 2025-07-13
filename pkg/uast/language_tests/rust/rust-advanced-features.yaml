@@ -1,0 +1,412 @@
+suite: advanced-features
+name: rust-advanced-features
+
+parse_cases:
+  - name: struct_definition
+    input: |
+      struct Person {
+          name: String,
+          age: u32,
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Struct"
+          roles: ["Struct", "Declaration"]
+          props:
+            name: "Person"
+          children:
+            - type: "Type"
+              roles: ["Type"]
+              token: "Person"
+            - type: "FieldList"
+              children:
+                - type: "Field"
+                  roles: ["Member"]
+                  children:
+                    - type: "Type"
+                      roles: ["Type"]
+                      token: "String"
+                - type: "Field"
+                  roles: ["Member"]
+                  children:
+                    - type: "Type"
+                      roles: ["Type"]
+                      token: "u32"
+
+  - name: trait_definition
+    input: |
+      trait Display {
+          fn display(&self) -> String;
+          fn debug(&self) -> String {
+              format!("{:?}", self)
+          }
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Interface"
+          roles: ["Interface", "Declaration"]
+          props:
+            name: "Display"
+          children:
+            - type: "Type"
+              roles: ["Type"]
+              token: "Display"
+            - type: "DeclarationList"
+              children:
+                - type: "FunctionSignature"
+                  roles: ["Function", "Declaration"]
+                  props:
+                    name: "display"
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "display"
+                    - type: "ParameterList"
+                      children:
+                        - type: "Parameter"
+                          roles: ["Parameter", "Declaration"]
+                    - type: "Type"
+                      roles: ["Type"]
+                      token: "String"
+                - type: "Function"
+                  roles: ["Function", "Declaration"]
+                  props:
+                    name: "debug"
+                  children:
+                    - type: "ParameterList"
+                      children:
+                        - type: "Parameter"
+                          roles: ["Parameter", "Declaration"]
+                    - type: "Type"
+                      roles: ["Type"]
+                      token: "String"
+                    - type: "Block"
+                      children:
+                        - type: "Call"
+                          roles: ["Call"]
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "format"
+                            - type: "TokenTree"
+                              children:
+                                - type: "Literal"
+                                  roles: ["Literal"]
+
+  - name: enum_definition
+    input: |
+      enum Status {
+          Active,
+          Inactive,
+          Pending(String),
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Enum"
+          roles: ["Enum", "Declaration"]
+          props:
+            name: "Status"
+          children:
+            - type: "Type"
+              roles: ["Type"]
+              token: "Status"
+            - type: "EnumList"
+              children:
+                - type: "Identifier"
+                  roles: ["Name"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "Active"
+                - type: "Identifier"
+                  roles: ["Name"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "Inactive"
+                - type: "Identifier"
+                  roles: ["Name"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "Pending"
+                    - type: "OrderedFieldList"
+                      children:
+                        - type: "Type"
+                          roles: ["Type"]
+                          token: "String"
+
+  - name: macro_definition
+    input: |
+      macro_rules! println {
+          ($($arg:tt)*) => {
+              print!("{}\n", format_args!($($arg)*));
+          };
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Macro"
+          roles: ["Macro", "Declaration"]
+          props:
+            name: "println"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "println"
+
+  - name: module_definition
+    input: |
+      mod utils {
+          pub fn helper() -> String {
+              "helper".to_string()
+          }
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Module"
+          roles: ["Module", "Declaration"]
+          props:
+            name: "utils"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "utils"
+            - type: "DeclarationList"
+              children:
+                - type: "Function"
+                  roles: ["Function", "Declaration"]
+                  props:
+                    name: "helper"
+                  children:
+                    - type: "Modifier"
+                      roles: ["Modifier"]
+                    - type: "ParameterList"
+                    - type: "Type"
+                      roles: ["Type"]
+                      token: "String"
+                    - type: "Block"
+                      children:
+                        - type: "Call"
+                          roles: ["Call"]
+                          children:
+                            - type: "Field"
+                              roles: ["Member"]
+                              children:
+                                - type: "Literal"
+                                  roles: ["Literal"]
+                                - type: "Identifier"
+                                  roles: ["Name"]
+                                  token: "to_string"
+                            - type: "ArgumentList"
+
+query_cases:
+  - name: find_structs
+    input: |
+      struct User {
+          name: String,
+      }
+      struct Admin {
+          permissions: Vec<String>,
+      }
+    query: "filter(.type == \"Struct\")"
+    output:
+      results:
+        - type: "Struct"
+          roles: ["Struct", "Declaration"]
+          props:
+            name: "User"
+          children:
+            - type: "Type"
+              roles: ["Type"]
+              token: "User"
+            - type: "FieldList"
+              children:
+                - type: "Field"
+                  roles: ["Member"]
+                  children:
+                    - type: "Type"
+                      roles: ["Type"]
+                      token: "String"
+        - type: "Struct"
+          roles: ["Struct", "Declaration"]
+          props:
+            name: "Admin"
+          children:
+            - type: "Type"
+              roles: ["Type"]
+              token: "Admin"
+            - type: "FieldList"
+              children:
+                - type: "Field"
+                  roles: ["Member"]
+
+  - name: find_traits
+    input: |
+      trait Printable {
+          fn print(&self);
+      }
+      trait Debuggable {
+          fn debug(&self);
+      }
+    query: "filter(.type == \"Interface\")"
+    output:
+      results:
+        - type: "Interface"
+          roles: ["Interface", "Declaration"]
+          props:
+            name: "Printable"
+          children:
+            - type: "Type"
+              roles: ["Type"]
+              token: "Printable"
+            - type: "DeclarationList"
+              children:
+                - type: "FunctionSignature"
+                  roles: ["Function", "Declaration"]
+                  props:
+                    name: "print"
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "print"
+                    - type: "ParameterList"
+                      children:
+                        - type: "Parameter"
+                          roles: ["Parameter", "Declaration"]
+        - type: "Interface"
+          roles: ["Interface", "Declaration"]
+          props:
+            name: "Debuggable"
+          children:
+            - type: "Type"
+              roles: ["Type"]
+              token: "Debuggable"
+            - type: "DeclarationList"
+              children:
+                - type: "FunctionSignature"
+                  roles: ["Function", "Declaration"]
+                  props:
+                    name: "debug"
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "debug"
+                    - type: "ParameterList"
+                      children:
+                        - type: "Parameter"
+                          roles: ["Parameter", "Declaration"]
+
+  - name: find_enums
+    input: |
+      enum Color {
+          Red,
+          Green,
+          Blue,
+      }
+    query: "filter(.type == \"Enum\")"
+    output:
+      results:
+        - type: "Enum"
+          roles: ["Enum", "Declaration"]
+          props:
+            name: "Color"
+          children:
+            - type: "Type"
+              roles: ["Type"]
+              token: "Color"
+            - type: "EnumList"
+              children:
+                - type: "Identifier"
+                  roles: ["Name"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "Red"
+                - type: "Identifier"
+                  roles: ["Name"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "Green"
+                - type: "Identifier"
+                  roles: ["Name"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "Blue"
+
+  - name: find_macros
+    input: |
+      macro_rules! log {
+          ($msg:expr) => {
+              println!("LOG: {}", $msg);
+          };
+      }
+    query: "filter(.type == \"Macro\")"
+    output:
+      results:
+        - type: "Macro"
+          roles: ["Macro", "Declaration"]
+          props:
+            name: "log"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "log"
+
+  - name: find_modules
+    input: |
+      mod math {
+          pub fn add(a: i32, b: i32) -> i32 {
+              a + b
+          }
+      }
+    query: "filter(.type == \"Module\")"
+    output:
+      results:
+        - type: "Module"
+          roles: ["Module", "Declaration"]
+          props:
+            name: "math"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "math"
+            - type: "DeclarationList"
+              children:
+                - type: "Function"
+                  roles: ["Function", "Declaration"]
+                  props:
+                    name: "add"
+                  children:
+                    - type: "Modifier"
+                      roles: ["Modifier"]
+                    - type: "ParameterList"
+                      children:
+                        - type: "Parameter"
+                          roles: ["Parameter", "Declaration"]
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "a"
+                            - type: "Type"
+                              roles: ["Type"]
+                              token: "i32"
+                        - type: "Parameter"
+                          roles: ["Parameter", "Declaration"]
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "b"
+                            - type: "Type"
+                              roles: ["Type"]
+                              token: "i32"
+                    - type: "Type"
+                      roles: ["Type"]
+                      token: "i32"
+                    - type: "Block" 

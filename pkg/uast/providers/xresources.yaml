@@ -1,12 +1,14 @@
 language: xresources
-extensions: [".Xresources"]
+extensions:
+- .Xresources
 parser: tree-sitter
 mapping:
-  resources:
+  source_file:
     type: File
     skip_if_empty: true
   resource:
     type: Resource
   comment:
     type: Comment
-    roles: [Comment] 
+    roles:
+    - Comment

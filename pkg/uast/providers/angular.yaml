@@ -1,10 +1,8 @@
 language: angular
-extensions: [".html"]
+extensions:
+- .html
 parser: tree-sitter
 mapping:
-  document:
-    type: File
-    skip_if_empty: true
   element:
     type: Element
   script_element:
@@ -17,8 +15,5 @@ mapping:
     type: ICUExpression
   text:
     type: Text
-  comment:
-    type: Comment
-    roles: [Comment]
   attribute:
-    type: Attribute 
+    type: Attribute

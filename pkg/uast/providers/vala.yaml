@@ -1,9 +1,11 @@
 language: vala
-extensions: [".vala"]
+extensions:
+- .vala
 parser: tree-sitter
 mapping:
   source_file:
     type: File
+    skip_if_empty: true
   using_directive:
     type: Import
   namespace_declaration:
@@ -20,17 +22,9 @@ mapping:
     type: Method
   delegate_declaration:
     type: Function
-  var_declaration:
-    type: Variable
-  parameter_list:
-    type: ParameterList
-  parameter_declaration:
-    type: Parameter
   block:
     type: Block
   return_statement:
     type: Return
-  call_expression:
-    type: Call
   comment:
-    type: Comment 
+    type: Comment

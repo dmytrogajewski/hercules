@@ -1,5 +1,6 @@
 language: zoomba
-extensions: [".zb"]
+extensions:
+- .zb
 parser: tree-sitter
 mapping:
   source_file:
@@ -7,13 +8,17 @@ mapping:
     skip_if_empty: true
   identifier:
     type: Identifier
-    roles: [Name]
+    roles:
+    - Name
   number:
     type: Literal
-    roles: [Literal]
+    roles:
+    - Literal
   string:
     type: Literal
-    roles: [Literal]
+    roles:
+    - Literal
   comment:
     type: Comment
-    roles: [Comment] 
+    roles:
+    - Comment

@@ -1,8 +1,9 @@
 language: vue
-extensions: [".vue"]
+extensions:
+- .vue
 parser: tree-sitter
 mapping:
-  document:
+  source_file:
     type: File
     skip_if_empty: true
   element:
@@ -17,8 +18,5 @@ mapping:
     type: Template
   text:
     type: Text
-  comment:
-    type: Comment
-    roles: [Comment]
   attribute:
-    type: Attribute 
+    type: Attribute

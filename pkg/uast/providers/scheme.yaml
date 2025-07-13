@@ -1,0 +1,46 @@
+language: scheme
+extensions:
+- .scm
+- .ss
+- .sls
+parser: tree-sitter
+mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
+  list:
+    type: List
+  vector:
+    type: Vector
+  string:
+    type: Literal
+    roles:
+    - Literal
+  number:
+    type: Literal
+    roles:
+    - Literal
+  boolean:
+    type: Literal
+    roles:
+    - Literal
+  character:
+    type: Literal
+    roles:
+    - Literal
+  symbol:
+    type: Symbol
+    roles:
+    - Name
+  comment:
+    type: Comment
+    roles:
+    - Comment
+  quote:
+    type: Quote
+  quasiquote:
+    type: Quasiquote
+  unquote:
+    type: Unquote
+  unquote_splicing:
+    type: UnquoteSplicing

@@ -1,9 +1,11 @@
 language: typespec
-extensions: [".tsp"]
+extensions:
+- .tsp
 parser: tree-sitter
 mapping:
   source_file:
     type: File
+    skip_if_empty: true
   namespace_statement:
     type: Module
   import_statement:
@@ -31,4 +33,4 @@ mapping:
   decorator_declaration_statement:
     type: Decorator
   augment_decorator_statement:
-    type: Decorator 
+    type: Decorator

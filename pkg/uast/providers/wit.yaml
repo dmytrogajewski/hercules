@@ -1,5 +1,6 @@
 language: wit
-extensions: [".wit"]
+extensions:
+- .wit
 parser: tree-sitter
 mapping:
   source_file:
@@ -7,9 +8,13 @@ mapping:
     skip_if_empty: true
   package_decl:
     type: Package
-    roles: [Package, Declaration]
+    roles:
+    - Package
+    - Declaration
   world_item:
     type: World
   interface_item:
     type: Interface
-    roles: [Interface, Declaration] 
+    roles:
+    - Interface
+    - Declaration

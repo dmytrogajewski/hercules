@@ -36,7 +36,7 @@ def run_benchmarks():
     """Run the benchmarks and capture output."""
     print("Running UAST benchmarks...")
     result = subprocess.run([
-        'go', 'test', '-bench=.', '-benchmem', '-benchtime=5s', './pkg/uast'
+        'go', 'test', '-run=^$', '-bench=.', '-benchmem', '-benchtime=5s', './pkg/uast'
     ], capture_output=True, text=True, cwd=Path.cwd())
     
     if result.returncode != 0:

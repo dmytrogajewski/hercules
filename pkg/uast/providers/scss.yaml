@@ -1,0 +1,79 @@
+language: scss
+extensions:
+- .scss
+parser: tree-sitter
+mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
+  rule_set:
+    type: RuleSet
+    roles:
+    - Declaration
+  class_selector:
+    type: ClassSelector
+  id_selector:
+    type: IdSelector
+  attribute_selector:
+    type: AttributeSelector
+  pseudo_class_selector:
+    type: PseudoClassSelector
+  pseudo_element_selector:
+    type: PseudoElementSelector
+  declaration:
+    type: Declaration
+    roles:
+    - Declaration
+    props:
+      property: Property
+      value: Value
+  block:
+    type: Block
+  at_rule:
+    type: AtRule
+    roles:
+    - Declaration
+    props:
+      name: Name
+  keyframe_block:
+    type: KeyframeBlock
+  import_statement:
+    type: Import
+    roles:
+    - Import
+  charset_statement:
+    type: Charset
+  namespace_statement:
+    type: Namespace
+  comment:
+    type: Comment
+    roles:
+    - Comment
+  arguments:
+    type: Arguments
+  include_statement:
+    type: Include
+    roles:
+    - Call
+  extend_statement:
+    type: Extend
+  return_statement:
+    type: Return
+    roles:
+    - Return
+  if_statement:
+    type: If
+  else_clause:
+    type: Else
+  for_statement:
+    type: For
+    roles:
+    - Loop
+  each_statement:
+    type: Each
+    roles:
+    - Loop
+  while_statement:
+    type: While
+    roles:
+    - Loop

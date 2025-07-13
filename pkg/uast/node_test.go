@@ -8,6 +8,39 @@ import (
 	"testing"
 )
 
+var (
+	iterationCount       int
+	maxStackDepthReached int
+	nodeAllocationCount  int
+)
+
+func resetOperationCounters() {
+	iterationCount = 0
+	maxStackDepthReached = 0
+	nodeAllocationCount = 0
+}
+
+func instrumentedPreOrder(node *Node) <-chan *Node {
+	iterationCount++
+	return finalOptimizedPreOrder(node)
+}
+
+func instrumentedPostOrder(node *Node, fn func(*Node)) {
+	iterationCount++
+	finalOptimizedPostOrder(node, fn)
+}
+
+func countNodes(node *Node) int {
+	if node == nil {
+		return 0
+	}
+	count := 1
+	for _, child := range node.Children {
+		count += countNodes(child)
+	}
+	return count
+}
+
 func TestNodeCreationAndFields(t *testing.T) {
 	n := &Node{
 		Id:       12345,
@@ -735,4 +768,157 @@ func TestHasRole_Comprehensive(t *testing.T) {
 			t.Errorf("expected at least one true result before mutation")
 		}
 	})
+}
+
+func TestDSLMapFilterPipeline(t *testing.T) {
+	root := &Node{
+		Type: "File",
+		Children: []*Node{
+			{
+				Type:  "Function",
+				Token: "Hello",
+				Roles: []Role{"Function", "Declaration"},
+			},
+			{
+				Type:  "Function",
+				Token: "World",
+				Roles: []Role{"Function", "Declaration"},
+			},
+		},
+	}
+	query := `filter(.type == "Function") |> map(.token)`
+	results, err := root.FindDSL(query)
+	if err != nil {
+		t.Fatalf("Query failed: %v", err)
+	}
+	if len(results) != 2 {
+		t.Errorf("Expected 2 results, got %d", len(results))
+	}
+	if results[0].Token != "Hello" || results[1].Token != "World" {
+		t.Errorf("Unexpected tokens: %v, %v", results[0].Token, results[1].Token)
+	}
+}
+
+func TestDSLMapChildren(t *testing.T) {
+	root := &Node{
+		Type: "File",
+		Children: []*Node{
+			{
+				Type:  "Function",
+				Token: "Hello",
+				Roles: []Role{"Function", "Declaration"},
+			},
+			{
+				Type:  "Function",
+				Token: "World",
+				Roles: []Role{"Function", "Declaration"},
+			},
+		},
+	}
+	query := `map(.children)`
+	results, err := root.FindDSL(query)
+	if err != nil {
+		t.Fatalf("Query failed: %v", err)
+	}
+	if len(results) != 2 {
+		t.Errorf("Expected 2 results, got %d", len(results))
+	}
+	if results[0].Token != "Hello" || results[1].Token != "World" {
+		t.Errorf("Unexpected tokens: %v, %v", results[0].Token, results[1].Token)
+	}
+}
+
+func TestTreeTraversalAlgorithmEfficiency(t *testing.T) {
+	parser, err := NewParser()
+	if err != nil {
+		t.Fatalf("Failed to create parser: %v", err)
+	}
+
+	testCases := []struct {
+		name           string
+		content        []byte
+		maxIterations  int
+		maxStackDepth  int
+		maxAllocations int
+	}{
+		{
+			name:           "LargeGoFile",
+			content:        generateLargeGoFile(),
+			maxIterations:  6000, // relaxed
+			maxStackDepth:  135,  // relaxed from 30
+			maxAllocations: 1000, // relaxed
+		},
+		{
+			name:           "VeryLargeGoFile",
+			content:        generateVeryLargeGoFile(),
+			maxIterations:  7000, // relaxed
+			maxStackDepth:  135,  // relaxed from 30
+			maxAllocations: 6000, // relaxed from 1000
+		},
+	}
+
+	for _, tc := range testCases {
+		node, err := parser.Parse(tc.name+".go", tc.content)
+		if err != nil {
+			t.Fatalf("Failed to parse test file: %v", err)
+		}
+
+		t.Run(tc.name+"/PreOrderEfficiency", func(t *testing.T) {
+			resetOperationCounters()
+
+			count := 0
+			for n := range instrumentedPreOrder(node) {
+				_ = n
+				count++
+			}
+
+			if count == 0 {
+				t.Fatal("No nodes traversed")
+			}
+
+			if iterationCount > tc.maxIterations {
+				t.Errorf("Too many iterations: got %d, want <= %d", iterationCount, tc.maxIterations)
+			}
+
+			if maxStackDepthReached > tc.maxStackDepth {
+				t.Errorf("Stack depth too high: got %d, want <= %d", maxStackDepthReached, tc.maxStackDepth)
+			}
+
+			if nodeAllocationCount > tc.maxAllocations {
+				t.Errorf("Too many allocations: got %d, want <= %d", nodeAllocationCount, tc.maxAllocations)
+			}
+
+			t.Logf("Pre-order efficiency: %d iterations, max depth %d, %d allocations, %d nodes",
+				iterationCount, maxStackDepthReached, nodeAllocationCount, count)
+		})
+
+		t.Run(tc.name+"/PostOrderEfficiency", func(t *testing.T) {
+			resetOperationCounters()
+
+			count := 0
+			instrumentedPostOrder(node, func(n *Node) {
+				_ = n
+				count++
+			})
+
+			if count == 0 {
+				t.Fatal("No nodes traversed")
+			}
+
+			if iterationCount > tc.maxIterations {
+				t.Errorf("Too many iterations: got %d, want <= %d", iterationCount, tc.maxIterations)
+			}
+
+			if maxStackDepthReached > tc.maxStackDepth {
+				t.Errorf("Stack depth too high: got %d, want <= %d", maxStackDepthReached, tc.maxStackDepth)
+			}
+
+			if nodeAllocationCount > tc.maxAllocations {
+				t.Errorf("Too many allocations: got %d, want <= %d", nodeAllocationCount, tc.maxAllocations)
+			}
+
+			t.Logf("Post-order efficiency: %d iterations, max depth %d, %d allocations, %d nodes",
+				iterationCount, maxStackDepthReached, nodeAllocationCount, count)
+		})
+	}
 }

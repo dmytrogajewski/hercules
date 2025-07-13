@@ -1,9 +1,11 @@
 language: vim
-extensions: [".vim"]
+extensions:
+- .vim
 parser: tree-sitter
 mapping:
-  script_file:
+  source_file:
     type: File
+    skip_if_empty: true
   function_definition:
     type: Function
     props:
@@ -38,4 +40,4 @@ mapping:
   call_statement:
     type: Call
     props:
-      name: name 
+      name: name

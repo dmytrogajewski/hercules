@@ -1,9 +1,11 @@
 language: usd
-extensions: [".usd"]
+extensions:
+- .usd
 parser: tree-sitter
 mapping:
-  module:
+  source_file:
     type: File
+    skip_if_empty: true
   attribute_assignment:
     type: Assignment
   attribute_declaration:
@@ -15,4 +17,4 @@ mapping:
   relationship_declaration:
     type: Variable
   comment:
-    type: Comment 
+    type: Comment

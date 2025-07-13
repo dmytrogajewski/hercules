@@ -1,0 +1,106 @@
+suite: basic-functions
+name: bash-basic-functions
+
+parse_cases:
+  - name: simple_function
+    input: |
+      hello() {
+          echo "Hello, World!"
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "hello"
+          children:
+            - type: "Block"
+              children:
+                - type: "Call"
+                  roles: ["Call"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      props:
+                        name: "echo"
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: '"Hello, World!"'
+
+  - name: function_with_params
+    input: |
+      add() {
+          local a=$1
+          local b=$2
+          echo $((a + b))
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "add"
+          children:
+            - type: "ParameterList"
+              children:
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+                  props:
+                    name: "a"
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+                  props:
+                    name: "b"
+            - type: "Block"
+              children:
+                - type: "Call"
+                  roles: ["Call"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      props:
+                        name: "echo"
+                    - type: "BinaryExpression"
+                      roles: ["Binary"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          props:
+                            name: "a"
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          props:
+                            name: "b"
+
+query_cases:
+  - name: find_functions
+    input: |
+      func1() {
+          echo "func1"
+      }
+      func2() {
+          echo "func2"
+      }
+    query: "filter(.type == \"Function\")"
+    output:
+      results:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "func1"
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "func2"
+
+  - name: find_function_names
+    input: |
+      my_function() {
+          echo "test"
+      }
+    query: "filter(.type == \"Function\") |> map(.name)"
+    output:
+      results:
+        - token: "my_function" 

@@ -1,9 +1,11 @@
 language: udev
-extensions: [".rules"]
+extensions:
+- .rules
 parser: tree-sitter
 mapping:
-  rules:
+  source_file:
     type: File
+    skip_if_empty: true
   rule:
     type: Statement
   match:
@@ -11,4 +13,4 @@ mapping:
   assignment:
     type: Assignment
   comment:
-    type: Comment 
+    type: Comment

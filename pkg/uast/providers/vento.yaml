@@ -1,9 +1,11 @@
 language: vento
-extensions: [".vento"]
+extensions:
+- .vento
 parser: tree-sitter
 mapping:
-  template:
+  source_file:
     type: File
+    skip_if_empty: true
   tag:
     type: Call
     props:
@@ -18,4 +20,4 @@ mapping:
   code_snippet:
     type: Code
   comment:
-    type: Comment 
+    type: Comment

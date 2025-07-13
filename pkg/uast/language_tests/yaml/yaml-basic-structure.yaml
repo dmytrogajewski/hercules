@@ -1,0 +1,111 @@
+suite: basic-structure
+name: yaml-basic-structure
+
+parse_cases:
+  - name: simple_mapping
+    input: |
+      name: John
+      age: 30
+    output:
+      type: "File"
+      children:
+        - type: "Mapping"
+          roles: ["Mapping"]
+          children:
+            - type: "Pair"
+              children:
+                - type: "Key"
+                  roles: ["Key"]
+                  props:
+                    name: "name"
+                - type: "Value"
+                  roles: ["Value"]
+                  children:
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: "John"
+            - type: "Pair"
+              children:
+                - type: "Key"
+                  roles: ["Key"]
+                  props:
+                    name: "age"
+                - type: "Value"
+                  roles: ["Value"]
+                  children:
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: "30"
+
+  - name: nested_mapping
+    input: |
+      person:
+        name: John
+        age: 30
+    output:
+      type: "File"
+      children:
+        - type: "Mapping"
+          roles: ["Mapping"]
+          children:
+            - type: "Pair"
+              children:
+                - type: "Key"
+                  roles: ["Key"]
+                  props:
+                    name: "person"
+                - type: "Value"
+                  roles: ["Value"]
+                  children:
+                    - type: "Mapping"
+                      roles: ["Mapping"]
+                      children:
+                        - type: "Pair"
+                          children:
+                            - type: "Key"
+                              roles: ["Key"]
+                              props:
+                                name: "name"
+                            - type: "Value"
+                              roles: ["Value"]
+                              children:
+                                - type: "Literal"
+                                  roles: ["Literal"]
+                                  token: "John"
+                        - type: "Pair"
+                          children:
+                            - type: "Key"
+                              roles: ["Key"]
+                              props:
+                                name: "age"
+                            - type: "Value"
+                              roles: ["Value"]
+                              children:
+                                - type: "Literal"
+                                  roles: ["Literal"]
+                                  token: "30"
+
+query_cases:
+  - name: find_keys
+    input: |
+      key1: value1
+      key2: value2
+    query: "filter(.type == \"Key\")"
+    output:
+      results:
+        - type: "Key"
+          roles: ["Key"]
+          props:
+            name: "key1"
+        - type: "Key"
+          roles: ["Key"]
+          props:
+            name: "key2"
+
+  - name: find_key_names
+    input: |
+      my_key: my_value
+    query: "filter(.type == \"Key\") |> map(.name)"
+    output:
+      results:
+        - token: "my_key" 

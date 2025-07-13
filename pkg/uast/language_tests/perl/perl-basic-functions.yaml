@@ -1,0 +1,130 @@
+suite: basic-functions
+name: perl-basic-functions
+
+parse_cases:
+  - name: simple_function
+    input: |
+      sub hello {
+          return "Hello, World!";
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "hello"
+          token: "hello"
+          children:
+            - type: "Block"
+              children:
+                - type: "Return"
+                  children:
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: Hello, World!
+
+  - name: function_with_params
+    input: |
+      sub add {
+          my ($a, $b) = @_;
+          return $a + $b;
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "add"
+          token: "add"
+          children:
+            - type: "Block"
+              children:
+                - type: "Synthetic"
+                  children:
+                    - type: "ParameterList"
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          props:
+                            name: "a"
+                          token: "a"
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "a"
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          props:
+                            name: "b"
+                          token: "b"
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "b"
+                    - type: "List"
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "_"
+                - type: "Return"
+                  children:
+                    - type: "BinaryExpression"
+                      roles: ["Binary"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          props:
+                            name: "a"
+                          token: "a"
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "a"
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          props:
+                            name: "b"
+                          token: "b"
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "b"
+
+query_cases:
+  - name: find_functions
+    input: |
+      sub func1 {}
+      sub func2 {}
+    query: "filter(.type == \"Function\")"
+    output:
+      results:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "func1"
+          token: "func1"
+          children:
+            - type: "Block"
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "func2"
+          token: "func2"
+          children:
+            - type: "Block"
+
+  - name: find_function_names
+    input: |
+      sub my_function {}
+    query: "filter(.type == \"Function\")"
+    output:
+      results:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "my_function"
+          token: "my_function"
+          children:
+            - type: "Block" 

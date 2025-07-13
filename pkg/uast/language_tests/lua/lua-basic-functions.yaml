@@ -1,0 +1,91 @@
+suite: basic-functions
+name: lua-basic-functions
+
+parse_cases:
+  - name: simple_function
+    input: |
+      function hello()
+        return "Hello, World!"
+      end
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "hello"
+          children:
+            - type: "Block"
+              children:
+                - type: "Return"
+                  children:
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: '"Hello, World!"'
+
+  - name: function_with_params
+    input: |
+      function add(a, b)
+        return a + b
+      end
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "add"
+          children:
+            - type: "ParameterList"
+              children:
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+                  props:
+                    name: "a"
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+                  props:
+                    name: "b"
+            - type: "Block"
+              children:
+                - type: "Return"
+                  children:
+                    - type: "BinaryExpression"
+                      roles: ["Binary"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          props:
+                            name: "a"
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          props:
+                            name: "b"
+
+query_cases:
+  - name: find_functions
+    input: |
+      function func1()
+      end
+      function func2()
+      end
+    query: "filter(.type == \"Function\")"
+    output:
+      results:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "func1"
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "func2"
+
+  - name: find_function_names
+    input: |
+      function my_function()
+      end
+    query: "filter(.type == \"Function\") |> map(.name)"
+    output:
+      results:
+        - token: "my_function" 

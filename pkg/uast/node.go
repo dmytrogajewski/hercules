@@ -2,7 +2,6 @@
 package uast
 
 import (
-	"encoding/json"
 	"fmt"
 	"sync"
 )
@@ -158,13 +157,9 @@ func removeChildAtIndex(n *Node, index int) {
 	n.Children = append(n.Children[:index], n.Children[index+1:]...)
 }
 
-// String returns a JSON string representation of the node.
+// String returns a string representation of the node
 func (n *Node) String() string {
-	b, err := json.Marshal(n)
-	if isJsonError(err) {
-		return createErrorString(err)
-	}
-	return string(b)
+	return optimizedNodeString(n)
 }
 
 func isJsonError(err error) bool {
@@ -230,66 +225,27 @@ func estimateTreeSize(node *Node) int {
 }
 
 // PreOrder visits all nodes in pre-order (root, then children left-to-right).
-// Calls fn for each node. No-op if n is nil.
+// Now uses the final optimized implementation with strict depth limiting.
 func (n *Node) PreOrder(fn func(*Node)) {
-	if isNodeNil(n) {
+	if n == nil {
 		return
 	}
-	preOrderTraversal(n, fn)
+	// Use the channel-based optimized version and consume it
+	for node := range finalOptimizedPreOrder(n) {
+		fn(node)
+	}
 }
 
-func preOrderTraversal(n *Node, fn func(*Node)) {
-	stack := []*Node{n}
-	for nodeHasStack(stack) {
-		curr := nodePopStack(&stack)
-		fn(curr)
-		nodePushChildrenToStack(curr, &stack)
-	}
+// PreOrder returns a channel streaming nodes in pre-order traversal.
+// Now uses the final optimized implementation with strict depth limiting.
+func PreOrder(root *Node) <-chan *Node {
+	return finalOptimizedPreOrder(root)
 }
 
 // PostOrder visits all nodes in post-order (children left-to-right, then root).
-// Calls fn for each node. No-op if n is nil.
+// Now uses the final optimized implementation with strict depth limiting.
 func (n *Node) PostOrder(fn func(*Node)) {
-	if isNodeNil(n) {
-		return
-	}
-	postOrderTraversal(n, fn)
-}
-
-func postOrderTraversal(n *Node, fn func(*Node)) {
-	stack := []nodeFrame{{n, false}}
-	for nodeHasFrameStack(stack) {
-		top := &stack[len(stack)-1]
-		if !nodeIsFrameVisited(top) {
-			nodeMarkFrameVisited(top)
-			nodePushChildrenFrames(top.node, &stack)
-		} else {
-			fn(top.node)
-			nodePopFrameStack(&stack)
-		}
-	}
-}
-
-func nodeHasFrameStack(stack []nodeFrame) bool {
-	return len(stack) > 0
-}
-
-func nodeIsFrameVisited(f *nodeFrame) bool {
-	return f.visited
-}
-
-func nodeMarkFrameVisited(f *nodeFrame) {
-	f.visited = true
-}
-
-func nodePushChildrenFrames(node *Node, stack *[]nodeFrame) {
-	for i := len(node.Children) - 1; i >= 0; i-- {
-		*stack = append(*stack, nodeFrame{node.Children[i], false})
-	}
-}
-
-func nodePopFrameStack(stack *[]nodeFrame) {
-	*stack = (*stack)[:len(*stack)-1]
+	finalOptimizedPostOrder(n, fn)
 }
 
 // Ancestors returns the list of ancestors from root to the parent of target (empty if not found).
@@ -439,6 +395,18 @@ func (n *Node) FindDSL(query string) ([]*Node, error) {
 		}
 		return result, nil
 	}
+	// If the top-level AST is a PipelineNode, use n.Children as input
+	if _, ok := ast.(*PipelineNode); ok {
+		runtime, err := LowerDSL(ast)
+		if err != nil {
+			return nil, fmt.Errorf("DSL lowering error: %w", err)
+		}
+		result := runtime(n.Children)
+		if result == nil {
+			return []*Node{}, nil
+		}
+		return result, nil
+	}
 	runtime, err := LowerDSL(ast)
 	if err != nil {
 		return nil, fmt.Errorf("DSL lowering error: %w", err)
@@ -448,34 +416,6 @@ func (n *Node) FindDSL(query string) ([]*Node, error) {
 		return []*Node{}, nil
 	}
 	return result, nil
-}
-
-// PreOrder returns a channel streaming nodes in pre-order traversal.
-// Example:
-//
-//	for n := range uast.PreOrder(root) {
-//	    fmt.Println(n.Type)
-//	}
-func PreOrder(root *Node) <-chan *Node {
-	ch := make(chan *Node)
-	go func() {
-		if isNodeNil(root) {
-			close(ch)
-			return
-		}
-		streamPreOrder(root, ch)
-	}()
-	return ch
-}
-
-func streamPreOrder(root *Node, ch chan<- *Node) {
-	stack := []*Node{root}
-	for nodeHasStack(stack) {
-		n := nodePopStack(&stack)
-		ch <- n
-		nodePushChildrenToStack(n, &stack)
-	}
-	close(ch)
 }
 
 // HasRole checks if the node has the given role.
@@ -536,4 +476,193 @@ func transformInPlace(root *Node, fn func(*Node) bool) {
 
 func shouldContinueTransform(n *Node, fn func(*Node) bool) bool {
 	return fn(n)
+}
+
+// Final optimized tree traversal with strict depth limiting
+func finalOptimizedPreOrder(node *Node) <-chan *Node {
+	ch := make(chan *Node)
+	go func() {
+		defer close(ch)
+		if node == nil {
+			return
+		}
+
+		// Use strict depth limiting
+		maxAllowedDepth := 25 // Conservative limit
+		stack := make([]*Node, 0, 64)
+		stack = append(stack, node)
+
+		for len(stack) > 0 {
+			// Pop from stack
+			n := stack[len(stack)-1]
+			stack = stack[:len(stack)-1]
+
+			if n == nil {
+				continue
+			}
+
+			ch <- n
+
+			// Push children in reverse order for pre-order
+			childCount := len(n.Children)
+			if childCount > 0 {
+				// Strict depth limiting
+				if len(stack) >= maxAllowedDepth {
+					// Process remaining nodes with depth-limited recursion
+					processRemainingNodesDepthLimited(n, ch, 0, 10)
+					continue
+				}
+
+				// Ensure stack has enough capacity
+				if cap(stack) < len(stack)+childCount {
+					newStack := make([]*Node, len(stack), len(stack)+childCount+32)
+					copy(newStack, stack)
+					stack = newStack
+				}
+
+				// Push children in reverse order
+				for i := childCount - 1; i >= 0; i-- {
+					stack = append(stack, n.Children[i])
+				}
+			}
+		}
+	}()
+	return ch
+}
+
+// Process remaining nodes with depth-limited recursion
+func processRemainingNodesDepthLimited(node *Node, ch chan<- *Node, depth, maxDepth int) {
+	if depth >= maxDepth {
+		// Switch to iterative approach for remaining nodes
+		processRemainingNodesIterative(node, ch)
+		return
+	}
+
+	ch <- node
+	for _, child := range node.Children {
+		processRemainingNodesDepthLimited(child, ch, depth+1, maxDepth)
+	}
+}
+
+// Process remaining nodes iteratively
+func processRemainingNodesIterative(node *Node, ch chan<- *Node) {
+	queue := make([]*Node, 0, 32)
+	queue = append(queue, node)
+
+	for len(queue) > 0 {
+		n := queue[0]
+		queue = queue[1:]
+
+		if n == nil {
+			continue
+		}
+
+		ch <- n
+
+		// Add children to queue
+		for _, child := range n.Children {
+			queue = append(queue, child)
+		}
+	}
+}
+
+// Final optimized post-order traversal with strict depth limiting
+func finalOptimizedPostOrder(node *Node, fn func(*Node)) {
+	if node == nil {
+		return
+	}
+
+	// Use strict depth limiting
+	maxAllowedDepth := 25
+	stack := make([]struct {
+		node  *Node
+		index int
+	}, 0, 64)
+
+	stack = append(stack, struct {
+		node  *Node
+		index int
+	}{node, 0})
+
+	for len(stack) > 0 {
+		// Strict depth limiting
+		if len(stack) >= maxAllowedDepth {
+			// Process remaining nodes with depth-limited recursion
+			processRemainingNodesPostOrderDepthLimited(node, fn, 0, 10)
+			break
+		}
+
+		top := &stack[len(stack)-1]
+
+		if top.index == 0 {
+			// First visit - process children
+			childCount := len(top.node.Children)
+			if childCount > 0 {
+				// Ensure stack has enough capacity
+				if cap(stack) < len(stack)+childCount {
+					newStack := make([]struct {
+						node  *Node
+						index int
+					}, len(stack), len(stack)+childCount+32)
+					copy(newStack, stack)
+					stack = newStack
+				}
+
+				// Push children in reverse order
+				for i := childCount - 1; i >= 0; i-- {
+					stack = append(stack, struct {
+						node  *Node
+						index int
+					}{top.node.Children[i], 0})
+				}
+				top.index = 1
+			} else {
+				// No children - process node and pop
+				fn(top.node)
+				stack = stack[:len(stack)-1]
+			}
+		} else {
+			// Second visit - process node and pop
+			fn(top.node)
+			stack = stack[:len(stack)-1]
+		}
+	}
+}
+
+// Process remaining nodes for post-order with depth limiting
+func processRemainingNodesPostOrderDepthLimited(node *Node, fn func(*Node), depth, maxDepth int) {
+	if depth >= maxDepth {
+		// Switch to iterative approach
+		processRemainingNodesPostOrderIterative(node, fn)
+		return
+	}
+
+	for _, child := range node.Children {
+		processRemainingNodesPostOrderDepthLimited(child, fn, depth+1, maxDepth)
+	}
+	fn(node)
+}
+
+// Process remaining nodes for post-order iteratively
+func processRemainingNodesPostOrderIterative(node *Node, fn func(*Node)) {
+	stack := make([]*Node, 0, 32)
+	visited := make(map[*Node]bool)
+
+	stack = append(stack, node)
+
+	for len(stack) > 0 {
+		n := stack[len(stack)-1]
+
+		if visited[n] {
+			// Second visit - process node
+			fn(n)
+			stack = stack[:len(stack)-1]
+		} else {
+			// First visit - mark visited and push children
+			visited[n] = true
+			for i := len(n.Children) - 1; i >= 0; i-- {
+				stack = append(stack, n.Children[i])
+			}
+		}
+	}
 }

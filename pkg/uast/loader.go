@@ -20,10 +20,14 @@ type ProviderConfig struct {
 }
 
 type Mapping struct {
-	Type        string                 `yaml:"type"`
-	Roles       []string               `yaml:"roles,omitempty"`
-	Props       map[string]interface{} `yaml:"props,omitempty"`
-	SkipIfEmpty bool                   `yaml:"skip_if_empty,omitempty"`
+	Type        string          `yaml:"type"`
+	Roles       []string        `yaml:"roles,omitempty"`
+	Props       map[string]any  `yaml:"props,omitempty"`
+	SkipIfEmpty bool            `yaml:"skip_if_empty,omitempty"`
+	Skip        bool            `yaml:"skip,omitempty"`
+	Name        *NameExtraction `yaml:"name,omitempty"`
+	Children    []ChildMapping  `yaml:"children,omitempty"` // TODO: Add support for nested children
+	Token       string          `yaml:"token,omitempty"`    // Token extraction source
 }
 
 type Providers map[string]*ProviderConfig

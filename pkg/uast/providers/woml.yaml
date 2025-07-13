@@ -1,8 +1,9 @@
 language: woml
-extensions: [".woml"]
+extensions:
+- .woml
 parser: tree-sitter
 mapping:
-  doc:
+  source_file:
     type: File
     skip_if_empty: true
   entryObject:
@@ -11,10 +12,14 @@ mapping:
     type: List
   entryText:
     type: Literal
-    roles: [Literal]
+    roles:
+    - Literal
   pair:
     type: KeyValue
-    roles: [Key, Value]
+    roles:
+    - Key
+    - Value
   identifier:
     type: Identifier
-    roles: [Name] 
+    roles:
+    - Name

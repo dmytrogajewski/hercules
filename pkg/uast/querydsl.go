@@ -102,7 +102,7 @@ func stringifyReduceNode(node *ReduceNode) string {
 }
 
 func stringifyFieldNode(node *FieldNode) string {
-	return "Field(" + node.Name + ")"
+	return "Field(" + strings.Join(node.Fields, ".") + ")"
 }
 
 func stringifyLiteralNode(node *LiteralNode) string {
@@ -117,7 +117,7 @@ func stringifyCallNode(node *CallNode) string {
 }
 
 func hasNoArgs(node *CallNode) bool {
-	return node.Args == nil || len(node.Args) == 0
+	return len(node.Args) == 0
 }
 
 func stringifyCallNodeWithArgs(node *CallNode) string {
@@ -130,14 +130,14 @@ func stringifyCallNodeWithArgs(node *CallNode) string {
 
 // ConvertAST converts a *node32 parse tree to the legacy DSLNode AST.
 func ConvertAST(n *node32, buffer string) DSLNode {
-	if isNilNode(n) {
+	if isNodeNilNode(n) {
 		return nil
 	}
 	rule := rul3s[n.pegRule]
 	return convertNodeByRule(n, rule, buffer)
 }
 
-func isNilNode(n *node32) bool {
+func isNodeNilNode(n *node32) bool {
 	return n == nil
 }
 
@@ -240,10 +240,14 @@ func extractNodeName(n *node32, buffer string) string {
 }
 
 func convertFieldAccessNode(n *node32, buffer string) DSLNode {
+	var fields []string
 	for c := n.up; c != nil; c = c.next {
 		if isIdentifierRule(c) {
-			return &FieldNode{Name: buffer[c.begin:c.end]}
+			fields = append(fields, buffer[c.begin:c.end])
 		}
+	}
+	if len(fields) > 0 {
+		return &FieldNode{Fields: fields}
 	}
 	return nil
 }
@@ -261,11 +265,6 @@ func convertLiteralNode(n *node32, buffer string) DSLNode {
 		return &LiteralNode{Value: val}
 	}
 	return nil
-}
-
-func isLiteralNode(val DSLNode) bool {
-	_, ok := val.(*LiteralNode)
-	return ok
 }
 
 func convertStringNode(n *node32, buffer string) DSLNode {

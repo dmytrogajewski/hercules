@@ -1,5 +1,6 @@
 language: rust
-extensions: [".rs"]
+extensions:
+- .rs
 parser: tree-sitter
 mapping:
   source_file:
@@ -7,78 +8,173 @@ mapping:
     skip_if_empty: true
   function_item:
     type: Function
-    roles: [Function, Declaration]
-    props:
-      name: Name
+    roles:
+    - Function
+    - Declaration
+    name:
+      source: fields.name
+    children:
+      - type: identifier
+        exclude_if:
+          type: identifier
+          parent_context: function_item
+      - type: parameters
+        include_only:
+          has_field: parameters
+      - type: block
   struct_item:
     type: Struct
-    roles: [Struct, Declaration]
-    props:
-      name: Name
-  enum_item:
-    type: Enum
-    roles: [Enum, Declaration]
-    props:
-      name: Name
+    roles:
+    - Struct
+    - Declaration
+    name:
+      source: fields.name
+    children:
+      - type: field_declaration_list
   trait_item:
     type: Interface
-    roles: [Interface, Declaration]
-    props:
-      name: Name
+    roles:
+    - Interface
+    - Declaration
+    name:
+      source: fields.name
+    children:
+      - type: declaration_list
+  enum_item:
+    type: Enum
+    roles:
+    - Enum
+    - Declaration
+    name:
+      source: fields.name
+    children:
+      - type: enum_variant_list
   mod_item:
     type: Module
-    roles: [Module, Declaration]
-    props:
-      name: Name
+    roles:
+    - Module
+    - Declaration
+    name:
+      source: fields.name
+    children:
+      - type: declaration_list
+  macro_definition:
+    type: Macro
+    roles:
+    - Macro
+    - Declaration
+    name:
+      source: fields.name
+  impl_item:
+    type: Struct
+    roles:
+    - Struct
+    - Declaration
+    name:
+      source: fields.name
+    children:
+      - type: declaration_list
   use_declaration:
     type: Import
-    roles: [Import]
+    roles:
+    - Import
   identifier:
     type: Identifier
-    roles: [Name]
+    roles:
+    - Name
+    props:
+      name: text
+  field_identifier:
+    type: Identifier
+    roles:
+    - Name
+    props:
+      name: text
   parameters:
     type: ParameterList
   parameter:
     type: Parameter
-    roles: [Parameter, Declaration]
+    roles:
+    - Parameter
+    - Declaration
+    name:
+      source: fields.name
+  self_parameter:
+    type: Parameter
+    roles:
+    - Parameter
+    - Declaration
+    name:
+      source: text
+  field_declaration:
+    type: Field
+    roles:
+    - Member
+    children:
+      - type: field_identifier
+        exclude_if:
+          type: field_identifier
+          parent_context: field_declaration
+  field_declaration_list:
+    type: FieldList
+  enum_variant:
+    type: Identifier
+    roles:
+    - Name
+    props:
+      name: text
+  enum_variant_list:
+    type: EnumList
+  declaration_list:
+    type: DeclarationList
   block:
     type: Block
   return_expression:
     type: Return
-    roles: [Return]
+    roles:
+    - Return
   call_expression:
     type: Call
-    roles: [Call]
-  argument_list:
-    type: ArgumentList
+    roles:
+    - Call
+  macro_invocation:
+    type: Call
+    roles:
+    - Call
   string_literal:
     type: Literal
-    roles: [Literal]
+    roles:
+    - Literal
   integer_literal:
     type: Literal
-    roles: [Literal]
-  float_literal:
-    type: Literal
-    roles: [Literal]
+    roles:
+    - Literal
   comment:
     type: Comment
-    roles: [Comment]
+    roles:
+    - Comment
   if_expression:
     type: If
   for_expression:
     type: For
-    roles: [Loop]
+    roles:
+    - Loop
   while_expression:
     type: While
-    roles: [Loop]
+    roles:
+    - Loop
   match_expression:
     type: Match
+    roles:
+    - Match
   let_declaration:
     type: Variable
-    roles: [Declaration]
+    roles:
+    - Declaration
   assignment_expression:
     type: Assignment
-    roles: [Assignment]
+    roles:
+    - Assignment
   array_expression:
     type: List
   tuple_expression:
@@ -87,7 +183,49 @@ mapping:
     type: Struct
   field_expression:
     type: Field
-    roles: [Member]
+    roles:
+    - Member
   attribute_item:
     type: Decorator
-    roles: [Attribute] 
+    roles:
+    - Attribute
+  visibility_modifier:
+    type: Modifier
+    roles:
+    - Modifier
+  type_identifier:
+    type: Type
+    roles:
+    - Type
+  primitive_type:
+    type: Type
+    roles:
+    - Type
+  arguments:
+    type: ArgumentList
+  token_tree:
+    type: TokenTree
+  token_tree_pattern:
+    type: TokenTreePattern
+  token_repetition_pattern:
+    type: TokenRepetitionPattern
+  token_binding_pattern:
+    type: TokenBindingPattern
+  metavariable:
+    type: Metavariable
+  fragment_specifier:
+    type: FragmentSpecifier
+  token_repetition:
+    type: TokenRepetition
+  ordered_field_declaration_list:
+    type: OrderedFieldList
+  function_signature_item:
+    type: FunctionSignature
+    roles:
+    - Function
+    - Declaration
+    name:
+      source: fields.name
+    children:
+      - type: parameters
+      - type: type_identifier
