@@ -17,7 +17,9 @@ type FilterNode struct{ Expr DSLNode }
 type ReduceNode struct{ Expr DSLNode }
 
 // FieldNode represents a field/property access in the DSL.
-type FieldNode struct{ Name string }
+type FieldNode struct {
+	Fields []string // Support nested field access like .props.name
+}
 
 // LiteralNode represents a literal value in the DSL.
 type LiteralNode struct{ Value any }
@@ -40,31 +42,44 @@ type RFilterNode struct{ Expr DSLNode }
 // QueryFunc is a compiled DSL query function that takes a slice of nodes and returns a slice of nodes.
 type QueryFunc func([]*Node) []*Node
 
-// LowerDSL compiles a DSL AST to a QueryFunc (Go closure).
-// Returns an error if the AST is invalid or unsupported.
 func LowerDSL(ast DSLNode) (QueryFunc, error) {
-	switch n := ast.(type) {
-	case *PipelineNode:
-		return lowerPipeline(n)
-	case *MapNode:
-		return lowerMap(n)
-	case *FilterNode:
-		return lowerFilter(n)
-	case *ReduceNode:
-		return lowerReduce(n)
-	case *FieldNode:
-		return lowerField(n)
-	case *LiteralNode:
-		return lowerLiteral(n)
-	case *CallNode:
-		return lowerCall(n)
-	case *RMapNode:
-		return lowerRMap(n)
-	case *RFilterNode:
-		return lowerRFilter(n)
+	switch {
+	case isPipelineNode(ast):
+		return lowerPipeline(ast.(*PipelineNode))
+	case isMapNode(ast):
+		return lowerMap(ast.(*MapNode))
+	case isFilterNode(ast):
+		return lowerFilter(ast.(*FilterNode))
+	case isReduceNode(ast):
+		return lowerReduce(ast.(*ReduceNode))
+	case isFieldNode(ast):
+		return lowerField(ast.(*FieldNode))
+	case isLiteralNode(ast):
+		return lowerLiteral(ast.(*LiteralNode))
+	case isCallNode(ast):
+		return lowerCall(ast.(*CallNode))
+	case isRMapNode(ast):
+		return lowerRMap(ast.(*RMapNode))
+	case isRFilterNode(ast):
+		return lowerRFilter(ast.(*RFilterNode))
 	default:
-		return nil, fmt.Errorf("unsupported DSL node type: %T", n)
+		return nil, fmt.Errorf("unsupported DSL node type: %T", ast)
 	}
+}
+
+func isPipelineNode(n DSLNode) bool { return isType[*PipelineNode](n) }
+func isMapNode(n DSLNode) bool      { return isType[*MapNode](n) }
+func isFilterNode(n DSLNode) bool   { return isType[*FilterNode](n) }
+func isReduceNode(n DSLNode) bool   { return isType[*ReduceNode](n) }
+func isFieldNode(n DSLNode) bool    { return isType[*FieldNode](n) }
+func isLiteralNode(n DSLNode) bool  { return isType[*LiteralNode](n) }
+func isCallNode(n DSLNode) bool     { return isType[*CallNode](n) }
+func isRMapNode(n DSLNode) bool     { return isType[*RMapNode](n) }
+func isRFilterNode(n DSLNode) bool  { return isType[*RFilterNode](n) }
+
+func isType[T any](n DSLNode) bool {
+	_, ok := n.(T)
+	return ok
 }
 
 func lowerPipeline(n *PipelineNode) (QueryFunc, error) {
@@ -72,7 +87,7 @@ func lowerPipeline(n *PipelineNode) (QueryFunc, error) {
 		return nil, fmt.Errorf("empty pipeline")
 	}
 	funcs, err := buildPipelineFuncs(n.Stages)
-	if err != nil {
+	if hasError(err) {
 		return nil, err
 	}
 	return func(nodes []*Node) []*Node {
@@ -88,7 +103,7 @@ func buildPipelineFuncs(stages []DSLNode) ([]QueryFunc, error) {
 	funcs := make([]QueryFunc, len(stages))
 	for i, stage := range stages {
 		f, err := LowerDSL(stage)
-		if err != nil {
+		if hasError(err) {
 			return nil, err
 		}
 		funcs[i] = f
@@ -119,7 +134,7 @@ func isReduceStage(stage DSLNode) bool {
 
 func lowerMap(n *MapNode) (QueryFunc, error) {
 	exprFunc, err := LowerDSL(n.Expr)
-	if err != nil {
+	if hasError(err) {
 		return nil, err
 	}
 	return func(nodes []*Node) []*Node {
@@ -128,38 +143,51 @@ func lowerMap(n *MapNode) (QueryFunc, error) {
 }
 
 func runMap(exprFunc QueryFunc, nodes []*Node) []*Node {
-	// Detect if exprFunc is a field access for 'children'
-	isChildrenField := false
-	// Hack: create a test node and see if exprFunc returns its children
+	if isExactChildrenField(exprFunc) {
+		return flattenChildren(nodes)
+	}
+	return mapOverNodes(exprFunc, nodes)
+}
+
+// Only returns true if exprFunc is exactly a .children field access
+func isExactChildrenField(exprFunc QueryFunc) bool {
 	testNode := &Node{Type: "test", Children: []*Node{{Type: "c1"}, {Type: "c2"}}}
 	res := exprFunc([]*Node{testNode})
-	if len(res) == 2 && res[0] == testNode.Children[0] && res[1] == testNode.Children[1] {
-		isChildrenField = true
+	if len(res) != len(testNode.Children) {
+		return false
 	}
+	for i := range res {
+		if res[i] != testNode.Children[i] {
+			return false
+		}
+	}
+	return true
+}
 
-	if isChildrenField {
-		totalChildren := calculateTotalChildren(nodes)
-		out := make([]*Node, 0, totalChildren)
-		for _, node := range nodes {
-			out = append(out, node.Children...)
-		}
-		return out
+func flattenChildren(nodes []*Node) []*Node {
+	totalChildren := calculateTotalChildren(nodes)
+	out := make([]*Node, 0, totalChildren)
+	for _, node := range nodes {
+		out = append(out, node.Children...)
 	}
+	return out
+}
 
-	if isSingleNodeWithChildren(nodes) {
-		childCount := len(nodes[0].Children)
-		out := make([]*Node, 0, childCount)
-		for _, child := range nodes[0].Children {
-			out = append(out, exprFunc([]*Node{child})...)
-		}
-		return out
-	} else {
-		out := make([]*Node, 0, len(nodes))
-		for _, node := range nodes {
-			out = append(out, exprFunc([]*Node{node})...)
-		}
-		return out
+func mapOverChildren(exprFunc QueryFunc, node *Node) []*Node {
+	childCount := len(node.Children)
+	out := make([]*Node, 0, childCount)
+	for _, child := range node.Children {
+		out = append(out, exprFunc([]*Node{child})...)
 	}
+	return out
+}
+
+func mapOverNodes(exprFunc QueryFunc, nodes []*Node) []*Node {
+	out := make([]*Node, 0, len(nodes))
+	for _, node := range nodes {
+		out = append(out, exprFunc([]*Node{node})...)
+	}
+	return out
 }
 
 func isSingleNodeWithChildren(nodes []*Node) bool {
@@ -174,29 +202,9 @@ func calculateTotalChildren(nodes []*Node) int {
 	return total
 }
 
-func estimateRMapResultSize(nodes []*Node) int {
-	// Estimate based on total nodes in the tree
-	total := 0
-	for _, node := range nodes {
-		total += countNodesInTree(node)
-	}
-	return total
-}
-
-func countNodesInTree(node *Node) int {
-	if node == nil {
-		return 0
-	}
-	count := 1
-	for _, child := range node.Children {
-		count += countNodesInTree(child)
-	}
-	return count
-}
-
 func lowerRMap(n *RMapNode) (QueryFunc, error) {
 	exprFunc, err := LowerDSL(n.Expr)
-	if err != nil {
+	if hasError(err) {
 		return nil, err
 	}
 	return func(nodes []*Node) []*Node {
@@ -218,6 +226,29 @@ func runRMap(exprFunc QueryFunc, nodes []*Node) []*Node {
 	return out
 }
 
+func estimateRMapResultSize(nodes []*Node) int {
+	total := 0
+	for _, node := range nodes {
+		total += countNodesInTree(node)
+	}
+	return total
+}
+
+func countNodesInTree(node *Node) int {
+	if isNilNode(node) {
+		return 0
+	}
+	count := 1
+	for _, child := range node.Children {
+		count += countNodesInTree(child)
+	}
+	return count
+}
+
+func isNilNode(node *Node) bool {
+	return node == nil
+}
+
 func hasStack(stack []*Node) bool {
 	return len(stack) > 0
 }
@@ -236,7 +267,7 @@ func pushChildrenToStack(node *Node, stack *[]*Node) {
 
 func lowerFilter(n *FilterNode) (QueryFunc, error) {
 	predFunc, err := LowerDSL(n.Expr)
-	if err != nil {
+	if hasError(err) {
 		return nil, err
 	}
 	return func(nodes []*Node) []*Node {
@@ -261,7 +292,7 @@ func isPredicateTrue(predFunc QueryFunc, node *Node) bool {
 
 func lowerRFilter(n *RFilterNode) (QueryFunc, error) {
 	predFunc, err := LowerDSL(n.Expr)
-	if err != nil {
+	if hasError(err) {
 		return nil, err
 	}
 	return func(nodes []*Node) []*Node {
@@ -319,23 +350,109 @@ func lowerField(n *FieldNode) (QueryFunc, error) {
 func runField(n *FieldNode, nodes []*Node) []*Node {
 	var out []*Node
 	for _, node := range nodes {
-		if n.Name == "children" {
-			out = append(out, node.Children...)
-		} else if n.Name == "token" {
-			out = append(out, NewLiteralNode(node.Token))
-		} else if n.Name == "id" {
-			out = append(out, NewLiteralNode(fmt.Sprint(node.Id)))
-		} else if isRolesField(n.Name) {
-			for _, r := range node.Roles {
-				out = append(out, NewLiteralNode(string(r)))
+		if isEmptyFields(n.Fields) {
+			continue
+		}
+		if isSingleField(n.Fields) {
+			fieldName := n.Fields[0]
+			if isChildrenFieldName(fieldName) {
+				out = append(out, node.Children...)
+			} else if isTokenFieldName(fieldName) {
+				out = append(out, NewLiteralNode(node.Token))
+			} else if isIdFieldName(fieldName) {
+				out = append(out, NewLiteralNode(fmt.Sprint(node.Id)))
+			} else if isRolesField(fieldName) {
+				for _, r := range node.Roles {
+					out = append(out, NewLiteralNode(string(r)))
+				}
+			} else if hasProp(node, fieldName) {
+				out = append(out, NewLiteralNode(node.Props[fieldName]))
+			} else if isTypeField(fieldName, node) {
+				out = append(out, NewLiteralNode(node.Type))
 			}
-		} else if hasProp(node, n.Name) {
-			out = append(out, NewLiteralNode(node.Props[n.Name]))
-		} else if isTypeField(n.Name, node) {
-			out = append(out, NewLiteralNode(node.Type))
+		} else {
+			value := getNestedFieldValue(node, n.Fields)
+			if value != nil {
+				out = append(out, NewLiteralNode(fmt.Sprint(value)))
+			}
 		}
 	}
 	return out
+}
+
+func isEmptyFields(fields []string) bool {
+	return len(fields) == 0
+}
+
+func isSingleField(fields []string) bool {
+	return len(fields) == 1
+}
+
+func isChildrenFieldName(fieldName string) bool {
+	return fieldName == "children"
+}
+
+func isTokenFieldName(fieldName string) bool {
+	return fieldName == "token"
+}
+
+func isIdFieldName(fieldName string) bool {
+	return fieldName == "id"
+}
+
+func getNestedFieldValue(node *Node, fields []string) interface{} {
+	if isEmptyFields(fields) {
+		return nil
+	}
+	current := node
+	for i, field := range fields {
+		if isFirstField(i) {
+			if isTypeField(field, current) {
+				return current.Type
+			} else if isTokenFieldName(field) {
+				return current.Token
+			} else if isIdFieldName(field) {
+				return current.Id
+			} else if isRolesField(field) {
+				if !isLastField(i, fields) {
+					return nil
+				}
+				return current.Roles
+			} else if isChildrenFieldName(field) {
+				if !isLastField(i, fields) {
+					return nil
+				}
+				return current.Children
+			} else if hasProp(current, field) {
+				propValue := current.Props[field]
+				if isLastField(i, fields) {
+					return propValue
+				}
+				return nil
+			} else {
+				return nil
+			}
+		} else {
+			if hasProp(current, field) {
+				propValue := current.Props[field]
+				if isLastField(i, fields) {
+					return propValue
+				}
+				return nil
+			} else {
+				return nil
+			}
+		}
+	}
+	return nil
+}
+
+func isFirstField(i int) bool {
+	return i == 0
+}
+
+func isLastField(i int, fields []string) bool {
+	return i == len(fields)-1
 }
 
 func isRolesField(name string) bool {
@@ -379,11 +496,11 @@ func isLogicalOr(n *CallNode) bool {
 
 func lowerLogicalOr(n *CallNode) (QueryFunc, error) {
 	leftFunc, err := LowerDSL(n.Args[0])
-	if err != nil {
+	if hasError(err) {
 		return nil, err
 	}
 	rightFunc, err := LowerDSL(n.Args[1])
-	if err != nil {
+	if hasError(err) {
 		return nil, err
 	}
 	return func(nodes []*Node) []*Node {
@@ -394,9 +511,7 @@ func lowerLogicalOr(n *CallNode) (QueryFunc, error) {
 func runLogicalOr(leftFunc, rightFunc QueryFunc, nodes []*Node) []*Node {
 	var out []*Node
 	for _, node := range nodes {
-		l := leftFunc([]*Node{node})
-		r := rightFunc([]*Node{node})
-		if isTrue(l) || isTrue(r) {
+		if isLogicalOrTrue(leftFunc, rightFunc, node) {
 			out = append(out, NewLiteralNode("true"))
 		} else {
 			out = append(out, NewLiteralNode("false"))
@@ -405,17 +520,23 @@ func runLogicalOr(leftFunc, rightFunc QueryFunc, nodes []*Node) []*Node {
 	return out
 }
 
+func isLogicalOrTrue(leftFunc, rightFunc QueryFunc, node *Node) bool {
+	l := leftFunc([]*Node{node})
+	r := rightFunc([]*Node{node})
+	return isTrue(l) || isTrue(r)
+}
+
 func isLogicalAnd(n *CallNode) bool {
 	return n.Name == "&&" && len(n.Args) == 2
 }
 
 func lowerLogicalAnd(n *CallNode) (QueryFunc, error) {
 	leftFunc, err := LowerDSL(n.Args[0])
-	if err != nil {
+	if hasError(err) {
 		return nil, err
 	}
 	rightFunc, err := LowerDSL(n.Args[1])
-	if err != nil {
+	if hasError(err) {
 		return nil, err
 	}
 	return func(nodes []*Node) []*Node {
@@ -426,15 +547,19 @@ func lowerLogicalAnd(n *CallNode) (QueryFunc, error) {
 func runLogicalAnd(leftFunc, rightFunc QueryFunc, nodes []*Node) []*Node {
 	var out []*Node
 	for _, node := range nodes {
-		l := leftFunc([]*Node{node})
-		r := rightFunc([]*Node{node})
-		if isTrue(l) && isTrue(r) {
+		if isLogicalAndTrue(leftFunc, rightFunc, node) {
 			out = append(out, NewLiteralNode("true"))
 		} else {
 			out = append(out, NewLiteralNode("false"))
 		}
 	}
 	return out
+}
+
+func isLogicalAndTrue(leftFunc, rightFunc QueryFunc, node *Node) bool {
+	l := leftFunc([]*Node{node})
+	r := rightFunc([]*Node{node})
+	return isTrue(l) && isTrue(r)
 }
 
 func isTrue(nodes []*Node) bool {
@@ -447,11 +572,11 @@ func isEquality(n *CallNode) bool {
 
 func lowerEquality(n *CallNode) (QueryFunc, error) {
 	leftFunc, err := LowerDSL(n.Args[0])
-	if err != nil {
+	if hasError(err) {
 		return nil, err
 	}
 	rightFunc, err := LowerDSL(n.Args[1])
-	if err != nil {
+	if hasError(err) {
 		return nil, err
 	}
 	return func(nodes []*Node) []*Node {
@@ -462,9 +587,7 @@ func lowerEquality(n *CallNode) (QueryFunc, error) {
 func runEquality(leftFunc, rightFunc QueryFunc, nodes []*Node) []*Node {
 	var out []*Node
 	for _, node := range nodes {
-		left := leftFunc([]*Node{node})
-		right := rightFunc([]*Node{node})
-		if isEqual(left, right) {
+		if isEqual(leftFunc([]*Node{node}), rightFunc([]*Node{node})) {
 			out = append(out, NewLiteralNode("true"))
 		} else {
 			out = append(out, NewLiteralNode("false"))
@@ -474,10 +597,7 @@ func runEquality(leftFunc, rightFunc QueryFunc, nodes []*Node) []*Node {
 }
 
 func isEqual(left, right []*Node) bool {
-	if len(left) > 0 && len(right) > 0 && left[0].Token == right[0].Token {
-		return true
-	}
-	return false
+	return len(left) > 0 && len(right) > 0 && left[0].Token == right[0].Token
 }
 
 func isMembership(n *CallNode) bool {
@@ -486,11 +606,11 @@ func isMembership(n *CallNode) bool {
 
 func lowerMembership(n *CallNode) (QueryFunc, error) {
 	leftFunc, err := LowerDSL(n.Args[0])
-	if err != nil {
+	if hasError(err) {
 		return nil, err
 	}
 	rightFunc, err := LowerDSL(n.Args[1])
-	if err != nil {
+	if hasError(err) {
 		return nil, err
 	}
 	return func(nodes []*Node) []*Node {
@@ -524,4 +644,8 @@ func containsToken(nodes []*Node, token string) bool {
 		}
 	}
 	return false
+}
+
+func hasError(err error) bool {
+	return err != nil
 }

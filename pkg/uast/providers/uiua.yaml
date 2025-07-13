@@ -1,16 +1,16 @@
 language: uiua
-extensions: [".ua"]
+extensions:
+- .ua
 parser: tree-sitter
 mapping:
   source_file:
     type: File
+    skip_if_empty: true
   binding:
     type: Assignment
-  module:
-    type: Module
   segment:
     type: Block
   term:
     type: Expression
   comment:
-    type: Comment 
+    type: Comment

@@ -1,15 +1,18 @@
 language: xcompose
-extensions: [".XCompose"]
+extensions:
+- .XCompose
 parser: tree-sitter
 mapping:
-  compose:
+  source_file:
     type: File
     skip_if_empty: true
   include:
     type: Import
-    roles: [Import]
+    roles:
+    - Import
   sequence:
     type: Sequence
   comment:
     type: Comment
-    roles: [Comment] 
+    roles:
+    - Comment

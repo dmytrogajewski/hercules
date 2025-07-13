@@ -1,0 +1,46 @@
+language: po
+extensions:
+- .po
+parser: tree-sitter
+mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
+  message:
+    type: Message
+    roles:
+    - Declaration
+  msgid:
+    type: MsgId
+    roles:
+    - Name
+  msgstr:
+    type: MsgStr
+    roles:
+    - Value
+  msgctxt:
+    type: MsgCtxt
+    roles:
+    - Context
+  msgid_plural:
+    type: MsgIdPlural
+    roles:
+    - Name
+  msgstr_plural:
+    type: MsgStrPlural
+    roles:
+    - Value
+  comment:
+    type: Comment
+    roles:
+    - Comment
+  extracted_comment:
+    type: ExtractedComment
+    roles:
+    - Comment
+  string:
+    type: Literal
+    roles:
+    - Literal
+  escape_sequence:
+    type: EscapeSequence

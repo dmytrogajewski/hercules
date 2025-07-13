@@ -1,0 +1,52 @@
+language: toml
+extensions:
+- .toml
+parser: tree-sitter
+mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
+  table:
+    type: Table
+    roles:
+    - Declaration
+    props:
+      name: Name
+  string:
+    type: Literal
+    roles:
+    - Literal
+  integer:
+    type: Literal
+    roles:
+    - Literal
+  float:
+    type: Literal
+    roles:
+    - Literal
+  boolean:
+    type: Literal
+    roles:
+    - Literal
+  array:
+    type: List
+  inline_table:
+    type: InlineTable
+  comment:
+    type: Comment
+    roles:
+    - Comment
+  bare_key:
+    type: BareKey
+    roles:
+    - Name
+  quoted_key:
+    type: QuotedKey
+    roles:
+    - Name
+  dotted_key:
+    type: DottedKey
+    roles:
+    - Name
+  escape_sequence:
+    type: EscapeSequence

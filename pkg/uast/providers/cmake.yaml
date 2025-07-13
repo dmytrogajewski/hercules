@@ -1,0 +1,145 @@
+language: cmake
+extensions:
+- .cmake
+- CMakeLists.txt
+parser: tree-sitter
+mapping:
+  argument:
+    type: Argument
+  argument_list:
+    type: ArgumentList
+  block:
+    type: Block
+  block_command:
+    type: BlockCommand
+  block_def:
+    type: BlockDef
+  body:
+    type: Body
+  bracket_argument:
+    type: BracketArg
+  bracket_comment:
+    type: Comment
+    roles:
+    - Comment
+  cache_var:
+    type: CacheVar
+  else:
+    type: Else
+  else_command:
+    type: ElseCommand
+  elseif:
+    type: ElseIf
+  elseif_command:
+    type: ElseIfCommand
+  endblock:
+    type: EndBlock
+  endblock_command:
+    type: EndBlockCommand
+  endforeach:
+    type: EndForEach
+  endforeach_command:
+    type: EndForEachCommand
+  endfunction:
+    type: EndFunction
+  endfunction_command:
+    type: EndFunctionCommand
+  endif:
+    type: EndIf
+  endif_command:
+    type: EndIfCommand
+  endmacro:
+    type: EndMacro
+  endmacro_command:
+    type: EndMacroCommand
+  endwhile:
+    type: EndWhile
+  endwhile_command:
+    type: EndWhileCommand
+  env_var:
+    type: EnvVar
+  escape_sequence:
+    type: EscapeSequence
+  foreach:
+    type: ForEach
+    roles:
+    - Loop
+  foreach_command:
+    type: ForEachCommand
+  foreach_loop:
+    type: ForEachLoop
+  function:
+    type: Function
+    roles:
+    - Function
+    - Declaration
+  function_command:
+    type: FunctionCommand
+  function_def:
+    type: FunctionDef
+  identifier:
+    type: Identifier
+    roles:
+    - Name
+  if:
+    type: If
+  if_command:
+    type: IfCommand
+  if_condition:
+    type: IfCondition
+  integer:
+    type: Integer
+    roles:
+    - Literal
+  macro:
+    type: Macro
+    roles:
+    - Declaration
+  macro_command:
+    type: MacroCommand
+  macro_def:
+    type: MacroDef
+  normal_command:
+    type: NormalCommand
+  normal_var:
+    type: NormalVar
+  quoted_argument:
+    type: QuotedArg
+  quoted_element:
+    type: QuotedElement
+  unquoted_argument:
+    type: UnquotedArg
+  variable:
+    type: Variable
+    roles:
+    - Declaration
+  variable_ref:
+    type: VariableRef
+    roles:
+    - Reference
+  while:
+    type: While
+    roles:
+    - Loop
+  while_command:
+    type: WhileCommand
+  while_loop:
+    type: WhileLoop
+  _command_invocation:
+    type: CommandInvocation
+  _escape_encoded:
+    type: EscapeEncoded
+  _escape_identity:
+    type: EscapeIdentity
+  _escape_semicolon:
+    type: EscapeSemicolon
+  _paren_argument:
+    type: ParenArgument
+  _quoted_text:
+    type: QuotedText
+  _unquoted_text:
+    type: UnquotedText
+  _untrimmed_argument:
+    type: UntrimmedArgument
+  _untrimmed_command_invocation:
+    type: UntrimmedCommandInvocation

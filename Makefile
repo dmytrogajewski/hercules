@@ -93,14 +93,22 @@ compare:
 compare-runs:
 	python3 scripts/benchmark_comparison.py $(CURRENT_RUN) --baseline $(BASELINE_RUN)
 
-# Compare last two benchmark runs (simple command)
+# Compare last N benchmark runs (usage: make compare-last N=3)
 compare-last:
-	@echo "Comparing last two benchmark runs..."
-	@LATEST=$$(python3 scripts/benchmark_report.py --list | grep -v "Available benchmark runs:" | head -1 | xargs); \
-	PREVIOUS=$$(python3 scripts/benchmark_report.py --list | grep -v "Available benchmark runs:" | head -2 | tail -1 | xargs); \
-	echo "Latest: $$LATEST"; \
-	echo "Previous: $$PREVIOUS"; \
-	python3 scripts/benchmark_comparison.py "$$LATEST" --baseline "$$PREVIOUS"
+	@N=$${N:-2}; \
+	echo "Comparing last $$N benchmark runs..."; \
+	if [ $$N -eq 2 ]; then \
+		LATEST=$$(python3 scripts/benchmark_report.py --list | grep -v "Available benchmark runs:" | head -1 | xargs); \
+		PREVIOUS=$$(python3 scripts/benchmark_report.py --list | grep -v "Available benchmark runs:" | head -2 | tail -1 | xargs); \
+		echo "Latest: $$LATEST"; \
+		echo "Previous: $$PREVIOUS"; \
+		python3 scripts/benchmark_comparison.py "$$LATEST" --baseline "$$PREVIOUS"; \
+	else \
+		RUNS=$$(python3 scripts/benchmark_report.py --list | grep -v "Available benchmark runs:" | head -$$N | tr '\n' ' '); \
+		echo "Comparing $$N runs:"; \
+		echo "$$RUNS" | nl; \
+		python3 scripts/benchmark_comparison_multi.py "$$RUNS"; \
+	fi
 
 # Run benchmarks with profiling and generate plots
 benchplotprofile: all

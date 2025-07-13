@@ -1,0 +1,16 @@
+language: asciidoc
+extensions:
+- .adoc
+- .asciidoc
+parser: tree-sitter
+mapping:
+  paragraph:
+    type: Paragraph
+  list:
+    type: List
+  table_cell:
+    type: TableCell
+  literal_block:
+    type: Literal
+    roles:
+    - Literal

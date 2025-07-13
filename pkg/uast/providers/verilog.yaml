@@ -1,9 +1,12 @@
 language: verilog
-extensions: [".v", ".sv"]
+extensions:
+- .v
+- .sv
 parser: tree-sitter
 mapping:
   source_file:
     type: File
+    skip_if_empty: true
   module_declaration:
     type: Module
   function_declaration:
@@ -20,15 +23,5 @@ mapping:
     type: Block
   generate_region:
     type: Block
-  if_statement:
-    type: If
-  for_statement:
-    type: For
-  while_statement:
-    type: While
   case_statement:
     type: Switch
-  assignment:
-    type: Assignment
-  call:
-    type: Call 

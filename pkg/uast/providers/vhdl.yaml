@@ -1,7 +1,12 @@
 language: vhdl
-extensions: [".vhdl", ".vhd"]
+extensions:
+- .vhdl
+- .vhd
 parser: tree-sitter
 mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
   design_file:
     type: File
   design_unit:
@@ -12,7 +17,3 @@ mapping:
     type: Import
   context_reference:
     type: Import
-  block_declarative_item:
-    type: Declaration
-  concurrent_statement:
-    type: Statement 

@@ -1,0 +1,90 @@
+suite: basic-functions
+name: swift-basic-functions
+
+parse_cases:
+  - name: simple_function
+    input: |
+      func hello() -> String {
+          return "Hello, World!"
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "hello"
+          children:
+            - type: "Block"
+              children:
+                - type: "StatementList"
+                  children:
+                    - type: "Return"
+                      roles: ["Return"]
+                      children:
+                        - type: "Literal"
+                          roles: ["Literal"]
+
+  - name: function_with_params
+    input: |
+      func add(a: Int, b: Int) -> Int {
+          return a + b
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "add"
+          children:
+            - type: "Block"
+              children:
+                - type: "StatementList"
+                  children:
+                    - type: "Return"
+                      roles: ["Return"]
+                      children:
+                        - type: "BinaryExpression"
+                          roles: ["Binary"]
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "a"
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "b"
+
+query_cases:
+  - name: find_functions
+    input: |
+      func func1() {}
+      func func2() {}
+    query: "filter(.type == \"Function\")"
+    output:
+      results:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "func1"
+          children:
+            - type: "Block"
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "func2"
+          children:
+            - type: "Block"
+
+  - name: find_function_names
+    input: |
+      func myFunction() {}
+    query: "filter(.type == \"Function\")"
+    output:
+      results:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "myFunction"
+          children:
+            - type: "Block" 

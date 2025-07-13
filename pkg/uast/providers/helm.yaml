@@ -1,0 +1,15 @@
+language: helm
+extensions:
+- .yaml
+- .yml
+parser: tree-sitter
+mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
+  comment:
+    type: Comment
+    roles:
+    - Comment
+  template_action:
+    type: TemplateAction

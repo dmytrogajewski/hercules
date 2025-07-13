@@ -1,7 +1,11 @@
 language: typoscript
-extensions: [".typoscript"]
+extensions:
+- .typoscript
 parser: tree-sitter
 mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
   typoscript:
     type: File
   assignment_line:
@@ -17,4 +21,4 @@ mapping:
   configuration_block:
     type: Block
   comment:
-    type: Comment 
+    type: Comment

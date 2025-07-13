@@ -1,0 +1,91 @@
+suite: basic-functions
+name: go-basic-functions
+
+parse_cases:
+  - name: simple_function
+    input: |
+      func Hello() string {
+          return "Hello, World!"
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "Hello"
+          token: "Hello"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "Hello"
+            - type: "ParameterList"
+            - type: "Block"
+              children:
+                - type: "Return"
+                  roles: ["Return"]
+                  children:
+                    - type: "ExpressionList"
+                      children:
+                        - type: "Literal"
+                          roles: ["Literal"]
+                          children:
+                            - type: "Literal"
+                              roles: ["Literal"]
+                              token: "Hello, World!"
+
+  - name: function_with_params
+    input: |
+      func Add(a int, b int) int {
+          return a + b
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "Add"
+          token: "Add"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "Add"
+            - type: "ParameterList"
+              children:
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "a"
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "b"
+            - type: "Block"
+              children:
+                - type: "Return"
+                  roles: ["Return"]
+                  children:
+                    - type: "ExpressionList"
+                      children:
+                        - type: "Synthetic"
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "a"
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "b"
+
+query_cases:
+  - name: find_function_names
+    input: |
+      func MyFunction() {}
+    query: "filter(.type == \"Function\") |> map(.token)"
+    output:
+      results:
+        - "MyFunction" 

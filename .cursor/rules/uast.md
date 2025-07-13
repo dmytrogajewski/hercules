@@ -19,3 +19,29 @@
 - Always run `make clean && make` before `make test`.
 - Remove all debug logs from stdout unless debug flag is set.
 - All code must be self-explanatory; avoid comments except for public API and complex logic. 
+- Follow clean code principles
+- Each if statement block should include only one function called inside, e.g.:
+
+    if expr {
+    funCall(a)
+    }
+
+    3. each expression in if should be a function, e.g.
+
+    Instead:
+
+    if a < b || b > 3 {
+    ...
+    }
+
+    Do:
+
+    if isSomething(a,b) {
+    anotherFn(s)
+    }
+
+- Order function from caller to callee
+- Use clear understandable function names that are not overcomplicated
+- Prefer to extend modules test suite, do not write ad-hoc tests
+- Do not write code comments, unless its GoDoc
+- Write GoDoc with examples for each exported function

@@ -1,9 +1,11 @@
 language: ursa
-extensions: [".ursa"]
+extensions:
+- .ursa
 parser: tree-sitter
 mapping:
-  module:
+  source_file:
     type: File
+    skip_if_empty: true
   statement:
     type: Statement
   let:
@@ -15,4 +17,4 @@ mapping:
   continue:
     type: Continue
   return:
-    type: Return 
+    type: Return

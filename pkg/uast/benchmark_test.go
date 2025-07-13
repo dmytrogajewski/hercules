@@ -1,6 +1,8 @@
 package uast
 
 import (
+	"fmt"
+	"runtime"
 	"testing"
 )
 
@@ -236,30 +238,49 @@ func BenchmarkMemoryUsage(b *testing.B) {
 
 	for _, tf := range files {
 		b.Run(tf.name+"/ParseMemory", func(b *testing.B) {
-			b.Logf("Measuring memory usage for parsing %s (%d bytes)", tf.name, len(tf.content))
+			var memstatsBefore, memstatsAfter runtime.MemStats
+			runtime.GC()
+			runtime.ReadMemStats(&memstatsBefore)
 			b.ResetTimer()
 			for i := 0; i < b.N; i++ {
+				runtime.GC()
+				var m1, m2 runtime.MemStats
+				runtime.ReadMemStats(&m1)
 				node, err := parser.Parse(tf.name+".go", tf.content)
 				if err != nil {
 					b.Fatalf("Parse failed: %v", err)
 				}
 				_ = node
+				runtime.ReadMemStats(&m2)
+				b.Logf("Alloc: %d, TotalAlloc: %d, Sys: %d, NumGC: %d", m2.Alloc-m1.Alloc, m2.TotalAlloc-m1.TotalAlloc, m2.Sys-m1.Sys, m2.NumGC-m1.NumGC)
 			}
+			b.StopTimer()
+			runtime.ReadMemStats(&memstatsAfter)
+			fmt.Printf("MEMORY_USAGE_JSON {\"test\":\"%s/ParseMemory\",\"alloc\":%d,\"total_alloc\":%d,\"sys\":%d,\"num_gc\":%d}\n", tf.name, memstatsAfter.Alloc-memstatsBefore.Alloc, memstatsAfter.TotalAlloc-memstatsBefore.TotalAlloc, memstatsAfter.Sys-memstatsBefore.Sys, memstatsAfter.NumGC-memstatsBefore.NumGC)
 		})
 		b.Run(tf.name+"/QueryMemory", func(b *testing.B) {
 			node, err := parser.Parse(tf.name+".go", tf.content)
 			if err != nil {
-				b.Fatalf("Failed to parse test file: %v", err)
+				b.Fatalf("Parse failed: %v", err)
 			}
-			b.Logf("Measuring memory usage for DSL query on %s (%d bytes)", tf.name, len(tf.content))
+			var memstatsBefore, memstatsAfter runtime.MemStats
+			runtime.GC()
+			runtime.ReadMemStats(&memstatsBefore)
 			b.ResetTimer()
 			for i := 0; i < b.N; i++ {
-				results, err := node.FindDSL("map(.children) |> filter(.type == \"FunctionDecl\")")
+				runtime.GC()
+				var m1, m2 runtime.MemStats
+				runtime.ReadMemStats(&m1)
+				_, err := node.FindDSL("filter(.type == \"FunctionDecl\")")
 				if err != nil {
 					b.Fatalf("Query failed: %v", err)
 				}
-				_ = results
+				runtime.ReadMemStats(&m2)
+				b.Logf("Alloc: %d, TotalAlloc: %d, Sys: %d, NumGC: %d", m2.Alloc-m1.Alloc, m2.TotalAlloc-m1.TotalAlloc, m2.Sys-m1.Sys, m2.NumGC-m1.NumGC)
 			}
+			b.StopTimer()
+			runtime.ReadMemStats(&memstatsAfter)
+			fmt.Printf("MEMORY_USAGE_JSON {\"test\":\"%s/QueryMemory\",\"alloc\":%d,\"total_alloc\":%d,\"sys\":%d,\"num_gc\":%d}\n", tf.name, memstatsAfter.Alloc-memstatsBefore.Alloc, memstatsAfter.TotalAlloc-memstatsBefore.TotalAlloc, memstatsAfter.Sys-memstatsBefore.Sys, memstatsAfter.NumGC-memstatsBefore.NumGC)
 		})
 	}
 }

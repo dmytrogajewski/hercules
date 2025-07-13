@@ -1,0 +1,42 @@
+language: thrift
+extensions:
+- .thrift
+parser: tree-sitter
+mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
+  include_statement:
+    type: Include
+    roles:
+    - Import
+  field:
+    type: Field
+    roles:
+    - Member
+    - Declaration
+    props:
+      name: Name
+  field_id:
+    type: FieldId
+  identifier:
+    type: Identifier
+    roles:
+    - Name
+  parameter:
+    type: Parameter
+    roles:
+    - Parameter
+    - Declaration
+    props:
+      name: Name
+  throws:
+    type: Throws
+  comment:
+    type: Comment
+    roles:
+    - Comment
+  list:
+    type: List
+  map:
+    type: Map

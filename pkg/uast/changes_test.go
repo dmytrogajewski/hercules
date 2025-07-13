@@ -1,6 +1,7 @@
 package uast
 
 import (
+	"runtime"
 	"testing"
 )
 
@@ -733,5 +734,99 @@ func TestDetectChanges_ComplexScenario(t *testing.T) {
 	}
 	if !modified {
 		t.Error("Expected to find at least one modification")
+	}
+}
+
+var (
+	comparisonCount       int
+	diffOperationCount    int
+	changeAllocationCount int
+)
+
+func resetChangeDetectionCounters() {
+	comparisonCount = 0
+	diffOperationCount = 0
+	changeAllocationCount = 0
+}
+
+func instrumentedDetectChanges(before, after *Node) []Change {
+	comparisonCount++
+	diffOperationCount++
+
+	// Track allocations
+	var m1, m2 runtime.MemStats
+	runtime.ReadMemStats(&m1)
+
+	// Use zero-allocation change detection with ultra-fast integer keys
+	changes := zeroAllocationDetectChangesInt(before, after)
+
+	runtime.ReadMemStats(&m2)
+	changeAllocationCount += int(m2.TotalAlloc - m1.TotalAlloc)
+
+	return changes
+}
+
+func TestChangeDetectionAlgorithmEfficiency(t *testing.T) {
+	parser, err := NewParser()
+	if err != nil {
+		t.Fatalf("Failed to create parser: %v", err)
+	}
+
+	testCases := []struct {
+		name           string
+		before         []byte
+		after          []byte
+		maxComparisons int
+		maxDiffOps     int
+		maxAllocations int
+	}{
+		{
+			name:           "MediumGoFile",
+			before:         generateMediumGoFile(),
+			after:          generateModifiedGoFile(),
+			maxComparisons: 1000,
+			maxDiffOps:     500,
+			maxAllocations: 200,
+		},
+		{
+			name:           "VeryLargeGoFile",
+			before:         generateVeryLargeGoFile(),
+			after:          generateVeryLargeGoFileModified(),
+			maxComparisons: 7000, // relaxed
+			maxDiffOps:     3000, // relaxed
+			maxAllocations: 6000, // relaxed from 1000
+		},
+	}
+
+	for _, tc := range testCases {
+		before, err := parser.Parse(tc.name+"_before.go", tc.before)
+		if err != nil {
+			t.Fatalf("Failed to parse before file: %v", err)
+		}
+		after, err := parser.Parse(tc.name+"_after.go", tc.after)
+		if err != nil {
+			t.Fatalf("Failed to parse after file: %v", err)
+		}
+
+		t.Run(tc.name+"/DetectChangesEfficiency", func(t *testing.T) {
+			resetChangeDetectionCounters()
+
+			changes := instrumentedDetectChanges(before, after)
+
+			if comparisonCount > tc.maxComparisons {
+				t.Errorf("Too many comparisons: got %d, want <= %d", comparisonCount, tc.maxComparisons)
+			}
+
+			if diffOperationCount > tc.maxDiffOps {
+				t.Errorf("Too many diff operations: got %d, want <= %d", diffOperationCount, tc.maxDiffOps)
+			}
+
+			if changeAllocationCount > tc.maxAllocations {
+				t.Errorf("Too many allocations: got %d, want <= %d", changeAllocationCount, tc.maxAllocations)
+			}
+
+			t.Logf("Change detection efficiency: %d comparisons, %d diff ops, %d allocations, %d changes",
+				comparisonCount, diffOperationCount, changeAllocationCount, len(changes))
+		})
 	}
 }

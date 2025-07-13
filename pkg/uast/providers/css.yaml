@@ -1,0 +1,155 @@
+language: css
+extensions:
+- .css
+parser: tree-sitter
+mapping:
+  adjacent_sibling_selector:
+    type: AdjacentSiblingSelector
+  arguments:
+    type: Arguments
+  at_keyword:
+    type: AtKeyword
+  at_rule:
+    type: AtRule
+    roles:
+    - Declaration
+  attribute_selector:
+    type: AttributeSelector
+  binary_expression:
+    type: BinaryExpression
+  binary_query:
+    type: BinaryQuery
+  block:
+    type: Block
+  call_expression:
+    type: CallExpression
+  charset_statement:
+    type: Charset
+  child_selector:
+    type: ChildSelector
+  class_name:
+    type: ClassName
+  class_selector:
+    type: ClassSelector
+  color_value:
+    type: ColorValue
+    roles:
+    - Literal
+  comment:
+    type: Comment
+    roles:
+    - Comment
+  declaration:
+    type: Declaration
+    roles:
+    - Declaration
+  descendant_selector:
+    type: DescendantSelector
+  escape_sequence:
+    type: EscapeSequence
+  feature_query:
+    type: FeatureQuery
+  float_value:
+    type: FloatValue
+    roles:
+    - Literal
+  from:
+    type: From
+  grid_value:
+    type: GridValue
+  id_selector:
+    type: IdSelector
+  identifier:
+    type: Identifier
+    roles:
+    - Name
+  import_statement:
+    type: Import
+    roles:
+    - Import
+  important:
+    type: Important
+  integer_value:
+    type: IntegerValue
+    roles:
+    - Literal
+  js_comment:
+    type: Comment
+    roles:
+    - Comment
+  keyframe_block:
+    type: KeyframeBlock
+  keyframe_block_list:
+    type: KeyframeBlockList
+  keyframes_statement:
+    type: KeyframesRule
+    roles:
+    - Declaration
+  last_declaration:
+    type: LastDeclaration
+  media_statement:
+    type: MediaQuery
+  namespace_selector:
+    type: NamespaceSelector
+  namespace_statement:
+    type: Namespace
+  nesting_selector:
+    type: NestingSelector
+  parenthesized_query:
+    type: ParenthesizedQuery
+  parenthesized_value:
+    type: ParenthesizedValue
+  plain_value:
+    type: PlainValue
+  postcss_statement:
+    type: PostcssStatement
+  pseudo_class_arguments:
+    type: PseudoClassArguments
+  pseudo_class_nth_child_arguments:
+    type: PseudoClassNthChildArguments
+  pseudo_class_selector:
+    type: PseudoClassSelector
+  pseudo_class_with_selector_arguments:
+    type: PseudoClassWithSelectorArguments
+  pseudo_element_arguments:
+    type: PseudoElementArguments
+  pseudo_element_selector:
+    type: PseudoElementSelector
+  rule_set:
+    type: RuleSet
+    roles:
+    - Declaration
+  selector_query:
+    type: SelectorQuery
+  selectors:
+    type: Selectors
+  sibling_selector:
+    type: SiblingSelector
+  string_value:
+    type: StringValue
+    roles:
+    - Literal
+  supports_statement:
+    type: SupportsRule
+  to:
+    type: To
+  unary_query:
+    type: UnaryQuery
+  unit:
+    type: Unit
+  universal_selector:
+    type: UniversalSelector
+  _block_item:
+    type: BlockItem
+  _nth_child_pseudo_class_selector:
+    type: NthChildPseudoClassSelector
+  _nth_functional_notation:
+    type: NthFunctionalNotation
+  _query:
+    type: Query
+  _selector:
+    type: Selector
+  _top_level_item:
+    type: TopLevelItem
+  _value:
+    type: Value

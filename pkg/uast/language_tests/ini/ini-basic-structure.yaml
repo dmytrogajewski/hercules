@@ -1,0 +1,140 @@
+suite: basic-structure
+name: ini-basic-structure
+
+parse_cases:
+  - name: simple_section
+    input: |
+      [database]
+      host = localhost
+      port = 5432
+    output:
+      type: "File"
+      children:
+        - type: "Section"
+          roles: ["Section"]
+          props:
+            name: "database"
+          children:
+            - type: "KeyValue"
+              children:
+                - type: "Key"
+                  roles: ["Key"]
+                  props:
+                    name: "host"
+                - type: "Value"
+                  roles: ["Value"]
+                  children:
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: "localhost"
+            - type: "KeyValue"
+              children:
+                - type: "Key"
+                  roles: ["Key"]
+                  props:
+                    name: "port"
+                - type: "Value"
+                  roles: ["Value"]
+                  children:
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: "5432"
+
+  - name: multiple_sections
+    input: |
+      [app]
+      name = MyApp
+      version = 1.0
+      
+      [database]
+      host = localhost
+      port = 5432
+    output:
+      type: "File"
+      children:
+        - type: "Section"
+          roles: ["Section"]
+          props:
+            name: "app"
+          children:
+            - type: "KeyValue"
+              children:
+                - type: "Key"
+                  roles: ["Key"]
+                  props:
+                    name: "name"
+                - type: "Value"
+                  roles: ["Value"]
+                  children:
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: "MyApp"
+            - type: "KeyValue"
+              children:
+                - type: "Key"
+                  roles: ["Key"]
+                  props:
+                    name: "version"
+                - type: "Value"
+                  roles: ["Value"]
+                  children:
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: "1.0"
+        - type: "Section"
+          roles: ["Section"]
+          props:
+            name: "database"
+          children:
+            - type: "KeyValue"
+              children:
+                - type: "Key"
+                  roles: ["Key"]
+                  props:
+                    name: "host"
+                - type: "Value"
+                  roles: ["Value"]
+                  children:
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: "localhost"
+            - type: "KeyValue"
+              children:
+                - type: "Key"
+                  roles: ["Key"]
+                  props:
+                    name: "port"
+                - type: "Value"
+                  roles: ["Value"]
+                  children:
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: "5432"
+
+query_cases:
+  - name: find_sections
+    input: |
+      [section1]
+      key1 = value1
+      [section2]
+      key2 = value2
+    query: "filter(.type == \"Section\")"
+    output:
+      results:
+        - type: "Section"
+          roles: ["Section"]
+          props:
+            name: "section1"
+        - type: "Section"
+          roles: ["Section"]
+          props:
+            name: "section2"
+
+  - name: find_section_names
+    input: |
+      [my_section]
+      key = value
+    query: "filter(.type == \"Section\") |> map(.name)"
+    output:
+      results:
+        - token: "my_section" 

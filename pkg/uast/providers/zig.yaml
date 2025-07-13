@@ -1,5 +1,6 @@
 language: zig
-extensions: [".zig"]
+extensions:
+- .zig
 parser: tree-sitter
 mapping:
   source_file:
@@ -7,23 +8,26 @@ mapping:
     skip_if_empty: true
   function_declaration:
     type: Function
-    roles: [Function, Declaration]
+    roles:
+    - Function
+    - Declaration
     props:
       name: Name
   variable_declaration:
     type: Variable
-    roles: [Declaration]
+    roles:
+    - Declaration
   identifier:
     type: Identifier
-    roles: [Name]
+    roles:
+    - Name
   block:
     type: Block
   string:
     type: Literal
-    roles: [Literal]
-  number:
-    type: Literal
-    roles: [Literal]
+    roles:
+    - Literal
   comment:
     type: Comment
-    roles: [Comment] 
+    roles:
+    - Comment

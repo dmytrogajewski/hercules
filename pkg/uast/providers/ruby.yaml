@@ -1,73 +1,78 @@
 language: ruby
-extensions: [".rb"]
+extensions:
+- .rb
 parser: tree-sitter
 mapping:
-  program:
+  source_file:
     type: File
     skip_if_empty: true
   method:
     type: Method
-    roles: [Method, Declaration]
+    roles:
+    - Method
+    - Declaration
     props:
       name: Name
   class:
     type: Class
-    roles: [Class, Declaration]
-    props:
-      name: Name
-  module:
-    type: Module
-    roles: [Module, Declaration]
+    roles:
+    - Class
+    - Declaration
     props:
       name: Name
   identifier:
     type: Identifier
-    roles: [Name]
-  parameter:
-    type: Parameter
-    roles: [Parameter, Declaration]
+    roles:
+    - Name
   parameters:
     type: ParameterList
   block:
     type: Block
   return:
     type: Return
-    roles: [Return]
+    roles:
+    - Return
   call:
     type: Call
-    roles: [Call]
+    roles:
+    - Call
   argument_list:
     type: ArgumentList
   string:
     type: Literal
-    roles: [Literal]
+    roles:
+    - Literal
   integer:
     type: Literal
-    roles: [Literal]
+    roles:
+    - Literal
   float:
     type: Literal
-    roles: [Literal]
+    roles:
+    - Literal
   comment:
     type: Comment
-    roles: [Comment]
+    roles:
+    - Comment
   if:
     type: If
   for:
     type: For
-    roles: [Loop]
+    roles:
+    - Loop
   while:
     type: While
-    roles: [Loop]
+    roles:
+    - Loop
   assignment:
     type: Assignment
-    roles: [Assignment]
+    roles:
+    - Assignment
   array:
     type: List
   hash:
     type: Dict
-  symbol:
-    type: Literal
-    roles: [Literal]
   lambda:
     type: Lambda
-    roles: [Lambda] 
+    roles:
+    - Lambda

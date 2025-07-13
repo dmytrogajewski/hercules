@@ -1,95 +1,113 @@
 language: csharp
-extensions: [".cs"]
+extensions:
+- .cs
 parser: tree-sitter
 mapping:
-  compilation_unit:
-    type: File
-    skip_if_empty: true
   method_declaration:
     type: Method
-    roles: [Method, Declaration]
+    roles:
+    - Method
+    - Declaration
     props:
       name: Name
   class_declaration:
     type: Class
-    roles: [Class, Declaration]
+    roles:
+    - Class
+    - Declaration
     props:
       name: Name
   struct_declaration:
     type: Struct
-    roles: [Struct, Declaration]
+    roles:
+    - Struct
+    - Declaration
     props:
       name: Name
   interface_declaration:
     type: Interface
-    roles: [Interface, Declaration]
+    roles:
+    - Interface
+    - Declaration
     props:
       name: Name
   enum_declaration:
     type: Enum
-    roles: [Enum, Declaration]
+    roles:
+    - Enum
+    - Declaration
     props:
       name: Name
   namespace_declaration:
     type: Namespace
-    roles: [Namespace, Declaration]
+    roles:
+    - Namespace
+    - Declaration
     props:
       name: Name
   using_directive:
     type: Import
-    roles: [Import]
+    roles:
+    - Import
   identifier:
     type: Identifier
-    roles: [Name]
+    roles:
+    - Name
   parameter:
     type: Parameter
-    roles: [Parameter, Declaration]
+    roles:
+    - Parameter
+    - Declaration
   parameter_list:
     type: ParameterList
   block:
     type: Block
   return_statement:
     type: Return
-    roles: [Return]
+    roles:
+    - Return
   invocation_expression:
     type: Call
-    roles: [Call]
+    roles:
+    - Call
   argument_list:
     type: ArgumentList
   string_literal:
     type: Literal
-    roles: [Literal]
+    roles:
+    - Literal
   integer_literal:
     type: Literal
-    roles: [Literal]
-  float_literal:
-    type: Literal
-    roles: [Literal]
+    roles:
+    - Literal
   comment:
     type: Comment
-    roles: [Comment]
+    roles:
+    - Comment
   if_statement:
     type: If
   for_statement:
     type: For
-    roles: [Loop]
+    roles:
+    - Loop
   while_statement:
     type: While
-    roles: [Loop]
+    roles:
+    - Loop
   do_statement:
     type: DoWhile
-    roles: [Loop]
+    roles:
+    - Loop
   switch_statement:
     type: Switch
-  case_switch_label:
-    type: Case
   break_statement:
     type: Break
   continue_statement:
     type: Continue
   assignment_expression:
     type: Assignment
-    roles: [Assignment]
+    roles:
+    - Assignment
   array_creation_expression:
     type: List
   object_creation_expression:
@@ -98,4 +116,5 @@ mapping:
     type: Property
   lambda_expression:
     type: Lambda
-    roles: [Lambda] 
+    roles:
+    - Lambda

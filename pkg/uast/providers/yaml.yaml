@@ -1,20 +1,37 @@
 language: yaml
-extensions: [".yaml", ".yml"]
+extensions:
+- .yaml
+- .yml
 parser: tree-sitter
 mapping:
-  stream:
+  source_file:
     type: File
     skip_if_empty: true
-  document:
+  _bgn_imp_doc:
     type: Document
-  mapping:
-    type: Dict
-  sequence:
-    type: List
-  block_node:
-    type: Block
-  flow_node:
-    type: Block
-  scalar:
-    type: Literal
-    roles: [Literal] 
+    roles:
+    - Document
+  _drs_doc:
+    type: Document
+    roles:
+    - Document
+  _exp_doc:
+    type: Document
+    roles:
+    - Document
+  _b_blk_map_itm:
+    type: BlockMapping
+    roles:
+    - Block
+  _b_blk_seq_itm:
+    type: BlockSequence
+    roles:
+    - Block
+  _br_flw_map:
+    type: FlowMapping
+    roles:
+    - Block
+  _br_flw_seq:
+    type: FlowSequence
+    roles:
+    - Block

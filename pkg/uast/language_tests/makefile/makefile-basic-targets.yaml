@@ -1,0 +1,136 @@
+suite: basic-targets
+name: makefile-basic-targets
+
+parse_cases:
+  - name: simple_target
+    input: |
+      build:
+        gcc -o app main.c
+      
+      clean:
+        rm -f app
+    output:
+      type: "File"
+      children:
+        - type: "Target"
+          roles: ["Target"]
+          props:
+            name: "build"
+          children:
+            - type: "Command"
+              roles: ["Command"]
+              children:
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: "gcc -o app main.c"
+        - type: "Target"
+          roles: ["Target"]
+          props:
+            name: "clean"
+          children:
+            - type: "Command"
+              roles: ["Command"]
+              children:
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: "rm -f app"
+
+  - name: target_with_dependencies
+    input: |
+      app: main.o utils.o
+        gcc -o app main.o utils.o
+      
+      main.o: main.c
+        gcc -c main.c
+      
+      utils.o: utils.c
+        gcc -c utils.c
+    output:
+      type: "File"
+      children:
+        - type: "Target"
+          roles: ["Target"]
+          props:
+            name: "app"
+          children:
+            - type: "Dependencies"
+              roles: ["Dependencies"]
+              children:
+                - type: "Dependency"
+                  roles: ["Dependency"]
+                  props:
+                    name: "main.o"
+                - type: "Dependency"
+                  roles: ["Dependency"]
+                  props:
+                    name: "utils.o"
+            - type: "Command"
+              roles: ["Command"]
+              children:
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: "gcc -o app main.o utils.o"
+        - type: "Target"
+          roles: ["Target"]
+          props:
+            name: "main.o"
+          children:
+            - type: "Dependencies"
+              roles: ["Dependencies"]
+              children:
+                - type: "Dependency"
+                  roles: ["Dependency"]
+                  props:
+                    name: "main.c"
+            - type: "Command"
+              roles: ["Command"]
+              children:
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: "gcc -c main.c"
+        - type: "Target"
+          roles: ["Target"]
+          props:
+            name: "utils.o"
+          children:
+            - type: "Dependencies"
+              roles: ["Dependencies"]
+              children:
+                - type: "Dependency"
+                  roles: ["Dependency"]
+                  props:
+                    name: "utils.c"
+            - type: "Command"
+              roles: ["Command"]
+              children:
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: "gcc -c utils.c"
+
+query_cases:
+  - name: find_targets
+    input: |
+      target1:
+        echo "target1"
+      target2:
+        echo "target2"
+    query: "filter(.type == \"Target\")"
+    output:
+      results:
+        - type: "Target"
+          roles: ["Target"]
+          props:
+            name: "target1"
+        - type: "Target"
+          roles: ["Target"]
+          props:
+            name: "target2"
+
+  - name: find_target_names
+    input: |
+      my_target:
+        echo "hello"
+    query: "filter(.type == \"Target\") |> map(.name)"
+    output:
+      results:
+        - token: "my_target" 

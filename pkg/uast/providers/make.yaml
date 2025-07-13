@@ -1,0 +1,45 @@
+language: make
+extensions:
+- Makefile
+- .mk
+- .make
+parser: tree-sitter
+mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
+  rule:
+    type: Rule
+    roles:
+    - Declaration
+    props:
+      target: Target
+  recipe:
+    type: Recipe
+  recipe_line:
+    type: RecipeLine
+  variable_assignment:
+    type: VariableAssignment
+    roles:
+    - Declaration
+    props:
+      name: Name
+      value: Value
+  variable_reference:
+    type: VariableReference
+    roles:
+    - Reference
+  function_call:
+    type: FunctionCall
+    roles:
+    - Call
+    props:
+      name: Name
+  comment:
+    type: Comment
+    roles:
+    - Comment
+  string:
+    type: Literal
+    roles:
+    - Literal

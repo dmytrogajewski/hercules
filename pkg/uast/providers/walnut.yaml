@@ -1,13 +1,15 @@
 language: walnut
-extensions: [".cwal"]
+extensions:
+- .cwal
 parser: tree-sitter
 mapping:
-  module:
+  source_file:
     type: File
     skip_if_empty: true
   data_statement:
     type: Data
-    roles: [Declaration]
+    roles:
+    - Declaration
   timeline_statement:
     type: Timeline
   when_statement:
@@ -16,7 +18,9 @@ mapping:
     type: Match
   for_control_statement:
     type: For
-    roles: [Loop]
+    roles:
+    - Loop
   identifier:
     type: Identifier
-    roles: [Name] 
+    roles:
+    - Name

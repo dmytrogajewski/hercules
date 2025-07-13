@@ -1,9 +1,11 @@
 language: vhs
-extensions: [".tape"]
+extensions:
+- .tape
 parser: tree-sitter
 mapping:
-  program:
+  source_file:
     type: File
+    skip_if_empty: true
   command:
     type: Statement
   control:
@@ -37,4 +39,4 @@ mapping:
   require:
     type: Import
   source:
-    type: Import 
+    type: Import

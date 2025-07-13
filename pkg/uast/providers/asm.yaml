@@ -1,0 +1,76 @@
+language: asm
+extensions:
+- .asm
+- .s
+- .S
+parser: tree-sitter
+mapping:
+  address:
+    type: Address
+  block_comment:
+    type: Comment
+    roles:
+    - Comment
+  const:
+    type: Constant
+    roles:
+    - Declaration
+  float:
+    type: Float
+    roles:
+    - Literal
+  ident:
+    type: Identifier
+    roles:
+    - Name
+  instruction:
+    type: Instruction
+    roles:
+    - Declaration
+    props:
+      mnemonic: Mnemonic
+  int:
+    type: Integer
+    roles:
+    - Literal
+  label:
+    type: Label
+    roles:
+    - Name
+    - Declaration
+  line_comment:
+    type: Comment
+    roles:
+    - Comment
+  meta:
+    type: Meta
+  meta_ident:
+    type: Identifier
+    roles:
+    - Name
+  ptr:
+    type: Pointer
+  reg:
+    type: Register
+  string:
+    type: String
+    roles:
+    - Literal
+  tc_infix:
+    type: Operator
+  word:
+    type: Identifier
+    roles:
+    - Name
+  _expr:
+    type: Expression
+  _ident:
+    type: Identifier
+    roles:
+    - Name
+  _item:
+    type: Item
+  _reg:
+    type: Register
+  _tc_expr:
+    type: Expression

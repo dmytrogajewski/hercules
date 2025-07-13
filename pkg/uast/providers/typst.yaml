@@ -1,9 +1,11 @@
 language: typst
-extensions: [".typ"]
+extensions:
+- .typ
 parser: tree-sitter
 mapping:
   source_file:
     type: File
+    skip_if_empty: true
   section:
     type: Section
   item:
@@ -12,7 +14,3 @@ mapping:
     type: Term
   url:
     type: Link
-  object:
-    type: Object
-  comment:
-    type: Comment 

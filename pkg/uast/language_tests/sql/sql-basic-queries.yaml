@@ -1,0 +1,101 @@
+suite: basic-queries
+name: sql-basic-queries
+
+parse_cases:
+  - name: simple_select
+    input: |
+      SELECT name, age FROM users WHERE age > 18;
+    output:
+      type: "File"
+      children:
+        - type: "Select"
+          roles: ["Select"]
+          children:
+            - type: "ColumnList"
+              children:
+                - type: "Column"
+                  roles: ["Column"]
+                  props:
+                    name: "name"
+                - type: "Column"
+                  roles: ["Column"]
+                  props:
+                    name: "age"
+            - type: "From"
+              roles: ["From"]
+              children:
+                - type: "Table"
+                  roles: ["Table"]
+                  props:
+                    name: "users"
+            - type: "Where"
+              roles: ["Where"]
+              children:
+                - type: "BinaryExpression"
+                  roles: ["Binary"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      props:
+                        name: "age"
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: "18"
+
+  - name: insert_statement
+    input: |
+      INSERT INTO users (name, age) VALUES ('John', 30);
+    output:
+      type: "File"
+      children:
+        - type: "Insert"
+          roles: ["Insert"]
+          children:
+            - type: "Table"
+              roles: ["Table"]
+              props:
+                name: "users"
+            - type: "ColumnList"
+              children:
+                - type: "Column"
+                  roles: ["Column"]
+                  props:
+                    name: "name"
+                - type: "Column"
+                  roles: ["Column"]
+                  props:
+                    name: "age"
+            - type: "Values"
+              roles: ["Values"]
+              children:
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: "'John'"
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: "30"
+
+query_cases:
+  - name: find_tables
+    input: |
+      SELECT * FROM table1;
+      SELECT * FROM table2;
+    query: "filter(.type == \"Table\")"
+    output:
+      results:
+        - type: "Table"
+          roles: ["Table"]
+          props:
+            name: "table1"
+        - type: "Table"
+          roles: ["Table"]
+          props:
+            name: "table2"
+
+  - name: find_table_names
+    input: |
+      SELECT * FROM my_table;
+    query: "filter(.type == \"Table\") |> map(.name)"
+    output:
+      results:
+        - token: "my_table" 

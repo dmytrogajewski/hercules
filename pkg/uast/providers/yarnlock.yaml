@@ -1,13 +1,16 @@
 language: yarnlock
-extensions: [".yarn.lock"]
+extensions:
+- .yarn.lock
 parser: tree-sitter
 mapping:
-  lock_file:
+  source_file:
     type: File
     skip_if_empty: true
   dependency:
     type: Dependency
-    roles: [Declaration]
+    roles:
+    - Declaration
   identifier:
     type: Identifier
-    roles: [Name] 
+    roles:
+    - Name

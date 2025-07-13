@@ -1,7 +1,11 @@
 language: virgil
-extensions: [".v3"]
+extensions:
+- .v3
 parser: tree-sitter
 mapping:
+  source_file:
+    type: File
+    skip_if_empty: true
   class_decl:
     type: Class
     props:
@@ -23,4 +27,4 @@ mapping:
   var_member:
     type: Variable
   def_member:
-    type: Function 
+    type: Function

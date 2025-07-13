@@ -1,9 +1,11 @@
 language: ungrammar
-extensions: [".ungram"]
+extensions:
+- .ungram
 parser: tree-sitter
 mapping:
-  grammar:
+  source_file:
     type: File
+    skip_if_empty: true
   node:
     type: Declaration
   rule:
@@ -17,4 +19,4 @@ mapping:
   label:
     type: Label
   identifier:
-    type: Identifier 
+    type: Identifier

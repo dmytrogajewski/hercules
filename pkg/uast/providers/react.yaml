@@ -1,91 +1,107 @@
 language: react
-extensions: [".tsx"]
+extensions:
+- .tsx
 parser: tree-sitter
 mapping:
-  program:
+  source_file:
     type: File
     skip_if_empty: true
   function_declaration:
     type: Function
-    roles: [Function, Declaration]
+    roles:
+    - Function
+    - Declaration
     props:
       name: Name
   method_definition:
     type: Method
-    roles: [Method, Declaration]
+    roles:
+    - Method
+    - Declaration
     props:
       name: Name
   class_declaration:
     type: Class
-    roles: [Class, Declaration]
+    roles:
+    - Class
+    - Declaration
     props:
       name: Name
   interface_declaration:
     type: Interface
-    roles: [Interface, Declaration]
+    roles:
+    - Interface
+    - Declaration
     props:
       name: Name
   type_alias_declaration:
     type: Type
-    roles: [Type, Declaration]
+    roles:
+    - Type
+    - Declaration
     props:
       name: Name
   enum_declaration:
     type: Enum
-    roles: [Enum, Declaration]
+    roles:
+    - Enum
+    - Declaration
     props:
       name: Name
   import_statement:
     type: Import
-    roles: [Import]
+    roles:
+    - Import
   export_statement:
     type: Export
   jsx_element:
     type: JSXElement
   jsx_self_closing_element:
     type: JSXSelfClosingElement
-  jsx_fragment:
-    type: JSXFragment
   jsx_attribute:
     type: JSXAttribute
   identifier:
     type: Identifier
-    roles: [Name]
+    roles:
+    - Name
   formal_parameters:
     type: ParameterList
-  parameter:
-    type: Parameter
-    roles: [Parameter, Declaration]
-  block:
-    type: Block
   return_statement:
     type: Return
-    roles: [Return]
+    roles:
+    - Return
   call_expression:
     type: Call
-    roles: [Call]
+    roles:
+    - Call
   arguments:
     type: ArgumentList
   string:
     type: Literal
-    roles: [Literal]
+    roles:
+    - Literal
   number:
     type: Literal
-    roles: [Literal]
+    roles:
+    - Literal
   comment:
     type: Comment
-    roles: [Comment]
+    roles:
+    - Comment
   if_statement:
     type: If
   for_statement:
     type: For
-    roles: [Loop]
+    roles:
+    - Loop
   while_statement:
     type: While
-    roles: [Loop]
+    roles:
+    - Loop
   do_statement:
     type: DoWhile
-    roles: [Loop]
+    roles:
+    - Loop
   with_statement:
     type: With
   try_statement:
@@ -96,16 +112,17 @@ mapping:
     type: Finally
   arrow_function:
     type: Lambda
-    roles: [Lambda]
+    roles:
+    - Lambda
   assignment_expression:
     type: Assignment
-    roles: [Assignment]
+    roles:
+    - Assignment
   array:
     type: List
   object:
     type: Dict
-  property:
-    type: Property
   decorator:
     type: Decorator
-    roles: [Attribute] 
+    roles:
+    - Attribute

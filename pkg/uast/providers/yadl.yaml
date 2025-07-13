@@ -1,5 +1,6 @@
 language: yadl
-extensions: [".yadl"]
+extensions:
+- .yadl
 parser: tree-sitter
 mapping:
   source_file:
@@ -7,15 +8,19 @@ mapping:
     skip_if_empty: true
   return_statement:
     type: Return
-    roles: [Return]
+    roles:
+    - Return
   assignment:
     type: Assignment
-    roles: [Assignment]
+    roles:
+    - Assignment
   if_statement:
     type: If
   function_call:
     type: Call
-    roles: [Call]
+    roles:
+    - Call
   comment:
     type: Comment
-    roles: [Comment] 
+    roles:
+    - Comment

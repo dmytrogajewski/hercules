@@ -1,83 +1,126 @@
 language: perl
-extensions: [".pl", ".pm"]
+extensions:
+- .pl
+- .pm
 parser: tree-sitter
 mapping:
   source_file:
     type: File
     skip_if_empty: true
+  block:
+    type: Block
   subroutine_declaration_statement:
     type: Function
-    roles: [Function, Declaration]
+    roles:
+      - Function
+      - Declaration
     props:
-      name: Name
+      name: "descendant:bareword"
+    token: "descendant:bareword"
+    children:
+      - block:
+          type: Block
   method_declaration_statement:
     type: Method
-    roles: [Method, Declaration]
+    roles:
+    - Method
+    - Declaration
     props:
       name: Name
   class_statement:
     type: Class
-    roles: [Class, Declaration]
+    roles:
+    - Class
+    - Declaration
     props:
       name: Name
   role_statement:
     type: Interface
-    roles: [Interface, Declaration]
+    roles:
+    - Interface
+    - Declaration
     props:
       name: Name
   package_statement:
     type: Module
-    roles: [Module, Declaration]
+    roles:
+    - Module
+    - Declaration
     props:
       name: Name
   use_statement:
     type: Import
-    roles: [Import]
-  identifier:
-    type: Identifier
-    roles: [Name]
-  parameter:
-    type: Parameter
-    roles: [Parameter, Declaration]
-  parameter_list:
-    type: ParameterList
-  block:
-    type: Block
+    roles:
+    - Import
+  return_expression:
+    type: Return
   return_statement:
     type: Return
-    roles: [Return]
-  call_expression:
-    type: Call
-    roles: [Call]
-  argument_list:
-    type: ArgumentList
+  interpolated_string_literal:
+    type: Literal
+    roles:
+      - Literal
+    token: "descendant:string_content"
+  string_literal:
+    type: Literal
+    roles:
+      - Literal
+    token: text
   string:
     type: Literal
-    roles: [Literal]
-  integer:
-    type: Literal
-    roles: [Literal]
-  float:
-    type: Literal
-    roles: [Literal]
-  comment:
-    type: Comment
-    roles: [Comment]
-  if_statement:
-    type: If
-  for_statement:
-    type: For
-    roles: [Loop]
-  while_statement:
-    type: While
-    roles: [Loop]
-  assignment:
-    type: Assignment
-    roles: [Assignment]
+    roles:
+      - Literal
+    token: text
+  binary_expression:
+    type: BinaryExpression
+    roles:
+      - Binary
+  infix_expression:
+    type: BinaryExpression
+    roles:
+      - Binary
+  variable_declaration:
+    type: ParameterList
+    children:
+      - scalar:
+          type: Parameter
+          roles:
+            - Parameter
+            - Declaration
+          props:
+            name: "descendant:varname"
+          token: "descendant:varname"
+  scalar:
+    type: Identifier
+    roles:
+      - Name
+    props:
+      name: "descendant:varname"
+    token: "descendant:varname"
+  varname:
+    type: Identifier
+    roles:
+      - Name
+    props:
+      name: text
+    token: "self"
   array:
     type: List
   hash:
     type: Dict
-  lambda:
-    type: Lambda
-    roles: [Lambda] 
+  bareword:
+    type: Identifier
+    roles:
+      - Name
+    props:
+      name: text
+    token: "self"
+    skip: true
+  comment:
+    type: Comment
+    roles:
+    - Comment
+  for_statement:
+    type: For
+    roles:
+    - Loop

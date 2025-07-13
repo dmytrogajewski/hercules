@@ -1,74 +1,75 @@
 language: java
-extensions: [".java"]
+extensions:
+- .java
 parser: tree-sitter
 mapping:
-  program:
+  source_file:
     type: File
     skip_if_empty: true
   method_declaration:
     type: Method
-    roles: [Method, Declaration]
+    roles:
+    - Method
+    - Declaration
     props:
       name: Name
   class_declaration:
     type: Class
-    roles: [Class, Declaration]
+    roles:
+    - Class
+    - Declaration
     props:
       name: Name
   interface_declaration:
     type: Interface
-    roles: [Interface, Declaration]
+    roles:
+    - Interface
+    - Declaration
     props:
       name: Name
   enum_declaration:
     type: Enum
-    roles: [Enum, Declaration]
+    roles:
+    - Enum
+    - Declaration
     props:
       name: Name
   import_declaration:
     type: Import
-    roles: [Import]
+    roles:
+    - Import
   identifier:
     type: Identifier
-    roles: [Name]
+    roles:
+    - Name
   formal_parameters:
     type: ParameterList
-  parameter:
-    type: Parameter
-    roles: [Parameter, Declaration]
   block:
     type: Block
   return_statement:
     type: Return
-    roles: [Return]
-  call_expression:
-    type: Call
-    roles: [Call]
+    roles:
+    - Return
   argument_list:
     type: ArgumentList
   string_literal:
     type: Literal
-    roles: [Literal]
-  integer_literal:
-    type: Literal
-    roles: [Literal]
-  float_literal:
-    type: Literal
-    roles: [Literal]
-  comment:
-    type: Comment
-    roles: [Comment]
+    roles:
+    - Literal
   if_statement:
     type: If
   for_statement:
     type: For
-    roles: [Loop]
+    roles:
+    - Loop
   while_statement:
     type: While
-    roles: [Loop]
+    roles:
+    - Loop
   do_statement:
     type: DoWhile
-    roles: [Loop]
+    roles:
+    - Loop
   try_statement:
     type: Try
   catch_clause:
@@ -77,14 +78,17 @@ mapping:
     type: Finally
   lambda_expression:
     type: Lambda
-    roles: [Lambda]
+    roles:
+    - Lambda
   assignment_expression:
     type: Assignment
-    roles: [Assignment]
+    roles:
+    - Assignment
   array_initializer:
     type: List
   object_creation_expression:
     type: Dict
   annotation:
     type: Decorator
-    roles: [Attribute] 
+    roles:
+    - Attribute

@@ -1,0 +1,123 @@
+suite: basic-structure
+name: html-basic-structure
+
+parse_cases:
+  - name: simple_element
+    input: |
+      <html>
+        <head>
+          <title>My Page</title>
+        </head>
+        <body>
+          <h1>Hello</h1>
+          <p>World</p>
+        </body>
+      </html>
+    output:
+      type: "File"
+      children:
+        - type: "Element"
+          roles: ["Element"]
+          props:
+            name: "html"
+          children:
+            - type: "Element"
+              roles: ["Element"]
+              props:
+                name: "head"
+              children:
+                - type: "Element"
+                  roles: ["Element"]
+                  props:
+                    name: "title"
+                  children:
+                    - type: "Text"
+                      roles: ["Text"]
+                      token: "My Page"
+            - type: "Element"
+              roles: ["Element"]
+              props:
+                name: "body"
+              children:
+                - type: "Element"
+                  roles: ["Element"]
+                  props:
+                    name: "h1"
+                  children:
+                    - type: "Text"
+                      roles: ["Text"]
+                      token: "Hello"
+                - type: "Element"
+                  roles: ["Element"]
+                  props:
+                    name: "p"
+                  children:
+                    - type: "Text"
+                      roles: ["Text"]
+                      token: "World"
+
+  - name: element_with_attributes
+    input: |
+      <div class="container" id="main">
+        <span class="text">Content</span>
+      </div>
+    output:
+      type: "File"
+      children:
+        - type: "Element"
+          roles: ["Element"]
+          props:
+            name: "div"
+          children:
+            - type: "Attribute"
+              roles: ["Attribute"]
+              props:
+                name: "class"
+                value: "container"
+            - type: "Attribute"
+              roles: ["Attribute"]
+              props:
+                name: "id"
+                value: "main"
+            - type: "Element"
+              roles: ["Element"]
+              props:
+                name: "span"
+              children:
+                - type: "Attribute"
+                  roles: ["Attribute"]
+                  props:
+                    name: "class"
+                    value: "text"
+                - type: "Text"
+                  roles: ["Text"]
+                  token: "Content"
+
+query_cases:
+  - name: find_elements
+    input: |
+      <div>
+        <span>text1</span>
+        <p>text2</p>
+      </div>
+    query: "filter(.type == \"Element\")"
+    output:
+      results:
+        - type: "Element"
+          roles: ["Element"]
+          props:
+            name: "span"
+        - type: "Element"
+          roles: ["Element"]
+          props:
+            name: "p"
+
+  - name: find_element_names
+    input: |
+      <div>
+        <my_element>content</my_element>
+      </div>
+    query: "filter(.type == \"Element\") |> map(.name)"
+    output:
+      results:
+        - token: "my_element" 

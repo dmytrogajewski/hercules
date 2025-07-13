@@ -52,20 +52,9 @@ Based on comprehensive benchmarking, the UAST package shows excellent performanc
 - [x] Add memory pooling for frequently allocated slices
 - [x] **Target**: Reduce memory usage by 30% for large files
 
-### 1.3 String Interning for Tokens and Types
-- [ ] Implement string interning for common tokens and types
-- [ ] Add interned string cache with LRU eviction
-- [ ] **Target**: Reduce memory usage by 20% for token-heavy files
-
 ---
 
 ## Phase 2: Very Large File Parsing Optimization (Critical)
-
-### 2.1 Streaming Parser Implementation
-- [ ] Design streaming parser interface for files >10KB
-- [ ] Implement chunked parsing with configurable buffer sizes
-- [ ] Add progress reporting for large file parsing
-- [ ] **Target**: Linear scaling for files up to 100KB
 
 ### 2.2 Parallel Parsing for Very Large Files
 - [ ] Implement worker pool for parallel parsing
