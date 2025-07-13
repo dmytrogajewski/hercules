@@ -7,6 +7,7 @@ import (
 
 	tsgo "github.com/alexaandru/go-sitter-forest/go"
 	sitter "github.com/alexaandru/go-tree-sitter-bare"
+	"github.com/dmytrogajewski/hercules/pkg/uast/internal/node"
 )
 
 func TestTreeSitterProvider_Parse_Go(t *testing.T) {
@@ -163,23 +164,23 @@ func TestTokenExtractionWithRealGoGrammar(t *testing.T) {
 		"identifier": {Type: "Identifier", Token: "self"},
 	}
 	provider := &TreeSitterProvider{language: lang, langName: "go", mapping: mapping}
-	node, err := provider.Parse("main.go", src)
+	root, err := provider.Parse("main.go", src)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if node == nil {
+	if root == nil {
 		t.Fatalf("Parse returned nil node")
 	}
 
 	// Check that we have a File node
-	if node.Type != "File" {
-		t.Errorf("expected root type 'File', got %q", node.Type)
+	if root.Type != "File" {
+		t.Errorf("expected root type 'File', got %q", root.Type)
 	}
 
 	// Check that token extraction works by looking for Identifier nodes with tokens
 	var foundIdentifier bool
-	var check func(n *Node)
-	check = func(n *Node) {
+	var check func(n *node.Node)
+	check = func(n *node.Node) {
 		if n.Type == "Identifier" && n.Token != "" {
 			foundIdentifier = true
 		}
@@ -187,7 +188,7 @@ func TestTokenExtractionWithRealGoGrammar(t *testing.T) {
 			check(c)
 		}
 	}
-	check(node)
+	check(root)
 	if !foundIdentifier {
 		t.Logf("No Identifier nodes with tokens found, but parsing succeeded")
 	}
@@ -241,25 +242,31 @@ func TestTokenExtractionStrategies(t *testing.T) {
 		"int_literal":     {Type: "IntLit", Token: "self"},
 	}
 	provider := &TreeSitterProvider{language: lang, langName: "go", mapping: mapping}
-	node, err := provider.Parse("main.go", src)
+	root, err := provider.Parse("main.go", src)
+
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if node == nil {
+
+	if root == nil {
 		t.Fatalf("Parse returned nil node")
 	}
-	// Check token extraction for int literal
+
 	var foundIntLit bool
-	var check func(n *Node)
-	check = func(n *Node) {
+	var check func(n *node.Node)
+
+	check = func(n *node.Node) {
 		if n.Type == "IntLit" && n.Token == "42" {
 			foundIntLit = true
 		}
+
 		for _, c := range n.Children {
 			check(c)
 		}
 	}
-	check(node)
+
+	check(root)
+
 	if !foundIntLit {
 		t.Errorf("expected to find an int literal node with token '42'")
 	}
@@ -268,28 +275,32 @@ func TestTokenExtractionStrategies(t *testing.T) {
 func TestPassThroughNodeBehavior(t *testing.T) {
 	src := []byte("package main\nvar x = 42\n")
 	lang := sitter.NewLanguage(tsgo.GetLanguage())
-
-	// Debug: print raw tree-sitter structure
 	parser := sitter.NewParser()
 	parser.SetLanguage(lang)
 	tree, err := parser.ParseString(context.Background(), nil, src)
+
 	if err != nil {
 		t.Fatalf("tree-sitter parse error: %v", err)
 	}
+
 	root := tree.RootNode()
 	t.Logf("Raw tree-sitter root type: %s", root.Type())
+
 	for i := uint32(0); i < root.NamedChildCount(); i++ {
 		child := root.NamedChild(i)
 		t.Logf("Raw child %d: type=%s", i, child.Type())
-		// Print all descendants
+
 		var printRaw func(sitter.Node, int)
+
 		printRaw = func(n sitter.Node, depth int) {
 			indent := strings.Repeat("  ", depth)
 			t.Logf("%s- type=%s", indent, n.Type())
+
 			for j := uint32(0); j < n.NamedChildCount(); j++ {
 				printRaw(n.NamedChild(j), depth+1)
 			}
 		}
+
 		printRaw(child, 1)
 	}
 
@@ -300,17 +311,20 @@ func TestPassThroughNodeBehavior(t *testing.T) {
 		"int_literal":     {Type: "IntLit", Token: "self"},
 	}
 	provider := &TreeSitterProvider{language: lang, langName: "go", mapping: mapping, IncludeUnmapped: false}
-	node, err := provider.Parse("main.go", src)
+	n, err := provider.Parse("main.go", src)
+
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if node == nil {
+
+	if n == nil {
 		t.Fatalf("Parse returned nil node")
 	}
-	// The File node should have Ident and IntLit nodes at any depth
+
 	var foundIdent, foundIntLit bool
-	var search func(*Node)
-	search = func(n *Node) {
+	var search func(*node.Node)
+
+	search = func(n *node.Node) {
 		if n.Type == "Ident" {
 			foundIdent = true
 		}
@@ -321,9 +335,11 @@ func TestPassThroughNodeBehavior(t *testing.T) {
 			search(c)
 		}
 	}
-	search(node)
+
+	search(n)
+
 	if !foundIdent || !foundIntLit {
-		t.Errorf("expected to find Ident and IntLit nodes at any depth, got %+v", node)
+		t.Errorf("expected to find Ident and IntLit nodes at any depth, got %+v", n)
 	}
 }
 
@@ -346,16 +362,19 @@ func TestSkipTrueSuppressesChildEmission(t *testing.T) {
 		},
 	}
 	provider := &TreeSitterProvider{language: lang, langName: "go", mapping: mapping}
-	node, err := provider.Parse("test.go", src)
+	n, err := provider.Parse("test.go", src)
+
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if node == nil {
+
+	if n == nil {
 		t.Fatalf("Parse returned nil node")
 	}
-	// Find the Function node among the children
-	var fn *Node
-	for _, c := range node.Children {
+
+	var fn *node.Node
+
+	for _, c := range n.Children {
 		if c.Type == "Function" {
 			fn = c
 			break
@@ -426,18 +445,20 @@ func world() {
 		"identifier":      {Type: "Identifier", Token: "self"},
 	}
 	provider := &TreeSitterProvider{language: lang, langName: "go", mapping: mapping}
-	node, err := provider.Parse("test.go", src)
+	root, err := provider.Parse("test.go", src)
+
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if node == nil {
+
+	if root == nil {
 		t.Fatalf("Parse returned nil node")
 	}
 
-	// Check that Function nodes exist but their Block children don't have VarDecl children
-	var functionNodes []*Node
-	var check func(n *Node)
-	check = func(n *Node) {
+	var functionNodes []*node.Node
+	var check func(n *node.Node)
+
+	check = func(n *node.Node) {
 		if n.Type == "Function" {
 			functionNodes = append(functionNodes, n)
 		}
@@ -445,31 +466,34 @@ func world() {
 			check(c)
 		}
 	}
-	check(node)
+	check(root)
 
 	if len(functionNodes) == 0 {
 		t.Fatalf("expected to find Function nodes")
 	}
 
 	for _, fn := range functionNodes {
-		// Find the Block child
-		var block *Node
+		var block *node.Node
+
 		for _, c := range fn.Children {
 			if c.Type == "Block" {
 				block = c
 				break
 			}
 		}
+
 		if block == nil {
 			t.Fatalf("Function node missing Block child")
 		}
-		// Debug: print all child types for this Block node
+
 		childTypes := make([]string, len(block.Children))
+
 		for i, child := range block.Children {
 			childTypes[i] = child.Type
 		}
-		t.Logf("Block node children: %v", childTypes)
-		// Block should not have VarDecl children due to ExcludeIf
+
+		t.Logf("Block node children: %v", childTypes) // Block should not have VarDecl children due to ExcludeIf
+
 		for _, child := range block.Children {
 			if child.Type == "VarDecl" {
 				t.Errorf("Block node should not have VarDecl children due to ExcludeIf condition")
@@ -517,26 +541,30 @@ func world() {
 		"identifier":      {Type: "Identifier", Token: "self"},
 	}
 	provider := &TreeSitterProvider{language: lang, langName: "go", mapping: mapping}
-	node, err := provider.Parse("test.go", src)
+	root, err := provider.Parse("test.go", src)
+
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if node == nil {
+
+	if root == nil {
 		t.Fatalf("Parse returned nil node")
 	}
 
-	// Check that Function nodes exist and their Block children have VarDecl children (since they have identifiers)
-	var functionNodes []*Node
-	var check func(n *Node)
-	check = func(n *Node) {
+	var functionNodes []*node.Node
+	var check func(n *node.Node)
+
+	check = func(n *node.Node) {
 		if n.Type == "Function" {
 			functionNodes = append(functionNodes, n)
 		}
+
 		for _, c := range n.Children {
 			check(c)
 		}
 	}
-	check(node)
+
+	check(root)
 
 	if len(functionNodes) == 0 {
 		t.Fatalf("expected to find Function nodes")
@@ -544,7 +572,7 @@ func world() {
 
 	for _, fn := range functionNodes {
 		// Find the Block child
-		var block *Node
+		var block *node.Node
 		for _, c := range fn.Children {
 			if c.Type == "Block" {
 				block = c
@@ -561,8 +589,8 @@ func world() {
 		}
 		t.Logf("Block node children: %v", childTypes)
 		// Recursively print all descendants of Block node
-		var printDescendants func(n *Node, depth int)
-		printDescendants = func(n *Node, depth int) {
+		var printDescendants func(n *node.Node, depth int)
+		printDescendants = func(n *node.Node, depth int) {
 			indent := ""
 			for i := 0; i < depth; i++ {
 				indent += "  "
@@ -639,19 +667,20 @@ type Person struct {
 		"identifier":             {Type: "Identifier", Token: "self"},
 	}
 	provider := &TreeSitterProvider{language: lang, langName: "go", mapping: mapping}
-	node, err := provider.Parse("test.go", src)
+	root, err := provider.Parse("test.go", src)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if node == nil {
+	if root == nil {
 		t.Fatalf("Parse returned nil node")
 	}
 
 	// Check that Function nodes don't have VarDecl children
 	// Check that Type nodes have FieldList children
-	var functionNodes, typeNodes []*Node
-	var check func(n *Node)
-	check = func(n *Node) {
+	var functionNodes, typeNodes []*node.Node
+	var check func(n *node.Node)
+
+	check = func(n *node.Node) {
 		if n.Type == "Function" {
 			functionNodes = append(functionNodes, n)
 		}
@@ -662,13 +691,13 @@ type Person struct {
 			check(c)
 		}
 	}
-	check(node)
+	check(root)
 
 	// Test Function nodes
 	for _, fn := range functionNodes {
 		printTree(fn, 1, t)
 		// Find the Block child
-		var block *Node
+		var block *node.Node
 		for _, c := range fn.Children {
 			if c.Type == "Block" {
 				block = c
@@ -731,18 +760,21 @@ func world() {
 		"identifier":      {Type: "Identifier", Token: "self"},
 	}
 	provider := &TreeSitterProvider{language: lang, langName: "go", mapping: mapping}
-	node, err := provider.Parse("test.go", src)
+	root, err := provider.Parse("test.go", src)
+
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if node == nil {
+
+	if root == nil {
 		t.Fatalf("Parse returned nil node")
 	}
 
 	// Check that only functions with variables have VarDecl children
-	var functionNodes []*Node
-	var check func(n *Node)
-	check = func(n *Node) {
+	var functionNodes []*node.Node
+	var check func(n *node.Node)
+
+	check = func(n *node.Node) {
 		if n.Type == "Function" {
 			functionNodes = append(functionNodes, n)
 		}
@@ -750,7 +782,7 @@ func world() {
 			check(c)
 		}
 	}
-	check(node)
+	check(root)
 
 	if len(functionNodes) != 2 {
 		t.Fatalf("expected 2 Function nodes, got %d", len(functionNodes))
@@ -817,18 +849,19 @@ func world() {
 		"int_literal":     {Type: "IntLiteral", Token: "self"},
 	}
 	provider := &TreeSitterProvider{language: lang, langName: "go", mapping: mapping}
-	node, err := provider.Parse("test.go", src)
+	root, err := provider.Parse("test.go", src)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if node == nil {
+	if root == nil {
 		t.Fatalf("Parse returned nil node")
 	}
 
 	// Check that Function nodes have VarDecl children (since they have both identifier and literal)
-	var functionNodes []*Node
-	var check func(n *Node)
-	check = func(n *Node) {
+	var functionNodes []*node.Node
+	var check func(n *node.Node)
+
+	check = func(n *node.Node) {
 		if n.Type == "Function" {
 			functionNodes = append(functionNodes, n)
 		}
@@ -836,7 +869,7 @@ func world() {
 			check(c)
 		}
 	}
-	check(node)
+	check(root)
 
 	for _, fn := range functionNodes {
 		hasVarDecl := false
@@ -896,41 +929,42 @@ func world() {
 		"identifier":      {Type: "Identifier", Token: "self"},
 	}
 	provider := &TreeSitterProvider{language: lang, langName: "go", mapping: mapping}
-	node, err := provider.Parse("test.go", src)
+	root, err := provider.Parse("test.go", src)
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
-	if node == nil {
+	if root == nil {
 		t.Fatalf("Parse returned nil node")
 	}
 
-	if node != nil {
-		printTree(node, 0, t)
+	if root != nil {
+		printTree(root, 0, t)
 	}
 
-	// Check that Function nodes have VarDecl children (due to IncludeOnly)
-	// but not due to ExcludeIf (which should be overridden by IncludeOnly)
-	var functionNodes []*Node
-	var check func(n *Node)
-	check = func(n *Node) {
+	var functionNodes []*node.Node
+	var check func(n *node.Node)
+
+	check = func(n *node.Node) {
 		if n.Type == "Function" {
 			functionNodes = append(functionNodes, n)
 		}
+
 		for _, c := range n.Children {
 			check(c)
 		}
 	}
-	check(node)
+
+	check(root)
 
 	for _, fn := range functionNodes {
-		// Find the first Block child
-		var block *Node
+		var block *node.Node
 		for _, c := range fn.Children {
 			if c.Type == "Block" {
 				block = c
 				break
 			}
 		}
+
 		if block != nil && len(block.Children) > 0 {
 			hasVarDecl := false
 			for _, child := range block.Children {
@@ -938,6 +972,7 @@ func world() {
 					hasVarDecl = true
 				}
 			}
+
 			if !hasVarDecl {
 				t.Errorf("Block node should have VarDecl children due to IncludeOnly condition")
 			}
@@ -945,7 +980,7 @@ func world() {
 	}
 }
 
-func printTree(n *Node, depth int, t *testing.T) {
+func printTree(n *node.Node, depth int, t *testing.T) {
 	indent := ""
 	for i := 0; i < depth; i++ {
 		indent += "  "

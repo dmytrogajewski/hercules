@@ -13,6 +13,7 @@ import (
 	"context"
 
 	sitter "github.com/alexaandru/go-tree-sitter-bare"
+	"github.com/dmytrogajewski/hercules/pkg/uast/internal/node"
 	"gopkg.in/yaml.v3"
 )
 
@@ -143,26 +144,26 @@ func (tr *TestRunner) DumpRawTreeSitterAST(provider *TreeSitterProvider, input s
 }
 
 // convertNodeToRawAST converts a UAST node to raw AST structure
-func convertNodeToRawAST(node *Node) RawAST {
-	if node == nil {
+func convertNodeToRawAST(n *node.Node) RawAST {
+	if n == nil {
 		return RawAST{Type: "null"}
 	}
 
 	rawAST := RawAST{
-		Type: node.Type,
-		Text: node.Token,
+		Type: n.Type,
+		Text: n.Token,
 	}
 
-	if len(node.Props) > 0 {
+	if len(n.Props) > 0 {
 		rawAST.Fields = make(map[string]interface{})
-		for k, v := range node.Props {
+		for k, v := range n.Props {
 			rawAST.Fields[k] = v
 		}
 	}
 
-	if len(node.Children) > 0 {
-		rawAST.Children = make([]RawAST, len(node.Children))
-		for i, child := range node.Children {
+	if len(n.Children) > 0 {
+		rawAST.Children = make([]RawAST, len(n.Children))
+		for i, child := range n.Children {
 			rawAST.Children[i] = convertNodeToRawAST(child)
 		}
 	}
@@ -380,34 +381,34 @@ func getLanguageFileExtension(language string) string {
 	return "txt"
 }
 
-func nodeToMap(node *Node) map[string]interface{} {
-	if node == nil {
+func nodeToMap(n *node.Node) map[string]interface{} {
+	if n == nil {
 		return nil
 	}
 
 	result := map[string]interface{}{
-		"type": node.Type,
+		"type": n.Type,
 	}
 
-	if node.Token != "" {
-		result["token"] = node.Token
+	if n.Token != "" {
+		result["token"] = n.Token
 	}
 
-	if len(node.Props) > 0 {
-		result["props"] = node.Props
+	if len(n.Props) > 0 {
+		result["props"] = n.Props
 	}
 
-	if len(node.Roles) > 0 {
-		roles := make([]string, len(node.Roles))
-		for i, role := range node.Roles {
+	if len(n.Roles) > 0 {
+		roles := make([]string, len(n.Roles))
+		for i, role := range n.Roles {
 			roles[i] = string(role)
 		}
 		result["roles"] = roles
 	}
 
-	if len(node.Children) > 0 {
-		children := make([]map[string]interface{}, len(node.Children))
-		for i, child := range node.Children {
+	if len(n.Children) > 0 {
+		children := make([]map[string]interface{}, len(n.Children))
+		for i, child := range n.Children {
 			children[i] = nodeToMap(child)
 		}
 		result["children"] = children
@@ -416,7 +417,7 @@ func nodeToMap(node *Node) map[string]interface{} {
 	return result
 }
 
-func nodesToMap(nodes []*Node) map[string]interface{} {
+func nodesToMap(nodes []*node.Node) map[string]interface{} {
 	if len(nodes) == 0 {
 		return map[string]interface{}{"results": []interface{}{}}
 	}

@@ -99,7 +99,7 @@ mapping:
 				}
 				return
 			}
-			if err != nil && tc.wantErr != "" && !contains(err.Error(), tc.wantErr) {
+			if tc.wantErr != "" && !contains(err.Error(), tc.wantErr) {
 				t.Errorf("expected error containing %q, got %v", tc.wantErr, err)
 			}
 		})

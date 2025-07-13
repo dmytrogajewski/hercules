@@ -2,6 +2,8 @@ package uast
 
 import (
 	"strings"
+
+	"github.com/dmytrogajewski/hercules/pkg/uast/internal/node"
 )
 
 // Parser implements Provider using embedded parsers
@@ -18,7 +20,7 @@ type LanguageProvider interface {
 	// filename is the name of the file being parsed.
 	// content is the file content as bytes.
 	// Returns the root Node or an error if parsing fails.
-	Parse(filename string, content []byte) (*Node, error)
+	Parse(filename string, content []byte) (*node.Node, error)
 	// Language returns the language name handled by this provider.
 	Language() string
 }
@@ -66,7 +68,7 @@ func NewProviderForLanguage(language string, config *ProviderConfig) LanguagePro
 //	    log.Fatal(err)
 //	}
 //	fmt.Println(node.Type)
-func (p *Parser) Parse(filename string, content []byte) (*Node, error) {
+func (p *Parser) Parse(filename string, content []byte) (*node.Node, error) {
 	if filename == "" {
 		return nil, ParseError{
 			Filename: filename,

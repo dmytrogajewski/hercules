@@ -3,6 +3,8 @@ package uast
 import (
 	"fmt"
 	"strings"
+
+	"github.com/dmytrogajewski/hercules/pkg/uast/internal/node"
 )
 
 // Remove old Node interface and Position struct; replaced by canonical Node and Positions in node.go
@@ -31,15 +33,15 @@ func (ct ChangeType) String() string {
 
 // Change represents a structural change between two versions of code
 type Change struct {
-	Before *Node
-	After  *Node
+	Before *node.Node
+	After  *node.Node
 	Type   ChangeType
 	File   string
 }
 
 // Provider is responsible for parsing source code into UAST nodes
 type Provider interface {
-	Parse(filename string, content []byte) (*Node, error)
+	Parse(filename string, content []byte) (*node.Node, error)
 	SupportedLanguages() []string
 	IsSupported(filename string) bool
 }

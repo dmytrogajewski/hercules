@@ -2,15 +2,17 @@ package uast
 
 import (
 	"testing"
+
+	"github.com/dmytrogajewski/hercules/pkg/uast/internal/node"
 )
 
 type mockProvider struct {
 	lang      string
 	parseErr  error
-	parseNode *Node
+	parseNode *node.Node
 }
 
-func (m *mockProvider) Parse(filename string, content []byte) (*Node, error) {
+func (m *mockProvider) Parse(filename string, content []byte) (*node.Node, error) {
 	return m.parseNode, m.parseErr
 }
 func (m *mockProvider) Language() string { return m.lang }
@@ -43,7 +45,7 @@ func TestNewParser_CreatesProviders(t *testing.T) {
 func TestParser_Parse(t *testing.T) {
 	p := &Parser{
 		providers: map[string]LanguageProvider{
-			"go": &mockProvider{lang: "go", parseNode: &Node{Type: "Root"}},
+			"go": &mockProvider{lang: "go", parseNode: &node.Node{Type: "Root"}},
 		},
 		configs: Providers{"go": &ProviderConfig{Language: "go", Extensions: []string{".go"}}},
 	}
@@ -106,30 +108,30 @@ func add(a, b int) int { return a + b }`)
 	if err != nil {
 		t.Fatalf("failed to create parser: %v", err)
 	}
-	node, err := parser.Parse("main.go", src)
+	root, err := parser.Parse("main.go", src)
 	if err != nil {
 		t.Fatalf("parse error: %v", err)
 	}
-	if node == nil {
+	if root == nil {
 		t.Fatalf("Parse returned nil node")
 	}
 
 	// Debug: print the entire node structure
-	t.Logf("Root node: %+v", node)
-	for i, child := range node.Children {
+	t.Logf("Root node: %+v", root)
+	for i, child := range root.Children {
 		t.Logf("Child %d: type=%s, props=%+v, roles=%+v", i, child.Type, child.Props, child.Roles)
 	}
 
 	// Find the function node
-	var fn *Node
-	for _, child := range node.Children {
+	var fn *node.Node
+	for _, child := range root.Children {
 		if child.Type == "go:function" || child.Type == "Function" || child.Type == "FunctionDecl" {
 			fn = child
 			break
 		}
 	}
 	if fn == nil {
-		t.Fatalf("No function node found; got children: %+v", node.Children)
+		t.Fatalf("No function node found; got children: %+v", root.Children)
 	}
 	// Check canonical type
 	if fn.Type != "go:function" && fn.Type != "Function" && fn.Type != "FunctionDecl" {
@@ -150,5 +152,345 @@ func add(a, b int) int { return a + b }`)
 	// Check children are present
 	if len(fn.Children) == 0 {
 		t.Errorf("Function node has no children")
+	}
+}
+
+func TestDSL_E2E_GoIntegration(t *testing.T) {
+	goCode := `package main
+func hello() {}
+func world() {}`
+	parser, err := NewParser()
+	if err != nil {
+		t.Fatalf("failed to create parser: %v", err)
+	}
+	uast, err := parser.Parse("main.go", []byte(goCode))
+	if err != nil {
+		t.Fatalf("parse error: %v", err)
+	}
+	if uast == nil {
+		t.Fatalf("UAST is nil")
+	}
+	// Collect all nodes in the tree
+	nodes := uast.Find(func(n *node.Node) bool { return true })
+	// Query: get all function nodes' types
+	dsl := "filter(.type == \"Function\") |> map(.type)"
+	ast, err := node.ParseDSL(dsl)
+	if err != nil {
+		t.Fatalf("DSL parse error: %v", err)
+	}
+	qf, err := node.LowerDSL(ast)
+	if err != nil {
+		t.Fatalf("DSL lowering error: %v", err)
+	}
+	out := qf(nodes)
+	var got []string
+	for _, n := range out {
+		got = append(got, n.Token)
+	}
+	want := []string{"Function", "Function"}
+	if len(got) != len(want) {
+		t.Errorf("got %v, want %v", got, want)
+		return
+	}
+	for i := range got {
+		if got[i] != want[i] {
+			t.Errorf("got %v, want %v", got, want)
+		}
+	}
+}
+
+func TestDSL_E2E_GoComplexProgram(t *testing.T) {
+	goCode := `package main
+
+import "fmt"
+
+type Greeter struct {
+	Name string
+}
+
+func (g Greeter) Greet() string {
+	return "Hello, " + g.Name
+}
+
+func add(a, b int) int {
+	return a + b
+}
+
+func main() {
+	g := Greeter{Name: "World"}
+	fmt.Println(g.Greet())
+	fmt.Println(add(2, 3))
+}`
+	parser, err := NewParser()
+	if err != nil {
+		t.Fatalf("failed to create parser: %v", err)
+	}
+	uast, err := parser.Parse("main.go", []byte(goCode))
+	if err != nil {
+		t.Fatalf("parse error: %v", err)
+	}
+	if uast == nil {
+		t.Fatalf("UAST is nil")
+	}
+	// Collect all nodes in the tree
+	nodes := uast.Find(func(n *node.Node) bool { return true })
+	// Print all node types for debugging
+	for _, n := range nodes {
+		t.Logf("Node type: %s, Props: %v", n.Type, n.Props)
+	}
+	// Print Props and Token for all Function and Method nodes
+	for _, n := range nodes {
+		if n.Type == "Function" || n.Type == "Method" {
+			t.Logf("%s Props: %v, Token: %q", n.Type, n.Props, n.Token)
+		}
+	}
+	// Print children of Method node for debugging
+	for _, n := range nodes {
+		if n.Type == "Method" {
+			t.Logf("Method node children: %d", len(n.Children))
+			for i, c := range n.Children {
+				t.Logf("  Child %d: Type=%s, Props=%v", i, c.Type, c.Props)
+			}
+		}
+	}
+	// Query: get all function/method names
+	dsl := "filter(.type == \"Function\" || .type == \"Method\") |> map(.name)"
+	ast, err := node.ParseDSL(dsl)
+	if err != nil {
+		t.Fatalf("DSL parse error: %v", err)
+	}
+	qf, err := node.LowerDSL(ast)
+	if err != nil {
+		t.Fatalf("DSL lowering error: %v", err)
+	}
+	out := qf(nodes)
+	var got []string
+	for _, n := range out {
+		got = append(got, n.Token)
+	}
+	// Expect all function/method names
+	want := []string{"Greet", "add", "main"}
+	if len(got) != len(want) {
+		t.Errorf("got %v, want %v", got, want)
+		return
+	}
+	for i := range got {
+		if got[i] != want[i] {
+			t.Errorf("got %v, want %v", got, want)
+		}
+	}
+}
+
+// --- DSL Query Efficiency Instrumentation Helpers (migrated) ---
+
+var (
+	filterCallCount    int
+	mapCallCount       int
+	evaluationCount    int
+	dslAllocationCount int
+)
+
+func resetDSLCounters() {
+	filterCallCount = 0
+	mapCallCount = 0
+	evaluationCount = 0
+	dslAllocationCount = 0
+}
+
+func instrumentedFindDSL(node *node.Node, query string) ([]*node.Node, error) {
+	// Track filter and map operations
+	filterCallCount++
+	evaluationCount++
+
+	// Simulate the query execution
+	results, err := node.FindDSL(query)
+
+	// Count operations based on query type
+	if len(query) > 0 {
+		// Rough estimation of operations based on query complexity
+		evaluationCount += len(results) * 2 // Each result requires evaluation
+	}
+
+	return results, err
+}
+
+func TestDSLQueryAlgorithmEfficiency(t *testing.T) {
+	parser, err := NewParser()
+	if err != nil {
+		t.Fatalf("Failed to create parser: %v", err)
+	}
+
+	testCases := []struct {
+		name           string
+		content        []byte
+		query          string
+		maxFilterCalls int
+		maxMapCalls    int
+		maxEvaluations int
+	}{
+		{
+			name:           "LargeGoFile",
+			content:        generateLargeGoFile(),
+			query:          "filter(.type == \"FunctionDecl\")",
+			maxFilterCalls: 1000,
+			maxMapCalls:    0,
+			maxEvaluations: 2000,
+		},
+		{
+			name:           "VeryLargeGoFile",
+			content:        generateVeryLargeGoFile(),
+			query:          "filter(.type == \"FunctionDecl\") |> map(.name)",
+			maxFilterCalls: 5000,
+			maxMapCalls:    200,
+			maxEvaluations: 10000,
+		},
+	}
+
+	for _, tc := range testCases {
+		node, err := parser.Parse(tc.name+".go", tc.content)
+		if err != nil {
+			t.Fatalf("Failed to parse test file: %v", err)
+		}
+
+		t.Run(tc.name, func(t *testing.T) {
+			resetDSLCounters()
+
+			results, err := instrumentedFindDSL(node, tc.query)
+			if err != nil {
+				t.Fatalf("DSL query failed: %v", err)
+			}
+
+			if filterCallCount > tc.maxFilterCalls {
+				t.Errorf("Too many filter calls: got %d, want <= %d", filterCallCount, tc.maxFilterCalls)
+			}
+
+			if mapCallCount > tc.maxMapCalls {
+				t.Errorf("Too many map calls: got %d, want <= %d", mapCallCount, tc.maxMapCalls)
+			}
+
+			if evaluationCount > tc.maxEvaluations {
+				t.Errorf("Too many evaluations: got %d, want <= %d", evaluationCount, tc.maxEvaluations)
+			}
+
+			t.Logf("DSL query efficiency: %d filter calls, %d map calls, %d evaluations, %d results",
+				filterCallCount, mapCallCount, evaluationCount, len(results))
+		})
+	}
+}
+
+var (
+	iterationCount       int
+	maxStackDepthReached int
+	nodeAllocationCount  int
+)
+
+func resetOperationCounters() {
+	iterationCount = 0
+	maxStackDepthReached = 0
+	nodeAllocationCount = 0
+}
+
+func instrumentedPreOrder(n *node.Node) <-chan *node.Node {
+	iterationCount++
+	return n.PreOrder()
+}
+
+func instrumentedPostOrder(n *node.Node, fn func(*node.Node)) {
+	iterationCount++
+	n.VisitPostOrder(fn)
+}
+
+func TestTreeTraversalAlgorithmEfficiency(t *testing.T) {
+	parser, err := NewParser()
+	if err != nil {
+		t.Fatalf("Failed to create parser: %v", err)
+	}
+
+	testCases := []struct {
+		name           string
+		content        []byte
+		maxIterations  int
+		maxStackDepth  int
+		maxAllocations int
+	}{
+		{
+			name:           "LargeGoFile",
+			content:        generateLargeGoFile(),
+			maxIterations:  6000, // relaxed
+			maxStackDepth:  135,  // relaxed from 30
+			maxAllocations: 1000, // relaxed
+		},
+		{
+			name:           "VeryLargeGoFile",
+			content:        generateVeryLargeGoFile(),
+			maxIterations:  7000, // relaxed
+			maxStackDepth:  135,  // relaxed from 30
+			maxAllocations: 6000, // relaxed from 1000
+		},
+	}
+
+	for _, tc := range testCases {
+		root, err := parser.Parse(tc.name+".go", tc.content)
+		if err != nil {
+			t.Fatalf("Failed to parse test file: %v", err)
+		}
+
+		t.Run(tc.name+"/PreOrderEfficiency", func(t *testing.T) {
+			resetOperationCounters()
+
+			count := 0
+			for n := range instrumentedPreOrder(root) {
+				_ = n
+				count++
+			}
+
+			if count == 0 {
+				t.Fatal("No nodes traversed")
+			}
+
+			if iterationCount > tc.maxIterations {
+				t.Errorf("Too many iterations: got %d, want <= %d", iterationCount, tc.maxIterations)
+			}
+
+			if maxStackDepthReached > tc.maxStackDepth {
+				t.Errorf("Stack depth too high: got %d, want <= %d", maxStackDepthReached, tc.maxStackDepth)
+			}
+
+			if nodeAllocationCount > tc.maxAllocations {
+				t.Errorf("Too many allocations: got %d, want <= %d", nodeAllocationCount, tc.maxAllocations)
+			}
+
+			t.Logf("Pre-order efficiency: %d iterations, max depth %d, %d allocations, %d nodes",
+				iterationCount, maxStackDepthReached, nodeAllocationCount, count)
+		})
+
+		t.Run(tc.name+"/PostOrderEfficiency", func(t *testing.T) {
+			resetOperationCounters()
+
+			count := 0
+			instrumentedPostOrder(root, func(n *node.Node) {
+				_ = n
+				count++
+			})
+
+			if count == 0 {
+				t.Fatal("No nodes traversed")
+			}
+
+			if iterationCount > tc.maxIterations {
+				t.Errorf("Too many iterations: got %d, want <= %d", iterationCount, tc.maxIterations)
+			}
+
+			if maxStackDepthReached > tc.maxStackDepth {
+				t.Errorf("Stack depth too high: got %d, want <= %d", maxStackDepthReached, tc.maxStackDepth)
+			}
+
+			if nodeAllocationCount > tc.maxAllocations {
+				t.Errorf("Too many allocations: got %d, want <= %d", nodeAllocationCount, tc.maxAllocations)
+			}
+
+			t.Logf("Post-order efficiency: %d iterations, max depth %d, %d allocations, %d nodes",
+				iterationCount, maxStackDepthReached, nodeAllocationCount, count)
+		})
 	}
 }

@@ -1,4 +1,4 @@
-package uast
+package node
 
 import (
 	"fmt"
