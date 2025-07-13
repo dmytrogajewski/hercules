@@ -3,13 +3,15 @@ package uast
 import (
 	"runtime"
 	"testing"
+
+	"github.com/dmytrogajewski/hercules/pkg/uast/internal/node"
 )
 
 func TestDetectChanges_NodeAdded(t *testing.T) {
-	after := &Node{
+	after := &node.Node{
 		Type:  "go:function",
 		Token: "func add",
-		Pos: &Positions{
+		Pos: &node.Positions{
 			StartLine: 1,
 			EndLine:   3,
 		},
@@ -34,10 +36,10 @@ func TestDetectChanges_NodeAdded(t *testing.T) {
 }
 
 func TestDetectChanges_NodeRemoved(t *testing.T) {
-	before := &Node{
+	before := &node.Node{
 		Type:  "go:function",
 		Token: "func add",
-		Pos: &Positions{
+		Pos: &node.Positions{
 			StartLine: 1,
 			EndLine:   3,
 		},
@@ -70,19 +72,19 @@ func TestDetectChanges_NoChanges(t *testing.T) {
 }
 
 func TestDetectChanges_NodeModified(t *testing.T) {
-	before := &Node{
+	before := &node.Node{
 		Type:  "go:function",
 		Token: "func add",
-		Pos: &Positions{
+		Pos: &node.Positions{
 			StartLine: 1,
 			EndLine:   3,
 		},
 	}
 
-	after := &Node{
+	after := &node.Node{
 		Type:  "go:function",
 		Token: "func subtract",
-		Pos: &Positions{
+		Pos: &node.Positions{
 			StartLine: 1,
 			EndLine:   3,
 		},
@@ -107,12 +109,12 @@ func TestDetectChanges_NodeModified(t *testing.T) {
 }
 
 func TestDetectChanges_TypeChanged(t *testing.T) {
-	before := &Node{
+	before := &node.Node{
 		Type:  "go:function",
 		Token: "func add",
 	}
 
-	after := &Node{
+	after := &node.Node{
 		Type:  "go:method",
 		Token: "func add",
 	}
@@ -130,10 +132,10 @@ func TestDetectChanges_TypeChanged(t *testing.T) {
 }
 
 func TestDetectChanges_PositionChanged(t *testing.T) {
-	before := &Node{
+	before := &node.Node{
 		Type:  "go:function",
 		Token: "func add",
-		Pos: &Positions{
+		Pos: &node.Positions{
 			StartLine: 1,
 			StartCol:  1,
 			EndLine:   3,
@@ -141,10 +143,10 @@ func TestDetectChanges_PositionChanged(t *testing.T) {
 		},
 	}
 
-	after := &Node{
+	after := &node.Node{
 		Type:  "go:function",
 		Token: "func add",
-		Pos: &Positions{
+		Pos: &node.Positions{
 			StartLine: 5,
 			StartCol:  1,
 			EndLine:   7,
@@ -165,10 +167,10 @@ func TestDetectChanges_PositionChanged(t *testing.T) {
 }
 
 func TestDetectChanges_PositionChangedMinor(t *testing.T) {
-	before := &Node{
+	before := &node.Node{
 		Type:  "go:function",
 		Token: "func add",
-		Pos: &Positions{
+		Pos: &node.Positions{
 			StartLine: 1,
 			StartCol:  1,
 			EndLine:   3,
@@ -176,10 +178,10 @@ func TestDetectChanges_PositionChangedMinor(t *testing.T) {
 		},
 	}
 
-	after := &Node{
+	after := &node.Node{
 		Type:  "go:function",
 		Token: "func add",
-		Pos: &Positions{
+		Pos: &node.Positions{
 			StartLine: 1,
 			StartCol:  2,
 			EndLine:   3,
@@ -202,16 +204,16 @@ func TestDetectChanges_PositionChangedMinor(t *testing.T) {
 }
 
 func TestDetectChanges_ChildrenAdded(t *testing.T) {
-	before := &Node{
+	before := &node.Node{
 		Type: "go:file",
-		Children: []*Node{
+		Children: []*node.Node{
 			{Type: "go:function", Token: "func add"},
 		},
 	}
 
-	after := &Node{
+	after := &node.Node{
 		Type: "go:file",
-		Children: []*Node{
+		Children: []*node.Node{
 			{Type: "go:function", Token: "func add"},
 			{Type: "go:function", Token: "func subtract"},
 		},
@@ -241,17 +243,17 @@ func TestDetectChanges_ChildrenAdded(t *testing.T) {
 }
 
 func TestDetectChanges_ChildrenRemoved(t *testing.T) {
-	before := &Node{
+	before := &node.Node{
 		Type: "go:file",
-		Children: []*Node{
+		Children: []*node.Node{
 			{Type: "go:function", Token: "func add"},
 			{Type: "go:function", Token: "func subtract"},
 		},
 	}
 
-	after := &Node{
+	after := &node.Node{
 		Type: "go:file",
-		Children: []*Node{
+		Children: []*node.Node{
 			{Type: "go:function", Token: "func add"},
 		},
 	}
@@ -280,16 +282,16 @@ func TestDetectChanges_ChildrenRemoved(t *testing.T) {
 }
 
 func TestDetectChanges_ChildrenModified(t *testing.T) {
-	before := &Node{
+	before := &node.Node{
 		Type: "go:file",
-		Children: []*Node{
+		Children: []*node.Node{
 			{Type: "go:function", Token: "func add"},
 		},
 	}
 
-	after := &Node{
+	after := &node.Node{
 		Type: "go:file",
-		Children: []*Node{
+		Children: []*node.Node{
 			{Type: "go:function", Token: "func subtract"},
 		},
 	}
@@ -324,18 +326,18 @@ func TestDetectChanges_ChildrenModified(t *testing.T) {
 }
 
 func TestDetectChanges_GoFunctionBodyChanged(t *testing.T) {
-	before := &Node{
+	before := &node.Node{
 		Type:  "go:function",
 		Token: "func add",
-		Children: []*Node{
+		Children: []*node.Node{
 			{Type: "go:block", Token: "{ return a + b }"},
 		},
 	}
 
-	after := &Node{
+	after := &node.Node{
 		Type:  "go:function",
 		Token: "func add",
-		Children: []*Node{
+		Children: []*node.Node{
 			{Type: "go:block", Token: "{ return a - b }"},
 		},
 	}
@@ -362,18 +364,18 @@ func TestDetectChanges_GoFunctionBodyChanged(t *testing.T) {
 }
 
 func TestDetectChanges_JavaClassChanged(t *testing.T) {
-	before := &Node{
+	before := &node.Node{
 		Type:  "java:class",
 		Token: "class Test",
-		Children: []*Node{
+		Children: []*node.Node{
 			{Type: "java:field", Token: "private int x;"},
 		},
 	}
 
-	after := &Node{
+	after := &node.Node{
 		Type:  "java:class",
 		Token: "class Test",
-		Children: []*Node{
+		Children: []*node.Node{
 			{Type: "java:field", Token: "private String name;"},
 		},
 	}
@@ -400,18 +402,18 @@ func TestDetectChanges_JavaClassChanged(t *testing.T) {
 }
 
 func TestDetectChanges_JavaMethodChanged(t *testing.T) {
-	before := &Node{
+	before := &node.Node{
 		Type:  "java:method",
 		Token: "public void test()",
-		Children: []*Node{
+		Children: []*node.Node{
 			{Type: "java:block", Token: "{ System.out.println(\"test\"); }"},
 		},
 	}
 
-	after := &Node{
+	after := &node.Node{
 		Type:  "java:method",
 		Token: "public void test()",
-		Children: []*Node{
+		Children: []*node.Node{
 			{Type: "java:block", Token: "{ System.out.println(\"updated\"); }"},
 		},
 	}
@@ -438,18 +440,18 @@ func TestDetectChanges_JavaMethodChanged(t *testing.T) {
 }
 
 func TestDetectChanges_JavaConstructorChanged(t *testing.T) {
-	before := &Node{
+	before := &node.Node{
 		Type:  "java:constructor",
 		Token: "public Test()",
-		Children: []*Node{
+		Children: []*node.Node{
 			{Type: "java:block", Token: "{ this.x = 0; }"},
 		},
 	}
 
-	after := &Node{
+	after := &node.Node{
 		Type:  "java:constructor",
 		Token: "public Test()",
-		Children: []*Node{
+		Children: []*node.Node{
 			{Type: "java:block", Token: "{ this.x = 1; }"},
 		},
 	}
@@ -477,10 +479,10 @@ func TestDetectChanges_JavaConstructorChanged(t *testing.T) {
 
 func TestFilterChangesByType(t *testing.T) {
 	changes := []Change{
-		{Type: ChangeAdded, After: &Node{Type: "go:function"}},
-		{Type: ChangeRemoved, Before: &Node{Type: "go:function"}},
-		{Type: ChangeModified, Before: &Node{Type: "go:function"}, After: &Node{Type: "go:function"}},
-		{Type: ChangeAdded, After: &Node{Type: "go:method"}},
+		{Type: ChangeAdded, After: &node.Node{Type: "go:function"}},
+		{Type: ChangeRemoved, Before: &node.Node{Type: "go:function"}},
+		{Type: ChangeModified, Before: &node.Node{Type: "go:function"}, After: &node.Node{Type: "go:function"}},
+		{Type: ChangeAdded, After: &node.Node{Type: "go:method"}},
 	}
 
 	filtered := FilterChangesByType(changes, ChangeAdded)
@@ -498,10 +500,10 @@ func TestFilterChangesByType(t *testing.T) {
 
 func TestFilterChangesByNodeType(t *testing.T) {
 	changes := []Change{
-		{Type: ChangeAdded, After: &Node{Type: "go:function"}},
-		{Type: ChangeRemoved, Before: &Node{Type: "go:method"}},
-		{Type: ChangeModified, Before: &Node{Type: "go:function"}, After: &Node{Type: "go:function"}},
-		{Type: ChangeAdded, After: &Node{Type: "go:variable"}},
+		{Type: ChangeAdded, After: &node.Node{Type: "go:function"}},
+		{Type: ChangeRemoved, Before: &node.Node{Type: "go:method"}},
+		{Type: ChangeModified, Before: &node.Node{Type: "go:function"}, After: &node.Node{Type: "go:function"}},
+		{Type: ChangeAdded, After: &node.Node{Type: "go:variable"}},
 	}
 
 	filtered := FilterChangesByNodeType(changes, "go:function")
@@ -521,11 +523,11 @@ func TestFilterChangesByNodeType(t *testing.T) {
 
 func TestCountChangesByType(t *testing.T) {
 	changes := []Change{
-		{Type: ChangeAdded, After: &Node{Type: "go:function"}},
-		{Type: ChangeRemoved, Before: &Node{Type: "go:function"}},
-		{Type: ChangeModified, Before: &Node{Type: "go:function"}, After: &Node{Type: "go:function"}},
-		{Type: ChangeAdded, After: &Node{Type: "go:method"}},
-		{Type: ChangeRemoved, Before: &Node{Type: "go:variable"}},
+		{Type: ChangeAdded, After: &node.Node{Type: "go:function"}},
+		{Type: ChangeRemoved, Before: &node.Node{Type: "go:function"}},
+		{Type: ChangeModified, Before: &node.Node{Type: "go:function"}, After: &node.Node{Type: "go:function"}},
+		{Type: ChangeAdded, After: &node.Node{Type: "go:method"}},
+		{Type: ChangeRemoved, Before: &node.Node{Type: "go:variable"}},
 	}
 
 	counts := CountChangesByType(changes)
@@ -544,14 +546,14 @@ func TestCountChangesByType(t *testing.T) {
 }
 
 func TestGetModifiedNodes(t *testing.T) {
-	modifiedNode1 := &Node{Type: "go:function", Token: "func add"}
-	modifiedNode2 := &Node{Type: "go:method", Token: "func subtract"}
+	modifiedNode1 := &node.Node{Type: "go:function", Token: "func add"}
+	modifiedNode2 := &node.Node{Type: "go:method", Token: "func subtract"}
 
 	changes := []Change{
-		{Type: ChangeModified, Before: &Node{Type: "go:function"}, After: modifiedNode1},
-		{Type: ChangeAdded, After: &Node{Type: "go:variable"}},
-		{Type: ChangeModified, Before: &Node{Type: "go:method"}, After: modifiedNode2},
-		{Type: ChangeRemoved, Before: &Node{Type: "go:constant"}},
+		{Type: ChangeModified, Before: &node.Node{Type: "go:function"}, After: modifiedNode1},
+		{Type: ChangeAdded, After: &node.Node{Type: "go:variable"}},
+		{Type: ChangeModified, Before: &node.Node{Type: "go:method"}, After: modifiedNode2},
+		{Type: ChangeRemoved, Before: &node.Node{Type: "go:constant"}},
 	}
 
 	modifiedNodes := GetModifiedNodes(changes)
@@ -575,14 +577,14 @@ func TestGetModifiedNodes(t *testing.T) {
 }
 
 func TestGetAddedNodes(t *testing.T) {
-	addedNode1 := &Node{Type: "go:function", Token: "func add"}
-	addedNode2 := &Node{Type: "go:method", Token: "func subtract"}
+	addedNode1 := &node.Node{Type: "go:function", Token: "func add"}
+	addedNode2 := &node.Node{Type: "go:method", Token: "func subtract"}
 
 	changes := []Change{
 		{Type: ChangeAdded, After: addedNode1},
-		{Type: ChangeModified, Before: &Node{Type: "go:function"}, After: &Node{Type: "go:function"}},
+		{Type: ChangeModified, Before: &node.Node{Type: "go:function"}, After: &node.Node{Type: "go:function"}},
 		{Type: ChangeAdded, After: addedNode2},
-		{Type: ChangeRemoved, Before: &Node{Type: "go:constant"}},
+		{Type: ChangeRemoved, Before: &node.Node{Type: "go:constant"}},
 	}
 
 	addedNodes := GetAddedNodes(changes)
@@ -606,14 +608,14 @@ func TestGetAddedNodes(t *testing.T) {
 }
 
 func TestGetRemovedNodes(t *testing.T) {
-	removedNode1 := &Node{Type: "go:function", Token: "func add"}
-	removedNode2 := &Node{Type: "go:method", Token: "func subtract"}
+	removedNode1 := &node.Node{Type: "go:function", Token: "func add"}
+	removedNode2 := &node.Node{Type: "go:method", Token: "func subtract"}
 
 	changes := []Change{
 		{Type: ChangeRemoved, Before: removedNode1},
-		{Type: ChangeModified, Before: &Node{Type: "go:function"}, After: &Node{Type: "go:function"}},
+		{Type: ChangeModified, Before: &node.Node{Type: "go:function"}, After: &node.Node{Type: "go:function"}},
 		{Type: ChangeRemoved, Before: removedNode2},
-		{Type: ChangeAdded, After: &Node{Type: "go:constant"}},
+		{Type: ChangeAdded, After: &node.Node{Type: "go:constant"}},
 	}
 
 	removedNodes := GetRemovedNodes(changes)
@@ -637,7 +639,7 @@ func TestGetRemovedNodes(t *testing.T) {
 }
 
 func TestGetNodeKey(t *testing.T) {
-	node := &Node{
+	node := &node.Node{
 		Type:  "go:function",
 		Token: "func add",
 	}
@@ -672,18 +674,18 @@ func TestAbs(t *testing.T) {
 
 func TestDetectChanges_ComplexScenario(t *testing.T) {
 	// Test a complex scenario with multiple types of changes
-	before := &Node{
+	before := &node.Node{
 		Type: "go:file",
-		Children: []*Node{
+		Children: []*node.Node{
 			{Type: "go:function", Token: "func add"},
 			{Type: "go:function", Token: "func multiply"},
 			{Type: "go:variable", Token: "var x"},
 		},
 	}
 
-	after := &Node{
+	after := &node.Node{
 		Type: "go:file",
-		Children: []*Node{
+		Children: []*node.Node{
 			{Type: "go:function", Token: "func add"},      // unchanged
 			{Type: "go:function", Token: "func subtract"}, // modified (reported as removed+added)
 			{Type: "go:constant", Token: "const y"},       // added
@@ -749,7 +751,7 @@ func resetChangeDetectionCounters() {
 	changeAllocationCount = 0
 }
 
-func instrumentedDetectChanges(before, after *Node) []Change {
+func instrumentedDetectChanges(before, after *node.Node) []Change {
 	comparisonCount++
 	diffOperationCount++
 

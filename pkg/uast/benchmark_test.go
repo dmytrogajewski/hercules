@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"runtime"
 	"testing"
+
+	"github.com/dmytrogajewski/hercules/pkg/uast/internal/node"
 )
 
 // Benchmark parsing performance with different file sizes and languages
@@ -122,7 +124,7 @@ func BenchmarkTreeTraversal(b *testing.B) {
 	}
 
 	for _, tf := range testFiles {
-		node, err := parser.Parse(tf.name+".go", tf.content)
+		root, err := parser.Parse(tf.name+".go", tf.content)
 		if err != nil {
 			b.Fatalf("Failed to parse test file: %v", err)
 		}
@@ -131,7 +133,7 @@ func BenchmarkTreeTraversal(b *testing.B) {
 			b.ResetTimer()
 			for i := 0; i < b.N; i++ {
 				count := 0
-				for n := range PreOrder(node) {
+				for n := range root.PreOrder() {
 					_ = n
 					count++
 				}
@@ -145,7 +147,7 @@ func BenchmarkTreeTraversal(b *testing.B) {
 			b.ResetTimer()
 			for i := 0; i < b.N; i++ {
 				count := 0
-				node.PostOrder(func(n *Node) {
+				root.VisitPostOrder(func(n *node.Node) {
 					_ = n
 					count++
 				})
@@ -158,7 +160,7 @@ func BenchmarkTreeTraversal(b *testing.B) {
 			b.Logf("Find nodes with predicate on %s (%d bytes)", tf.name, len(tf.content))
 			b.ResetTimer()
 			for i := 0; i < b.N; i++ {
-				results := node.Find(func(n *Node) bool {
+				results := root.Find(func(n *node.Node) bool {
 					return n.Type == "FunctionDecl"
 				})
 				_ = results
@@ -318,7 +320,7 @@ func main() {
 		{Name: "Alice", Email: "alice@example.com"},
 		{Name: "Bob", Email: "bob@test.org"},
 	}
-	
+
 	displayNames := processUsers(users)
 	for _, name := range displayNames {
 		fmt.Println(name)
@@ -370,7 +372,7 @@ func (p *Processor) processItem(item string) string {
 	if cached, exists := p.cache[item]; exists {
 		return cached.(string)
 	}
-	
+
 	result := strings.ToUpper(item)
 	p.cache[item] = result
 	return result
@@ -427,27 +429,27 @@ func main() {
 		Timeout:  time.Second * 30,
 		Features: map[string]bool{"cache": true, "logging": true},
 	}
-	
+
 	if err := validateConfig(config); err != nil {
 		fmt.Printf("Config error: %v\n", err)
 		return
 	}
-	
+
 	processor := NewProcessor(config)
 	data := generateData(100)
-	
+
 	// Process data through multiple stages
 	filtered := filterData(data, func(item string) bool {
 		return strings.Contains(item, "5")
 	})
-	
+
 	transformed := transformData(filtered, func(item string) string {
 		return strings.ToUpper(item)
 	})
-	
+
 	processed := processor.Process(transformed)
 	aggregated := aggregateData(processed)
-	
+
 	fmt.Printf("Processed %d items\n", len(processed))
 	fmt.Printf("Aggregated into %d unique items\n", len(aggregated))
 }
@@ -489,7 +491,7 @@ func main() {
 		{Name: "Alice", Email: "alice@example.com", Age: 25},  // Added age
 		{Name: "Bob", Email: "bob@test.org", Age: 17},         // Added age
 	}
-	
+
 	displayNames := processUsers(users)
 	for _, name := range displayNames {
 		fmt.Println(name)

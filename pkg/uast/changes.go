@@ -2,7 +2,8 @@ package uast
 
 import (
 	"fmt"
-	"strings"
+
+	"github.com/dmytrogajewski/hercules/pkg/uast/internal/node"
 )
 
 // DetectChanges detects structural changes between two UAST nodes.
@@ -15,7 +16,7 @@ import (
 //	for _, c := range changes {
 //	    fmt.Println(c.Type)
 //	}
-func DetectChanges(before, after *Node) []Change {
+func DetectChanges(before, after *node.Node) []Change {
 	return finalOptimizedDetectChangesInt(before, after)
 }
 
@@ -54,8 +55,8 @@ func CountChangesByType(changes []Change) map[ChangeType]int {
 }
 
 // GetModifiedNodes returns all nodes that were modified in the given changes.
-func GetModifiedNodes(changes []Change) []*Node {
-	var nodes []*Node
+func GetModifiedNodes(changes []Change) []*node.Node {
+	var nodes []*node.Node
 	for _, change := range changes {
 		if isModifiedChangeWithAfter(change) {
 			nodes = append(nodes, change.After)
@@ -65,8 +66,8 @@ func GetModifiedNodes(changes []Change) []*Node {
 }
 
 // GetAddedNodes returns all nodes that were added in the given changes.
-func GetAddedNodes(changes []Change) []*Node {
-	var nodes []*Node
+func GetAddedNodes(changes []Change) []*node.Node {
+	var nodes []*node.Node
 	for _, change := range changes {
 		if isAddedChangeWithAfter(change) {
 			nodes = append(nodes, change.After)
@@ -76,8 +77,8 @@ func GetAddedNodes(changes []Change) []*Node {
 }
 
 // GetRemovedNodes returns all nodes that were removed in the given changes.
-func GetRemovedNodes(changes []Change) []*Node {
-	var nodes []*Node
+func GetRemovedNodes(changes []Change) []*node.Node {
+	var nodes []*node.Node
 	for _, change := range changes {
 		if isRemovedChangeWithBefore(change) {
 			nodes = append(nodes, change.Before)
@@ -87,22 +88,22 @@ func GetRemovedNodes(changes []Change) []*Node {
 }
 
 // isNodeAdded checks if a node was added
-func isNodeAdded(before, after *Node) bool {
+func isNodeAdded(before, after *node.Node) bool {
 	return before == nil && after != nil
 }
 
 // isNodeRemoved checks if a node was removed
-func isNodeRemoved(before, after *Node) bool {
+func isNodeRemoved(before, after *node.Node) bool {
 	return before != nil && after == nil
 }
 
 // isNoChange checks if there are no changes
-func isNoChange(before, after *Node) bool {
+func isNoChange(before, after *node.Node) bool {
 	return before == nil && after == nil
 }
 
 // appendAddedChange appends an added change to the changes slice
-func appendAddedChange(changes []Change, after *Node) []Change {
+func appendAddedChange(changes []Change, after *node.Node) []Change {
 	return append(changes, Change{
 		Before: nil,
 		After:  after,
@@ -111,7 +112,7 @@ func appendAddedChange(changes []Change, after *Node) []Change {
 }
 
 // appendRemovedChange appends a removed change to the changes slice
-func appendRemovedChange(changes []Change, before *Node) []Change {
+func appendRemovedChange(changes []Change, before *node.Node) []Change {
 	return append(changes, Change{
 		Before: before,
 		After:  nil,
@@ -120,7 +121,7 @@ func appendRemovedChange(changes []Change, before *Node) []Change {
 }
 
 // appendModifiedChange appends a modified change to the changes slice
-func appendModifiedChange(changes []Change, before, after *Node) []Change {
+func appendModifiedChange(changes []Change, before, after *node.Node) []Change {
 	return append(changes, Change{
 		Before: before,
 		After:  after,
@@ -129,7 +130,7 @@ func appendModifiedChange(changes []Change, before, after *Node) []Change {
 }
 
 // appendChildrenChanges appends children changes to the changes slice
-func appendChildrenChanges(changes []Change, before, after *Node) []Change {
+func appendChildrenChanges(changes []Change, before, after *node.Node) []Change {
 	beforeChildren := before.Children
 	afterChildren := after.Children
 	childrenChanges := detectChildrenChanges(beforeChildren, afterChildren)
@@ -137,7 +138,7 @@ func appendChildrenChanges(changes []Change, before, after *Node) []Change {
 }
 
 // isNodeModified checks if a node has been modified
-func isNodeModified(before, after *Node) bool {
+func isNodeModified(before, after *node.Node) bool {
 	if hasDifferentType(before, after) {
 		return true
 	}
@@ -158,17 +159,17 @@ func isNodeModified(before, after *Node) bool {
 }
 
 // hasDifferentType checks if nodes have different types
-func hasDifferentType(before, after *Node) bool {
+func hasDifferentType(before, after *node.Node) bool {
 	return before.Type != after.Type
 }
 
 // hasDifferentToken checks if nodes have different tokens
-func hasDifferentToken(before, after *Node) bool {
+func hasDifferentToken(before, after *node.Node) bool {
 	return before.Token != after.Token
 }
 
 // hasSignificantPositionChange checks if position change is significant
-func hasSignificantPositionChange(before, after *Node) bool {
+func hasSignificantPositionChange(before, after *node.Node) bool {
 	beforePos := before.Pos
 	afterPos := after.Pos
 
@@ -180,25 +181,25 @@ func hasSignificantPositionChange(before, after *Node) bool {
 }
 
 // isOnePositionNil checks if one of the positions is nil
-func isOnePositionNil(beforePos, afterPos *Positions) bool {
+func isOnePositionNil(beforePos, afterPos *node.Positions) bool {
 	return beforePos == nil || afterPos == nil
 }
 
 // hasSignificantLineOrColumnChange checks if line or column change is significant
-func hasSignificantLineOrColumnChange(beforePos, afterPos *Positions) bool {
+func hasSignificantLineOrColumnChange(beforePos, afterPos *node.Positions) bool {
 	lineDiff := abs(beforePos.StartLine - afterPos.StartLine)
 	columnDiff := abs(beforePos.StartCol - afterPos.StartCol)
 	return lineDiff > 1 || columnDiff > 10
 }
 
 // hasDifferentStringRepresentation checks if nodes have different string representations
-func hasDifferentStringRepresentation(before, after *Node) bool {
+func hasDifferentStringRepresentation(before, after *node.Node) bool {
 	// Use optimized comparison instead of expensive JSON marshaling
 	return hasDifferentKeyProperties(before, after)
 }
 
 // detectChildrenChanges detects changes in child nodes
-func detectChildrenChanges(beforeChildren, afterChildren []*Node) []Change {
+func detectChildrenChanges(beforeChildren, afterChildren []*node.Node) []Change {
 	var changes []Change
 
 	beforeMap := buildNodeMap(beforeChildren)
@@ -212,8 +213,8 @@ func detectChildrenChanges(beforeChildren, afterChildren []*Node) []Change {
 }
 
 // buildNodeMap builds a map of nodes by key
-func buildNodeMap(children []*Node) map[string]*Node {
-	nodeMap := make(map[string]*Node)
+func buildNodeMap(children []*node.Node) map[string]*node.Node {
+	nodeMap := make(map[string]*node.Node)
 	for _, child := range children {
 		key := getNodeKey(child)
 		nodeMap[key] = child
@@ -222,7 +223,7 @@ func buildNodeMap(children []*Node) map[string]*Node {
 }
 
 // appendModifiedChildren appends modified children changes
-func appendModifiedChildren(changes []Change, beforeMap, afterMap map[string]*Node) []Change {
+func appendModifiedChildren(changes []Change, beforeMap, afterMap map[string]*node.Node) []Change {
 	for key, beforeChild := range beforeMap {
 		if afterChild, exists := afterMap[key]; exists {
 			if isNodeModified(beforeChild, afterChild) {
@@ -234,7 +235,7 @@ func appendModifiedChildren(changes []Change, beforeMap, afterMap map[string]*No
 }
 
 // appendRemovedChildren appends removed children changes
-func appendRemovedChildren(changes []Change, beforeMap, afterMap map[string]*Node) []Change {
+func appendRemovedChildren(changes []Change, beforeMap, afterMap map[string]*node.Node) []Change {
 	for key, beforeChild := range beforeMap {
 		if isNodeNotInAfterMap(key, afterMap) {
 			changes = appendRemovedChange(changes, beforeChild)
@@ -244,7 +245,7 @@ func appendRemovedChildren(changes []Change, beforeMap, afterMap map[string]*Nod
 }
 
 // appendAddedChildren appends added children changes
-func appendAddedChildren(changes []Change, beforeMap, afterMap map[string]*Node) []Change {
+func appendAddedChildren(changes []Change, beforeMap, afterMap map[string]*node.Node) []Change {
 	for key, afterChild := range afterMap {
 		if isNodeNotInBeforeMap(key, beforeMap) {
 			changes = appendAddedChange(changes, afterChild)
@@ -254,19 +255,19 @@ func appendAddedChildren(changes []Change, beforeMap, afterMap map[string]*Node)
 }
 
 // isNodeNotInAfterMap checks if a node key is not in the after map
-func isNodeNotInAfterMap(key string, afterMap map[string]*Node) bool {
+func isNodeNotInAfterMap(key string, afterMap map[string]*node.Node) bool {
 	_, exists := afterMap[key]
 	return !exists
 }
 
 // isNodeNotInBeforeMap checks if a node key is not in the before map
-func isNodeNotInBeforeMap(key string, beforeMap map[string]*Node) bool {
+func isNodeNotInBeforeMap(key string, beforeMap map[string]*node.Node) bool {
 	_, exists := beforeMap[key]
 	return !exists
 }
 
 // getNodeKey returns a unique key for a node
-func getNodeKey(node *Node) string {
+func getNodeKey(node *node.Node) string {
 	// Use ultra-fast integer key generation for better performance
 	return fmt.Sprintf("%d", ultraFastGetNodeKey(node))
 }
@@ -306,7 +307,7 @@ func isRemovedChangeWithBefore(change Change) bool {
 }
 
 // Final optimized change detection with minimal allocations
-func finalOptimizedDetectChanges(before, after *Node) []Change {
+func finalOptimizedDetectChanges(before, after *node.Node) []Change {
 	var changes []Change
 
 	if isNoChange(before, after) {
@@ -333,7 +334,7 @@ func finalOptimizedDetectChanges(before, after *Node) []Change {
 }
 
 // Final optimized node modification check
-func isNodeModifiedFinalOptimized(before, after *Node) bool {
+func isNodeModifiedFinalOptimized(before, after *node.Node) bool {
 	// Fast path checks first
 	if before.Type != after.Type {
 		return true
@@ -361,7 +362,7 @@ func isNodeModifiedFinalOptimized(before, after *Node) bool {
 }
 
 // Final optimized children changes detection
-func appendChildrenChangesFinalOptimized(changes []Change, before, after *Node) []Change {
+func appendChildrenChangesFinalOptimized(changes []Change, before, after *node.Node) []Change {
 	beforeChildren := before.Children
 	afterChildren := after.Children
 
@@ -373,7 +374,7 @@ func appendChildrenChangesFinalOptimized(changes []Change, before, after *Node) 
 }
 
 // Ultra-fast node key generation using integer hash
-func ultraFastGetNodeKey(node *Node) int64 {
+func ultraFastGetNodeKey(node *node.Node) int64 {
 	if node == nil {
 		return 0
 	}
@@ -399,7 +400,7 @@ func ultraFastGetNodeKey(node *Node) int64 {
 }
 
 // Final optimized change detection using ultra-fast integer keys
-func finalOptimizedDetectChangesInt(before, after *Node) []Change {
+func finalOptimizedDetectChangesInt(before, after *node.Node) []Change {
 	var changes []Change
 
 	if isNoChange(before, after) {
@@ -426,7 +427,7 @@ func finalOptimizedDetectChangesInt(before, after *Node) []Change {
 }
 
 // Final optimized children changes with ultra-fast integer keys
-func appendChildrenChangesFinalOptimizedInt(changes []Change, before, after *Node) []Change {
+func appendChildrenChangesFinalOptimizedInt(changes []Change, before, after *node.Node) []Change {
 	beforeChildren := before.Children
 	afterChildren := after.Children
 
@@ -454,12 +455,12 @@ func appendChildrenChangesFinalOptimizedInt(changes []Change, before, after *Nod
 }
 
 // Build node map using ultra-fast integer keys
-func buildNodeMapUltraFast(children []*Node) map[int64]*Node {
+func buildNodeMapUltraFast(children []*node.Node) map[int64]*node.Node {
 	if len(children) == 0 {
-		return make(map[int64]*Node)
+		return make(map[int64]*node.Node)
 	}
 
-	nodeMap := make(map[int64]*Node, len(children))
+	nodeMap := make(map[int64]*node.Node, len(children))
 	for _, child := range children {
 		key := ultraFastGetNodeKey(child)
 		nodeMap[key] = child
@@ -468,7 +469,7 @@ func buildNodeMapUltraFast(children []*Node) map[int64]*Node {
 }
 
 // Optimized node key generation without string concatenation
-func optimizedGetNodeKey(node *Node) string {
+func optimizedGetNodeKey(node *node.Node) string {
 	if node == nil {
 		return ""
 	}
@@ -493,49 +494,8 @@ func optimizedGetNodeKey(node *Node) string {
 	return fmt.Sprintf("%d", hash)
 }
 
-// Optimized string representation without JSON marshaling
-func optimizedNodeString(node *Node) string {
-	if node == nil {
-		return "nil"
-	}
-
-	var buf strings.Builder
-	buf.WriteString("Node{")
-	buf.WriteString("Type:")
-	buf.WriteString(node.Type)
-
-	if node.Token != "" {
-		buf.WriteString(",Token:")
-		buf.WriteString(node.Token)
-	}
-
-	if len(node.Roles) > 0 {
-		buf.WriteString(",Roles:[")
-		for i, role := range node.Roles {
-			if i > 0 {
-				buf.WriteString(" ")
-			}
-			buf.WriteString(string(role))
-		}
-		buf.WriteString("]")
-	}
-
-	if len(node.Props) > 0 {
-		buf.WriteString(",Props:")
-		buf.WriteString(fmt.Sprintf("%v", node.Props))
-	}
-
-	if len(node.Children) > 0 {
-		buf.WriteString(",Children:")
-		buf.WriteString(fmt.Sprintf("%d", len(node.Children)))
-	}
-
-	buf.WriteString("}")
-	return buf.String()
-}
-
 // Zero-allocation change detection with ultra-fast integer keys
-func zeroAllocationDetectChangesInt(before, after *Node) []Change {
+func zeroAllocationDetectChangesInt(before, after *node.Node) []Change {
 	var changes []Change
 
 	if isNoChange(before, after) {
@@ -562,7 +522,7 @@ func zeroAllocationDetectChangesInt(before, after *Node) []Change {
 }
 
 // Zero-allocation node modification check
-func isNodeModifiedZeroAllocation(before, after *Node) bool {
+func isNodeModifiedZeroAllocation(before, after *node.Node) bool {
 	// Fast path checks first
 	if before.Type != after.Type {
 		return true
@@ -590,7 +550,7 @@ func isNodeModifiedZeroAllocation(before, after *Node) bool {
 }
 
 // Zero-allocation children changes with ultra-fast integer keys
-func appendChildrenChangesZeroAllocationInt(changes []Change, before, after *Node) []Change {
+func appendChildrenChangesZeroAllocationInt(changes []Change, before, after *node.Node) []Change {
 	beforeChildren := before.Children
 	afterChildren := after.Children
 
@@ -618,7 +578,7 @@ func appendChildrenChangesZeroAllocationInt(changes []Change, before, after *Nod
 }
 
 // Optimized children changes detection with reduced allocations
-func optimizedDetectChanges(before, after *Node) []Change {
+func optimizedDetectChanges(before, after *node.Node) []Change {
 	var changes []Change
 
 	if isNoChange(before, after) {
@@ -645,7 +605,7 @@ func optimizedDetectChanges(before, after *Node) []Change {
 }
 
 // Optimized node modification check without string comparison
-func isNodeModifiedOptimized(before, after *Node) bool {
+func isNodeModifiedOptimized(before, after *node.Node) bool {
 	if hasDifferentType(before, after) {
 		return true
 	}
@@ -666,7 +626,7 @@ func isNodeModifiedOptimized(before, after *Node) bool {
 }
 
 // Check for different key properties efficiently
-func hasDifferentKeyProperties(before, after *Node) bool {
+func hasDifferentKeyProperties(before, after *node.Node) bool {
 	if len(before.Props) != len(after.Props) {
 		return true
 	}
@@ -681,7 +641,7 @@ func hasDifferentKeyProperties(before, after *Node) bool {
 }
 
 // Optimized children changes detection with reduced allocations
-func appendChildrenChangesOptimized(changes []Change, before, after *Node) []Change {
+func appendChildrenChangesOptimized(changes []Change, before, after *node.Node) []Change {
 	beforeChildren := before.Children
 	afterChildren := after.Children
 
@@ -713,14 +673,14 @@ func appendChildrenChangesOptimized(changes []Change, before, after *Node) []Cha
 }
 
 // Simple children changes for small lists
-func appendChildrenChangesSimple(changes []Change, beforeChildren, afterChildren []*Node) []Change {
+func appendChildrenChangesSimple(changes []Change, beforeChildren, afterChildren []*node.Node) []Change {
 	maxLen := len(beforeChildren)
 	if len(afterChildren) > maxLen {
 		maxLen = len(afterChildren)
 	}
 
 	for i := 0; i < maxLen; i++ {
-		var beforeChild, afterChild *Node
+		var beforeChild, afterChild *node.Node
 		if i < len(beforeChildren) {
 			beforeChild = beforeChildren[i]
 		}
@@ -741,12 +701,12 @@ func appendChildrenChangesSimple(changes []Change, beforeChildren, afterChildren
 }
 
 // Optimized node map building with better memory management
-func buildNodeMapOptimized(children []*Node) map[string]*Node {
+func buildNodeMapOptimized(children []*node.Node) map[string]*node.Node {
 	if len(children) == 0 {
-		return make(map[string]*Node)
+		return make(map[string]*node.Node)
 	}
 
-	nodeMap := make(map[string]*Node, len(children))
+	nodeMap := make(map[string]*node.Node, len(children))
 	for _, child := range children {
 		key := optimizedGetNodeKey(child)
 		nodeMap[key] = child
@@ -755,7 +715,7 @@ func buildNodeMapOptimized(children []*Node) map[string]*Node {
 }
 
 // Optimized node key with integer-based approach for better performance
-func optimizedGetNodeKeyInt(node *Node) int64 {
+func optimizedGetNodeKeyInt(node *node.Node) int64 {
 	if node == nil {
 		return 0
 	}
@@ -781,7 +741,7 @@ func optimizedGetNodeKeyInt(node *Node) int64 {
 }
 
 // Optimized change detection using integer keys
-func optimizedDetectChangesInt(before, after *Node) []Change {
+func optimizedDetectChangesInt(before, after *node.Node) []Change {
 	var changes []Change
 
 	if isNoChange(before, after) {
@@ -808,7 +768,7 @@ func optimizedDetectChangesInt(before, after *Node) []Change {
 }
 
 // Optimized children changes with integer keys
-func appendChildrenChangesOptimizedInt(changes []Change, before, after *Node) []Change {
+func appendChildrenChangesOptimizedInt(changes []Change, before, after *node.Node) []Change {
 	beforeChildren := before.Children
 	afterChildren := after.Children
 
@@ -836,12 +796,12 @@ func appendChildrenChangesOptimizedInt(changes []Change, before, after *Node) []
 }
 
 // Build node map using integer keys
-func buildNodeMapInt(children []*Node) map[int64]*Node {
+func buildNodeMapInt(children []*node.Node) map[int64]*node.Node {
 	if len(children) == 0 {
-		return make(map[int64]*Node)
+		return make(map[int64]*node.Node)
 	}
 
-	nodeMap := make(map[int64]*Node, len(children))
+	nodeMap := make(map[int64]*node.Node, len(children))
 	for _, child := range children {
 		key := optimizedGetNodeKeyInt(child)
 		nodeMap[key] = child
@@ -850,7 +810,7 @@ func buildNodeMapInt(children []*Node) map[int64]*Node {
 }
 
 // Append modified children using integer keys
-func appendModifiedChildrenInt(changes []Change, beforeMap, afterMap map[int64]*Node) []Change {
+func appendModifiedChildrenInt(changes []Change, beforeMap, afterMap map[int64]*node.Node) []Change {
 	for key, beforeChild := range beforeMap {
 		if afterChild, exists := afterMap[key]; exists {
 			if isNodeModifiedOptimized(beforeChild, afterChild) {
@@ -866,7 +826,7 @@ func appendModifiedChildrenInt(changes []Change, beforeMap, afterMap map[int64]*
 }
 
 // Append removed children using integer keys
-func appendRemovedChildrenInt(changes []Change, beforeMap, afterMap map[int64]*Node) []Change {
+func appendRemovedChildrenInt(changes []Change, beforeMap, afterMap map[int64]*node.Node) []Change {
 	for key, beforeChild := range beforeMap {
 		if _, exists := afterMap[key]; !exists {
 			changes = append(changes, Change{
@@ -880,7 +840,7 @@ func appendRemovedChildrenInt(changes []Change, beforeMap, afterMap map[int64]*N
 }
 
 // Append added children using integer keys
-func appendAddedChildrenInt(changes []Change, beforeMap, afterMap map[int64]*Node) []Change {
+func appendAddedChildrenInt(changes []Change, beforeMap, afterMap map[int64]*node.Node) []Change {
 	for key, afterChild := range afterMap {
 		if _, exists := beforeMap[key]; !exists {
 			changes = append(changes, Change{

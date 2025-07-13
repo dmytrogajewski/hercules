@@ -1,4 +1,4 @@
-package uast
+package node
 
 import (
 	"fmt"
@@ -115,7 +115,7 @@ func runPipelineFuncs(funcs []QueryFunc, stages []DSLNode, nodes []*Node) []*Nod
 	results := nodes
 	for i, f := range funcs {
 		if isLastReduceStage(i, funcs, stages) {
-			results = f([]*Node{&Node{Children: results}})
+			results = f([]*Node{{Children: results}})
 		} else {
 			results = f(results)
 		}

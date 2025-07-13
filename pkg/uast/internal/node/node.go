@@ -1,8 +1,9 @@
 // Package uast provides a universal abstract syntax tree (UAST) representation and utilities for parsing, navigating, querying, and mutating code structure in a language-agnostic way.
-package uast
+package node
 
 import (
 	"fmt"
+	"strings"
 	"sync"
 )
 
@@ -48,8 +49,8 @@ var nodePool = sync.Pool{
 	},
 }
 
-// NewNode creates a new Node from the pool and initializes it with the given values
-func NewNode(id uint64, nodeType, token string, roles []Role, pos *Positions, props map[string]string) *Node {
+// New creates a new Node from the pool and initializes it with the given values
+func New(id uint64, nodeType, token string, roles []Role, pos *Positions, props map[string]string) *Node {
 	node := nodePool.Get().(*Node)
 	node.Id = id
 	node.Type = nodeType
@@ -61,8 +62,8 @@ func NewNode(id uint64, nodeType, token string, roles []Role, pos *Positions, pr
 	return node
 }
 
-// NewNodeWithType creates a new Node with just a type
-func NewNodeWithType(nodeType string) *Node {
+// NewWithType creates a new Node with just a type
+func NewWithType(nodeType string) *Node {
 	node := nodePool.Get().(*Node)
 	node.Id = 0
 	node.Type = nodeType
@@ -162,6 +163,47 @@ func (n *Node) String() string {
 	return optimizedNodeString(n)
 }
 
+// Optimized string representation without JSON marshaling
+func optimizedNodeString(node *Node) string {
+	if node == nil {
+		return "nil"
+	}
+
+	var buf strings.Builder
+	buf.WriteString("Node{")
+	buf.WriteString("Type:")
+	buf.WriteString(node.Type)
+
+	if node.Token != "" {
+		buf.WriteString(",Token:")
+		buf.WriteString(node.Token)
+	}
+
+	if len(node.Roles) > 0 {
+		buf.WriteString(",Roles:[")
+		for i, role := range node.Roles {
+			if i > 0 {
+				buf.WriteString(" ")
+			}
+			buf.WriteString(string(role))
+		}
+		buf.WriteString("]")
+	}
+
+	if len(node.Props) > 0 {
+		buf.WriteString(",Props:")
+		buf.WriteString(fmt.Sprintf("%v", node.Props))
+	}
+
+	if len(node.Children) > 0 {
+		buf.WriteString(",Children:")
+		buf.WriteString(fmt.Sprintf("%d", len(node.Children)))
+	}
+
+	buf.WriteString("}")
+	return buf.String()
+}
+
 func isJsonError(err error) bool {
 	return err != nil
 }
@@ -224,28 +266,28 @@ func estimateTreeSize(node *Node) int {
 	return size
 }
 
-// PreOrder visits all nodes in pre-order (root, then children left-to-right).
+// VisitPreOrder visits all nodes in pre-order (root, then children left-to-right).
 // Now uses the final optimized implementation with strict depth limiting.
-func (n *Node) PreOrder(fn func(*Node)) {
+func (n *Node) VisitPreOrder(fn func(*Node)) {
 	if n == nil {
 		return
 	}
 	// Use the channel-based optimized version and consume it
-	for node := range finalOptimizedPreOrder(n) {
+	for node := range preOrder(n) {
 		fn(node)
 	}
 }
 
 // PreOrder returns a channel streaming nodes in pre-order traversal.
 // Now uses the final optimized implementation with strict depth limiting.
-func PreOrder(root *Node) <-chan *Node {
-	return finalOptimizedPreOrder(root)
+func (n *Node) PreOrder() <-chan *Node {
+	return preOrder(n)
 }
 
-// PostOrder visits all nodes in post-order (children left-to-right, then root).
+// VisitPostOrder visits all nodes in post-order (children left-to-right, then root).
 // Now uses the final optimized implementation with strict depth limiting.
-func (n *Node) PostOrder(fn func(*Node)) {
-	finalOptimizedPostOrder(n, fn)
+func (n *Node) VisitPostOrder(fn func(*Node)) {
+	postOrder(n, fn)
 }
 
 // Ancestors returns the list of ancestors from root to the parent of target (empty if not found).
@@ -479,7 +521,7 @@ func shouldContinueTransform(n *Node, fn func(*Node) bool) bool {
 }
 
 // Final optimized tree traversal with strict depth limiting
-func finalOptimizedPreOrder(node *Node) <-chan *Node {
+func preOrder(node *Node) <-chan *Node {
 	ch := make(chan *Node)
 	go func() {
 		defer close(ch)
@@ -487,13 +529,11 @@ func finalOptimizedPreOrder(node *Node) <-chan *Node {
 			return
 		}
 
-		// Use strict depth limiting
-		maxAllowedDepth := 25 // Conservative limit
+		maxAllowedDepth := 25
 		stack := make([]*Node, 0, 64)
 		stack = append(stack, node)
 
 		for len(stack) > 0 {
-			// Pop from stack
 			n := stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
 
@@ -502,25 +542,20 @@ func finalOptimizedPreOrder(node *Node) <-chan *Node {
 			}
 
 			ch <- n
-
-			// Push children in reverse order for pre-order
 			childCount := len(n.Children)
+
 			if childCount > 0 {
-				// Strict depth limiting
 				if len(stack) >= maxAllowedDepth {
-					// Process remaining nodes with depth-limited recursion
 					processRemainingNodesDepthLimited(n, ch, 0, 10)
 					continue
 				}
 
-				// Ensure stack has enough capacity
 				if cap(stack) < len(stack)+childCount {
 					newStack := make([]*Node, len(stack), len(stack)+childCount+32)
 					copy(newStack, stack)
 					stack = newStack
 				}
 
-				// Push children in reverse order
 				for i := childCount - 1; i >= 0; i-- {
 					stack = append(stack, n.Children[i])
 				}
@@ -533,7 +568,6 @@ func finalOptimizedPreOrder(node *Node) <-chan *Node {
 // Process remaining nodes with depth-limited recursion
 func processRemainingNodesDepthLimited(node *Node, ch chan<- *Node, depth, maxDepth int) {
 	if depth >= maxDepth {
-		// Switch to iterative approach for remaining nodes
 		processRemainingNodesIterative(node, ch)
 		return
 	}
@@ -559,7 +593,6 @@ func processRemainingNodesIterative(node *Node, ch chan<- *Node) {
 
 		ch <- n
 
-		// Add children to queue
 		for _, child := range n.Children {
 			queue = append(queue, child)
 		}
@@ -567,12 +600,11 @@ func processRemainingNodesIterative(node *Node, ch chan<- *Node) {
 }
 
 // Final optimized post-order traversal with strict depth limiting
-func finalOptimizedPostOrder(node *Node, fn func(*Node)) {
+func postOrder(node *Node, fn func(*Node)) {
 	if node == nil {
 		return
 	}
 
-	// Use strict depth limiting
 	maxAllowedDepth := 25
 	stack := make([]struct {
 		node  *Node
@@ -585,9 +617,7 @@ func finalOptimizedPostOrder(node *Node, fn func(*Node)) {
 	}{node, 0})
 
 	for len(stack) > 0 {
-		// Strict depth limiting
 		if len(stack) >= maxAllowedDepth {
-			// Process remaining nodes with depth-limited recursion
 			processRemainingNodesPostOrderDepthLimited(node, fn, 0, 10)
 			break
 		}
@@ -595,10 +625,8 @@ func finalOptimizedPostOrder(node *Node, fn func(*Node)) {
 		top := &stack[len(stack)-1]
 
 		if top.index == 0 {
-			// First visit - process children
 			childCount := len(top.node.Children)
 			if childCount > 0 {
-				// Ensure stack has enough capacity
 				if cap(stack) < len(stack)+childCount {
 					newStack := make([]struct {
 						node  *Node
@@ -608,7 +636,6 @@ func finalOptimizedPostOrder(node *Node, fn func(*Node)) {
 					stack = newStack
 				}
 
-				// Push children in reverse order
 				for i := childCount - 1; i >= 0; i-- {
 					stack = append(stack, struct {
 						node  *Node
@@ -617,12 +644,10 @@ func finalOptimizedPostOrder(node *Node, fn func(*Node)) {
 				}
 				top.index = 1
 			} else {
-				// No children - process node and pop
 				fn(top.node)
 				stack = stack[:len(stack)-1]
 			}
 		} else {
-			// Second visit - process node and pop
 			fn(top.node)
 			stack = stack[:len(stack)-1]
 		}
@@ -647,19 +672,17 @@ func processRemainingNodesPostOrderDepthLimited(node *Node, fn func(*Node), dept
 func processRemainingNodesPostOrderIterative(node *Node, fn func(*Node)) {
 	stack := make([]*Node, 0, 32)
 	visited := make(map[*Node]bool)
-
 	stack = append(stack, node)
 
 	for len(stack) > 0 {
 		n := stack[len(stack)-1]
 
 		if visited[n] {
-			// Second visit - process node
 			fn(n)
 			stack = stack[:len(stack)-1]
 		} else {
-			// First visit - mark visited and push children
 			visited[n] = true
+
 			for i := len(n.Children) - 1; i >= 0; i-- {
 				stack = append(stack, n.Children[i])
 			}
