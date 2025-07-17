@@ -1,0 +1,861 @@
+address_literal <- (address_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+address_type <- (address_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+affine_group_literal <- (affine_group_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+annotation <- (annotation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+array_expression <- (array_expression) => uast(
+    type: "Synthetic",
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+array_type <- (array_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assert_call <- (assert_call) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+assert_equal_call <- (assert_equal_call) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+assert_not_equal_call <- (assert_not_equal_call) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+assert_statement <- (assert_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assignment_operator <- (assignment_operator) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: []
+)
+
+assignment_statement <- (assignment_statement) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+associated_constant <- (associated_constant) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+associated_function_call <- (associated_function_call) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+block_height <- (block_height) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+boolean_literal <- (boolean_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+branch <- (branch) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+conditional_statement <- (conditional_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constant_declaration <- (constant_declaration) => uast(
+    type: "Synthetic",
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+constant_identifier <- (constant_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+decimal_digit <- (decimal_digit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expression_statement <- (expression_statement) => uast(
+    type: "Synthetic",
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+field_literal <- (field_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+field_type <- (field_type) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+finalizer <- (finalizer) => uast(
+    type: "Synthetic",
+    children: "block", "constant", "identifier", "private", "public", "type"
+)
+
+free_function_call <- (free_function_call) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+function_arguments <- (function_arguments) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+function_declaration <- (function_declaration) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "identifier"
+)
+
+function_parameter <- (function_parameter) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+function_parameters <- (function_parameters) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+future_type <- (future_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+group_coordinate <- (group_coordinate) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+group_type <- (group_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if_conditional <- (if_conditional) => uast(
+    type: "If",
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+import_declaration <- (import_declaration) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+inline_declaration <- (inline_declaration) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+integer_type <- (integer_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+items_block <- (items_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+line_terminator <- (line_terminator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+locator <- (locator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+loop_statement <- (loop_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+mapping_declaration <- (mapping_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+method_call <- (method_call) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+named_type <- (named_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+network_id <- (network_id) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+not_line_feed_or_carriage_return <- (not_line_feed_or_carriage_return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+not_star_or_line_feed_or_carriage_return <- (not_star_or_line_feed_or_carriage_return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+not_star_or_slash_or_line_feed_or_carriage_return <- (not_star_or_slash_or_line_feed_or_carriage_return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+parenthesized_expression <- (parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+product_group_literal <- (product_group_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+program_declaration <- (program_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+program_id <- (program_id) => uast(
+    type: "Synthetic",
+    children: "aleo_literal", "program_name_literal"
+)
+
+program_item <- (program_item) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+program_name_literal <- (program_name_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+record_declaration <- (record_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+record_type <- (record_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rest_of_block_comment <- (rest_of_block_comment) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+rest_of_block_comment_after_star <- (rest_of_block_comment_after_star) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+return_arrow <- (return_arrow) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+return_statement <- (return_statement) => uast(
+    type: "Return",
+    roles: "Return"
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+safe_ascii <- (safe_ascii) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+safe_nonascii <- (safe_nonascii) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+scalar_literal <- (scalar_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+scalar_type <- (scalar_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+self_address <- (self_address) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+self_caller <- (self_caller) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+self_signer <- (self_signer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+signature_literal <- (signature_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+signed_literal <- (signed_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+signed_type <- (signed_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+struct_component_declaration <- (struct_component_declaration) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+struct_component_declarations <- (struct_component_declarations) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+struct_component_expression <- (struct_component_expression) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+struct_component_initializer <- (struct_component_initializer) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+struct_declaration <- (struct_declaration) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "identifier"
+)
+
+struct_expression <- (struct_expression) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+ternary_else <- (ternary_else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ternary_expression <- (ternary_expression) => uast(
+    type: "Synthetic",
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+ternary_if <- (ternary_if) => uast(
+    type: "If",
+    children: []
+)
+
+transition_declaration <- (transition_declaration) => uast(
+    type: "Synthetic",
+    children: "block", "constant", "identifier", "private", "public"
+)
+
+tuple_component_expression <- (tuple_component_expression) => uast(
+    type: "Tuple",
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+tuple_expression <- (tuple_expression) => uast(
+    type: "Tuple",
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+tuple_index <- (tuple_index) => uast(
+    type: "Tuple",
+    children: []
+)
+
+tuple_type <- (tuple_type) => uast(
+    type: "Tuple",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+typed_future_type <- (typed_future_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unit_expression <- (unit_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unit_type <- (unit_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unsigned_literal <- (unsigned_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+unsigned_type <- (unsigned_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+variable_declaration <- (variable_declaration) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
+)
+
+Fn <- (Fn) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_ <- (_) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+address <- (address) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+aleo1 <- (aleo1) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+aleo_literal <- (aleo_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+as <- (as) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assert <- (assert) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assert_eq <- (assert_eq) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assert_neq <- (assert_neq) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+async <- (async) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+boolean_type <- (boolean_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+caller <- (caller) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+carriage_return <- (carriage_return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+console <- (console) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+const <- (const) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constant <- (constant) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+field <- (field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+finalize <- (finalize) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+group <- (group) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+height <- (height) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+horizontal_tab <- (horizontal_tab) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+i128 <- (i128) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+i16 <- (i16) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+i32 <- (i32) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+i64 <- (i64) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+i8 <- (i8) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+id <- (id) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inline <- (inline) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+let <- (let) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+line_feed <- (line_feed) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mapping <- (mapping) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+network <- (network) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nonzero_decimal_digit <- (nonzero_decimal_digit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+private <- (private) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+program <- (program) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+public <- (public) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+record <- (record) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+scalar <- (scalar) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+self <- (self) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sign <- (sign) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+signature_type <- (signature_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+signer <- (signer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+space <- (space) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_type <- (string_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+struct <- (struct) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+then <- (then) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+transition <- (transition) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+u128 <- (u128) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+u16 <- (u16) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+u32 <- (u32) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+u64 <- (u64) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+u8 <- (u8) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+untyped_future_type <- (untyped_future_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+visible_ascii <- (visible_ascii) => uast(
+    type: "Synthetic",
+    children: []
+)
+

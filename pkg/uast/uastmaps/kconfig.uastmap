@@ -1,0 +1,341 @@
+expression <- (expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+binary_expression <- (binary_expression) => uast(
+    type: "Synthetic",
+    children: "expression"
+)
+
+choice <- (choice) => uast(
+    type: "Synthetic",
+    children: "name"
+)
+
+comment_entry <- (comment_entry) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: "string"
+)
+
+conditional_clause <- (conditional_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+config <- (config) => uast(
+    type: "Synthetic",
+    children: "name"
+)
+
+configdefault <- (configdefault) => uast(
+    type: "Synthetic",
+    children: "name"
+)
+
+configuration <- (configuration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+default_value <- (default_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dependencies <- (dependencies) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+help_text <- (help_text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: "expression"
+)
+
+input_prompt <- (input_prompt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+limiting_menu_display <- (limiting_menu_display) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+macro_variable <- (macro_variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+mainmenu <- (mainmenu) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+menu <- (menu) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+menuconfig <- (menuconfig) => uast(
+    type: "Synthetic",
+    children: "name"
+)
+
+name <- (name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+numerical_ranges <- (numerical_ranges) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parenthesized_expression <- (parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+reverse_dependencies <- (reverse_dependencies) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source <- (source) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+text <- (text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_definition <- (type_definition) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_definition_default <- (type_definition_default) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unary_expression <- (unary_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "expression", "symbol"
+)
+
+weak_reverse_dependencies <- (weak_reverse_dependencies) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bool <- (bool) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+choice <- (choice) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+config <- (config) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+configdefault <- (configdefault) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+def_bool <- (def_bool) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+def_hex <- (def_hex) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+def_int <- (def_int) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+def_string <- (def_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+def_tristate <- (def_tristate) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+default <- (default) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+endchoice <- (endchoice) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+endif <- (endif) => uast(
+    type: "If",
+    children: []
+)
+
+endmenu <- (endmenu) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+help <- (help) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hex <- (hex) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+imply <- (imply) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+int <- (int) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+macro_content <- (macro_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mainmenu <- (mainmenu) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+menu <- (menu) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+menuconfig <- (menuconfig) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+modules <- (modules) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+optional <- (optional) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+orsource <- (orsource) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+osource <- (osource) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+prompt <- (prompt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+range <- (range) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rsource <- (rsource) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+select <- (select) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source <- (source) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_content <- (string_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+symbol <- (symbol) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tristate <- (tristate) => uast(
+    type: "Synthetic",
+    children: []
+)
+

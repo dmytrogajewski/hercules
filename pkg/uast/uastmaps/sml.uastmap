@@ -1,0 +1,885 @@
+_dec <- (_dec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_exp <- (_exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_fctdec <- (_fctdec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_pat <- (_pat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_scon <- (_scon) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_sigdec <- (_sigdec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_sigexp <- (_sigexp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_spec <- (_spec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_strdec <- (_strdec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_strexp <- (_strexp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_topdec <- (_topdec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_ty <- (_ty) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+abstype_dec <- (abstype_dec) => uast(
+    type: "Synthetic",
+    children: "_dec", "and", "typbind"
+)
+
+app_exp <- (app_exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+app_pat <- (app_pat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+case_exp <- (case_exp) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+conbind <- (conbind) => uast(
+    type: "Synthetic",
+    children: "_ty", "vid"
+)
+
+cond_exp <- (cond_exp) => uast(
+    type: "Synthetic",
+    children: "_exp"
+)
+
+condesc <- (condesc) => uast(
+    type: "Synthetic",
+    children: "_ty", "vid"
+)
+
+conj_exp <- (conj_exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+conj_pat <- (conj_pat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constr_strexp <- (constr_strexp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+datarepl_dec <- (datarepl_dec) => uast(
+    type: "Synthetic",
+    children: "longtycon", "tycon"
+)
+
+datarepl_spec <- (datarepl_spec) => uast(
+    type: "Synthetic",
+    children: "longtycon", "tycon"
+)
+
+datatype_dec <- (datatype_dec) => uast(
+    type: "Synthetic",
+    children: "and", "typbind"
+)
+
+datatype_spec <- (datatype_spec) => uast(
+    type: "Synthetic",
+    children: "and", "typbind"
+)
+
+datbind <- (datbind) => uast(
+    type: "Synthetic",
+    children: "conbind", "tycon"
+)
+
+datdesc <- (datdesc) => uast(
+    type: "Synthetic",
+    children: "condesc", "tycon"
+)
+
+disj_exp <- (disj_exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+disj_pat <- (disj_pat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do_dec <- (do_dec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ellipsis_exprow <- (ellipsis_exprow) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ellipsis_listexp <- (ellipsis_listexp) => uast(
+    type: "List",
+    children: []
+)
+
+ellipsis_listpat <- (ellipsis_listpat) => uast(
+    type: "List",
+    children: []
+)
+
+ellipsis_patrow <- (ellipsis_patrow) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ellipsis_tyrow <- (ellipsis_tyrow) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eqtype_spec <- (eqtype_spec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+exbind <- (exbind) => uast(
+    type: "Synthetic",
+    children: "_ty", "longvid", "vid"
+)
+
+exception_dec <- (exception_dec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+exception_spec <- (exception_spec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+exdesc <- (exdesc) => uast(
+    type: "Synthetic",
+    children: "_ty", "vid"
+)
+
+exprow <- (exprow) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fctapp_strexp <- (fctapp_strexp) => uast(
+    type: "Synthetic",
+    children: "_strdec", "_strexp", "fctid"
+)
+
+fctbind <- (fctbind) => uast(
+    type: "Synthetic",
+    children: "_sigexp", "_spec", "_strexp", "fctid", "strid"
+)
+
+fctid <- (fctid) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fmrule <- (fmrule) => uast(
+    type: "Synthetic",
+    children: "_exp", "_ty", "list_pat", "paren_pat", "record_pat", "scon_pat", "tuple_pat", "unit_pat", "vec_pat", "vid", "vid_pat", "wildcard_pat"
+)
+
+fn_exp <- (fn_exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fn_ty <- (fn_ty) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fun_dec <- (fun_dec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+functor_fctdec <- (functor_fctdec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fvalbind <- (fvalbind) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+handle_exp <- (handle_exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+include_spec <- (include_spec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+infix_dec <- (infix_dec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+infixr_dec <- (infixr_dec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+iter_exp <- (iter_exp) => uast(
+    type: "Synthetic",
+    children: "_exp"
+)
+
+lab <- (lab) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+labvar_exprow <- (labvar_exprow) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+labvar_patrow <- (labvar_patrow) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+let_exp <- (let_exp) => uast(
+    type: "Synthetic",
+    children: "_dec", "_exp"
+)
+
+let_strexp <- (let_strexp) => uast(
+    type: "Synthetic",
+    children: "_strdec", "_strexp"
+)
+
+list_exp <- (list_exp) => uast(
+    type: "List",
+    children: []
+)
+
+list_pat <- (list_pat) => uast(
+    type: "List",
+    children: []
+)
+
+local_dec <- (local_dec) => uast(
+    type: "Synthetic",
+    children: "_dec"
+)
+
+local_strdec <- (local_strdec) => uast(
+    type: "Synthetic",
+    children: "_strdec"
+)
+
+longstrid <- (longstrid) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+longtycon <- (longtycon) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+longvid <- (longvid) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mrule <- (mrule) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nonfix_dec <- (nonfix_dec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+open_dec <- (open_dec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+paren_exp <- (paren_exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+paren_pat <- (paren_pat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+paren_ty <- (paren_ty) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+patrow <- (patrow) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+raise_exp <- (raise_exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+record_exp <- (record_exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+record_pat <- (record_pat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+record_ty <- (record_ty) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+recordsel_exp <- (recordsel_exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+scon_exp <- (scon_exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+scon_pat <- (scon_pat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sequence_exp <- (sequence_exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sharing_spec <- (sharing_spec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sharingtype_spec <- (sharingtype_spec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sig_sigexp <- (sig_sigexp) => uast(
+    type: "Synthetic",
+    children: "_spec"
+)
+
+sigbind <- (sigbind) => uast(
+    type: "Synthetic",
+    children: "_sigexp", "sigid"
+)
+
+sigid <- (sigid) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sigid_sigexp <- (sigid_sigexp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+signature_sigdec <- (signature_sigdec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strbind <- (strbind) => uast(
+    type: "Synthetic",
+    children: "_sigexp", "_strexp", "strid"
+)
+
+strdesc <- (strdesc) => uast(
+    type: "Synthetic",
+    children: "_sigexp", "strid"
+)
+
+strid <- (strid) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strid_strexp <- (strid_strexp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+struct_strexp <- (struct_strexp) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "_strdec"
+)
+
+structure_spec <- (structure_spec) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+structure_strdec <- (structure_strdec) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+tuple_exp <- (tuple_exp) => uast(
+    type: "Tuple",
+    children: []
+)
+
+tuple_pat <- (tuple_pat) => uast(
+    type: "Tuple",
+    children: []
+)
+
+tuple_ty <- (tuple_ty) => uast(
+    type: "Tuple",
+    children: []
+)
+
+tycon <- (tycon) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tycon_ty <- (tycon_ty) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+typbind <- (typbind) => uast(
+    type: "Synthetic",
+    children: "_ty", "tycon"
+)
+
+type_dec <- (type_dec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_spec <- (type_spec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+typed_exp <- (typed_exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+typed_pat <- (typed_pat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+typedesc <- (typedesc) => uast(
+    type: "Synthetic",
+    children: "tycon"
+)
+
+tyrow <- (tyrow) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tyseq <- (tyseq) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tyvar <- (tyvar) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tyvar_ty <- (tyvar_ty) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tyvarseq <- (tyvarseq) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unit_exp <- (unit_exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unit_pat <- (unit_pat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+val_dec <- (val_dec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+val_spec <- (val_spec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+valbind <- (valbind) => uast(
+    type: "Synthetic",
+    children: "_exp", "_pat"
+)
+
+valdesc <- (valdesc) => uast(
+    type: "Synthetic",
+    children: "_ty", "vid"
+)
+
+vec_exp <- (vec_exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vec_pat <- (vec_pat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vid <- (vid) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vid_exp <- (vid_exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vid_pat <- (vid_pat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+wheretype_sigexp <- (wheretype_sigexp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+abstype <- (abstype) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+andalso <- (andalso) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+as <- (as) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block_comment <- (block_comment) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+char_scon <- (char_scon) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+datatype <- (datatype) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+end <- (end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eqtype <- (eqtype) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+exception <- (exception) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fn <- (fn) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fun <- (fun) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+functor <- (functor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+handle <- (handle) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+include <- (include) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+infix <- (infix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+infixr <- (infixr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer_scon <- (integer_scon) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+let <- (let) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+line_comment <- (line_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+local <- (local) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nonfix <- (nonfix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+of <- (of) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+op <- (op) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+open <- (open) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+orelse <- (orelse) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+raise <- (raise) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+real_scon <- (real_scon) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rec <- (rec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sharing <- (sharing) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sig <- (sig) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+signature <- (signature) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_scon <- (string_scon) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+struct <- (struct) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+structure <- (structure) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+then <- (then) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+val <- (val) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+where <- (where) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+wildcard_pat <- (wildcard_pat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with <- (with) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+withtype <- (withtype) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+word_scon <- (word_scon) => uast(
+    type: "Synthetic",
+    children: []
+)
+

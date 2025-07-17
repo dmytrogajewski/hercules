@@ -1,0 +1,490 @@
+actual_instruction <- (actual_instruction) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "operands", "word"
+)
+
+assembl_directive_absolute <- (assembl_directive_absolute) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assembl_directive_common <- (assembl_directive_common) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "call_syntax_expression", "conditional_expression", "float_literal", "grouped_expression", "line_here_token", "number_literal", "packed_bcd_literal", "parenthesized_expression", "preproc_expression", "register", "section_here_token", "string_literal", "symbol_extension", "unary_expression", "word"
+)
+
+assembl_directive_cpu <- (assembl_directive_cpu) => uast(
+    type: "Synthetic",
+    children: "cpu_instruction_set"
+)
+
+assembl_directive_defaults <- (assembl_directive_defaults) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assembl_directive_floathandling <- (assembl_directive_floathandling) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assembl_directive_map <- (assembl_directive_map) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assembl_directive_org <- (assembl_directive_org) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assembl_directive_primitive_absolute <- (assembl_directive_primitive_absolute) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assembl_directive_primitive_common <- (assembl_directive_primitive_common) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "call_syntax_expression", "conditional_expression", "float_literal", "grouped_expression", "line_here_token", "number_literal", "packed_bcd_literal", "parenthesized_expression", "preproc_expression", "register", "section_here_token", "string_literal", "symbol_extension", "unary_expression", "word"
+)
+
+assembl_directive_primitive_cpu <- (assembl_directive_primitive_cpu) => uast(
+    type: "Synthetic",
+    children: "cpu_instruction_set"
+)
+
+assembl_directive_primitive_defaults <- (assembl_directive_primitive_defaults) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assembl_directive_primitive_floathandling <- (assembl_directive_primitive_floathandling) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assembl_directive_primitive_org <- (assembl_directive_primitive_org) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assembl_directive_primitive_sectalign <- (assembl_directive_primitive_sectalign) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assembl_directive_primitive_sections <- (assembl_directive_primitive_sections) => uast(
+    type: "Synthetic",
+    children: "assembl_directive_sections_properties", "word"
+)
+
+assembl_directive_primitive_symbolfixes <- (assembl_directive_primitive_symbolfixes) => uast(
+    type: "Synthetic",
+    children: "word"
+)
+
+assembl_directive_primitive_symbols <- (assembl_directive_primitive_symbols) => uast(
+    type: "Synthetic",
+    children: "symbol_extension", "word"
+)
+
+assembl_directive_primitive_target <- (assembl_directive_primitive_target) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assembl_directive_sectalign <- (assembl_directive_sectalign) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assembl_directive_sections <- (assembl_directive_sections) => uast(
+    type: "Synthetic",
+    children: "assembl_directive_sections_properties", "word"
+)
+
+assembl_directive_sections_properties <- (assembl_directive_sections_properties) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assembl_directive_symbolfixes <- (assembl_directive_symbolfixes) => uast(
+    type: "Synthetic",
+    children: "word"
+)
+
+assembl_directive_symbols <- (assembl_directive_symbols) => uast(
+    type: "Synthetic",
+    children: "symbol_extension", "word"
+)
+
+assembl_directive_target <- (assembl_directive_target) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+binary_expression <- (binary_expression) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "call_syntax_expression", "conditional_expression", "float_literal", "grouped_expression", "line_here_token", "number_literal", "packed_bcd_literal", "parenthesized_expression", "preproc_expression", "register", "section_here_token", "string_literal", "unary_expression", "word"
+)
+
+body <- (body) => uast(
+    type: "Synthetic",
+    children: "assembl_directive_map"
+)
+
+call_syntax_arguments <- (call_syntax_arguments) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+call_syntax_expression <- (call_syntax_expression) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "call_syntax_arguments", "word"
+)
+
+conditional_expression <- (conditional_expression) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "call_syntax_expression", "conditional_expression", "float_literal", "grouped_expression", "line_here_token", "number_literal", "packed_bcd_literal", "parenthesized_expression", "preproc_expression", "register", "section_here_token", "string_literal", "unary_expression", "word"
+)
+
+effective_address <- (effective_address) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float_literal <- (float_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+grouped_expression <- (grouped_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+instruction <- (instruction) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+instruction_prefix <- (instruction_prefix) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: "word"
+)
+
+number_literal <- (number_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+operand <- (operand) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+operand_prefix <- (operand_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+operands <- (operands) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+packed_bcd_literal <- (packed_bcd_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+parenthesized_expression <- (parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preproc_alias <- (preproc_alias) => uast(
+    type: "Synthetic",
+    children: "word"
+)
+
+preproc_arg <- (preproc_arg) => uast(
+    type: "Synthetic",
+    children: "size_hint", "word"
+)
+
+preproc_clear <- (preproc_clear) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preproc_def <- (preproc_def) => uast(
+    type: "Synthetic",
+    children: "preproc_arg", "word"
+)
+
+preproc_depend <- (preproc_depend) => uast(
+    type: "Synthetic",
+    children: "string_literal"
+)
+
+preproc_expression <- (preproc_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preproc_function_def <- (preproc_function_def) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "preproc_arg", "preproc_function_def_parameters", "word"
+)
+
+preproc_function_def_parameters <- (preproc_function_def_parameters) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+preproc_if <- (preproc_if) => uast(
+    type: "If",
+    children: "binary_expression", "body", "call_syntax_expression", "conditional_expression", "float_literal", "grouped_expression", "line_here_token", "number_literal", "packed_bcd_literal", "parenthesized_expression", "preproc_expression", "register", "section_here_token", "string_literal", "unary_expression", "word"
+)
+
+preproc_include <- (preproc_include) => uast(
+    type: "Synthetic",
+    children: "string_literal"
+)
+
+preproc_line <- (preproc_line) => uast(
+    type: "Synthetic",
+    children: "string_literal"
+)
+
+preproc_local <- (preproc_local) => uast(
+    type: "Synthetic",
+    children: "size_hint", "word"
+)
+
+preproc_multiline_macro <- (preproc_multiline_macro) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "body", "call_syntax_expression", "conditional_expression", "float_literal", "grouped_expression", "line_here_token", "number_literal", "packed_bcd_literal", "parenthesized_expression", "preproc_expression", "preproc_multiline_macro_arg_spec", "register", "section_here_token", "string_literal", "unary_expression", "word"
+)
+
+preproc_multiline_unmacro <- (preproc_multiline_unmacro) => uast(
+    type: "Synthetic",
+    children: "preproc_multiline_macro_arg_spec", "word"
+)
+
+preproc_pathsearch <- (preproc_pathsearch) => uast(
+    type: "Synthetic",
+    children: "string_literal"
+)
+
+preproc_pop <- (preproc_pop) => uast(
+    type: "Synthetic",
+    children: "word"
+)
+
+preproc_pragma <- (preproc_pragma) => uast(
+    type: "Synthetic",
+    children: "string_literal", "word"
+)
+
+preproc_push <- (preproc_push) => uast(
+    type: "Synthetic",
+    children: "word"
+)
+
+preproc_rep_loop <- (preproc_rep_loop) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "binary_expression", "body", "call_syntax_expression", "conditional_expression", "float_literal", "grouped_expression", "line_here_token", "number_literal", "packed_bcd_literal", "parenthesized_expression", "preproc_expression", "register", "section_here_token", "string_literal", "unary_expression", "word"
+)
+
+preproc_repl <- (preproc_repl) => uast(
+    type: "Synthetic",
+    children: "word"
+)
+
+preproc_reporting <- (preproc_reporting) => uast(
+    type: "Synthetic",
+    children: "string_literal"
+)
+
+preproc_rotate <- (preproc_rotate) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preproc_stacksize <- (preproc_stacksize) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preproc_undef <- (preproc_undef) => uast(
+    type: "Synthetic",
+    children: "word"
+)
+
+preproc_use <- (preproc_use) => uast(
+    type: "Synthetic",
+    children: "string_literal"
+)
+
+pseudo_instruction_alignx_macro <- (pseudo_instruction_alignx_macro) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+pseudo_instruction_dx <- (pseudo_instruction_dx) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+pseudo_instruction_equ_command <- (pseudo_instruction_equ_command) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+pseudo_instruction_incbin_command <- (pseudo_instruction_incbin_command) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "binary_expression", "call_syntax_expression", "conditional_expression", "float_literal", "grouped_expression", "line_here_token", "number_literal", "packed_bcd_literal", "parenthesized_expression", "preproc_expression", "register", "section_here_token", "string_literal", "unary_expression", "word"
+)
+
+pseudo_instruction_resx <- (pseudo_instruction_resx) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+pseudo_instruction_times_prefix <- (pseudo_instruction_times_prefix) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "binary_expression", "call_syntax_expression", "conditional_expression", "float_literal", "grouped_expression", "line_here_token", "number_literal", "packed_bcd_literal", "parenthesized_expression", "preproc_expression", "register", "section_here_token", "string_literal", "unary_expression", "word"
+)
+
+register <- (register) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+segment_offset <- (segment_offset) => uast(
+    type: "Set",
+    children: "binary_expression", "number_literal", "parenthesized_expression", "preproc_expression", "word"
+)
+
+size_hint <- (size_hint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: "assembl_directive_map"
+)
+
+source_line <- (source_line) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+struc_declaration <- (struc_declaration) => uast(
+    type: "Synthetic",
+    children: "struc_declaration_body", "word"
+)
+
+struc_declaration_body <- (struc_declaration_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+struc_instance <- (struc_instance) => uast(
+    type: "Synthetic",
+    children: "struc_instance_body", "word"
+)
+
+struc_instance_body <- (struc_instance_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unary_expression <- (unary_expression) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "call_syntax_expression", "conditional_expression", "float_literal", "grouped_expression", "line_here_token", "number_literal", "packed_bcd_literal", "parenthesized_expression", "preproc_expression", "register", "section_here_token", "string_literal", "unary_expression", "word"
+)
+
+word <- (word) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assembl_directive_primitive_map <- (assembl_directive_primitive_map) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assembl_directive_primitive_warning <- (assembl_directive_primitive_warning) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assembl_directive_warning <- (assembl_directive_warning) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+cpu_instruction_set <- (cpu_instruction_set) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+line_here_token <- (line_here_token) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preproc_multiline_macro_arg_spec <- (preproc_multiline_macro_arg_spec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+section_here_token <- (section_here_token) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+symbol_extension <- (symbol_extension) => uast(
+    type: "Synthetic",
+    children: []
+)
+

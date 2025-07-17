@@ -1,0 +1,648 @@
+_id <- (_id) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+arg <- (arg) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+arg_bind <- (arg_bind) => uast(
+    type: "Synthetic",
+    children: "_", "binary_op", "call_expression", "character", "comparison_op", "constructor", "eraser", "float", "fun_application", "fun_ask", "fun_bend", "fun_fold", "fun_if", "fun_lambda", "fun_local_def", "fun_match", "fun_open", "fun_switch", "fun_with", "identifier", "imp_lambda", "integer", "let_bind", "list", "list_comprehension", "map", "num_operator", "parenthesized_expression", "string", "superposition", "symbol", "tree_leaf", "tree_node", "tuple", "unary_op", "unscoped_var", "use"
+)
+
+args <- (args) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+arguments <- (arguments) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ask_next <- (ask_next) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ask_statement <- (ask_statement) => uast(
+    type: "Synthetic",
+    children: "_", "binary_op", "call_expression", "character", "comparison_op", "constructor", "eraser", "float", "identifier", "imp_lambda", "integer", "list", "list_comprehension", "map", "parenthesized_expression", "string", "superposition", "symbol", "tree_leaf", "tree_node", "tuple", "unary_op", "unscoped_var"
+)
+
+assignment_statement <- (assignment_statement) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "_", "binary_op", "call_expression", "character", "comparison_op", "constructor", "eraser", "float", "identifier", "imp_lambda", "integer", "list", "list_comprehension", "map", "parenthesized_expression", "string", "superposition", "symbol", "tree_leaf", "tree_node", "tuple", "unary_op", "unscoped_var"
+)
+
+bend_statement <- (bend_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+binary_op <- (binary_op) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+body <- (body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+call_expression <- (call_expression) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+comparison_op <- (comparison_op) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constructor <- (constructor) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "binary_op", "call_expression", "character", "comparison_op", "constructor", "eraser", "float", "identifier", "imp_lambda", "integer", "list", "list_comprehension", "map", "parenthesized_expression", "string", "superposition", "symbol", "tree_leaf", "tree_node", "tuple", "unary_op", "unscoped_var"
+)
+
+elif_clause <- (elif_clause) => uast(
+    type: "If",
+    children: "binary_op", "call_expression", "character", "comparison_op", "constructor", "eraser", "float", "identifier", "imp_lambda", "integer", "list", "list_comprehension", "map", "parenthesized_expression", "string", "superposition", "symbol", "tree_leaf", "tree_node", "tuple", "unary_op", "unscoped_var"
+)
+
+else_clause <- (else_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eraser <- (eraser) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fold_statement <- (fold_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for_clause <- (for_clause) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "binary_op", "call_expression", "character", "comparison_op", "constructor", "eraser", "float", "identifier", "imp_lambda", "integer", "list", "list_comprehension", "map", "parenthesized_expression", "string", "superposition", "symbol", "tree_leaf", "tree_node", "tuple", "unary_op", "unscoped_var"
+)
+
+fun_application <- (fun_application) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fun_ask <- (fun_ask) => uast(
+    type: "Synthetic",
+    children: "body"
+)
+
+fun_bend <- (fun_bend) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fun_fold <- (fun_fold) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fun_function_definition <- (fun_function_definition) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "identifier"
+)
+
+fun_if <- (fun_if) => uast(
+    type: "If",
+    children: "character", "eraser", "float", "fun_application", "fun_ask", "fun_bend", "fun_fold", "fun_if", "fun_lambda", "fun_local_def", "fun_match", "fun_open", "fun_switch", "fun_with", "identifier", "integer", "let_bind", "list", "num_operator", "string", "superposition", "symbol", "tree_leaf", "tree_node", "tuple", "unscoped_var", "use"
+)
+
+fun_lambda <- (fun_lambda) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: []
+)
+
+fun_local_def <- (fun_local_def) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fun_match <- (fun_match) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+fun_open <- (fun_open) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+fun_switch <- (fun_switch) => uast(
+    type: "Switch",
+    children: []
+)
+
+fun_type_constructor <- (fun_type_constructor) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+fun_type_constructor_fields <- (fun_type_constructor_fields) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+fun_type_definition <- (fun_type_definition) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+fun_with <- (fun_with) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hvm_definition <- (hvm_definition) => uast(
+    type: "Synthetic",
+    children: "hvm_code", "identifier"
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: "_id", "identifier"
+)
+
+if_clause <- (if_clause) => uast(
+    type: "If",
+    children: []
+)
+
+if_statement <- (if_statement) => uast(
+    type: "If",
+    children: "binary_op", "call_expression", "character", "comparison_op", "constructor", "eraser", "float", "identifier", "imp_lambda", "integer", "list", "list_comprehension", "map", "parenthesized_expression", "string", "superposition", "symbol", "tree_leaf", "tree_node", "tuple", "unary_op", "unscoped_var"
+)
+
+imp_function_definition <- (imp_function_definition) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "identifier", "parameters"
+)
+
+imp_lambda <- (imp_lambda) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: "binary_op", "call_expression", "character", "comparison_op", "constructor", "eraser", "float", "identifier", "imp_lambda", "integer", "list", "list_comprehension", "map", "parenthesized_expression", "string", "superposition", "symbol", "tree_leaf", "tree_node", "tuple", "unary_op", "unscoped_var"
+)
+
+imp_type_constructor <- (imp_type_constructor) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+imp_type_constructor_field <- (imp_type_constructor_field) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+imp_type_definition <- (imp_type_definition) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+import_from <- (import_from) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+import_name <- (import_name) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+inplace_op_statement <- (inplace_op_statement) => uast(
+    type: "Synthetic",
+    children: "_", "binary_op", "call_expression", "character", "comparison_op", "constructor", "eraser", "float", "identifier", "imp_lambda", "integer", "list", "list_comprehension", "map", "parenthesized_expression", "string", "superposition", "symbol", "tree_leaf", "tree_node", "tuple", "unary_op", "unscoped_var"
+)
+
+let_bind <- (let_bind) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+let_next <- (let_next) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+let_value <- (let_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: []
+)
+
+list_comprehension <- (list_comprehension) => uast(
+    type: "List",
+    children: "binary_op", "call_expression", "character", "comparison_op", "constructor", "eraser", "float", "identifier", "imp_lambda", "integer", "list", "list_comprehension", "map", "parenthesized_expression", "string", "superposition", "symbol", "tree_leaf", "tree_node", "tuple", "unary_op", "unscoped_var"
+)
+
+local_def_statement <- (local_def_statement) => uast(
+    type: "Synthetic",
+    children: "identifier", "parameters"
+)
+
+map <- (map) => uast(
+    type: "Synthetic",
+    children: "binary_op", "call_expression", "character", "comparison_op", "constructor", "eraser", "float", "identifier", "imp_lambda", "integer", "list", "list_comprehension", "map", "parenthesized_expression", "string", "superposition", "symbol", "tree_leaf", "tree_node", "tuple", "unary_op", "unscoped_var"
+)
+
+match_case <- (match_case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+match_pattern <- (match_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+match_statement <- (match_statement) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+name <- (name) => uast(
+    type: "Synthetic",
+    children: "_id", "identifier"
+)
+
+num_operator <- (num_operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nxt <- (nxt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+object_definition <- (object_definition) => uast(
+    type: "Synthetic",
+    children: "identifier", "object_field"
+)
+
+object_field <- (object_field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+open_statement <- (open_statement) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+operator <- (operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+other_pattern <- (other_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "identifier"
+)
+
+parameters <- (parameters) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+parenthesized_expression <- (parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pattern <- (pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+return_statement <- (return_statement) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+superposition <- (superposition) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+switch_case <- (switch_case) => uast(
+    type: "Switch",
+    children: []
+)
+
+switch_pattern <- (switch_pattern) => uast(
+    type: "Switch",
+    children: []
+)
+
+switch_predecessor <- (switch_predecessor) => uast(
+    type: "Switch",
+    children: "_", "identifier"
+)
+
+switch_statement <- (switch_statement) => uast(
+    type: "Switch",
+    children: []
+)
+
+term <- (term) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tree_leaf <- (tree_leaf) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tree_node <- (tree_node) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tuple <- (tuple) => uast(
+    type: "Tuple",
+    children: []
+)
+
+unary_op <- (unary_op) => uast(
+    type: "UnaryOp",
+    roles: "Operator"
+    children: []
+)
+
+unscoped_var <- (unscoped_var) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+use <- (use) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+use_next <- (use_next) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+use_statement <- (use_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+use_value <- (use_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value <- (value) => uast(
+    type: "Synthetic",
+    children: "_", "binary_op", "call_expression", "character", "comparison_op", "constructor", "eraser", "float", "identifier", "imp_lambda", "integer", "list", "list_comprehension", "map", "parenthesized_expression", "string", "superposition", "symbol", "tree_leaf", "tree_node", "tuple", "unary_op", "unscoped_var"
+)
+
+when_clause <- (when_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_args <- (with_args) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_statement <- (with_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_ <- (_) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ask <- (ask) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bend <- (bend) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+character <- (character) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+def <- (def) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+elif <- (elif) => uast(
+    type: "If",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fold <- (fold) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+from <- (from) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hvm <- (hvm) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hvm_code <- (hvm_code) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lambda <- (lambda) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: []
+)
+
+let <- (let) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+match <- (match) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+multiline_comment <- (multiline_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+object <- (object) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+open <- (open) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+os_path <- (os_path) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+path <- (path) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+switch <- (switch) => uast(
+    type: "Switch",
+    children: []
+)
+
+symbol <- (symbol) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+use <- (use) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+when <- (when) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with <- (with) => uast(
+    type: "Synthetic",
+    children: []
+)
+

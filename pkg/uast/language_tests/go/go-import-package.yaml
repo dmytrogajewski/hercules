@@ -1,0 +1,86 @@
+suite: import-package
+name: go-import-package
+
+parse_cases:
+  - name: import_package
+    input: |
+      package main
+      
+      import (
+          "fmt"
+          "os"
+      )
+      
+      import "strings"
+      
+      func main() {
+          fmt.Println("Hello")
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Package"
+          roles: ["Package", "Declaration"]
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "main"
+        - type: "Import"
+          roles: ["Import"]
+          children:
+            - type: "Block"
+              roles: ["Body"]
+              children:
+                - type: "Import"
+                  roles: ["Import"]
+                  children:
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: "fmt"
+                - type: "Import"
+                  roles: ["Import"]
+                  children:
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: "os"
+        - type: "Import"
+          roles: ["Import"]
+          children:
+            - type: "Import"
+              roles: ["Import"]
+              children:
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: "strings"
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "main"
+          token: "main"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "main"
+            - type: "Block"
+              roles: ["Body"]
+            - type: "Block"
+              roles: ["Body"]
+              children:
+                - type: "Call"
+                  roles: ["Call"]
+                  children:
+                    - type: "Call"
+                      roles: ["Call"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "fmt"
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "Println"
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Literal"
+                          roles: ["Literal"]
+                          token: "Hello" 

@@ -1,0 +1,444 @@
+add <- (add) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assign <- (assign) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bitand <- (bitand) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bitor <- (bitor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bitshl <- (bitshl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bitshr <- (bitshr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bitxor <- (bitxor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+bool_literal <- (bool_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+call <- (call) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+declaration <- (declaration) => uast(
+    type: "Synthetic",
+    children: "add", "and", "assign", "bitand", "bitor", "bitshl", "bitshr", "bitxor", "block", "bool_literal", "call", "declaration", "decrement", "dereference", "divide", "eq", "ge", "gt", "identifier", "if", "increment", "integer_literal", "le", "logical_negate", "lt", "member_access", "multiply", "ne", "or", "remainder", "return", "string_literal", "subscript", "subtract", "type_array", "type_enum", "type_ffi", "type_function", "type_pointer", "type_pointer_to_pointer", "type_primitive", "type_reference", "type_struct", "type_sum", "type_union", "while"
+)
+
+decrement <- (decrement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dereference <- (dereference) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+divide <- (divide) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eq <- (eq) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ge <- (ge) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+gt <- (gt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: "add", "and", "assign", "bitand", "bitor", "bitshl", "bitshr", "bitxor", "block", "bool_literal", "call", "declaration", "decrement", "dereference", "divide", "eq", "ge", "gt", "identifier", "if", "increment", "integer_literal", "le", "logical_negate", "lt", "member_access", "multiply", "ne", "or", "remainder", "return", "string_literal", "subscript", "subtract", "type_array", "type_enum", "type_ffi", "type_function", "type_pointer", "type_pointer_to_pointer", "type_primitive", "type_reference", "type_struct", "type_sum", "type_union", "while"
+)
+
+increment <- (increment) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer_literal <- (integer_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+le <- (le) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+logical_negate <- (logical_negate) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lt <- (lt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+member_access <- (member_access) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+module_declaration <- (module_declaration) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "identifier"
+)
+
+module_import <- (module_import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "identifier"
+)
+
+multiply <- (multiply) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ne <- (ne) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+param_decl <- (param_decl) => uast(
+    type: "Synthetic",
+    children: "identifier", "type_array", "type_enum", "type_ffi", "type_function", "type_pointer", "type_pointer_to_pointer", "type_primitive", "type_reference", "type_struct", "type_sum", "type_union"
+)
+
+remainder <- (remainder) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+storage_specifier <- (storage_specifier) => uast(
+    type: "If",
+    children: []
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+subscript <- (subscript) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+subtract <- (subtract) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_array <- (type_array) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_enum <- (type_enum) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+type_ffi <- (type_ffi) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_function <- (type_function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+type_pointer <- (type_pointer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_pointer_to_pointer <- (type_pointer_to_pointer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_primitive <- (type_primitive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_reference <- (type_reference) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_struct <- (type_struct) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+type_sum <- (type_sum) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_union <- (type_union) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "add", "and", "assign", "bitand", "bitor", "bitshl", "bitshr", "bitxor", "block", "bool_literal", "call", "declaration", "decrement", "dereference", "divide", "eq", "ge", "gt", "identifier", "if", "increment", "integer_literal", "le", "logical_negate", "lt", "member_access", "multiply", "ne", "or", "remainder", "return", "string_literal", "subscript", "subtract", "type_array", "type_enum", "type_ffi", "type_function", "type_pointer", "type_pointer_to_pointer", "type_primitive", "type_reference", "type_struct", "type_sum", "type_union", "while"
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bool <- (bool) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+byte <- (byte) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cint <- (cint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+clong <- (clong) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+clonglong <- (clonglong) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+cshort <- (cshort) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+csize <- (csize) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cuint <- (cuint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+culong <- (culong) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+culonglong <- (culonglong) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cushort <- (cushort) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cusize <- (cusize) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+enum <- (enum) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+export <- (export) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+external <- (external) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+int <- (int) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+module <- (module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+not <- (not) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+struct <- (struct) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+sum <- (sum) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+uint <- (uint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+union <- (union) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+view <- (view) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+void <- (void) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+

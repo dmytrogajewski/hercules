@@ -1,0 +1,129 @@
+suite: assignment-call-binaryop
+name: go-assignment-call-binaryop
+
+parse_cases:
+  - name: assignment_call_binaryop
+    input: |
+      func h(a, b int) int {
+          c := a + b
+          d := -a
+          e := f(a)
+          return c + d + e
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "h"
+          token: "h"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "h"
+            - type: "Block"
+              roles: ["Body"]
+              children:
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "a"
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "b"
+            - type: "Block"
+              roles: ["Body"]
+              children:
+                - type: "Variable"
+                  roles: ["Variable", "Declaration"]
+                  props:
+                    name: "c"
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "c"
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "BinaryOp"
+                          roles: ["Operator"]
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "a"
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "b"
+                - type: "Variable"
+                  roles: ["Variable", "Declaration"]
+                  props:
+                    name: "d"
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "d"
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "UnaryOp"
+                          roles: ["Operator"]
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "a"
+                - type: "Variable"
+                  roles: ["Variable", "Declaration"]
+                  props:
+                    name: "e"
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "e"
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Call"
+                          roles: ["Call"]
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "f"
+                            - type: "Block"
+                              roles: ["Body"]
+                              children:
+                                - type: "Identifier"
+                                  roles: ["Name"]
+                                  token: "a"
+                - type: "Return"
+                  roles: ["Return"]
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "BinaryOp"
+                          roles: ["Operator"]
+                          children:
+                            - type: "BinaryOp"
+                              roles: ["Operator"]
+                              children:
+                                - type: "Identifier"
+                                  roles: ["Name"]
+                                  token: "c"
+                                - type: "Identifier"
+                                  roles: ["Name"]
+                                  token: "d"
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "e" 

@@ -1,0 +1,1002 @@
+access_modifier <- (access_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+array_type_expr <- (array_type_expr) => uast(
+    type: "Synthetic",
+    children: "array_type_expr", "assignment_expr", "boolean_literal", "buffer_literal", "conditional_expr", "conformance_lens_type_expr", "existential_type_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "lambda_type_expr", "map_literal", "match_expr", "name_type_expr", "nil", "opaque_type_expr", "postfix_expr", "pragma_expr", "prefix_expr", "remote_type_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "tuple_type_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr", "wildcard_type_expr"
+)
+
+assignment_expr <- (assignment_expr) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "assignment_expr", "assignment_operator", "boolean_literal", "buffer_literal", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "postfix_expr", "pragma_expr", "prefix_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr"
+)
+
+associated_type_decl <- (associated_type_decl) => uast(
+    type: "Synthetic",
+    children: "array_type_expr", "conformance_lens_type_expr", "conformance_list", "existential_type_expr", "identifier", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "remote_type_expr", "tuple_type_expr", "where_clause", "wildcard_type_expr"
+)
+
+associated_value_decl <- (associated_value_decl) => uast(
+    type: "Synthetic",
+    children: "array_type_expr", "conformance_lens_type_expr", "existential_type_expr", "identifier", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "remote_type_expr", "tuple_type_expr", "where_clause", "wildcard_type_expr"
+)
+
+attribute_argument <- (attribute_argument) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+attribute_argument_list <- (attribute_argument_list) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+binding_decl <- (binding_decl) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binding_pattern", "boolean_literal", "buffer_literal", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "postfix_expr", "pragma_expr", "prefix_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr"
+)
+
+binding_introducer <- (binding_introducer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+binding_pattern <- (binding_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "array_type_expr", "binding_introducer", "conformance_lens_type_expr", "existential_type_expr", "identifier", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "remote_type_expr", "tuple_pattern", "tuple_type_expr", "wildcard_pattern", "wildcard_type_expr"
+)
+
+block_comment <- (block_comment) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+boolean_literal <- (boolean_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+brace_stmt <- (brace_stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+buffer_literal <- (buffer_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: "assignment_expr", "boolean_literal", "buffer_literal", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "postfix_expr", "pragma_expr", "prefix_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr"
+)
+
+call_argument <- (call_argument) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "identifier"
+)
+
+capture_list <- (capture_list) => uast(
+    type: "List",
+    children: []
+)
+
+conditional_binding_stmt <- (conditional_binding_stmt) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binding_pattern", "boolean_literal", "brace_stmt", "buffer_literal", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "jump_stmt", "lambda_expr", "map_literal", "match_expr", "nil", "postfix_expr", "pragma_expr", "prefix_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr"
+)
+
+conditional_clause_item <- (conditional_clause_item) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+conditional_expr <- (conditional_expr) => uast(
+    type: "Synthetic",
+    children: "brace_stmt", "conditional_clause_item", "conditional_expr"
+)
+
+conformance_constraint <- (conformance_constraint) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "name_type_expr", "trait_composition"
+)
+
+conformance_decl <- (conformance_decl) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "function_decl", "function_memberwise_init", "product_type_decl", "property_decl", "subscript_decl", "type_alias_decl"
+)
+
+conformance_head <- (conformance_head) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "array_type_expr", "conformance_lens_type_expr", "existential_type_expr", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "remote_type_expr", "tuple_type_expr", "wildcard_type_expr"
+)
+
+conformance_lens_type_expr <- (conformance_lens_type_expr) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "array_type_expr", "conformance_lens_type_expr", "existential_type_expr", "identifier", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "remote_type_expr", "tuple_type_expr", "wildcard_type_expr"
+)
+
+conformance_list <- (conformance_list) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+decl_attr <- (decl_attr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+deinit_decl <- (deinit_decl) => uast(
+    type: "Synthetic",
+    children: "brace_stmt"
+)
+
+discard_stmt <- (discard_stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do_while_stmt <- (do_while_stmt) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "assignment_expr", "boolean_literal", "brace_stmt", "buffer_literal", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "postfix_expr", "pragma_expr", "prefix_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr"
+)
+
+equality_constraint <- (equality_constraint) => uast(
+    type: "Synthetic",
+    children: "array_type_expr", "conformance_lens_type_expr", "existential_type_expr", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "remote_type_expr", "tuple_type_expr", "wildcard_type_expr"
+)
+
+existential_type_expr <- (existential_type_expr) => uast(
+    type: "Synthetic",
+    children: "trait_composition", "where_clause"
+)
+
+extension_decl <- (extension_decl) => uast(
+    type: "Synthetic",
+    children: "function_decl", "function_memberwise_init", "product_type_decl", "subscript_decl", "type_alias_decl"
+)
+
+extension_head <- (extension_head) => uast(
+    type: "Synthetic",
+    children: "array_type_expr", "conformance_lens_type_expr", "existential_type_expr", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "remote_type_expr", "tuple_type_expr", "wildcard_type_expr"
+)
+
+for_stmt <- (for_stmt) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "assignment_expr", "binding_decl", "boolean_literal", "brace_stmt", "buffer_literal", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "postfix_expr", "pragma_expr", "prefix_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr"
+)
+
+function_call_expr <- (function_call_expr) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "boolean_literal", "buffer_literal", "call_argument", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "pragma_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "unicode_scalar_literal", "value_index_expr", "value_member_expr"
+)
+
+function_decl <- (function_decl) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "brace_stmt", "function_head", "function_signature", "method_bundle_body"
+)
+
+function_entity_identifier <- (function_entity_identifier) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "identifier"
+)
+
+function_head <- (function_head) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+function_memberwise_init <- (function_memberwise_init) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+function_name <- (function_name) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "identifier", "operator"
+)
+
+function_signature <- (function_signature) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "array_type_expr", "conformance_lens_type_expr", "existential_type_expr", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "parameter_decl", "remote_type_expr", "tuple_type_expr", "wildcard_type_expr"
+)
+
+generic_clause <- (generic_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+generic_type_parameter <- (generic_type_parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "array_type_expr", "conformance_lens_type_expr", "existential_type_expr", "identifier", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "remote_type_expr", "trait_composition", "tuple_type_expr", "wildcard_type_expr"
+)
+
+generic_value_parameter <- (generic_value_parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "array_type_expr", "assignment_expr", "boolean_literal", "buffer_literal", "conditional_expr", "conformance_lens_type_expr", "existential_type_expr", "floating_point_literal", "function_call_expr", "identifier", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "lambda_type_expr", "map_literal", "match_expr", "name_type_expr", "nil", "opaque_type_expr", "postfix_expr", "pragma_expr", "prefix_expr", "remote_type_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "tuple_type_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr", "wildcard_type_expr"
+)
+
+identifier_expr <- (identifier_expr) => uast(
+    type: "If",
+    children: "function_entity_identifier", "identifier", "method_introducer", "operator_entity_identifier"
+)
+
+implicit_member_ref <- (implicit_member_ref) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+import_decl <- (import_decl) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+infix_expr <- (infix_expr) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "boolean_literal", "buffer_literal", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "infix_operator_tail", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "postfix_expr", "pragma_expr", "prefix_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr"
+)
+
+infix_operator_tail <- (infix_operator_tail) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "boolean_literal", "buffer_literal", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "infix_operator", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "postfix_expr", "pragma_expr", "prefix_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr"
+)
+
+inout_expr <- (inout_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer_literal <- (integer_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+jump_stmt <- (jump_stmt) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "boolean_literal", "buffer_literal", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "postfix_expr", "pragma_expr", "prefix_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr"
+)
+
+lambda_environment <- (lambda_environment) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: []
+)
+
+lambda_expr <- (lambda_expr) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: "brace_stmt", "function_signature"
+)
+
+lambda_parameter <- (lambda_parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "array_type_expr", "conformance_lens_type_expr", "existential_type_expr", "identifier", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "parameter_passing_convention", "remote_type_expr", "tuple_type_expr", "wildcard_type_expr"
+)
+
+lambda_type_expr <- (lambda_type_expr) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: "array_type_expr", "conformance_lens_type_expr", "existential_type_expr", "lambda_parameter", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "remote_type_expr", "tuple_type_expr", "wildcard_type_expr"
+)
+
+map_component <- (map_component) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "boolean_literal", "buffer_literal", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "postfix_expr", "pragma_expr", "prefix_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr"
+)
+
+map_literal <- (map_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: "map_component"
+)
+
+match_case <- (match_case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "assignment_expr", "binding_decl", "boolean_literal", "brace_stmt", "buffer_literal", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "postfix_expr", "pragma_expr", "prefix_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr"
+)
+
+match_expr <- (match_expr) => uast(
+    type: "Match",
+    roles: "Match"
+    children: "assignment_expr", "boolean_literal", "buffer_literal", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "postfix_expr", "pragma_expr", "prefix_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr"
+)
+
+method_bundle_body <- (method_bundle_body) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+method_impl <- (method_impl) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "brace_stmt"
+)
+
+method_introducer <- (method_introducer) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+name_type_expr <- (name_type_expr) => uast(
+    type: "Synthetic",
+    children: "array_type_expr", "conformance_lens_type_expr", "existential_type_expr", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "remote_type_expr", "selector", "tuple_type_expr", "wildcard_type_expr"
+)
+
+namespace_decl <- (namespace_decl) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: "binding_decl", "conformance_decl", "extension_decl", "function_decl", "function_memberwise_init", "namespace_decl", "product_type_decl", "subscript_decl", "trait_decl", "type_alias_decl"
+)
+
+namespace_head <- (namespace_head) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: "identifier"
+)
+
+opaque_type_expr <- (opaque_type_expr) => uast(
+    type: "Synthetic",
+    children: "trait_composition"
+)
+
+operator_decl <- (operator_decl) => uast(
+    type: "Synthetic",
+    children: "operator"
+)
+
+operator_entity_identifier <- (operator_entity_identifier) => uast(
+    type: "If",
+    children: "operator"
+)
+
+parameter_decl <- (parameter_decl) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "_", "array_type_expr", "assignment_expr", "boolean_literal", "buffer_literal", "conditional_expr", "conformance_lens_type_expr", "existential_type_expr", "floating_point_literal", "function_call_expr", "identifier", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "lambda_type_expr", "map_literal", "match_expr", "name_type_expr", "nil", "opaque_type_expr", "parameter_passing_convention", "postfix_expr", "pragma_expr", "prefix_expr", "remote_type_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "tuple_type_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr", "wildcard_type_expr"
+)
+
+parameter_passing_convention <- (parameter_passing_convention) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+postfix_expr <- (postfix_expr) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "boolean_literal", "buffer_literal", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "postfix_expr", "postfix_operator", "pragma_expr", "prefix_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr"
+)
+
+pragma_expr <- (pragma_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+prefix_expr <- (prefix_expr) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "boolean_literal", "buffer_literal", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "postfix_expr", "pragma_expr", "prefix_expr", "prefix_operator", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr"
+)
+
+product_type_decl <- (product_type_decl) => uast(
+    type: "Synthetic",
+    children: "binding_decl", "deinit_decl", "function_decl", "function_memberwise_init", "product_type_decl", "property_decl", "subscript_decl", "type_alias_decl"
+)
+
+product_type_head <- (product_type_head) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+property_decl <- (property_decl) => uast(
+    type: "Property",
+    roles: "Member"
+    children: "array_type_expr", "conformance_lens_type_expr", "existential_type_expr", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "remote_type_expr", "subscript_body", "tuple_type_expr", "wildcard_type_expr"
+)
+
+property_head <- (property_head) => uast(
+    type: "Property",
+    roles: "Member"
+    children: "identifier"
+)
+
+receiver_effect <- (receiver_effect) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+receiver_modifier <- (receiver_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+remote_type_expr <- (remote_type_expr) => uast(
+    type: "Synthetic",
+    children: "array_type_expr", "conformance_lens_type_expr", "existential_type_expr", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "parameter_passing_convention", "remote_type_expr", "tuple_type_expr", "wildcard_type_expr"
+)
+
+selector <- (selector) => uast(
+    type: "Synthetic",
+    children: "identifier_expr", "static_argument_list"
+)
+
+selector_expr <- (selector_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+static_argument <- (static_argument) => uast(
+    type: "Synthetic",
+    children: "array_type_expr", "assignment_expr", "boolean_literal", "buffer_literal", "conditional_expr", "conformance_lens_type_expr", "existential_type_expr", "floating_point_literal", "function_call_expr", "identifier", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "lambda_type_expr", "map_literal", "match_expr", "name_type_expr", "nil", "opaque_type_expr", "postfix_expr", "pragma_expr", "prefix_expr", "remote_type_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "tuple_type_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr", "wildcard_type_expr"
+)
+
+static_argument_list <- (static_argument_list) => uast(
+    type: "List",
+    children: []
+)
+
+stmt <- (stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+subscript_body <- (subscript_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+subscript_call_expr <- (subscript_call_expr) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "boolean_literal", "buffer_literal", "call_argument", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "pragma_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "unicode_scalar_literal", "value_index_expr", "value_member_expr"
+)
+
+subscript_decl <- (subscript_decl) => uast(
+    type: "Synthetic",
+    children: "subscript_body"
+)
+
+subscript_head <- (subscript_head) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+subscript_impl <- (subscript_impl) => uast(
+    type: "Synthetic",
+    children: "brace_stmt"
+)
+
+subscript_introducer <- (subscript_introducer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+subscript_signature <- (subscript_signature) => uast(
+    type: "Synthetic",
+    children: "array_type_expr", "conformance_lens_type_expr", "existential_type_expr", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "parameter_decl", "remote_type_expr", "tuple_type_expr", "var", "wildcard_type_expr"
+)
+
+trait_composition <- (trait_composition) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+trait_decl <- (trait_decl) => uast(
+    type: "Synthetic",
+    children: "associated_type_decl", "associated_value_decl", "function_decl", "function_memberwise_init", "property_decl", "subscript_decl"
+)
+
+trait_head <- (trait_head) => uast(
+    type: "Synthetic",
+    children: "identifier", "name_type_expr"
+)
+
+tuple_expr <- (tuple_expr) => uast(
+    type: "Tuple",
+    children: []
+)
+
+tuple_expr_element <- (tuple_expr_element) => uast(
+    type: "Tuple",
+    children: "identifier"
+)
+
+tuple_pattern <- (tuple_pattern) => uast(
+    type: "Tuple",
+    children: []
+)
+
+tuple_pattern_element <- (tuple_pattern_element) => uast(
+    type: "Tuple",
+    children: "binding_pattern", "identifier", "tuple_pattern", "wildcard_pattern"
+)
+
+tuple_type_element <- (tuple_type_element) => uast(
+    type: "Tuple",
+    children: "identifier"
+)
+
+tuple_type_expr <- (tuple_type_expr) => uast(
+    type: "Tuple",
+    children: []
+)
+
+type_alias_decl <- (type_alias_decl) => uast(
+    type: "Synthetic",
+    children: "array_type_expr", "conformance_lens_type_expr", "existential_type_expr", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "remote_type_expr", "tuple_type_expr", "wildcard_type_expr"
+)
+
+type_alias_head <- (type_alias_head) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+type_aliases_clause <- (type_aliases_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_aliases_clause_item <- (type_aliases_clause_item) => uast(
+    type: "Synthetic",
+    children: "array_type_expr", "conformance_lens_type_expr", "existential_type_expr", "identifier", "lambda_type_expr", "name_type_expr", "opaque_type_expr", "remote_type_expr", "tuple_type_expr", "wildcard_type_expr"
+)
+
+type_casting_expr <- (type_casting_expr) => uast(
+    type: "Cast",
+    children: "array_type_expr", "as", "assignment_expr", "boolean_literal", "buffer_literal", "conditional_expr", "conformance_lens_type_expr", "existential_type_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "lambda_type_expr", "map_literal", "match_expr", "name_type_expr", "nil", "opaque_type_expr", "postfix_expr", "pragma_expr", "prefix_expr", "remote_type_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "tuple_type_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr", "wildcard_type_expr"
+)
+
+unsafe_expr <- (unsafe_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value_constraint_expr <- (value_constraint_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value_index_expr <- (value_index_expr) => uast(
+    type: "Index",
+    roles: "Index"
+    children: "boolean_literal", "buffer_literal", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "pragma_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "unicode_scalar_literal", "value_index_expr", "value_member_expr", "value_member_index"
+)
+
+value_member_expr <- (value_member_expr) => uast(
+    type: "Synthetic",
+    children: "array_type_expr", "boolean_literal", "buffer_literal", "conditional_expr", "conformance_lens_type_expr", "existential_type_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "inout_expr", "integer_literal", "lambda_expr", "lambda_type_expr", "map_literal", "match_expr", "name_type_expr", "nil", "opaque_type_expr", "pragma_expr", "remote_type_expr", "selector", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "tuple_type_expr", "unicode_scalar_literal", "value_index_expr", "value_member_expr", "wildcard_type_expr"
+)
+
+where_clause <- (where_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while_condition <- (while_condition) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "assignment_expr", "binding_pattern", "boolean_literal", "buffer_literal", "conditional_expr", "floating_point_literal", "function_call_expr", "implicit_member_ref", "infix_expr", "inout_expr", "integer_literal", "lambda_expr", "map_literal", "match_expr", "nil", "postfix_expr", "pragma_expr", "prefix_expr", "selector_expr", "string_literal", "subscript_call_expr", "tuple_expr", "type_casting_expr", "unicode_scalar_literal", "unsafe_expr", "value_index_expr", "value_member_expr"
+)
+
+while_condition_list <- (while_condition_list) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+while_stmt <- (while_stmt) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "brace_stmt"
+)
+
+wildcard_pattern <- (wildcard_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+wildcard_type_expr <- (wildcard_type_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_ <- (_) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+any <- (any) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+as <- (as) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assignment_operator <- (assignment_operator) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: []
+)
+
+attribute_name <- (attribute_name) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+binary_literal <- (binary_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+conformance <- (conformance) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+continue <- (continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+decimal_literal <- (decimal_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+deinit <- (deinit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+extension <- (extension) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+floating_point_literal <- (floating_point_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+fun <- (fun) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hexadecimal_literal <- (hexadecimal_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+implicit_parameter_modifier <- (implicit_parameter_modifier) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+infix_operator <- (infix_operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+init <- (init) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inout <- (inout) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+internal <- (internal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+let <- (let) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+match <- (match) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+memberwise <- (memberwise) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+multiline_string <- (multiline_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+namespace <- (namespace) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+nil <- (nil) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+octal_literal <- (octal_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+operator <- (operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+operator <- (operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+operator_notation <- (operator_notation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+postfix_operator <- (postfix_operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+precedence_group <- (precedence_group) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+prefix_operator <- (prefix_operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+private <- (private) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+property <- (property) => uast(
+    type: "Property",
+    roles: "Member"
+    children: []
+)
+
+public <- (public) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+remote <- (remote) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+set <- (set) => uast(
+    type: "Set",
+    children: []
+)
+
+simple_string <- (simple_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+single_line_comment <- (single_line_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+sink <- (sink) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+some <- (some) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+static_modifier <- (static_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+subscript <- (subscript) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+thin <- (thin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+trait <- (trait) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+typealias <- (typealias) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unicode_scalar_literal <- (unicode_scalar_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+unsafe <- (unsafe) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value <- (value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value_member_index <- (value_member_index) => uast(
+    type: "Index",
+    roles: "Index"
+    children: []
+)
+
+var <- (var) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variadic <- (variadic) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+where <- (where) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+yield <- (yield) => uast(
+    type: "Yield",
+    roles: "Yield"
+    children: []
+)
+
+yielded <- (yielded) => uast(
+    type: "Yield",
+    roles: "Yield"
+    children: []
+)
+

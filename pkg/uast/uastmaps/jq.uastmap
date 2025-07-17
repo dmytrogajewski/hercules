@@ -1,0 +1,296 @@
+args <- (args) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+arraypatterns <- (arraypatterns) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+binding <- (binding) => uast(
+    type: "Synthetic",
+    children: "args", "break", "false", "format", "funcname", "index", "null", "number", "objectkeyvals", "query", "recurse", "string", "suffix", "true", "variable"
+)
+
+catch <- (catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+constarray <- (constarray) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constobject <- (constobject) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constobjectkeyval <- (constobjectkeyval) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constterm <- (constterm) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+elif <- (elif) => uast(
+    type: "If",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+funcdef <- (funcdef) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+funcdefargs <- (funcdefargs) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+funcname <- (funcname) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+import_ <- (import_) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+index <- (index) => uast(
+    type: "Index",
+    roles: "Index"
+    children: []
+)
+
+moduleheader <- (moduleheader) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+objectkey <- (objectkey) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+objectkeyval <- (objectkeyval) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+objectkeyvals <- (objectkeyvals) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+objectpattern <- (objectpattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+objectpatterns <- (objectpatterns) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+objectval <- (objectval) => uast(
+    type: "Synthetic",
+    children: "args", "break", "false", "format", "funcname", "index", "null", "number", "objectkeyvals", "query", "recurse", "string", "suffix", "true", "variable"
+)
+
+program <- (program) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+programbody <- (programbody) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+query <- (query) => uast(
+    type: "Synthetic",
+    children: "and", "args", "arraypatterns", "as", "binding", "break", "catch", "elif", "else", "end", "false", "foreach", "format", "funcname", "if", "index", "label", "null", "number", "objectkeyvals", "objectpatterns", "or", "query", "recurse", "reduce", "string", "suffix", "then", "true", "try", "variable"
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_interp <- (string_interp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+suffix <- (suffix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+as <- (as) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+catch <- (catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+def <- (def) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+elif <- (elif) => uast(
+    type: "If",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+end <- (end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+foreach <- (foreach) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+format <- (format) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+include <- (include) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+keyword <- (keyword) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+module <- (module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+null <- (null) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+recurse <- (recurse) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+reduce <- (reduce) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+then <- (then) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+try <- (try) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+

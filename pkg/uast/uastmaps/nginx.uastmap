@@ -1,0 +1,319 @@
+attribute <- (attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+boolean <- (boolean) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+connection_method <- (connection_method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+constant <- (constant) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+directive <- (directive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+file <- (file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: "condition"
+)
+
+keyword <- (keyword) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+level <- (level) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+location <- (location) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+location_modifier <- (location_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+map <- (map) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mask <- (mask) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quoted_string_literal <- (quoted_string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+_ <- (_) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+accept_mutex <- (accept_mutex) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+accept_mutex_delay <- (accept_mutex_delay) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+alert <- (alert) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+auto <- (auto) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+condition <- (condition) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cpumask <- (cpumask) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+crit <- (crit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+daemon <- (daemon) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+debug <- (debug) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+emerg <- (emerg) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+epoll <- (epoll) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+error <- (error) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eventport <- (eventport) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+info <- (info) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+kqueue <- (kqueue) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+load_module <- (load_module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+location <- (location) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+location_route <- (location_route) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lock_file <- (lock_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+map <- (map) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+master_process <- (master_process) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+multi_accept <- (multi_accept) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+notice <- (notice) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+numeric_literal <- (numeric_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+off <- (off) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+on <- (on) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pcre_jit <- (pcre_jit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pid <- (pid) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+poll <- (poll) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+select <- (select) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+size <- (size) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+time <- (time) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+timer_resolution <- (timer_resolution) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value <- (value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+var <- (var) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+warn <- (warn) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+worker_aio_requests <- (worker_aio_requests) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+worker_connections <- (worker_connections) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+worker_priority <- (worker_priority) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+worker_rlimit_nofile <- (worker_rlimit_nofile) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+worker_shutdown_timeout <- (worker_shutdown_timeout) => uast(
+    type: "Synthetic",
+    children: []
+)
+

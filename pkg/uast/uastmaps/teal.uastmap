@@ -1,0 +1,598 @@
+anon_function <- (anon_function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "function_body", "function_signature"
+)
+
+anon_interface <- (anon_interface) => uast(
+    type: "Interface",
+    roles: "Interface", "Declaration"
+    children: "interface_body"
+)
+
+anon_record <- (anon_record) => uast(
+    type: "Synthetic",
+    children: "record_body"
+)
+
+arg <- (arg) => uast(
+    type: "Synthetic",
+    children: "function_type", "identifier", "optional_marker", "simple_type", "table_type", "type_index", "type_union"
+)
+
+arguments <- (arguments) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assignment_variables <- (assignment_variables) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+bin_op <- (bin_op) => uast(
+    type: "Synthetic",
+    children: "anon_function", "bin_op", "boolean", "function_call", "function_type", "identifier", "index", "nil", "number", "op", "parenthesized_expression", "simple_type", "string", "table_constructor", "table_type", "type_cast", "type_index", "type_union", "unary_op", "varargs"
+)
+
+boolean <- (boolean) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do_statement <- (do_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else_block <- (else_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+elseif_block <- (elseif_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "anon_function", "bin_op", "boolean", "function_call", "identifier", "index", "nil", "number", "parenthesized_expression", "string", "table_constructor", "type_cast", "unary_op", "varargs"
+)
+
+enum_body <- (enum_body) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+enum_declaration <- (enum_declaration) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "enum_body", "global", "identifier", "local"
+)
+
+expressions <- (expressions) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+field <- (field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "function_type", "identifier", "simple_type", "string", "table_type", "type_index", "type_union"
+)
+
+for_body <- (for_body) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+function_body <- (function_body) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+function_call <- (function_call) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "arguments", "function_call", "identifier", "index", "method_index", "parenthesized_expression"
+)
+
+function_name <- (function_name) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "identifier"
+)
+
+function_signature <- (function_signature) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "arguments", "return_type", "typeargs"
+)
+
+function_statement <- (function_statement) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "function_body", "function_name", "function_signature", "global", "identifier", "local"
+)
+
+function_type <- (function_type) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "arguments", "return_type", "typeargs"
+)
+
+generic_for_statement <- (generic_for_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "anon_function", "bin_op", "boolean", "for_body", "function_call", "identifier", "index", "nil", "number", "parenthesized_expression", "string", "table_constructor", "type_cast", "unary_op", "varargs"
+)
+
+goto <- (goto) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if_statement <- (if_statement) => uast(
+    type: "If",
+    children: "anon_function", "bin_op", "boolean", "function_call", "identifier", "index", "nil", "number", "parenthesized_expression", "string", "table_constructor", "type_cast", "unary_op", "varargs"
+)
+
+index <- (index) => uast(
+    type: "Index",
+    roles: "Index"
+    children: "anon_function", "bin_op", "boolean", "function_call", "identifier", "index", "nil", "number", "parenthesized_expression", "string", "table_constructor", "type_cast", "unary_op", "varargs"
+)
+
+interface_body <- (interface_body) => uast(
+    type: "Interface",
+    roles: "Interface", "Declaration"
+    children: "anon_function", "bin_op", "boolean", "function_call", "function_type", "identifier", "index", "is", "metamethod", "nil", "number", "parenthesized_expression", "simple_type", "string", "table_constructor", "table_type", "type_cast", "type_index", "type_union", "unary_op", "varargs", "where"
+)
+
+interface_declaration <- (interface_declaration) => uast(
+    type: "Interface",
+    roles: "Interface", "Declaration"
+    children: "global", "identifier", "interface_body", "local", "typeargs"
+)
+
+macroexp_body <- (macroexp_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+macroexp_declaration <- (macroexp_declaration) => uast(
+    type: "Synthetic",
+    children: "identifier", "macroexp_body", "macroexp_signature"
+)
+
+macroexp_signature <- (macroexp_signature) => uast(
+    type: "Synthetic",
+    children: "arguments", "return_type", "typeargs"
+)
+
+macroexp_statement <- (macroexp_statement) => uast(
+    type: "Synthetic",
+    children: "identifier", "macroexp_body", "macroexp_signature"
+)
+
+metamethod <- (metamethod) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "function_type", "identifier", "simple_type", "table_type", "type_index", "type_union"
+)
+
+method_index <- (method_index) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "identifier"
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+numeric_for_statement <- (numeric_for_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "anon_function", "bin_op", "boolean", "for_body", "function_call", "identifier", "index", "nil", "number", "parenthesized_expression", "string", "table_constructor", "type_cast", "unary_op", "varargs"
+)
+
+parenthesized_expression <- (parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+program <- (program) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+record_array_type <- (record_array_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+record_body <- (record_body) => uast(
+    type: "Synthetic",
+    children: "anon_function", "bin_op", "boolean", "function_call", "function_type", "identifier", "index", "is", "metamethod", "nil", "number", "parenthesized_expression", "simple_type", "string", "table_constructor", "table_type", "type_cast", "type_index", "type_union", "unary_op", "varargs", "where"
+)
+
+record_declaration <- (record_declaration) => uast(
+    type: "Synthetic",
+    children: "global", "identifier", "local", "record_body", "typeargs"
+)
+
+repeat_statement <- (repeat_statement) => uast(
+    type: "Synthetic",
+    children: "anon_function", "bin_op", "boolean", "function_call", "identifier", "index", "nil", "number", "parenthesized_expression", "string", "table_constructor", "type_cast", "unary_op", "varargs"
+)
+
+return_statement <- (return_statement) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+return_type <- (return_type) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+simple_type <- (simple_type) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: "long_string_end", "long_string_start", "short_string_end", "short_string_start", "string_content"
+)
+
+string_content <- (string_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+table_constructor <- (table_constructor) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+table_entry <- (table_entry) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "anon_function", "bin_op", "boolean", "function_call", "function_type", "identifier", "index", "nil", "number", "parenthesized_expression", "simple_type", "string", "table_constructor", "table_type", "type_cast", "type_index", "type_union", "unary_op", "varargs"
+)
+
+table_type <- (table_type) => uast(
+    type: "Synthetic",
+    children: "function_type", "simple_type", "table_type", "type_index", "type_union"
+)
+
+type_annotation <- (type_annotation) => uast(
+    type: "TypeAnnotation",
+    roles: "Type"
+    children: []
+)
+
+type_cast <- (type_cast) => uast(
+    type: "Cast",
+    children: []
+)
+
+type_declaration <- (type_declaration) => uast(
+    type: "Synthetic",
+    children: "anon_interface", "anon_record", "enum", "enum_body", "function_type", "global", "identifier", "local", "simple_type", "table_type", "type_index", "type_union"
+)
+
+type_index <- (type_index) => uast(
+    type: "Index",
+    roles: "Index"
+    children: []
+)
+
+type_tuple <- (type_tuple) => uast(
+    type: "Tuple",
+    children: []
+)
+
+type_union <- (type_union) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+typearg <- (typearg) => uast(
+    type: "Synthetic",
+    children: "function_type", "identifier", "simple_type", "table_type", "type_index", "type_union"
+)
+
+typeargs <- (typeargs) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+typedef <- (typedef) => uast(
+    type: "Synthetic",
+    children: "anon_interface", "anon_record", "enum", "enum_body", "function_type", "identifier", "simple_type", "table_type", "type_index", "type_union"
+)
+
+unary_op <- (unary_op) => uast(
+    type: "UnaryOp",
+    roles: "Operator"
+    children: "anon_function", "bin_op", "boolean", "function_call", "identifier", "index", "nil", "number", "op", "parenthesized_expression", "string", "table_constructor", "type_cast", "unary_op", "varargs"
+)
+
+var <- (var) => uast(
+    type: "Synthetic",
+    children: "attribute", "identifier"
+)
+
+var_assignment <- (var_assignment) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "assignment_variables", "expressions"
+)
+
+var_declaration <- (var_declaration) => uast(
+    type: "Synthetic",
+    children: "expressions", "global", "local", "type_annotation", "var_declarators"
+)
+
+var_declarators <- (var_declarators) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+varargs <- (varargs) => uast(
+    type: "Synthetic",
+    children: "function_type", "simple_type", "table_type", "type_index", "type_union"
+)
+
+variadic_type <- (variadic_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while_body <- (while_body) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+while_statement <- (while_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "anon_function", "bin_op", "boolean", "function_call", "identifier", "index", "nil", "number", "parenthesized_expression", "string", "table_constructor", "type_cast", "unary_op", "varargs"
+)
+
+as <- (as) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attribute <- (attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+elseif <- (elseif) => uast(
+    type: "If",
+    children: []
+)
+
+end <- (end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+enum <- (enum) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+format_specifier <- (format_specifier) => uast(
+    type: "If",
+    children: []
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+global <- (global) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+goto <- (goto) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+interface <- (interface) => uast(
+    type: "Interface",
+    roles: "Interface", "Declaration"
+    children: []
+)
+
+is <- (is) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+local <- (local) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+long_string_end <- (long_string_end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+long_string_start <- (long_string_start) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+macroexp <- (macroexp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+metamethod <- (metamethod) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+nil <- (nil) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+op <- (op) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+optional_marker <- (optional_marker) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+record <- (record) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+repeat <- (repeat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+shebang_comment <- (shebang_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+short_string_end <- (short_string_end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+short_string_start <- (short_string_start) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+then <- (then) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+until <- (until) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+userdata <- (userdata) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+where <- (where) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+

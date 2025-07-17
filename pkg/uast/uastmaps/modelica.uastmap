@@ -1,0 +1,876 @@
+_Argument <- (_Argument) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_ClassSpecifier <- (_ClassSpecifier) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+_Element <- (_Element) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_Equation <- (_Equation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_Expression <- (_Expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_ImportClause <- (_ImportClause) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+_Literal <- (_Literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+_PrimaryExpression <- (_PrimaryExpression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_SimpleExpression <- (_SimpleExpression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_Statement <- (_Statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_UnsignedNumberLiteral <- (_UnsignedNumberLiteral) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+AlgorithmSection <- (AlgorithmSection) => uast(
+    type: "Synthetic",
+    children: "_Statement", "initial"
+)
+
+AnnotationClause <- (AnnotationClause) => uast(
+    type: "Synthetic",
+    children: "ClassModification"
+)
+
+ArrayConcatenation <- (ArrayConcatenation) => uast(
+    type: "Synthetic",
+    children: "ExpressionList"
+)
+
+ArrayConstructor <- (ArrayConstructor) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "ComprehensionClause", "ExpressionList"
+)
+
+ArraySubscripts <- (ArraySubscripts) => uast(
+    type: "Synthetic",
+    children: "Subscript"
+)
+
+BinaryExpression <- (BinaryExpression) => uast(
+    type: "Synthetic",
+    children: "_SimpleExpression", "and", "or"
+)
+
+BreakStatement <- (BreakStatement) => uast(
+    type: "Break",
+    roles: "Break"
+    children: "AnnotationClause", "DescriptionString"
+)
+
+ClassDefinition <- (ClassDefinition) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "ClassPrefixes", "_ClassSpecifier", "encapsulated"
+)
+
+ClassDefinitionClause <- (ClassDefinitionClause) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "ClassDefinition", "final"
+)
+
+ClassModification <- (ClassModification) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "_Argument"
+)
+
+ClassOrInheritanceModification <- (ClassOrInheritanceModification) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "InheritanceModification", "_Argument"
+)
+
+ClassPrefixes <- (ClassPrefixes) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "block", "class", "connector", "expandable", "function", "impure", "model", "operator", "package", "partial", "pure", "record", "type"
+)
+
+ComponentClause <- (ComponentClause) => uast(
+    type: "Synthetic",
+    children: "ArraySubscripts", "ComponentDeclaration", "TypeSpecifier", "constant", "discrete", "flow", "input", "output", "parameter", "stream"
+)
+
+ComponentClause1 <- (ComponentClause1) => uast(
+    type: "Synthetic",
+    children: "ComponentDeclaration1", "TypeSpecifier", "constant", "discrete", "flow", "input", "output", "parameter", "stream"
+)
+
+ComponentDeclaration <- (ComponentDeclaration) => uast(
+    type: "Synthetic",
+    children: "AnnotationClause", "ConditionAttribute", "Declaration", "DescriptionString"
+)
+
+ComponentDeclaration1 <- (ComponentDeclaration1) => uast(
+    type: "Synthetic",
+    children: "AnnotationClause", "Declaration", "DescriptionString"
+)
+
+ComponentReference <- (ComponentReference) => uast(
+    type: "Synthetic",
+    children: "ComponentReferencePart"
+)
+
+ComponentReferencePart <- (ComponentReferencePart) => uast(
+    type: "Synthetic",
+    children: "ArraySubscripts", "IDENT"
+)
+
+CompoundImportClause <- (CompoundImportClause) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "AnnotationClause", "DescriptionString", "IDENT", "Name"
+)
+
+ComprehensionClause <- (ComprehensionClause) => uast(
+    type: "Comprehension",
+    children: "ForIndex", "_Expression"
+)
+
+ConditionAttribute <- (ConditionAttribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: "_Expression"
+)
+
+ConnectClause <- (ConnectClause) => uast(
+    type: "Synthetic",
+    children: "ComponentReference"
+)
+
+ConnectEquation <- (ConnectEquation) => uast(
+    type: "Synthetic",
+    children: "AnnotationClause", "ConnectClause", "DescriptionString"
+)
+
+ConstrainingClause <- (ConstrainingClause) => uast(
+    type: "Synthetic",
+    children: "ClassModification", "TypeSpecifier"
+)
+
+Declaration <- (Declaration) => uast(
+    type: "Synthetic",
+    children: "ArraySubscripts", "IDENT", "Modification"
+)
+
+DerClassSpecifier <- (DerClassSpecifier) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "AnnotationClause", "DescriptionString", "IDENT", "TypeSpecifier"
+)
+
+DescriptionString <- (DescriptionString) => uast(
+    type: "Synthetic",
+    children: "StringLiteral"
+)
+
+DestructuringAssignmentStatement <- (DestructuringAssignmentStatement) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "AnnotationClause", "ComponentReference", "DescriptionString", "FunctionArguments", "ParenthesizedExpression"
+)
+
+ElementList <- (ElementList) => uast(
+    type: "List",
+    children: "_Element", "protected", "public"
+)
+
+ElementModification <- (ElementModification) => uast(
+    type: "If",
+    children: "DescriptionString", "Modification", "Name", "each", "final"
+)
+
+ElementRedeclaration <- (ElementRedeclaration) => uast(
+    type: "Synthetic",
+    children: "ComponentClause1", "ConstrainingClause", "ShortClassDefinition", "each", "final", "replaceable"
+)
+
+ElementReplaceable <- (ElementReplaceable) => uast(
+    type: "Synthetic",
+    children: "ComponentClause1", "ConstrainingClause", "ShortClassDefinition", "each", "final"
+)
+
+ElseEquationClause <- (ElseEquationClause) => uast(
+    type: "Synthetic",
+    children: "_Equation"
+)
+
+ElseIfEquationClause <- (ElseIfEquationClause) => uast(
+    type: "If",
+    children: "_Equation", "_Expression"
+)
+
+ElseIfExpressionClause <- (ElseIfExpressionClause) => uast(
+    type: "If",
+    children: "_Expression"
+)
+
+ElseIfStatementClause <- (ElseIfStatementClause) => uast(
+    type: "If",
+    children: "_Expression", "_Statement"
+)
+
+ElseStatementClause <- (ElseStatementClause) => uast(
+    type: "Synthetic",
+    children: "_Statement"
+)
+
+ElseWhenEquationClause <- (ElseWhenEquationClause) => uast(
+    type: "Synthetic",
+    children: "_Equation", "_Expression"
+)
+
+ElseWhenStatementClause <- (ElseWhenStatementClause) => uast(
+    type: "Synthetic",
+    children: "_Expression", "_Statement"
+)
+
+EndExpression <- (EndExpression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+EnumerationLiteral <- (EnumerationLiteral) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "AnnotationClause", "DescriptionString", "IDENT"
+)
+
+EquationSection <- (EquationSection) => uast(
+    type: "Synthetic",
+    children: "_Equation", "initial"
+)
+
+ExpressionList <- (ExpressionList) => uast(
+    type: "List",
+    children: "_Expression"
+)
+
+ExtendsClause <- (ExtendsClause) => uast(
+    type: "Synthetic",
+    children: "AnnotationClause", "ClassOrInheritanceModification", "TypeSpecifier"
+)
+
+ExternalFunctionCall <- (ExternalFunctionCall) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "ComponentReference", "ExpressionList", "IDENT"
+)
+
+ExternalFunctionClause <- (ExternalFunctionClause) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "AnnotationClause", "ExternalFunctionCall", "LanguageSpecification"
+)
+
+ForEquation <- (ForEquation) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "AnnotationClause", "DescriptionString", "ForIndex", "_Equation"
+)
+
+ForIndex <- (ForIndex) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "IDENT", "_Expression"
+)
+
+ForStatement <- (ForStatement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "AnnotationClause", "DescriptionString", "ForIndex", "_Statement"
+)
+
+FunctionArgument <- (FunctionArgument) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "FunctionPartialApplication", "_Expression"
+)
+
+FunctionArguments <- (FunctionArguments) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "ComprehensionClause", "FunctionArgument", "NamedArgument"
+)
+
+FunctionCall <- (FunctionCall) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "ComponentReference", "FunctionArguments", "der", "initial", "pure"
+)
+
+FunctionCallStatement <- (FunctionCallStatement) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "AnnotationClause", "ComponentReference", "DescriptionString", "FunctionArguments"
+)
+
+FunctionPartialApplication <- (FunctionPartialApplication) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "NamedArgument", "TypeSpecifier"
+)
+
+IfEquation <- (IfEquation) => uast(
+    type: "If",
+    children: "AnnotationClause", "DescriptionString", "ElseEquationClause", "ElseIfEquationClause", "_Equation", "_Expression"
+)
+
+IfExpression <- (IfExpression) => uast(
+    type: "If",
+    children: "ElseIfExpressionClause", "_Expression"
+)
+
+IfStatement <- (IfStatement) => uast(
+    type: "If",
+    children: "AnnotationClause", "DescriptionString", "ElseIfStatementClause", "ElseStatementClause", "_Expression", "_Statement"
+)
+
+InheritanceModification <- (InheritanceModification) => uast(
+    type: "If",
+    children: "ConnectClause", "IDENT"
+)
+
+InitialElementList <- (InitialElementList) => uast(
+    type: "List",
+    children: "_Element"
+)
+
+LanguageSpecification <- (LanguageSpecification) => uast(
+    type: "If",
+    children: "StringLiteral"
+)
+
+LogicalLiteral <- (LogicalLiteral) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+LongClassSpecifier <- (LongClassSpecifier) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "AlgorithmSection", "AnnotationClause", "ClassModification", "DescriptionString", "ElementList", "EquationSection", "ExternalFunctionClause", "IDENT", "InitialElementList", "extends"
+)
+
+Modification <- (Modification) => uast(
+    type: "If",
+    children: "ClassModification", "ModificationExpression"
+)
+
+ModificationExpression <- (ModificationExpression) => uast(
+    type: "If",
+    children: "_Expression", "break"
+)
+
+Name <- (Name) => uast(
+    type: "Synthetic",
+    children: "IDENT"
+)
+
+NamedArgument <- (NamedArgument) => uast(
+    type: "Synthetic",
+    children: "FunctionArgument", "IDENT"
+)
+
+NamedElementClause <- (NamedElementClause) => uast(
+    type: "Synthetic",
+    children: "AnnotationClause", "ClassDefinition", "ComponentClause", "ConstrainingClause", "DescriptionString", "final", "inner", "outer", "redeclare", "replaceable"
+)
+
+ParenthesizedExpression <- (ParenthesizedExpression) => uast(
+    type: "Synthetic",
+    children: "_Expression"
+)
+
+RangeExpression <- (RangeExpression) => uast(
+    type: "Synthetic",
+    children: "_SimpleExpression"
+)
+
+ReturnStatement <- (ReturnStatement) => uast(
+    type: "Return",
+    roles: "Return"
+    children: "AnnotationClause", "DescriptionString"
+)
+
+ShortClassDefinition <- (ShortClassDefinition) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "ClassPrefixes", "ShortClassSpecifier"
+)
+
+ShortClassSpecifier <- (ShortClassSpecifier) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "AnnotationClause", "ArraySubscripts", "ClassModification", "DescriptionString", "EnumerationLiteral", "IDENT", "TypeSpecifier", "enumeration", "input", "output"
+)
+
+SimpleAssignmentStatement <- (SimpleAssignmentStatement) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "AnnotationClause", "ComponentReference", "DescriptionString", "_Expression"
+)
+
+SimpleEquation <- (SimpleEquation) => uast(
+    type: "Synthetic",
+    children: "AnnotationClause", "DescriptionString", "_Expression", "_SimpleExpression"
+)
+
+SimpleImportClause <- (SimpleImportClause) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "AnnotationClause", "DescriptionString", "IDENT", "Name"
+)
+
+SpecialEquation <- (SpecialEquation) => uast(
+    type: "Synthetic",
+    children: "AnnotationClause", "ComponentReference", "DescriptionString", "FunctionArguments"
+)
+
+StoredDefinition <- (StoredDefinition) => uast(
+    type: "Synthetic",
+    children: "BOM", "ClassDefinitionClause", "WithinClause"
+)
+
+StringLiteral <- (StringLiteral) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+Subscript <- (Subscript) => uast(
+    type: "Synthetic",
+    children: "_Expression"
+)
+
+TypeSpecifier <- (TypeSpecifier) => uast(
+    type: "If",
+    children: "Name"
+)
+
+UnaryExpression <- (UnaryExpression) => uast(
+    type: "Synthetic",
+    children: "_SimpleExpression", "not"
+)
+
+UnqualifiedImportClause <- (UnqualifiedImportClause) => uast(
+    type: "If",
+    children: "AnnotationClause", "DescriptionString", "Name"
+)
+
+UnsignedIntegerLiteral <- (UnsignedIntegerLiteral) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+UnsignedRealLiteral <- (UnsignedRealLiteral) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+WhenEquation <- (WhenEquation) => uast(
+    type: "Synthetic",
+    children: "AnnotationClause", "DescriptionString", "ElseWhenEquationClause", "_Equation", "_Expression"
+)
+
+WhenStatement <- (WhenStatement) => uast(
+    type: "Synthetic",
+    children: "AnnotationClause", "DescriptionString", "ElseWhenStatementClause", "_Expression", "_Statement"
+)
+
+WhileStatement <- (WhileStatement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "AnnotationClause", "DescriptionString", "_Expression", "_Statement"
+)
+
+WithinClause <- (WithinClause) => uast(
+    type: "Synthetic",
+    children: "Name"
+)
+
+BLOCK_COMMENT <- (BLOCK_COMMENT) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+BOM <- (BOM) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+IDENT <- (IDENT) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+LINE_COMMENT <- (LINE_COMMENT) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+STRING <- (STRING) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+UNSIGNED_INTEGER <- (UNSIGNED_INTEGER) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+UNSIGNED_REAL <- (UNSIGNED_REAL) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+algorithm <- (algorithm) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+annotation <- (annotation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+class <- (class) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+connect <- (connect) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+connector <- (connector) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constant <- (constant) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constrainedby <- (constrainedby) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+der <- (der) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+discrete <- (discrete) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+each <- (each) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+elseif <- (elseif) => uast(
+    type: "If",
+    children: []
+)
+
+elsewhen <- (elsewhen) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+encapsulated <- (encapsulated) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+end <- (end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+enumeration <- (enumeration) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+equation <- (equation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expandable <- (expandable) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+extends <- (extends) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+external <- (external) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+final <- (final) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+flow <- (flow) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+impure <- (impure) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+initial <- (initial) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inner <- (inner) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+input <- (input) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+loop <- (loop) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+model <- (model) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+not <- (not) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+operator <- (operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+outer <- (outer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+output <- (output) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+package <- (package) => uast(
+    type: "Package",
+    roles: "Module"
+    children: []
+)
+
+parameter <- (parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+partial <- (partial) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+protected <- (protected) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+public <- (public) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pure <- (pure) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+record <- (record) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+redeclare <- (redeclare) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+replaceable <- (replaceable) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+stream <- (stream) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+then <- (then) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+when <- (when) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+within <- (within) => uast(
+    type: "Synthetic",
+    children: []
+)
+

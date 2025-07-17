@@ -1,0 +1,1261 @@
+access_eval <- (access_eval) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+access_ident <- (access_ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+alias_declaration <- (alias_declaration) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "at_ident", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "type_ident", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+asm_addr <- (asm_addr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+asm_block_stmt <- (asm_block_stmt) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "compound_stmt"
+)
+
+asm_expr <- (asm_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+asm_instr <- (asm_instr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+asm_stmt <- (asm_stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assert_stmt <- (assert_stmt) => uast(
+    type: "Synthetic",
+    children: "compound_stmt"
+)
+
+assignment_expr <- (assignment_expr) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "ct_type_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+attrdef_declaration <- (attrdef_declaration) => uast(
+    type: "Synthetic",
+    children: "at_type_ident"
+)
+
+attribute <- (attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: "at_ident", "path_at_type_ident"
+)
+
+attribute_arg <- (attribute_arg) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: "compound_stmt"
+)
+
+attribute_arg_list <- (attribute_arg_list) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+attribute_list <- (attribute_list) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+attribute_param_list <- (attribute_param_list) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+attributes <- (attributes) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+base_type_name <- (base_type_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+binary_expr <- (binary_expr) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+bitstruct_body <- (bitstruct_body) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+bitstruct_declaration <- (bitstruct_declaration) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "bitstruct_body", "type_ident"
+)
+
+bitstruct_member_declaration <- (bitstruct_member_declaration) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "base_type_name", "compound_stmt", "ct_type_ident", "paren_expr", "path_type_ident"
+)
+
+block_comment <- (block_comment) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+break_stmt <- (break_stmt) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+bytes_expr <- (bytes_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+call_arg <- (call_arg) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "compound_stmt", "ct_ident", "ct_type_ident", "hash_ident", "ident"
+)
+
+call_arg_list <- (call_arg_list) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+call_expr <- (call_expr) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_arg_list", "call_expr", "call_inline_attributes", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+call_inline_attributes <- (call_inline_attributes) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+case_range <- (case_range) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "compound_stmt"
+)
+
+case_stmt <- (case_stmt) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "case_range", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+cast_expr <- (cast_expr) => uast(
+    type: "Cast",
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+catch_unwrap <- (catch_unwrap) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+catch_unwrap_list <- (catch_unwrap_list) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: "compound_stmt"
+)
+
+char_literal <- (char_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+comma_decl_or_expr <- (comma_decl_or_expr) => uast(
+    type: "Synthetic",
+    children: "compound_stmt"
+)
+
+compound_stmt <- (compound_stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+const_declaration <- (const_declaration) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+continue_stmt <- (continue_stmt) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+ct_assert_stmt <- (ct_assert_stmt) => uast(
+    type: "Synthetic",
+    children: "compound_stmt"
+)
+
+ct_case_stmt <- (ct_case_stmt) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "compound_stmt"
+)
+
+ct_echo_stmt <- (ct_echo_stmt) => uast(
+    type: "Synthetic",
+    children: "compound_stmt"
+)
+
+ct_else_stmt <- (ct_else_stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ct_exec_stmt <- (ct_exec_stmt) => uast(
+    type: "Synthetic",
+    children: "compound_stmt"
+)
+
+ct_for_cond <- (ct_for_cond) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "catch_unwrap", "char_literal", "comma_decl_or_expr", "compound_stmt", "const_ident", "declaration", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "try_unwrap", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr", "var_declaration"
+)
+
+ct_for_stmt <- (ct_for_stmt) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+ct_foreach_cond <- (ct_foreach_cond) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "ct_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+ct_foreach_stmt <- (ct_foreach_stmt) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+ct_if_cond <- (ct_if_cond) => uast(
+    type: "If",
+    children: "compound_stmt"
+)
+
+ct_if_stmt <- (ct_if_stmt) => uast(
+    type: "If",
+    children: []
+)
+
+ct_include_stmt <- (ct_include_stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ct_stmt_body <- (ct_stmt_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ct_switch_cond <- (ct_switch_cond) => uast(
+    type: "Switch",
+    children: "compound_stmt"
+)
+
+ct_switch_stmt <- (ct_switch_stmt) => uast(
+    type: "Switch",
+    children: []
+)
+
+declaration <- (declaration) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "ct_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+declaration_stmt <- (declaration_stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+default_stmt <- (default_stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+defer_stmt <- (defer_stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do_stmt <- (do_stmt) => uast(
+    type: "Synthetic",
+    children: "paren_expr"
+)
+
+doc_comment <- (doc_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+doc_comment_contract <- (doc_comment_contract) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: "at_ident", "compound_stmt", "ct_ident", "ct_type_ident", "doc_comment_contract_descriptor", "hash_ident", "ident", "string_expr"
+)
+
+else_part <- (else_part) => uast(
+    type: "Synthetic",
+    children: "compound_stmt"
+)
+
+elvis_orelse_expr <- (elvis_orelse_expr) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+enum_arg <- (enum_arg) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "compound_stmt"
+)
+
+enum_body <- (enum_body) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+enum_constant <- (enum_constant) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "const_ident", "enum_arg"
+)
+
+enum_declaration <- (enum_declaration) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "enum_body", "type_ident"
+)
+
+enum_param <- (enum_param) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "ident", "type"
+)
+
+enum_param_list <- (enum_param_list) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+enum_spec <- (enum_spec) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "type"
+)
+
+expr_stmt <- (expr_stmt) => uast(
+    type: "Synthetic",
+    children: "compound_stmt"
+)
+
+faultdef_declaration <- (faultdef_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+field_expr <- (field_expr) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "access_ident", "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+flat_path <- (flat_path) => uast(
+    type: "Synthetic",
+    children: "compound_stmt"
+)
+
+for_cond <- (for_cond) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "catch_unwrap", "char_literal", "comma_decl_or_expr", "compound_stmt", "const_ident", "declaration", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "try_unwrap", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr", "var_declaration"
+)
+
+for_stmt <- (for_stmt) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "asm_block_stmt", "assert_stmt", "break_stmt", "compound_stmt", "continue_stmt", "ct_assert_stmt", "ct_echo_stmt", "ct_for_stmt", "ct_foreach_stmt", "ct_if_stmt", "ct_switch_stmt", "declaration_stmt", "defer_stmt", "do_stmt", "expr_stmt", "for_stmt", "foreach_stmt", "if_stmt", "nextcase_stmt", "return_stmt", "switch_stmt", "var_stmt", "while_stmt"
+)
+
+foreach_cond <- (foreach_cond) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "foreach_var", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+foreach_stmt <- (foreach_stmt) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "asm_block_stmt", "assert_stmt", "break_stmt", "compound_stmt", "continue_stmt", "ct_assert_stmt", "ct_echo_stmt", "ct_for_stmt", "ct_foreach_stmt", "ct_if_stmt", "ct_switch_stmt", "declaration_stmt", "defer_stmt", "do_stmt", "expr_stmt", "for_stmt", "foreach_stmt", "if_stmt", "nextcase_stmt", "return_stmt", "switch_stmt", "var_stmt", "while_stmt"
+)
+
+foreach_var <- (foreach_var) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+func_declaration <- (func_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+func_definition <- (func_definition) => uast(
+    type: "Synthetic",
+    children: "macro_func_body"
+)
+
+func_header <- (func_header) => uast(
+    type: "Synthetic",
+    children: "ident", "type"
+)
+
+func_param_list <- (func_param_list) => uast(
+    type: "List",
+    children: []
+)
+
+func_signature <- (func_signature) => uast(
+    type: "Synthetic",
+    children: "type"
+)
+
+generic_arg_list <- (generic_arg_list) => uast(
+    type: "List",
+    children: "compound_stmt"
+)
+
+generic_param_list <- (generic_param_list) => uast(
+    type: "List",
+    children: []
+)
+
+generic_type_ident <- (generic_type_ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+global_declaration <- (global_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ident_expr <- (ident_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier_list <- (identifier_list) => uast(
+    type: "If",
+    children: []
+)
+
+if_stmt <- (if_stmt) => uast(
+    type: "If",
+    children: "asm_block_stmt", "assert_stmt", "break_stmt", "compound_stmt", "continue_stmt", "ct_assert_stmt", "ct_echo_stmt", "ct_for_stmt", "ct_foreach_stmt", "ct_if_stmt", "ct_switch_stmt", "declaration_stmt", "defer_stmt", "do_stmt", "expr_stmt", "for_stmt", "foreach_stmt", "if_stmt", "nextcase_stmt", "paren_cond", "return_stmt", "switch_stmt", "var_stmt", "while_stmt"
+)
+
+implies_body <- (implies_body) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+import_declaration <- (import_declaration) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "path_ident"
+)
+
+initializer_element <- (initializer_element) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+initializer_list <- (initializer_list) => uast(
+    type: "List",
+    children: []
+)
+
+interface_body <- (interface_body) => uast(
+    type: "Interface",
+    roles: "Interface", "Declaration"
+    children: []
+)
+
+interface_declaration <- (interface_declaration) => uast(
+    type: "Interface",
+    roles: "Interface", "Declaration"
+    children: "interface_body", "type_ident"
+)
+
+interface_impl_list <- (interface_impl_list) => uast(
+    type: "Interface",
+    roles: "Interface", "Declaration"
+    children: []
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+label_target <- (label_target) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lambda_declaration <- (lambda_declaration) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: "type"
+)
+
+lambda_expr <- (lambda_expr) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: []
+)
+
+line_comment <- (line_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+macro_declaration <- (macro_declaration) => uast(
+    type: "Synthetic",
+    children: "macro_func_body"
+)
+
+macro_func_body <- (macro_func_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+macro_header <- (macro_header) => uast(
+    type: "Synthetic",
+    children: "at_ident", "ident", "type"
+)
+
+macro_param_list <- (macro_param_list) => uast(
+    type: "List",
+    children: []
+)
+
+module_declaration <- (module_declaration) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "path_ident"
+)
+
+module_resolution <- (module_resolution) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+nextcase_stmt <- (nextcase_stmt) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "default", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+optional_expr <- (optional_expr) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+overload_operator <- (overload_operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+param <- (param) => uast(
+    type: "Synthetic",
+    children: "ct_ident", "hash_ident", "ident", "type"
+)
+
+param_default <- (param_default) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+param_path <- (param_path) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+param_path_element <- (param_path_element) => uast(
+    type: "Synthetic",
+    children: "access_ident", "compound_stmt"
+)
+
+paren_cond <- (paren_cond) => uast(
+    type: "Synthetic",
+    children: "compound_stmt"
+)
+
+paren_expr <- (paren_expr) => uast(
+    type: "Synthetic",
+    children: "compound_stmt"
+)
+
+path_at_type_ident <- (path_at_type_ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+path_ident <- (path_ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+path_type_ident <- (path_type_ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+range_expr <- (range_expr) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+raw_string_literal <- (raw_string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+rethrow_expr <- (rethrow_expr) => uast(
+    type: "Throw",
+    roles: "Throw"
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+return_stmt <- (return_stmt) => uast(
+    type: "Return",
+    roles: "Return"
+    children: "compound_stmt"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_expr <- (string_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+struct_body <- (struct_body) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+struct_declaration <- (struct_declaration) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "struct_body", "type_ident"
+)
+
+struct_member_declaration <- (struct_member_declaration) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "bitstruct_body", "struct_body", "type"
+)
+
+subscript_expr <- (subscript_expr) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "range_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+switch_body <- (switch_body) => uast(
+    type: "Switch",
+    children: []
+)
+
+switch_stmt <- (switch_stmt) => uast(
+    type: "Switch",
+    children: "label", "paren_cond", "switch_body"
+)
+
+ternary_expr <- (ternary_expr) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+trailing_block_param <- (trailing_block_param) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+trailing_generic_expr <- (trailing_generic_expr) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "generic_arg_list", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+try_unwrap <- (try_unwrap) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "compound_stmt"
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_access_expr <- (type_access_expr) => uast(
+    type: "Synthetic",
+    children: "access_ident", "paren_expr", "type"
+)
+
+type_suffix <- (type_suffix) => uast(
+    type: "Synthetic",
+    children: "compound_stmt"
+)
+
+typed_initializer_list <- (typed_initializer_list) => uast(
+    type: "List",
+    children: []
+)
+
+typedef_declaration <- (typedef_declaration) => uast(
+    type: "Synthetic",
+    children: "type_ident"
+)
+
+unary_expr <- (unary_expr) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+update_expr <- (update_expr) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+var_declaration <- (var_declaration) => uast(
+    type: "Synthetic",
+    children: "assignment_expr", "binary_expr", "builtin", "builtin_const", "bytes_expr", "call_expr", "cast_expr", "char_literal", "compound_stmt", "const_ident", "ct_ident", "ct_type_ident", "elvis_orelse_expr", "false", "field_expr", "flat_path", "ident", "ident_expr", "initializer_list", "integer_literal", "lambda_declaration", "lambda_expr", "null", "optional_expr", "paren_expr", "raw_string_literal", "real_literal", "rethrow_expr", "string_expr", "string_literal", "subscript_expr", "ternary_expr", "trailing_generic_expr", "true", "type", "type_access_expr", "typed_initializer_list", "unary_expr", "update_expr"
+)
+
+var_stmt <- (var_stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while_stmt <- (while_stmt) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "asm_block_stmt", "assert_stmt", "break_stmt", "compound_stmt", "continue_stmt", "ct_assert_stmt", "ct_echo_stmt", "ct_for_stmt", "ct_foreach_stmt", "ct_if_stmt", "ct_switch_stmt", "declaration_stmt", "defer_stmt", "do_stmt", "expr_stmt", "for_stmt", "foreach_stmt", "if_stmt", "nextcase_stmt", "paren_cond", "return_stmt", "switch_stmt", "var_stmt", "while_stmt"
+)
+
+alias <- (alias) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+any <- (any) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+asm <- (asm) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assert <- (assert) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+at_ident <- (at_ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+at_type_ident <- (at_type_ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attrdef <- (attrdef) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bfloat16 <- (bfloat16) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bitstruct <- (bitstruct) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+block_comment_text <- (block_comment_text) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+bool <- (bool) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+builtin <- (builtin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+builtin_const <- (builtin_const) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bytes_literal <- (bytes_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+catch <- (catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+char <- (char) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+char_content <- (char_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+const <- (const) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+const_ident <- (const_ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+continue <- (continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+ct_const_ident <- (ct_const_ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ct_ident <- (ct_ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ct_type_ident <- (ct_type_ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+default <- (default) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+defer <- (defer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doc_comment_contract_descriptor <- (doc_comment_contract_descriptor) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+doc_comment_text <- (doc_comment_text) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+double <- (double) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+enum <- (enum) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+extern <- (extern) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fault <- (fault) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+faultdef <- (faultdef) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float128 <- (float128) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float16 <- (float16) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fn <- (fn) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+foreach <- (foreach) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+foreach_r <- (foreach_r) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+hash_ident <- (hash_ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ichar <- (ichar) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ident <- (ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+inline <- (inline) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+int <- (int) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+int128 <- (int128) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer_literal <- (integer_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+interface <- (interface) => uast(
+    type: "Interface",
+    roles: "Interface", "Declaration"
+    children: []
+)
+
+iptr <- (iptr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+isz <- (isz) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+len <- (len) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+long <- (long) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+macro <- (macro) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+module <- (module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+nextcase <- (nextcase) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+null <- (null) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+raw_string_content <- (raw_string_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+real_literal <- (real_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+short <- (short) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+static <- (static) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_content <- (string_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+struct <- (struct) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+switch <- (switch) => uast(
+    type: "Switch",
+    children: []
+)
+
+tlocal <- (tlocal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+try <- (try) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+type_ident <- (type_ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+typedef <- (typedef) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+typeid <- (typeid) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+uint <- (uint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+uint128 <- (uint128) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ulong <- (ulong) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+union <- (union) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+uptr <- (uptr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ushort <- (ushort) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+usz <- (usz) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+var <- (var) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+void <- (void) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+

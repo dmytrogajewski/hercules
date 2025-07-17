@@ -1,0 +1,46 @@
+suite: interface
+name: go-interface
+
+parse_cases:
+  - name: interface
+    input: |
+      type Reader interface {
+          Read(p []byte) (n int, err error)
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Interface"
+          roles: ["Interface", "Declaration"]
+          children:
+            - type: "Synthetic"
+              children:
+                - type: "Identifier"
+                  roles: ["Name"]
+                  token: "Read"
+                - type: "Block"
+                  roles: ["Body"]
+                  children:
+                    - type: "Parameter"
+                      roles: ["Parameter", "Declaration"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "p"
+                        - type: "TypeAnnotation"
+                          roles: ["Type"]
+                - type: "Block"
+                  roles: ["Body"]
+                  children:
+                    - type: "Parameter"
+                      roles: ["Parameter", "Declaration"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "n"
+                    - type: "Parameter"
+                      roles: ["Parameter", "Declaration"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "err" 

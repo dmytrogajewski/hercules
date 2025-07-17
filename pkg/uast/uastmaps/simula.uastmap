@@ -1,0 +1,650 @@
+activation_statement <- (activation_statement) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+addition <- (addition) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+and_expression <- (and_expression) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction", "then"
+)
+
+array_declaration <- (array_declaration) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction", "type_expression"
+)
+
+begin <- (begin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "procedure_statement"
+)
+
+boolean_literal <- (boolean_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+class_declaration <- (class_declaration) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "identifier", "specification"
+)
+
+conditional_statement <- (conditional_statement) => uast(
+    type: "Synthetic",
+    children: "activation_statement", "addition", "and_expression", "block", "boolean_literal", "character_literal", "conditional_statement", "connection_statement", "division", "equal", "eqv_expression", "exponentiation", "for_statement", "goto_statement", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "inner", "integer_division", "is_expression", "label_declaration", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "reference_assignment", "remote_identifier", "string_concat", "string_literal", "subtraction", "value_assignment", "while_statement"
+)
+
+connection_statement <- (connection_statement) => uast(
+    type: "Synthetic",
+    children: "activation_statement", "addition", "and_expression", "block", "boolean_literal", "character_literal", "conditional_statement", "connection_statement", "division", "equal", "eqv_expression", "exponentiation", "for_statement", "goto_statement", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "inner", "integer_division", "is_expression", "label_declaration", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "reference_assignment", "remote_identifier", "string_concat", "string_literal", "subtraction", "value_assignment", "while_statement"
+)
+
+division <- (division) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+end <- (end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+equal <- (equal) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+eqv_expression <- (eqv_expression) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+exponentiation <- (exponentiation) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+external_class_declaration <- (external_class_declaration) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+external_item <- (external_item) => uast(
+    type: "Synthetic",
+    children: "identifier", "string_literal"
+)
+
+external_procedure_declaration <- (external_procedure_declaration) => uast(
+    type: "Synthetic",
+    children: "identifier", "type_expression"
+)
+
+for_statement <- (for_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "activation_statement", "addition", "and_expression", "block", "boolean_literal", "character_literal", "conditional_statement", "connection_statement", "division", "equal", "eqv_expression", "exponentiation", "for_statement", "goto_statement", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "inner", "integer_division", "is_expression", "label_declaration", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "reference_assignment", "remote_identifier", "string_concat", "string_literal", "subtraction", "value_assignment", "while_statement"
+)
+
+goto <- (goto) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+goto_statement <- (goto_statement) => uast(
+    type: "Synthetic",
+    children: "procedure_statement"
+)
+
+greater_than <- (greater_than) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+greater_than_or_equal <- (greater_than_or_equal) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+imp_expression <- (imp_expression) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+in_expression <- (in_expression) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+integer_division <- (integer_division) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+is_expression <- (is_expression) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+label_declaration <- (label_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+less_than <- (less_than) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+less_than_or_equal <- (less_than_or_equal) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+local_object <- (local_object) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+multiplication <- (multiplication) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+negative <- (negative) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+not_equal <- (not_equal) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+not_expression <- (not_expression) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+number_literal <- (number_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+object_generator <- (object_generator) => uast(
+    type: "Generator",
+    roles: "Generator"
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+or_expression <- (or_expression) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "else", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+otherwise_clause <- (otherwise_clause) => uast(
+    type: "Synthetic",
+    children: "activation_statement", "block", "conditional_statement", "connection_statement", "for_statement", "goto_statement", "inner", "label_declaration", "object_generator", "procedure_statement", "reference_assignment", "value_assignment", "while_statement"
+)
+
+positive <- (positive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+procedure_declaration <- (procedure_declaration) => uast(
+    type: "Synthetic",
+    children: "identifier", "specification", "type_expression"
+)
+
+procedure_statement <- (procedure_statement) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+protection_specification <- (protection_specification) => uast(
+    type: "If",
+    children: []
+)
+
+qualified_object <- (qualified_object) => uast(
+    type: "If",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+ref_equal <- (ref_equal) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+ref_expression <- (ref_expression) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+ref_not_equal <- (ref_not_equal) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+reference_assignment <- (reference_assignment) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "reference_assignment", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+remote_identifier <- (remote_identifier) => uast(
+    type: "If",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+specification <- (specification) => uast(
+    type: "If",
+    children: []
+)
+
+string_concat <- (string_concat) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+subtraction <- (subtraction) => uast(
+    type: "Synthetic",
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
+)
+
+switch_declaration <- (switch_declaration) => uast(
+    type: "Switch",
+    children: "identifier"
+)
+
+type_expression <- (type_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value_assignment <- (value_assignment) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction", "value_assignment"
+)
+
+variable_declaration <- (variable_declaration) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction", "type_expression"
+)
+
+virtual_spec <- (virtual_spec) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+when_clause <- (when_clause) => uast(
+    type: "Synthetic",
+    children: "activation_statement", "block", "conditional_statement", "connection_statement", "for_statement", "goto_statement", "identifier", "inner", "label_declaration", "object_generator", "procedure_statement", "reference_assignment", "value_assignment", "while_statement"
+)
+
+while_statement <- (while_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "activation_statement", "addition", "and_expression", "block", "boolean_literal", "character_literal", "conditional_statement", "connection_statement", "division", "equal", "eqv_expression", "exponentiation", "for_statement", "goto_statement", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "inner", "integer_division", "is_expression", "label_declaration", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "reference_assignment", "remote_identifier", "string_concat", "string_literal", "subtraction", "value_assignment", "while_statement"
+)
+
+activate <- (activate) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+after <- (after) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+array <- (array) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+at <- (at) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+before <- (before) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+begin <- (begin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+boolean <- (boolean) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+character <- (character) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+character_literal <- (character_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+class <- (class) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+delay <- (delay) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+directive <- (directive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+end <- (end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+end_comment <- (end_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+eq <- (eq) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eqv <- (eqv) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+external <- (external) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+first_directive <- (first_directive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+ge <- (ge) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+gt <- (gt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hidden <- (hidden) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+imp <- (imp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inner <- (inner) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inspect <- (inspect) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+is <- (is) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+le <- (le) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+line_comment <- (line_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+long <- (long) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lt <- (lt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+name <- (name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ne <- (ne) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+new <- (new) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+none <- (none) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+not <- (not) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+notext <- (notext) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+otherwise <- (otherwise) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+prior <- (prior) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+procedure <- (procedure) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+protected <- (protected) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+qua <- (qua) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+reactivate <- (reactivate) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+real <- (real) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ref <- (ref) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+short <- (short) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+step <- (step) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+switch <- (switch) => uast(
+    type: "Switch",
+    children: []
+)
+
+text <- (text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+then <- (then) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+this <- (this) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+until <- (until) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value <- (value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+virtual <- (virtual) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+when <- (when) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+

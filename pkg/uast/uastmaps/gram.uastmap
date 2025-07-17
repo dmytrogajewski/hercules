@@ -1,0 +1,198 @@
+annotation <- (annotation) => uast(
+    type: "Synthetic",
+    children: "backticked_string", "decimal", "double_quoted_string", "fenced_string", "greek", "hexadecimal", "integer", "math_symbol", "measurement", "octal", "pictograph", "range", "single_quoted_string", "symbol", "tagged_string"
+)
+
+binder <- (binder) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+double_bidirectional <- (double_bidirectional) => uast(
+    type: "Synthetic",
+    children: "backticked_string", "decimal", "double_quoted_string", "fenced_string", "greek", "hexadecimal", "integer", "labels", "math_symbol", "measurement", "octal", "pictograph", "range", "record", "single_quoted_string", "symbol", "tagged_string"
+)
+
+double_left <- (double_left) => uast(
+    type: "Synthetic",
+    children: "backticked_string", "decimal", "double_quoted_string", "fenced_string", "greek", "hexadecimal", "integer", "labels", "math_symbol", "measurement", "octal", "pictograph", "range", "record", "single_quoted_string", "symbol", "tagged_string"
+)
+
+double_right <- (double_right) => uast(
+    type: "Synthetic",
+    children: "backticked_string", "decimal", "double_quoted_string", "fenced_string", "greek", "hexadecimal", "integer", "labels", "math_symbol", "measurement", "octal", "pictograph", "range", "record", "single_quoted_string", "symbol", "tagged_string"
+)
+
+double_undirected <- (double_undirected) => uast(
+    type: "Synthetic",
+    children: "backticked_string", "decimal", "double_quoted_string", "fenced_string", "greek", "hexadecimal", "integer", "labels", "math_symbol", "measurement", "octal", "pictograph", "range", "record", "single_quoted_string", "symbol", "tagged_string"
+)
+
+gram <- (gram) => uast(
+    type: "Synthetic",
+    children: "record"
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: "binder"
+)
+
+labels <- (labels) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+node <- (node) => uast(
+    type: "Synthetic",
+    children: "backticked_string", "decimal", "double_quoted_string", "fenced_string", "greek", "hexadecimal", "integer", "labels", "math_symbol", "measurement", "octal", "pictograph", "range", "record", "single_quoted_string", "symbol", "tagged_string"
+)
+
+pattern <- (pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+pattern_element <- (pattern_element) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+property <- (property) => uast(
+    type: "Property",
+    roles: "Member"
+    children: "backticked_string", "binder", "decimal", "double_quoted_string", "fenced_string", "greek", "hexadecimal", "integer", "math_symbol", "measurement", "octal", "pictograph", "range", "single_quoted_string", "symbol", "tagged_string"
+)
+
+range <- (range) => uast(
+    type: "Synthetic",
+    children: "decimal", "hexadecimal", "integer", "measurement", "octal"
+)
+
+record <- (record) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+relationship <- (relationship) => uast(
+    type: "Synthetic",
+    children: "double_bidirectional", "double_left", "double_right", "double_undirected", "node", "relationship", "single_bidirectional", "single_left", "single_right", "single_undirected", "squiggle_bidirectional", "squiggle_left", "squiggle_right", "squiggle_undirected"
+)
+
+single_bidirectional <- (single_bidirectional) => uast(
+    type: "Synthetic",
+    children: "backticked_string", "decimal", "double_quoted_string", "fenced_string", "greek", "hexadecimal", "integer", "labels", "math_symbol", "measurement", "octal", "pictograph", "range", "record", "single_quoted_string", "symbol", "tagged_string"
+)
+
+single_left <- (single_left) => uast(
+    type: "Synthetic",
+    children: "backticked_string", "decimal", "double_quoted_string", "fenced_string", "greek", "hexadecimal", "integer", "labels", "math_symbol", "measurement", "octal", "pictograph", "range", "record", "single_quoted_string", "symbol", "tagged_string"
+)
+
+single_right <- (single_right) => uast(
+    type: "Synthetic",
+    children: "backticked_string", "decimal", "double_quoted_string", "fenced_string", "greek", "hexadecimal", "integer", "labels", "math_symbol", "measurement", "octal", "pictograph", "range", "record", "single_quoted_string", "symbol", "tagged_string"
+)
+
+single_undirected <- (single_undirected) => uast(
+    type: "Synthetic",
+    children: "backticked_string", "decimal", "double_quoted_string", "fenced_string", "greek", "hexadecimal", "integer", "labels", "math_symbol", "measurement", "octal", "pictograph", "range", "record", "single_quoted_string", "symbol", "tagged_string"
+)
+
+squiggle_bidirectional <- (squiggle_bidirectional) => uast(
+    type: "Synthetic",
+    children: "backticked_string", "decimal", "double_quoted_string", "fenced_string", "greek", "hexadecimal", "integer", "labels", "math_symbol", "measurement", "octal", "pictograph", "range", "record", "single_quoted_string", "symbol", "tagged_string"
+)
+
+squiggle_left <- (squiggle_left) => uast(
+    type: "Synthetic",
+    children: "backticked_string", "decimal", "double_quoted_string", "fenced_string", "greek", "hexadecimal", "integer", "labels", "math_symbol", "measurement", "octal", "pictograph", "range", "record", "single_quoted_string", "symbol", "tagged_string"
+)
+
+squiggle_right <- (squiggle_right) => uast(
+    type: "Synthetic",
+    children: "backticked_string", "decimal", "double_quoted_string", "fenced_string", "greek", "hexadecimal", "integer", "labels", "math_symbol", "measurement", "octal", "pictograph", "range", "record", "single_quoted_string", "symbol", "tagged_string"
+)
+
+squiggle_undirected <- (squiggle_undirected) => uast(
+    type: "Synthetic",
+    children: "backticked_string", "decimal", "double_quoted_string", "fenced_string", "greek", "hexadecimal", "integer", "labels", "math_symbol", "measurement", "octal", "pictograph", "range", "record", "single_quoted_string", "symbol", "tagged_string"
+)
+
+subject <- (subject) => uast(
+    type: "Synthetic",
+    children: "backticked_string", "decimal", "double_quoted_string", "fenced_string", "greek", "hexadecimal", "integer", "labels", "math_symbol", "measurement", "octal", "pattern", "pictograph", "range", "record", "single_quoted_string", "symbol", "tagged_string"
+)
+
+backticked_string <- (backticked_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+decimal <- (decimal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+double_quoted_string <- (double_quoted_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fenced_string <- (fenced_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+greek <- (greek) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hexadecimal <- (hexadecimal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+math_symbol <- (math_symbol) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+measurement <- (measurement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+octal <- (octal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pictograph <- (pictograph) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+single_quoted_string <- (single_quoted_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+symbol <- (symbol) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tagged_string <- (tagged_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+

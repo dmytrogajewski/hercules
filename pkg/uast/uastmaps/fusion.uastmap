@@ -1,0 +1,394 @@
+eel_expression <- (eel_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eel_primary_expression <- (eel_primary_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+statement <- (statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+afx_attribute <- (afx_attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: "afx_meta_property_identifier", "afx_property_identifier", "afx_property_path", "afx_spread", "eel_expression", "string"
+)
+
+afx_closing_element <- (afx_closing_element) => uast(
+    type: "Synthetic",
+    children: "afx_identifier"
+)
+
+afx_element <- (afx_element) => uast(
+    type: "Synthetic",
+    children: "afx_closing_element", "afx_opening_element"
+)
+
+afx_element_self_closing <- (afx_element_self_closing) => uast(
+    type: "Synthetic",
+    children: "afx_attribute", "afx_identifier", "afx_spread", "eel_expression"
+)
+
+afx_identifier <- (afx_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+afx_meta_property_identifier <- (afx_meta_property_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+afx_opening_element <- (afx_opening_element) => uast(
+    type: "Synthetic",
+    children: "afx_attribute", "afx_identifier", "afx_spread", "eel_expression"
+)
+
+afx_package_name <- (afx_package_name) => uast(
+    type: "Package",
+    roles: "Module"
+    children: []
+)
+
+afx_property_path <- (afx_property_path) => uast(
+    type: "Property",
+    roles: "Member"
+    children: []
+)
+
+afx_spread <- (afx_spread) => uast(
+    type: "Spread",
+    roles: "Spread"
+    children: []
+)
+
+afx_type <- (afx_type) => uast(
+    type: "Synthetic",
+    children: "afx_package_name", "afx_type_name"
+)
+
+afx_type_name <- (afx_type_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assignment <- (assignment) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "boolean", "null", "number", "prototype_instance", "string", "value_dsl", "value_expression"
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "comment", "property"
+)
+
+boolean <- (boolean) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+copy <- (copy) => uast(
+    type: "Synthetic",
+    children: "block", "boolean", "null", "number", "prototype_instance", "prototype_signature", "string"
+)
+
+deletion <- (deletion) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eel_array <- (eel_array) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eel_arrow_function <- (eel_arrow_function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "eel_expression", "eel_parameter"
+)
+
+eel_binary_expression <- (eel_binary_expression) => uast(
+    type: "Synthetic",
+    children: "and", "eel_expression", "or"
+)
+
+eel_method_call <- (eel_method_call) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "eel_expression"
+)
+
+eel_not_expression <- (eel_not_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eel_object <- (eel_object) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eel_object_pair <- (eel_object_pair) => uast(
+    type: "Synthetic",
+    children: "eel_expression", "eel_property_name"
+)
+
+eel_object_path <- (eel_object_path) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eel_offset_access <- (eel_offset_access) => uast(
+    type: "Set",
+    children: "eel_expression"
+)
+
+eel_parenthesized_expression <- (eel_parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eel_ternary_expression <- (eel_ternary_expression) => uast(
+    type: "Synthetic",
+    children: "eel_expression"
+)
+
+fileglobbing <- (fileglobbing) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+filepath <- (filepath) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+include_statement <- (include_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+meta_property <- (meta_property) => uast(
+    type: "Property",
+    roles: "Member"
+    children: []
+)
+
+namespace_declaration <- (namespace_declaration) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+null <- (null) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+package_name <- (package_name) => uast(
+    type: "Package",
+    roles: "Module"
+    children: []
+)
+
+path <- (path) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+path_part <- (path_part) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+program <- (program) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+property <- (property) => uast(
+    type: "Property",
+    roles: "Member"
+    children: []
+)
+
+prototype_instance <- (prototype_instance) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+prototype_signature <- (prototype_signature) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+resource <- (resource) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: "package_name", "type_name"
+)
+
+type_name <- (type_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value_dsl <- (value_dsl) => uast(
+    type: "Synthetic",
+    children: "afx_comment", "afx_element", "afx_element_self_closing", "afx_spread", "afx_text", "dsl_content", "dsl_start", "eel_expression"
+)
+
+value_expression <- (value_expression) => uast(
+    type: "Synthetic",
+    children: "eel_expression"
+)
+
+FALSE <- (FALSE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+NULL <- (NULL) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+TRUE <- (TRUE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+afx_comment <- (afx_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+afx_property_identifier <- (afx_property_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+afx_text <- (afx_text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+alias_namespace <- (alias_namespace) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+dsl_content <- (dsl_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dsl_start <- (dsl_start) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eel_method_name <- (eel_method_name) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+eel_parameter <- (eel_parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+eel_path_identifier <- (eel_path_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+eel_property_name <- (eel_property_name) => uast(
+    type: "Property",
+    roles: "Member"
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+include <- (include) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+namespace <- (namespace) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+not <- (not) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+null <- (null) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+prototype <- (prototype) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+

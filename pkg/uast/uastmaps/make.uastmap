@@ -1,0 +1,501 @@
+RECIPEPREFIX_assignment <- (RECIPEPREFIX_assignment) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "text"
+)
+
+VPATH_assignment <- (VPATH_assignment) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "VPATH", "paths"
+)
+
+archive <- (archive) => uast(
+    type: "Synthetic",
+    children: "list", "word"
+)
+
+arguments <- (arguments) => uast(
+    type: "Synthetic",
+    children: "text"
+)
+
+automatic_variable <- (automatic_variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+concatenation <- (concatenation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+conditional <- (conditional) => uast(
+    type: "Synthetic",
+    children: "RECIPEPREFIX_assignment", "VPATH_assignment", "conditional", "define_directive", "export_directive", "function_call", "ifdef_directive", "ifeq_directive", "ifndef_directive", "ifneq_directive", "include_directive", "override_directive", "private_directive", "recipe_line", "rule", "shell_assignment", "shell_function", "undefine_directive", "unexport_directive", "variable_assignment", "vpath_directive"
+)
+
+define_directive <- (define_directive) => uast(
+    type: "Synthetic",
+    children: "raw_text", "word"
+)
+
+else_directive <- (else_directive) => uast(
+    type: "Synthetic",
+    children: "RECIPEPREFIX_assignment", "VPATH_assignment", "conditional", "define_directive", "export_directive", "function_call", "include_directive", "override_directive", "private_directive", "recipe_line", "rule", "shell_assignment", "shell_function", "undefine_directive", "unexport_directive", "variable_assignment", "vpath_directive"
+)
+
+elsif_directive <- (elsif_directive) => uast(
+    type: "If",
+    children: "RECIPEPREFIX_assignment", "VPATH_assignment", "conditional", "define_directive", "export_directive", "function_call", "ifdef_directive", "ifeq_directive", "ifndef_directive", "ifneq_directive", "include_directive", "override_directive", "private_directive", "recipe_line", "rule", "shell_assignment", "shell_function", "undefine_directive", "unexport_directive", "variable_assignment", "vpath_directive"
+)
+
+export_directive <- (export_directive) => uast(
+    type: "Synthetic",
+    children: "list"
+)
+
+function_call <- (function_call) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "abspath", "addprefix", "addsuffix", "and", "basename", "call", "dir", "error", "eval", "file", "filter", "findstring", "firstword", "flavor", "foreach", "if", "info", "join", "lastword", "notdir", "or", "origin", "patsubst", "realpath", "sort", "strip", "subst", "suffix", "value", "warning", "wildcard", "word", "wordlist", "words"
+)
+
+ifdef_directive <- (ifdef_directive) => uast(
+    type: "If",
+    children: "archive", "automatic_variable", "concatenation", "function_call", "shell_function", "string", "substitution_reference", "variable_reference", "word"
+)
+
+ifeq_directive <- (ifeq_directive) => uast(
+    type: "If",
+    children: "archive", "automatic_variable", "concatenation", "function_call", "shell_function", "string", "substitution_reference", "variable_reference", "word"
+)
+
+ifndef_directive <- (ifndef_directive) => uast(
+    type: "If",
+    children: "archive", "automatic_variable", "concatenation", "function_call", "shell_function", "string", "substitution_reference", "variable_reference", "word"
+)
+
+ifneq_directive <- (ifneq_directive) => uast(
+    type: "If",
+    children: "archive", "automatic_variable", "concatenation", "function_call", "shell_function", "string", "substitution_reference", "variable_reference", "word"
+)
+
+include_directive <- (include_directive) => uast(
+    type: "Synthetic",
+    children: "list"
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: []
+)
+
+makefile <- (makefile) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+override_directive <- (override_directive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+paths <- (paths) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pattern_list <- (pattern_list) => uast(
+    type: "List",
+    children: []
+)
+
+prerequisites <- (prerequisites) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+private_directive <- (private_directive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+raw_text <- (raw_text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+recipe <- (recipe) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+recipe_line <- (recipe_line) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rule <- (rule) => uast(
+    type: "Synthetic",
+    children: "pattern_list", "prerequisites"
+)
+
+shell_assignment <- (shell_assignment) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "shell_command", "word"
+)
+
+shell_command <- (shell_command) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+shell_function <- (shell_function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "shell"
+)
+
+shell_text <- (shell_text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: "automatic_variable", "function_call", "shell_function", "substitution_reference", "variable_reference"
+)
+
+substitution_reference <- (substitution_reference) => uast(
+    type: "Synthetic",
+    children: "archive", "automatic_variable", "concatenation", "function_call", "shell_function", "string", "substitution_reference", "variable_reference", "word"
+)
+
+targets <- (targets) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+text <- (text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+undefine_directive <- (undefine_directive) => uast(
+    type: "Synthetic",
+    children: "word"
+)
+
+unexport_directive <- (unexport_directive) => uast(
+    type: "Synthetic",
+    children: "list"
+)
+
+variable_assignment <- (variable_assignment) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "list", "text", "word"
+)
+
+variable_reference <- (variable_reference) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+vpath_directive <- (vpath_directive) => uast(
+    type: "Synthetic",
+    children: "paths", "word"
+)
+
+D <- (D) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+F <- (F) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+VPATH <- (VPATH) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+abspath <- (abspath) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+addprefix <- (addprefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+addsuffix <- (addsuffix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+basename <- (basename) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+call <- (call) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+define <- (define) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dir <- (dir) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+endef <- (endef) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+endif <- (endif) => uast(
+    type: "If",
+    children: []
+)
+
+error <- (error) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escape <- (escape) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eval <- (eval) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+export <- (export) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+file <- (file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+filter <- (filter) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+findstring <- (findstring) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+firstword <- (firstword) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+flavor <- (flavor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+foreach <- (foreach) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+ifdef <- (ifdef) => uast(
+    type: "If",
+    children: []
+)
+
+ifeq <- (ifeq) => uast(
+    type: "If",
+    children: []
+)
+
+ifndef <- (ifndef) => uast(
+    type: "If",
+    children: []
+)
+
+ifneq <- (ifneq) => uast(
+    type: "If",
+    children: []
+)
+
+include <- (include) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+info <- (info) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+join <- (join) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lastword <- (lastword) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+notdir <- (notdir) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+origin <- (origin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+override <- (override) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+patsubst <- (patsubst) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+private <- (private) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+realpath <- (realpath) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+shell <- (shell) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sinclude <- (sinclude) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sort <- (sort) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strip <- (strip) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+subst <- (subst) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+suffix <- (suffix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+undefine <- (undefine) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unexport <- (unexport) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value <- (value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vpath <- (vpath) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+warning <- (warning) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+wildcard <- (wildcard) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+word <- (word) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+word <- (word) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+wordlist <- (wordlist) => uast(
+    type: "List",
+    children: []
+)
+
+words <- (words) => uast(
+    type: "Synthetic",
+    children: []
+)
+

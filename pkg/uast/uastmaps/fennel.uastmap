@@ -1,0 +1,402 @@
+accumulate_form <- (accumulate_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "iter_body", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+accumulator_pair <- (accumulator_pair) => uast(
+    type: "Synthetic",
+    children: "accumulate_form", "boolean", "boolean_binding", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "list_binding", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "nil_binding", "number", "number_binding", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "sequence_binding", "set_form", "string", "string_binding", "symbol", "symbol_binding", "symbol_option", "table", "table_binding", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+binding_pair <- (binding_pair) => uast(
+    type: "Synthetic",
+    children: "accumulate_form", "boolean", "boolean_binding", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "list_binding", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "nil_binding", "number", "number_binding", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "sequence_binding", "set_form", "string", "string_binding", "symbol", "symbol_binding", "symbol_option", "table", "table_binding", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+boolean <- (boolean) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+boolean_binding <- (boolean_binding) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+case_catch <- (case_catch) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "symbol"
+)
+
+case_form <- (case_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+case_guard <- (case_guard) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "accumulate_form", "boolean", "boolean_binding", "case_form", "case_guard_or_special", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "list_binding", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "nil_binding", "number", "number_binding", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "sequence_binding", "set_form", "string", "string_binding", "symbol", "symbol_binding", "symbol_option", "table", "table_binding", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+case_guard_or_special <- (case_guard_or_special) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "boolean_binding", "list_binding", "nil_binding", "number_binding", "sequence_binding", "string_binding", "symbol", "symbol_binding", "table_binding"
+)
+
+case_pair <- (case_pair) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "accumulate_form", "boolean", "boolean_binding", "case_form", "case_guard", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "list_binding", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "nil_binding", "number", "number_binding", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "sequence_binding", "set_form", "string", "string_binding", "symbol", "symbol_binding", "symbol_option", "table", "table_binding", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+case_try_form <- (case_try_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_catch", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+collect_form <- (collect_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "iter_body", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: "comment_body"
+)
+
+docstring <- (docstring) => uast(
+    type: "DocString",
+    roles: "Doc"
+    children: "string_content"
+)
+
+each_form <- (each_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "iter_body", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+faccumulate_form <- (faccumulate_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "for_iter_body", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+fcollect_form <- (fcollect_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "for_iter_body", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+fn_form <- (fn_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "docstring", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "sequence_arguments", "set_form", "string", "symbol", "symbol_option", "table", "table_metadata", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+for_form <- (for_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "for_iter_body", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+for_iter_body <- (for_iter_body) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "iter_option", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_binding", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+global_form <- (global_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "symbol"
+)
+
+hashfn_form <- (hashfn_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+hashfn_reader_macro <- (hashfn_reader_macro) => uast(
+    type: "Synthetic",
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+icollect_form <- (icollect_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "iter_body", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+if_form <- (if_form) => uast(
+    type: "If",
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+if_pair <- (if_pair) => uast(
+    type: "If",
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+import_macros_form <- (import_macros_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "boolean_binding", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "list_binding", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "nil_binding", "number", "number_binding", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "sequence_binding", "set_form", "string", "string_binding", "symbol", "symbol_binding", "symbol_option", "table", "table_binding", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+iter_body <- (iter_body) => uast(
+    type: "Synthetic",
+    children: "accumulate_form", "boolean", "boolean_binding", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "iter_option", "lambda_form", "let_form", "list", "list_binding", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "nil_binding", "number", "number_binding", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "sequence_binding", "set_form", "string", "string_binding", "symbol", "symbol_binding", "symbol_option", "table", "table_binding", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+iter_option <- (iter_option) => uast(
+    type: "Synthetic",
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+lambda_form <- (lambda_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "docstring", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "sequence_arguments", "set_form", "string", "symbol", "symbol_option", "table", "table_metadata", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+let_form <- (let_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "let_vars", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+let_vars <- (let_vars) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+list_binding <- (list_binding) => uast(
+    type: "List",
+    children: "boolean_binding", "list_binding", "nil_binding", "number_binding", "sequence_binding", "string_binding", "symbol_binding", "table_binding"
+)
+
+local_form <- (local_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "symbol"
+)
+
+macro_form <- (macro_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "docstring", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "sequence_arguments", "set_form", "string", "symbol", "symbol_option", "table", "table_metadata", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+match_form <- (match_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+match_try_form <- (match_try_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_catch", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+multi_symbol <- (multi_symbol) => uast(
+    type: "Synthetic",
+    children: "symbol_fragment"
+)
+
+multi_symbol_method <- (multi_symbol_method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "multi_symbol", "symbol_fragment"
+)
+
+program <- (program) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quasi_quote_reader_macro <- (quasi_quote_reader_macro) => uast(
+    type: "Synthetic",
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+quote_form <- (quote_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+quote_reader_macro <- (quote_reader_macro) => uast(
+    type: "Synthetic",
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+rest_binding <- (rest_binding) => uast(
+    type: "Synthetic",
+    children: "boolean_binding", "list_binding", "nil_binding", "number_binding", "sequence_binding", "string_binding", "symbol_binding", "symbol_option", "table_binding"
+)
+
+sequence <- (sequence) => uast(
+    type: "Synthetic",
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+sequence_arguments <- (sequence_arguments) => uast(
+    type: "Synthetic",
+    children: "boolean_binding", "list_binding", "nil_binding", "number_binding", "rest_binding", "sequence_binding", "string_binding", "symbol_binding", "table_binding"
+)
+
+sequence_binding <- (sequence_binding) => uast(
+    type: "Synthetic",
+    children: "boolean_binding", "list_binding", "nil_binding", "number_binding", "rest_binding", "sequence_binding", "string_binding", "symbol_binding", "table_binding"
+)
+
+set_form <- (set_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "symbol"
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: "string_content"
+)
+
+string_binding <- (string_binding) => uast(
+    type: "Synthetic",
+    children: "string_content"
+)
+
+string_content <- (string_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+table <- (table) => uast(
+    type: "Synthetic",
+    children: "table_pair"
+)
+
+table_binding <- (table_binding) => uast(
+    type: "Synthetic",
+    children: "table_binding_pair"
+)
+
+table_binding_pair <- (table_binding_pair) => uast(
+    type: "Synthetic",
+    children: "boolean_binding", "list_binding", "nil_binding", "number_binding", "sequence_binding", "string_binding", "symbol_binding", "symbol_option", "table_binding"
+)
+
+table_metadata <- (table_metadata) => uast(
+    type: "Synthetic",
+    children: "table_metadata_pair"
+)
+
+table_metadata_pair <- (table_metadata_pair) => uast(
+    type: "Synthetic",
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "docstring", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "sequence_arguments", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+table_pair <- (table_pair) => uast(
+    type: "Synthetic",
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+unquote_form <- (unquote_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+unquote_reader_macro <- (unquote_reader_macro) => uast(
+    type: "Synthetic",
+    children: "accumulate_form", "boolean", "case_form", "case_try_form", "collect_form", "each_form", "faccumulate_form", "fcollect_form", "fn_form", "for_form", "global_form", "hashfn_form", "hashfn_reader_macro", "icollect_form", "if_form", "import_macros_form", "lambda_form", "let_form", "list", "local_form", "macro_form", "match_form", "match_try_form", "multi_symbol", "multi_symbol_method", "nil", "number", "quasi_quote_reader_macro", "quote_form", "quote_reader_macro", "sequence", "set_form", "string", "symbol", "symbol_option", "table", "unquote_form", "unquote_reader_macro", "var_form"
+)
+
+var_form <- (var_form) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "symbol"
+)
+
+comment_body <- (comment_body) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nil <- (nil) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nil_binding <- (nil_binding) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number_binding <- (number_binding) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+shebang <- (shebang) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+symbol <- (symbol) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+symbol_binding <- (symbol_binding) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+symbol_fragment <- (symbol_fragment) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+symbol_option <- (symbol_option) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+

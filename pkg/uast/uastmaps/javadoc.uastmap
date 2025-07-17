@@ -1,0 +1,372 @@
+block_tag <- (block_tag) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+inline_tag <- (inline_tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attribute <- (attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: "attribute_value", "identifier"
+)
+
+attribute_value <- (attribute_value) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+attributes <- (attributes) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+author_tag <- (author_tag) => uast(
+    type: "Synthetic",
+    children: "description", "tag_name"
+)
+
+code_tag <- (code_tag) => uast(
+    type: "Synthetic",
+    children: "code", "tag_name"
+)
+
+custom_inline_tag <- (custom_inline_tag) => uast(
+    type: "Synthetic",
+    children: "description", "tag_name"
+)
+
+custom_tag <- (custom_tag) => uast(
+    type: "Synthetic",
+    children: "description", "tag_name"
+)
+
+deprecated_tag <- (deprecated_tag) => uast(
+    type: "Synthetic",
+    children: "description", "tag_name"
+)
+
+description <- (description) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doc_root_tag <- (doc_root_tag) => uast(
+    type: "Synthetic",
+    children: "tag_name"
+)
+
+document <- (document) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+floating_point_type <- (floating_point_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hidden_tag <- (hidden_tag) => uast(
+    type: "Synthetic",
+    children: "tag_name"
+)
+
+index_tag <- (index_tag) => uast(
+    type: "Index",
+    roles: "Index"
+    children: "description", "indexword", "string_literal", "tag_name"
+)
+
+inherit_doc_tag <- (inherit_doc_tag) => uast(
+    type: "Synthetic",
+    children: "tag_name", "type"
+)
+
+integral_type <- (integral_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_tag <- (link_tag) => uast(
+    type: "Synthetic",
+    children: "description", "reference", "tag_name"
+)
+
+literal_format_string <- (literal_format_string) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+literal_tag <- (literal_tag) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: "literal", "tag_name"
+)
+
+markdown_description <- (markdown_description) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+member <- (member) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+method <- (method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+module <- (module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+param_tag <- (param_tag) => uast(
+    type: "Synthetic",
+    children: "description", "identifier", "tag_name", "type_parameter"
+)
+
+parameter <- (parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "identifier"
+)
+
+parameter_type <- (parameter_type) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+parameters <- (parameters) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+provides_tag <- (provides_tag) => uast(
+    type: "Synthetic",
+    children: "description", "tag_name", "type"
+)
+
+reference <- (reference) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return_tag <- (return_tag) => uast(
+    type: "Return",
+    roles: "Return"
+    children: "description", "tag_name"
+)
+
+see_tag <- (see_tag) => uast(
+    type: "Synthetic",
+    children: "description", "reference", "string_literal", "tag_name", "url_title"
+)
+
+serial_data_tag <- (serial_data_tag) => uast(
+    type: "Synthetic",
+    children: "description", "tag_name"
+)
+
+serial_field_tag <- (serial_field_tag) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "description", "identifier", "tag_name", "type"
+)
+
+serial_tag <- (serial_tag) => uast(
+    type: "Synthetic",
+    children: "description", "exclude", "include", "tag_name"
+)
+
+since_tag <- (since_tag) => uast(
+    type: "Synthetic",
+    children: "description", "tag_name"
+)
+
+snippet_tag <- (snippet_tag) => uast(
+    type: "Synthetic",
+    children: "attributes", "description", "tag_name"
+)
+
+spec_tag <- (spec_tag) => uast(
+    type: "Synthetic",
+    children: "description", "tag_name", "url"
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+summary_tag <- (summary_tag) => uast(
+    type: "Synthetic",
+    children: "description", "tag_name"
+)
+
+system_property <- (system_property) => uast(
+    type: "Property",
+    roles: "Member"
+    children: []
+)
+
+system_property_tag <- (system_property_tag) => uast(
+    type: "Property",
+    roles: "Member"
+    children: "system_property", "tag_name"
+)
+
+throws_tag <- (throws_tag) => uast(
+    type: "Throw",
+    roles: "Throw"
+    children: "description", "tag_name", "type"
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_parameter <- (type_parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+url_title <- (url_title) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+uses_tag <- (uses_tag) => uast(
+    type: "Synthetic",
+    children: "description", "tag_name", "type"
+)
+
+value_tag <- (value_tag) => uast(
+    type: "Synthetic",
+    children: "bare_format_string", "literal_format_string", "reference", "tag_name"
+)
+
+version_tag <- (version_tag) => uast(
+    type: "Synthetic",
+    children: "description", "tag_name"
+)
+
+bare_format_string <- (bare_format_string) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+boolean_type <- (boolean_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+byte <- (byte) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+char <- (char) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+code <- (code) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+double <- (double) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+exclude <- (exclude) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fragment <- (fragment) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+include <- (include) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+indexword <- (indexword) => uast(
+    type: "Index",
+    roles: "Index"
+    children: []
+)
+
+int <- (int) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+literal <- (literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+long <- (long) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quoted_value <- (quoted_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+short <- (short) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tag_name <- (tag_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unsigned_integer <- (unsigned_integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+url <- (url) => uast(
+    type: "Synthetic",
+    children: []
+)
+

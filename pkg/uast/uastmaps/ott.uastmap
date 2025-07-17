@@ -1,0 +1,201 @@
+comprehension_bound <- (comprehension_bound) => uast(
+    type: "Comprehension",
+    children: []
+)
+
+dash_line <- (dash_line) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+defn <- (defn) => uast(
+    type: "Synthetic",
+    children: "comprehension_bound", "defn_name", "defn_rule", "dots", "homomorphism", "namespace_prefix", "string"
+)
+
+defn_name <- (defn_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+defn_rule <- (defn_rule) => uast(
+    type: "Synthetic",
+    children: "rule_line", "rule_separator"
+)
+
+defnclass <- (defnclass) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "defn", "defnclass_name", "homomorphism", "namespace_prefix"
+)
+
+defnclass_name <- (defnclass_name) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+dots <- (dots) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+embed <- (embed) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+grammar_rule <- (grammar_rule) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hom_body <- (hom_body) => uast(
+    type: "Synthetic",
+    children: "hom_inner_block", "hom_string"
+)
+
+hom_inner_block <- (hom_inner_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+homomorphism <- (homomorphism) => uast(
+    type: "Synthetic",
+    children: "hom_body", "hom_name"
+)
+
+metavardefn <- (metavardefn) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+namespace_prefix <- (namespace_prefix) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+production <- (production) => uast(
+    type: "Synthetic",
+    children: "comprehension_bound", "dots", "homomorphism", "production_mod", "production_name", "string"
+)
+
+production_mod <- (production_mod) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+production_name <- (production_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rule_line <- (rule_line) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rule_name <- (rule_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rule_separator <- (rule_separator) => uast(
+    type: "Synthetic",
+    children: "dash_line", "rule_name"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_desc <- (string_desc) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+subrules <- (subrules) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+IN <- (IN) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+by <- (by) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+defn <- (defn) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+defns <- (defns) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+embed <- (embed) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+grammar <- (grammar) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hom_name <- (hom_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hom_string <- (hom_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+indexvar <- (indexvar) => uast(
+    type: "Index",
+    roles: "Index"
+    children: []
+)
+
+line_cont <- (line_cont) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+metavar <- (metavar) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+production_modifier <- (production_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+subrules <- (subrules) => uast(
+    type: "Synthetic",
+    children: []
+)
+

@@ -1,0 +1,1194 @@
+addition <- (addition) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+binary <- (binary) => uast(
+    type: "Synthetic",
+    children: "bin_value"
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "id", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+call <- (call) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "scope", "subtraction", "text", "true"
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "addition", "and", "binary", "character", "clauses", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "other", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+cases <- (cases) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+character <- (character) => uast(
+    type: "Synthetic",
+    children: "character_escape", "character_value"
+)
+
+character_escape <- (character_escape) => uast(
+    type: "Synthetic",
+    children: "character_escape_value"
+)
+
+clause_and <- (clause_and) => uast(
+    type: "Synthetic",
+    children: "clause_and", "clause_does_not_match", "clause_equal", "clause_greater_than", "clause_greater_than_or_equal", "clause_in", "clause_is", "clause_less_than", "clause_less_than_or_equal", "clause_matches", "clause_not", "clause_not_equal", "clause_or", "clause_out", "parenthesized_clause", "range"
+)
+
+clause_does_not_match <- (clause_does_not_match) => uast(
+    type: "Match",
+    roles: "Match"
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+clause_equal <- (clause_equal) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+clause_greater_than <- (clause_greater_than) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+clause_greater_than_or_equal <- (clause_greater_than_or_equal) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+clause_in <- (clause_in) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+clause_is <- (clause_is) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+clause_less_than <- (clause_less_than) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+clause_less_than_or_equal <- (clause_less_than_or_equal) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+clause_matches <- (clause_matches) => uast(
+    type: "Match",
+    roles: "Match"
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+clause_not <- (clause_not) => uast(
+    type: "Synthetic",
+    children: "clause_and", "clause_does_not_match", "clause_equal", "clause_greater_than", "clause_greater_than_or_equal", "clause_in", "clause_is", "clause_less_than", "clause_less_than_or_equal", "clause_matches", "clause_not", "clause_not_equal", "clause_or", "clause_out", "parenthesized_clause", "range"
+)
+
+clause_not_equal <- (clause_not_equal) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+clause_or <- (clause_or) => uast(
+    type: "Synthetic",
+    children: "clause_and", "clause_does_not_match", "clause_equal", "clause_greater_than", "clause_greater_than_or_equal", "clause_in", "clause_is", "clause_less_than", "clause_less_than_or_equal", "clause_matches", "clause_not", "clause_not_equal", "clause_or", "clause_out", "parenthesized_clause", "range"
+)
+
+clause_out <- (clause_out) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+clauses <- (clauses) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+continue <- (continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "id", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+definition <- (definition) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "definition_key", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "namespace", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+dictionary <- (dictionary) => uast(
+    type: "Dict",
+    children: []
+)
+
+dictionary_destructuring <- (dictionary_destructuring) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+dictionary_gen <- (dictionary_gen) => uast(
+    type: "Dict",
+    children: []
+)
+
+dictionary_key <- (dictionary_key) => uast(
+    type: "Dict",
+    children: "binary", "decimal", "dictionary_destructuring", "fallback", "hexadecimal", "id", "list_destructuring", "octal", "parenthesized", "text", "var"
+)
+
+dictionary_method <- (dictionary_method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "call", "dictionary", "dictionary__entries", "dictionary__keys", "dictionary__values"
+)
+
+division <- (division) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+does_not_match <- (does_not_match) => uast(
+    type: "Match",
+    roles: "Match"
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+drop <- (drop) => uast(
+    type: "Synthetic",
+    children: "binary", "decimal", "hexadecimal", "octal"
+)
+
+each <- (each) => uast(
+    type: "Synthetic",
+    children: "id", "iterator", "range"
+)
+
+end <- (end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+equal <- (equal) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+exponentiation <- (exponentiation) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+fallback <- (fallback) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+filter <- (filter) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "id"
+)
+
+function_body <- (function_body) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+greater_than <- (greater_than) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+greater_than_or_equal <- (greater_than_or_equal) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+hexadecimal <- (hexadecimal) => uast(
+    type: "Synthetic",
+    children: "hex_value"
+)
+
+html_deprecated_tag <- (html_deprecated_tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+html_experimental_tag <- (html_experimental_tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+html_tag <- (html_tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+interpolation <- (interpolation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+is <- (is) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+is_not <- (is_not) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+iterator <- (iterator) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "fallback", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+less_than <- (less_than) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+less_than_or_equal <- (less_than_or_equal) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+let <- (let) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "dictionary_destructuring", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "list_destructuring", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true", "var"
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: []
+)
+
+list_destructuring <- (list_destructuring) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+list_gen <- (list_gen) => uast(
+    type: "List",
+    children: []
+)
+
+list_method <- (list_method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "call", "dictionary", "list__sort"
+)
+
+literal <- (literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+logical_method <- (logical_method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "call", "dictionary", "logical__all", "logical__any", "logical__none"
+)
+
+match <- (match) => uast(
+    type: "Match",
+    roles: "Match"
+    children: "cases", "list"
+)
+
+matches <- (matches) => uast(
+    type: "Match",
+    roles: "Match"
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+modulo <- (modulo) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+multiple_line_comment <- (multiple_line_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: "multiline_comment_note"
+)
+
+multiple_line_doc <- (multiple_line_doc) => uast(
+    type: "Synthetic",
+    children: "multiline_doc_note"
+)
+
+multiplication <- (multiplication) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+namespace <- (namespace) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+negation <- (negation) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+not <- (not) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+not_equal <- (not_equal) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+number_constant <- (number_constant) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number_method <- (number_method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "call", "dictionary", "number__absolute", "number__acos", "number__acosh", "number__asin", "number__asinh", "number__atan", "number__atanh", "number__clamp", "number__cos", "number__cosh", "number__cube_root", "number__exp", "number__format", "number__is_finite", "number__is_integer", "number__is_nan", "number__is_safe_integer", "number__log", "number__log10", "number__log2", "number__max", "number__mean", "number__median", "number__min", "number__mode", "number__random", "number__round", "number__round_down", "number__round_up", "number__sin", "number__sinh", "number__square_root", "number__tan", "number__tanh", "number__truncate"
+)
+
+octal <- (octal) => uast(
+    type: "Synthetic",
+    children: "oct_value"
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+other <- (other) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+out <- (out) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+pair <- (pair) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "dictionary_destructuring", "dictionary_key", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+parenthesized <- (parenthesized) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "scope", "subtraction", "text", "true"
+)
+
+parenthesized_clause <- (parenthesized_clause) => uast(
+    type: "Synthetic",
+    children: "clause_and", "clause_does_not_match", "clause_equal", "clause_greater_than", "clause_greater_than_or_equal", "clause_in", "clause_is", "clause_less_than", "clause_less_than_or_equal", "clause_matches", "clause_not", "clause_not_equal", "clause_or", "clause_out", "parenthesized_clause", "range"
+)
+
+path_to_expression <- (path_to_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+path_to_global <- (path_to_global) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+path_to_local <- (path_to_local) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+range <- (range) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "to", "true", "until"
+)
+
+reduce <- (reduce) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "id", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+ref_to_dictionary <- (ref_to_dictionary) => uast(
+    type: "Dict",
+    children: "call", "dictionary", "dictionary_method"
+)
+
+ref_to_function <- (ref_to_function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "call", "dictionary"
+)
+
+ref_to_html <- (ref_to_html) => uast(
+    type: "Synthetic",
+    children: "call", "dictionary", "html_custom", "html_deprecated_tag", "html_experimental_tag", "html_tag"
+)
+
+ref_to_list <- (ref_to_list) => uast(
+    type: "List",
+    children: "call", "dictionary", "list_method"
+)
+
+ref_to_logical <- (ref_to_logical) => uast(
+    type: "Synthetic",
+    children: "call", "dictionary", "logical_method"
+)
+
+ref_to_null <- (ref_to_null) => uast(
+    type: "Synthetic",
+    children: "call", "dictionary"
+)
+
+ref_to_number <- (ref_to_number) => uast(
+    type: "Synthetic",
+    children: "call", "dictionary", "number_constant", "number_method"
+)
+
+ref_to_text <- (ref_to_text) => uast(
+    type: "Synthetic",
+    children: "call", "dictionary", "text_method"
+)
+
+ref_to_type <- (ref_to_type) => uast(
+    type: "Synthetic",
+    children: "call", "dictionary"
+)
+
+ref_to_unknown <- (ref_to_unknown) => uast(
+    type: "Synthetic",
+    children: "call", "dictionary"
+)
+
+reference_to_expression <- (reference_to_expression) => uast(
+    type: "Synthetic",
+    children: "call", "dictionary", "path_to_expression"
+)
+
+reference_to_global <- (reference_to_global) => uast(
+    type: "Synthetic",
+    children: "call", "dictionary", "path_to_global"
+)
+
+reference_to_local <- (reference_to_local) => uast(
+    type: "Synthetic",
+    children: "call", "dictionary", "path_to_local"
+)
+
+remainder <- (remainder) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+rest <- (rest) => uast(
+    type: "Synthetic",
+    children: "id"
+)
+
+scope <- (scope) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+single_line_comment <- (single_line_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: "comment_note"
+)
+
+single_line_doc <- (single_line_doc) => uast(
+    type: "Synthetic",
+    children: "doc_note"
+)
+
+source <- (source) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+spread <- (spread) => uast(
+    type: "Spread",
+    roles: "Spread"
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+subtraction <- (subtraction) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+text <- (text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+text_escape <- (text_escape) => uast(
+    type: "Synthetic",
+    children: "alert_bell", "backspace", "carriage_return", "character_hex2", "character_hex4", "character_hex6", "escaped_bracket", "form_feed", "horizontal_tab", "line_feed", "quotation_mark", "reverse_solidus", "vertical_tab"
+)
+
+text_method <- (text_method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "call", "dictionary", "text__lowercase", "text__uppercase"
+)
+
+to <- (to) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+until <- (until) => uast(
+    type: "Synthetic",
+    children: "addition", "and", "binary", "character", "decimal", "dictionary", "division", "does_not_match", "equal", "exponentiation", "false", "function", "greater_than", "greater_than_or_equal", "hexadecimal", "if", "in", "infinity", "is", "is_not", "less_than", "less_than_or_equal", "list", "match", "matches", "modulo", "multiplication", "nan", "negation", "not", "not_equal", "octal", "or", "out", "parenthesized", "reduce", "ref_to_dictionary", "ref_to_function", "ref_to_html", "ref_to_list", "ref_to_logical", "ref_to_null", "ref_to_number", "ref_to_text", "ref_to_type", "ref_to_unknown", "reference_to_expression", "reference_to_global", "reference_to_local", "remainder", "subtraction", "text", "true"
+)
+
+var <- (var) => uast(
+    type: "Synthetic",
+    children: "fallback", "id"
+)
+
+_ <- (_) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+alert_bell <- (alert_bell) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+backspace <- (backspace) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+base_bin <- (base_bin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+base_character <- (base_character) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+base_hex <- (base_hex) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+base_oct <- (base_oct) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bin_value <- (bin_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+call_end <- (call_end) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+call_start <- (call_start) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+carriage_return <- (carriage_return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+cases_end <- (cases_end) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+cases_start <- (cases_start) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+character_escape_prefix <- (character_escape_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+character_escape_value <- (character_escape_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+character_hex2 <- (character_hex2) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+character_hex4 <- (character_hex4) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+character_hex6 <- (character_hex6) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+character_value <- (character_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+clauses_end <- (clauses_end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+clauses_start <- (clauses_start) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment_note <- (comment_note) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+comment_start <- (comment_start) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+decimal <- (decimal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+definition_key <- (definition_key) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dictionary__entries <- (dictionary__entries) => uast(
+    type: "Dict",
+    children: []
+)
+
+dictionary__keys <- (dictionary__keys) => uast(
+    type: "Dict",
+    children: []
+)
+
+dictionary__values <- (dictionary__values) => uast(
+    type: "Dict",
+    children: []
+)
+
+dictionary_destructuring_end <- (dictionary_destructuring_end) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+dictionary_destructuring_start <- (dictionary_destructuring_start) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+dictionary_end <- (dictionary_end) => uast(
+    type: "Dict",
+    children: []
+)
+
+dictionary_start <- (dictionary_start) => uast(
+    type: "Dict",
+    children: []
+)
+
+doc_note <- (doc_note) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doc_start <- (doc_start) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escape_hex_2 <- (escape_hex_2) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escape_hex_4 <- (escape_hex_4) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escape_hex_6 <- (escape_hex_6) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escaped_bracket <- (escaped_bracket) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+form_feed <- (form_feed) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+function_arguments_end <- (function_arguments_end) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+function_arguments_start <- (function_arguments_start) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+function_body_end <- (function_body_end) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+function_body_start <- (function_body_start) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+hex_value <- (hex_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+horizontal_tab <- (horizontal_tab) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+html_custom <- (html_custom) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+id <- (id) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+infinity <- (infinity) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+interpolation_end <- (interpolation_end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+interpolation_start <- (interpolation_start) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+line_feed <- (line_feed) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+list__sort <- (list__sort) => uast(
+    type: "List",
+    children: []
+)
+
+list_destructuring_end <- (list_destructuring_end) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+list_destructuring_start <- (list_destructuring_start) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+list_end <- (list_end) => uast(
+    type: "List",
+    children: []
+)
+
+list_start <- (list_start) => uast(
+    type: "List",
+    children: []
+)
+
+logical__all <- (logical__all) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+logical__any <- (logical__any) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+logical__none <- (logical__none) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+multiline_comment_end <- (multiline_comment_end) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+multiline_comment_note <- (multiline_comment_note) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+multiline_comment_start <- (multiline_comment_start) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+multiline_doc_end <- (multiline_doc_end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+multiline_doc_note <- (multiline_doc_note) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+multiline_doc_start <- (multiline_doc_start) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+namespace_end <- (namespace_end) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+namespace_start <- (namespace_start) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+nan <- (nan) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__absolute <- (number__absolute) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__acos <- (number__acos) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__acosh <- (number__acosh) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__asin <- (number__asin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__asinh <- (number__asinh) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__atan <- (number__atan) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__atanh <- (number__atanh) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__clamp <- (number__clamp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__cos <- (number__cos) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__cosh <- (number__cosh) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__cube_root <- (number__cube_root) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__euler_number <- (number__euler_number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__exp <- (number__exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__format <- (number__format) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+number__is_finite <- (number__is_finite) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__is_integer <- (number__is_integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__is_nan <- (number__is_nan) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__is_safe_integer <- (number__is_safe_integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__log <- (number__log) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__log10 <- (number__log10) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__log2 <- (number__log2) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__max <- (number__max) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__mean <- (number__mean) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__median <- (number__median) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__min <- (number__min) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__mode <- (number__mode) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__pi <- (number__pi) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__random <- (number__random) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__round <- (number__round) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__round_down <- (number__round_down) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__round_up <- (number__round_up) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__sin <- (number__sin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__sinh <- (number__sinh) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__square_root <- (number__square_root) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__tan <- (number__tan) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__tanh <- (number__tanh) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number__truncate <- (number__truncate) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+oct_value <- (oct_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quotation_mark <- (quotation_mark) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+reverse_solidus <- (reverse_solidus) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+text__lowercase <- (text__lowercase) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+text__uppercase <- (text__uppercase) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+text_escape_prefix <- (text_escape_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vertical_tab <- (vertical_tab) => uast(
+    type: "Synthetic",
+    children: []
+)
+

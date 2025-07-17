@@ -1,0 +1,339 @@
+configuration_item_statement <- (configuration_item_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+relation_identifier <- (relation_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+style_item_statement <- (style_item_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+view_property_statement <- (view_property_statement) => uast(
+    type: "Property",
+    roles: "Member"
+    children: []
+)
+
+views_item_statement <- (views_item_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+workspace_item_statement <- (workspace_item_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+autolayout_statement <- (autolayout_statement) => uast(
+    type: "Synthetic",
+    children: "autolayout_value", "number"
+)
+
+autolayout_value <- (autolayout_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+color <- (color) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+component_declaration <- (component_declaration) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+configuration_declaration <- (configuration_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+container_declaration <- (container_declaration) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+container_view_declaration <- (container_view_declaration) => uast(
+    type: "Synthetic",
+    children: "identifier", "string"
+)
+
+default_statement <- (default_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+description_statement <- (description_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dotted_identifier <- (dotted_identifier) => uast(
+    type: "If",
+    children: "identifier"
+)
+
+dsl <- (dsl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dynamic_view_declaration <- (dynamic_view_declaration) => uast(
+    type: "Synthetic",
+    children: "identifier", "string", "wildcard_identifier"
+)
+
+element_declaration <- (element_declaration) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+element_property <- (element_property) => uast(
+    type: "Property",
+    roles: "Member"
+    children: "color", "identifier", "number", "string"
+)
+
+exclude_statement <- (exclude_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+identifiers_statement <- (identifiers_statement) => uast(
+    type: "If",
+    children: "identifiers_value"
+)
+
+identifiers_value <- (identifiers_value) => uast(
+    type: "If",
+    children: []
+)
+
+include_statement <- (include_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+model_declaration <- (model_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+person_declaration <- (person_declaration) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+relation_statement <- (relation_statement) => uast(
+    type: "Synthetic",
+    children: "relation_identifier", "string"
+)
+
+scope_declaration <- (scope_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+software_system_declaration <- (software_system_declaration) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+styles_declaration <- (styles_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+system_context_view_declaration <- (system_context_view_declaration) => uast(
+    type: "Synthetic",
+    children: "identifier", "string"
+)
+
+tag_declaration <- (tag_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tags_declaration <- (tags_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variable_declaration <- (variable_declaration) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "component_declaration", "container_declaration", "identifier", "person_declaration", "software_system_declaration"
+)
+
+views_declaration <- (views_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+workspace_declaration <- (workspace_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+autolayout <- (autolayout) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bt <- (bt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+component <- (component) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+configuration <- (configuration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+container <- (container) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+default <- (default) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+description <- (description) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dynamic <- (dynamic) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+element <- (element) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+exclude <- (exclude) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+flat <- (flat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hierarchical <- (hierarchical) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+include <- (include) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lr <- (lr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+model <- (model) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+person <- (person) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rl <- (rl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+scope <- (scope) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+softwaresystem <- (softwaresystem) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+styles <- (styles) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+systemcontext <- (systemcontext) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tag <- (tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tags <- (tags) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tb <- (tb) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+views <- (views) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+wildcard_identifier <- (wildcard_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+workspace <- (workspace) => uast(
+    type: "Synthetic",
+    children: []
+)
+

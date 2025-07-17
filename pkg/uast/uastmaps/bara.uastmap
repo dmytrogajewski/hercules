@@ -1,0 +1,338 @@
+arrayExpression <- (arrayExpression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assignmentStatement <- (assignmentStatement) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: []
+)
+
+binaryExpression <- (binaryExpression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+booleanLiteral <- (booleanLiteral) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+booleanPattern <- (booleanPattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+breakStatement <- (breakStatement) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+callExpression <- (callExpression) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "arrayExpression", "binaryExpression", "booleanLiteral", "callExpression", "conditionalExpression", "floatLiteral", "groupExpression", "identifierExpression", "indexExpression", "integerLiteral", "lambdaExpression", "matchExpression", "nilLiteral", "stringLiteral", "tupleExpression", "unaryExpression"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+compoundStatement <- (compoundStatement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+conditionalExpression <- (conditionalExpression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+continueStatement <- (continueStatement) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+declarationStatement <- (declarationStatement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doWhileStatement <- (doWhileStatement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+expressionStatement <- (expressionStatement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+floatLiteral <- (floatLiteral) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+floatPattern <- (floatPattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+forStatement <- (forStatement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+functionDeclaration <- (functionDeclaration) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "identifier"
+)
+
+groupExpression <- (groupExpression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifierExpression <- (identifierExpression) => uast(
+    type: "If",
+    children: []
+)
+
+identifierPattern <- (identifierPattern) => uast(
+    type: "If",
+    children: []
+)
+
+ifStatement <- (ifStatement) => uast(
+    type: "If",
+    children: []
+)
+
+indexExpression <- (indexExpression) => uast(
+    type: "Index",
+    roles: "Index"
+    children: []
+)
+
+integerLiteral <- (integerLiteral) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+integerPattern <- (integerPattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+lambdaExpression <- (lambdaExpression) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: []
+)
+
+matchCase <- (matchCase) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+matchExpression <- (matchExpression) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+nilLiteral <- (nilLiteral) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+nilPattern <- (nilPattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+operatorAssignmentStatement <- (operatorAssignmentStatement) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: []
+)
+
+parameters <- (parameters) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+pattern <- (pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+program <- (program) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+returnStatement <- (returnStatement) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+stringLiteral <- (stringLiteral) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+stringPattern <- (stringPattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+tupleExpression <- (tupleExpression) => uast(
+    type: "Tuple",
+    children: []
+)
+
+tuplePattern <- (tuplePattern) => uast(
+    type: "Tuple",
+    children: []
+)
+
+unaryExpression <- (unaryExpression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+whileStatement <- (whileStatement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+continue <- (continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fn <- (fn) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+litSupport <- (litSupport) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+match <- (match) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+nil <- (nil) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+var <- (var) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+

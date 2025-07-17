@@ -1,0 +1,277 @@
+argument_list <- (argument_list) => uast(
+    type: "List",
+    children: []
+)
+
+assignment_expression <- (assignment_expression) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "assignment_expression", "binary_expression", "boolean", "call_expression", "function_expression", "get_expression", "group_expression", "identifier", "nil", "number", "string", "ternary_expression", "this_expression", "unary_expression"
+)
+
+binary_expression <- (binary_expression) => uast(
+    type: "Synthetic",
+    children: "assignment_expression", "binary_expression", "boolean", "call_expression", "function_expression", "get_expression", "group_expression", "identifier", "nil", "number", "string", "ternary_expression", "this_expression", "unary_expression"
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+boolean <- (boolean) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+break_statement <- (break_statement) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+call_expression <- (call_expression) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "argument_list", "assignment_expression", "binary_expression", "boolean", "call_expression", "function_expression", "get_expression", "group_expression", "identifier", "nil", "number", "string", "ternary_expression", "this_expression", "unary_expression"
+)
+
+class_body <- (class_body) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+class_declaration <- (class_declaration) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "class_body", "identifier"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+continue_statement <- (continue_statement) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+expression_statement <- (expression_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for_statement <- (for_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "assignment_expression", "binary_expression", "block", "boolean", "break_statement", "call_expression", "class_declaration", "continue_statement", "expression_statement", "for_statement", "function_declaration", "function_expression", "get_expression", "group_expression", "identifier", "if_statement", "nil", "number", "print_statement", "return_statement", "string", "ternary_expression", "this_expression", "unary_expression", "variable_declaration", "while_statement"
+)
+
+function_declaration <- (function_declaration) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "block", "identifier", "parameter_list"
+)
+
+function_expression <- (function_expression) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "block", "parameter_list"
+)
+
+get_expression <- (get_expression) => uast(
+    type: "Synthetic",
+    children: "assignment_expression", "binary_expression", "boolean", "call_expression", "function_expression", "get_expression", "group_expression", "identifier", "nil", "number", "string", "ternary_expression", "this_expression", "unary_expression"
+)
+
+group_expression <- (group_expression) => uast(
+    type: "Synthetic",
+    children: "assignment_expression", "binary_expression", "boolean", "call_expression", "function_expression", "get_expression", "group_expression", "identifier", "nil", "number", "string", "ternary_expression", "this_expression", "unary_expression"
+)
+
+if_statement <- (if_statement) => uast(
+    type: "If",
+    children: "assignment_expression", "binary_expression", "block", "boolean", "break_statement", "call_expression", "continue_statement", "expression_statement", "for_statement", "function_expression", "get_expression", "group_expression", "identifier", "if_statement", "nil", "number", "print_statement", "return_statement", "string", "ternary_expression", "this_expression", "unary_expression", "while_statement"
+)
+
+method_declaration <- (method_declaration) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "block", "identifier", "parameter_list"
+)
+
+modifiers <- (modifiers) => uast(
+    type: "If",
+    children: []
+)
+
+parameter_list <- (parameter_list) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+print_statement <- (print_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return_statement <- (return_statement) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ternary_expression <- (ternary_expression) => uast(
+    type: "Synthetic",
+    children: "assignment_expression", "binary_expression", "boolean", "call_expression", "function_expression", "get_expression", "group_expression", "identifier", "nil", "number", "string", "ternary_expression", "this_expression", "unary_expression"
+)
+
+unary_expression <- (unary_expression) => uast(
+    type: "Synthetic",
+    children: "assignment_expression", "binary_expression", "boolean", "call_expression", "function_expression", "get_expression", "group_expression", "identifier", "nil", "number", "string", "ternary_expression", "this_expression", "unary_expression"
+)
+
+variable_declaration <- (variable_declaration) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "assignment_expression", "binary_expression", "boolean", "call_expression", "function_expression", "get_expression", "group_expression", "identifier", "nil", "number", "string", "ternary_expression", "this_expression", "unary_expression"
+)
+
+while_statement <- (while_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "assignment_expression", "binary_expression", "block", "boolean", "break_statement", "call_expression", "continue_statement", "expression_statement", "for_statement", "function_expression", "get_expression", "group_expression", "identifier", "if_statement", "nil", "number", "print_statement", "return_statement", "string", "ternary_expression", "this_expression", "unary_expression", "while_statement"
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+class <- (class) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+continue <- (continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+fun <- (fun) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+get <- (get) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+nil <- (nil) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+print <- (print) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+set <- (set) => uast(
+    type: "Set",
+    children: []
+)
+
+static <- (static) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+this_expression <- (this_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+var <- (var) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+

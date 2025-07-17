@@ -1,0 +1,48 @@
+escape <- (escape) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+file <- (file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+index <- (index) => uast(
+    type: "Index",
+    roles: "Index"
+    children: []
+)
+
+key <- (key) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+property <- (property) => uast(
+    type: "Property",
+    roles: "Member"
+    children: []
+)
+
+secret <- (secret) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+substitution <- (substitution) => uast(
+    type: "Synthetic",
+    children: "escape", "substitution"
+)
+
+value <- (value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+

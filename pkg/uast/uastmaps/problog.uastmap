@@ -1,0 +1,164 @@
+arg_list <- (arg_list) => uast(
+    type: "List",
+    children: []
+)
+
+arg_list_separator <- (arg_list_separator) => uast(
+    type: "List",
+    children: []
+)
+
+atom <- (atom) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+clause_term <- (clause_term) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+curly_bracketed_notation <- (curly_bracketed_notation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+directive_term <- (directive_term) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+empty_curly_brackets <- (empty_curly_brackets) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+empty_list <- (empty_list) => uast(
+    type: "List",
+    children: []
+)
+
+functional_notation <- (functional_notation) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "atom"
+)
+
+list_notation <- (list_notation) => uast(
+    type: "List",
+    children: []
+)
+
+list_notation_separator <- (list_notation_separator) => uast(
+    type: "List",
+    children: []
+)
+
+open <- (open) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+open_ct <- (open_ct) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+operator_notation <- (operator_notation) => uast(
+    type: "Synthetic",
+    children: "binary_operator", "comma", "prefix_operator", "prexif_operator", "semicolon"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+binary_operator <- (binary_operator) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+close <- (close) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+close_curly <- (close_curly) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+close_list <- (close_list) => uast(
+    type: "List",
+    children: []
+)
+
+comma <- (comma) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+directive_head <- (directive_head) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+double_quoted_list_notation <- (double_quoted_list_notation) => uast(
+    type: "List",
+    children: []
+)
+
+end <- (end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float_number <- (float_number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+open_curly <- (open_curly) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+open_list <- (open_list) => uast(
+    type: "List",
+    children: []
+)
+
+prefix_operator <- (prefix_operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+prexif_operator <- (prexif_operator) => uast(
+    type: "If",
+    children: []
+)
+
+semicolon <- (semicolon) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variable_term <- (variable_term) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+

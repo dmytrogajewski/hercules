@@ -1,0 +1,210 @@
+suite: control-flow
+name: go-if-for-switch
+
+parse_cases:
+  - name: if_for
+    input: |
+      func f(x int) int {
+          if x > 0 {
+              for i := 0; i < x; i++ {
+                  if i == 2 {
+                      break
+                  }
+                  if i == 3 {
+                      continue
+                  }
+              }
+          }
+          return x
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "f"
+          token: "f"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "f"
+            - type: "Block"
+              roles: ["Body"]
+              children:
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "x"
+            - type: "Block"
+              roles: ["Body"]
+              children:
+                - type: "If"
+                  roles: ["If", "Conditional"]
+                  children:
+                    - type: "BinaryOp"
+                      roles: ["Operator"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "x"
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Loop"
+                          roles: ["Loop"]
+                          props:
+                            kind: for
+                          children:
+                            - type: "Block"
+                              roles: ["Body"]
+                              children:
+                                - type: "Variable"
+                                  roles: ["Variable", "Declaration"]
+                                  props:
+                                    name: "i"
+                                  children:
+                                    - type: "Identifier"
+                                      roles: ["Name"]
+                                      token: "i"
+                                - type: "Block"
+                                  roles: ["Body"]
+                                - type: "Block"
+                                  roles: ["Body"]
+                            - type: "Block"
+                              roles: ["Body"]
+                              children:
+                                - type: "Synthetic"
+                                  children:
+                                    - type: "Identifier"
+                                      roles: ["Name"]
+                                      token: "i"
+                                    - type: "Identifier"
+                                      roles: ["Name"]
+                                      token: "x"
+                                    - type: "Identifier"
+                                      roles: ["Name"]
+                                      token: "i"
+                                - type: "Block"
+                                  roles: ["Body"]
+                                  children:
+                                    - type: "If"
+                                      roles: ["If", "Conditional"]
+                                      children:
+                                        - type: "BinaryOp"
+                                          roles: ["Operator"]
+                                          children:
+                                            - type: "Identifier"
+                                              roles: ["Name"]
+                                              token: "i"
+                                        - type: "Block"
+                                          roles: ["Body"]
+                                          children:
+                                            - type: "Break"
+                                              roles: ["Break"]
+                                    - type: "If"
+                                      roles: ["If", "Conditional"]
+                                      children:
+                                        - type: "BinaryOp"
+                                          roles: ["Operator"]
+                                          children:
+                                            - type: "Identifier"
+                                              roles: ["Name"]
+                                              token: "i"
+                                        - type: "Block"
+                                          roles: ["Body"]
+                                          children:
+                                            - type: "Continue"
+                                              roles: ["Continue"]
+                - type: "Return"
+                  roles: ["Return"]
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "x"
+  - name: switch_case
+    input: |
+      func g(x int) int {
+          switch x {
+          case 1:
+              return 1
+          case 2:
+              return 2
+          default:
+              return 0
+          }
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "g"
+          token: "g"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "g"
+            - type: "Block"
+              roles: ["Body"]
+              children:
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "x"
+            - type: "Block"
+              roles: ["Body"]
+              children:
+                - type: "Synthetic"
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "x"
+                    - type: "Synthetic"
+                      children:
+                        - type: "Block"
+                          roles: ["Body"]
+                          children:
+                            - type: "Return"
+                              roles: ["Return"]
+                              children:
+                                - type: "Block"
+                                  roles: ["Body"]
+                                  children:
+                                    - type: "Literal"
+                                      roles: ["Literal"]
+                                      token: "1"
+                        - type: "Block"
+                          roles: ["Body"]
+                          children:
+                            - type: "Return"
+                              roles: ["Return"]
+                              children:
+                                - type: "Block"
+                                  roles: ["Body"]
+                                  children:
+                                    - type: "Literal"
+                                      roles: ["Literal"]
+                                      token: "2"
+                    - type: "Synthetic"
+                      children:
+                        - type: "Block"
+                          roles: ["Body"]
+                          children:
+                            - type: "Return"
+                              roles: ["Return"]
+                              children:
+                                - type: "Block"
+                                  roles: ["Body"]
+                                  children:
+                                    - type: "Literal"
+                                      roles: ["Literal"]
+                                      token: "0" 

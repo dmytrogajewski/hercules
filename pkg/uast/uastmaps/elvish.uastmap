@@ -1,0 +1,296 @@
+braced_list <- (braced_list) => uast(
+    type: "List",
+    children: []
+)
+
+catch <- (catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: "identifier"
+)
+
+chunk <- (chunk) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+command <- (command) => uast(
+    type: "Synthetic",
+    children: "bareword", "braced_list", "exception_capture", "identifier", "indexing", "lambda", "list", "map", "number", "option", "output_capture", "string", "variable", "wildcard"
+)
+
+elif <- (elif) => uast(
+    type: "If",
+    children: "bareword", "braced_list", "exception_capture", "indexing", "lambda", "list", "map", "number", "output_capture", "string", "variable", "wildcard"
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+exception_capture <- (exception_capture) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+finally <- (finally) => uast(
+    type: "Finally",
+    roles: "Finally"
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "bareword", "braced_list", "exception_capture", "identifier", "indexing", "lambda", "list", "map", "number", "output_capture", "string", "variable", "wildcard"
+)
+
+function_definition <- (function_definition) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: "bareword", "braced_list", "exception_capture", "indexing", "lambda", "list", "map", "number", "output_capture", "string", "variable", "wildcard"
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+indexing <- (indexing) => uast(
+    type: "Index",
+    roles: "Index"
+    children: []
+)
+
+indices <- (indices) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lambda <- (lambda) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: []
+)
+
+lhs <- (lhs) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: []
+)
+
+map <- (map) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+option <- (option) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+output_capture <- (output_capture) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pair <- (pair) => uast(
+    type: "Synthetic",
+    children: "bareword", "braced_list", "exception_capture", "identifier", "indexing", "lambda", "list", "map", "number", "output_capture", "string", "variable", "wildcard"
+)
+
+parameter_list <- (parameter_list) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "identifier", "option"
+)
+
+pipeline <- (pipeline) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+redirection <- (redirection) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rhs <- (rhs) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+temporary_assignment <- (temporary_assignment) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: []
+)
+
+try <- (try) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+variable_assignment <- (variable_assignment) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+variable_declaration <- (variable_declaration) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+variable_deletion <- (variable_deletion) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "bareword", "braced_list", "exception_capture", "indexing", "lambda", "list", "map", "number", "output_capture", "string", "variable", "wildcard"
+)
+
+wildcard <- (wildcard) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bareword <- (bareword) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+catch <- (catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+del <- (del) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+elif <- (elif) => uast(
+    type: "If",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+file <- (file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+finally <- (finally) => uast(
+    type: "Finally",
+    roles: "Finally"
+    children: []
+)
+
+fn <- (fn) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+io_port <- (io_port) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+set <- (set) => uast(
+    type: "Set",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tmp <- (tmp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+try <- (try) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+use <- (use) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+var <- (var) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+

@@ -1,0 +1,72 @@
+config <- (config) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+directive <- (directive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+directive_include <- (directive_include) => uast(
+    type: "Synthetic",
+    children: "value_type"
+)
+
+directive_set <- (directive_set) => uast(
+    type: "Set",
+    children: "key_type", "value_type"
+)
+
+entry <- (entry) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "key_type", "value_type"
+)
+
+section <- (section) => uast(
+    type: "Synthetic",
+    children: "section_body", "section_header"
+)
+
+section_body <- (section_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+section_header <- (section_header) => uast(
+    type: "Synthetic",
+    children: "section_header_type"
+)
+
+INCLUDE <- (INCLUDE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+SET <- (SET) => uast(
+    type: "Set",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+key_type <- (key_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+section_header_type <- (section_header_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value_type <- (value_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+

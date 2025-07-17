@@ -1,0 +1,178 @@
+arguments <- (arguments) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+array <- (array) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assign <- (assign) => uast(
+    type: "Synthetic",
+    children: "array", "assign", "binary_operation", "call", "false", "float", "function", "identifier", "int", "map", "member", "none", "parentheses_expression", "string", "subscript", "true", "unary_operation"
+)
+
+binary_operation <- (binary_operation) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: "array", "assign", "binary_operation", "call", "false", "float", "function", "identifier", "int", "map", "member", "none", "parentheses_expression", "string", "subscript", "true", "unary_operation"
+)
+
+body <- (body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+call <- (call) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: "array", "assign", "binary_operation", "body", "call", "else", "false", "float", "function", "identifier", "if", "int", "map", "member", "none", "parentheses_expression", "string", "subscript", "true", "unary_operation"
+)
+
+map <- (map) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+member <- (member) => uast(
+    type: "Synthetic",
+    children: "array", "assign", "binary_operation", "call", "false", "float", "function", "identifier", "int", "map", "member", "none", "parentheses_expression", "string", "subscript", "true", "unary_operation"
+)
+
+module <- (module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+pair <- (pair) => uast(
+    type: "Synthetic",
+    children: "array", "assign", "binary_operation", "call", "false", "float", "function", "identifier", "int", "map", "member", "none", "parentheses_expression", "string", "subscript", "true", "unary_operation"
+)
+
+parameters <- (parameters) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+parentheses_expression <- (parentheses_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+subscript <- (subscript) => uast(
+    type: "Synthetic",
+    children: "array", "assign", "binary_operation", "call", "false", "float", "function", "identifier", "int", "map", "member", "none", "parentheses_expression", "string", "subscript", "true", "unary_operation"
+)
+
+unary_operation <- (unary_operation) => uast(
+    type: "UnaryOp",
+    roles: "Operator"
+    children: "array", "assign", "binary_operation", "call", "false", "float", "function", "identifier", "int", "map", "member", "none", "parentheses_expression", "string", "subscript", "true", "unary_operation"
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "array", "assign", "binary_operation", "call", "false", "float", "function", "identifier", "int", "map", "member", "none", "parentheses_expression", "string", "subscript", "true", "unary_operation"
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+continue <- (continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fn <- (fn) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+int <- (int) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+none <- (none) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+

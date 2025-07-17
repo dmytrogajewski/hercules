@@ -1,0 +1,886 @@
+access <- (access) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+add <- (add) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+arguments <- (arguments) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bargraph <- (bargraph) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "hbargraph_type", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "string", "sub", "substitution", "tan", "unary_number", "vbargraph_type", "waveform", "wire", "with_environment", "xor"
+)
+
+button <- (button) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+checkbox <- (checkbox) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+component <- (component) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+definition <- (definition) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+doc_attribute <- (doc_attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+doc_diagram <- (doc_diagram) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doc_equation <- (doc_equation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doc_listing <- (doc_listing) => uast(
+    type: "List",
+    children: []
+)
+
+doc_metadata <- (doc_metadata) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doc_notice <- (doc_notice) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+documentation <- (documentation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+environment <- (environment) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fconst <- (fconst) => uast(
+    type: "Synthetic",
+    children: "float_type", "fstring", "identifier", "int_type", "string"
+)
+
+ffunction <- (ffunction) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "fstring", "string"
+)
+
+file_import <- (file_import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "string"
+)
+
+float_type <- (float_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+function_call <- (function_call) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+function_definition <- (function_definition) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+function_metadata <- (function_metadata) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "identifier", "string"
+)
+
+function_name <- (function_name) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+function_names <- (function_names) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+fvariable <- (fvariable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "float_type", "fstring", "identifier", "int_type", "string"
+)
+
+global_metadata <- (global_metadata) => uast(
+    type: "Synthetic",
+    children: "identifier", "string"
+)
+
+group <- (group) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "hgroup_type", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "string", "sub", "substitution", "tan", "tgroup_type", "unary_number", "vgroup_type", "waveform", "wire", "with_environment", "xor"
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+infix <- (infix) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+inputs <- (inputs) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+int_type <- (int_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+iteration <- (iteration) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "par", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "prod", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "seq", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "sum", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+lambda <- (lambda) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+letrec_environment <- (letrec_environment) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "rec_environment", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+library <- (library) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+merge <- (merge) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+modifier <- (modifier) => uast(
+    type: "If",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "one_sample_delay", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+modulation <- (modulation) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+modulator <- (modulator) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "string", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+modulators <- (modulators) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+negate_id <- (negate_id) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+numeric_widget <- (numeric_widget) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "hslider_type", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "nentry_type", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "string", "sub", "substitution", "tan", "unary_number", "vslider_type", "waveform", "wire", "with_environment", "xor"
+)
+
+one_sample_delay <- (one_sample_delay) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+outputs <- (outputs) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+parallel <- (parallel) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+parameter_types <- (parameter_types) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+parameters <- (parameters) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+partial <- (partial) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+pattern <- (pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+prefix <- (prefix) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+prim1 <- (prim1) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+prim2 <- (prim2) => uast(
+    type: "Synthetic",
+    children: "atan2", "attach", "control", "enable", "fmod", "max", "min", "pow", "prefix", "remainder"
+)
+
+prim3 <- (prim3) => uast(
+    type: "Synthetic",
+    children: "assertbounds", "rdtable", "select2"
+)
+
+prim4 <- (prim4) => uast(
+    type: "Synthetic",
+    children: "select3"
+)
+
+prim5 <- (prim5) => uast(
+    type: "Synthetic",
+    children: "rwtable"
+)
+
+program <- (program) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rec_environment <- (rec_environment) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+recinition <- (recinition) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+recursive <- (recursive) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+route <- (route) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+rule <- (rule) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+rules <- (rules) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sequential <- (sequential) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+signature <- (signature) => uast(
+    type: "Synthetic",
+    children: "float_type", "int_type"
+)
+
+soundfile <- (soundfile) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "string", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+split <- (split) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+sub <- (sub) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+substitution <- (substitution) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+substitutions <- (substitutions) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unary_number <- (unary_number) => uast(
+    type: "Synthetic",
+    children: "int", "real"
+)
+
+values <- (values) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variants <- (variants) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+waveform <- (waveform) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+with_environment <- (with_environment) => uast(
+    type: "Synthetic",
+    children: "abs", "access", "acos", "add", "and", "asin", "assertbounds", "atan", "atan2", "attach", "bargraph", "button", "ceil", "checkbox", "component", "control", "cos", "cut", "delay", "div", "enable", "environment", "eq", "exp", "fconst", "ffunction", "float", "floor", "fmod", "function_call", "fvariable", "ge", "group", "gt", "highest", "identifier", "infix", "inputs", "int", "iteration", "lambda", "le", "letrec_environment", "library", "log", "log10", "lowest", "lshift", "lt", "max", "mem", "merge", "min", "mod", "modifier", "modulation", "mult", "negate_id", "neq", "numeric_widget", "or", "outputs", "parallel", "partial", "pattern", "pow", "prefix", "prim1", "prim2", "prim3", "prim4", "prim5", "rdtable", "real", "recursive", "remainder", "rint", "round", "route", "rshift", "rwtable", "select2", "select3", "sequential", "sin", "soundfile", "split", "sqrt", "sub", "substitution", "tan", "unary_number", "waveform", "wire", "with_environment", "xor"
+)
+
+abs <- (abs) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+acos <- (acos) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+any_type <- (any_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+asin <- (asin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assertbounds <- (assertbounds) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+atan <- (atan) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+atan2 <- (atan2) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attach <- (attach) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+button <- (button) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+ceil <- (ceil) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+checkbox <- (checkbox) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+component <- (component) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+control <- (control) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cos <- (cos) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cut <- (cut) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+declare <- (declare) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+delay <- (delay) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+div <- (div) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+double_precision <- (double_precision) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+effect <- (effect) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+enable <- (enable) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+environment <- (environment) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eq <- (eq) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+exp <- (exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fconstant <- (fconstant) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ffunction <- (ffunction) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+fixed_point_precision <- (fixed_point_precision) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+floor <- (floor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fmod <- (fmod) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fstring <- (fstring) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fvariable <- (fvariable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+ge <- (ge) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+gt <- (gt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hbargraph_type <- (hbargraph_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hgroup_type <- (hgroup_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+highest <- (highest) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hslider_type <- (hslider_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+inputs <- (inputs) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+int <- (int) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+int <- (int) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+key <- (key) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+le <- (le) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+letrec <- (letrec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+library <- (library) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+log <- (log) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+log10 <- (log10) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lowest <- (lowest) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lshift <- (lshift) => uast(
+    type: "If",
+    children: []
+)
+
+lt <- (lt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+max <- (max) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mem <- (mem) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+min <- (min) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mod <- (mod) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mult <- (mult) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nentry_type <- (nentry_type) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+neq <- (neq) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+outputs <- (outputs) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+par <- (par) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pow <- (pow) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pow <- (pow) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+prefix <- (prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+process <- (process) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+prod <- (prod) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quad_precision <- (quad_precision) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rdtable <- (rdtable) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+real <- (real) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+remainder <- (remainder) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rint <- (rint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+round <- (round) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+route <- (route) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rshift <- (rshift) => uast(
+    type: "If",
+    children: []
+)
+
+rwtable <- (rwtable) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+select2 <- (select2) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+select3 <- (select3) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+seq <- (seq) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sin <- (sin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+single_precision <- (single_precision) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+soundfile <- (soundfile) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sqrt <- (sqrt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sum <- (sum) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tan <- (tan) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tgroup_type <- (tgroup_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value <- (value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vbargraph_type <- (vbargraph_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vgroup_type <- (vgroup_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vslider_type <- (vslider_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+waveform <- (waveform) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+where <- (where) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+wire <- (wire) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with <- (with) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+xor <- (xor) => uast(
+    type: "Synthetic",
+    children: []
+)
+

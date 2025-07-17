@@ -1,0 +1,528 @@
+_expression <- (_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bind <- (bind) => uast(
+    type: "Synthetic",
+    children: "_expression", "bindings"
+)
+
+bind_pair <- (bind_pair) => uast(
+    type: "Synthetic",
+    children: "bind_pair_identifier", "bind_pair_key", "type_annotation"
+)
+
+bindings <- (bindings) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bless <- (bless) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+cond <- (cond) => uast(
+    type: "Synthetic",
+    children: "_expression"
+)
+
+defcap <- (defcap) => uast(
+    type: "Synthetic",
+    children: "_expression", "def_identifier", "doc", "event", "managed", "meta", "model", "parameter_list", "type_annotation"
+)
+
+defconst <- (defconst) => uast(
+    type: "Synthetic",
+    children: "_expression", "def_identifier", "doc", "event", "managed", "meta", "model", "type_annotation"
+)
+
+defpact <- (defpact) => uast(
+    type: "Synthetic",
+    children: "def_identifier", "doc", "event", "managed", "meta", "model", "parameter_list", "step", "step_with_rollback", "type_annotation"
+)
+
+defproperty <- (defproperty) => uast(
+    type: "Property",
+    roles: "Member"
+    children: "_expression", "def_identifier", "parameter_list"
+)
+
+defschema <- (defschema) => uast(
+    type: "Synthetic",
+    children: "def_identifier", "doc", "event", "managed", "meta", "model", "schema_field_list"
+)
+
+deftable <- (deftable) => uast(
+    type: "Synthetic",
+    children: "def_identifier", "doc", "event", "managed", "meta", "model", "table_schema"
+)
+
+defun <- (defun) => uast(
+    type: "Synthetic",
+    children: "_expression", "def_identifier", "doc", "event", "managed", "meta", "model", "parameter_list", "type_annotation"
+)
+
+doc <- (doc) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+emit_event <- (emit_event) => uast(
+    type: "Synthetic",
+    children: "_expression"
+)
+
+event <- (event) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if_expression <- (if_expression) => uast(
+    type: "If",
+    children: "_expression"
+)
+
+implements <- (implements) => uast(
+    type: "Synthetic",
+    children: "reference"
+)
+
+interface <- (interface) => uast(
+    type: "Interface",
+    roles: "Interface", "Declaration"
+    children: "def_identifier", "defcap", "defconst", "defpact", "defschema", "defun", "doc", "event", "managed", "meta", "model", "use"
+)
+
+lambda_expression <- (lambda_expression) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: "_expression", "parameter_list"
+)
+
+let_bind_pair <- (let_bind_pair) => uast(
+    type: "Synthetic",
+    children: "_expression"
+)
+
+let_binding <- (let_binding) => uast(
+    type: "Synthetic",
+    children: "_expression", "let_bind_pair"
+)
+
+let_variable <- (let_variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "let_variable_identifier", "type_annotation"
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: []
+)
+
+managed <- (managed) => uast(
+    type: "Synthetic",
+    children: "boolean", "decimal", "ident", "integer", "list", "object", "reference", "string", "symbol"
+)
+
+meta <- (meta) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+model <- (model) => uast(
+    type: "Synthetic",
+    children: "defproperty", "s_expression"
+)
+
+module <- (module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "bless", "defcap", "defconst", "defpact", "defschema", "deftable", "defun", "doc", "event", "implements", "managed", "meta", "model", "module_governance", "module_identifier", "use"
+)
+
+namespace <- (namespace) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: "_expression"
+)
+
+object <- (object) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pact_version <- (pact_version) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+pair <- (pair) => uast(
+    type: "Synthetic",
+    children: "_expression", "property_identifier"
+)
+
+parameter <- (parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "parameter_identifier", "type_annotation"
+)
+
+parameter_list <- (parameter_list) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+reference <- (reference) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+resume <- (resume) => uast(
+    type: "Synthetic",
+    children: "_expression", "bindings"
+)
+
+s_expression <- (s_expression) => uast(
+    type: "Synthetic",
+    children: "_expression", "s_expression_head"
+)
+
+s_expression_head <- (s_expression_head) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+schema_field <- (schema_field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "schema_field_identifier", "type_annotation"
+)
+
+schema_field_list <- (schema_field_list) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+step <- (step) => uast(
+    type: "Synthetic",
+    children: "_expression", "ident"
+)
+
+step_with_rollback <- (step_with_rollback) => uast(
+    type: "Synthetic",
+    children: "_expression", "ident"
+)
+
+try_expression <- (try_expression) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "_expression"
+)
+
+type_annotation <- (type_annotation) => uast(
+    type: "TypeAnnotation",
+    roles: "Type"
+    children: []
+)
+
+type_identifier <- (type_identifier) => uast(
+    type: "If",
+    children: "type_parameter"
+)
+
+type_parameter <- (type_parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "type_parameter"
+)
+
+use <- (use) => uast(
+    type: "Synthetic",
+    children: "list", "reference", "string"
+)
+
+with_capability <- (with_capability) => uast(
+    type: "Synthetic",
+    children: "_expression", "s_expression"
+)
+
+with_default_read <- (with_default_read) => uast(
+    type: "Synthetic",
+    children: "_expression", "bindings", "object", "reference"
+)
+
+with_read <- (with_read) => uast(
+    type: "Synthetic",
+    children: "_expression", "bindings", "reference"
+)
+
+bind <- (bind) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bind_pair_identifier <- (bind_pair_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+bind_pair_key <- (bind_pair_key) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bless <- (bless) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bool <- (bool) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+boolean <- (boolean) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+cond <- (cond) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+decimal <- (decimal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+decimal <- (decimal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+def_identifier <- (def_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+defcap <- (defcap) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+defconst <- (defconst) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+defpact <- (defpact) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+defproperty <- (defproperty) => uast(
+    type: "Property",
+    roles: "Member"
+    children: []
+)
+
+defschema <- (defschema) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+deftable <- (deftable) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+defun <- (defun) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doc_string <- (doc_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+guard <- (guard) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ident <- (ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+implements <- (implements) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+interface <- (interface) => uast(
+    type: "Interface",
+    roles: "Interface", "Declaration"
+    children: []
+)
+
+keyset <- (keyset) => uast(
+    type: "Set",
+    children: []
+)
+
+lambda <- (lambda) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: []
+)
+
+let <- (let) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+let_variable_identifier <- (let_variable_identifier) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: []
+)
+
+module <- (module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+module_governance <- (module_governance) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+module_identifier <- (module_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+namespace <- (namespace) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+object <- (object) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parameter_identifier <- (parameter_identifier) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+property_identifier <- (property_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+resume <- (resume) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+schema_field_identifier <- (schema_field_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+step <- (step) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+symbol <- (symbol) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+table <- (table) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+table_schema <- (table_schema) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+time <- (time) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+try <- (try) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+use <- (use) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value <- (value) => uast(
+    type: "Synthetic",
+    children: []
+)
+

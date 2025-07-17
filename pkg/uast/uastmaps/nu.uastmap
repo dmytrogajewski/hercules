@@ -1,0 +1,961 @@
+_head <- (_head) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_prefix <- (_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assignment <- (assignment) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "pipeline", "val_variable"
+)
+
+attribute <- (attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: "attribute_identifier", "expr_parenthesized", "long_flag", "redirection", "short_flag", "val_binary", "val_bool", "val_cellpath", "val_closure", "val_date", "val_duration", "val_filesize", "val_interpolated", "val_list", "val_nothing", "val_number", "val_range", "val_record", "val_string", "val_table", "val_variable"
+)
+
+attribute_list <- (attribute_list) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+cell_path <- (cell_path) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cmd_identifier <- (cmd_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+collection_type <- (collection_type) => uast(
+    type: "Synthetic",
+    children: "collection_type", "composite_type", "flat_type", "identifier", "list_type", "param_cmd"
+)
+
+command <- (command) => uast(
+    type: "Synthetic",
+    children: "cmd_identifier", "expr_parenthesized", "long_flag", "redirection", "short_flag", "val_binary", "val_bool", "val_cellpath", "val_closure", "val_date", "val_duration", "val_filesize", "val_interpolated", "val_list", "val_nothing", "val_number", "val_range", "val_record", "val_string", "val_table", "val_variable"
+)
+
+command_list <- (command_list) => uast(
+    type: "List",
+    children: "cmd_identifier", "val_string"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+composite_type <- (composite_type) => uast(
+    type: "Synthetic",
+    children: "collection_type", "composite_type", "flat_type", "list_type"
+)
+
+ctrl_do <- (ctrl_do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ctrl_error <- (ctrl_error) => uast(
+    type: "Synthetic",
+    children: "val_record"
+)
+
+ctrl_for <- (ctrl_for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "block", "expr_binary", "expr_parenthesized", "expr_unary", "identifier", "val_binary", "val_bool", "val_cellpath", "val_closure", "val_date", "val_duration", "val_filesize", "val_interpolated", "val_list", "val_nothing", "val_number", "val_range", "val_record", "val_string", "val_table", "val_variable"
+)
+
+ctrl_if <- (ctrl_if) => uast(
+    type: "If",
+    children: "block", "command", "ctrl_if", "expr_binary", "expr_parenthesized", "expr_unary", "val_binary", "val_bool", "val_cellpath", "val_closure", "val_date", "val_duration", "val_filesize", "val_interpolated", "val_list", "val_nothing", "val_number", "val_range", "val_record", "val_string", "val_table", "val_variable"
+)
+
+ctrl_loop <- (ctrl_loop) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "block"
+)
+
+ctrl_match <- (ctrl_match) => uast(
+    type: "Match",
+    roles: "Match"
+    children: "expr_parenthesized", "val_binary", "val_bool", "val_cellpath", "val_closure", "val_date", "val_duration", "val_filesize", "val_interpolated", "val_list", "val_nothing", "val_number", "val_range", "val_record", "val_string", "val_table", "val_variable"
+)
+
+ctrl_return <- (ctrl_return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+ctrl_try <- (ctrl_try) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "block", "val_closure"
+)
+
+ctrl_while <- (ctrl_while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "block", "expr_binary", "expr_parenthesized", "expr_unary", "val_binary", "val_bool", "val_cellpath", "val_closure", "val_date", "val_duration", "val_filesize", "val_interpolated", "val_list", "val_nothing", "val_number", "val_range", "val_record", "val_string", "val_table", "val_variable"
+)
+
+decl_alias <- (decl_alias) => uast(
+    type: "Synthetic",
+    children: "cmd_identifier", "pipeline", "val_string"
+)
+
+decl_def <- (decl_def) => uast(
+    type: "Synthetic",
+    children: "block", "cmd_identifier", "parameter_bracks", "parameter_parens", "returns", "val_string"
+)
+
+decl_export <- (decl_export) => uast(
+    type: "Synthetic",
+    children: "block"
+)
+
+decl_extern <- (decl_extern) => uast(
+    type: "Synthetic",
+    children: "block", "cmd_identifier", "parameter_bracks", "parameter_parens", "val_string"
+)
+
+decl_module <- (decl_module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "block", "cmd_identifier", "val_string"
+)
+
+decl_use <- (decl_use) => uast(
+    type: "Synthetic",
+    children: "expr_parenthesized", "scope_pattern", "unquoted", "val_interpolated", "val_string", "val_variable"
+)
+
+default_arm <- (default_arm) => uast(
+    type: "Synthetic",
+    children: "_", "block", "expr_parenthesized", "val_binary", "val_bool", "val_cellpath", "val_closure", "val_date", "val_duration", "val_filesize", "val_interpolated", "val_list", "val_nothing", "val_number", "val_range", "val_record", "val_string", "val_table", "val_variable"
+)
+
+env_var <- (env_var) => uast(
+    type: "Synthetic",
+    children: "identifier", "val_string"
+)
+
+expr_binary <- (expr_binary) => uast(
+    type: "Synthetic",
+    children: "and", "expr_binary", "expr_parenthesized", "expr_unary", "has", "in", "like", "mod", "or", "val_binary", "val_bool", "val_cellpath", "val_closure", "val_date", "val_duration", "val_filesize", "val_interpolated", "val_list", "val_nothing", "val_number", "val_range", "val_record", "val_string", "val_table", "val_variable", "xor"
+)
+
+expr_interpolated <- (expr_interpolated) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expr_parenthesized <- (expr_parenthesized) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expr_unary <- (expr_unary) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+flag_capsule <- (flag_capsule) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+flat_type <- (flat_type) => uast(
+    type: "Synthetic",
+    children: "any", "binary", "block", "bool", "closure", "cond", "datetime", "decimal", "directory", "duration", "error", "expr", "filesize", "float", "glob", "int", "keyword", "list", "math", "nothing", "number", "operator", "path", "range", "record", "signature", "string", "table", "variable"
+)
+
+hide_env <- (hide_env) => uast(
+    type: "Synthetic",
+    children: "identifier", "val_variable"
+)
+
+hide_mod <- (hide_mod) => uast(
+    type: "Synthetic",
+    children: "cmd_identifier", "val_string"
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+list_body <- (list_body) => uast(
+    type: "List",
+    children: "val_entry"
+)
+
+list_type <- (list_type) => uast(
+    type: "List",
+    children: "collection_type", "composite_type", "flat_type", "list_type", "param_cmd"
+)
+
+long_flag <- (long_flag) => uast(
+    type: "Synthetic",
+    children: "expr_parenthesized", "long_flag_identifier", "val_binary", "val_bool", "val_cellpath", "val_closure", "val_date", "val_duration", "val_filesize", "val_interpolated", "val_list", "val_nothing", "val_number", "val_record", "val_string", "val_table", "val_variable"
+)
+
+match_arm <- (match_arm) => uast(
+    type: "Match",
+    roles: "Match"
+    children: "block", "expr_parenthesized", "match_pattern", "val_binary", "val_bool", "val_cellpath", "val_closure", "val_date", "val_duration", "val_filesize", "val_interpolated", "val_list", "val_nothing", "val_number", "val_range", "val_record", "val_string", "val_table", "val_variable"
+)
+
+match_guard <- (match_guard) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+match_pattern <- (match_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+nu_script <- (nu_script) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+overlay_hide <- (overlay_hide) => uast(
+    type: "Synthetic",
+    children: "expr_parenthesized", "unquoted", "val_interpolated", "val_string", "val_variable"
+)
+
+overlay_list <- (overlay_list) => uast(
+    type: "List",
+    children: []
+)
+
+overlay_new <- (overlay_new) => uast(
+    type: "Synthetic",
+    children: "cmd_identifier", "val_string"
+)
+
+overlay_use <- (overlay_use) => uast(
+    type: "Synthetic",
+    children: "cmd_identifier", "expr_parenthesized", "unquoted", "val_interpolated", "val_string", "val_variable"
+)
+
+param_cmd <- (param_cmd) => uast(
+    type: "Synthetic",
+    children: "cmd_identifier", "val_string"
+)
+
+param_long_flag <- (param_long_flag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+param_opt <- (param_opt) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+param_rest <- (param_rest) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+param_short_flag <- (param_short_flag) => uast(
+    type: "Synthetic",
+    children: "param_short_flag_identifier"
+)
+
+param_type <- (param_type) => uast(
+    type: "Synthetic",
+    children: "collection_type", "composite_type", "flat_type", "list_type", "param_cmd"
+)
+
+param_value <- (param_value) => uast(
+    type: "Synthetic",
+    children: "expr_parenthesized", "val_binary", "val_bool", "val_cellpath", "val_closure", "val_date", "val_duration", "val_filesize", "val_interpolated", "val_list", "val_nothing", "val_number", "val_range", "val_record", "val_string", "val_table", "val_variable"
+)
+
+parameter <- (parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "flag_capsule", "identifier", "param_long_flag", "param_opt", "param_rest", "param_short_flag"
+)
+
+parameter_bracks <- (parameter_bracks) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+parameter_parens <- (parameter_parens) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+parameter_pipes <- (parameter_pipes) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+path <- (path) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pipe_element <- (pipe_element) => uast(
+    type: "Synthetic",
+    children: "break", "continue"
+)
+
+pipeline <- (pipeline) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quoted <- (quoted) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+record_body <- (record_body) => uast(
+    type: "Synthetic",
+    children: "record_entry"
+)
+
+record_entry <- (record_entry) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "expr_parenthesized", "identifier", "val_binary", "val_bool", "val_cellpath", "val_closure", "val_date", "val_duration", "val_filesize", "val_interpolated", "val_list", "val_nothing", "val_number", "val_range", "val_record", "val_string", "val_table", "val_variable"
+)
+
+redirection <- (redirection) => uast(
+    type: "Synthetic",
+    children: "expr_parenthesized", "val_interpolated", "val_string", "val_variable"
+)
+
+returns <- (returns) => uast(
+    type: "Return",
+    roles: "Return"
+    children: "collection_type", "composite_type", "flat_type", "list_type"
+)
+
+scope_pattern <- (scope_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "cmd_identifier", "command_list", "val_string", "wild_card"
+)
+
+shebang <- (shebang) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+short_flag <- (short_flag) => uast(
+    type: "Synthetic",
+    children: "expr_parenthesized", "short_flag_identifier", "val_binary", "val_bool", "val_cellpath", "val_closure", "val_date", "val_duration", "val_filesize", "val_interpolated", "val_list", "val_nothing", "val_number", "val_record", "val_string", "val_table", "val_variable"
+)
+
+stmt_const <- (stmt_const) => uast(
+    type: "Synthetic",
+    children: "identifier", "param_type", "pipeline", "val_variable"
+)
+
+stmt_let <- (stmt_let) => uast(
+    type: "Synthetic",
+    children: "identifier", "param_type", "pipeline", "val_variable"
+)
+
+stmt_mut <- (stmt_mut) => uast(
+    type: "Synthetic",
+    children: "identifier", "param_type", "pipeline", "val_variable"
+)
+
+stmt_source <- (stmt_source) => uast(
+    type: "Synthetic",
+    children: "expr_parenthesized", "val_interpolated", "val_string", "val_variable"
+)
+
+string_content <- (string_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unquoted <- (unquoted) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+val_binary <- (val_binary) => uast(
+    type: "Synthetic",
+    children: "hex_digit"
+)
+
+val_bool <- (val_bool) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+val_cellpath <- (val_cellpath) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+val_closure <- (val_closure) => uast(
+    type: "Synthetic",
+    children: "parameter_pipes"
+)
+
+val_duration <- (val_duration) => uast(
+    type: "Synthetic",
+    children: "duration_unit", "val_number"
+)
+
+val_entry <- (val_entry) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "expr_parenthesized", "val_binary", "val_bool", "val_cellpath", "val_closure", "val_date", "val_duration", "val_filesize", "val_interpolated", "val_list", "val_nothing", "val_number", "val_range", "val_record", "val_string", "val_table", "val_variable"
+)
+
+val_filesize <- (val_filesize) => uast(
+    type: "Synthetic",
+    children: "filesize_unit", "val_number"
+)
+
+val_interpolated <- (val_interpolated) => uast(
+    type: "Synthetic",
+    children: "expr_interpolated"
+)
+
+val_list <- (val_list) => uast(
+    type: "List",
+    children: "expr_parenthesized", "val_binary", "val_bool", "val_date", "val_duration", "val_filesize", "val_list", "val_nothing", "val_number", "val_range", "val_record", "val_string", "val_table", "val_variable"
+)
+
+val_nothing <- (val_nothing) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+val_number <- (val_number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+val_range <- (val_range) => uast(
+    type: "Synthetic",
+    children: "expr_parenthesized", "val_number", "val_variable"
+)
+
+val_record <- (val_record) => uast(
+    type: "Synthetic",
+    children: "record_entry", "val_variable"
+)
+
+val_string <- (val_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+val_table <- (val_table) => uast(
+    type: "Synthetic",
+    children: "val_list"
+)
+
+val_variable <- (val_variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "env", "identifier", "in", "nu"
+)
+
+where_command <- (where_command) => uast(
+    type: "Synthetic",
+    children: "val_closure", "where_predicate"
+)
+
+where_predicate <- (where_predicate) => uast(
+    type: "Synthetic",
+    children: "and", "expr_parenthesized", "expr_unary", "has", "in", "like", "or", "path", "val_binary", "val_bool", "val_cellpath", "val_closure", "val_date", "val_duration", "val_filesize", "val_interpolated", "val_list", "val_nothing", "val_number", "val_range", "val_record", "val_string", "val_table", "val_variable", "where_predicate", "xor"
+)
+
+wild_card <- (wild_card) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_ <- (_) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_prefix <- (_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_unit <- (_unit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+alias <- (alias) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+any <- (any) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+as <- (as) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attribute_identifier <- (attribute_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+binary <- (binary) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+bool <- (bool) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+catch <- (catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+closure <- (closure) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cond <- (cond) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+const <- (const) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+continue <- (continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+datetime <- (datetime) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+decimal <- (decimal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+def <- (def) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+directory <- (directory) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+duration <- (duration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+duration_unit <- (duration_unit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+env <- (env) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+error <- (error) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escaped_interpolated_content <- (escaped_interpolated_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+export <- (export) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expr <- (expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+extern <- (extern) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+filesize <- (filesize) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+filesize_unit <- (filesize_unit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+glob <- (glob) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+has <- (has) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hex_digit <- (hex_digit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hide <- (hide) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+int <- (int) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inter_escape_sequence <- (inter_escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+keyword <- (keyword) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+let <- (let) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+like <- (like) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: []
+)
+
+long_flag_identifier <- (long_flag_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+loop <- (loop) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+make <- (make) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+match <- (match) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+math <- (math) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mod <- (mod) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+module <- (module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+mut <- (mut) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+new <- (new) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+not <- (not) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nothing <- (nothing) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nu <- (nu) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+null <- (null) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+oneof <- (oneof) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+operator <- (operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+overlay <- (overlay) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+param_short_flag_identifier <- (param_short_flag_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+path <- (path) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+range <- (range) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+raw_string_begin <- (raw_string_begin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+raw_string_end <- (raw_string_end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+record <- (record) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+short_flag_identifier <- (short_flag_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+signature <- (signature) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source <- (source) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+table <- (table) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+try <- (try) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+unescaped_interpolated_content <- (unescaped_interpolated_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+use <- (use) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+val_date <- (val_date) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+where <- (where) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+xor <- (xor) => uast(
+    type: "Synthetic",
+    children: []
+)
+

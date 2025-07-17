@@ -1,0 +1,373 @@
+additive <- (additive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+anonymous_function <- (anonymous_function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "anonymous_function", "array", "assert", "binary", "conditional", "dollar", "error", "false", "fieldaccess", "fieldaccess_super", "forloop", "functioncall", "id", "implicit_plus", "import", "importstr", "in_super", "indexing", "indexing_super", "local_bind", "null", "number", "object", "params", "parenthesis", "self", "string", "true", "unary"
+)
+
+args <- (args) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+array <- (array) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assert <- (assert) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+binary <- (binary) => uast(
+    type: "Synthetic",
+    children: "additive", "and", "anonymous_function", "array", "assert", "binary", "bitand", "bitor", "bitshift", "bitxor", "comparison", "conditional", "dollar", "equality", "error", "false", "fieldaccess", "fieldaccess_super", "forloop", "functioncall", "id", "implicit_plus", "import", "importstr", "in_super", "indexing", "indexing_super", "local_bind", "multiplicative", "null", "number", "object", "or", "parenthesis", "self", "string", "true", "unary"
+)
+
+bind <- (bind) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "array", "assert", "binary", "conditional", "dollar", "error", "false", "fieldaccess", "fieldaccess_super", "forloop", "functioncall", "id", "implicit_plus", "import", "importstr", "in_super", "indexing", "indexing_super", "local_bind", "null", "number", "object", "params", "parenthesis", "self", "string", "true", "unary"
+)
+
+bitshift <- (bitshift) => uast(
+    type: "If",
+    children: []
+)
+
+comparison <- (comparison) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+compspec <- (compspec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+conditional <- (conditional) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "array", "assert", "binary", "conditional", "dollar", "error", "false", "fieldaccess", "fieldaccess_super", "forloop", "functioncall", "id", "implicit_plus", "import", "importstr", "in_super", "indexing", "indexing_super", "local_bind", "null", "number", "object", "parenthesis", "self", "string", "true", "unary"
+)
+
+document <- (document) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+equality <- (equality) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+error <- (error) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+field <- (field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "fieldname"
+)
+
+fieldaccess <- (fieldaccess) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "id"
+)
+
+fieldaccess_super <- (fieldaccess_super) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+fieldname <- (fieldname) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+forloop <- (forloop) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+forspec <- (forspec) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+functioncall <- (functioncall) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+id <- (id) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ifspec <- (ifspec) => uast(
+    type: "If",
+    children: []
+)
+
+implicit_plus <- (implicit_plus) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+importstr <- (importstr) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+in_super <- (in_super) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+indexing <- (indexing) => uast(
+    type: "Index",
+    roles: "Index"
+    children: []
+)
+
+indexing_super <- (indexing_super) => uast(
+    type: "Index",
+    roles: "Index"
+    children: []
+)
+
+local_bind <- (local_bind) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+member <- (member) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+multiplicative <- (multiplicative) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+named_argument <- (named_argument) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+object <- (object) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+objforloop <- (objforloop) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+objlocal <- (objlocal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+param <- (param) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "array", "assert", "binary", "conditional", "dollar", "error", "false", "fieldaccess", "fieldaccess_super", "forloop", "functioncall", "id", "implicit_plus", "import", "importstr", "in_super", "indexing", "indexing_super", "local_bind", "null", "number", "object", "parenthesis", "self", "string", "true", "unary"
+)
+
+params <- (params) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parenthesis <- (parenthesis) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_content <- (string_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unary <- (unary) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "array", "assert", "binary", "conditional", "dollar", "error", "false", "fieldaccess", "fieldaccess_super", "forloop", "functioncall", "id", "implicit_plus", "import", "importstr", "in_super", "indexing", "indexing_super", "local_bind", "null", "number", "object", "parenthesis", "self", "string", "true", "unary", "unaryop"
+)
+
+unaryop <- (unaryop) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assert <- (assert) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bitand <- (bitand) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bitor <- (bitor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bitxor <- (bitxor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+dollar <- (dollar) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+error <- (error) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+importstr <- (importstr) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+local <- (local) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+null <- (null) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+self <- (self) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_end <- (string_end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_start <- (string_start) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+super <- (super) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tailstrict <- (tailstrict) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+then <- (then) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+

@@ -1,0 +1,980 @@
+alias_expression <- (alias_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and_expression <- (and_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+boolean <- (boolean) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comparable_list <- (comparable_list) => uast(
+    type: "List",
+    children: []
+)
+
+comparison_expression <- (comparison_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+count_expression <- (count_expression) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+date_literal <- (date_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+date_literal_with_param <- (date_literal_with_param) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+dotted_identifier <- (dotted_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+else_expression <- (else_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+field_identifier <- (field_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+field_list <- (field_list) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+fields_expression <- (fields_expression) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+fields_type <- (fields_type) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+find_clause <- (find_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for_clause <- (for_clause) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+for_type <- (for_type) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+formatting_comment <- (formatting_comment) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+from_clause <- (from_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+function_expression <- (function_expression) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "identifier"
+)
+
+geo_location_type <- (geo_location_type) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+group_by_clause <- (group_by_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+having_clause <- (having_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+header_comment <- (header_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+in_clause <- (in_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+in_type <- (in_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+limit_clause <- (limit_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+not_expression <- (not_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+null_literal <- (null_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+offset_clause <- (offset_clause) => uast(
+    type: "Set",
+    children: []
+)
+
+or_expression <- (or_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+order_by_clause <- (order_by_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+order_direction <- (order_direction) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+order_expression <- (order_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+order_null_direction <- (order_null_direction) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+returning_clause <- (returning_clause) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+select_clause <- (select_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+selected_fields <- (selected_fields) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+set_comparison_operator <- (set_comparison_operator) => uast(
+    type: "Set",
+    children: []
+)
+
+sobject_return <- (sobject_return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+soql_query_body <- (soql_query_body) => uast(
+    type: "Synthetic",
+    children: "for_clause", "from_clause", "group_by_clause", "limit_clause", "offset_clause", "order_by_clause", "select_clause", "update_clause", "using_clause", "where_clause", "with_clause"
+)
+
+sosl_query_body <- (sosl_query_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sosl_using_clause <- (sosl_using_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+storage_alias <- (storage_alias) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+storage_identifier <- (storage_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+subquery <- (subquery) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_of_clause <- (type_of_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+update_clause <- (update_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+update_type <- (update_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+using_advanced_search <- (using_advanced_search) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+using_clause <- (using_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+using_listview_clause <- (using_listview_clause) => uast(
+    type: "List",
+    children: []
+)
+
+using_lookup_bind_clause <- (using_lookup_bind_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+using_lookup_bind_expression <- (using_lookup_bind_expression) => uast(
+    type: "Synthetic",
+    children: "boolean", "currency_literal", "date", "date_literal", "date_literal_with_param", "date_time", "decimal", "identifier", "int", "null_literal", "string_literal"
+)
+
+using_lookup_clause <- (using_lookup_clause) => uast(
+    type: "Synthetic",
+    children: "dotted_identifier"
+)
+
+using_phrase_search <- (using_phrase_search) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+using_scope_clause <- (using_scope_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+using_scope_type <- (using_scope_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value_comparison_operator <- (value_comparison_operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+when_expression <- (when_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+where_clause <- (where_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_clause <- (with_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_data_cat_expression <- (with_data_cat_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_data_cat_filter <- (with_data_cat_filter) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_data_cat_filter_type <- (with_data_cat_filter_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_division_expression <- (with_division_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_highlight <- (with_highlight) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_metadata_expression <- (with_metadata_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_network_expression <- (with_network_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_pricebook_expression <- (with_pricebook_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_record_visibility_expression <- (with_record_visibility_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_record_visibility_param <- (with_record_visibility_param) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_snippet_expression <- (with_snippet_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_spell_correction_expression <- (with_spell_correction_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_type <- (with_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_user_id_type <- (with_user_id_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ABOVE <- (ABOVE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ABOVE_OR_BELOW <- (ABOVE_OR_BELOW) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ADVANCED_SEARCH <- (ADVANCED_SEARCH) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ALL <- (ALL) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+AND <- (AND) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+AS <- (AS) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ASC <- (ASC) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+AT <- (AT) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+BELOW <- (BELOW) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+BIND <- (BIND) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+CUSTOM <- (CUSTOM) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+DATA_CATEGORY <- (DATA_CATEGORY) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+DESC <- (DESC) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+DIVISION <- (DIVISION) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ELSE <- (ELSE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+EMAIL <- (EMAIL) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+END <- (END) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+EXCLUDES <- (EXCLUDES) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+FALSE <- (FALSE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+FIELDS <- (FIELDS) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+FIND <- (FIND) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+FOR <- (FOR) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+FROM <- (FROM) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+GROUP_BY <- (GROUP_BY) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+HAVING <- (HAVING) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+HIGHLIGHT <- (HIGHLIGHT) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+IN <- (IN) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+INCLUDES <- (INCLUDES) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+LAST_90_DAYS <- (LAST_90_DAYS) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+LAST_FISCAL_QUARTER <- (LAST_FISCAL_QUARTER) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+LAST_FISCAL_YEAR <- (LAST_FISCAL_YEAR) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+LAST_MONTH <- (LAST_MONTH) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+LAST_QUARTER <- (LAST_QUARTER) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+LAST_WEEK <- (LAST_WEEK) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+LAST_YEAR <- (LAST_YEAR) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+LIKE <- (LIKE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+LIMIT <- (LIMIT) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+LOOKUP <- (LOOKUP) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ListView <- (ListView) => uast(
+    type: "List",
+    children: []
+)
+
+METADATA <- (METADATA) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+NAME <- (NAME) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+NETWORK <- (NETWORK) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+NEXT_90_DAYS <- (NEXT_90_DAYS) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+NEXT_FISCAL_QUARTER <- (NEXT_FISCAL_QUARTER) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+NEXT_FISCAL_YEAR <- (NEXT_FISCAL_YEAR) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+NEXT_MONTH <- (NEXT_MONTH) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+NEXT_QUARTER <- (NEXT_QUARTER) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+NEXT_WEEK <- (NEXT_WEEK) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+NEXT_YEAR <- (NEXT_YEAR) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+NOT <- (NOT) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+NOT_IN <- (NOT_IN) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+NULL <- (NULL) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+NULLS_FIRST <- (NULLS_FIRST) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+NULLS_LAST <- (NULLS_LAST) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+OFFSET <- (OFFSET) => uast(
+    type: "Set",
+    children: []
+)
+
+OR <- (OR) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ORDER_BY <- (ORDER_BY) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+PHONE <- (PHONE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+PHRASE_SEARCH <- (PHRASE_SEARCH) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+PricebookId <- (PricebookId) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+REFERENCE <- (REFERENCE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+RETURNING <- (RETURNING) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+RecordVisibilityContext <- (RecordVisibilityContext) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+SCOPE <- (SCOPE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+SELECT <- (SELECT) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+SIDEBAR <- (SIDEBAR) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+SNIPPET <- (SNIPPET) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+SPELL_CORRECTION <- (SPELL_CORRECTION) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+STANDARD <- (STANDARD) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+Security_Enforced <- (Security_Enforced) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+System_Mode <- (System_Mode) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+THEN <- (THEN) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+THIS_FISCAL_QUARTER <- (THIS_FISCAL_QUARTER) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+THIS_FISCAL_YEAR <- (THIS_FISCAL_YEAR) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+THIS_MONTH <- (THIS_MONTH) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+THIS_QUARTER <- (THIS_QUARTER) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+THIS_WEEK <- (THIS_WEEK) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+THIS_YEAR <- (THIS_YEAR) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+TODAY <- (TODAY) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+TOMORROW <- (TOMORROW) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+TRACKING <- (TRACKING) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+TRUE <- (TRUE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+TYPEOF <- (TYPEOF) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+UPDATE <- (UPDATE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+USING <- (USING) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+UserId <- (UserId) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+User_Mode <- (User_Mode) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+VIEW <- (VIEW) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+VIEWSTAT <- (VIEWSTAT) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+WHEN <- (WHEN) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+WHERE <- (WHERE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+WITH <- (WITH) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+YESTERDAY <- (YESTERDAY) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bound_apex_expression <- (bound_apex_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+currency_literal <- (currency_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+date <- (date) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+date_time <- (date_time) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+decimal <- (decimal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+delegated <- (delegated) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+everything <- (everything) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+int <- (int) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+maxDescriptorPerRecord <- (maxDescriptorPerRecord) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mine <- (mine) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mine_and_my_groups <- (mine_and_my_groups) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+my_team_territory <- (my_team_territory) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+my_territory <- (my_territory) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+supportsDelegates <- (supportsDelegates) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+supportsDomains <- (supportsDomains) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+target_length <- (target_length) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+team <- (team) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+term <- (term) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+term_separator_end <- (term_separator_end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+term_separator_start <- (term_separator_start) => uast(
+    type: "Synthetic",
+    children: []
+)
+

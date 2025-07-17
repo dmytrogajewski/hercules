@@ -1,0 +1,243 @@
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "contents", "directive", "expr"
+)
+
+body <- (body) => uast(
+    type: "Synthetic",
+    children: "directive"
+)
+
+cell <- (cell) => uast(
+    type: "Synthetic",
+    children: "contents"
+)
+
+checkbox <- (checkbox) => uast(
+    type: "Synthetic",
+    children: "expr"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+contents <- (contents) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+description <- (description) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+directive <- (directive) => uast(
+    type: "Synthetic",
+    children: "expr", "value"
+)
+
+document <- (document) => uast(
+    type: "Synthetic",
+    children: "body", "section"
+)
+
+drawer <- (drawer) => uast(
+    type: "Synthetic",
+    children: "contents", "directive", "expr"
+)
+
+dynamic_block <- (dynamic_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "contents", "directive", "expr"
+)
+
+entry <- (entry) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "entry_name", "timestamp"
+)
+
+expr <- (expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fndef <- (fndef) => uast(
+    type: "Synthetic",
+    children: "description", "directive", "expr"
+)
+
+formula <- (formula) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "expr"
+)
+
+headline <- (headline) => uast(
+    type: "Synthetic",
+    children: "item", "stars", "tag_list"
+)
+
+hr <- (hr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+item <- (item) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+latex_env <- (latex_env) => uast(
+    type: "Synthetic",
+    children: "contents", "directive", "name"
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: "directive"
+)
+
+listitem <- (listitem) => uast(
+    type: "List",
+    children: "block", "bullet", "checkbox", "comment", "directive", "drawer", "dynamic_block", "fndef", "latex_env", "list", "paragraph", "table"
+)
+
+paragraph <- (paragraph) => uast(
+    type: "Synthetic",
+    children: "directive"
+)
+
+plan <- (plan) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+property <- (property) => uast(
+    type: "Property",
+    roles: "Member"
+    children: "expr", "value"
+)
+
+property_drawer <- (property_drawer) => uast(
+    type: "Property",
+    roles: "Member"
+    children: []
+)
+
+row <- (row) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+section <- (section) => uast(
+    type: "Synthetic",
+    children: "body", "headline", "plan", "property_drawer", "section"
+)
+
+stars <- (stars) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+table <- (table) => uast(
+    type: "Synthetic",
+    children: "directive"
+)
+
+tag <- (tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tag_list <- (tag_list) => uast(
+    type: "List",
+    children: "tag"
+)
+
+timestamp <- (timestamp) => uast(
+    type: "Synthetic",
+    children: "date", "day", "delay", "duration", "repeat", "time"
+)
+
+tsexp <- (tsexp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value <- (value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_ <- (_) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bullet <- (bullet) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+date <- (date) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+day <- (day) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+delay <- (delay) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+duration <- (duration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+entry_name <- (entry_name) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+name <- (name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+num <- (num) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+repeat <- (repeat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+str <- (str) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sym <- (sym) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+time <- (time) => uast(
+    type: "Synthetic",
+    children: []
+)
+

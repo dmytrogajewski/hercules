@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	forest "github.com/alexaandru/go-sitter-forest"
 	sitter "github.com/alexaandru/go-tree-sitter-bare"
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/mapping"
 )
@@ -56,9 +57,11 @@ func (pf *ProviderFactory) CreateDSLProvider(langName string, dslContent string)
 
 // getLanguage returns the Tree-sitter language for the given language name.
 func (pf *ProviderFactory) getLanguage(langName string) (interface{}, error) {
-	// This would be implemented with the actual language registry
-	// For now, return a placeholder
-	return nil, fmt.Errorf("language %s not found", langName)
+	lang := forest.GetLanguage(langName)
+	if lang == nil {
+		return nil, fmt.Errorf("language %s not found", langName)
+	}
+	return lang, nil
 }
 
 // detectLanguageFromFile detects the language from a filename.

@@ -1,0 +1,115 @@
+suite: lambda
+name: go-lambda
+
+parse_cases:
+  - name: lambda
+    input: |
+      func k() {
+          f := func(x int) int {
+              return x * 2
+          }
+          result := f(5)
+          _ = result
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "k"
+          token: "k"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "k"
+            - type: "Block"
+              roles: ["Body"]
+            - type: "Block"
+              roles: ["Body"]
+              children:
+                - type: "Variable"
+                  roles: ["Variable", "Declaration"]
+                  props:
+                    name: "f"
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "f"
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Lambda"
+                          roles: ["Lambda"]
+                          children:
+                            - type: "Block"
+                              roles: ["Body"]
+                              children:
+                                - type: "Parameter"
+                                  roles: ["Parameter", "Declaration"]
+                                  children:
+                                    - type: "Identifier"
+                                      roles: ["Name"]
+                                      token: "x"
+                            - type: "Block"
+                              roles: ["Body"]
+                              children:
+                                - type: "Return"
+                                  roles: ["Return"]
+                                  children:
+                                    - type: "Block"
+                                      roles: ["Body"]
+                                      children:
+                                        - type: "BinaryOp"
+                                          roles: ["Operator"]
+                                          children:
+                                            - type: "Identifier"
+                                              roles: ["Name"]
+                                              token: "x"
+                                            - type: "Literal"
+                                              roles: ["Literal"]
+                                              token: "2"
+                - type: "Variable"
+                  roles: ["Variable", "Declaration"]
+                  props:
+                    name: "result"
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "result"
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Call"
+                          roles: ["Call"]
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "f"
+                            - type: "Block"
+                              roles: ["Body"]
+                              children:
+                                - type: "Literal"
+                                  roles: ["Literal"]
+                                  token: "5"
+                - type: "Assignment"
+                  roles: ["Assignment"]
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "_"
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "result" 

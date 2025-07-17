@@ -1,0 +1,307 @@
+amp_literal <- (amp_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+argument_list <- (argument_list) => uast(
+    type: "List",
+    children: []
+)
+
+binary_expression <- (binary_expression) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "call_expression", "false", "float_literal", "identifier", "imaginary_literal", "int_literal", "interpreted_string_literal", "nil", "parenthesized_expression", "raw_string_literal", "selector_expression", "true"
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+block_c <- (block_c) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+call_expression <- (call_expression) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "argument_list", "binary_expression", "call_expression", "false", "float_literal", "identifier", "imaginary_literal", "int_literal", "interpreted_string_literal", "nil", "parenthesized_expression", "raw_string_literal", "selector_expression", "true", "type_arguments"
+)
+
+caveat <- (caveat) => uast(
+    type: "Synthetic",
+    children: "block_c", "identifier", "parameters_list"
+)
+
+definition <- (definition) => uast(
+    type: "Synthetic",
+    children: "block", "identifier", "slash_literal"
+)
+
+expression_statement <- (expression_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if_statement <- (if_statement) => uast(
+    type: "If",
+    children: "binary_expression", "block", "call_expression", "expression_statement", "false", "float_literal", "identifier", "if_statement", "imaginary_literal", "int_literal", "interpreted_string_literal", "nil", "parenthesized_expression", "raw_string_literal", "selector_expression", "true"
+)
+
+interpreted_string_literal <- (interpreted_string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+labeled_statement <- (labeled_statement) => uast(
+    type: "Synthetic",
+    children: "label_name"
+)
+
+minus_literal <- (minus_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+parameter_declaration <- (parameter_declaration) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "any", "bool", "bytes", "double", "duration", "identifier", "int", "parenthesized_type", "string", "timestampt", "uint"
+)
+
+parameters_list <- (parameters_list) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+parenthesized_expression <- (parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parenthesized_perm_expression <- (parenthesized_perm_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parenthesized_type <- (parenthesized_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+perm_expression <- (perm_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+permission <- (permission) => uast(
+    type: "Synthetic",
+    children: "identifier", "perm_expression", "permission_literal"
+)
+
+pipe_literal <- (pipe_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+plus_literal <- (plus_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+rel_expression <- (rel_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+relation <- (relation) => uast(
+    type: "Synthetic",
+    children: "identifier", "rel_expression", "relation_literal"
+)
+
+selector_expression <- (selector_expression) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "call_expression", "false", "field_identifier", "float_literal", "identifier", "imaginary_literal", "int_literal", "interpreted_string_literal", "nil", "parenthesized_expression", "raw_string_literal", "selector_expression", "true"
+)
+
+slash_literal <- (slash_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_arguments <- (type_arguments) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+wildcard_literal <- (wildcard_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+any <- (any) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bool <- (bool) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bytes <- (bytes) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+caveat_literal <- (caveat_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+definition_literal <- (definition_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+double <- (double) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+duration <- (duration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+field_identifier <- (field_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+float_literal <- (float_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+hash_literal <- (hash_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+imaginary_literal <- (imaginary_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+int <- (int) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+int_literal <- (int_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+label_name <- (label_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nil <- (nil) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+permission_literal <- (permission_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+raw_string_literal <- (raw_string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+relation_literal <- (relation_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+stabby <- (stabby) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+timestampt <- (timestampt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+uint <- (uint) => uast(
+    type: "Synthetic",
+    children: []
+)
+

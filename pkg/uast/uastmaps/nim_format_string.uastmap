@@ -1,0 +1,92 @@
+double_curlies <- (double_curlies) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escaped_curly <- (escaped_curly) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+format_specifiers <- (format_specifiers) => uast(
+    type: "If",
+    children: "colon", "fill_align", "hash", "min_width", "precision", "sign", "type", "zero"
+)
+
+matching_curlies <- (matching_curlies) => uast(
+    type: "Match",
+    roles: "Match"
+    children: "closing_curly", "equals", "format_specifiers", "nim_expression", "opening_curly"
+)
+
+nim_expression <- (nim_expression) => uast(
+    type: "Synthetic",
+    children: "escaped_curly"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+closing_curly <- (closing_curly) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+colon <- (colon) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+equals <- (equals) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fill_align <- (fill_align) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hash <- (hash) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+min_width <- (min_width) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+opening_curly <- (opening_curly) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+precision <- (precision) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sign <- (sign) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+zero <- (zero) => uast(
+    type: "Synthetic",
+    children: []
+)
+

@@ -1,0 +1,290 @@
+argument <- (argument) => uast(
+    type: "Synthetic",
+    children: "braced_word", "quoted_word", "simple_word"
+)
+
+arguments <- (arguments) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+array_index <- (array_index) => uast(
+    type: "Index",
+    roles: "Index"
+    children: []
+)
+
+binop_expr <- (binop_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+braced_word <- (braced_word) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+braced_word_simple <- (braced_word_simple) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+catch <- (catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+command <- (command) => uast(
+    type: "Synthetic",
+    children: "array_index", "braced_word", "command_substitution", "escaped_character", "quoted_word", "simple_word", "unpack", "variable_substitution", "word_list"
+)
+
+command_substitution <- (command_substitution) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: "array_index", "braced_word", "command_substitution", "escaped_character", "quoted_word", "simple_word", "unpack", "variable_substitution"
+)
+
+elseif <- (elseif) => uast(
+    type: "If",
+    children: "array_index", "braced_word", "command_substitution", "escaped_character", "expr", "quoted_word", "simple_word", "unpack", "variable_substitution"
+)
+
+expr <- (expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expr_cmd <- (expr_cmd) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+finally <- (finally) => uast(
+    type: "Finally",
+    roles: "Finally"
+    children: []
+)
+
+foreach <- (foreach) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+global <- (global) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+id <- (id) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: "array_index", "braced_word", "command_substitution", "else", "elseif", "escaped_character", "expr", "quoted_word", "simple_word", "unpack", "variable_substitution"
+)
+
+namespace <- (namespace) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+procedure <- (procedure) => uast(
+    type: "Synthetic",
+    children: "arguments", "array_index", "braced_word", "command_substitution", "escaped_character", "quoted_word", "simple_word", "unpack", "variable_substitution"
+)
+
+quoted_word <- (quoted_word) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+regexp <- (regexp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+set <- (set) => uast(
+    type: "Set",
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ternary_expr <- (ternary_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+try <- (try) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+unary_expr <- (unary_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variable_substitution <- (variable_substitution) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+word_list <- (word_list) => uast(
+    type: "List",
+    children: []
+)
+
+catch <- (catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+elseif <- (elseif) => uast(
+    type: "If",
+    children: []
+)
+
+eq <- (eq) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+error <- (error) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escaped_character <- (escaped_character) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expr <- (expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+finally <- (finally) => uast(
+    type: "Finally",
+    roles: "Finally"
+    children: []
+)
+
+foreach <- (foreach) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+global <- (global) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+namespace <- (namespace) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+ne <- (ne) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ni <- (ni) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+on <- (on) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+proc <- (proc) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+regexp <- (regexp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+set <- (set) => uast(
+    type: "Set",
+    children: []
+)
+
+simple_word <- (simple_word) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+try <- (try) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+unpack <- (unpack) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+

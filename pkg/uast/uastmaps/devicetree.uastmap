@@ -1,0 +1,218 @@
+argument_list <- (argument_list) => uast(
+    type: "List",
+    children: []
+)
+
+binary_expression <- (binary_expression) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "call_expression", "conditional_expression", "identifier", "integer_literal", "parenthesized_expression", "preproc_defined", "unary_expression"
+)
+
+byte_string_literal <- (byte_string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+call_expression <- (call_expression) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "argument_list", "identifier"
+)
+
+conditional_expression <- (conditional_expression) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "call_expression", "conditional_expression", "identifier", "integer_literal", "unary_expression"
+)
+
+delete_node <- (delete_node) => uast(
+    type: "Synthetic",
+    children: "identifier", "reference", "unit_address"
+)
+
+delete_property <- (delete_property) => uast(
+    type: "Property",
+    roles: "Member"
+    children: "identifier"
+)
+
+document <- (document) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dtsi_include <- (dtsi_include) => uast(
+    type: "Synthetic",
+    children: "string_literal"
+)
+
+file_version <- (file_version) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+incbin <- (incbin) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "call_expression", "conditional_expression", "identifier", "integer_literal", "reference", "string_literal", "unary_expression"
+)
+
+integer_cells <- (integer_cells) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+memory_reservation <- (memory_reservation) => uast(
+    type: "Synthetic",
+    children: "identifier", "integer_literal"
+)
+
+node <- (node) => uast(
+    type: "Synthetic",
+    children: "identifier", "reference", "unit_address"
+)
+
+omit_if_no_ref <- (omit_if_no_ref) => uast(
+    type: "If",
+    children: []
+)
+
+parenthesized_expression <- (parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+path <- (path) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+path_node <- (path_node) => uast(
+    type: "Synthetic",
+    children: "identifier", "unit_address"
+)
+
+plugin <- (plugin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preproc_def <- (preproc_def) => uast(
+    type: "Synthetic",
+    children: "identifier", "preproc_arg"
+)
+
+preproc_defined <- (preproc_defined) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preproc_elif <- (preproc_elif) => uast(
+    type: "If",
+    children: "binary_expression", "call_expression", "identifier", "integer_literal", "parenthesized_expression", "preproc_defined", "preproc_elif", "preproc_else", "unary_expression"
+)
+
+preproc_elifdef <- (preproc_elifdef) => uast(
+    type: "If",
+    children: "identifier", "preproc_elif", "preproc_else"
+)
+
+preproc_else <- (preproc_else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preproc_function_def <- (preproc_function_def) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "identifier", "preproc_arg", "preproc_params"
+)
+
+preproc_if <- (preproc_if) => uast(
+    type: "If",
+    children: "binary_expression", "call_expression", "identifier", "integer_literal", "parenthesized_expression", "preproc_defined", "preproc_elif", "preproc_else", "unary_expression"
+)
+
+preproc_ifdef <- (preproc_ifdef) => uast(
+    type: "If",
+    children: "identifier", "preproc_elif", "preproc_elifdef", "preproc_else"
+)
+
+preproc_include <- (preproc_include) => uast(
+    type: "Synthetic",
+    children: "identifier", "string_literal", "system_lib_string"
+)
+
+preproc_params <- (preproc_params) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preproc_undef <- (preproc_undef) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+property <- (property) => uast(
+    type: "Property",
+    roles: "Member"
+    children: "byte_string_literal", "identifier", "incbin", "integer_cells", "integer_literal", "reference", "string_literal"
+)
+
+reference <- (reference) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+unary_expression <- (unary_expression) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "call_expression", "conditional_expression", "identifier", "integer_literal", "parenthesized_expression", "preproc_defined", "unary_expression"
+)
+
+unit_address <- (unit_address) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+defined <- (defined) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer_literal <- (integer_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+preproc_arg <- (preproc_arg) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+system_lib_string <- (system_lib_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+

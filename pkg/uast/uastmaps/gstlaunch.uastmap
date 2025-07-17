@@ -1,0 +1,67 @@
+bin <- (bin) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+cap <- (cap) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+caps <- (caps) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+element <- (element) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fragment <- (fragment) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pipeline <- (pipeline) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+property <- (property) => uast(
+    type: "Property",
+    roles: "Member"
+    children: "identifier", "value"
+)
+
+reference <- (reference) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+simple_element <- (simple_element) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+value <- (value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+string_content <- (string_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+

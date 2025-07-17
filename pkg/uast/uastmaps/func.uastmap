@@ -1,0 +1,451 @@
+asm_function_body <- (asm_function_body) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+asm_instruction <- (asm_instruction) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+asm_specifier <- (asm_specifier) => uast(
+    type: "If",
+    children: []
+)
+
+block_statement <- (block_statement) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+const_var_declarations <- (const_var_declarations) => uast(
+    type: "Synthetic",
+    children: "function_application", "function_type", "hole_type", "identifier", "method_call", "number", "parenthesized_expression", "primitive_type", "string", "tensor_expression", "tensor_type", "tuple_expression", "tuple_type", "type_expression", "type_identifier", "underscore", "unit_literal", "unit_type", "var", "variable_declaration"
+)
+
+do_statement <- (do_statement) => uast(
+    type: "Synthetic",
+    children: "block_statement", "function_application", "identifier", "method_call", "number", "parenthesized_expression", "primitive_type", "string", "tensor_expression", "tuple_expression", "type_expression", "underscore", "unit_literal", "variable_declaration"
+)
+
+empty_statement <- (empty_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expression_statement <- (expression_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+function_application <- (function_application) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "identifier", "number", "parenthesized_expression", "primitive_type", "string", "tensor_expression", "tuple_expression", "underscore", "unit_literal"
+)
+
+function_definition <- (function_definition) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "asm_function_body", "block_statement", "function_name", "function_type", "hole_type", "impure", "inline", "method_id", "parameter_list", "primitive_type", "tensor_type", "tuple_type", "type_identifier", "type_variables_list", "unit_type", "var"
+)
+
+function_type <- (function_type) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+global_var_declarations <- (global_var_declarations) => uast(
+    type: "Synthetic",
+    children: "function_type", "hole_type", "identifier", "primitive_type", "tensor_type", "tuple_type", "type_identifier", "unit_type", "var"
+)
+
+hole_type <- (hole_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if_statement <- (if_statement) => uast(
+    type: "If",
+    children: "block_statement", "else", "elseif", "elseifnot", "function_application", "identifier", "method_call", "number", "parenthesized_expression", "primitive_type", "string", "tensor_expression", "tuple_expression", "type_expression", "underscore", "unit_literal", "variable_declaration"
+)
+
+include_directive <- (include_directive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+include_path <- (include_path) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inline <- (inline) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+method_call <- (method_call) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "identifier", "number", "parenthesized_expression", "primitive_type", "string", "tensor_expression", "tuple_expression", "type_expression", "underscore", "unit_literal"
+)
+
+method_id <- (method_id) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+multiline_asm_instruction <- (multiline_asm_instruction) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+multiline_string_fragment <- (multiline_string_fragment) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parameter_declaration <- (parameter_declaration) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "function_type", "hole_type", "parameter", "primitive_type", "tensor_type", "tuple_type", "type_identifier", "unit_type", "var"
+)
+
+parameter_list <- (parameter_list) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+parenthesized_expression <- (parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parenthesized_type_expression <- (parenthesized_type_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pragma_directive <- (pragma_directive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+primitive_type <- (primitive_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+repeat_statement <- (repeat_statement) => uast(
+    type: "Synthetic",
+    children: "block_statement", "function_application", "identifier", "method_call", "number", "parenthesized_expression", "primitive_type", "string", "tensor_expression", "tuple_expression", "type_expression", "underscore", "unit_literal", "variable_declaration"
+)
+
+return_statement <- (return_statement) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tensor_expression <- (tensor_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tensor_type <- (tensor_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tensor_type_expression <- (tensor_type_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+translation_unit <- (translation_unit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+try_statement <- (try_statement) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+tuple_expression <- (tuple_expression) => uast(
+    type: "Tuple",
+    children: []
+)
+
+tuple_type <- (tuple_type) => uast(
+    type: "Tuple",
+    children: []
+)
+
+tuple_type_expression <- (tuple_type_expression) => uast(
+    type: "Tuple",
+    children: []
+)
+
+type_expression <- (type_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_identifier <- (type_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+type_variables_list <- (type_variables_list) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+unit_literal <- (unit_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+unit_type <- (unit_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variable_declaration <- (variable_declaration) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "identifier", "parenthesized_expression", "tensor_expression", "tuple_expression", "type_expression"
+)
+
+while_statement <- (while_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "block_statement", "function_application", "identifier", "method_call", "number", "parenthesized_expression", "primitive_type", "string", "tensor_expression", "tuple_expression", "type_expression", "underscore", "unit_literal", "variable_declaration"
+)
+
+asm <- (asm) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+builder <- (builder) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+catch <- (catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+cell <- (cell) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+const <- (const) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cont <- (cont) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+elseif <- (elseif) => uast(
+    type: "If",
+    children: []
+)
+
+elseifnot <- (elseifnot) => uast(
+    type: "If",
+    children: []
+)
+
+forall <- (forall) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+function_name <- (function_name) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+global <- (global) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+ifnot <- (ifnot) => uast(
+    type: "If",
+    children: []
+)
+
+impure <- (impure) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inline <- (inline) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inline_ref <- (inline_ref) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+int <- (int) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+major_version <- (major_version) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+method_id <- (method_id) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+minor_version <- (minor_version) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parameter <- (parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+patch_version <- (patch_version) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+repeat <- (repeat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+slice <- (slice) => uast(
+    type: "Slice",
+    children: []
+)
+
+string_type <- (string_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+try <- (try) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+tuple <- (tuple) => uast(
+    type: "Tuple",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+underscore <- (underscore) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+until <- (until) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+var <- (var) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+version <- (version) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+version_operator <- (version_operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+

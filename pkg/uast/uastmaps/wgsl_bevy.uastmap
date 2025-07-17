@@ -1,0 +1,818 @@
+access_mode <- (access_mode) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+address_space <- (address_space) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+alias <- (alias) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+argument_list_expression <- (argument_list_expression) => uast(
+    type: "List",
+    children: []
+)
+
+assignment_statement <- (assignment_statement) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "_", "binary_expression", "bitcast_expression", "composite_value_decomposition_expression", "const_literal", "identifier", "lhs_expression", "parenthesized_expression", "subscript_expression", "type_constructor_or_function_call_expression", "unary_expression"
+)
+
+attribute <- (attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+binary_expression <- (binary_expression) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "bitcast_expression", "composite_value_decomposition_expression", "const_literal", "identifier", "parenthesized_expression", "subscript_expression", "type_constructor_or_function_call_expression", "unary_expression"
+)
+
+bitcast_expression <- (bitcast_expression) => uast(
+    type: "Cast",
+    children: []
+)
+
+bool_literal <- (bool_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+break_if_statement <- (break_if_statement) => uast(
+    type: "If",
+    children: []
+)
+
+break_statement <- (break_statement) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+case_compound_statement <- (case_compound_statement) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+case_selectors <- (case_selectors) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+composite_value_decomposition_expression <- (composite_value_decomposition_expression) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "bitcast_expression", "composite_value_decomposition_expression", "const_literal", "identifier", "parenthesized_expression", "subscript_expression", "type_constructor_or_function_call_expression", "unary_expression"
+)
+
+compound_assignment_operator <- (compound_assignment_operator) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: []
+)
+
+compound_statement <- (compound_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+const_expression <- (const_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+const_literal <- (const_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+continue_statement <- (continue_statement) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+continuing_compound_statement <- (continuing_compound_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+continuing_statement <- (continuing_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+decrement_statement <- (decrement_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+define_import_path <- (define_import_path) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "import_path"
+)
+
+discard_statement <- (discard_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else_statement <- (else_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+enable_directive <- (enable_directive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fallthrough_statement <- (fallthrough_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float_literal <- (float_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+for_header <- (for_header) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+for_statement <- (for_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+function_declaration <- (function_declaration) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "compound_statement", "function_return_type_declaration", "identifier", "import_path", "parameter_list"
+)
+
+function_return_type_declaration <- (function_return_type_declaration) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+global_constant_declaration <- (global_constant_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+global_variable_declaration <- (global_variable_declaration) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+if_statement <- (if_statement) => uast(
+    type: "If",
+    children: "binary_expression", "bitcast_expression", "composite_value_decomposition_expression", "compound_statement", "const_literal", "else_statement", "identifier", "parenthesized_expression", "subscript_expression", "type_constructor_or_function_call_expression", "unary_expression"
+)
+
+import_path <- (import_path) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+increment_statement <- (increment_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lhs_expression <- (lhs_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+loop_statement <- (loop_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+parameter <- (parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+parameter_list <- (parameter_list) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+parenthesized_expression <- (parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+postfix_expression <- (postfix_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preproc_else <- (preproc_else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preproc_ifdef <- (preproc_ifdef) => uast(
+    type: "If",
+    children: "identifier", "preproc_else"
+)
+
+preproc_import <- (preproc_import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "alias", "import_path"
+)
+
+return_statement <- (return_statement) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+struct_declaration <- (struct_declaration) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "identifier"
+)
+
+struct_member <- (struct_member) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+subscript_expression <- (subscript_expression) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "bitcast_expression", "composite_value_decomposition_expression", "const_literal", "identifier", "parenthesized_expression", "subscript_expression", "type_constructor_or_function_call_expression", "unary_expression"
+)
+
+switch_body <- (switch_body) => uast(
+    type: "Switch",
+    children: []
+)
+
+switch_statement <- (switch_statement) => uast(
+    type: "Switch",
+    children: []
+)
+
+texel_format <- (texel_format) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+type_alias_declaration <- (type_alias_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_constructor_or_function_call_expression <- (type_constructor_or_function_call_expression) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+type_declaration <- (type_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unary_expression <- (unary_expression) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "bitcast_expression", "composite_value_decomposition_expression", "const_literal", "identifier", "parenthesized_expression", "subscript_expression", "type_constructor_or_function_call_expression", "unary_expression"
+)
+
+variable_declaration <- (variable_declaration) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+variable_identifier_declaration <- (variable_identifier_declaration) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "identifier", "type_declaration"
+)
+
+variable_qualifier <- (variable_qualifier) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+variable_statement <- (variable_statement) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+while_statement <- (while_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "binary_expression", "bitcast_expression", "composite_value_decomposition_expression", "const_literal", "identifier", "parenthesized_expression", "subscript_expression", "type_constructor_or_function_call_expression", "unary_expression"
+)
+
+_ <- (_) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+array <- (array) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+as <- (as) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bitcast <- (bitcast) => uast(
+    type: "Cast",
+    children: []
+)
+
+block_comment <- (block_comment) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+bool <- (bool) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+continue <- (continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+continuing <- (continuing) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+default <- (default) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+discard <- (discard) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+enable <- (enable) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+f16 <- (f16) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+f32 <- (f32) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fallthrough <- (fallthrough) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fn <- (fn) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+i32 <- (i32) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+int_literal <- (int_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+let <- (let) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+line_comment <- (line_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+loop <- (loop) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+mat2x2 <- (mat2x2) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mat2x3 <- (mat2x3) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mat2x4 <- (mat2x4) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mat3x2 <- (mat3x2) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mat3x3 <- (mat3x3) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mat3x4 <- (mat3x4) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mat4x2 <- (mat4x2) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mat4x3 <- (mat4x3) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mat4x4 <- (mat4x4) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+override <- (override) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+private <- (private) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ptr <- (ptr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+r32float <- (r32float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+r32sint <- (r32sint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+r32uint <- (r32uint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+read <- (read) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+read_write <- (read_write) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+rg32float <- (rg32float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rg32sint <- (rg32sint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rg32uint <- (rg32uint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rgba16float <- (rgba16float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rgba16sint <- (rgba16sint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rgba16uint <- (rgba16uint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rgba32float <- (rgba32float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rgba32sint <- (rgba32sint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rgba32uint <- (rgba32uint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rgba8sint <- (rgba8sint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rgba8snorm <- (rgba8snorm) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rgba8uint <- (rgba8uint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rgba8unorm <- (rgba8unorm) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sampler <- (sampler) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sampler_comparison <- (sampler_comparison) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+storage <- (storage) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+struct <- (struct) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+switch <- (switch) => uast(
+    type: "Switch",
+    children: []
+)
+
+texture_1d <- (texture_1d) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+texture_2d <- (texture_2d) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+texture_2d_array <- (texture_2d_array) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+texture_3d <- (texture_3d) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+texture_cube <- (texture_cube) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+texture_cube_array <- (texture_cube_array) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+texture_depth_2d <- (texture_depth_2d) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+texture_depth_2d_array <- (texture_depth_2d_array) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+texture_depth_cube <- (texture_depth_cube) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+texture_depth_cube_array <- (texture_depth_cube_array) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+texture_depth_multisampled_2d <- (texture_depth_multisampled_2d) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+texture_multisampled_2d <- (texture_multisampled_2d) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+texture_storage_1d <- (texture_storage_1d) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+texture_storage_2d <- (texture_storage_2d) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+texture_storage_2d_array <- (texture_storage_2d_array) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+texture_storage_3d <- (texture_storage_3d) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+u32 <- (u32) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+uniform <- (uniform) => uast(
+    type: "If",
+    children: []
+)
+
+var <- (var) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vec2 <- (vec2) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vec3 <- (vec3) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vec4 <- (vec4) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+virtual <- (virtual) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+workgroup <- (workgroup) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+write <- (write) => uast(
+    type: "Synthetic",
+    children: []
+)
+

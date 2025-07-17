@@ -1,0 +1,728 @@
+add_expr <- (add_expr) => uast(
+    type: "Synthetic",
+    children: "add_expr", "aggregate", "call_or_unqual_agg_expr", "comp_term", "conjunction", "disjunction", "expr_annotation", "if_term", "implication", "in_expr", "instance_of", "literal", "mul_expr", "negation", "par_expr", "prefix_cast", "qualified_expr", "quantified", "range", "set_literal", "special_call", "super_ref", "unary_expr", "variable"
+)
+
+addop <- (addop) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+aggId <- (aggId) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+aggregate <- (aggregate) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+annotArg <- (annotArg) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+annotName <- (annotName) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+annotation <- (annotation) => uast(
+    type: "Synthetic",
+    children: "annotArg", "annotName"
+)
+
+aritylessPredicateExpr <- (aritylessPredicateExpr) => uast(
+    type: "Synthetic",
+    children: "literalId", "moduleExpr"
+)
+
+asExpr <- (asExpr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+asExprs <- (asExprs) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+body <- (body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bool <- (bool) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+call_body <- (call_body) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+call_or_unqual_agg_expr <- (call_or_unqual_agg_expr) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+charpred <- (charpred) => uast(
+    type: "Synthetic",
+    children: "add_expr", "aggregate", "call_or_unqual_agg_expr", "comp_term", "conjunction", "disjunction", "expr_annotation", "if_term", "implication", "in_expr", "instance_of", "literal", "mul_expr", "negation", "par_expr", "prefix_cast", "qualified_expr", "quantified", "range", "set_literal", "special_call", "super_ref", "unary_expr", "variable"
+)
+
+classMember <- (classMember) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+className <- (className) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+classlessPredicate <- (classlessPredicate) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "predicate", "predicateName", "typeExpr"
+)
+
+closure <- (closure) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comp_term <- (comp_term) => uast(
+    type: "Synthetic",
+    children: "add_expr", "aggregate", "call_or_unqual_agg_expr", "comp_term", "conjunction", "disjunction", "expr_annotation", "if_term", "implication", "in_expr", "instance_of", "literal", "mul_expr", "negation", "par_expr", "prefix_cast", "qualified_expr", "quantified", "range", "set_literal", "special_call", "super_ref", "unary_expr", "variable"
+)
+
+compop <- (compop) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+conjunction <- (conjunction) => uast(
+    type: "Synthetic",
+    children: "add_expr", "aggregate", "call_or_unqual_agg_expr", "comp_term", "conjunction", "disjunction", "expr_annotation", "if_term", "implication", "in_expr", "instance_of", "literal", "mul_expr", "negation", "par_expr", "prefix_cast", "qualified_expr", "quantified", "range", "set_literal", "special_call", "super_ref", "unary_expr", "variable"
+)
+
+dataclass <- (dataclass) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "className", "extends", "instanceof", "typeExpr"
+)
+
+datatype <- (datatype) => uast(
+    type: "Synthetic",
+    children: "className"
+)
+
+datatypeBranch <- (datatypeBranch) => uast(
+    type: "Synthetic",
+    children: "className"
+)
+
+datatypeBranches <- (datatypeBranches) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+direction <- (direction) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+disjunction <- (disjunction) => uast(
+    type: "Synthetic",
+    children: "add_expr", "aggregate", "call_or_unqual_agg_expr", "comp_term", "conjunction", "disjunction", "expr_annotation", "if_term", "implication", "in_expr", "instance_of", "literal", "mul_expr", "negation", "par_expr", "prefix_cast", "qualified_expr", "quantified", "range", "set_literal", "special_call", "super_ref", "unary_expr", "variable"
+)
+
+empty <- (empty) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expr_aggregate_body <- (expr_aggregate_body) => uast(
+    type: "Synthetic",
+    children: "asExprs", "orderBys"
+)
+
+expr_annotation <- (expr_annotation) => uast(
+    type: "Synthetic",
+    children: "annotName"
+)
+
+field <- (field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+full_aggregate_body <- (full_aggregate_body) => uast(
+    type: "Synthetic",
+    children: "add_expr", "aggregate", "asExprs", "call_or_unqual_agg_expr", "comp_term", "conjunction", "disjunction", "expr_annotation", "if_term", "implication", "in_expr", "instance_of", "literal", "mul_expr", "negation", "orderBys", "par_expr", "prefix_cast", "qualified_expr", "quantified", "range", "set_literal", "special_call", "super_ref", "unary_expr", "variable"
+)
+
+higherOrderTerm <- (higherOrderTerm) => uast(
+    type: "Synthetic",
+    children: "literalId"
+)
+
+if_term <- (if_term) => uast(
+    type: "If",
+    children: "add_expr", "aggregate", "call_or_unqual_agg_expr", "comp_term", "conjunction", "disjunction", "expr_annotation", "if_term", "implication", "in_expr", "instance_of", "literal", "mul_expr", "negation", "par_expr", "prefix_cast", "qualified_expr", "quantified", "range", "set_literal", "special_call", "super_ref", "unary_expr", "variable"
+)
+
+implication <- (implication) => uast(
+    type: "Synthetic",
+    children: "add_expr", "aggregate", "call_or_unqual_agg_expr", "comp_term", "conjunction", "disjunction", "expr_annotation", "if_term", "implication", "in_expr", "instance_of", "literal", "mul_expr", "negation", "par_expr", "prefix_cast", "qualified_expr", "quantified", "range", "set_literal", "special_call", "super_ref", "unary_expr", "variable"
+)
+
+importDirective <- (importDirective) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+importModuleExpr <- (importModuleExpr) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "simpleId"
+)
+
+in_expr <- (in_expr) => uast(
+    type: "Synthetic",
+    children: "add_expr", "aggregate", "call_or_unqual_agg_expr", "comp_term", "conjunction", "disjunction", "expr_annotation", "if_term", "implication", "in_expr", "instance_of", "literal", "mul_expr", "negation", "par_expr", "prefix_cast", "qualified_expr", "quantified", "range", "set_literal", "special_call", "super_ref", "unary_expr", "variable"
+)
+
+instance_of <- (instance_of) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+literal <- (literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+literalId <- (literalId) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+memberPredicate <- (memberPredicate) => uast(
+    type: "Synthetic",
+    children: "predicate", "predicateName", "typeExpr"
+)
+
+module <- (module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "moduleName", "moduleParam", "signatureExpr"
+)
+
+moduleAliasBody <- (moduleAliasBody) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+moduleExpr <- (moduleExpr) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "moduleInstantiation", "simpleId"
+)
+
+moduleInstantiation <- (moduleInstantiation) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "moduleName"
+)
+
+moduleMember <- (moduleMember) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+moduleName <- (moduleName) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+moduleParam <- (moduleParam) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "signatureExpr", "simpleId"
+)
+
+mul_expr <- (mul_expr) => uast(
+    type: "Synthetic",
+    children: "add_expr", "aggregate", "call_or_unqual_agg_expr", "comp_term", "conjunction", "disjunction", "expr_annotation", "if_term", "implication", "in_expr", "instance_of", "literal", "mul_expr", "negation", "par_expr", "prefix_cast", "qualified_expr", "quantified", "range", "set_literal", "special_call", "super_ref", "unary_expr", "variable"
+)
+
+mulop <- (mulop) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+negation <- (negation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+orderBy <- (orderBy) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+orderBys <- (orderBys) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+par_expr <- (par_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+predicateAliasBody <- (predicateAliasBody) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+predicateExpr <- (predicateExpr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+predicateName <- (predicateName) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+prefix_cast <- (prefix_cast) => uast(
+    type: "Cast",
+    children: []
+)
+
+primitiveType <- (primitiveType) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ql <- (ql) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+qualifiedRhs <- (qualifiedRhs) => uast(
+    type: "If",
+    children: "predicateName"
+)
+
+qualified_expr <- (qualified_expr) => uast(
+    type: "If",
+    children: []
+)
+
+quantified <- (quantified) => uast(
+    type: "If",
+    children: "add_expr", "aggregate", "call_or_unqual_agg_expr", "comp_term", "conjunction", "disjunction", "expr_annotation", "if_term", "implication", "in_expr", "instance_of", "literal", "mul_expr", "negation", "par_expr", "prefix_cast", "qualified_expr", "quantified", "range", "set_literal", "special_call", "super_ref", "unary_expr", "variable"
+)
+
+quantifier <- (quantifier) => uast(
+    type: "If",
+    children: []
+)
+
+range <- (range) => uast(
+    type: "Synthetic",
+    children: "add_expr", "aggregate", "call_or_unqual_agg_expr", "comp_term", "conjunction", "disjunction", "expr_annotation", "if_term", "implication", "in_expr", "instance_of", "literal", "mul_expr", "negation", "par_expr", "prefix_cast", "qualified_expr", "quantified", "range", "set_literal", "special_call", "super_ref", "unary_expr", "variable"
+)
+
+select <- (select) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+set_literal <- (set_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+signatureExpr <- (signatureExpr) => uast(
+    type: "Synthetic",
+    children: "moduleExpr", "predicateExpr", "typeExpr"
+)
+
+simpleId <- (simpleId) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+special_call <- (special_call) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+super_ref <- (super_ref) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+typeAliasBody <- (typeAliasBody) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+typeExpr <- (typeExpr) => uast(
+    type: "Synthetic",
+    children: "className", "moduleExpr"
+)
+
+typeUnionBody <- (typeUnionBody) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unary_expr <- (unary_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unop <- (unop) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unqual_agg_body <- (unqual_agg_body) => uast(
+    type: "Synthetic",
+    children: "add_expr", "aggregate", "asExprs", "call_or_unqual_agg_expr", "comp_term", "conjunction", "disjunction", "expr_annotation", "if_term", "implication", "in_expr", "instance_of", "literal", "mul_expr", "negation", "par_expr", "prefix_cast", "qualified_expr", "quantified", "range", "set_literal", "special_call", "super_ref", "unary_expr", "variable"
+)
+
+varDecl <- (varDecl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+varName <- (varName) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+any <- (any) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+as <- (as) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+asc <- (asc) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+avg <- (avg) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block_comment <- (block_comment) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+boolean <- (boolean) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+by <- (by) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+class <- (class) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+concat <- (concat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+count <- (count) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+date <- (date) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dbtype <- (dbtype) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+desc <- (desc) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+exists <- (exists) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+extends <- (extends) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+forall <- (forall) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+forex <- (forex) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+from <- (from) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+implements <- (implements) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+implies <- (implies) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+instanceof <- (instanceof) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+int <- (int) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+line_comment <- (line_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+max <- (max) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+min <- (min) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+module <- (module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+newtype <- (newtype) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+not <- (not) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+order <- (order) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+predicate <- (predicate) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+qldoc <- (qldoc) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rank <- (rank) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+result <- (result) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+select <- (select) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+specialId <- (specialId) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strictconcat <- (strictconcat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strictcount <- (strictcount) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strictsum <- (strictsum) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sum <- (sum) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+super <- (super) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+then <- (then) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+this <- (this) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+underscore <- (underscore) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unique <- (unique) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+where <- (where) => uast(
+    type: "Synthetic",
+    children: []
+)
+

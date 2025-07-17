@@ -1,0 +1,450 @@
+argument_list <- (argument_list) => uast(
+    type: "List",
+    children: "atomic_function", "binary_expression", "bool", "call", "char", "component_selector", "float", "function", "function_call_option", "identifier", "integer", "lambda", "list_expression", "list_selector", "parenthesized_expression", "permutation_expression", "positional_selector", "range_expression", "record_expression", "record_selector", "string", "sublist_selector", "tilde", "unary_expression"
+)
+
+assignment_statement <- (assignment_statement) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "atomic_function", "binary_expression", "bool", "call", "char", "component_selector", "float", "function", "identifier", "integer", "lambda", "list_expression", "list_selector", "parenthesized_expression", "permutation_expression", "positional_selector", "range_expression", "record_expression", "record_selector", "string", "sublist_selector", "tilde", "unary_expression"
+)
+
+atomic_function <- (atomic_function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "assignment_statement", "atomic_statement", "break_statement", "call", "continue_statement", "for_statement", "if_statement", "locals", "qualified_parameters", "repeat_statement", "return_statement", "while_statement"
+)
+
+atomic_statement <- (atomic_statement) => uast(
+    type: "Synthetic",
+    children: "assignment_statement", "atomic_function", "atomic_statement", "binary_expression", "bool", "break_statement", "call", "char", "component_selector", "continue_statement", "float", "for_statement", "function", "identifier", "if_statement", "integer", "lambda", "list_expression", "list_selector", "parenthesized_expression", "permutation_expression", "positional_selector", "qualified_expression", "range_expression", "record_expression", "record_selector", "repeat_statement", "return_statement", "string", "sublist_selector", "tilde", "unary_expression", "while_statement"
+)
+
+binary_expression <- (binary_expression) => uast(
+    type: "Synthetic",
+    children: "and", "atomic_function", "binary_expression", "bool", "call", "char", "component_selector", "float", "function", "identifier", "in", "integer", "lambda", "list_expression", "list_selector", "mod", "or", "parenthesized_expression", "permutation_expression", "positional_selector", "range_expression", "record_expression", "record_selector", "string", "sublist_selector", "tilde", "unary_expression"
+)
+
+bool <- (bool) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+call <- (call) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "argument_list", "call", "component_selector", "function", "identifier", "list_selector", "parenthesized_expression", "positional_selector", "record_selector", "sublist_selector"
+)
+
+char <- (char) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+component_selector <- (component_selector) => uast(
+    type: "Synthetic",
+    children: "atomic_function", "binary_expression", "bool", "call", "char", "component_selector", "float", "function", "identifier", "integer", "lambda", "list_expression", "list_selector", "parenthesized_expression", "permutation_expression", "positional_selector", "range_expression", "record_expression", "record_selector", "string", "sublist_selector", "tilde", "unary_expression"
+)
+
+elif_clause <- (elif_clause) => uast(
+    type: "If",
+    children: "assignment_statement", "atomic_function", "atomic_statement", "binary_expression", "bool", "break_statement", "call", "char", "component_selector", "continue_statement", "float", "for_statement", "function", "identifier", "if_statement", "integer", "lambda", "list_expression", "list_selector", "parenthesized_expression", "permutation_expression", "positional_selector", "range_expression", "record_expression", "record_selector", "repeat_statement", "return_statement", "string", "sublist_selector", "tilde", "unary_expression", "while_statement"
+)
+
+else_clause <- (else_clause) => uast(
+    type: "Synthetic",
+    children: "assignment_statement", "atomic_statement", "break_statement", "call", "continue_statement", "for_statement", "if_statement", "repeat_statement", "return_statement", "while_statement"
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for_statement <- (for_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "assignment_statement", "atomic_function", "atomic_statement", "binary_expression", "bool", "break_statement", "call", "char", "component_selector", "continue_statement", "float", "for_statement", "function", "identifier", "if_statement", "integer", "lambda", "list_expression", "list_selector", "parenthesized_expression", "permutation_expression", "positional_selector", "range_expression", "record_expression", "record_selector", "repeat_statement", "return_statement", "string", "sublist_selector", "tilde", "unary_expression", "while_statement"
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "assignment_statement", "atomic_statement", "break_statement", "call", "continue_statement", "for_statement", "if_statement", "locals", "parameters", "repeat_statement", "return_statement", "while_statement"
+)
+
+function_call_option <- (function_call_option) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+help_statement <- (help_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if_statement <- (if_statement) => uast(
+    type: "If",
+    children: "assignment_statement", "atomic_function", "atomic_statement", "binary_expression", "bool", "break_statement", "call", "char", "component_selector", "continue_statement", "float", "for_statement", "function", "identifier", "if_statement", "integer", "lambda", "list_expression", "list_selector", "parenthesized_expression", "permutation_expression", "positional_selector", "range_expression", "record_expression", "record_selector", "repeat_statement", "return_statement", "string", "sublist_selector", "tilde", "unary_expression", "while_statement"
+)
+
+lambda <- (lambda) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: "atomic_function", "binary_expression", "bool", "call", "char", "component_selector", "float", "function", "identifier", "integer", "lambda", "lambda_parameters", "list_expression", "list_selector", "parenthesized_expression", "permutation_expression", "positional_selector", "range_expression", "record_expression", "record_selector", "string", "sublist_selector", "tilde", "unary_expression"
+)
+
+lambda_parameters <- (lambda_parameters) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "ellipsis", "identifier"
+)
+
+list_expression <- (list_expression) => uast(
+    type: "List",
+    children: []
+)
+
+list_selector <- (list_selector) => uast(
+    type: "List",
+    children: "atomic_function", "binary_expression", "bool", "call", "char", "component_selector", "float", "function", "identifier", "integer", "lambda", "list_expression", "list_selector", "parenthesized_expression", "permutation_expression", "positional_selector", "range_expression", "record_expression", "record_selector", "string", "sublist_selector", "tilde", "unary_expression"
+)
+
+locals <- (locals) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parameters <- (parameters) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "ellipsis", "identifier"
+)
+
+parenthesized_expression <- (parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+permutation_cycle_expression <- (permutation_cycle_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+permutation_expression <- (permutation_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+positional_selector <- (positional_selector) => uast(
+    type: "Synthetic",
+    children: "atomic_function", "binary_expression", "bool", "call", "char", "component_selector", "float", "function", "identifier", "integer", "lambda", "list_expression", "list_selector", "parenthesized_expression", "permutation_expression", "positional_selector", "range_expression", "record_expression", "record_selector", "string", "sublist_selector", "tilde", "unary_expression"
+)
+
+qualified_expression <- (qualified_expression) => uast(
+    type: "If",
+    children: "atomic_function", "binary_expression", "bool", "call", "char", "component_selector", "float", "function", "identifier", "integer", "lambda", "list_expression", "list_selector", "parenthesized_expression", "permutation_expression", "positional_selector", "qualifier", "range_expression", "record_expression", "record_selector", "string", "sublist_selector", "tilde", "unary_expression"
+)
+
+qualified_identifier <- (qualified_identifier) => uast(
+    type: "If",
+    children: "identifier", "qualifier"
+)
+
+qualified_parameters <- (qualified_parameters) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "ellipsis", "identifier", "qualified_identifier"
+)
+
+qualifier <- (qualifier) => uast(
+    type: "If",
+    children: []
+)
+
+range_expression <- (range_expression) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "call", "component_selector", "identifier", "integer", "list_selector", "parenthesized_expression", "permutation_expression", "positional_selector", "record_selector", "sublist_selector", "unary_expression"
+)
+
+record_entry <- (record_entry) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "atomic_function", "binary_expression", "bool", "call", "char", "component_selector", "float", "function", "identifier", "integer", "lambda", "list_expression", "list_selector", "parenthesized_expression", "permutation_expression", "positional_selector", "range_expression", "record_expression", "record_selector", "string", "sublist_selector", "tilde", "unary_expression"
+)
+
+record_expression <- (record_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+record_selector <- (record_selector) => uast(
+    type: "Synthetic",
+    children: "bool", "call", "char", "component_selector", "identifier", "integer", "list_selector", "parenthesized_expression", "positional_selector", "record_expression", "record_selector", "string", "sublist_selector", "tilde"
+)
+
+repeat_statement <- (repeat_statement) => uast(
+    type: "Synthetic",
+    children: "assignment_statement", "atomic_function", "atomic_statement", "binary_expression", "bool", "break_statement", "call", "char", "component_selector", "continue_statement", "float", "for_statement", "function", "identifier", "if_statement", "integer", "lambda", "list_expression", "list_selector", "parenthesized_expression", "permutation_expression", "positional_selector", "range_expression", "record_expression", "record_selector", "repeat_statement", "return_statement", "string", "sublist_selector", "tilde", "unary_expression", "while_statement"
+)
+
+return_statement <- (return_statement) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_content <- (string_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sublist_selector <- (sublist_selector) => uast(
+    type: "List",
+    children: "atomic_function", "binary_expression", "bool", "call", "char", "component_selector", "float", "function", "identifier", "integer", "lambda", "list_expression", "list_selector", "parenthesized_expression", "permutation_expression", "positional_selector", "range_expression", "record_expression", "record_selector", "string", "sublist_selector", "tilde", "unary_expression"
+)
+
+unary_expression <- (unary_expression) => uast(
+    type: "Synthetic",
+    children: "atomic_function", "binary_expression", "bool", "call", "char", "component_selector", "float", "function", "identifier", "integer", "lambda", "list_expression", "list_selector", "not", "parenthesized_expression", "permutation_expression", "positional_selector", "range_expression", "record_expression", "record_selector", "string", "sublist_selector", "tilde", "unary_expression"
+)
+
+while_statement <- (while_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "assignment_statement", "atomic_function", "atomic_statement", "binary_expression", "bool", "break_statement", "call", "char", "component_selector", "continue_statement", "float", "for_statement", "function", "identifier", "if_statement", "integer", "lambda", "list_expression", "list_selector", "parenthesized_expression", "permutation_expression", "positional_selector", "range_expression", "record_expression", "record_selector", "repeat_statement", "return_statement", "string", "sublist_selector", "tilde", "unary_expression", "while_statement"
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+atomic <- (atomic) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+break_statement <- (break_statement) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+continue_statement <- (continue_statement) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+elif <- (elif) => uast(
+    type: "If",
+    children: []
+)
+
+ellipsis <- (ellipsis) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+end <- (end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fail <- (fail) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fi <- (fi) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+help_book <- (help_book) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+help_operator <- (help_operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+help_selector <- (help_selector) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+help_topic <- (help_topic) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+local <- (local) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mod <- (mod) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+not <- (not) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+od <- (od) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pragma <- (pragma) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quit_statement <- (quit_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+readonly <- (readonly) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+readwrite <- (readwrite) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rec <- (rec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+repeat <- (repeat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+string_end <- (string_end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_start <- (string_start) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+then <- (then) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tilde <- (tilde) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+until <- (until) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+

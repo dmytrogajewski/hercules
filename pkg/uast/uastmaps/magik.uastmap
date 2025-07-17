@@ -1,0 +1,746 @@
+allresults <- (allresults) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+argument <- (argument) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+arithmetic_operator <- (arithmetic_operator) => uast(
+    type: "Synthetic",
+    children: "_div", "_mod", "allresults", "arithmetic_operator", "assignment", "block", "call", "catch", "character_literal", "class", "clone", "continue", "dynamic_variable", "false", "gather", "global_reference", "global_variable", "handling", "if", "indexed_access", "invoke", "iterator", "leave", "lock", "logical_operator", "loop", "loopbody", "maybe", "number", "parenthesized_expression", "primitive", "procedure", "protect", "regex_literal", "relational_operator", "return", "scatter", "self", "slot_accessor", "string_literal", "super", "symbol", "thisthread", "throw", "true", "try", "unary_operator", "unset", "variable", "vector", "while"
+)
+
+assignment <- (assignment) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: []
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+call <- (call) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "allresults", "arithmetic_operator", "assignment", "block", "call", "catch", "character_literal", "class", "clone", "continue", "dynamic_variable", "false", "gather", "global_reference", "global_variable", "handling", "identifier", "if", "indexed_access", "invoke", "iterator", "leave", "lock", "logical_operator", "loop", "loopbody", "maybe", "number", "parenthesized_expression", "primitive", "procedure", "protect", "regex_literal", "relational_operator", "return", "scatter", "self", "slot_accessor", "string_literal", "super", "symbol", "thisthread", "throw", "true", "try", "unary_operator", "unset", "variable", "vector", "while"
+)
+
+catch <- (catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+character_literal <- (character_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+class <- (class) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+clone <- (clone) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constant <- (constant) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+continue <- (continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+documentation <- (documentation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dynamic <- (dynamic) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dynamic_import <- (dynamic_import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+elif <- (elif) => uast(
+    type: "If",
+    children: "allresults", "arithmetic_operator", "assignment", "block", "call", "catch", "character_literal", "class", "clone", "continue", "dynamic_variable", "false", "gather", "global_reference", "global_variable", "handling", "if", "indexed_access", "invoke", "iterator", "leave", "lock", "logical_operator", "loop", "loopbody", "maybe", "number", "parenthesized_expression", "primitive", "procedure", "protect", "regex_literal", "relational_operator", "return", "scatter", "self", "slot_accessor", "string_literal", "super", "symbol", "thisthread", "throw", "true", "try", "unary_operator", "unset", "variable", "vector", "while"
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+finally <- (finally) => uast(
+    type: "Finally",
+    roles: "Finally"
+    children: []
+)
+
+fragment <- (fragment) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+gather <- (gather) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+global <- (global) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+handling <- (handling) => uast(
+    type: "Synthetic",
+    children: "allresults", "arithmetic_operator", "assignment", "block", "call", "catch", "character_literal", "class", "clone", "continue", "dynamic_variable", "false", "gather", "global_reference", "global_variable", "handling", "if", "indexed_access", "invoke", "iterator", "leave", "lock", "logical_operator", "loop", "loopbody", "maybe", "number", "parenthesized_expression", "primitive", "procedure", "protect", "regex_literal", "relational_operator", "return", "scatter", "self", "slot_accessor", "string_literal", "super", "symbol", "thisthread", "throw", "true", "try", "unary_operator", "unset", "variable", "vector", "while"
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: "allresults", "arithmetic_operator", "assignment", "block", "call", "catch", "character_literal", "class", "clone", "continue", "dynamic_variable", "false", "gather", "global_reference", "global_variable", "handling", "if", "indexed_access", "invoke", "iterator", "leave", "lock", "logical_operator", "loop", "loopbody", "maybe", "number", "parenthesized_expression", "primitive", "procedure", "protect", "regex_literal", "relational_operator", "return", "scatter", "self", "slot_accessor", "string_literal", "super", "symbol", "thisthread", "throw", "true", "try", "unary_operator", "unset", "variable", "vector", "while"
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+indexed_access <- (indexed_access) => uast(
+    type: "Index",
+    roles: "Index"
+    children: "allresults", "arithmetic_operator", "assignment", "block", "call", "catch", "character_literal", "class", "clone", "continue", "dynamic_variable", "false", "gather", "global_reference", "global_variable", "handling", "if", "indexed_access", "invoke", "iterator", "leave", "lock", "logical_operator", "loop", "loopbody", "maybe", "number", "parenthesized_expression", "primitive", "procedure", "protect", "regex_literal", "relational_operator", "return", "scatter", "self", "slot_accessor", "string_literal", "super", "symbol", "thisthread", "throw", "true", "try", "unary_operator", "unset", "variable", "vector", "while"
+)
+
+invoke <- (invoke) => uast(
+    type: "Synthetic",
+    children: "allresults", "arithmetic_operator", "assignment", "block", "call", "catch", "character_literal", "class", "clone", "continue", "dynamic_variable", "false", "gather", "global_reference", "global_variable", "handling", "if", "indexed_access", "invoke", "iterator", "leave", "lock", "logical_operator", "loop", "loopbody", "maybe", "number", "parenthesized_expression", "primitive", "procedure", "protect", "regex_literal", "relational_operator", "return", "scatter", "self", "slot_accessor", "string_literal", "super", "symbol", "thisthread", "throw", "true", "try", "unary_operator", "unset", "variable", "vector", "while"
+)
+
+iterator <- (iterator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+leave <- (leave) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+local <- (local) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lock <- (lock) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+logical_operator <- (logical_operator) => uast(
+    type: "Synthetic",
+    children: "_and", "_andif", "_or", "_orif", "_xor", "_xorif", "allresults", "arithmetic_operator", "assignment", "block", "call", "catch", "character_literal", "class", "clone", "continue", "dynamic_variable", "false", "gather", "global_reference", "global_variable", "handling", "if", "indexed_access", "invoke", "iterator", "leave", "lock", "logical_operator", "loop", "loopbody", "maybe", "number", "parenthesized_expression", "primitive", "procedure", "protect", "regex_literal", "relational_operator", "return", "scatter", "self", "slot_accessor", "string_literal", "super", "symbol", "thisthread", "throw", "true", "try", "unary_operator", "unset", "variable", "vector", "while"
+)
+
+loop <- (loop) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+loopbody <- (loopbody) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+maybe <- (maybe) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+method <- (method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "identifier"
+)
+
+package <- (package) => uast(
+    type: "Package",
+    roles: "Module"
+    children: []
+)
+
+parenthesized_expression <- (parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pragma <- (pragma) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+primitive <- (primitive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+procedure <- (procedure) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+protect <- (protect) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+relational_operator <- (relational_operator) => uast(
+    type: "Synthetic",
+    children: "_cf", "_is", "_isnt", "allresults", "arithmetic_operator", "assignment", "block", "call", "catch", "character_literal", "class", "clone", "continue", "dynamic_variable", "false", "gather", "global_reference", "global_variable", "handling", "if", "indexed_access", "invoke", "iterator", "leave", "lock", "logical_operator", "loop", "loopbody", "maybe", "number", "parenthesized_expression", "primitive", "procedure", "protect", "regex_literal", "relational_operator", "return", "scatter", "self", "slot_accessor", "string_literal", "super", "symbol", "thisthread", "throw", "true", "try", "unary_operator", "unset", "variable", "vector", "while"
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+scatter <- (scatter) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+self <- (self) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+slot_accessor <- (slot_accessor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+super <- (super) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+thisthread <- (thisthread) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+throw <- (throw) => uast(
+    type: "Throw",
+    roles: "Throw"
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+try <- (try) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "identifier"
+)
+
+unary_operator <- (unary_operator) => uast(
+    type: "UnaryOp",
+    roles: "Operator"
+    children: "_not"
+)
+
+unset <- (unset) => uast(
+    type: "Set",
+    children: []
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+vector <- (vector) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "allresults", "arithmetic_operator", "assignment", "block", "call", "catch", "character_literal", "class", "clone", "continue", "dynamic_variable", "false", "gather", "global_reference", "global_variable", "handling", "if", "indexed_access", "invoke", "iterator", "leave", "lock", "logical_operator", "loop", "loopbody", "maybe", "number", "parenthesized_expression", "primitive", "procedure", "protect", "regex_literal", "relational_operator", "return", "scatter", "self", "slot_accessor", "string_literal", "super", "symbol", "thisthread", "throw", "true", "try", "unary_operator", "unset", "variable", "vector", "while"
+)
+
+_abstract <- (_abstract) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_allresults <- (_allresults) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_and <- (_and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_andif <- (_andif) => uast(
+    type: "If",
+    children: []
+)
+
+_block <- (_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+_catch <- (_catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+_cf <- (_cf) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_class <- (_class) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+_clone <- (_clone) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_constant <- (_constant) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_continue <- (_continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+_default <- (_default) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_div <- (_div) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_dynamic <- (_dynamic) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_elif <- (_elif) => uast(
+    type: "If",
+    children: []
+)
+
+_else <- (_else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_endblock <- (_endblock) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+_endcatch <- (_endcatch) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+_endif <- (_endif) => uast(
+    type: "If",
+    children: []
+)
+
+_endlock <- (_endlock) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_endloop <- (_endloop) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+_endmethod <- (_endmethod) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+_endproc <- (_endproc) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_endprotect <- (_endprotect) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_endtry <- (_endtry) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+_false <- (_false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_finally <- (_finally) => uast(
+    type: "Finally",
+    roles: "Finally"
+    children: []
+)
+
+_for <- (_for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+_gather <- (_gather) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_global <- (_global) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_handling <- (_handling) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_if <- (_if) => uast(
+    type: "If",
+    children: []
+)
+
+_import <- (_import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+_is <- (_is) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_isnt <- (_isnt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_iter <- (_iter) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_leave <- (_leave) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_local <- (_local) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_lock <- (_lock) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_locking <- (_locking) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_loop <- (_loop) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+_loopbody <- (_loopbody) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+_maybe <- (_maybe) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_method <- (_method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+_mod <- (_mod) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_not <- (_not) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_optional <- (_optional) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_or <- (_or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_orif <- (_orif) => uast(
+    type: "If",
+    children: []
+)
+
+_over <- (_over) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_package <- (_package) => uast(
+    type: "Package",
+    roles: "Module"
+    children: []
+)
+
+_pragma <- (_pragma) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_primitive <- (_primitive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_private <- (_private) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_proc <- (_proc) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_protect <- (_protect) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_protection <- (_protection) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_return <- (_return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+_scatter <- (_scatter) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_self <- (_self) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_super <- (_super) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_then <- (_then) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_thisthread <- (_thisthread) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_throw <- (_throw) => uast(
+    type: "Throw",
+    roles: "Throw"
+    children: []
+)
+
+_true <- (_true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_try <- (_try) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+_unset <- (_unset) => uast(
+    type: "Set",
+    children: []
+)
+
+_when <- (_when) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_while <- (_while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+_with <- (_with) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_xor <- (_xor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_xorif <- (_xorif) => uast(
+    type: "If",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+dynamic_variable <- (dynamic_variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+global_reference <- (global_reference) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+global_variable <- (global_variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+regex_literal <- (regex_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+symbol <- (symbol) => uast(
+    type: "Synthetic",
+    children: []
+)
+

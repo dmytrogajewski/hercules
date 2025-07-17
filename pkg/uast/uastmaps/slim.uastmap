@@ -1,0 +1,316 @@
+_attr_shortcut <- (_attr_shortcut) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_line <- (_line) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_output_modifier <- (_output_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+_ruby_block <- (_ruby_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+attr <- (attr) => uast(
+    type: "Synthetic",
+    children: "attr_assignment", "attr_assignment_noescape", "attr_name", "attr_value_quoted", "attr_value_ruby"
+)
+
+attr_boolean <- (attr_boolean) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attr_name <- (attr_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attr_shortcut_class <- (attr_shortcut_class) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+attr_shortcut_id <- (attr_shortcut_id) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attr_shortcuts <- (attr_shortcuts) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attr_splat <- (attr_splat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attrs <- (attrs) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+code_comment <- (code_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+doctype <- (doctype) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doctype_html5 <- (doctype_html5) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doctype_xhtml <- (doctype_xhtml) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+element <- (element) => uast(
+    type: "Synthetic",
+    children: "attr_shortcuts", "attrs", "tag_name"
+)
+
+element_text <- (element_text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+embedded_engine <- (embedded_engine) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+embedded_engine_name <- (embedded_engine_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+html_comment <- (html_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+html_comment_condition <- (html_comment_condition) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+html_comment_conditional <- (html_comment_conditional) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: "nested"
+)
+
+nested <- (nested) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nested_inline <- (nested_inline) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ruby_block_control <- (ruby_block_control) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "nested"
+)
+
+ruby_block_output <- (ruby_block_output) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "nested"
+)
+
+ruby_block_output_noescape <- (ruby_block_output_noescape) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "nested"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+verbatim_text <- (verbatim_text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attr_assignment <- (attr_assignment) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: []
+)
+
+attr_assignment_noescape <- (attr_assignment_noescape) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: []
+)
+
+attr_shortcut_custom <- (attr_shortcut_custom) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attr_value_quoted <- (attr_value_quoted) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attr_value_ruby <- (attr_value_ruby) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+basic <- (basic) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+coffee <- (coffee) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+css <- (css) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+css_identifier <- (css_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+doctype <- (doctype) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doctype_xml_encoding <- (doctype_xml_encoding) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+frameset <- (frameset) => uast(
+    type: "Set",
+    children: []
+)
+
+html <- (html) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+javascript <- (javascript) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+less <- (less) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+markdown <- (markdown) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mobile <- (mobile) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+output_modifier_leading_whitespace <- (output_modifier_leading_whitespace) => uast(
+    type: "If",
+    children: []
+)
+
+output_modifier_legacy_trailing_whitespace <- (output_modifier_legacy_trailing_whitespace) => uast(
+    type: "If",
+    children: []
+)
+
+output_modifier_trailing_whitespace <- (output_modifier_trailing_whitespace) => uast(
+    type: "If",
+    children: []
+)
+
+rdoc <- (rdoc) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ruby <- (ruby) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ruby <- (ruby) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sass <- (sass) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+scss <- (scss) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strict <- (strict) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tag_name <- (tag_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+textile <- (textile) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+transitional <- (transitional) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+verbatim_text_modifier_trailing_whitespace <- (verbatim_text_modifier_trailing_whitespace) => uast(
+    type: "If",
+    children: []
+)
+
+xml <- (xml) => uast(
+    type: "Synthetic",
+    children: []
+)
+

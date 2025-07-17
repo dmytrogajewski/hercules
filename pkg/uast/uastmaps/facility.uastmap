@@ -1,0 +1,285 @@
+attribute <- (attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+doc_comment <- (doc_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+dto <- (dto) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+enum <- (enum) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "identifier"
+)
+
+error_set <- (error_set) => uast(
+    type: "Set",
+    children: "identifier"
+)
+
+external_dto <- (external_dto) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+external_enum <- (external_enum) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "identifier"
+)
+
+field <- (field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "identifier"
+)
+
+field_list <- (field_list) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+list_type <- (list_type) => uast(
+    type: "List",
+    children: []
+)
+
+method <- (method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "identifier"
+)
+
+parameter <- (parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "identifier"
+)
+
+range <- (range) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+remarks <- (remarks) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+required_type <- (required_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+service <- (service) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+service_block <- (service_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+template_type <- (template_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+values_block <- (values_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+boolean <- (boolean) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bytes <- (bytes) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+csharp <- (csharp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+data <- (data) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+datetime <- (datetime) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+decimal <- (decimal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+double <- (double) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+enum <- (enum) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+error <- (error) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+errors <- (errors) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+event <- (event) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+extern <- (extern) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+http <- (http) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+info <- (info) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+int32 <- (int32) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+int64 <- (int64) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+js <- (js) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+map <- (map) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+method <- (method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+nullable <- (nullable) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number_literal <- (number_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+object <- (object) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+obsolete <- (obsolete) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+proto <- (proto) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+required <- (required) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+result <- (result) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+service <- (service) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+validate <- (validate) => uast(
+    type: "Synthetic",
+    children: []
+)
+

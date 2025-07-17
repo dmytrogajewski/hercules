@@ -1,0 +1,408 @@
+_directive <- (_directive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_entry <- (_entry) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+amount <- (amount) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+amount_tolerance <- (amount_tolerance) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+asterisk <- (asterisk) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+balance <- (balance) => uast(
+    type: "Synthetic",
+    children: "account", "amount_tolerance", "comment", "date"
+)
+
+binary_number_expr <- (binary_number_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+close <- (close) => uast(
+    type: "Synthetic",
+    children: "account", "comment", "date"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+commodity <- (commodity) => uast(
+    type: "Synthetic",
+    children: "comment", "currency", "date"
+)
+
+compound_amount <- (compound_amount) => uast(
+    type: "Synthetic",
+    children: "binary_number_expr", "currency", "number", "unary_number_expr"
+)
+
+cost_comp <- (cost_comp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cost_spec <- (cost_spec) => uast(
+    type: "Synthetic",
+    children: "cost_comp"
+)
+
+custom <- (custom) => uast(
+    type: "Synthetic",
+    children: "comment", "custom_value", "date", "string"
+)
+
+custom_value <- (custom_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+document <- (document) => uast(
+    type: "Synthetic",
+    children: "account", "comment", "date", "filename", "tags_links"
+)
+
+event <- (event) => uast(
+    type: "Synthetic",
+    children: "comment", "date", "string"
+)
+
+file <- (file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+filename <- (filename) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+headline <- (headline) => uast(
+    type: "Synthetic",
+    children: "item"
+)
+
+include <- (include) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+incomplete_amount <- (incomplete_amount) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+item <- (item) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+key_value <- (key_value) => uast(
+    type: "KeyValue",
+    roles: "Key", "Value"
+    children: []
+)
+
+note <- (note) => uast(
+    type: "Synthetic",
+    children: "account", "comment", "date", "string"
+)
+
+open <- (open) => uast(
+    type: "Synthetic",
+    children: "account", "comment", "currency", "date", "opt_booking"
+)
+
+opt_booking <- (opt_booking) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+optflag <- (optflag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+option <- (option) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+pad <- (pad) => uast(
+    type: "Synthetic",
+    children: "account", "comment", "date"
+)
+
+plugin <- (plugin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+popmeta <- (popmeta) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+poptag <- (poptag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+posting <- (posting) => uast(
+    type: "Synthetic",
+    children: "account", "comment", "cost_spec", "incomplete_amount", "optflag", "price_annotation"
+)
+
+price <- (price) => uast(
+    type: "Synthetic",
+    children: "amount", "comment", "currency", "date"
+)
+
+price_annotation <- (price_annotation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pushmeta <- (pushmeta) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pushtag <- (pushtag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+query <- (query) => uast(
+    type: "Synthetic",
+    children: "comment", "date", "string"
+)
+
+section <- (section) => uast(
+    type: "Synthetic",
+    children: "headline", "section"
+)
+
+tags_links <- (tags_links) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+transaction <- (transaction) => uast(
+    type: "Synthetic",
+    children: "comment", "date", "narration", "payee", "tags_links", "txn"
+)
+
+txn <- (txn) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unary_number_expr <- (unary_number_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value <- (value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+account <- (account) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+at <- (at) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+atat <- (atat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+balance <- (balance) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bool <- (bool) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+close <- (close) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+commodity <- (commodity) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+currency <- (currency) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+custom <- (custom) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+date <- (date) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+document <- (document) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+event <- (event) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+flag <- (flag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+include <- (include) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+key <- (key) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link <- (link) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+minus <- (minus) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+narration <- (narration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+note <- (note) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+open <- (open) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+option <- (option) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pad <- (pad) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+payee <- (payee) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+plugin <- (plugin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+plus <- (plus) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+popmeta <- (popmeta) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+poptag <- (poptag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+price <- (price) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pushmeta <- (pushmeta) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pushtag <- (pushtag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+query <- (query) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+slash <- (slash) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tag <- (tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+txn <- (txn) => uast(
+    type: "Synthetic",
+    children: []
+)
+

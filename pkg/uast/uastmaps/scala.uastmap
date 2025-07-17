@@ -1,0 +1,1065 @@
+_definition <- (_definition) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_pattern <- (_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+expression <- (expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+access_modifier <- (access_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+access_qualifier <- (access_qualifier) => uast(
+    type: "If",
+    children: []
+)
+
+alternative_pattern <- (alternative_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+annotated_type <- (annotated_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+annotation <- (annotation) => uast(
+    type: "Synthetic",
+    children: "arguments", "generic_type", "named_tuple_type", "projected_type", "singleton_type", "stable_type_identifier", "tuple_type", "type_identifier", "wildcard"
+)
+
+arguments <- (arguments) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+arrow_renamed_identifier <- (arrow_renamed_identifier) => uast(
+    type: "If",
+    children: "identifier", "operator_identifier", "wildcard"
+)
+
+as_renamed_identifier <- (as_renamed_identifier) => uast(
+    type: "If",
+    children: "identifier", "operator_identifier", "wildcard"
+)
+
+ascription_expression <- (ascription_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assignment_expression <- (assignment_expression) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "block", "boolean_literal", "call_expression", "case_block", "character_literal", "expression", "field_expression", "floating_point_literal", "generic_function", "identifier", "instance_expression", "integer_literal", "interpolated_string_expression", "null_literal", "operator_identifier", "parenthesized_expression", "prefix_expression", "quote_expression", "splice_expression", "string", "tuple_expression", "unit", "wildcard"
+)
+
+binding <- (binding) => uast(
+    type: "Synthetic",
+    children: "annotated_type", "compound_type", "function_type", "generic_type", "identifier", "infix_type", "lazy_parameter_type", "literal_type", "match_type", "named_tuple_type", "operator_identifier", "projected_type", "repeated_parameter_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+bindings <- (bindings) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+block_comment <- (block_comment) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+boolean_literal <- (boolean_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+call_expression <- (call_expression) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "arguments", "block", "boolean_literal", "call_expression", "case_block", "character_literal", "colon_argument", "field_expression", "floating_point_literal", "generic_function", "identifier", "infix_expression", "instance_expression", "integer_literal", "interpolated_string_expression", "null_literal", "operator_identifier", "parenthesized_expression", "postfix_expression", "prefix_expression", "quote_expression", "splice_expression", "string", "tuple_expression", "unit", "wildcard"
+)
+
+capture_pattern <- (capture_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "_pattern", "identifier", "operator_identifier", "wildcard"
+)
+
+case_block <- (case_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+case_class_pattern <- (case_class_pattern) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "_pattern", "named_pattern", "stable_type_identifier", "type_identifier"
+)
+
+case_clause <- (case_clause) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "_definition", "_end_ident", "_pattern", "end", "expression", "extension", "for", "given", "if", "match", "new", "this", "try", "val", "while"
+)
+
+catch_clause <- (catch_clause) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: "_pattern", "expression"
+)
+
+class_definition <- (class_definition) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "class_parameters", "derives_clause", "extends_clause", "identifier", "operator_identifier", "template_body", "type_parameters"
+)
+
+class_parameter <- (class_parameter) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "annotated_type", "compound_type", "expression", "function_type", "generic_type", "identifier", "infix_type", "lazy_parameter_type", "literal_type", "match_type", "named_tuple_type", "operator_identifier", "projected_type", "repeated_parameter_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+class_parameters <- (class_parameters) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+colon_argument <- (colon_argument) => uast(
+    type: "Synthetic",
+    children: "bindings", "identifier", "operator_identifier", "wildcard"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+compilation_unit <- (compilation_unit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+compound_type <- (compound_type) => uast(
+    type: "Synthetic",
+    children: "annotated_type", "generic_type", "named_tuple_type", "projected_type", "singleton_type", "stable_type_identifier", "tuple_type", "type_identifier", "wildcard"
+)
+
+context_bound <- (context_bound) => uast(
+    type: "Synthetic",
+    children: "annotated_type", "compound_type", "function_type", "generic_type", "identifier", "infix_type", "literal_type", "match_type", "named_tuple_type", "operator_identifier", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+contravariant_type_parameter <- (contravariant_type_parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "context_bound", "identifier", "lower_bound", "operator_identifier", "type_parameters", "upper_bound", "view_bound", "wildcard"
+)
+
+covariant_type_parameter <- (covariant_type_parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "context_bound", "identifier", "lower_bound", "operator_identifier", "type_parameters", "upper_bound", "view_bound", "wildcard"
+)
+
+derives_clause <- (derives_clause) => uast(
+    type: "Synthetic",
+    children: "stable_type_identifier", "type_identifier"
+)
+
+do_while_expression <- (do_while_expression) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "expression", "parenthesized_expression"
+)
+
+enum_body <- (enum_body) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+enum_case_definitions <- (enum_case_definitions) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+enum_definition <- (enum_definition) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "class_parameters", "derives_clause", "enum_body", "extends_clause", "identifier", "operator_identifier", "type_parameters"
+)
+
+enumerator <- (enumerator) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+enumerators <- (enumerators) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+export_declaration <- (export_declaration) => uast(
+    type: "Synthetic",
+    children: "identifier", "operator_identifier"
+)
+
+extends_clause <- (extends_clause) => uast(
+    type: "Synthetic",
+    children: "annotated_type", "arguments", "compound_type", "generic_type", "named_tuple_type", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "wildcard", "with"
+)
+
+extension_definition <- (extension_definition) => uast(
+    type: "Synthetic",
+    children: "_definition", "_end_ident", "end", "expression", "extension", "for", "given", "if", "match", "new", "parameters", "this", "try", "type_parameters", "val", "while"
+)
+
+field_expression <- (field_expression) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "block", "boolean_literal", "call_expression", "case_block", "character_literal", "field_expression", "floating_point_literal", "generic_function", "identifier", "instance_expression", "integer_literal", "interpolated_string_expression", "null_literal", "operator_identifier", "parenthesized_expression", "quote_expression", "splice_expression", "string", "tuple_expression", "unit", "wildcard"
+)
+
+finally_clause <- (finally_clause) => uast(
+    type: "Finally",
+    roles: "Finally"
+    children: []
+)
+
+for_expression <- (for_expression) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "enumerators", "expression", "indented_block", "indented_cases"
+)
+
+full_enum_case <- (full_enum_case) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "class_parameters", "extends_clause", "identifier", "operator_identifier", "type_parameters"
+)
+
+function_declaration <- (function_declaration) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "annotated_type", "compound_type", "function_type", "generic_type", "identifier", "infix_type", "literal_type", "match_type", "named_tuple_type", "operator_identifier", "parameters", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "type_parameters", "wildcard"
+)
+
+function_definition <- (function_definition) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "annotated_type", "compound_type", "expression", "function_type", "generic_type", "identifier", "indented_block", "indented_cases", "infix_type", "literal_type", "match_type", "named_tuple_type", "operator_identifier", "parameters", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "type_parameters", "wildcard"
+)
+
+function_type <- (function_type) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "annotated_type", "compound_type", "function_type", "generic_type", "infix_type", "literal_type", "match_type", "named_tuple_type", "parameter_types", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "type_parameters", "wildcard"
+)
+
+generic_function <- (generic_function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "expression", "type_arguments"
+)
+
+generic_type <- (generic_type) => uast(
+    type: "Synthetic",
+    children: "generic_type", "named_tuple_type", "projected_type", "singleton_type", "stable_type_identifier", "tuple_type", "type_arguments", "type_identifier", "wildcard"
+)
+
+given_conditional <- (given_conditional) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+given_definition <- (given_definition) => uast(
+    type: "Synthetic",
+    children: "annotated_type", "arguments", "compound_type", "expression", "generic_type", "identifier", "indented_block", "indented_cases", "named_tuple_type", "operator_identifier", "parameters", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_parameters", "wildcard", "with", "with_template_body"
+)
+
+given_pattern <- (given_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "annotated_type", "compound_type", "function_type", "generic_type", "infix_type", "literal_type", "match_type", "named_tuple_type", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+guard <- (guard) => uast(
+    type: "Synthetic",
+    children: "block", "boolean_literal", "call_expression", "case_block", "character_literal", "field_expression", "floating_point_literal", "generic_function", "identifier", "infix_expression", "instance_expression", "integer_literal", "interpolated_string_expression", "null_literal", "operator_identifier", "parenthesized_expression", "postfix_expression", "prefix_expression", "quote_expression", "splice_expression", "string", "tuple_expression", "unit", "wildcard"
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+identifiers <- (identifiers) => uast(
+    type: "If",
+    children: []
+)
+
+if_expression <- (if_expression) => uast(
+    type: "If",
+    children: "expression", "indented_block", "indented_cases", "then"
+)
+
+import_declaration <- (import_declaration) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "identifier", "operator_identifier"
+)
+
+indented_block <- (indented_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+indented_cases <- (indented_cases) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+infix_expression <- (infix_expression) => uast(
+    type: "Synthetic",
+    children: "block", "boolean_literal", "call_expression", "case_block", "character_literal", "colon_argument", "field_expression", "floating_point_literal", "generic_function", "identifier", "infix_expression", "instance_expression", "integer_literal", "interpolated_string_expression", "null_literal", "operator_identifier", "parenthesized_expression", "prefix_expression", "quote_expression", "splice_expression", "string", "tuple_expression", "unit", "wildcard"
+)
+
+infix_modifier <- (infix_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+infix_pattern <- (infix_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "_pattern", "identifier", "operator_identifier"
+)
+
+infix_type <- (infix_type) => uast(
+    type: "Synthetic",
+    children: "annotated_type", "compound_type", "generic_type", "identifier", "infix_type", "literal_type", "named_tuple_type", "operator_identifier", "projected_type", "singleton_type", "stable_type_identifier", "tuple_type", "type_identifier", "wildcard"
+)
+
+inline_modifier <- (inline_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+instance_expression <- (instance_expression) => uast(
+    type: "Synthetic",
+    children: "arguments"
+)
+
+interpolated_string <- (interpolated_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+interpolated_string_expression <- (interpolated_string_expression) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+interpolation <- (interpolation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lambda_expression <- (lambda_expression) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: "bindings", "identifier", "implicit", "operator_identifier", "type_parameters", "wildcard"
+)
+
+lazy_parameter_type <- (lazy_parameter_type) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "annotated_type", "compound_type", "function_type", "generic_type", "infix_type", "literal_type", "match_type", "named_tuple_type", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+literal_type <- (literal_type) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+lower_bound <- (lower_bound) => uast(
+    type: "Synthetic",
+    children: "annotated_type", "compound_type", "function_type", "generic_type", "infix_type", "literal_type", "match_type", "named_tuple_type", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+macro_body <- (macro_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+match_expression <- (match_expression) => uast(
+    type: "Match",
+    roles: "Match"
+    children: "case_block", "expression", "indented_cases"
+)
+
+match_type <- (match_type) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+modifiers <- (modifiers) => uast(
+    type: "If",
+    children: []
+)
+
+name_and_type <- (name_and_type) => uast(
+    type: "Synthetic",
+    children: "annotated_type", "compound_type", "function_type", "generic_type", "identifier", "infix_type", "lazy_parameter_type", "literal_type", "match_type", "named_tuple_type", "operator_identifier", "projected_type", "repeated_parameter_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+named_pattern <- (named_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+named_tuple_pattern <- (named_tuple_pattern) => uast(
+    type: "Tuple",
+    children: []
+)
+
+named_tuple_type <- (named_tuple_type) => uast(
+    type: "Tuple",
+    children: []
+)
+
+namespace_selectors <- (namespace_selectors) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+namespace_wildcard <- (namespace_wildcard) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+object_definition <- (object_definition) => uast(
+    type: "Synthetic",
+    children: "derives_clause", "extends_clause", "identifier", "operator_identifier", "template_body"
+)
+
+opaque_modifier <- (opaque_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+open_modifier <- (open_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+package_clause <- (package_clause) => uast(
+    type: "Package",
+    roles: "Module"
+    children: "package_identifier", "template_body"
+)
+
+package_identifier <- (package_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+package_object <- (package_object) => uast(
+    type: "Package",
+    roles: "Module"
+    children: "derives_clause", "extends_clause", "identifier", "operator_identifier", "template_body"
+)
+
+parameter <- (parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "annotated_type", "compound_type", "expression", "function_type", "generic_type", "identifier", "infix_type", "lazy_parameter_type", "literal_type", "match_type", "named_tuple_type", "operator_identifier", "projected_type", "repeated_parameter_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+parameter_types <- (parameter_types) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+parameters <- (parameters) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+parenthesized_expression <- (parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+postfix_expression <- (postfix_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+prefix_expression <- (prefix_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+projected_type <- (projected_type) => uast(
+    type: "Synthetic",
+    children: "generic_type", "named_tuple_type", "projected_type", "singleton_type", "stable_type_identifier", "tuple_type", "type_identifier", "wildcard"
+)
+
+quote_expression <- (quote_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+refinement <- (refinement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+repeat_pattern <- (repeat_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "_pattern"
+)
+
+repeated_parameter_type <- (repeated_parameter_type) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "annotated_type", "compound_type", "function_type", "generic_type", "infix_type", "literal_type", "match_type", "named_tuple_type", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+return_expression <- (return_expression) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+self_type <- (self_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+simple_enum_case <- (simple_enum_case) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "extends_clause", "identifier", "operator_identifier"
+)
+
+singleton_type <- (singleton_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+splice_expression <- (splice_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+stable_identifier <- (stable_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+stable_type_identifier <- (stable_type_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+structural_type <- (structural_type) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+template_body <- (template_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+throw_expression <- (throw_expression) => uast(
+    type: "Throw",
+    roles: "Throw"
+    children: []
+)
+
+trait_definition <- (trait_definition) => uast(
+    type: "Synthetic",
+    children: "class_parameters", "derives_clause", "extends_clause", "identifier", "operator_identifier", "template_body", "type_parameters"
+)
+
+transparent_modifier <- (transparent_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+try_expression <- (try_expression) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "expression", "indented_block", "indented_cases"
+)
+
+tuple_expression <- (tuple_expression) => uast(
+    type: "Tuple",
+    children: []
+)
+
+tuple_pattern <- (tuple_pattern) => uast(
+    type: "Tuple",
+    children: []
+)
+
+tuple_type <- (tuple_type) => uast(
+    type: "Tuple",
+    children: []
+)
+
+type_arguments <- (type_arguments) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_case_clause <- (type_case_clause) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "annotated_type", "compound_type", "function_type", "generic_type", "infix_type", "literal_type", "match_type", "named_tuple_type", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+type_definition <- (type_definition) => uast(
+    type: "Synthetic",
+    children: "annotated_type", "compound_type", "context_bound", "function_type", "generic_type", "infix_type", "literal_type", "lower_bound", "match_type", "named_tuple_type", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "type_parameters", "upper_bound", "wildcard"
+)
+
+type_lambda <- (type_lambda) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: "annotated_type", "compound_type", "context_bound", "function_type", "generic_type", "identifier", "infix_type", "literal_type", "lower_bound", "match_type", "named_tuple_type", "operator_identifier", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "type_parameters", "upper_bound", "view_bound", "wildcard"
+)
+
+type_parameters <- (type_parameters) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "context_bound", "identifier", "lower_bound", "operator_identifier", "type_parameters", "upper_bound", "view_bound", "wildcard"
+)
+
+typed_pattern <- (typed_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "_pattern", "annotated_type", "compound_type", "function_type", "generic_type", "infix_type", "literal_type", "match_type", "named_tuple_type", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+unit <- (unit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+upper_bound <- (upper_bound) => uast(
+    type: "Synthetic",
+    children: "annotated_type", "compound_type", "function_type", "generic_type", "infix_type", "literal_type", "match_type", "named_tuple_type", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+using_directive <- (using_directive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+val_declaration <- (val_declaration) => uast(
+    type: "Synthetic",
+    children: "annotated_type", "compound_type", "function_type", "generic_type", "identifier", "infix_type", "literal_type", "match_type", "named_tuple_type", "operator_identifier", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+val_definition <- (val_definition) => uast(
+    type: "Synthetic",
+    children: "_pattern", "annotated_type", "compound_type", "expression", "function_type", "generic_type", "identifiers", "indented_block", "indented_cases", "infix_type", "literal_type", "match_type", "named_tuple_type", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+var_declaration <- (var_declaration) => uast(
+    type: "Synthetic",
+    children: "annotated_type", "compound_type", "function_type", "generic_type", "identifier", "infix_type", "literal_type", "match_type", "named_tuple_type", "operator_identifier", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+var_definition <- (var_definition) => uast(
+    type: "Synthetic",
+    children: "_pattern", "annotated_type", "compound_type", "expression", "function_type", "generic_type", "identifiers", "indented_block", "indented_cases", "infix_type", "literal_type", "match_type", "named_tuple_type", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+view_bound <- (view_bound) => uast(
+    type: "Synthetic",
+    children: "annotated_type", "compound_type", "function_type", "generic_type", "infix_type", "literal_type", "match_type", "named_tuple_type", "projected_type", "singleton_type", "stable_type_identifier", "structural_type", "tuple_type", "type_identifier", "type_lambda", "wildcard"
+)
+
+while_expression <- (while_expression) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "do", "expression", "indented_block", "indented_cases"
+)
+
+wildcard <- (wildcard) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_template_body <- (with_template_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_ <- (_) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+abstract <- (abstract) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+as <- (as) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+catch <- (catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+character_literal <- (character_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+class <- (class) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+def <- (def) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+derives <- (derives) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+end <- (end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+enum <- (enum) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+export <- (export) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+extends <- (extends) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+extension <- (extension) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+final <- (final) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+finally <- (finally) => uast(
+    type: "Finally",
+    roles: "Finally"
+    children: []
+)
+
+floating_point_literal <- (floating_point_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+given <- (given) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+implicit <- (implicit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+infix <- (infix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inline <- (inline) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer_literal <- (integer_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+lazy <- (lazy) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+macro <- (macro) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+match <- (match) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+new <- (new) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+null_literal <- (null_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+object <- (object) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+opaque <- (opaque) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+open <- (open) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+operator_identifier <- (operator_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+override <- (override) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+package <- (package) => uast(
+    type: "Package",
+    roles: "Module"
+    children: []
+)
+
+private <- (private) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+protected <- (protected) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+sealed <- (sealed) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+then <- (then) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+this <- (this) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+throw <- (throw) => uast(
+    type: "Throw",
+    roles: "Throw"
+    children: []
+)
+
+trait <- (trait) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+transparent <- (transparent) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+try <- (try) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+using <- (using) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+using_directive_key <- (using_directive_key) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+using_directive_value <- (using_directive_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+val <- (val) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+var <- (var) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+with <- (with) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+yield <- (yield) => uast(
+    type: "Yield",
+    roles: "Yield"
+    children: []
+)
+

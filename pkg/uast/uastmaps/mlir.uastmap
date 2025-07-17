@@ -1,0 +1,790 @@
+affine_dialect <- (affine_dialect) => uast(
+    type: "Synthetic",
+    children: "attribute", "bare_id", "else", "from", "integer_literal", "into", "isDataCache_attr", "isWrite_attr", "iter_args", "localityHint_attr", "max", "min", "reduce", "region", "step", "string_literal", "symbol", "to", "type", "value_use"
+)
+
+affine_map <- (affine_map) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+affine_set <- (affine_set) => uast(
+    type: "Set",
+    children: []
+)
+
+arith_dialect <- (arith_dialect) => uast(
+    type: "Synthetic",
+    children: "arith_cmp_predicate", "array_literal", "attribute", "bool_literal", "complex_literal", "fastmath_attr", "float_literal", "from", "integer_literal", "into", "string_literal", "tensor_literal", "to", "type", "uninitialized_literal", "unit_literal", "value_use"
+)
+
+array_literal <- (array_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+attribute <- (attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+attribute_alias <- (attribute_alias) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+attribute_alias_def <- (attribute_alias_def) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+attribute_entry <- (attribute_entry) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+attribute_value <- (attribute_value) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+bare_attribute_entry <- (bare_attribute_entry) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+block_arg_list <- (block_arg_list) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+block_label <- (block_label) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+bufferization_dialect <- (bufferization_dialect) => uast(
+    type: "Synthetic",
+    children: "attribute", "copy", "from", "into", "restrict_attr", "size_hint", "to", "type", "value_use", "writable_attr"
+)
+
+builtin_attribute <- (builtin_attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+builtin_dialect <- (builtin_dialect) => uast(
+    type: "Synthetic",
+    children: "attribute", "region", "symbol_ref_id", "type", "value_use"
+)
+
+builtin_type <- (builtin_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+caret_id <- (caret_id) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cf_case_label <- (cf_case_label) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+cf_dialect <- (cf_dialect) => uast(
+    type: "Synthetic",
+    children: "attribute", "string_literal", "successor", "type", "value_use"
+)
+
+complex_literal <- (complex_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+complex_type <- (complex_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constant_attr <- (constant_attr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+custom_operation <- (custom_operation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dialect_attribute <- (dialect_attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+dialect_ident <- (dialect_ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dialect_namespace <- (dialect_namespace) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+dialect_type <- (dialect_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dictionary_attribute <- (dictionary_attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+dim_list <- (dim_list) => uast(
+    type: "List",
+    children: []
+)
+
+entry_block <- (entry_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+fastmath_attr <- (fastmath_attr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+func_arg_list <- (func_arg_list) => uast(
+    type: "List",
+    children: []
+)
+
+func_dialect <- (func_dialect) => uast(
+    type: "Synthetic",
+    children: "attribute", "attributes", "func_arg_list", "func_return", "function_type", "private", "region", "symbol_ref_id", "type", "value_use"
+)
+
+func_return <- (func_return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+function_type <- (function_type) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+gather_dims_attr <- (gather_dims_attr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+generic_operation <- (generic_operation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inner_dims_pos_attr <- (inner_dims_pos_attr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inner_tiles_attr <- (inner_tiles_attr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer_literal <- (integer_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+linalg_dialect <- (linalg_dialect) => uast(
+    type: "Synthetic",
+    children: "attribute", "block_arg_list", "from", "integer_literal", "into", "region", "to", "type", "value_use"
+)
+
+llvm_dialect <- (llvm_dialect) => uast(
+    type: "Synthetic",
+    children: "attribute", "attributes", "func_arg_list", "func_return", "private", "region", "symbol_ref_id", "type", "value_use"
+)
+
+localityHint_attr <- (localityHint_attr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+location <- (location) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+math_dialect <- (math_dialect) => uast(
+    type: "Synthetic",
+    children: "attribute", "fastmath_attr", "from", "into", "to", "type", "value_use"
+)
+
+memref_dialect <- (memref_dialect) => uast(
+    type: "Synthetic",
+    children: "array_literal", "atomic_rmw_attr", "attribute", "bare_id", "bool_literal", "complex_literal", "constant_attr", "float_literal", "from", "function_type", "integer_literal", "into", "isDataCache_attr", "isWrite_attr", "localityHint_attr", "max", "min", "nested_idx_list", "offset", "region", "sizes", "strides", "string_literal", "symbol", "symbol_ref_id", "tensor_literal", "to", "type", "uninitialized_literal", "unit_literal", "value_use"
+)
+
+memref_type <- (memref_type) => uast(
+    type: "Synthetic",
+    children: "dim_list"
+)
+
+nested_idx_list <- (nested_idx_list) => uast(
+    type: "List",
+    children: []
+)
+
+op_result <- (op_result) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+opaque_dialect_item <- (opaque_dialect_item) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+operation <- (operation) => uast(
+    type: "Synthetic",
+    children: "custom_operation", "generic_operation", "op_result", "trailing_location"
+)
+
+outer_dims_perm_attr <- (outer_dims_perm_attr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pretty_dialect_item <- (pretty_dialect_item) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pretty_dialect_item_body <- (pretty_dialect_item_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+region <- (region) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+scatter_dims_attr <- (scatter_dims_attr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+scf_case_label <- (scf_case_label) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+scf_dialect <- (scf_dialect) => uast(
+    type: "Synthetic",
+    children: "attribute", "attributes", "else", "from", "function_type", "in", "init", "into", "iter_args", "region", "shared_outs", "step", "to", "type", "value_use"
+)
+
+strided_layout <- (strided_layout) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+successor <- (successor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+symbol_ref_id <- (symbol_ref_id) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tensor_dialect <- (tensor_dialect) => uast(
+    type: "Synthetic",
+    children: "attribute", "from", "function_type", "gather_dims_attr", "high", "inner_dims_pos_attr", "inner_tiles_attr", "integer_literal", "into", "low", "nested_idx_list", "nofold_attr", "outer_dims_perm_attr", "padding_value", "region", "scatter_dims_attr", "to", "type", "unique_attr", "value_use"
+)
+
+tensor_encoding <- (tensor_encoding) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tensor_literal <- (tensor_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+tensor_type <- (tensor_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+toplevel <- (toplevel) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+trailing_location <- (trailing_location) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tuple_dim <- (tuple_dim) => uast(
+    type: "Tuple",
+    children: []
+)
+
+tuple_type <- (tuple_type) => uast(
+    type: "Tuple",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_alias <- (type_alias) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_alias_def <- (type_alias_def) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_list_attr_parens <- (type_list_attr_parens) => uast(
+    type: "List",
+    children: []
+)
+
+value_use <- (value_use) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vector_dialect <- (vector_dialect) => uast(
+    type: "Synthetic",
+    children: "attribute", "from", "function_type", "integer_literal", "into", "to", "type", "value_use"
+)
+
+vector_dim_list <- (vector_dim_list) => uast(
+    type: "List",
+    children: []
+)
+
+vector_type <- (vector_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+affine_map <- (affine_map) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+affine_set <- (affine_set) => uast(
+    type: "Set",
+    children: []
+)
+
+arith_cmp_predicate <- (arith_cmp_predicate) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+array <- (array) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+atomic_rmw_attr <- (atomic_rmw_attr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attributes <- (attributes) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+bare_id <- (bare_id) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bool_literal <- (bool_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+call <- (call) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+call_indirect <- (call_indirect) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+complex <- (complex) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constant <- (constant) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+copy <- (copy) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+default <- (default) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fastmath <- (fastmath) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float_literal <- (float_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+float_type <- (float_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+from <- (from) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+gather_dims <- (gather_dims) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+high <- (high) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+index_type <- (index_type) => uast(
+    type: "Index",
+    roles: "Index"
+    children: []
+)
+
+init <- (init) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inner_dims_pos <- (inner_dims_pos) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inner_tiles <- (inner_tiles) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ins <- (ins) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer_type <- (integer_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+into <- (into) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+isDataCache_attr <- (isDataCache_attr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+isWrite_attr <- (isWrite_attr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+iter_args <- (iter_args) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+loc <- (loc) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+locality <- (locality) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+low <- (low) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+max <- (max) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+memref <- (memref) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+min <- (min) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+module <- (module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+nofold_attr <- (nofold_attr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+none_type <- (none_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+offset <- (offset) => uast(
+    type: "Set",
+    children: []
+)
+
+outer_dims_perm <- (outer_dims_perm) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+outs <- (outs) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+padding_value <- (padding_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+private <- (private) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+reduce <- (reduce) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+restrict_attr <- (restrict_attr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+scatter_dims <- (scatter_dims) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+shared_outs <- (shared_outs) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+size_hint <- (size_hint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sizes <- (sizes) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+step <- (step) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strided <- (strided) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strides <- (strides) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+symbol <- (symbol) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tensor <- (tensor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+to <- (to) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tuple <- (tuple) => uast(
+    type: "Tuple",
+    children: []
+)
+
+uninitialized_literal <- (uninitialized_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+unique_attr <- (unique_attr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unit_literal <- (unit_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+unrealized_conversion_cast <- (unrealized_conversion_cast) => uast(
+    type: "Cast",
+    children: []
+)
+
+variadic <- (variadic) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vector <- (vector) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+writable_attr <- (writable_attr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+x <- (x) => uast(
+    type: "Synthetic",
+    children: []
+)
+

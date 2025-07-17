@@ -1,0 +1,247 @@
+_expression <- (_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+action_definition <- (action_definition) => uast(
+    type: "Synthetic",
+    children: "assignment", "call_expression", "close_parenthesis", "conditional_statement", "identifier", "open_parenthesis", "selector_expression"
+)
+
+argument_list <- (argument_list) => uast(
+    type: "List",
+    children: []
+)
+
+attribute_definition <- (attribute_definition) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: "attribute_type", "identifier"
+)
+
+attribute_type <- (attribute_type) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+boolean_type <- (boolean_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+call_expression <- (call_expression) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "argument_list", "identifier"
+)
+
+close_parenthesis <- (close_parenthesis) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+conditional_statement <- (conditional_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+double_type <- (double_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+entity_definition <- (entity_definition) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+integer_type <- (integer_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+open_parenthesis <- (open_parenthesis) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+permission_definition <- (permission_definition) => uast(
+    type: "Synthetic",
+    children: "and_statement", "assignment", "call_expression", "close_parenthesis", "identifier", "in_statement", "not_statement", "open_parenthesis", "or_statement"
+)
+
+relation_association <- (relation_association) => uast(
+    type: "Synthetic",
+    children: "identifier", "relation_member"
+)
+
+relation_definition <- (relation_definition) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+relation_member <- (relation_member) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+rule_conditional <- (rule_conditional) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rule_definition <- (rule_definition) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+rule_parameter <- (rule_parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+selector_expression <- (selector_expression) => uast(
+    type: "Synthetic",
+    children: "_expression", "field_identifier"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_type <- (string_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+action <- (action) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and_statement <- (and_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assignment <- (assignment) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: []
+)
+
+attribute <- (attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+boolean <- (boolean) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+close_brace <- (close_brace) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+double <- (double) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+entity <- (entity) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+field_identifier <- (field_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+gt <- (gt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+gte <- (gte) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+in_statement <- (in_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lt <- (lt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lte <- (lte) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ne <- (ne) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+not_statement <- (not_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+open_brace <- (open_brace) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or_statement <- (or_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+permission <- (permission) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+relation <- (relation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rule <- (rule) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+

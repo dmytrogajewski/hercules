@@ -1,0 +1,128 @@
+const <- (const) => uast(
+    type: "Synthetic",
+    children: "ident", "int", "string", "tc_infix", "word"
+)
+
+ident <- (ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+instruction <- (instruction) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "word"
+)
+
+int <- (int) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: "word"
+)
+
+line_comment <- (line_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+meta <- (meta) => uast(
+    type: "Synthetic",
+    children: "meta_ident"
+)
+
+program <- (program) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ptr <- (ptr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+reg <- (reg) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tc_infix <- (tc_infix) => uast(
+    type: "Synthetic",
+    children: "ident", "int", "string", "tc_infix"
+)
+
+address <- (address) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block_comment <- (block_comment) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+byte <- (byte) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+const <- (const) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dword <- (dword) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+meta_ident <- (meta_ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ptr <- (ptr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+qword <- (qword) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rel <- (rel) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+word <- (word) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+word <- (word) => uast(
+    type: "Synthetic",
+    children: []
+)
+

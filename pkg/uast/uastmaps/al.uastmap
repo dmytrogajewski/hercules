@@ -1,0 +1,31 @@
+database_ref <- (database_ref) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expression <- (expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+qualified_enum <- (qualified_enum) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "identifier", "quoted_id"
+)
+
+quoted_id <- (quoted_id) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
