@@ -1,0 +1,210 @@
+suite: index-slice-keyvalue
+name: go-index-slice-keyvalue
+
+parse_cases:
+  - name: index_slice_keyvalue
+    input: |
+      func i() {
+          arr := []int{1, 2, 3}
+          x := arr[0]
+          y := arr[1:3]
+          m := map[string]int{"a": 1, "b": 2}
+          z := m["a"]
+          _, _, _, _, _ = arr, x, y, m, z
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "i"
+          token: "i"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "i"
+            - type: "Block"
+              roles: ["Body"]
+            - type: "Block"
+              roles: ["Body"]
+              children:
+                - type: "Variable"
+                  roles: ["Variable", "Declaration"]
+                  props:
+                    name: "arr"
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "arr"
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Literal"
+                          roles: ["Literal"]
+                          children:
+                            - type: "TypeAnnotation"
+                              roles: ["Type"]
+                            - type: "Literal"
+                              roles: ["Literal"]
+                              children:
+                                - type: "Literal"
+                                  roles: ["Literal"]
+                                  token: "1"
+                                - type: "Literal"
+                                  roles: ["Literal"]
+                                  token: "2"
+                                - type: "Literal"
+                                  roles: ["Literal"]
+                                  token: "3"
+                - type: "Variable"
+                  roles: ["Variable", "Declaration"]
+                  props:
+                    name: "x"
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "x"
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Index"
+                          roles: ["Index"]
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "arr"
+                - type: "Variable"
+                  roles: ["Variable", "Declaration"]
+                  props:
+                    name: "y"
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "y"
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Slice"
+                          roles: ["Index"]
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "arr"
+                - type: "Variable"
+                  roles: ["Variable", "Declaration"]
+                  props:
+                    name: "m"
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "m"
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Literal"
+                          roles: ["Literal"]
+                          children:
+                            - type: "TypeAnnotation"
+                              roles: ["Type"]
+                            - type: "Literal"
+                              roles: ["Literal"]
+                              children:
+                                - type: "KeyValue"
+                                  roles: ["Key", "Value"]
+                                  children:
+                                    - type: "Literal"
+                                      roles: ["Literal"]
+                                      children:
+                                        - type: "Literal"
+                                          roles: ["Literal"]
+                                          token: "a"
+                                    - type: "Literal"
+                                      roles: ["Literal"]
+                                      token: "1"
+                                - type: "KeyValue"
+                                  roles: ["Key", "Value"]
+                                  children:
+                                    - type: "Literal"
+                                      roles: ["Literal"]
+                                      children:
+                                        - type: "Literal"
+                                          roles: ["Literal"]
+                                          token: "b"
+                                    - type: "Literal"
+                                      roles: ["Literal"]
+                                      token: "2"
+                - type: "Variable"
+                  roles: ["Variable", "Declaration"]
+                  props:
+                    name: "z"
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "z"
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Index"
+                          roles: ["Index"]
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "m"
+                            - type: "Literal"
+                              roles: ["Literal"]
+                              token: "a"
+                - type: "Assignment"
+                  roles: ["Assignment"]
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "_"
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "_"
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "_"
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "_"
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "_"
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "arr"
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "x"
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "y"
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "m"
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "z" 

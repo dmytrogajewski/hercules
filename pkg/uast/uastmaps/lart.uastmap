@@ -1,0 +1,511 @@
+argument_list <- (argument_list) => uast(
+    type: "List",
+    children: []
+)
+
+array_access_expression <- (array_access_expression) => uast(
+    type: "Synthetic",
+    children: "array_access_expression", "binary_expression", "bitcast_expression", "boolean", "call_expression", "callable_binary_expression", "cast_expression", "character", "double", "identifier", "integer", "monary_expression", "nullptr", "parenthesized_expression", "scoped_identifier", "sizeof_expression", "string", "vanext_expression"
+)
+
+array_type <- (array_type) => uast(
+    type: "Synthetic",
+    children: "array_type", "boolean_type", "double_type", "function_type", "identifier", "integer", "integer_type", "pointer_type", "scoped_identifier", "struct_type", "void_type"
+)
+
+binary_expression <- (binary_expression) => uast(
+    type: "Synthetic",
+    children: "array_access_expression", "binary_expression", "binary_operator_add", "binary_operator_and", "binary_operator_arr", "binary_operator_ass", "binary_operator_div", "binary_operator_dot", "binary_operator_eq", "binary_operator_ge", "binary_operator_gr", "binary_operator_le", "binary_operator_lr", "binary_operator_lrot", "binary_operator_mul", "binary_operator_ne", "binary_operator_or", "binary_operator_rrot", "binary_operator_sca", "binary_operator_sco", "binary_operator_sub", "binary_operator_xor", "bitcast_expression", "boolean", "call_expression", "cast_expression", "character", "double", "identifier", "integer", "monary_expression", "nullptr", "parenthesized_expression", "scoped_identifier", "sizeof_expression", "string", "vanext_expression"
+)
+
+binary_operator_add <- (binary_operator_add) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_and <- (binary_operator_and) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_arr <- (binary_operator_arr) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_ass <- (binary_operator_ass) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_gr <- (binary_operator_gr) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_lr <- (binary_operator_lr) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_mul <- (binary_operator_mul) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_sub <- (binary_operator_sub) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+bitcast_expression <- (bitcast_expression) => uast(
+    type: "Cast",
+    children: "array_access_expression", "array_type", "binary_expression", "bitcast_expression", "boolean", "boolean_type", "call_expression", "cast_expression", "character", "double", "double_type", "function_type", "identifier", "integer", "integer_type", "monary_expression", "nullptr", "parenthesized_expression", "pointer_type", "scoped_identifier", "sizeof_expression", "string", "struct_type", "vanext_expression", "void_type"
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+boolean <- (boolean) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+boolean_type <- (boolean_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+break_statement <- (break_statement) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+call_expression <- (call_expression) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "argument_list", "array_access_expression", "call_expression", "callable_binary_expression", "identifier", "parenthesized_expression", "scoped_identifier"
+)
+
+callable_binary_expression <- (callable_binary_expression) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "array_access_expression", "binary_expression", "binary_operator_arr", "binary_operator_dot", "bitcast_expression", "boolean", "call_expression", "cast_expression", "character", "double", "identifier", "integer", "monary_expression", "nullptr", "parenthesized_expression", "scoped_identifier", "sizeof_expression", "string", "vanext_expression"
+)
+
+cast_expression <- (cast_expression) => uast(
+    type: "Cast",
+    children: "array_access_expression", "array_type", "binary_expression", "bitcast_expression", "boolean", "boolean_type", "call_expression", "cast_expression", "character", "double", "double_type", "function_type", "identifier", "integer", "integer_type", "monary_expression", "nullptr", "parenthesized_expression", "pointer_type", "scoped_identifier", "sizeof_expression", "string", "struct_type", "vanext_expression", "void_type"
+)
+
+const_statement <- (const_statement) => uast(
+    type: "Synthetic",
+    children: "array_access_expression", "array_type", "binary_expression", "bitcast_expression", "boolean", "boolean_type", "call_expression", "cast_expression", "character", "double", "double_type", "function_type", "identifier", "integer", "integer_type", "monary_expression", "nullptr", "parenthesized_expression", "pointer_type", "scoped_identifier", "sizeof_expression", "string", "struct_type", "vanext_expression", "void_type"
+)
+
+continue_statement <- (continue_statement) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+double_type <- (double_type) => uast(
+    type: "Synthetic",
+    children: "integer"
+)
+
+field <- (field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "array_type", "boolean_type", "double_type", "function_type", "identifier", "integer_type", "pointer_type", "scoped_identifier", "struct_type", "void_type"
+)
+
+field_list <- (field_list) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "array_access_expression", "binary_expression", "bitcast_expression", "block", "boolean", "break_statement", "call_expression", "cast_expression", "character", "const_statement", "continue_statement", "double", "for", "identifier", "if_else", "integer", "let_statement", "monary_expression", "nullptr", "parenthesized_expression", "return_statement", "scoped_identifier", "sizeof_expression", "string", "vanext_expression", "while"
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "array_type", "block", "boolean_type", "double_type", "function_type", "identifier", "integer_type", "parameter_list", "pointer_type", "scoped_identifier", "struct_type", "void_type"
+)
+
+function_type <- (function_type) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "array_type", "boolean_type", "double_type", "function_type", "identifier", "integer_type", "parameter_list", "pointer_type", "scoped_identifier", "struct_type", "void_type"
+)
+
+if_else <- (if_else) => uast(
+    type: "If",
+    children: "array_access_expression", "binary_expression", "bitcast_expression", "block", "boolean", "break_statement", "call_expression", "cast_expression", "character", "const_statement", "continue_statement", "double", "for", "identifier", "if_else", "integer", "let_statement", "monary_expression", "nullptr", "parenthesized_expression", "return_statement", "scoped_identifier", "sizeof_expression", "string", "vanext_expression", "while"
+)
+
+include <- (include) => uast(
+    type: "Synthetic",
+    children: "path_literal"
+)
+
+integer_type <- (integer_type) => uast(
+    type: "Synthetic",
+    children: "boolean", "integer"
+)
+
+let_statement <- (let_statement) => uast(
+    type: "Synthetic",
+    children: "array_access_expression", "array_type", "binary_expression", "bitcast_expression", "boolean", "boolean_type", "call_expression", "cast_expression", "character", "double", "double_type", "function_type", "identifier", "integer", "integer_type", "monary_expression", "nullptr", "parenthesized_expression", "pointer_type", "scoped_identifier", "sizeof_expression", "string", "struct_type", "vanext_expression", "void_type"
+)
+
+module <- (module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "identifier"
+)
+
+monary_expression <- (monary_expression) => uast(
+    type: "Synthetic",
+    children: "array_access_expression", "binary_expression", "bitcast_expression", "boolean", "call_expression", "cast_expression", "character", "double", "identifier", "integer", "monary_expression", "monary_operator", "nullptr", "parenthesized_expression", "scoped_identifier", "sizeof_expression", "string", "vanext_expression"
+)
+
+monary_operator <- (monary_operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parameter <- (parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "array_type", "boolean_type", "double_type", "function_type", "identifier", "integer_type", "pointer_type", "scoped_identifier", "struct_type", "void_type"
+)
+
+parameter_list <- (parameter_list) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+parenthesized_expression <- (parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pointer_type <- (pointer_type) => uast(
+    type: "Synthetic",
+    children: "array_type", "boolean_type", "double_type", "function_type", "identifier", "integer_type", "pointer_type", "scoped_identifier", "struct_type", "void_type"
+)
+
+return_statement <- (return_statement) => uast(
+    type: "Return",
+    roles: "Return"
+    children: "array_access_expression", "binary_expression", "bitcast_expression", "boolean", "call_expression", "cast_expression", "character", "double", "identifier", "integer", "monary_expression", "nullptr", "parenthesized_expression", "scoped_identifier", "sizeof_expression", "string", "vanext_expression"
+)
+
+scoped_identifier <- (scoped_identifier) => uast(
+    type: "If",
+    children: "identifier", "scoped_identifier"
+)
+
+sizeof_expression <- (sizeof_expression) => uast(
+    type: "Synthetic",
+    children: "array_type", "boolean_type", "double_type", "function_type", "identifier", "integer_type", "pointer_type", "scoped_identifier", "struct_type", "void_type"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+struct_type <- (struct_type) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "field_list"
+)
+
+typedef <- (typedef) => uast(
+    type: "Synthetic",
+    children: "array_type", "boolean_type", "double_type", "function_type", "identifier", "integer_type", "pointer_type", "scoped_identifier", "struct_type", "void_type"
+)
+
+vanext_expression <- (vanext_expression) => uast(
+    type: "Synthetic",
+    children: "array_type", "boolean_type", "double_type", "function_type", "identifier", "integer_type", "pointer_type", "scoped_identifier", "struct_type", "void_type"
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "array_access_expression", "binary_expression", "bitcast_expression", "block", "boolean", "break_statement", "call_expression", "cast_expression", "character", "const_statement", "continue_statement", "double", "for", "identifier", "if_else", "integer", "let_statement", "monary_expression", "nullptr", "parenthesized_expression", "return_statement", "scoped_identifier", "sizeof_expression", "string", "vanext_expression", "while"
+)
+
+binary_operator_div <- (binary_operator_div) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_dot <- (binary_operator_dot) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_eq <- (binary_operator_eq) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_ge <- (binary_operator_ge) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_le <- (binary_operator_le) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_lrot <- (binary_operator_lrot) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_ne <- (binary_operator_ne) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_or <- (binary_operator_or) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_rrot <- (binary_operator_rrot) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_sca <- (binary_operator_sca) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_sco <- (binary_operator_sco) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+binary_operator_xor <- (binary_operator_xor) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+bitcast <- (bitcast) => uast(
+    type: "Cast",
+    children: []
+)
+
+block_comment <- (block_comment) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+bool <- (bool) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+cast <- (cast) => uast(
+    type: "Cast",
+    children: []
+)
+
+character <- (character) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+const <- (const) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+continue <- (continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+double <- (double) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+double <- (double) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fn <- (fn) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+include <- (include) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+let <- (let) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+line_comment <- (line_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+mod <- (mod) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nullptr <- (nullptr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+path_literal <- (path_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+sizeof <- (sizeof) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+struct <- (struct) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+typedef <- (typedef) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vanext <- (vanext) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variadic_parameter <- (variadic_parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+void_type <- (void_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+

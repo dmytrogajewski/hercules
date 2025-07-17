@@ -1,0 +1,660 @@
+args <- (args) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+array_ref <- (array_ref) => uast(
+    type: "Synthetic",
+    children: "array_ref", "assignment_exp", "binary_exp", "exp_list", "field_ref", "func_call", "getline_file", "getline_input", "grouping", "identifier", "indirect_func_call", "ns_qualified_name", "number", "piped_io_exp", "regex", "regex_constant", "string", "string_concat", "ternary_exp", "unary_exp", "update_exp"
+)
+
+assignment_exp <- (assignment_exp) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "array_ref", "assignment_exp", "binary_exp", "field_ref", "func_call", "getline_file", "getline_input", "grouping", "identifier", "indirect_func_call", "ns_qualified_name", "number", "piped_io_exp", "regex", "regex_constant", "string", "string_concat", "ternary_exp", "unary_exp", "update_exp"
+)
+
+binary_exp <- (binary_exp) => uast(
+    type: "Synthetic",
+    children: "array_ref", "assignment_exp", "binary_exp", "exp_list", "field_ref", "func_call", "getline_file", "getline_input", "grouping", "identifier", "in", "indirect_func_call", "ns_qualified_name", "number", "piped_io_exp", "regex", "regex_constant", "string", "string_concat", "ternary_exp", "unary_exp", "update_exp"
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+delete_statement <- (delete_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+directive <- (directive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do_while_statement <- (do_while_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "array_ref", "assignment_exp", "binary_exp", "field_ref", "func_call", "getline_file", "getline_input", "grouping", "identifier", "indirect_func_call", "ns_qualified_name", "number", "piped_io_exp", "regex", "regex_constant", "string", "string_concat", "ternary_exp", "unary_exp", "update_exp"
+)
+
+else_clause <- (else_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+exit_statement <- (exit_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+exp_list <- (exp_list) => uast(
+    type: "List",
+    children: []
+)
+
+field_ref <- (field_ref) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+for_in_statement <- (for_in_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "array_ref", "identifier", "ns_qualified_name"
+)
+
+for_statement <- (for_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "array_ref", "assignment_exp", "binary_exp", "field_ref", "func_call", "getline_file", "getline_input", "grouping", "identifier", "indirect_func_call", "ns_qualified_name", "number", "piped_io_exp", "regex", "regex_constant", "string", "string_concat", "ternary_exp", "unary_exp", "update_exp"
+)
+
+func_call <- (func_call) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "identifier", "ns_qualified_name"
+)
+
+func_def <- (func_def) => uast(
+    type: "Synthetic",
+    children: "identifier", "ns_qualified_name"
+)
+
+getline_file <- (getline_file) => uast(
+    type: "Synthetic",
+    children: "array_ref", "assignment_exp", "binary_exp", "field_ref", "func_call", "getline_file", "getline_input", "grouping", "identifier", "indirect_func_call", "ns_qualified_name", "number", "piped_io_exp", "regex", "regex_constant", "string", "string_concat", "ternary_exp", "unary_exp", "update_exp"
+)
+
+getline_input <- (getline_input) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+grouping <- (grouping) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if_statement <- (if_statement) => uast(
+    type: "If",
+    children: "array_ref", "assignment_exp", "binary_exp", "field_ref", "func_call", "getline_file", "getline_input", "grouping", "identifier", "indirect_func_call", "ns_qualified_name", "number", "piped_io_exp", "regex", "regex_constant", "string", "string_concat", "ternary_exp", "unary_exp", "update_exp"
+)
+
+indirect_func_call <- (indirect_func_call) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+namespace <- (namespace) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+ns_qualified_name <- (ns_qualified_name) => uast(
+    type: "If",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+param_list <- (param_list) => uast(
+    type: "List",
+    children: []
+)
+
+pattern <- (pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+piped_io_exp <- (piped_io_exp) => uast(
+    type: "Synthetic",
+    children: "array_ref", "assignment_exp", "binary_exp", "field_ref", "func_call", "getline_file", "getline_input", "grouping", "identifier", "indirect_func_call", "ns_qualified_name", "number", "piped_io_exp", "regex", "regex_constant", "string", "string_concat", "ternary_exp", "unary_exp", "update_exp"
+)
+
+piped_io_statement <- (piped_io_statement) => uast(
+    type: "Synthetic",
+    children: "array_ref", "assignment_exp", "binary_exp", "field_ref", "func_call", "getline_file", "getline_input", "grouping", "identifier", "indirect_func_call", "ns_qualified_name", "number", "piped_io_exp", "regex", "regex_constant", "string", "string_concat", "ternary_exp", "unary_exp", "update_exp"
+)
+
+print_statement <- (print_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+printf_statement <- (printf_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+program <- (program) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+range_pattern <- (range_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "array_ref", "assignment_exp", "binary_exp", "field_ref", "func_call", "getline_file", "getline_input", "grouping", "identifier", "indirect_func_call", "ns_qualified_name", "number", "piped_io_exp", "regex", "regex_constant", "string", "string_concat", "ternary_exp", "unary_exp", "update_exp"
+)
+
+redirected_io_statement <- (redirected_io_statement) => uast(
+    type: "Synthetic",
+    children: "array_ref", "assignment_exp", "binary_exp", "field_ref", "func_call", "getline_file", "getline_input", "grouping", "identifier", "indirect_func_call", "ns_qualified_name", "number", "piped_io_exp", "regex", "regex_constant", "string", "string_concat", "ternary_exp", "unary_exp", "update_exp"
+)
+
+regex <- (regex) => uast(
+    type: "Synthetic",
+    children: "regex_flags", "regex_pattern"
+)
+
+regex_constant <- (regex_constant) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+regex_pattern <- (regex_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+return_statement <- (return_statement) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+rule <- (rule) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_concat <- (string_concat) => uast(
+    type: "Synthetic",
+    children: "array_ref", "binary_exp", "field_ref", "func_call", "grouping", "identifier", "ns_qualified_name", "number", "string", "string_concat", "ternary_exp", "unary_exp"
+)
+
+switch_body <- (switch_body) => uast(
+    type: "Switch",
+    children: []
+)
+
+switch_case <- (switch_case) => uast(
+    type: "Switch",
+    children: "number", "regex", "string"
+)
+
+switch_default <- (switch_default) => uast(
+    type: "Switch",
+    children: []
+)
+
+switch_statement <- (switch_statement) => uast(
+    type: "Switch",
+    children: []
+)
+
+ternary_exp <- (ternary_exp) => uast(
+    type: "Synthetic",
+    children: "array_ref", "assignment_exp", "binary_exp", "field_ref", "func_call", "getline_file", "getline_input", "grouping", "identifier", "indirect_func_call", "ns_qualified_name", "number", "piped_io_exp", "regex", "regex_constant", "string", "string_concat", "ternary_exp", "unary_exp", "update_exp"
+)
+
+unary_exp <- (unary_exp) => uast(
+    type: "Synthetic",
+    children: "array_ref", "assignment_exp", "binary_exp", "field_ref", "func_call", "getline_file", "getline_input", "grouping", "identifier", "indirect_func_call", "ns_qualified_name", "number", "piped_io_exp", "regex", "regex_constant", "string", "string_concat", "ternary_exp", "unary_exp", "update_exp"
+)
+
+update_exp <- (update_exp) => uast(
+    type: "Synthetic",
+    children: "array_ref", "field_ref", "identifier", "ns_qualified_name"
+)
+
+while_statement <- (while_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "array_ref", "assignment_exp", "binary_exp", "field_ref", "func_call", "getline_file", "getline_input", "grouping", "identifier", "indirect_func_call", "ns_qualified_name", "number", "piped_io_exp", "regex", "regex_constant", "string", "string_concat", "ternary_exp", "unary_exp", "update_exp"
+)
+
+BEGIN <- (BEGIN) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+BEGINFILE <- (BEGINFILE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+END <- (END) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ENDFILE <- (ENDFILE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+alnum <- (alnum) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+alpha <- (alpha) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+asort <- (asort) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+asorti <- (asorti) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bindtextdomain <- (bindtextdomain) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+blank <- (blank) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+break_statement <- (break_statement) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+cntrl <- (cntrl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+compl <- (compl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+concatenating_space <- (concatenating_space) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+continue_statement <- (continue_statement) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+cos <- (cos) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dcgettext <- (dcgettext) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dcngettext <- (dcngettext) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+default <- (default) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+delete <- (delete) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+digit <- (digit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+exit <- (exit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+exp <- (exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+func <- (func) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+gensub <- (gensub) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+getline <- (getline) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+graph <- (graph) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+gsub <- (gsub) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+index <- (index) => uast(
+    type: "Index",
+    roles: "Index"
+    children: []
+)
+
+int <- (int) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+isarray <- (isarray) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+length <- (length) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+log <- (log) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lower <- (lower) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lshift <- (lshift) => uast(
+    type: "If",
+    children: []
+)
+
+match <- (match) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+mktime <- (mktime) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+namespace <- (namespace) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+next_statement <- (next_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nextfile_statement <- (nextfile_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+patsplit <- (patsplit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+print <- (print) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+printf <- (printf) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+punct <- (punct) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rand <- (rand) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+regex_flags <- (regex_flags) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+rshift <- (rshift) => uast(
+    type: "If",
+    children: []
+)
+
+sin <- (sin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+space <- (space) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+split <- (split) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sprintf <- (sprintf) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sqrt <- (sqrt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+srand <- (srand) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strftime <- (strftime) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strtonum <- (strtonum) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sub <- (sub) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+substr <- (substr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+switch <- (switch) => uast(
+    type: "Switch",
+    children: []
+)
+
+systime <- (systime) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tolower <- (tolower) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+toupper <- (toupper) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+typeof <- (typeof) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+upper <- (upper) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+xdigit <- (xdigit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+xor <- (xor) => uast(
+    type: "Synthetic",
+    children: []
+)
+

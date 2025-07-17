@@ -1,0 +1,1745 @@
+_abstract_declarator <- (_abstract_declarator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_declarator <- (_declarator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_field_declarator <- (_field_declarator) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+_type_declarator <- (_type_declarator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expression <- (expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+statement <- (statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_specifier <- (type_specifier) => uast(
+    type: "If",
+    children: []
+)
+
+abstract_array_declarator <- (abstract_array_declarator) => uast(
+    type: "Synthetic",
+    children: "_abstract_declarator", "expression"
+)
+
+abstract_function_declarator <- (abstract_function_declarator) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "_abstract_declarator", "parameter_list"
+)
+
+abstract_parenthesized_declarator <- (abstract_parenthesized_declarator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+abstract_pointer_declarator <- (abstract_pointer_declarator) => uast(
+    type: "Synthetic",
+    children: "_abstract_declarator"
+)
+
+abstract_reference_declarator <- (abstract_reference_declarator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+access_specifier <- (access_specifier) => uast(
+    type: "If",
+    children: []
+)
+
+alias_declaration <- (alias_declaration) => uast(
+    type: "Synthetic",
+    children: "type_descriptor", "type_identifier"
+)
+
+alignas_qualifier <- (alignas_qualifier) => uast(
+    type: "If",
+    children: []
+)
+
+alignof_expression <- (alignof_expression) => uast(
+    type: "Synthetic",
+    children: "type_descriptor"
+)
+
+argument_list <- (argument_list) => uast(
+    type: "List",
+    children: []
+)
+
+array_declarator <- (array_declarator) => uast(
+    type: "Synthetic",
+    children: "_declarator", "_field_declarator", "_type_declarator", "expression"
+)
+
+assignment_expression <- (assignment_expression) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "and_eq", "expression", "initializer_list", "or_eq", "xor_eq"
+)
+
+attribute <- (attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: "identifier"
+)
+
+attribute_declaration <- (attribute_declaration) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+attribute_specifier <- (attribute_specifier) => uast(
+    type: "If",
+    children: []
+)
+
+attributed_declarator <- (attributed_declarator) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+attributed_statement <- (attributed_statement) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+base_class_clause <- (base_class_clause) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+binary_expression <- (binary_expression) => uast(
+    type: "Synthetic",
+    children: "and", "bitand", "bitor", "expression", "not_eq", "or", "preproc_defined", "xor"
+)
+
+bitfield_clause <- (bitfield_clause) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+break_statement <- (break_statement) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+call_expression <- (call_expression) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "argument_list", "expression", "primitive_type"
+)
+
+case_statement <- (case_statement) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "expression"
+)
+
+cast_expression <- (cast_expression) => uast(
+    type: "Cast",
+    children: "expression", "type_descriptor"
+)
+
+catch_clause <- (catch_clause) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: "compound_statement", "parameter_list"
+)
+
+char_literal <- (char_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+class_specifier <- (class_specifier) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "field_declaration_list", "qualified_identifier", "template_type", "type_identifier"
+)
+
+co_await_expression <- (co_await_expression) => uast(
+    type: "Await",
+    roles: "Await"
+    children: "co_await", "expression"
+)
+
+co_return_statement <- (co_return_statement) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+co_yield_statement <- (co_yield_statement) => uast(
+    type: "Yield",
+    roles: "Yield"
+    children: []
+)
+
+comma_expression <- (comma_expression) => uast(
+    type: "Synthetic",
+    children: "comma_expression", "expression"
+)
+
+compound_literal_expression <- (compound_literal_expression) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: "initializer_list", "primitive_type", "qualified_identifier", "template_type", "type_descriptor", "type_identifier"
+)
+
+compound_requirement <- (compound_requirement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+compound_statement <- (compound_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+concatenated_string <- (concatenated_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+concept_definition <- (concept_definition) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+condition_clause <- (condition_clause) => uast(
+    type: "Synthetic",
+    children: "comma_expression", "declaration", "expression", "init_statement"
+)
+
+conditional_expression <- (conditional_expression) => uast(
+    type: "Synthetic",
+    children: "comma_expression", "expression"
+)
+
+constraint_conjunction <- (constraint_conjunction) => uast(
+    type: "Synthetic",
+    children: "and", "constraint_conjunction", "constraint_disjunction", "expression", "template_type", "type_identifier"
+)
+
+constraint_disjunction <- (constraint_disjunction) => uast(
+    type: "Synthetic",
+    children: "constraint_conjunction", "constraint_disjunction", "expression", "or", "template_type", "type_identifier"
+)
+
+continue_statement <- (continue_statement) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+declaration <- (declaration) => uast(
+    type: "Synthetic",
+    children: "_declarator", "expression", "gnu_asm_expression", "init_declarator", "initializer_list", "operator_cast", "type_specifier"
+)
+
+declaration_list <- (declaration_list) => uast(
+    type: "List",
+    children: []
+)
+
+decltype <- (decltype) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+default_method_clause <- (default_method_clause) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+delete_expression <- (delete_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+delete_method_clause <- (delete_method_clause) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+dependent_name <- (dependent_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dependent_type <- (dependent_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+destructor_name <- (destructor_name) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+do_statement <- (do_statement) => uast(
+    type: "Synthetic",
+    children: "parenthesized_expression", "statement"
+)
+
+else_clause <- (else_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+enum_specifier <- (enum_specifier) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "enumerator_list", "primitive_type", "qualified_identifier", "sized_type_specifier", "template_type", "type_identifier"
+)
+
+enumerator <- (enumerator) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "expression", "identifier"
+)
+
+enumerator_list <- (enumerator_list) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+explicit_function_specifier <- (explicit_function_specifier) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+expression_statement <- (expression_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+extension_expression <- (extension_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+field_declaration <- (field_declaration) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "_field_declarator", "expression", "initializer_list", "type_specifier"
+)
+
+field_declaration_list <- (field_declaration_list) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+field_designator <- (field_designator) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+field_expression <- (field_expression) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "dependent_name", "destructor_name", "expression", "field_identifier", "qualified_identifier", "template_method"
+)
+
+field_initializer <- (field_initializer) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+field_initializer_list <- (field_initializer_list) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+fold_expression <- (fold_expression) => uast(
+    type: "Synthetic",
+    children: "and", "bitand", "bitor", "expression", "not_eq", "or", "xor"
+)
+
+for_range_loop <- (for_range_loop) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "_declarator", "expression", "init_statement", "initializer_list", "statement", "type_specifier"
+)
+
+for_statement <- (for_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "comma_expression", "declaration", "expression", "statement"
+)
+
+friend_declaration <- (friend_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+function_declarator <- (function_declarator) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "_declarator", "_field_declarator", "_type_declarator", "parameter_list"
+)
+
+function_definition <- (function_definition) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "_declarator", "_field_declarator", "compound_statement", "operator_cast", "try_statement", "type_specifier"
+)
+
+generic_expression <- (generic_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+gnu_asm_clobber_list <- (gnu_asm_clobber_list) => uast(
+    type: "List",
+    children: "concatenated_string", "raw_string_literal", "string_literal"
+)
+
+gnu_asm_expression <- (gnu_asm_expression) => uast(
+    type: "Synthetic",
+    children: "concatenated_string", "gnu_asm_clobber_list", "gnu_asm_goto_list", "gnu_asm_input_operand_list", "gnu_asm_output_operand_list", "raw_string_literal", "string_literal"
+)
+
+gnu_asm_goto_list <- (gnu_asm_goto_list) => uast(
+    type: "List",
+    children: "identifier"
+)
+
+gnu_asm_input_operand <- (gnu_asm_input_operand) => uast(
+    type: "Synthetic",
+    children: "expression", "identifier", "string_literal"
+)
+
+gnu_asm_input_operand_list <- (gnu_asm_input_operand_list) => uast(
+    type: "List",
+    children: "gnu_asm_input_operand"
+)
+
+gnu_asm_output_operand <- (gnu_asm_output_operand) => uast(
+    type: "Synthetic",
+    children: "expression", "identifier", "string_literal"
+)
+
+gnu_asm_output_operand_list <- (gnu_asm_output_operand_list) => uast(
+    type: "List",
+    children: "gnu_asm_output_operand"
+)
+
+gnu_asm_qualifier <- (gnu_asm_qualifier) => uast(
+    type: "If",
+    children: []
+)
+
+goto_statement <- (goto_statement) => uast(
+    type: "Synthetic",
+    children: "statement_identifier"
+)
+
+if_statement <- (if_statement) => uast(
+    type: "If",
+    children: "condition_clause", "else_clause", "statement"
+)
+
+init_declarator <- (init_declarator) => uast(
+    type: "Synthetic",
+    children: "_declarator", "argument_list", "expression", "initializer_list"
+)
+
+init_statement <- (init_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+initializer_list <- (initializer_list) => uast(
+    type: "List",
+    children: []
+)
+
+initializer_pair <- (initializer_pair) => uast(
+    type: "Synthetic",
+    children: "expression", "field_designator", "field_identifier", "initializer_list", "subscript_designator", "subscript_range_designator"
+)
+
+labeled_statement <- (labeled_statement) => uast(
+    type: "Synthetic",
+    children: "statement_identifier"
+)
+
+lambda_capture_initializer <- (lambda_capture_initializer) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: "expression", "identifier"
+)
+
+lambda_capture_specifier <- (lambda_capture_specifier) => uast(
+    type: "If",
+    children: []
+)
+
+lambda_default_capture <- (lambda_default_capture) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: []
+)
+
+lambda_expression <- (lambda_expression) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: "abstract_function_declarator", "compound_statement", "lambda_capture_specifier", "requires_clause", "template_parameter_list"
+)
+
+linkage_specification <- (linkage_specification) => uast(
+    type: "If",
+    children: "declaration", "declaration_list", "function_definition", "string_literal"
+)
+
+ms_based_modifier <- (ms_based_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+ms_call_modifier <- (ms_call_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+ms_declspec_modifier <- (ms_declspec_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+ms_pointer_modifier <- (ms_pointer_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+ms_unaligned_ptr_modifier <- (ms_unaligned_ptr_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+namespace_alias_definition <- (namespace_alias_definition) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: "namespace_identifier"
+)
+
+namespace_definition <- (namespace_definition) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: "declaration_list", "namespace_identifier", "nested_namespace_specifier"
+)
+
+nested_namespace_specifier <- (nested_namespace_specifier) => uast(
+    type: "If",
+    children: []
+)
+
+new_declarator <- (new_declarator) => uast(
+    type: "Synthetic",
+    children: "expression"
+)
+
+new_expression <- (new_expression) => uast(
+    type: "Synthetic",
+    children: "argument_list", "initializer_list", "new_declarator", "type_specifier"
+)
+
+noexcept <- (noexcept) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+null <- (null) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number_literal <- (number_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+offsetof_expression <- (offsetof_expression) => uast(
+    type: "Set",
+    children: "field_identifier", "type_descriptor"
+)
+
+operator_cast <- (operator_cast) => uast(
+    type: "Cast",
+    children: "_abstract_declarator", "type_specifier"
+)
+
+operator_name <- (operator_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+optional_parameter_declaration <- (optional_parameter_declaration) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "_declarator", "abstract_reference_declarator", "expression", "type_specifier"
+)
+
+optional_type_parameter_declaration <- (optional_type_parameter_declaration) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "type_identifier", "type_specifier"
+)
+
+parameter_declaration <- (parameter_declaration) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "_abstract_declarator", "_declarator", "type_specifier"
+)
+
+parameter_list <- (parameter_list) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+parameter_pack_expansion <- (parameter_pack_expansion) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "expression", "type_descriptor"
+)
+
+parenthesized_declarator <- (parenthesized_declarator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parenthesized_expression <- (parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+placeholder_type_specifier <- (placeholder_type_specifier) => uast(
+    type: "If",
+    children: "type_specifier"
+)
+
+pointer_declarator <- (pointer_declarator) => uast(
+    type: "Synthetic",
+    children: "_declarator", "_field_declarator", "_type_declarator"
+)
+
+pointer_expression <- (pointer_expression) => uast(
+    type: "Synthetic",
+    children: "expression"
+)
+
+pointer_type_declarator <- (pointer_type_declarator) => uast(
+    type: "Synthetic",
+    children: "_type_declarator"
+)
+
+preproc_call <- (preproc_call) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "preproc_arg", "preproc_directive"
+)
+
+preproc_def <- (preproc_def) => uast(
+    type: "Synthetic",
+    children: "identifier", "preproc_arg"
+)
+
+preproc_defined <- (preproc_defined) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preproc_elif <- (preproc_elif) => uast(
+    type: "If",
+    children: "binary_expression", "call_expression", "char_literal", "identifier", "number_literal", "parenthesized_expression", "preproc_defined", "preproc_elif", "preproc_elifdef", "preproc_else", "unary_expression"
+)
+
+preproc_elifdef <- (preproc_elifdef) => uast(
+    type: "If",
+    children: "identifier", "preproc_elif", "preproc_elifdef", "preproc_else"
+)
+
+preproc_else <- (preproc_else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preproc_function_def <- (preproc_function_def) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "identifier", "preproc_arg", "preproc_params"
+)
+
+preproc_if <- (preproc_if) => uast(
+    type: "If",
+    children: "binary_expression", "call_expression", "char_literal", "identifier", "number_literal", "parenthesized_expression", "preproc_defined", "preproc_elif", "preproc_elifdef", "preproc_else", "unary_expression"
+)
+
+preproc_ifdef <- (preproc_ifdef) => uast(
+    type: "If",
+    children: "identifier", "preproc_elif", "preproc_elifdef", "preproc_else"
+)
+
+preproc_include <- (preproc_include) => uast(
+    type: "Synthetic",
+    children: "call_expression", "identifier", "string_literal", "system_lib_string"
+)
+
+preproc_params <- (preproc_params) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+primitive_type <- (primitive_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pure_virtual_clause <- (pure_virtual_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+qualified_identifier <- (qualified_identifier) => uast(
+    type: "If",
+    children: "decltype", "dependent_name", "destructor_name", "field_identifier", "identifier", "namespace_identifier", "operator_cast", "operator_name", "pointer_type_declarator", "qualified_identifier", "template", "template_function", "template_method", "template_type", "type_identifier"
+)
+
+raw_string_literal <- (raw_string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: "raw_string_delimiter"
+)
+
+ref_qualifier <- (ref_qualifier) => uast(
+    type: "If",
+    children: []
+)
+
+reference_declarator <- (reference_declarator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+requirement_seq <- (requirement_seq) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+requires_clause <- (requires_clause) => uast(
+    type: "Synthetic",
+    children: "constraint_conjunction", "constraint_disjunction", "expression", "template_type", "type_identifier"
+)
+
+requires_expression <- (requires_expression) => uast(
+    type: "Synthetic",
+    children: "parameter_list", "requirement_seq"
+)
+
+return_statement <- (return_statement) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+seh_except_clause <- (seh_except_clause) => uast(
+    type: "Synthetic",
+    children: "compound_statement", "parenthesized_expression"
+)
+
+seh_finally_clause <- (seh_finally_clause) => uast(
+    type: "Finally",
+    roles: "Finally"
+    children: "compound_statement"
+)
+
+seh_leave_statement <- (seh_leave_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+seh_try_statement <- (seh_try_statement) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "compound_statement"
+)
+
+simple_requirement <- (simple_requirement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sized_type_specifier <- (sized_type_specifier) => uast(
+    type: "If",
+    children: "primitive_type", "type_identifier"
+)
+
+sizeof_expression <- (sizeof_expression) => uast(
+    type: "Synthetic",
+    children: "expression", "type_descriptor"
+)
+
+static_assert_declaration <- (static_assert_declaration) => uast(
+    type: "Synthetic",
+    children: "concatenated_string", "expression", "raw_string_literal", "string_literal"
+)
+
+storage_class_specifier <- (storage_class_specifier) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+struct_specifier <- (struct_specifier) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "field_declaration_list", "qualified_identifier", "template_type", "type_identifier"
+)
+
+structured_binding_declarator <- (structured_binding_declarator) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+subscript_argument_list <- (subscript_argument_list) => uast(
+    type: "List",
+    children: []
+)
+
+subscript_designator <- (subscript_designator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+subscript_expression <- (subscript_expression) => uast(
+    type: "Synthetic",
+    children: "expression", "subscript_argument_list"
+)
+
+subscript_range_designator <- (subscript_range_designator) => uast(
+    type: "Synthetic",
+    children: "expression"
+)
+
+switch_statement <- (switch_statement) => uast(
+    type: "Switch",
+    children: "compound_statement", "condition_clause"
+)
+
+template_argument_list <- (template_argument_list) => uast(
+    type: "List",
+    children: []
+)
+
+template_declaration <- (template_declaration) => uast(
+    type: "Synthetic",
+    children: "template_parameter_list"
+)
+
+template_function <- (template_function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "identifier", "template_argument_list"
+)
+
+template_instantiation <- (template_instantiation) => uast(
+    type: "Synthetic",
+    children: "_declarator", "type_specifier"
+)
+
+template_method <- (template_method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "field_identifier", "operator_name", "template_argument_list"
+)
+
+template_parameter_list <- (template_parameter_list) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+template_template_parameter_declaration <- (template_template_parameter_declaration) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "template_parameter_list"
+)
+
+template_type <- (template_type) => uast(
+    type: "Synthetic",
+    children: "template_argument_list", "type_identifier"
+)
+
+throw_specifier <- (throw_specifier) => uast(
+    type: "If",
+    children: []
+)
+
+throw_statement <- (throw_statement) => uast(
+    type: "Throw",
+    roles: "Throw"
+    children: []
+)
+
+trailing_return_type <- (trailing_return_type) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+translation_unit <- (translation_unit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+try_statement <- (try_statement) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "compound_statement"
+)
+
+type_definition <- (type_definition) => uast(
+    type: "Synthetic",
+    children: "_type_declarator", "type_specifier"
+)
+
+type_descriptor <- (type_descriptor) => uast(
+    type: "Synthetic",
+    children: "_abstract_declarator", "type_specifier"
+)
+
+type_parameter_declaration <- (type_parameter_declaration) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+type_qualifier <- (type_qualifier) => uast(
+    type: "If",
+    children: []
+)
+
+type_requirement <- (type_requirement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unary_expression <- (unary_expression) => uast(
+    type: "Synthetic",
+    children: "compl", "expression", "not", "preproc_defined"
+)
+
+union_specifier <- (union_specifier) => uast(
+    type: "If",
+    children: "field_declaration_list", "qualified_identifier", "template_type", "type_identifier"
+)
+
+update_expression <- (update_expression) => uast(
+    type: "Synthetic",
+    children: "expression"
+)
+
+user_defined_literal <- (user_defined_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+using_declaration <- (using_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variadic_declarator <- (variadic_declarator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variadic_parameter_declaration <- (variadic_parameter_declaration) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "reference_declarator", "type_specifier", "variadic_declarator"
+)
+
+variadic_type_parameter_declaration <- (variadic_type_parameter_declaration) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+virtual_specifier <- (virtual_specifier) => uast(
+    type: "If",
+    children: []
+)
+
+while_statement <- (while_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "condition_clause", "statement"
+)
+
+NULL <- (NULL) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+PROGMEM <- (PROGMEM) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_Alignas <- (_Alignas) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_Alignof <- (_Alignof) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_Atomic <- (_Atomic) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_Generic <- (_Generic) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_Nonnull <- (_Nonnull) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_Noreturn <- (_Noreturn) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+__alignof <- (__alignof) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+__alignof__ <- (__alignof__) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+__asm <- (__asm) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+__asm__ <- (__asm__) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+__attribute <- (__attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+__attribute__ <- (__attribute__) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+__based <- (__based) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+__cdecl <- (__cdecl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+__clrcall <- (__clrcall) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+__declspec <- (__declspec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+__except <- (__except) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+__extension__ <- (__extension__) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+__fastcall <- (__fastcall) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+__finally <- (__finally) => uast(
+    type: "Finally",
+    roles: "Finally"
+    children: []
+)
+
+__forceinline <- (__forceinline) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+__inline <- (__inline) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+__inline__ <- (__inline__) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+__leave <- (__leave) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+__restrict__ <- (__restrict__) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+__stdcall <- (__stdcall) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+__thiscall <- (__thiscall) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+__thread <- (__thread) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+__try <- (__try) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+__unaligned <- (__unaligned) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+__vectorcall <- (__vectorcall) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+__volatile__ <- (__volatile__) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_alignof <- (_alignof) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_unaligned <- (_unaligned) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+alignas <- (alignas) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+alignof <- (alignof) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and_eq <- (and_eq) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+asm <- (asm) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+auto <- (auto) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bitand <- (bitand) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bitor <- (bitor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+byte <- (byte) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+catch <- (catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+character <- (character) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+class <- (class) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+co_await <- (co_await) => uast(
+    type: "Await",
+    roles: "Await"
+    children: []
+)
+
+co_return <- (co_return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+co_yield <- (co_yield) => uast(
+    type: "Yield",
+    roles: "Yield"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+compl <- (compl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+concept <- (concept) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+const <- (const) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+consteval <- (consteval) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constexpr <- (constexpr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constinit <- (constinit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+continue <- (continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+decltype <- (decltype) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+default <- (default) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+defined <- (defined) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+delete <- (delete) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+enum <- (enum) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+explicit <- (explicit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+extern <- (extern) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+field_identifier <- (field_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+final <- (final) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+friend <- (friend) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+goto <- (goto) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+inline <- (inline) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+literal_suffix <- (literal_suffix) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+long <- (long) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ms_restrict_modifier <- (ms_restrict_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+ms_signed_ptr_modifier <- (ms_signed_ptr_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+ms_unsigned_ptr_modifier <- (ms_unsigned_ptr_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+mutable <- (mutable) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+namespace <- (namespace) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+namespace_identifier <- (namespace_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+new <- (new) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+noexcept <- (noexcept) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+noreturn <- (noreturn) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+not <- (not) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+not_eq <- (not_eq) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nullptr <- (nullptr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+offsetof <- (offsetof) => uast(
+    type: "Set",
+    children: []
+)
+
+operator <- (operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or_eq <- (or_eq) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+override <- (override) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preproc_arg <- (preproc_arg) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preproc_directive <- (preproc_directive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+private <- (private) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+protected <- (protected) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+public <- (public) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+raw_string_content <- (raw_string_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+raw_string_delimiter <- (raw_string_delimiter) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+register <- (register) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+requires <- (requires) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+restrict <- (restrict) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+short <- (short) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+signed <- (signed) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sizeof <- (sizeof) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+statement_identifier <- (statement_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+static <- (static) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+static_assert <- (static_assert) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_content <- (string_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+struct <- (struct) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+switch <- (switch) => uast(
+    type: "Switch",
+    children: []
+)
+
+system_lib_string <- (system_lib_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+template <- (template) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+this <- (this) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+thread_local <- (thread_local) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+throw <- (throw) => uast(
+    type: "Throw",
+    roles: "Throw"
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+try <- (try) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+type_identifier <- (type_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+typedef <- (typedef) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+typename <- (typename) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+union <- (union) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unsigned <- (unsigned) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+using <- (using) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+virtual <- (virtual) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+volatile <- (volatile) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+word <- (word) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+xor <- (xor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+xor_eq <- (xor_eq) => uast(
+    type: "Synthetic",
+    children: []
+)
+

@@ -1,0 +1,46 @@
+binary_expression <- (binary_expression) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "group", "identifier", "integer", "special_sequence", "terminal"
+)
+
+group <- (group) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+syntax <- (syntax) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+syntax_rule <- (syntax_rule) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "group", "identifier", "special_sequence", "terminal"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+special_sequence <- (special_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+terminal <- (terminal) => uast(
+    type: "Synthetic",
+    children: []
+)
+

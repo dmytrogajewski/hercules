@@ -1,0 +1,97 @@
+binary <- (binary) => uast(
+    type: "Synthetic",
+    children: "binary", "block", "list", "number", "operator", "record", "send", "sigil", "special_send", "string", "symbol", "tuple", "unary"
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: []
+)
+
+record <- (record) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+special_send <- (special_send) => uast(
+    type: "Synthetic",
+    children: "binary", "block", "list", "number", "record", "sigil", "special_send", "string", "symbol", "tuple", "unary"
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tuple <- (tuple) => uast(
+    type: "Tuple",
+    children: []
+)
+
+unary <- (unary) => uast(
+    type: "Synthetic",
+    children: "binary", "block", "list", "number", "operator", "record", "send", "sigil", "special_send", "string", "symbol", "tuple", "unary"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doublestring <- (doublestring) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+end <- (end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+operator <- (operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+send <- (send) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sigil <- (sigil) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+singlestring <- (singlestring) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+symbol <- (symbol) => uast(
+    type: "Synthetic",
+    children: []
+)
+

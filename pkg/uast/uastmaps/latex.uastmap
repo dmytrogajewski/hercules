@@ -1,0 +1,543 @@
+acronym_definition <- (acronym_definition) => uast(
+    type: "Synthetic",
+    children: "brack_group_key_value", "curly_group", "curly_group_text"
+)
+
+acronym_reference <- (acronym_reference) => uast(
+    type: "Synthetic",
+    children: "brack_group_key_value", "curly_group_text"
+)
+
+asy_environment <- (asy_environment) => uast(
+    type: "Synthetic",
+    children: "begin", "end", "source_code"
+)
+
+asydef_environment <- (asydef_environment) => uast(
+    type: "Synthetic",
+    children: "begin", "end", "source_code"
+)
+
+author <- (author) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+author_declaration <- (author_declaration) => uast(
+    type: "Synthetic",
+    children: "brack_group", "curly_group_author_list"
+)
+
+begin <- (begin) => uast(
+    type: "Synthetic",
+    children: "brack_group", "brack_group_key_value", "curly_group_text"
+)
+
+biblatex_include <- (biblatex_include) => uast(
+    type: "Synthetic",
+    children: "brack_group_key_value", "curly_group_glob_pattern"
+)
+
+bibstyle_include <- (bibstyle_include) => uast(
+    type: "Synthetic",
+    children: "curly_group_path"
+)
+
+bibtex_include <- (bibtex_include) => uast(
+    type: "Synthetic",
+    children: "curly_group_path_list"
+)
+
+block_comment <- (block_comment) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "comment"
+)
+
+brack_group <- (brack_group) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+brack_group_argc <- (brack_group_argc) => uast(
+    type: "Synthetic",
+    children: "argc"
+)
+
+brack_group_key_value <- (brack_group_key_value) => uast(
+    type: "KeyValue",
+    roles: "Key", "Value"
+    children: "key_value_pair"
+)
+
+brack_group_text <- (brack_group_text) => uast(
+    type: "Synthetic",
+    children: "text"
+)
+
+caption <- (caption) => uast(
+    type: "Synthetic",
+    children: "brack_group", "curly_group"
+)
+
+changes_replaced <- (changes_replaced) => uast(
+    type: "Synthetic",
+    children: "curly_group"
+)
+
+chapter <- (chapter) => uast(
+    type: "Synthetic",
+    children: "brack_group", "curly_group"
+)
+
+citation <- (citation) => uast(
+    type: "Synthetic",
+    children: "brack_group", "curly_group_text_list"
+)
+
+class_include <- (class_include) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "brack_group_key_value", "curly_group_path"
+)
+
+color_definition <- (color_definition) => uast(
+    type: "Synthetic",
+    children: "curly_group", "curly_group_text"
+)
+
+color_reference <- (color_reference) => uast(
+    type: "Synthetic",
+    children: "brack_group_text", "curly_group", "curly_group_text"
+)
+
+color_set_definition <- (color_set_definition) => uast(
+    type: "Set",
+    children: "brack_group_text", "curly_group", "curly_group_text_list"
+)
+
+comment_environment <- (comment_environment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: "begin", "comment", "end"
+)
+
+curly_group <- (curly_group) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+curly_group_author_list <- (curly_group_author_list) => uast(
+    type: "List",
+    children: []
+)
+
+curly_group_command_name <- (curly_group_command_name) => uast(
+    type: "Synthetic",
+    children: "command_name"
+)
+
+curly_group_glob_pattern <- (curly_group_glob_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "glob_pattern"
+)
+
+curly_group_impl <- (curly_group_impl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+curly_group_key_value <- (curly_group_key_value) => uast(
+    type: "KeyValue",
+    roles: "Key", "Value"
+    children: "key_value_pair"
+)
+
+curly_group_label <- (curly_group_label) => uast(
+    type: "Synthetic",
+    children: "label"
+)
+
+curly_group_label_list <- (curly_group_label_list) => uast(
+    type: "List",
+    children: "label"
+)
+
+curly_group_path <- (curly_group_path) => uast(
+    type: "Synthetic",
+    children: "path"
+)
+
+curly_group_path_list <- (curly_group_path_list) => uast(
+    type: "List",
+    children: "path"
+)
+
+curly_group_spec <- (curly_group_spec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+curly_group_text <- (curly_group_text) => uast(
+    type: "Synthetic",
+    children: "text"
+)
+
+curly_group_text_list <- (curly_group_text_list) => uast(
+    type: "List",
+    children: "text"
+)
+
+curly_group_uri <- (curly_group_uri) => uast(
+    type: "Synthetic",
+    children: "uri"
+)
+
+displayed_equation <- (displayed_equation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+end <- (end) => uast(
+    type: "Synthetic",
+    children: "curly_group_text"
+)
+
+enum_item <- (enum_item) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "brack_group_text"
+)
+
+environment_definition <- (environment_definition) => uast(
+    type: "Synthetic",
+    children: "brack_group_argc", "curly_group_impl", "curly_group_spec", "curly_group_text"
+)
+
+generic_command <- (generic_command) => uast(
+    type: "Synthetic",
+    children: "command_name", "curly_group"
+)
+
+generic_environment <- (generic_environment) => uast(
+    type: "Synthetic",
+    children: "begin", "end"
+)
+
+glob_pattern <- (glob_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+glossary_entry_definition <- (glossary_entry_definition) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "curly_group_key_value", "curly_group_text"
+)
+
+glossary_entry_reference <- (glossary_entry_reference) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "brack_group_key_value", "curly_group_text"
+)
+
+graphics_include <- (graphics_include) => uast(
+    type: "Synthetic",
+    children: "brack_group_key_value", "curly_group_path"
+)
+
+hyperlink <- (hyperlink) => uast(
+    type: "Synthetic",
+    children: "curly_group", "curly_group_uri"
+)
+
+import_include <- (import_include) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "curly_group_path"
+)
+
+inkscape_include <- (inkscape_include) => uast(
+    type: "Synthetic",
+    children: "brack_group_key_value", "curly_group_path"
+)
+
+inline_formula <- (inline_formula) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+key_value_pair <- (key_value_pair) => uast(
+    type: "KeyValue",
+    roles: "Key", "Value"
+    children: "text", "value"
+)
+
+label_definition <- (label_definition) => uast(
+    type: "Synthetic",
+    children: "curly_group_label"
+)
+
+label_number <- (label_number) => uast(
+    type: "Synthetic",
+    children: "curly_group", "curly_group_text"
+)
+
+label_reference <- (label_reference) => uast(
+    type: "Synthetic",
+    children: "curly_group_label_list"
+)
+
+label_reference_range <- (label_reference_range) => uast(
+    type: "Synthetic",
+    children: "curly_group_text"
+)
+
+latex_include <- (latex_include) => uast(
+    type: "Synthetic",
+    children: "curly_group_path"
+)
+
+let_command_definition <- (let_command_definition) => uast(
+    type: "Synthetic",
+    children: "command_name"
+)
+
+listing_environment <- (listing_environment) => uast(
+    type: "List",
+    children: "begin", "end", "source_code"
+)
+
+luacode_environment <- (luacode_environment) => uast(
+    type: "Synthetic",
+    children: "begin", "end", "source_code"
+)
+
+math_delimiter <- (math_delimiter) => uast(
+    type: "Synthetic",
+    children: "command_name", "word"
+)
+
+math_environment <- (math_environment) => uast(
+    type: "Synthetic",
+    children: "begin", "end"
+)
+
+minted_environment <- (minted_environment) => uast(
+    type: "Synthetic",
+    children: "begin", "end", "source_code"
+)
+
+new_command_definition <- (new_command_definition) => uast(
+    type: "Synthetic",
+    children: "brack_group", "brack_group_argc", "command_name", "curly_group", "curly_group_command_name", "curly_group_spec"
+)
+
+old_command_definition <- (old_command_definition) => uast(
+    type: "Synthetic",
+    children: "command_name"
+)
+
+operator <- (operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+package_include <- (package_include) => uast(
+    type: "Package",
+    roles: "Module"
+    children: "brack_group_key_value", "curly_group_path_list"
+)
+
+paired_delimiter_definition <- (paired_delimiter_definition) => uast(
+    type: "Synthetic",
+    children: "brack_group_argc", "command_name", "curly_group", "curly_group_command_name", "curly_group_impl"
+)
+
+paragraph <- (paragraph) => uast(
+    type: "Synthetic",
+    children: "brack_group", "curly_group"
+)
+
+part <- (part) => uast(
+    type: "Synthetic",
+    children: "brack_group", "curly_group"
+)
+
+pycode_environment <- (pycode_environment) => uast(
+    type: "Synthetic",
+    children: "begin", "end", "source_code"
+)
+
+sageblock_environment <- (sageblock_environment) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "begin", "end", "source_code"
+)
+
+sagesilent_environment <- (sagesilent_environment) => uast(
+    type: "Synthetic",
+    children: "begin", "end", "source_code"
+)
+
+section <- (section) => uast(
+    type: "Synthetic",
+    children: "brack_group", "curly_group"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+subparagraph <- (subparagraph) => uast(
+    type: "Synthetic",
+    children: "brack_group", "curly_group"
+)
+
+subscript <- (subscript) => uast(
+    type: "Synthetic",
+    children: "command_name", "curly_group", "letter"
+)
+
+subsection <- (subsection) => uast(
+    type: "Synthetic",
+    children: "brack_group", "curly_group"
+)
+
+subsubsection <- (subsubsection) => uast(
+    type: "Synthetic",
+    children: "brack_group", "curly_group"
+)
+
+superscript <- (superscript) => uast(
+    type: "Synthetic",
+    children: "command_name", "curly_group", "letter"
+)
+
+svg_include <- (svg_include) => uast(
+    type: "Synthetic",
+    children: "brack_group_key_value", "curly_group_path"
+)
+
+text <- (text) => uast(
+    type: "Synthetic",
+    children: "acronym_definition", "acronym_reference", "author_declaration", "biblatex_include", "bibstyle_include", "bibtex_include", "block_comment", "caption", "changes_replaced", "citation", "class_include", "color_definition", "color_reference", "color_set_definition", "delimiter", "environment_definition", "generic_command", "glossary_entry_definition", "glossary_entry_reference", "graphics_include", "hyperlink", "import_include", "inkscape_include", "label_definition", "label_number", "label_reference", "label_reference_range", "latex_include", "let_command_definition", "new_command_definition", "old_command_definition", "operator", "package_include", "paired_delimiter_definition", "placeholder", "subscript", "superscript", "svg_include", "theorem_definition", "tikz_library_import", "title_declaration", "todo", "verbatim_include", "word"
+)
+
+text_mode <- (text_mode) => uast(
+    type: "Synthetic",
+    children: "curly_group"
+)
+
+theorem_definition <- (theorem_definition) => uast(
+    type: "Synthetic",
+    children: "brack_group_key_value", "brack_group_text", "curly_group", "curly_group_text_list"
+)
+
+tikz_library_import <- (tikz_library_import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "curly_group_path_list"
+)
+
+title_declaration <- (title_declaration) => uast(
+    type: "Synthetic",
+    children: "brack_group", "curly_group"
+)
+
+todo <- (todo) => uast(
+    type: "Synthetic",
+    children: "brack_group", "curly_group", "todo_command_name"
+)
+
+value <- (value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+verbatim_environment <- (verbatim_environment) => uast(
+    type: "Synthetic",
+    children: "begin", "comment", "end"
+)
+
+verbatim_include <- (verbatim_include) => uast(
+    type: "Synthetic",
+    children: "curly_group_path"
+)
+
+_ <- (_) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+argc <- (argc) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+command_name <- (command_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+delimiter <- (delimiter) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+letter <- (letter) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+line_comment <- (line_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+path <- (path) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+placeholder <- (placeholder) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source_code <- (source_code) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+todo_command_name <- (todo_command_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+uri <- (uri) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+word <- (word) => uast(
+    type: "Synthetic",
+    children: []
+)
+

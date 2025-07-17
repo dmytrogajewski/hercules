@@ -1,0 +1,193 @@
+bool <- (bool) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dictionaries <- (dictionaries) => uast(
+    type: "Dict",
+    children: []
+)
+
+else_command <- (else_command) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+elseif_command <- (elseif_command) => uast(
+    type: "If",
+    children: []
+)
+
+expression_statement <- (expression_statement) => uast(
+    type: "Synthetic",
+    children: "expression_statement", "identifier", "listitem", "normal_command", "number", "string"
+)
+
+foreach_command <- (foreach_command) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "dictionaries", "identifier", "list"
+)
+
+formatunit <- (formatunit) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "identifier"
+)
+
+if_command <- (if_command) => uast(
+    type: "If",
+    children: []
+)
+
+if_condition <- (if_condition) => uast(
+    type: "If",
+    children: []
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: "expression_statement", "identifier"
+)
+
+listitem <- (listitem) => uast(
+    type: "List",
+    children: "identifier", "number", "string"
+)
+
+normal_command <- (normal_command) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+operatorunit <- (operatorunit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pair <- (pair) => uast(
+    type: "Synthetic",
+    children: "bool", "dictionaries", "expression_statement", "identifier", "list", "normal_command", "number", "string", "var_unit", "variableunit"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ternaryoperator <- (ternaryoperator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+var_unit <- (var_unit) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+variableunit <- (variableunit) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "identifier"
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+elif <- (elif) => uast(
+    type: "If",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+endforeach <- (endforeach) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+endif <- (endif) => uast(
+    type: "If",
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+foreach <- (foreach) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+keyword_break <- (keyword_break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+keyword_continue <- (keyword_continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+not <- (not) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+

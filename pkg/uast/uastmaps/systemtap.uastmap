@@ -1,0 +1,504 @@
+_expression <- (_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_preprocessor_expression <- (_preprocessor_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_statement <- (_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_variable_declarator <- (_variable_declarator) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+aggregation_operator <- (aggregation_operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+array_declarator <- (array_declarator) => uast(
+    type: "Synthetic",
+    children: "identifier", "wrap"
+)
+
+array_in_expression <- (array_in_expression) => uast(
+    type: "Synthetic",
+    children: "_expression", "conditional_preprocessing", "embedded_code", "in", "preprocessor_macro_expansion", "tuple_index"
+)
+
+array_size_specifier <- (array_size_specifier) => uast(
+    type: "If",
+    children: "conditional_preprocessing", "embedded_code", "number", "preprocessor_macro_expansion", "script_argument_number"
+)
+
+assignment_expression <- (assignment_expression) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "_expression", "conditional_preprocessing", "embedded_code", "identifier", "member_expression", "preprocessor_macro_expansion", "subscript_expression"
+)
+
+binary_expression <- (binary_expression) => uast(
+    type: "Synthetic",
+    children: "_expression", "conditional_preprocessing", "embedded_code", "preprocessor_macro_expansion"
+)
+
+break_statement <- (break_statement) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+call_expression <- (call_expression) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "_expression", "conditional_preprocessing", "embedded_code", "preprocessor_macro_expansion"
+)
+
+catch_clause <- (catch_clause) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: "identifier", "statement_block"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+concatenated_string <- (concatenated_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+conditional_preprocessing <- (conditional_preprocessing) => uast(
+    type: "Synthetic",
+    children: "_preprocessor_expression", "conditional_preprocessing", "preprocessor_tokens"
+)
+
+context_variable_expansion <- (context_variable_expansion) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "_expression", "conditional_preprocessing", "embedded_code", "preprocessor_macro_expansion"
+)
+
+continue_statement <- (continue_statement) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+delete_statement <- (delete_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+embedded_code <- (embedded_code) => uast(
+    type: "Synthetic",
+    children: "embedded_tokens"
+)
+
+embedded_tokens <- (embedded_tokens) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expression_statement <- (expression_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for_statement <- (for_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "_statement", "expression_statement"
+)
+
+foreach_array <- (foreach_array) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "aggregation_operator", "identifier", "sort_direction", "tuple_index"
+)
+
+foreach_declarator <- (foreach_declarator) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "identifier", "sort_direction", "tuple_capture"
+)
+
+foreach_statement <- (foreach_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "_expression", "_statement", "conditional_preprocessing", "embedded_code", "foreach_array", "foreach_declarator", "preprocessor_macro_expansion"
+)
+
+function_definition <- (function_definition) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "embedded_code", "identifier", "literal", "parameter", "statement_block", "type"
+)
+
+grouping_expression <- (grouping_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if_statement <- (if_statement) => uast(
+    type: "If",
+    children: "_expression", "_statement", "conditional_preprocessing", "embedded_code", "preprocessor_macro_expansion"
+)
+
+init_declarator <- (init_declarator) => uast(
+    type: "Synthetic",
+    children: "conditional_preprocessing", "embedded_code", "identifier", "literal", "preprocessor_macro_expansion"
+)
+
+literal <- (literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+member_expression <- (member_expression) => uast(
+    type: "Synthetic",
+    children: "_expression", "conditional_preprocessing", "embedded_code", "preprocessor_macro_expansion"
+)
+
+next_statement <- (next_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+null_statement <- (null_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parameter <- (parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "identifier", "type"
+)
+
+preprocessor_condition <- (preprocessor_condition) => uast(
+    type: "Synthetic",
+    children: "literal", "preprocessor_constant"
+)
+
+preprocessor_constant <- (preprocessor_constant) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preprocessor_logical_expression <- (preprocessor_logical_expression) => uast(
+    type: "Synthetic",
+    children: "_preprocessor_expression"
+)
+
+preprocessor_macro_definition <- (preprocessor_macro_definition) => uast(
+    type: "Synthetic",
+    children: "conditional_preprocessing", "identifier", "preprocessor_tokens"
+)
+
+preprocessor_macro_expansion <- (preprocessor_macro_expansion) => uast(
+    type: "Synthetic",
+    children: "_expression"
+)
+
+preprocessor_tokens <- (preprocessor_tokens) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+probe_point <- (probe_point) => uast(
+    type: "Synthetic",
+    children: "_expression", "conditional_preprocessing", "embedded_code", "if", "preprocessor_macro_expansion", "probe_point_component", "probe_point_expansion", "sufficiency_mark"
+)
+
+probe_point_alias_epilogue <- (probe_point_alias_epilogue) => uast(
+    type: "Synthetic",
+    children: "conditional_preprocessing", "preprocessor_macro_expansion", "probe_point", "statement_block"
+)
+
+probe_point_alias_prologue <- (probe_point_alias_prologue) => uast(
+    type: "Synthetic",
+    children: "conditional_preprocessing", "preprocessor_macro_expansion", "probe_point", "statement_block"
+)
+
+probe_point_component <- (probe_point_component) => uast(
+    type: "Synthetic",
+    children: "_expression", "conditional_preprocessing", "embedded_code", "preprocessor_macro_expansion"
+)
+
+probe_point_definition <- (probe_point_definition) => uast(
+    type: "Synthetic",
+    children: "conditional_preprocessing", "preprocessor_macro_expansion", "probe_point", "statement_block"
+)
+
+probe_point_expansion <- (probe_point_expansion) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+program <- (program) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return_statement <- (return_statement) => uast(
+    type: "Return",
+    roles: "Return"
+    children: "_expression", "conditional_preprocessing", "embedded_code", "preprocessor_macro_expansion"
+)
+
+sort_direction <- (sort_direction) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+statement_block <- (statement_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+subscript_expression <- (subscript_expression) => uast(
+    type: "Synthetic",
+    children: "_expression", "conditional_preprocessing", "embedded_code", "preprocessor_macro_expansion", "tuple_index"
+)
+
+sufficiency_mark <- (sufficiency_mark) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ternary_expression <- (ternary_expression) => uast(
+    type: "Synthetic",
+    children: "_expression", "conditional_preprocessing", "embedded_code", "preprocessor_macro_expansion"
+)
+
+try_statement <- (try_statement) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "catch_clause", "statement_block"
+)
+
+tuple_capture <- (tuple_capture) => uast(
+    type: "Tuple",
+    children: []
+)
+
+tuple_index <- (tuple_index) => uast(
+    type: "Tuple",
+    children: []
+)
+
+unary_expression <- (unary_expression) => uast(
+    type: "Synthetic",
+    children: "_expression", "conditional_preprocessing", "embedded_code", "preprocessor_macro_expansion"
+)
+
+update_expression <- (update_expression) => uast(
+    type: "Synthetic",
+    children: "_expression", "conditional_preprocessing", "embedded_code", "preprocessor_macro_expansion"
+)
+
+variable_declaration <- (variable_declaration) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+while_statement <- (while_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "_expression", "_statement", "conditional_preprocessing", "embedded_code", "preprocessor_macro_expansion"
+)
+
+wrap <- (wrap) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+arch <- (arch) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+catch <- (catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+continue <- (continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+delete <- (delete) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+foreach <- (foreach) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+global <- (global) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+guru_mode <- (guru_mode) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+kernel_v <- (kernel_v) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+kernel_vr <- (kernel_vr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+limit <- (limit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+next <- (next) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+private <- (private) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+probe <- (probe) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+runtime <- (runtime) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+script_argument_number <- (script_argument_number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+script_argument_string <- (script_argument_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+shebang_line <- (shebang_line) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+systemtap_privilege <- (systemtap_privilege) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+systemtap_v <- (systemtap_v) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+try <- (try) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+

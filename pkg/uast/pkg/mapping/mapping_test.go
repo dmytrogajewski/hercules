@@ -362,7 +362,7 @@ var_declaration <- (var_declaration name: (identifier) @name type: (type_annotat
     roles: "Declaration", "Variable",
     children: "@type", "@value",
     name: "@name",
-    type_info: "descendant:type_annotation"
+    type_info: @type
 )
 
 if_statement <- (if_statement condition: (expression) @cond consequence: (block) @conseq alternative: (block) @alt) => uast(

@@ -1,0 +1,52 @@
+ortho_choice <- (ortho_choice) => uast(
+    type: "Synthetic",
+    children: "strict_text"
+)
+
+ortho_gap <- (ortho_gap) => uast(
+    type: "Synthetic",
+    children: "strict_text", "text"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+stmt_complex <- (stmt_complex) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+stmt_plain <- (stmt_plain) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+stmt_translation <- (stmt_translation) => uast(
+    type: "Synthetic",
+    children: "text"
+)
+
+strict_text <- (strict_text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+text <- (text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+info_comment <- (info_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+simple_comment <- (simple_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+

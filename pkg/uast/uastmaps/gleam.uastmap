@@ -1,0 +1,703 @@
+anonymous_function <- (anonymous_function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "block", "function_parameters", "function_type", "tuple_type", "type", "type_hole", "type_var"
+)
+
+argument <- (argument) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "binary_expression", "bit_string", "block", "boolean_negation", "case", "echo", "field_access", "float", "function_call", "hole", "identifier", "integer", "integer_negation", "label", "list", "panic", "record", "record_update", "string", "todo", "tuple", "tuple_access"
+)
+
+arguments <- (arguments) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assert <- (assert) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "binary_expression", "bit_string", "block", "boolean_negation", "case", "echo", "field_access", "float", "function_call", "identifier", "integer", "integer_negation", "list", "panic", "record", "record_update", "string", "todo", "tuple", "tuple_access"
+)
+
+attribute <- (attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: "arguments", "identifier"
+)
+
+attribute_value <- (attribute_value) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: "bit_string", "field_access", "float", "identifier", "integer", "label", "list", "record", "string", "tuple"
+)
+
+binary_expression <- (binary_expression) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "as", "binary_expression", "bit_string", "bit_string_pattern", "block", "boolean_negation", "case", "discard", "echo", "field_access", "float", "function_call", "identifier", "integer", "integer_negation", "list", "list_pattern", "panic", "pipeline_echo", "record", "record_pattern", "record_update", "string", "todo", "tuple", "tuple_access", "tuple_pattern"
+)
+
+bit_string <- (bit_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bit_string_pattern <- (bit_string_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+bit_string_segment <- (bit_string_segment) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "as", "binary_expression", "bit_string", "bit_string_pattern", "bit_string_segment_options", "block", "boolean_negation", "case", "discard", "echo", "field_access", "float", "function_call", "identifier", "integer", "integer_negation", "list", "list_pattern", "panic", "record", "record_pattern", "record_update", "string", "todo", "tuple", "tuple_access", "tuple_pattern"
+)
+
+bit_string_segment_option <- (bit_string_segment_option) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bit_string_segment_options <- (bit_string_segment_options) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+boolean_negation <- (boolean_negation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "case_clauses", "case_subjects"
+)
+
+case_clause <- (case_clause) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "anonymous_function", "binary_expression", "bit_string", "block", "boolean_negation", "case", "case_clause_guard", "case_clause_patterns", "echo", "field_access", "float", "function_call", "identifier", "integer", "integer_negation", "list", "panic", "record", "record_update", "string", "todo", "tuple", "tuple_access"
+)
+
+case_clause_guard <- (case_clause_guard) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+case_clause_pattern <- (case_clause_pattern) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "as", "identifier"
+)
+
+case_clause_patterns <- (case_clause_patterns) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+case_clauses <- (case_clauses) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+case_subjects <- (case_subjects) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+constant <- (constant) => uast(
+    type: "Synthetic",
+    children: "bit_string", "field_access", "float", "function_type", "identifier", "integer", "list", "record", "string", "tuple", "tuple_type", "type", "type_hole"
+)
+
+constructor_name <- (constructor_name) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+data_constructor <- (data_constructor) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "constructor_name", "data_constructor_arguments"
+)
+
+data_constructor_argument <- (data_constructor_argument) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "function_type", "label", "tuple_type", "type", "type_hole", "type_var"
+)
+
+data_constructor_arguments <- (data_constructor_arguments) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+data_constructors <- (data_constructors) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+discard <- (discard) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+echo <- (echo) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "binary_expression", "bit_string", "block", "boolean_negation", "case", "echo", "field_access", "float", "function_call", "identifier", "integer", "integer_negation", "list", "panic", "record", "record_update", "string", "todo", "tuple", "tuple_access"
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+external_function <- (external_function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "external_function_body", "function_parameters", "function_type", "identifier", "tuple_type", "type", "type_hole", "type_var"
+)
+
+external_function_body <- (external_function_body) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+external_type <- (external_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+field_access <- (field_access) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "block", "case", "field_access", "function_call", "identifier", "label", "record", "record_update", "tuple_access"
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "block", "function_parameters", "function_type", "identifier", "tuple_type", "type", "type_hole", "type_var"
+)
+
+function_call <- (function_call) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "anonymous_function", "arguments", "block", "case", "field_access", "function_call", "identifier", "tuple_access"
+)
+
+function_parameter <- (function_parameter) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "discard", "function_type", "identifier", "label", "tuple_type", "type", "type_hole", "type_var"
+)
+
+function_parameter_types <- (function_parameter_types) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+function_parameters <- (function_parameters) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+function_type <- (function_type) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "function_parameter_types", "function_type", "tuple_type", "type", "type_hole", "type_var"
+)
+
+hole <- (hole) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "discard", "identifier", "module", "unqualified_imports"
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer_negation <- (integer_negation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+let <- (let) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "as", "binary_expression", "bit_string", "bit_string_pattern", "block", "boolean_negation", "case", "discard", "echo", "field_access", "float", "function_call", "function_type", "identifier", "integer", "integer_negation", "list", "list_pattern", "panic", "record", "record_pattern", "record_update", "string", "todo", "tuple", "tuple_access", "tuple_pattern", "tuple_type", "type", "type_hole", "type_var"
+)
+
+let_assert <- (let_assert) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "as", "binary_expression", "bit_string", "bit_string_pattern", "block", "boolean_negation", "case", "discard", "echo", "field_access", "float", "function_call", "function_type", "identifier", "integer", "integer_negation", "list", "list_pattern", "panic", "record", "record_pattern", "record_update", "string", "todo", "tuple", "tuple_access", "tuple_pattern", "tuple_type", "type", "type_hole", "type_var"
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: "anonymous_function", "binary_expression", "bit_string", "block", "boolean_negation", "case", "echo", "field_access", "float", "function_call", "identifier", "integer", "integer_negation", "list", "panic", "record", "record_update", "string", "todo", "tuple", "tuple_access"
+)
+
+list_pattern <- (list_pattern) => uast(
+    type: "List",
+    children: "as", "identifier"
+)
+
+list_pattern_tail <- (list_pattern_tail) => uast(
+    type: "List",
+    children: []
+)
+
+module <- (module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+module_comment <- (module_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+panic <- (panic) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "binary_expression", "bit_string", "block", "boolean_negation", "case", "echo", "field_access", "float", "function_call", "identifier", "integer", "integer_negation", "list", "panic", "record", "record_update", "string", "todo", "tuple", "tuple_access"
+)
+
+pattern_spread <- (pattern_spread) => uast(
+    type: "Spread",
+    roles: "Spread"
+    children: []
+)
+
+pipeline_echo <- (pipeline_echo) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "bit_string", "block", "boolean_negation", "case", "echo", "field_access", "float", "function_call", "identifier", "integer", "integer_negation", "list", "panic", "record", "record_update", "string", "todo", "tuple", "tuple_access"
+)
+
+record <- (record) => uast(
+    type: "Synthetic",
+    children: "arguments", "constructor_name", "remote_constructor_name"
+)
+
+record_pattern <- (record_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "constructor_name", "record_pattern_arguments", "remote_constructor_name"
+)
+
+record_pattern_argument <- (record_pattern_argument) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "as", "binary_expression", "bit_string_pattern", "discard", "float", "identifier", "integer", "label", "list_pattern", "record_pattern", "string", "tuple_pattern"
+)
+
+record_pattern_arguments <- (record_pattern_arguments) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+record_update <- (record_update) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "binary_expression", "bit_string", "block", "boolean_negation", "case", "constructor_name", "echo", "field_access", "float", "function_call", "identifier", "integer", "integer_negation", "list", "panic", "record", "record_update", "record_update_arguments", "remote_constructor_name", "string", "todo", "tuple", "tuple_access"
+)
+
+record_update_argument <- (record_update_argument) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "binary_expression", "bit_string", "block", "boolean_negation", "case", "echo", "field_access", "float", "function_call", "identifier", "integer", "integer_negation", "label", "list", "panic", "record", "record_update", "string", "todo", "tuple", "tuple_access"
+)
+
+record_update_arguments <- (record_update_arguments) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+remote_constructor_name <- (remote_constructor_name) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "constructor_name", "identifier"
+)
+
+remote_type_identifier <- (remote_type_identifier) => uast(
+    type: "If",
+    children: "identifier", "type_identifier"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+statement_comment <- (statement_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+target <- (target) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+target_group <- (target_group) => uast(
+    type: "Synthetic",
+    children: "target"
+)
+
+todo <- (todo) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "binary_expression", "bit_string", "block", "boolean_negation", "case", "echo", "field_access", "float", "function_call", "identifier", "integer", "integer_negation", "list", "panic", "record", "record_update", "string", "todo", "tuple", "tuple_access"
+)
+
+tuple <- (tuple) => uast(
+    type: "Tuple",
+    children: []
+)
+
+tuple_access <- (tuple_access) => uast(
+    type: "Tuple",
+    children: "block", "case", "field_access", "function_call", "identifier", "integer", "tuple", "tuple_access"
+)
+
+tuple_pattern <- (tuple_pattern) => uast(
+    type: "Tuple",
+    children: "as", "identifier"
+)
+
+tuple_type <- (tuple_type) => uast(
+    type: "Tuple",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: "remote_type_identifier", "type_arguments", "type_identifier"
+)
+
+type_alias <- (type_alias) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_argument <- (type_argument) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_arguments <- (type_arguments) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_definition <- (type_definition) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_hole <- (type_hole) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_identifier <- (type_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+type_name <- (type_name) => uast(
+    type: "Synthetic",
+    children: "remote_type_identifier", "type_identifier", "type_parameters"
+)
+
+type_parameter <- (type_parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+type_parameters <- (type_parameters) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+type_var <- (type_var) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unqualified_import <- (unqualified_import) => uast(
+    type: "If",
+    children: "constructor_name", "identifier", "type_identifier"
+)
+
+unqualified_imports <- (unqualified_imports) => uast(
+    type: "If",
+    children: []
+)
+
+use <- (use) => uast(
+    type: "Synthetic",
+    children: "anonymous_function", "binary_expression", "bit_string", "block", "boolean_negation", "case", "echo", "field_access", "float", "function_call", "identifier", "integer", "integer_negation", "list", "panic", "record", "record_update", "string", "todo", "tuple", "tuple_access", "use_assignments"
+)
+
+use_assignment <- (use_assignment) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "as", "function_type", "identifier", "tuple_type", "type", "type_hole", "type_var"
+)
+
+use_assignments <- (use_assignments) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: []
+)
+
+as <- (as) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assert <- (assert) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+big <- (big) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+binary <- (binary) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bit_string <- (bit_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bits <- (bits) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bytes <- (bytes) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+const <- (const) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doc_comment_content <- (doc_comment_content) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+echo <- (echo) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+erlang <- (erlang) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+external <- (external) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fn <- (fn) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+int <- (int) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+javascript <- (javascript) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+let <- (let) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+little <- (little) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+native <- (native) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+opacity_modifier <- (opacity_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+panic <- (panic) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quoted_content <- (quoted_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+signed <- (signed) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+size <- (size) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+todo <- (todo) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unit <- (unit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unsigned <- (unsigned) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+use <- (use) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+utf16 <- (utf16) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+utf16_codepoint <- (utf16_codepoint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+utf32 <- (utf32) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+utf32_codepoint <- (utf32_codepoint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+utf8 <- (utf8) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+utf8_codepoint <- (utf8_codepoint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+visibility_modifier <- (visibility_modifier) => uast(
+    type: "If",
+    children: []
+)
+

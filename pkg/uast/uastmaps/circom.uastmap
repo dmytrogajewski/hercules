@@ -1,0 +1,347 @@
+anonymous_inputs <- (anonymous_inputs) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+argument_list <- (argument_list) => uast(
+    type: "List",
+    children: "array_access_expression", "array_expression", "assignment_expression", "binary_expression", "call_expression", "decrement_expression", "identifier", "increment_expression", "int_literal", "member_expression", "parenthesized_expression", "ternary_expression", "tuple_expression", "unary_expression"
+)
+
+array_access_expression <- (array_access_expression) => uast(
+    type: "Synthetic",
+    children: "array_access_expression", "array_expression", "assignment_expression", "binary_expression", "call_expression", "decrement_expression", "identifier", "increment_expression", "int_literal", "member_expression", "parenthesized_expression", "ternary_expression", "tuple_expression", "unary_expression"
+)
+
+array_expression <- (array_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+array_type <- (array_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assignment_expression <- (assignment_expression) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: []
+)
+
+binary_expression <- (binary_expression) => uast(
+    type: "Synthetic",
+    children: "array_access_expression", "array_expression", "assignment_expression", "binary_expression", "call_expression", "decrement_expression", "identifier", "increment_expression", "int_literal", "member_expression", "parenthesized_expression", "ternary_expression", "tuple_expression", "unary_expression"
+)
+
+block_statement <- (block_statement) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+call_expression <- (call_expression) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+circom_custom_templates_token <- (circom_custom_templates_token) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+circom_pragma_token <- (circom_pragma_token) => uast(
+    type: "Synthetic",
+    children: "circom_version"
+)
+
+component_declaration_statement <- (component_declaration_statement) => uast(
+    type: "Synthetic",
+    children: "array_type", "call_expression", "identifier"
+)
+
+decrement_expression <- (decrement_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expression_statement <- (expression_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for_statement <- (for_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+function_body <- (function_body) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+function_definition <- (function_definition) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "function_body", "identifier"
+)
+
+if_statement <- (if_statement) => uast(
+    type: "If",
+    children: []
+)
+
+include_directive <- (include_directive) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+increment_expression <- (increment_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+main_component_definition <- (main_component_definition) => uast(
+    type: "Synthetic",
+    children: "call_expression"
+)
+
+main_component_public_signals <- (main_component_public_signals) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+member_expression <- (member_expression) => uast(
+    type: "Synthetic",
+    children: "array_access_expression", "array_expression", "assignment_expression", "binary_expression", "call_expression", "decrement_expression", "identifier", "increment_expression", "int_literal", "member_expression", "parenthesized_expression", "property_identifier", "ternary_expression", "tuple_expression", "unary_expression"
+)
+
+parameter <- (parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "identifier"
+)
+
+parameter_list <- (parameter_list) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+parenthesized_expression <- (parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pragma_directive <- (pragma_directive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return_statement <- (return_statement) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+signal_declaration_statement <- (signal_declaration_statement) => uast(
+    type: "Synthetic",
+    children: "array_access_expression", "array_expression", "array_type", "assignment_expression", "binary_expression", "call_expression", "decrement_expression", "identifier", "increment_expression", "int_literal", "member_expression", "parenthesized_expression", "ternary_expression", "tuple_expression", "unary_expression"
+)
+
+signal_tags <- (signal_tags) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+signal_visibility <- (signal_visibility) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+template_body <- (template_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+template_definition <- (template_definition) => uast(
+    type: "Synthetic",
+    children: "identifier", "template_body", "template_type"
+)
+
+template_type <- (template_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ternary_expression <- (ternary_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tuple_expression <- (tuple_expression) => uast(
+    type: "Tuple",
+    children: []
+)
+
+unary_expression <- (unary_expression) => uast(
+    type: "Synthetic",
+    children: "array_access_expression", "array_expression", "assignment_expression", "binary_expression", "call_expression", "decrement_expression", "identifier", "increment_expression", "int_literal", "member_expression", "parenthesized_expression", "ternary_expression", "tuple_expression", "unary_expression"
+)
+
+variable_declaration_statement <- (variable_declaration_statement) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "array_access_expression", "array_expression", "array_type", "assignment_expression", "binary_expression", "call_expression", "decrement_expression", "identifier", "increment_expression", "int_literal", "member_expression", "parenthesized_expression", "ternary_expression", "tuple_expression", "unary_expression"
+)
+
+while_statement <- (while_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+circom <- (circom) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+circom_version <- (circom_version) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+component <- (component) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+custom <- (custom) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+custom_templates <- (custom_templates) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+include <- (include) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+input <- (input) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+int_literal <- (int_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+main <- (main) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+output <- (output) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parallel <- (parallel) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pragma <- (pragma) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+property_identifier <- (property_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+public <- (public) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+signal <- (signal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+template <- (template) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+var <- (var) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+

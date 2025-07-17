@@ -1,0 +1,312 @@
+attribute <- (attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: "identifier", "string"
+)
+
+builtin_type <- (builtin_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+container_type <- (container_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+default_value <- (default_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+enum <- (enum) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "identifier"
+)
+
+enum_body <- (enum_body) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+enum_constant <- (enum_constant) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+enum_field <- (enum_field) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "default_value", "identifier"
+)
+
+field_name <- (field_name) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+forward_decl <- (forward_decl) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "identifier"
+)
+
+full_ident <- (full_ident) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+generic_type <- (generic_type) => uast(
+    type: "Synthetic",
+    children: "type"
+)
+
+generic_type_decl <- (generic_type_decl) => uast(
+    type: "Synthetic",
+    children: "type"
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "string"
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+namespace <- (namespace) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: "full_ident"
+)
+
+primitive_type <- (primitive_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+struct <- (struct) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "identifier"
+)
+
+struct_body <- (struct_body) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+struct_field <- (struct_field) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "integer", "struct_field_required_variant", "type"
+)
+
+struct_field_required_variant <- (struct_field_required_variant) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+struct_view <- (struct_view) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "identifier"
+)
+
+struct_view_body <- (struct_view_body) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "identifier"
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+user_defined_type <- (user_defined_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+using <- (using) => uast(
+    type: "Synthetic",
+    children: "type", "user_defined_type"
+)
+
+_ <- (_) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+blob <- (blob) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block_begin <- (block_begin) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+block_end <- (block_end) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+bonded <- (bonded) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bool <- (bool) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+double <- (double) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+enum <- (enum) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: []
+)
+
+map <- (map) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+maybe <- (maybe) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+namespace <- (namespace) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+nothing <- (nothing) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nullable <- (nullable) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+optional <- (optional) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+required <- (required) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+required_optional <- (required_optional) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+set <- (set) => uast(
+    type: "Set",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_content <- (string_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+struct <- (struct) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+using <- (using) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vector <- (vector) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+view_of <- (view_of) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+wstring <- (wstring) => uast(
+    type: "Synthetic",
+    children: []
+)
+

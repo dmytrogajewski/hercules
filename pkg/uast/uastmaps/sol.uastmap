@@ -1,0 +1,389 @@
+async <- (async) => uast(
+    type: "Synthetic",
+    children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
+)
+
+await <- (await) => uast(
+    type: "Await",
+    roles: "Await"
+    children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
+)
+
+block_content <- (block_content) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+call_argument <- (call_argument) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "identifier", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
+)
+
+call_argument_list <- (call_argument_list) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+child_def <- (child_def) => uast(
+    type: "Synthetic",
+    children: "block_content", "identifier", "string_double", "string_single"
+)
+
+dialog <- (dialog) => uast(
+    type: "Synthetic",
+    children: "dialog_content", "dialog_prefix"
+)
+
+dialog_content <- (dialog_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dialog_prefix <- (dialog_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doc_comment <- (doc_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+field <- (field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "identifier"
+)
+
+fn_decl <- (fn_decl) => uast(
+    type: "Synthetic",
+    children: "block_content", "identifier", "string_double", "string_single"
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "identifier", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
+)
+
+function_call <- (function_call) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "async", "await", "break", "call_argument_list", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
+)
+
+grouping <- (grouping) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+header <- (header) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+header_entry <- (header_entry) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "header_tag_content", "identifier"
+)
+
+header_tag_content <- (header_tag_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
+)
+
+impl <- (impl) => uast(
+    type: "Synthetic",
+    children: "block_content", "identifier", "string_double", "string_single"
+)
+
+inline_comment <- (inline_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+loop <- (loop) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
+)
+
+model <- (model) => uast(
+    type: "Synthetic",
+    children: "block_content", "identifier", "string_double", "string_single"
+)
+
+next <- (next) => uast(
+    type: "Synthetic",
+    children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+speaker_marker <- (speaker_marker) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+string_double <- (string_double) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_single <- (string_single) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+symbol_ref <- (symbol_ref) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+text_expr_fragment <- (text_expr_fragment) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+text_raw_fragment <- (text_raw_fragment) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+todo_comment <- (todo_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: "comment_raw_fragment"
+)
+
+unit_call <- (unit_call) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "float_literal", "identifier", "int_literal"
+)
+
+unless <- (unless) => uast(
+    type: "Synthetic",
+    children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
+)
+
+until <- (until) => uast(
+    type: "Synthetic",
+    children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
+)
+
+using <- (using) => uast(
+    type: "Synthetic",
+    children: "symbol_ref"
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
+)
+
+yield <- (yield) => uast(
+    type: "Yield",
+    roles: "Yield"
+    children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
+)
+
+action <- (action) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+async <- (async) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+await <- (await) => uast(
+    type: "Await",
+    roles: "Await"
+    children: []
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+comment_raw_fragment <- (comment_raw_fragment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+def <- (def) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+end <- (end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+field <- (field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+float_literal <- (float_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+fn <- (fn) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+header_tag_raw_fragment <- (header_tag_raw_fragment) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+impl <- (impl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+int_literal <- (int_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+loop <- (loop) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+meanwhile <- (meanwhile) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+model <- (model) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+next <- (next) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+scene <- (scene) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+text_escape_fragment <- (text_escape_fragment) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+then <- (then) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unless <- (unless) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+until <- (until) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+using <- (using) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+yield <- (yield) => uast(
+    type: "Yield",
+    roles: "Yield"
+    children: []
+)
+

@@ -1,0 +1,574 @@
+angle <- (angle) => uast(
+    type: "Synthetic",
+    children: "angle_unit", "integer_value"
+)
+
+angle_unit <- (angle_unit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+boolean_value <- (boolean_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+border_style <- (border_style) => uast(
+    type: "Synthetic",
+    children: "distance_value", "line_style_value"
+)
+
+border_value <- (border_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cmyk_color <- (cmyk_color) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cursor_value <- (cursor_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+declaration <- (declaration) => uast(
+    type: "Synthetic",
+    children: "DMENU", "boolean_value", "border_value", "cmyk_color", "cursor_value", "distance_value", "environ_value", "float_value", "hex_color", "hsl_color", "hwb_color", "image_value", "inherit", "integer_value", "line_style_value", "list_value", "named_color", "orientation_value", "padding_value", "position_value", "reference_value", "rgb_color", "string_value", "text_style_value"
+)
+
+direction <- (direction) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+distance_calc <- (distance_calc) => uast(
+    type: "Synthetic",
+    children: "distance_op"
+)
+
+distance_op <- (distance_op) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+distance_value <- (distance_value) => uast(
+    type: "Synthetic",
+    children: "float_distance_unit", "float_value", "integer_distance_unit", "integer_value"
+)
+
+environ_value <- (environ_value) => uast(
+    type: "Synthetic",
+    children: "DMENU", "boolean_value", "border_value", "cmyk_color", "cursor_value", "distance_value", "environ_value", "float_value", "hex_color", "hsl_color", "hwb_color", "identifier", "image_value", "inherit", "integer_value", "line_style_value", "list_value", "named_color", "orientation_value", "padding_value", "position_value", "reference_value", "rgb_color", "string_value", "text_style_value"
+)
+
+feature_name <- (feature_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+feature_query <- (feature_query) => uast(
+    type: "Synthetic",
+    children: "DMENU", "boolean_value", "border_value", "cmyk_color", "cursor_value", "distance_value", "environ_value", "feature_name", "float_value", "hex_color", "hsl_color", "hwb_color", "image_value", "inherit", "integer_value", "line_style_value", "list_value", "named_color", "orientation_value", "padding_value", "position_value", "reference_value", "rgb_color", "string_value", "text_style_value"
+)
+
+first_border_style <- (first_border_style) => uast(
+    type: "Synthetic",
+    children: "distance_value", "line_style_value"
+)
+
+float_distance_unit <- (float_distance_unit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+global_selector <- (global_selector) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+gradient_image <- (gradient_image) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hex_color <- (hex_color) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hsl_color <- (hsl_color) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hwb_color <- (hwb_color) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+id_selector <- (id_selector) => uast(
+    type: "Synthetic",
+    children: "id_selector_view", "identifier"
+)
+
+id_selector_state <- (id_selector_state) => uast(
+    type: "Synthetic",
+    children: "active", "normal", "urgent"
+)
+
+id_selector_view <- (id_selector_view) => uast(
+    type: "Synthetic",
+    children: "alternate", "id_selector_state", "normal", "selected"
+)
+
+image_value <- (image_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+import_statement <- (import_statement) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "string_value"
+)
+
+integer_distance_unit <- (integer_distance_unit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+line_style_value <- (line_style_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+list_value <- (list_value) => uast(
+    type: "List",
+    children: "identifier"
+)
+
+media_statement <- (media_statement) => uast(
+    type: "Synthetic",
+    children: "block", "feature_query", "parenthesized_query"
+)
+
+named_color <- (named_color) => uast(
+    type: "Synthetic",
+    children: "identifier", "percentage"
+)
+
+orientation_value <- (orientation_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+padding_value <- (padding_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parenthesized_query <- (parenthesized_query) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+percentage <- (percentage) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+position_value <- (position_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+reference_value <- (reference_value) => uast(
+    type: "Synthetic",
+    children: "DMENU", "boolean_value", "border_value", "cmyk_color", "cursor_value", "distance_value", "environ_value", "float_value", "hex_color", "hsl_color", "hwb_color", "identifier", "image_value", "inherit", "integer_value", "line_style_value", "list_value", "named_color", "orientation_value", "padding_value", "position_value", "reference_value", "rgb_color", "string_value", "text_style_value"
+)
+
+rgb_color <- (rgb_color) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rule_set <- (rule_set) => uast(
+    type: "Set",
+    children: "block", "selectors"
+)
+
+selectors <- (selectors) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_value <- (string_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+stylesheet <- (stylesheet) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+text_style_value <- (text_style_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+theme_statement <- (theme_statement) => uast(
+    type: "Synthetic",
+    children: "string_value"
+)
+
+url_image <- (url_image) => uast(
+    type: "Synthetic",
+    children: "string_value", "url_image_scale"
+)
+
+url_image_scale <- (url_image_scale) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+DMENU <- (DMENU) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+active <- (active) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+alternate <- (alternate) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bold <- (bold) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+both <- (both) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bottom <- (bottom) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+calc <- (calc) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ceil <- (ceil) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+center <- (center) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cm <- (cm) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cmyk <- (cmyk) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+dash <- (dash) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+default <- (default) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+deg <- (deg) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+east <- (east) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+em <- (em) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+enabled <- (enabled) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+env <- (env) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float_value <- (float_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+floor <- (floor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+grad <- (grad) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+height <- (height) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+horizontal <- (horizontal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hsl <- (hsl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hsla <- (hsla) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hwb <- (hwb) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hwba <- (hwba) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+inherit <- (inherit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer_value <- (integer_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+italic <- (italic) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+left <- (left) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+max <- (max) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+min <- (min) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mm <- (mm) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+modulo <- (modulo) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+none <- (none) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+normal <- (normal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+north <- (north) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ph <- (ph) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pointer <- (pointer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+property_name <- (property_name) => uast(
+    type: "Property",
+    roles: "Member"
+    children: []
+)
+
+px <- (px) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rad <- (rad) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rgb <- (rgb) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rgba <- (rgba) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+right <- (right) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+round <- (round) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+selected <- (selected) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+solid <- (solid) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+south <- (south) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strikethrough <- (strikethrough) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+text <- (text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+to <- (to) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+top <- (top) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+turn <- (turn) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+underline <- (underline) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+urgent <- (urgent) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+url <- (url) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+var <- (var) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+vertical <- (vertical) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+west <- (west) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+width <- (width) => uast(
+    type: "Synthetic",
+    children: []
+)
+

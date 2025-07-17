@@ -1,0 +1,98 @@
+content <- (content) => uast(
+    type: "Synthetic",
+    children: "label", "tag", "text"
+)
+
+doc <- (doc) => uast(
+    type: "Synthetic",
+    children: "entries", "rootText"
+)
+
+entries <- (entries) => uast(
+    type: "Synthetic",
+    children: "entryList", "entryObject", "entryText"
+)
+
+entryList <- (entryList) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "header", "listItem"
+)
+
+entryObject <- (entryObject) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "header", "pair"
+)
+
+entryText <- (entryText) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "content", "header"
+)
+
+header <- (header) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+line <- (line) => uast(
+    type: "Synthetic",
+    children: "label", "tag", "text"
+)
+
+listItem <- (listItem) => uast(
+    type: "List",
+    children: "value"
+)
+
+pair <- (pair) => uast(
+    type: "Synthetic",
+    children: "identifier", "line"
+)
+
+rootText <- (rootText) => uast(
+    type: "Synthetic",
+    children: "label", "tag", "text"
+)
+
+tag <- (tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+text <- (text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value <- (value) => uast(
+    type: "Synthetic",
+    children: "label", "tag", "text"
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+labelIdentifier <- (labelIdentifier) => uast(
+    type: "If",
+    children: []
+)
+
+minus <- (minus) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tagIdentifier <- (tagIdentifier) => uast(
+    type: "If",
+    children: []
+)
+

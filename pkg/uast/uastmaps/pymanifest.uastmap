@@ -1,0 +1,58 @@
+char_range <- (char_range) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+char_sequence <- (char_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+command <- (command) => uast(
+    type: "Synthetic",
+    children: "linebreak", "pattern"
+)
+
+escaped_char <- (escaped_char) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+linebreak <- (linebreak) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+manifest <- (manifest) => uast(
+    type: "If",
+    children: []
+)
+
+pattern <- (pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+dir_sep <- (dir_sep) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+glob <- (glob) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+keyword <- (keyword) => uast(
+    type: "Synthetic",
+    children: []
+)
+

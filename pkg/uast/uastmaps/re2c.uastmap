@@ -1,0 +1,688 @@
+_atom <- (_atom) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_escape <- (_escape) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+action <- (action) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+alternation <- (alternation) => uast(
+    type: "Synthetic",
+    children: "_atom", "concat", "difference", "repetition"
+)
+
+api_style <- (api_style) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block_list <- (block_list) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+body <- (body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+character_class <- (character_class) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+close <- (close) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+code_unit <- (code_unit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+concat <- (concat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+condition <- (condition) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+conditional_rule <- (conditional_rule) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+configuration <- (configuration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+define <- (define) => uast(
+    type: "Synthetic",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "option_name", "sstring"
+)
+
+difference <- (difference) => uast(
+    type: "If",
+    children: "_atom", "concat", "difference", "repetition"
+)
+
+dstring <- (dstring) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+empty_class_conf <- (empty_class_conf) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+encoding_policy <- (encoding_policy) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+field_expression <- (field_expression) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "field_identifier", "identifier"
+)
+
+format_directive <- (format_directive) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "dstring", "sstring"
+)
+
+getstate_block <- (getstate_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+global_block <- (global_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+header_off_block <- (header_off_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+header_on_block <- (header_on_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+host_lang <- (host_lang) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+include <- (include) => uast(
+    type: "Synthetic",
+    children: "dstring", "sstring"
+)
+
+input_conf <- (input_conf) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+limits <- (limits) => uast(
+    type: "Synthetic",
+    children: "number"
+)
+
+linedir <- (linedir) => uast(
+    type: "Synthetic",
+    children: "dstring", "number", "sstring"
+)
+
+literal <- (literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+local_block <- (local_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+lookahead <- (lookahead) => uast(
+    type: "Synthetic",
+    children: "_atom", "alternation", "concat", "difference", "repetition"
+)
+
+max_block <- (max_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+maxnmatch_block <- (maxnmatch_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+mtag <- (mtag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mtags_block <- (mtags_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+named_definition <- (named_definition) => uast(
+    type: "Synthetic",
+    children: "name", "regex"
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ordinary_rule <- (ordinary_rule) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parenthesized <- (parenthesized) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pattern <- (pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+range <- (range) => uast(
+    type: "Synthetic",
+    children: "_escape", "literal"
+)
+
+re2c <- (re2c) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+regex <- (regex) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+repetition <- (repetition) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rules_block <- (rules_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+separator_directive <- (separator_directive) => uast(
+    type: "Synthetic",
+    children: "dstring", "sstring"
+)
+
+set_api <- (set_api) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "option_name", "sstring"
+)
+
+set_cgoto <- (set_cgoto) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "option_name", "sstring"
+)
+
+set_cond <- (set_cond) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "option_name", "sstring"
+)
+
+set_condenumprefix <- (set_condenumprefix) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "sstring"
+)
+
+set_condprefix <- (set_condprefix) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "sstring"
+)
+
+set_eof <- (set_eof) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "sstring"
+)
+
+set_flags <- (set_flags) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "option_name", "sstring"
+)
+
+set_header <- (set_header) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "sstring"
+)
+
+set_indent <- (set_indent) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "option_name", "sstring"
+)
+
+set_label <- (set_label) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "option_name", "sstring"
+)
+
+set_posixcaptures <- (set_posixcaptures) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "sstring"
+)
+
+set_sentinel <- (set_sentinel) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "sstring"
+)
+
+set_startlabel <- (set_startlabel) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "sstring"
+)
+
+set_state <- (set_state) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "option_name", "sstring"
+)
+
+set_tags <- (set_tags) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "option_name", "sstring"
+)
+
+set_variable <- (set_variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "option_name", "sstring"
+)
+
+set_yybm <- (set_yybm) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "option_name", "sstring"
+)
+
+set_yych <- (set_yych) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "option_name", "sstring"
+)
+
+set_yyfill <- (set_yyfill) => uast(
+    type: "Set",
+    children: "api_style", "dstring", "empty_class_conf", "encoding_policy", "field_expression", "input_conf", "name", "number", "option_name", "sstring"
+)
+
+shortcut <- (shortcut) => uast(
+    type: "Synthetic",
+    children: "label"
+)
+
+sstring <- (sstring) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+stag <- (stag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+stags_block <- (stags_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+use <- (use) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+use_block <- (use_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+wildcard <- (wildcard) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+any <- (any) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+api <- (api) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block_name <- (block_name) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+cgoto <- (cgoto) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cond <- (cond) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+condenumprefix <- (condenumprefix) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+condprefix <- (condprefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ctrl_code <- (ctrl_code) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+custom <- (custom) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+default <- (default) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+default <- (default) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+define <- (define) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+end_of_input <- (end_of_input) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eof <- (eof) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+error <- (error) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fail <- (fail) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+field_identifier <- (field_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+flags <- (flags) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+format <- (format) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+functions <- (functions) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+getstate <- (getstate) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+header <- (header) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hex_digit <- (hex_digit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+ignore <- (ignore) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ignore_block <- (ignore_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+include <- (include) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+indent <- (indent) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+labelprefix <- (labelprefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+line <- (line) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+local <- (local) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+max <- (max) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+maxnmatch <- (maxnmatch) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+mtags <- (mtags) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+name <- (name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+oct_digit <- (oct_digit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+off <- (off) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+on <- (on) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+option_name <- (option_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quote <- (quote) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+re2c <- (re2c) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rules <- (rules) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sentinel <- (sentinel) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+separator <- (separator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+stags <- (stags) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+startlabel <- (startlabel) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+state <- (state) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+substitute <- (substitute) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tags <- (tags) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+types <- (types) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+use <- (use) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+yybm <- (yybm) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+yych <- (yych) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+yyfill <- (yyfill) => uast(
+    type: "Synthetic",
+    children: []
+)
+

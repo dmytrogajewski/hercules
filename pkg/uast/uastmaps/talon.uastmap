@@ -1,0 +1,324 @@
+declaration <- (declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expression <- (expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+statement <- (statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+action <- (action) => uast(
+    type: "Synthetic",
+    children: "argument_list", "identifier"
+)
+
+app_binding <- (app_binding) => uast(
+    type: "Synthetic",
+    children: "implicit_string"
+)
+
+app_declaration <- (app_declaration) => uast(
+    type: "Synthetic",
+    children: "app_binding", "block"
+)
+
+argument_list <- (argument_list) => uast(
+    type: "List",
+    children: []
+)
+
+assignment_statement <- (assignment_statement) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "expression", "identifier"
+)
+
+binary_operator <- (binary_operator) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: "expression", "operator"
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+capture <- (capture) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+choice <- (choice) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+command_declaration <- (command_declaration) => uast(
+    type: "Synthetic",
+    children: "block", "rule"
+)
+
+deck_binding <- (deck_binding) => uast(
+    type: "Synthetic",
+    children: "implicit_string"
+)
+
+deck_declaration <- (deck_declaration) => uast(
+    type: "Synthetic",
+    children: "block", "deck_binding"
+)
+
+declarations <- (declarations) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expression_statement <- (expression_statement) => uast(
+    type: "Synthetic",
+    children: "expression"
+)
+
+face_binding <- (face_binding) => uast(
+    type: "Synthetic",
+    children: "implicit_string"
+)
+
+face_declaration <- (face_declaration) => uast(
+    type: "Synthetic",
+    children: "block", "face_binding"
+)
+
+gamepad_binding <- (gamepad_binding) => uast(
+    type: "Synthetic",
+    children: "implicit_string"
+)
+
+gamepad_declaration <- (gamepad_declaration) => uast(
+    type: "Synthetic",
+    children: "block", "gamepad_binding"
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+interpolation <- (interpolation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+key_action <- (key_action) => uast(
+    type: "Synthetic",
+    children: "implicit_string"
+)
+
+key_binding <- (key_binding) => uast(
+    type: "Synthetic",
+    children: "implicit_string"
+)
+
+key_binding_declaration <- (key_binding_declaration) => uast(
+    type: "Synthetic",
+    children: "block", "key_binding"
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: "identifier"
+)
+
+match <- (match) => uast(
+    type: "Match",
+    roles: "Match"
+    children: "identifier", "implicit_string", "match_modifier"
+)
+
+match_modifier <- (match_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+matches <- (matches) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+noise_binding <- (noise_binding) => uast(
+    type: "Synthetic",
+    children: "implicit_string"
+)
+
+noise_declaration <- (noise_declaration) => uast(
+    type: "Synthetic",
+    children: "block", "noise_binding"
+)
+
+optional <- (optional) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parenthesized_expression <- (parenthesized_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parenthesized_rule <- (parenthesized_rule) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parrot_binding <- (parrot_binding) => uast(
+    type: "Synthetic",
+    children: "implicit_string"
+)
+
+parrot_declaration <- (parrot_declaration) => uast(
+    type: "Synthetic",
+    children: "block", "parrot_binding"
+)
+
+repeat <- (repeat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+repeat1 <- (repeat1) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rule <- (rule) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+seq <- (seq) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+settings_declaration <- (settings_declaration) => uast(
+    type: "Set",
+    children: "block", "settings_binding"
+)
+
+sleep_action <- (sleep_action) => uast(
+    type: "Synthetic",
+    children: "implicit_string"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_content <- (string_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tag_import_declaration <- (tag_import_declaration) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "identifier", "tag_binding"
+)
+
+unary_operator <- (unary_operator) => uast(
+    type: "UnaryOp",
+    roles: "Operator"
+    children: "expression", "operator"
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "identifier"
+)
+
+word <- (word) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+end_anchor <- (end_anchor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+implicit_string <- (implicit_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+not <- (not) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+operator <- (operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+settings_binding <- (settings_binding) => uast(
+    type: "Set",
+    children: []
+)
+
+start_anchor <- (start_anchor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_escape_sequence <- (string_escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tag_binding <- (tag_binding) => uast(
+    type: "Synthetic",
+    children: []
+)
+

@@ -1,0 +1,109 @@
+definition <- (definition) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+anonymous_node <- (anonymous_node) => uast(
+    type: "Synthetic",
+    children: "_", "quantifier", "string"
+)
+
+capture <- (capture) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+field_definition <- (field_definition) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "identifier"
+)
+
+grouping <- (grouping) => uast(
+    type: "Synthetic",
+    children: "quantifier"
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: "quantifier"
+)
+
+missing_node <- (missing_node) => uast(
+    type: "Synthetic",
+    children: "identifier", "quantifier", "string"
+)
+
+named_node <- (named_node) => uast(
+    type: "Synthetic",
+    children: "_", "identifier", "quantifier"
+)
+
+negated_field <- (negated_field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+parameters <- (parameters) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+predicate <- (predicate) => uast(
+    type: "Synthetic",
+    children: "identifier", "parameters", "predicate_type"
+)
+
+program <- (program) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quantifier <- (quantifier) => uast(
+    type: "If",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_content <- (string_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+MISSING <- (MISSING) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_ <- (_) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+predicate_type <- (predicate_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+

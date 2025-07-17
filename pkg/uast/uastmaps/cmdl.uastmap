@@ -1,0 +1,199 @@
+assignment <- (assignment) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "assignment_left_list", "assignment_right_list", "constant", "expression_binary", "expression_component", "expression_subscript", "expression_unary", "identifier", "number", "reference"
+)
+
+assignment_left_list <- (assignment_left_list) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: []
+)
+
+assignment_right_list <- (assignment_right_list) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: []
+)
+
+component <- (component) => uast(
+    type: "Synthetic",
+    children: "component_body", "component_inputs", "component_outputs", "identifier"
+)
+
+component_body <- (component_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+component_inputs <- (component_inputs) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+component_outputs <- (component_outputs) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+component_reference <- (component_reference) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constant <- (constant) => uast(
+    type: "Synthetic",
+    children: "number"
+)
+
+declaration <- (declaration) => uast(
+    type: "Synthetic",
+    children: "constant", "declaration_left_list", "declaration_right_list", "expression_binary", "expression_component", "expression_subscript", "expression_unary", "identifier", "number", "signal_definition"
+)
+
+declaration_left_list <- (declaration_left_list) => uast(
+    type: "List",
+    children: []
+)
+
+declaration_right_list <- (declaration_right_list) => uast(
+    type: "List",
+    children: []
+)
+
+expression_binary <- (expression_binary) => uast(
+    type: "Synthetic",
+    children: "constant", "expression_binary", "expression_component", "expression_subscript", "expression_unary", "identifier", "number"
+)
+
+expression_component <- (expression_component) => uast(
+    type: "Synthetic",
+    children: "component_reference", "constant", "expression_binary", "expression_component", "expression_component_input_list", "expression_subscript", "expression_unary", "identifier", "number"
+)
+
+expression_component_input_list <- (expression_component_input_list) => uast(
+    type: "List",
+    children: []
+)
+
+expression_subscript <- (expression_subscript) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expression_unary <- (expression_unary) => uast(
+    type: "Synthetic",
+    children: "constant", "expression_binary", "expression_component", "expression_subscript", "expression_unary", "identifier", "number"
+)
+
+range_closed <- (range_closed) => uast(
+    type: "Synthetic",
+    children: "number"
+)
+
+range_open_left <- (range_open_left) => uast(
+    type: "Synthetic",
+    children: "number"
+)
+
+range_open_right <- (range_open_right) => uast(
+    type: "Synthetic",
+    children: "number"
+)
+
+reference <- (reference) => uast(
+    type: "Synthetic",
+    children: "identifier", "number", "range_closed", "range_open_left", "range_open_right"
+)
+
+signal_definition <- (signal_definition) => uast(
+    type: "Synthetic",
+    children: "identifier", "number"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cat <- (cat) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+component <- (component) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+end <- (end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eq <- (eq) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+nand <- (nand) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nor <- (nor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+not <- (not) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+signal <- (signal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+synchronized <- (synchronized) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+xnor <- (xnor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+xor <- (xor) => uast(
+    type: "Synthetic",
+    children: []
+)
+

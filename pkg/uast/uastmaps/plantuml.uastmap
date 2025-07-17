@@ -1,0 +1,175 @@
+arrow <- (arrow) => uast(
+    type: "Synthetic",
+    children: "annotation", "identifier"
+)
+
+attribute <- (attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+attribute_list <- (attribute_list) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "component", "identifier"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+component <- (component) => uast(
+    type: "Synthetic",
+    children: "attribute", "identifier"
+)
+
+document <- (document) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+include <- (include) => uast(
+    type: "Synthetic",
+    children: "filepath", "include_close", "include_open", "non_breakable_identifier", "url"
+)
+
+include_open <- (include_open) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preprocessor <- (preprocessor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+skinparameter <- (skinparameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+style <- (style) => uast(
+    type: "Synthetic",
+    children: "non_breakable_identifier"
+)
+
+theme <- (theme) => uast(
+    type: "Synthetic",
+    children: "identifier", "url"
+)
+
+annotation <- (annotation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+as <- (as) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attribute_list_close <- (attribute_list_close) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+attribute_list_open <- (attribute_list_open) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+attribute_sep <- (attribute_sep) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+block_close <- (block_close) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+block_open <- (block_open) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+delimiter <- (delimiter) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+filepath <- (filepath) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+from <- (from) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+include_close <- (include_close) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+keyword <- (keyword) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+non_breakable_identifier <- (non_breakable_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+o <- (o) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+skinparam <- (skinparam) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+style_sep <- (style_sep) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+url <- (url) => uast(
+    type: "Synthetic",
+    children: []
+)
+

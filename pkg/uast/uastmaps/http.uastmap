@@ -1,0 +1,150 @@
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: "identifier", "value"
+)
+
+document <- (document) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+external_body <- (external_body) => uast(
+    type: "Synthetic",
+    children: "identifier", "path"
+)
+
+graphql_body <- (graphql_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+graphql_data <- (graphql_data) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+header <- (header) => uast(
+    type: "Synthetic",
+    children: "header_entity", "value"
+)
+
+http_version <- (http_version) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+json_body <- (json_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+multipart_form_data <- (multipart_form_data) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+path <- (path) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pre_request_script <- (pre_request_script) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+raw_body <- (raw_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+request <- (request) => uast(
+    type: "Synthetic",
+    children: "external_body", "graphql_body", "header", "http_version", "json_body", "method", "multipart_form_data", "raw_body", "target_url", "xml_body"
+)
+
+request_separator <- (request_separator) => uast(
+    type: "Synthetic",
+    children: "value"
+)
+
+res_handler_script <- (res_handler_script) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+res_redirect <- (res_redirect) => uast(
+    type: "Synthetic",
+    children: "path"
+)
+
+response <- (response) => uast(
+    type: "Synthetic",
+    children: "external_body", "graphql_body", "header", "json_body", "multipart_form_data", "raw_body", "xml_body"
+)
+
+script <- (script) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+section <- (section) => uast(
+    type: "Synthetic",
+    children: "request", "response"
+)
+
+target_url <- (target_url) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value <- (value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "identifier"
+)
+
+variable_declaration <- (variable_declaration) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "identifier", "value"
+)
+
+xml_body <- (xml_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+header_entity <- (header_entity) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+method <- (method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+status_code <- (status_code) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+status_text <- (status_text) => uast(
+    type: "Synthetic",
+    children: []
+)
+

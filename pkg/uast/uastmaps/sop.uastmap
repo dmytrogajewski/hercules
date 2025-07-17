@@ -1,0 +1,133 @@
+array <- (array) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "identifier"
+)
+
+else_clause <- (else_clause) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expression <- (expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for_statement <- (for_statement) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "array", "identifier", "key_value_pair", "parameter"
+)
+
+if_statement <- (if_statement) => uast(
+    type: "If",
+    children: "else_clause", "expression", "statement"
+)
+
+interpolation <- (interpolation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+key_value_pair <- (key_value_pair) => uast(
+    type: "KeyValue",
+    roles: "Key", "Value"
+    children: "array", "string"
+)
+
+operator <- (operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parameter <- (parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "identifier"
+)
+
+parser <- (parser) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+property <- (property) => uast(
+    type: "Property",
+    roles: "Member"
+    children: "identifier", "string"
+)
+
+statement <- (statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escaped_char <- (escaped_char) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+map <- (map) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+

@@ -1,0 +1,1237 @@
+class_decl <- (class_decl) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+constraint <- (constraint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constraints <- (constraints) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+decl <- (decl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+declaration <- (declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expression <- (expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+guard <- (guard) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+instance_decl <- (instance_decl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pattern <- (pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+qualifier <- (qualifier) => uast(
+    type: "If",
+    children: []
+)
+
+quantified_type <- (quantified_type) => uast(
+    type: "If",
+    children: []
+)
+
+statement <- (statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_param <- (type_param) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+abstract_family <- (abstract_family) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+alternative <- (alternative) => uast(
+    type: "Synthetic",
+    children: "local_binds", "match", "pattern", "patterns", "signature"
+)
+
+alternatives <- (alternatives) => uast(
+    type: "Synthetic",
+    children: "alternative"
+)
+
+annotated <- (annotated) => uast(
+    type: "Synthetic",
+    children: "quantified_type"
+)
+
+apply <- (apply) => uast(
+    type: "Synthetic",
+    children: "constraint", "explicit_type", "expression", "kind_application", "pattern", "type", "type_application", "type_binder"
+)
+
+arithmetic_sequence <- (arithmetic_sequence) => uast(
+    type: "Synthetic",
+    children: "expression", "signature"
+)
+
+as <- (as) => uast(
+    type: "Synthetic",
+    children: "pattern", "variable"
+)
+
+associated_type <- (associated_type) => uast(
+    type: "Synthetic",
+    children: "name", "qualified", "type"
+)
+
+bind <- (bind) => uast(
+    type: "Synthetic",
+    children: "expression", "implicit_variable", "local_binds", "match", "pattern", "prefix_id", "signature", "variable"
+)
+
+binding_list <- (binding_list) => uast(
+    type: "List",
+    children: "constructor", "prefix_id", "variable"
+)
+
+boolean <- (boolean) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "alternatives"
+)
+
+children <- (children) => uast(
+    type: "Synthetic",
+    children: "all_names", "associated_type", "constructor", "prefix_id", "qualified", "variable"
+)
+
+class <- (class) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "class_declarations", "context", "fundeps", "name", "prefix_id", "prefix_list", "type_params", "unit"
+)
+
+class_declarations <- (class_declarations) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "class_decl"
+)
+
+conditional <- (conditional) => uast(
+    type: "Synthetic",
+    children: "expression", "signature"
+)
+
+constructor_operator <- (constructor_operator) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+constructor_synonym <- (constructor_synonym) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "implicit_variable", "local_binds", "match", "pattern", "prefix_id", "signature", "variable"
+)
+
+constructor_synonyms <- (constructor_synonyms) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+context <- (context) => uast(
+    type: "Synthetic",
+    children: "constraint", "constraints", "quantified_type"
+)
+
+data_constructor <- (data_constructor) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "context", "forall", "forall_required", "infix", "prefix", "record", "special"
+)
+
+data_constructors <- (data_constructors) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "data_constructor"
+)
+
+data_family <- (data_family) => uast(
+    type: "Synthetic",
+    children: "name", "prefix_id", "prefix_list", "quantified_type", "type_params", "unit"
+)
+
+data_instance <- (data_instance) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+data_type <- (data_type) => uast(
+    type: "Synthetic",
+    children: "context", "data_constructors", "deriving", "forall", "forall_required", "gadt_constructors", "name", "prefix_id", "prefix_list", "qualified", "quantified_type", "type_params", "type_patterns", "unit"
+)
+
+declarations <- (declarations) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+default_signature <- (default_signature) => uast(
+    type: "Synthetic",
+    children: "signature"
+)
+
+default_types <- (default_types) => uast(
+    type: "Synthetic",
+    children: "quantified_type", "signature"
+)
+
+deriving <- (deriving) => uast(
+    type: "Synthetic",
+    children: "constraint", "deriving_strategy", "via"
+)
+
+deriving_instance <- (deriving_instance) => uast(
+    type: "Synthetic",
+    children: "context", "deriving_strategy", "forall", "forall_required", "name", "prefix_id", "qualified", "type_patterns", "via"
+)
+
+deriving_strategy <- (deriving_strategy) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: "statement"
+)
+
+do_module <- (do_module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "do", "mdo", "module"
+)
+
+empty_list <- (empty_list) => uast(
+    type: "List",
+    children: []
+)
+
+entity <- (entity) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+equation <- (equation) => uast(
+    type: "Synthetic",
+    children: "constructor_synonyms", "forall", "forall_required", "name", "pattern", "prefix_id", "qualified", "signature", "type_patterns"
+)
+
+equations <- (equations) => uast(
+    type: "Synthetic",
+    children: "equation"
+)
+
+exp <- (exp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+explicit_type <- (explicit_type) => uast(
+    type: "Synthetic",
+    children: "type"
+)
+
+export <- (export) => uast(
+    type: "Synthetic",
+    children: "children", "name", "namespace", "prefix_id", "qualified", "variable"
+)
+
+exports <- (exports) => uast(
+    type: "Synthetic",
+    children: "export"
+)
+
+field <- (field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "field_name", "lazy_field", "quantified_type", "strict_field"
+)
+
+field_name <- (field_name) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+field_path <- (field_path) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "field_name", "qualified"
+)
+
+field_pattern <- (field_pattern) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "field_name", "pattern", "qualified", "signature", "view_pattern"
+)
+
+field_update <- (field_update) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "expression", "field_name", "field_path", "qualified", "signature"
+)
+
+fields <- (fields) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "field"
+)
+
+fixity <- (fixity) => uast(
+    type: "Synthetic",
+    children: "constructor_operator", "infix", "infix_id", "infixl", "infixr", "integer", "operator"
+)
+
+forall <- (forall) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "constraints", "forall", "quantified_type", "quantified_variables"
+)
+
+forall_required <- (forall_required) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "forall", "quantified_type", "quantified_variables"
+)
+
+foreign_export <- (foreign_export) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "calling_convention", "entity", "signature"
+)
+
+foreign_import <- (foreign_import) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "calling_convention", "entity", "safety", "signature"
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "function_head_parens", "lazy_field", "local_binds", "match", "patterns", "prefix_id", "quantified_type", "strict_field", "variable"
+)
+
+function_head_parens <- (function_head_parens) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "function_head_parens", "patterns", "prefix_id", "variable"
+)
+
+fundep <- (fundep) => uast(
+    type: "Synthetic",
+    children: "variable"
+)
+
+fundeps <- (fundeps) => uast(
+    type: "Synthetic",
+    children: "fundep"
+)
+
+gadt_constructor <- (gadt_constructor) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "binding_list", "constructor", "context", "forall", "forall_required", "prefix", "prefix_id", "record"
+)
+
+gadt_constructors <- (gadt_constructors) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "gadt_constructor"
+)
+
+generator <- (generator) => uast(
+    type: "Generator",
+    roles: "Generator"
+    children: "expression", "pattern", "signature"
+)
+
+group <- (group) => uast(
+    type: "Synthetic",
+    children: "expression", "signature"
+)
+
+guards <- (guards) => uast(
+    type: "Synthetic",
+    children: "guard"
+)
+
+haskell <- (haskell) => uast(
+    type: "Synthetic",
+    children: "declarations", "imports"
+)
+
+header <- (header) => uast(
+    type: "Synthetic",
+    children: "exports", "module"
+)
+
+implicit_parameter <- (implicit_parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: "implicit_variable", "quantified_type"
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "import_list", "import_package", "module"
+)
+
+import_list <- (import_list) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "import_name"
+)
+
+import_name <- (import_name) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "children", "name", "namespace", "prefix_id", "qualified", "variable"
+)
+
+imports <- (imports) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "import"
+)
+
+inferred <- (inferred) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+infix <- (infix) => uast(
+    type: "Synthetic",
+    children: "constructor_operator", "expression", "infix_id", "lazy_field", "operator", "pattern", "promoted", "qualified", "strict_field", "type", "type_param"
+)
+
+infix_id <- (infix_id) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+instance <- (instance) => uast(
+    type: "Synthetic",
+    children: "context", "forall", "forall_required", "instance_declarations", "name", "prefix_id", "qualified", "type_patterns"
+)
+
+instance_declarations <- (instance_declarations) => uast(
+    type: "Synthetic",
+    children: "instance_decl"
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+invisible <- (invisible) => uast(
+    type: "Synthetic",
+    children: "type_param"
+)
+
+irrefutable <- (irrefutable) => uast(
+    type: "Synthetic",
+    children: "pattern"
+)
+
+kind_application <- (kind_application) => uast(
+    type: "Synthetic",
+    children: "type"
+)
+
+kind_signature <- (kind_signature) => uast(
+    type: "Synthetic",
+    children: "name", "prefix_id", "prefix_list", "quantified_type", "type_params", "unit"
+)
+
+lambda <- (lambda) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: "expression", "patterns", "signature"
+)
+
+lambda_case <- (lambda_case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "alternatives"
+)
+
+lambda_cases <- (lambda_cases) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "alternatives"
+)
+
+lazy_field <- (lazy_field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "type"
+)
+
+left_section <- (left_section) => uast(
+    type: "Synthetic",
+    children: "constructor_operator", "expression", "infix_id", "operator", "qualified"
+)
+
+let <- (let) => uast(
+    type: "Synthetic",
+    children: "local_binds"
+)
+
+let_in <- (let_in) => uast(
+    type: "Synthetic",
+    children: "expression", "local_binds", "signature"
+)
+
+linear_function <- (linear_function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "lazy_field", "modifier", "quantified_type", "strict_field"
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: "expression", "pattern", "quantified_type", "signature", "view_pattern"
+)
+
+list_comprehension <- (list_comprehension) => uast(
+    type: "List",
+    children: "expression", "qualifiers", "signature"
+)
+
+literal <- (literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+local_binds <- (local_binds) => uast(
+    type: "Synthetic",
+    children: "decl", "fixity"
+)
+
+match <- (match) => uast(
+    type: "Match",
+    roles: "Match"
+    children: "expression", "guards", "signature"
+)
+
+modifier <- (modifier) => uast(
+    type: "If",
+    children: []
+)
+
+module <- (module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+module_export <- (module_export) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "module"
+)
+
+multi_way_if <- (multi_way_if) => uast(
+    type: "If",
+    children: "match"
+)
+
+namespace <- (namespace) => uast(
+    type: "Namespace",
+    roles: "Module"
+    children: []
+)
+
+negation <- (negation) => uast(
+    type: "Synthetic",
+    children: "expression", "float", "integer"
+)
+
+newtype <- (newtype) => uast(
+    type: "Synthetic",
+    children: "context", "deriving", "forall", "forall_required", "gadt_constructors", "name", "newtype_constructor", "prefix_id", "prefix_list", "qualified", "quantified_type", "type_params", "type_patterns", "unit"
+)
+
+newtype_constructor <- (newtype_constructor) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "constructor", "field", "prefix_id", "record"
+)
+
+operator <- (operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+parens <- (parens) => uast(
+    type: "Synthetic",
+    children: "expression", "name", "pattern", "prefix_id", "prefix_list", "qualified", "quantified_type", "signature", "type_params", "type_patterns", "unit", "view_pattern"
+)
+
+pattern_guard <- (pattern_guard) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "expression", "pattern", "signature"
+)
+
+pattern_synonym <- (pattern_synonym) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+patterns <- (patterns) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+prefix <- (prefix) => uast(
+    type: "Synthetic",
+    children: "constructor", "lazy_field", "prefix_id", "quantified_type", "strict_field", "type"
+)
+
+prefix_id <- (prefix_id) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+prefix_list <- (prefix_list) => uast(
+    type: "List",
+    children: []
+)
+
+prefix_tuple <- (prefix_tuple) => uast(
+    type: "Tuple",
+    children: []
+)
+
+prefix_unboxed_sum <- (prefix_unboxed_sum) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+prefix_unboxed_tuple <- (prefix_unboxed_tuple) => uast(
+    type: "Tuple",
+    children: []
+)
+
+projection <- (projection) => uast(
+    type: "Synthetic",
+    children: "expression", "field_name"
+)
+
+projection_selector <- (projection_selector) => uast(
+    type: "Synthetic",
+    children: "variable"
+)
+
+promoted <- (promoted) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+qualified <- (qualified) => uast(
+    type: "If",
+    children: "constructor", "constructor_operator", "field_name", "module", "name", "operator", "variable"
+)
+
+qualifiers <- (qualifiers) => uast(
+    type: "If",
+    children: "qualifier"
+)
+
+quantified_variables <- (quantified_variables) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+quasiquote <- (quasiquote) => uast(
+    type: "Synthetic",
+    children: "quasiquote_body", "quoter"
+)
+
+quote <- (quote) => uast(
+    type: "Synthetic",
+    children: "d", "e", "p", "t"
+)
+
+quoted_decls <- (quoted_decls) => uast(
+    type: "Synthetic",
+    children: "declaration"
+)
+
+quoted_expression <- (quoted_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quoted_pattern <- (quoted_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+quoted_type <- (quoted_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quoter <- (quoter) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rec <- (rec) => uast(
+    type: "Synthetic",
+    children: "statement"
+)
+
+record <- (record) => uast(
+    type: "Synthetic",
+    children: "constructor", "expression", "field", "field_pattern", "field_update", "fields", "pattern", "quantified_type"
+)
+
+right_section <- (right_section) => uast(
+    type: "Synthetic",
+    children: "expression"
+)
+
+role_annotation <- (role_annotation) => uast(
+    type: "Synthetic",
+    children: "name", "prefix_id", "qualified", "type_role"
+)
+
+signature <- (signature) => uast(
+    type: "Synthetic",
+    children: "binding_list", "constraints", "constructor", "expression", "pattern", "prefix_id", "quantified_type", "variable"
+)
+
+special <- (special) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+splice <- (splice) => uast(
+    type: "Synthetic",
+    children: "constructor", "implicit_variable", "label", "literal", "parens", "prefix_id", "qualified", "variable"
+)
+
+star <- (star) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strict <- (strict) => uast(
+    type: "Synthetic",
+    children: "pattern"
+)
+
+strict_field <- (strict_field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "type"
+)
+
+th_quoted_name <- (th_quoted_name) => uast(
+    type: "Synthetic",
+    children: "constructor", "prefix_id", "qualified", "type", "variable"
+)
+
+top_splice <- (top_splice) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+transform <- (transform) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "expression", "signature"
+)
+
+tuple <- (tuple) => uast(
+    type: "Tuple",
+    children: "expression", "pattern", "quantified_type", "signature", "view_pattern"
+)
+
+type_application <- (type_application) => uast(
+    type: "Synthetic",
+    children: "type"
+)
+
+type_binder <- (type_binder) => uast(
+    type: "Synthetic",
+    children: "type"
+)
+
+type_family <- (type_family) => uast(
+    type: "Synthetic",
+    children: "abstract_family", "equations", "name", "prefix_id", "prefix_list", "quantified_type", "type_params", "unit"
+)
+
+type_family_injectivity <- (type_family_injectivity) => uast(
+    type: "Synthetic",
+    children: "variable"
+)
+
+type_family_result <- (type_family_result) => uast(
+    type: "Synthetic",
+    children: "quantified_type"
+)
+
+type_instance <- (type_instance) => uast(
+    type: "Synthetic",
+    children: "forall", "forall_required", "name", "prefix_id", "qualified", "type_patterns"
+)
+
+type_params <- (type_params) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_patterns <- (type_patterns) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+type_role <- (type_role) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_synomym <- (type_synomym) => uast(
+    type: "Synthetic",
+    children: "name", "prefix_id", "prefix_list", "quantified_type", "signature", "type_params", "unit"
+)
+
+typed_quote <- (typed_quote) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unboxed_sum <- (unboxed_sum) => uast(
+    type: "Synthetic",
+    children: "expression", "pattern", "quantified_type", "signature", "view_pattern"
+)
+
+unboxed_tuple <- (unboxed_tuple) => uast(
+    type: "Tuple",
+    children: "expression", "pattern", "quantified_type", "signature", "view_pattern"
+)
+
+unboxed_unit <- (unboxed_unit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unit <- (unit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+via <- (via) => uast(
+    type: "Synthetic",
+    children: "quantified_type"
+)
+
+view_pattern <- (view_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "expression", "pattern", "signature", "view_pattern"
+)
+
+wildcard <- (wildcard) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_ <- (_) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+all_names <- (all_names) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+anyclass <- (anyclass) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+as <- (as) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+by <- (by) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+calling_convention <- (calling_convention) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+cases <- (cases) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+char <- (char) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+class <- (class) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+constructor <- (constructor) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+cpp <- (cpp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+d <- (d) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+data <- (data) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+default <- (default) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+deriving <- (deriving) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+do <- (do) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+e <- (e) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+export <- (export) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+family <- (family) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+forall <- (forall) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+foreign <- (foreign) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+group <- (group) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+haddock <- (haddock) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hiding <- (hiding) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+implicit_variable <- (implicit_variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+import_package <- (import_package) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+infix <- (infix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+infixl <- (infixl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+infixr <- (infixr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+instance <- (instance) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+let <- (let) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mdo <- (mdo) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+module <- (module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+module_id <- (module_id) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+name <- (name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+newtype <- (newtype) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+nominal <- (nominal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+of <- (of) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+p <- (p) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pattern <- (pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+phantom <- (phantom) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pragma <- (pragma) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+qualified <- (qualified) => uast(
+    type: "If",
+    children: []
+)
+
+quasiquote_body <- (quasiquote_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rec <- (rec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+representational <- (representational) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+role <- (role) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+safety <- (safety) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+stock <- (stock) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+t <- (t) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+then <- (then) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+using <- (using) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+via <- (via) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+where <- (where) => uast(
+    type: "Synthetic",
+    children: []
+)
+

@@ -1,0 +1,485 @@
+_code_stmt <- (_code_stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_comment <- (_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+_divert_target <- (_divert_target) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_global_keyword <- (_global_keyword) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_logic <- (_logic) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_param_value <- (_param_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_redirect <- (_redirect) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expr <- (expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+alt_arm <- (alt_arm) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+alternatives <- (alternatives) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+args <- (args) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assignment <- (assignment) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "expr", "identifier"
+)
+
+binary <- (binary) => uast(
+    type: "Synthetic",
+    children: "and", "expr", "has", "hasnt", "mod", "or"
+)
+
+block_comment <- (block_comment) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+boolean <- (boolean) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+call <- (call) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "args", "identifier", "qualified_name"
+)
+
+choice <- (choice) => uast(
+    type: "Synthetic",
+    children: "choice_marks", "choice_only", "condition", "content", "eol", "label"
+)
+
+choice_block <- (choice_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "choice"
+)
+
+choice_marks <- (choice_marks) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+choice_only <- (choice_only) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+code <- (code) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cond_arm <- (cond_arm) => uast(
+    type: "Synthetic",
+    children: "else", "eol", "expr"
+)
+
+cond_block <- (cond_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+condition <- (condition) => uast(
+    type: "Synthetic",
+    children: "expr"
+)
+
+conditional_text <- (conditional_text) => uast(
+    type: "Synthetic",
+    children: "expr"
+)
+
+content <- (content) => uast(
+    type: "Synthetic",
+    children: "_logic", "_redirect", "glue", "tag", "text"
+)
+
+divert <- (divert) => uast(
+    type: "Synthetic",
+    children: "_divert_target"
+)
+
+eval <- (eval) => uast(
+    type: "Synthetic",
+    children: "expr"
+)
+
+external <- (external) => uast(
+    type: "Synthetic",
+    children: "EXTERNAL", "identifier", "params"
+)
+
+gather <- (gather) => uast(
+    type: "Synthetic",
+    children: "eol", "label"
+)
+
+gather_block <- (gather_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "gather"
+)
+
+gather_marks <- (gather_marks) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+global <- (global) => uast(
+    type: "Synthetic",
+    children: "_global_keyword", "expr", "identifier"
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+include <- (include) => uast(
+    type: "Synthetic",
+    children: "INCLUDE", "path"
+)
+
+ink <- (ink) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+knot <- (knot) => uast(
+    type: "Synthetic",
+    children: "function", "identifier", "params"
+)
+
+knot_block <- (knot_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "knot"
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+line_comment <- (line_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: "LIST", "identifier", "list_value_defs"
+)
+
+list_value_def <- (list_value_def) => uast(
+    type: "List",
+    children: "identifier", "number"
+)
+
+list_value_defs <- (list_value_defs) => uast(
+    type: "List",
+    children: "list_value_def"
+)
+
+list_values <- (list_values) => uast(
+    type: "List",
+    children: []
+)
+
+multiline_alternatives <- (multiline_alternatives) => uast(
+    type: "Synthetic",
+    children: "cycle", "once", "shuffle", "stopping"
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+paragraph <- (paragraph) => uast(
+    type: "Synthetic",
+    children: "_logic", "_redirect", "glue", "tag", "text"
+)
+
+param <- (param) => uast(
+    type: "Synthetic",
+    children: "_param_value", "ref"
+)
+
+params <- (params) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+paren <- (paren) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+postfix <- (postfix) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+qualified_name <- (qualified_name) => uast(
+    type: "If",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+stitch <- (stitch) => uast(
+    type: "Synthetic",
+    children: "identifier", "params"
+)
+
+stitch_block <- (stitch_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "stitch"
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tag <- (tag) => uast(
+    type: "Synthetic",
+    children: "_logic", "glue", "text"
+)
+
+temp_def <- (temp_def) => uast(
+    type: "Synthetic",
+    children: "expr", "identifier"
+)
+
+text <- (text) => uast(
+    type: "Synthetic",
+    children: "and", "false", "has", "hasnt", "mod", "not", "or", "true"
+)
+
+textrest <- (textrest) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+thread <- (thread) => uast(
+    type: "Synthetic",
+    children: "_divert_target"
+)
+
+todo_comment <- (todo_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: "TODO"
+)
+
+tunnel <- (tunnel) => uast(
+    type: "Synthetic",
+    children: "_divert_target"
+)
+
+unary <- (unary) => uast(
+    type: "Synthetic",
+    children: "expr", "not"
+)
+
+CONST <- (CONST) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+EXTERNAL <- (EXTERNAL) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+GLOBAL <- (GLOBAL) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+INCLUDE <- (INCLUDE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+LIST <- (LIST) => uast(
+    type: "List",
+    children: []
+)
+
+TODO <- (TODO) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+VAR <- (VAR) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block_comment_line <- (block_comment_line) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+choice_mark <- (choice_mark) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cycle <- (cycle) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+eol <- (eol) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+function <- (function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+gather_mark <- (gather_mark) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+glue <- (glue) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+has <- (has) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hasnt <- (hasnt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mod <- (mod) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+not <- (not) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+once <- (once) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+path <- (path) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ref <- (ref) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+shuffle <- (shuffle) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+stopping <- (stopping) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+temp <- (temp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+

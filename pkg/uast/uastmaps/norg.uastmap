@@ -1,0 +1,875 @@
+_lowercase <- (_lowercase) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+_segment <- (_segment) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_word <- (_word) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+anchor_declaration <- (anchor_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+anchor_definition <- (anchor_definition) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attribute <- (attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: "word"
+)
+
+bold <- (bold) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+definition_list <- (definition_list) => uast(
+    type: "List",
+    children: []
+)
+
+detached_modifier_extension <- (detached_modifier_extension) => uast(
+    type: "If",
+    children: []
+)
+
+document <- (document) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: "any_char"
+)
+
+footnote_list <- (footnote_list) => uast(
+    type: "List",
+    children: []
+)
+
+generic_list <- (generic_list) => uast(
+    type: "List",
+    children: []
+)
+
+heading1 <- (heading1) => uast(
+    type: "Synthetic",
+    children: "_paragraph_break", "definition_list", "detached_modifier_extension", "footnote_list", "generic_list", "heading2", "heading3", "heading4", "heading5", "heading6", "horizontal_line", "infirm_tag", "macro_tag", "paragraph", "paragraph_segment", "quote", "ranged_tag", "ranged_verbatim_tag", "table"
+)
+
+heading2 <- (heading2) => uast(
+    type: "Synthetic",
+    children: "_paragraph_break", "definition_list", "detached_modifier_extension", "footnote_list", "generic_list", "heading3", "heading4", "heading5", "heading6", "horizontal_line", "infirm_tag", "macro_tag", "paragraph", "paragraph_segment", "quote", "ranged_tag", "ranged_verbatim_tag", "table"
+)
+
+heading3 <- (heading3) => uast(
+    type: "Synthetic",
+    children: "_paragraph_break", "definition_list", "detached_modifier_extension", "footnote_list", "generic_list", "heading4", "heading5", "heading6", "horizontal_line", "infirm_tag", "macro_tag", "paragraph", "paragraph_segment", "quote", "ranged_tag", "ranged_verbatim_tag", "table"
+)
+
+heading4 <- (heading4) => uast(
+    type: "Synthetic",
+    children: "_paragraph_break", "definition_list", "detached_modifier_extension", "footnote_list", "generic_list", "heading5", "heading6", "horizontal_line", "infirm_tag", "macro_tag", "paragraph", "paragraph_segment", "quote", "ranged_tag", "ranged_verbatim_tag", "table"
+)
+
+heading5 <- (heading5) => uast(
+    type: "Synthetic",
+    children: "_paragraph_break", "definition_list", "detached_modifier_extension", "footnote_list", "generic_list", "heading6", "horizontal_line", "infirm_tag", "macro_tag", "paragraph", "paragraph_segment", "quote", "ranged_tag", "ranged_verbatim_tag", "table"
+)
+
+heading6 <- (heading6) => uast(
+    type: "Synthetic",
+    children: "_paragraph_break", "definition_list", "detached_modifier_extension", "footnote_list", "generic_list", "horizontal_line", "infirm_tag", "macro_tag", "paragraph", "paragraph_segment", "quote", "ranged_tag", "ranged_verbatim_tag", "table"
+)
+
+indent_segment1 <- (indent_segment1) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+indent_segment2 <- (indent_segment2) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+indent_segment3 <- (indent_segment3) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+indent_segment4 <- (indent_segment4) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+indent_segment5 <- (indent_segment5) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+indent_segment6 <- (indent_segment6) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+infirm_tag <- (infirm_tag) => uast(
+    type: "Synthetic",
+    children: "tag_name"
+)
+
+inline_comment <- (inline_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+inline_link_target <- (inline_link_target) => uast(
+    type: "Synthetic",
+    children: "paragraph"
+)
+
+inline_macro <- (inline_macro) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inline_math <- (inline_math) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+italic <- (italic) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link <- (link) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_description <- (link_description) => uast(
+    type: "Synthetic",
+    children: "paragraph"
+)
+
+link_location <- (link_location) => uast(
+    type: "Synthetic",
+    children: "link_file_text", "link_target_definition", "link_target_external_file", "link_target_footnote", "link_target_generic", "link_target_heading1", "link_target_heading2", "link_target_heading3", "link_target_heading4", "link_target_heading5", "link_target_heading6", "link_target_line_number", "link_target_timestamp", "link_target_url", "link_target_wiki", "paragraph"
+)
+
+macro_tag <- (macro_tag) => uast(
+    type: "Synthetic",
+    children: "macro_tag_content", "tag_name"
+)
+
+macro_tag_content <- (macro_tag_content) => uast(
+    type: "Synthetic",
+    children: "ranged_tag"
+)
+
+macro_tag_end <- (macro_tag_end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+multi_definition <- (multi_definition) => uast(
+    type: "Synthetic",
+    children: "_line_break", "_paragraph_break", "definition_list", "detached_modifier_extension", "footnote_list", "infirm_tag", "macro_tag", "multi_definition_suffix", "paragraph", "paragraph_segment", "ranged_tag", "ranged_verbatim_tag", "table"
+)
+
+multi_footnote <- (multi_footnote) => uast(
+    type: "Synthetic",
+    children: "_line_break", "_paragraph_break", "definition_list", "detached_modifier_extension", "footnote_list", "infirm_tag", "macro_tag", "multi_footnote_suffix", "paragraph", "paragraph_segment", "ranged_tag", "ranged_verbatim_tag", "table"
+)
+
+multi_table_cell <- (multi_table_cell) => uast(
+    type: "Synthetic",
+    children: "_line_break", "_paragraph_break", "definition_list", "detached_modifier_extension", "footnote_list", "infirm_tag", "macro_tag", "multi_table_cell_suffix", "paragraph", "paragraph_segment", "ranged_tag", "ranged_verbatim_tag", "table"
+)
+
+ordered_list1 <- (ordered_list1) => uast(
+    type: "List",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+ordered_list2 <- (ordered_list2) => uast(
+    type: "List",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+ordered_list3 <- (ordered_list3) => uast(
+    type: "List",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+ordered_list4 <- (ordered_list4) => uast(
+    type: "List",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+ordered_list5 <- (ordered_list5) => uast(
+    type: "List",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+ordered_list6 <- (ordered_list6) => uast(
+    type: "List",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+paragraph <- (paragraph) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+paragraph_segment <- (paragraph_segment) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+priority <- (priority) => uast(
+    type: "Synthetic",
+    children: "priority_data"
+)
+
+quote <- (quote) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quote1 <- (quote1) => uast(
+    type: "Synthetic",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+quote2 <- (quote2) => uast(
+    type: "Synthetic",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+quote3 <- (quote3) => uast(
+    type: "Synthetic",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+quote4 <- (quote4) => uast(
+    type: "Synthetic",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+quote5 <- (quote5) => uast(
+    type: "Synthetic",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+quote6 <- (quote6) => uast(
+    type: "Synthetic",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+ranged_tag <- (ranged_tag) => uast(
+    type: "Synthetic",
+    children: "ranged_tag_content", "tag_name"
+)
+
+ranged_tag_content <- (ranged_tag_content) => uast(
+    type: "Synthetic",
+    children: "ranged_tag"
+)
+
+ranged_tag_end <- (ranged_tag_end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ranged_verbatim_tag <- (ranged_verbatim_tag) => uast(
+    type: "Synthetic",
+    children: "ranged_verbatim_tag_content", "tag_name"
+)
+
+ranged_verbatim_tag_content <- (ranged_verbatim_tag_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ranged_verbatim_tag_end <- (ranged_verbatim_tag_end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+single_definition <- (single_definition) => uast(
+    type: "Synthetic",
+    children: "detached_modifier_extension", "paragraph", "paragraph_segment"
+)
+
+single_footnote <- (single_footnote) => uast(
+    type: "Synthetic",
+    children: "detached_modifier_extension", "paragraph", "paragraph_segment"
+)
+
+single_table_cell <- (single_table_cell) => uast(
+    type: "Synthetic",
+    children: "detached_modifier_extension", "paragraph", "paragraph_segment"
+)
+
+slide <- (slide) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+spoiler <- (spoiler) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strikethrough <- (strikethrough) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strong_carryover <- (strong_carryover) => uast(
+    type: "Synthetic",
+    children: "tag_name"
+)
+
+strong_carryover_set <- (strong_carryover_set) => uast(
+    type: "Set",
+    children: []
+)
+
+subscript <- (subscript) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+superscript <- (superscript) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+table <- (table) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tag_name <- (tag_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tag_param <- (tag_param) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tag_parameters <- (tag_parameters) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+timestamp <- (timestamp) => uast(
+    type: "Synthetic",
+    children: "timestamp_data"
+)
+
+todo_item_recurring <- (todo_item_recurring) => uast(
+    type: "Synthetic",
+    children: "timestamp_data"
+)
+
+underline <- (underline) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unordered_list1 <- (unordered_list1) => uast(
+    type: "List",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+unordered_list2 <- (unordered_list2) => uast(
+    type: "List",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+unordered_list3 <- (unordered_list3) => uast(
+    type: "List",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+unordered_list4 <- (unordered_list4) => uast(
+    type: "List",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+unordered_list5 <- (unordered_list5) => uast(
+    type: "List",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+unordered_list6 <- (unordered_list6) => uast(
+    type: "List",
+    children: "detached_modifier_extension", "paragraph"
+)
+
+verbatim <- (verbatim) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+weak_carryover <- (weak_carryover) => uast(
+    type: "Synthetic",
+    children: "tag_name"
+)
+
+weak_carryover_set <- (weak_carryover_set) => uast(
+    type: "Set",
+    children: []
+)
+
+word <- (word) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_begin <- (_begin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_close <- (_close) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_delimiter <- (_delimiter) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_end <- (_end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_intersecting_modifier <- (_intersecting_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+_line_break <- (_line_break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+_lowercase <- (_lowercase) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+_name <- (_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_open <- (_open) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_paragraph_break <- (_paragraph_break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+_prefix <- (_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_slide <- (_slide) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_space <- (_space) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+_trailing_modifier <- (_trailing_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+_uppercase <- (_uppercase) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+_word <- (_word) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+any_char <- (any_char) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escape_sequence_prefix <- (escape_sequence_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+free_form_close <- (free_form_close) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+free_form_open <- (free_form_open) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+heading1_prefix <- (heading1_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+heading2_prefix <- (heading2_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+heading3_prefix <- (heading3_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+heading4_prefix <- (heading4_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+heading5_prefix <- (heading5_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+heading6_prefix <- (heading6_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+horizontal_line <- (horizontal_line) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+indent_segment_begin <- (indent_segment_begin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+intersecting_modifier <- (intersecting_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+link_file_text <- (link_file_text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_modifier <- (link_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+link_target_definition <- (link_target_definition) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_target_external_file <- (link_target_external_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_target_footnote <- (link_target_footnote) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_target_generic <- (link_target_generic) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_target_heading1 <- (link_target_heading1) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_target_heading2 <- (link_target_heading2) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_target_heading3 <- (link_target_heading3) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_target_heading4 <- (link_target_heading4) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_target_heading5 <- (link_target_heading5) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_target_heading6 <- (link_target_heading6) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_target_line_number <- (link_target_line_number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_target_scope <- (link_target_scope) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_target_timestamp <- (link_target_timestamp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_target_url <- (link_target_url) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+link_target_wiki <- (link_target_wiki) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+multi_definition_prefix <- (multi_definition_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+multi_definition_suffix <- (multi_definition_suffix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+multi_footnote_prefix <- (multi_footnote_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+multi_footnote_suffix <- (multi_footnote_suffix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+multi_table_cell_prefix <- (multi_table_cell_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+multi_table_cell_suffix <- (multi_table_cell_suffix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ordered_list1_prefix <- (ordered_list1_prefix) => uast(
+    type: "List",
+    children: []
+)
+
+ordered_list2_prefix <- (ordered_list2_prefix) => uast(
+    type: "List",
+    children: []
+)
+
+ordered_list3_prefix <- (ordered_list3_prefix) => uast(
+    type: "List",
+    children: []
+)
+
+ordered_list4_prefix <- (ordered_list4_prefix) => uast(
+    type: "List",
+    children: []
+)
+
+ordered_list5_prefix <- (ordered_list5_prefix) => uast(
+    type: "List",
+    children: []
+)
+
+ordered_list6_prefix <- (ordered_list6_prefix) => uast(
+    type: "List",
+    children: []
+)
+
+priority_data <- (priority_data) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quote1_prefix <- (quote1_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quote2_prefix <- (quote2_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quote3_prefix <- (quote3_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quote4_prefix <- (quote4_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quote5_prefix <- (quote5_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quote6_prefix <- (quote6_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+single_definition_prefix <- (single_definition_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+single_footnote_prefix <- (single_footnote_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+single_table_cell_prefix <- (single_table_cell_prefix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strong_paragraph_delimiter <- (strong_paragraph_delimiter) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+timestamp_data <- (timestamp_data) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+todo_item_cancelled <- (todo_item_cancelled) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+todo_item_done <- (todo_item_done) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+todo_item_on_hold <- (todo_item_on_hold) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+todo_item_pending <- (todo_item_pending) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+todo_item_uncertain <- (todo_item_uncertain) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+todo_item_undone <- (todo_item_undone) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+todo_item_urgent <- (todo_item_urgent) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+unordered_list1_prefix <- (unordered_list1_prefix) => uast(
+    type: "List",
+    children: []
+)
+
+unordered_list2_prefix <- (unordered_list2_prefix) => uast(
+    type: "List",
+    children: []
+)
+
+unordered_list3_prefix <- (unordered_list3_prefix) => uast(
+    type: "List",
+    children: []
+)
+
+unordered_list4_prefix <- (unordered_list4_prefix) => uast(
+    type: "List",
+    children: []
+)
+
+unordered_list5_prefix <- (unordered_list5_prefix) => uast(
+    type: "List",
+    children: []
+)
+
+unordered_list6_prefix <- (unordered_list6_prefix) => uast(
+    type: "List",
+    children: []
+)
+
+weak_paragraph_delimiter <- (weak_paragraph_delimiter) => uast(
+    type: "Synthetic",
+    children: []
+)
+

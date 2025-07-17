@@ -1,0 +1,139 @@
+binding <- (binding) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+body <- (body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+components <- (components) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+define_directive <- (define_directive) => uast(
+    type: "Synthetic",
+    children: "expansion", "identifier"
+)
+
+define_function_directive <- (define_function_directive) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "expansion", "identifier", "parameters"
+)
+
+elif_directive <- (elif_directive) => uast(
+    type: "If",
+    children: "expansion"
+)
+
+elifdef_directive <- (elifdef_directive) => uast(
+    type: "If",
+    children: "identifier"
+)
+
+else_directive <- (else_directive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if_directive <- (if_directive) => uast(
+    type: "If",
+    children: "body", "elif_directive", "elifdef_directive", "else_directive", "expansion"
+)
+
+ifdef_directive <- (ifdef_directive) => uast(
+    type: "If",
+    children: "body", "elif_directive", "elifdef_directive", "else_directive", "identifier"
+)
+
+include_directive <- (include_directive) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+parameters <- (parameters) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+resource <- (resource) => uast(
+    type: "Synthetic",
+    children: "components", "resource_value"
+)
+
+resource_value <- (resource_value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+resources <- (resources) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+simple_directive <- (simple_directive) => uast(
+    type: "Synthetic",
+    children: "directive", "expansion"
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+undef_directive <- (undef_directive) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+any_component <- (any_component) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+component <- (component) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+directive <- (directive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expansion <- (expansion) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+preprocessor_comment <- (preprocessor_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+string_content <- (string_content) => uast(
+    type: "Synthetic",
+    children: []
+)
+

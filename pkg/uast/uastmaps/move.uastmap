@@ -1,0 +1,1126 @@
+_spec_block_target <- (_spec_block_target) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+ability <- (ability) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ability_decls <- (ability_decls) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+abort_expression <- (abort_expression) => uast(
+    type: "Synthetic",
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+annotation <- (annotation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+annotation_expr <- (annotation_expr) => uast(
+    type: "Synthetic",
+    children: "address_literal", "bool_literal", "byte_string_literal", "hex_string_literal", "identifier", "module_access", "num_literal"
+)
+
+annotation_expression <- (annotation_expression) => uast(
+    type: "Synthetic",
+    children: "abort_expression", "address_literal", "annotation_expression", "apply_type", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "function_type", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "primitive_type", "quantifier_expression", "ref_type", "return_expression", "spec_block", "tuple_type", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+annotation_item <- (annotation_item) => uast(
+    type: "Synthetic",
+    children: "annotation_expr", "annotation_list"
+)
+
+annotation_list <- (annotation_list) => uast(
+    type: "List",
+    children: "identifier", "module_access"
+)
+
+apply_type <- (apply_type) => uast(
+    type: "Synthetic",
+    children: "type_arguments"
+)
+
+arg_list <- (arg_list) => uast(
+    type: "List",
+    children: []
+)
+
+assign_expression <- (assign_expression) => uast(
+    type: "Synthetic",
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+at_bind <- (at_bind) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+binary_expression <- (binary_expression) => uast(
+    type: "Synthetic",
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "binary_operator", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+bind_field <- (bind_field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "bind_list"
+)
+
+bind_fields <- (bind_fields) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+bind_list <- (bind_list) => uast(
+    type: "List",
+    children: []
+)
+
+bind_named_fields <- (bind_named_fields) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+bind_positional_fields <- (bind_positional_fields) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+bind_unpack <- (bind_unpack) => uast(
+    type: "Synthetic",
+    children: "bind_fields"
+)
+
+bind_var <- (bind_var) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+block_identifier <- (block_identifier) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+block_item <- (block_item) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+bool_literal <- (bool_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+borrow_expression <- (borrow_expression) => uast(
+    type: "Synthetic",
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+break_expression <- (break_expression) => uast(
+    type: "Break",
+    roles: "Break"
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "label", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+call_expression <- (call_expression) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "arg_list"
+)
+
+cast_expression <- (cast_expression) => uast(
+    type: "Cast",
+    children: "abort_expression", "address_literal", "annotation_expression", "apply_type", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "function_type", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "primitive_type", "quantifier_expression", "ref_type", "return_expression", "spec_block", "tuple_type", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+comma_bind_list <- (comma_bind_list) => uast(
+    type: "List",
+    children: []
+)
+
+condition_kind <- (condition_kind) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+condition_properties <- (condition_properties) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constant <- (constant) => uast(
+    type: "Synthetic",
+    children: "abort_expression", "address_literal", "annotation_expression", "apply_type", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "constant_identifier", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "function_type", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "primitive_type", "quantifier_expression", "ref_type", "return_expression", "spec_block", "tuple_type", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+continue_expression <- (continue_expression) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: "label"
+)
+
+datatype_fields <- (datatype_fields) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+dereference_expression <- (dereference_expression) => uast(
+    type: "Synthetic",
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+dot_expression <- (dot_expression) => uast(
+    type: "Synthetic",
+    children: "address_literal", "annotation_expression", "block", "bool_literal", "break_expression", "byte_string_literal", "call_expression", "continue_expression", "dot_expression", "expression_list", "hex_string_literal", "if_expression", "index_expression", "macro_call_expression", "match_expression", "name_expression", "num_literal", "pack_expression", "spec_block", "unit_expression", "vector_expression"
+)
+
+enum_definition <- (enum_definition) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "ability_decls", "enum_identifier", "enum_variants", "postfix_ability_decls", "type_parameters"
+)
+
+enum_variants <- (enum_variants) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+exp_field <- (exp_field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "field_identifier", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+expression_list <- (expression_list) => uast(
+    type: "List",
+    children: []
+)
+
+field_annotation <- (field_annotation) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "apply_type", "field_identifier", "function_type", "primitive_type", "ref_type", "tuple_type"
+)
+
+field_initialize_list <- (field_initialize_list) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+friend_access <- (friend_access) => uast(
+    type: "Synthetic",
+    children: "identifier", "module_identity"
+)
+
+friend_declaration <- (friend_declaration) => uast(
+    type: "Synthetic",
+    children: "friend_access"
+)
+
+function_definition <- (function_definition) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "block", "function_identifier", "function_parameters", "ret_type", "type_parameters"
+)
+
+function_parameter <- (function_parameter) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "apply_type", "function_type", "primitive_type", "ref_type", "tuple_type", "variable_identifier"
+)
+
+function_parameters <- (function_parameters) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+function_type <- (function_type) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "apply_type", "function_type", "function_type_parameters", "primitive_type", "ref_type", "tuple_type"
+)
+
+function_type_parameters <- (function_type_parameters) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+identified_expression <- (identified_expression) => uast(
+    type: "If",
+    children: "block_identifier"
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if_expression <- (if_expression) => uast(
+    type: "If",
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+imm_ref <- (imm_ref) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+index_expression <- (index_expression) => uast(
+    type: "Index",
+    roles: "Index"
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+lambda_binding <- (lambda_binding) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: "address_literal", "apply_type", "at_bind", "bind_unpack", "bind_var", "bool_literal", "byte_string_literal", "function_type", "hex_string_literal", "mut_bind_var", "num_literal", "primitive_type", "ref_type", "tuple_type"
+)
+
+lambda_bindings <- (lambda_bindings) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: []
+)
+
+lambda_expression <- (lambda_expression) => uast(
+    type: "Lambda",
+    roles: "Lambda"
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_bindings", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+let_statement <- (let_statement) => uast(
+    type: "Synthetic",
+    children: "abort_expression", "address_literal", "annotation_expression", "apply_type", "assign_expression", "binary_expression", "bind_list", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "function_type", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "primitive_type", "quantifier_expression", "ref_type", "return_expression", "spec_block", "tuple_type", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+loop_expression <- (loop_expression) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+macro_call_expression <- (macro_call_expression) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "arg_list", "macro_module_access", "type_arguments"
+)
+
+macro_function_definition <- (macro_function_definition) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "block", "function_identifier", "function_parameters", "ret_type", "type_parameters"
+)
+
+macro_module_access <- (macro_module_access) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "module_access"
+)
+
+match_arm <- (match_arm) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+match_condition <- (match_condition) => uast(
+    type: "Match",
+    roles: "Match"
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+match_expression <- (match_expression) => uast(
+    type: "Match",
+    roles: "Match"
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+modifier <- (modifier) => uast(
+    type: "If",
+    children: []
+)
+
+module_access <- (module_access) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "identifier", "module_identifier", "type_arguments"
+)
+
+module_body <- (module_body) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+module_definition <- (module_definition) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "module_body", "module_identity"
+)
+
+module_identity <- (module_identity) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "module_identifier", "num_literal"
+)
+
+move_or_copy_expression <- (move_or_copy_expression) => uast(
+    type: "Synthetic",
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+mut_bind_field <- (mut_bind_field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+mut_bind_var <- (mut_bind_var) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mut_function_parameter <- (mut_function_parameter) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+mut_ref <- (mut_ref) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+name_expression <- (name_expression) => uast(
+    type: "Synthetic",
+    children: "module_access"
+)
+
+named_fields <- (named_fields) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+native_function_definition <- (native_function_definition) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "function_identifier", "function_parameters", "ret_type", "type_parameters"
+)
+
+native_spec_function <- (native_spec_function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "function_identifier", "function_parameters", "ret_type", "type_parameters"
+)
+
+native_struct_definition <- (native_struct_definition) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "ability_decls", "struct_identifier", "type_parameters"
+)
+
+num_literal <- (num_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+or_bind_list <- (or_bind_list) => uast(
+    type: "List",
+    children: []
+)
+
+pack_expression <- (pack_expression) => uast(
+    type: "Synthetic",
+    children: "field_initialize_list"
+)
+
+positional_fields <- (positional_fields) => uast(
+    type: "Field",
+    roles: "Member"
+    children: []
+)
+
+postfix_ability_decls <- (postfix_ability_decls) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+primitive_type <- (primitive_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quantifier_binding <- (quantifier_binding) => uast(
+    type: "If",
+    children: []
+)
+
+quantifier_bindings <- (quantifier_bindings) => uast(
+    type: "If",
+    children: []
+)
+
+quantifier_expression <- (quantifier_expression) => uast(
+    type: "If",
+    children: []
+)
+
+ref_type <- (ref_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ret_type <- (ret_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return_expression <- (return_expression) => uast(
+    type: "Return",
+    roles: "Return"
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "label", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+spec_apply <- (spec_apply) => uast(
+    type: "Synthetic",
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+spec_apply_pattern <- (spec_apply_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "spec_apply_name_pattern", "type_parameters"
+)
+
+spec_block <- (spec_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "_spec_block_target", "spec_body"
+)
+
+spec_block_target_schema <- (spec_block_target_schema) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "struct_identifier", "type_parameters"
+)
+
+spec_body <- (spec_body) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+spec_condition <- (spec_condition) => uast(
+    type: "Synthetic",
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "condition_kind", "condition_properties", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+spec_include <- (spec_include) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+spec_invariant <- (spec_invariant) => uast(
+    type: "Synthetic",
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "condition_kind", "condition_properties", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "invariant_modifier", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+spec_let <- (spec_let) => uast(
+    type: "Synthetic",
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "identifier", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+spec_pragma <- (spec_pragma) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+spec_property <- (spec_property) => uast(
+    type: "Property",
+    roles: "Member"
+    children: []
+)
+
+spec_variable <- (spec_variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: "apply_type", "function_type", "identifier", "primitive_type", "ref_type", "tuple_type", "type_parameters"
+)
+
+struct_definition <- (struct_definition) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: "ability_decls", "datatype_fields", "postfix_ability_decls", "struct_identifier", "type_parameters"
+)
+
+tuple_type <- (tuple_type) => uast(
+    type: "Tuple",
+    children: []
+)
+
+type_arguments <- (type_arguments) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_parameter <- (type_parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+type_parameters <- (type_parameters) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+unary_expression <- (unary_expression) => uast(
+    type: "Synthetic",
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unary_op", "unit_expression", "vector_expression", "while_expression"
+)
+
+unary_op <- (unary_op) => uast(
+    type: "UnaryOp",
+    roles: "Operator"
+    children: []
+)
+
+uninterpreted_spec_function <- (uninterpreted_spec_function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "function_identifier", "function_parameters", "ret_type", "type_parameters"
+)
+
+unit_expression <- (unit_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+use_declaration <- (use_declaration) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+use_fun <- (use_fun) => uast(
+    type: "Synthetic",
+    children: "function_identifier", "module_access"
+)
+
+use_member <- (use_member) => uast(
+    type: "Synthetic",
+    children: "identifier", "use_member"
+)
+
+use_module <- (use_module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "module_identifier"
+)
+
+use_module_member <- (use_module_member) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "use_member"
+)
+
+use_module_members <- (use_module_members) => uast(
+    type: "Module",
+    roles: "Module"
+    children: "module_identifier", "num_literal", "use_member"
+)
+
+usual_spec_function <- (usual_spec_function) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "block", "function_identifier", "function_parameters", "ret_type", "type_parameters"
+)
+
+variant <- (variant) => uast(
+    type: "Synthetic",
+    children: "datatype_fields", "variant_identifier"
+)
+
+vector_expression <- (vector_expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while_expression <- (while_expression) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "abort_expression", "address_literal", "annotation_expression", "assign_expression", "binary_expression", "block", "bool_literal", "borrow_expression", "break_expression", "byte_string_literal", "call_expression", "cast_expression", "continue_expression", "dereference_expression", "dot_expression", "expression_list", "hex_string_literal", "identified_expression", "if_expression", "index_expression", "lambda_expression", "loop_expression", "macro_call_expression", "match_expression", "move_or_copy_expression", "name_expression", "num_literal", "pack_expression", "quantifier_expression", "return_expression", "spec_block", "unary_expression", "unit_expression", "vector_expression", "while_expression"
+)
+
+abort <- (abort) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+address <- (address) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+address_literal <- (address_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+apply <- (apply) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+as <- (as) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assert <- (assert) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assume <- (assume) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+binary_operator <- (binary_operator) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+    children: []
+)
+
+block_comment <- (block_comment) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+bool <- (bool) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+byte_string_literal <- (byte_string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+bytearray <- (bytearray) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+const <- (const) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+constant_identifier <- (constant_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+continue <- (continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+copy <- (copy) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+decreases <- (decreases) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+drop <- (drop) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ensures <- (ensures) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+entry <- (entry) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+enum <- (enum) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+enum_identifier <- (enum_identifier) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+except <- (except) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+field_identifier <- (field_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+friend <- (friend) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+fun <- (fun) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+function_identifier <- (function_identifier) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+global <- (global) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+has <- (has) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hex_string_literal <- (hex_string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+include <- (include) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+internal <- (internal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+invariant_modifier <- (invariant_modifier) => uast(
+    type: "If",
+    children: []
+)
+
+key <- (key) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+let <- (let) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+line_comment <- (line_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+local <- (local) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+loop <- (loop) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+macro <- (macro) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+match <- (match) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+module <- (module) => uast(
+    type: "Module",
+    roles: "Module"
+    children: []
+)
+
+module_identifier <- (module_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+move <- (move) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+mut <- (mut) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+native <- (native) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+newline <- (newline) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+package <- (package) => uast(
+    type: "Package",
+    roles: "Module"
+    children: []
+)
+
+phantom <- (phantom) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+post <- (post) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pragma <- (pragma) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+public <- (public) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+schema <- (schema) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+signer <- (signer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+spec <- (spec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+spec_apply_name_pattern <- (spec_apply_name_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+spec_block_target_module <- (spec_block_target_module) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+store <- (store) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+struct <- (struct) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+struct_identifier <- (struct_identifier) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+    children: []
+)
+
+succeeds_if <- (succeeds_if) => uast(
+    type: "If",
+    children: []
+)
+
+to <- (to) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_identifier <- (type_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+type_parameter_identifier <- (type_parameter_identifier) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+    children: []
+)
+
+u128 <- (u128) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+u16 <- (u16) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+u256 <- (u256) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+u32 <- (u32) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+u64 <- (u64) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+u8 <- (u8) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+use <- (use) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variable_identifier <- (variable_identifier) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+variant_identifier <- (variant_identifier) => uast(
+    type: "If",
+    children: []
+)
+
+where <- (where) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+with <- (with) => uast(
+    type: "Synthetic",
+    children: []
+)
+

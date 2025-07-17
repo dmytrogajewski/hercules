@@ -1,0 +1,758 @@
+_immediate_escape_sequence <- (_immediate_escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+arg_command <- (arg_command) => uast(
+    type: "Synthetic",
+    children: "options", "string", "variable"
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+branch <- (branch) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+build_arg <- (build_arg) => uast(
+    type: "Synthetic",
+    children: "string", "variable"
+)
+
+build_arg_deprecated <- (build_arg_deprecated) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+build_args <- (build_args) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+build_command <- (build_command) => uast(
+    type: "Synthetic",
+    children: "options"
+)
+
+cache_command <- (cache_command) => uast(
+    type: "Synthetic",
+    children: "options", "string"
+)
+
+cache_from <- (cache_from) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+cache_id <- (cache_id) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+chmod <- (chmod) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+chown <- (chown) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+cmd_command <- (cmd_command) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+compose <- (compose) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+copy_command <- (copy_command) => uast(
+    type: "Synthetic",
+    children: "options", "string", "target_artifact", "target_artifact_build_args"
+)
+
+do_command <- (do_command) => uast(
+    type: "Synthetic",
+    children: "options"
+)
+
+docker_build_arg <- (docker_build_arg) => uast(
+    type: "Synthetic",
+    children: "identifier", "string"
+)
+
+docker_file <- (docker_file) => uast(
+    type: "Synthetic",
+    children: "string", "target_artifact", "target_artifact_build_args"
+)
+
+docker_target <- (docker_target) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+double_quoted_string <- (double_quoted_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+earthfile_ref <- (earthfile_ref) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+elif_block <- (elif_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "block", "options", "shell_fragment"
+)
+
+else_block <- (else_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "block"
+)
+
+entrypoint_command <- (entrypoint_command) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+env_command <- (env_command) => uast(
+    type: "Synthetic",
+    children: "string", "variable"
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expansion <- (expansion) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expose_command <- (expose_command) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for_command <- (for_command) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "options", "strings", "variable"
+)
+
+from_command <- (from_command) => uast(
+    type: "Synthetic",
+    children: "options"
+)
+
+from_dockerfile_command <- (from_dockerfile_command) => uast(
+    type: "Synthetic",
+    children: "options", "string", "target_artifact", "target_artifact_build_args"
+)
+
+function_command <- (function_command) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+function_ref <- (function_ref) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "earthfile_ref", "identifier"
+)
+
+git_clone_command <- (git_clone_command) => uast(
+    type: "Synthetic",
+    children: "options", "string"
+)
+
+host_command <- (host_command) => uast(
+    type: "Synthetic",
+    children: "identifier", "string"
+)
+
+id <- (id) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if_command <- (if_command) => uast(
+    type: "If",
+    children: "block", "elif_block", "else_block", "options", "shell_fragment"
+)
+
+image_digest <- (image_digest) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+image_name <- (image_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+image_spec <- (image_spec) => uast(
+    type: "Synthetic",
+    children: "image_digest", "image_name", "image_tag"
+)
+
+image_tag <- (image_tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+images <- (images) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+import_command <- (import_command) => uast(
+    type: "Import",
+    roles: "Import"
+    children: "identifier", "options"
+)
+
+interactive <- (interactive) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+label <- (label) => uast(
+    type: "Synthetic",
+    children: "identifier", "string"
+)
+
+label_command <- (label_command) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+let_command <- (let_command) => uast(
+    type: "Synthetic",
+    children: "string", "variable"
+)
+
+load <- (load) => uast(
+    type: "Synthetic",
+    children: "image_spec", "string", "target_ref", "target_ref_with_build_args"
+)
+
+locally_command <- (locally_command) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+mount <- (mount) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+oidc <- (oidc) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+options <- (options) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+platform <- (platform) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "string"
+)
+
+project_command <- (project_command) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+pull <- (pull) => uast(
+    type: "Synthetic",
+    children: "image_spec", "string"
+)
+
+run_command <- (run_command) => uast(
+    type: "Synthetic",
+    children: "options", "shell_fragment", "string_array"
+)
+
+save_artifact_command <- (save_artifact_command) => uast(
+    type: "If",
+    children: "options", "string"
+)
+
+save_image_command <- (save_image_command) => uast(
+    type: "Synthetic",
+    children: "images", "options"
+)
+
+secret <- (secret) => uast(
+    type: "Synthetic",
+    children: "string", "variable"
+)
+
+sep <- (sep) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+service <- (service) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+set_command <- (set_command) => uast(
+    type: "Set",
+    children: "string", "variable"
+)
+
+sharing <- (sharing) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+shell_fragment <- (shell_fragment) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+single_quoted_string <- (single_quoted_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: "block"
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_array <- (string_array) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+strings <- (strings) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+target <- (target) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+target_artifact <- (target_artifact) => uast(
+    type: "If",
+    children: []
+)
+
+target_artifact_build_args <- (target_artifact_build_args) => uast(
+    type: "If",
+    children: []
+)
+
+target_ref <- (target_ref) => uast(
+    type: "Synthetic",
+    children: "earthfile_ref", "identifier"
+)
+
+target_ref_with_build_args <- (target_ref_with_build_args) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+try_command <- (try_command) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "block"
+)
+
+unknown_option <- (unknown_option) => uast(
+    type: "Synthetic",
+    children: "string"
+)
+
+unquoted_string <- (unquoted_string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+user_command <- (user_command) => uast(
+    type: "Synthetic",
+    children: "identifier", "number"
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+version_command <- (version_command) => uast(
+    type: "Synthetic",
+    children: "options", "version_major_minor"
+)
+
+volume_command <- (volume_command) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+wait_command <- (wait_command) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+with_docker_command <- (with_docker_command) => uast(
+    type: "Synthetic",
+    children: "options"
+)
+
+workdir_command <- (workdir_command) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ARG <- (ARG) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+AS <- (AS) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+BUILD <- (BUILD) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+CACHE <- (CACHE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+CMD <- (CMD) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+COMMAND <- (COMMAND) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+COPY <- (COPY) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+DO <- (DO) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ELSE <- (ELSE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+END <- (END) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ENTRYPOINT <- (ENTRYPOINT) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+ENV <- (ENV) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+EXPOSE <- (EXPOSE) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+FINALLY <- (FINALLY) => uast(
+    type: "Finally",
+    roles: "Finally"
+    children: []
+)
+
+FOR <- (FOR) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+FROM <- (FROM) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+FUNCTION <- (FUNCTION) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: []
+)
+
+HOST <- (HOST) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+IF <- (IF) => uast(
+    type: "If",
+    children: []
+)
+
+IMPORT <- (IMPORT) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+IN <- (IN) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+LABEL <- (LABEL) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+LET <- (LET) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+LOCALLY <- (LOCALLY) => uast(
+    type: "Call",
+    roles: "Call"
+    children: []
+)
+
+PROJECT <- (PROJECT) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+RUN <- (RUN) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+SET <- (SET) => uast(
+    type: "Set",
+    children: []
+)
+
+TRY <- (TRY) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+USER <- (USER) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+VERSION <- (VERSION) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+VOLUME <- (VOLUME) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+WAIT <- (WAIT) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+WORKDIR <- (WORKDIR) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+allow_privileged <- (allow_privileged) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+auto_skip <- (auto_skip) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+aws <- (aws) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cache_hint <- (cache_hint) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+dir <- (dir) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+entrypoint <- (entrypoint) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+feature_flag <- (feature_flag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+force <- (force) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+global <- (global) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if_exists <- (if_exists) => uast(
+    type: "If",
+    children: []
+)
+
+keep_own <- (keep_own) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+keep_ts <- (keep_ts) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+line_continuation <- (line_continuation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+line_continuation_comment <- (line_continuation_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+network_none <- (network_none) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+no_cache <- (no_cache) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+pass_args <- (pass_args) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+persist <- (persist) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+privileged <- (privileged) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+push <- (push) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+raw_output <- (raw_output) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+required <- (required) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ssh <- (ssh) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+symlink_no_follow <- (symlink_no_follow) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+version_major_minor <- (version_major_minor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+without_earthly_labels <- (without_earthly_labels) => uast(
+    type: "Synthetic",
+    children: []
+)
+

@@ -1,0 +1,69 @@
+suite: typeannotation
+name: go-typeannotation
+
+parse_cases:
+  - name: typeannotation
+    input: |
+      func j(x int, y string) (int, error) {
+          var z int = 42
+          return z, nil
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "j"
+          token: "j"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "j"
+            - type: "Block"
+              roles: ["Body"]
+              children:
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "x"
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "y"
+            - type: "Block"
+              roles: ["Body"]
+              children:
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+            - type: "Block"
+              roles: ["Body"]
+              children:
+                - type: "Variable"
+                  roles: ["Variable", "Declaration"]
+                  props:
+                    name: "z"
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "z"
+                    - type: "Block"
+                      roles: ["Body"]
+                - type: "Return"
+                  roles: ["Return"]
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "z" 

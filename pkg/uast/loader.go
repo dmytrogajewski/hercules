@@ -67,6 +67,9 @@ func (l *Loader) getLanguage(language string) *sitter.Language {
 
 // LoadAllProviders loads all available providers.
 func (l *Loader) LoadAllProviders() (map[string]Provider, error) {
+	if l.embedFS == nil {
+		return nil, fmt.Errorf("embedFS is nil")
+	}
 	providers := make(map[string]Provider)
 
 	// Walk through the providers directory to find all .uastmap files

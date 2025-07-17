@@ -1,0 +1,578 @@
+annotation <- (annotation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+annotations <- (annotations) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+apply_expr <- (apply_expr) => uast(
+    type: "Synthetic",
+    children: "in_expr"
+)
+
+array_expr <- (array_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+assign <- (assign) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+block_stmt <- (block_stmt) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+break_stmt <- (break_stmt) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+cast_or_query <- (cast_or_query) => uast(
+    type: "Cast",
+    children: []
+)
+
+char <- (char) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+class_decl <- (class_decl) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: "ident_param", "member", "tuple_expr", "var_param_decls"
+)
+
+component_decl <- (component_decl) => uast(
+    type: "Synthetic",
+    children: "identifier", "member"
+)
+
+const <- (const) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+continue_stmt <- (continue_stmt) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+def_member <- (def_member) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+def_method <- (def_method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+def_stmt <- (def_stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+empty_stmt <- (empty_stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+enum_case <- (enum_case) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "expr", "identifier"
+)
+
+enum_cases <- (enum_cases) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+enum_decl <- (enum_decl) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: "enum_cases", "identifier", "param_decls"
+)
+
+escape <- (escape) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+export_decl <- (export_decl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expr <- (expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expr_stmt <- (expr_stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+exprs <- (exprs) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for_stmt <- (for_stmt) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+id_type_pattern <- (id_type_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+ident_param <- (ident_param) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+if_expr <- (if_expr) => uast(
+    type: "If",
+    children: []
+)
+
+if_stmt <- (if_stmt) => uast(
+    type: "If",
+    children: []
+)
+
+in_expr <- (in_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inc_or_dec <- (inc_or_dec) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+inc_or_dec_expr <- (inc_or_dec_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+index_expr <- (index_expr) => uast(
+    type: "Index",
+    roles: "Index"
+    children: []
+)
+
+index_method <- (index_method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+infix <- (infix) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+literal <- (literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+    children: []
+)
+
+match_case <- (match_case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+match_pattern <- (match_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+match_stmt <- (match_stmt) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+member <- (member) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+member_expr <- (member_expr) => uast(
+    type: "Synthetic",
+    children: "ident_param", "integer", "operator"
+)
+
+method <- (method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: "ident_param", "method_body", "this", "type_ref", "var_param_decls"
+)
+
+method_body <- (method_body) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+    children: []
+)
+
+new_member <- (new_member) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+new_param_decl <- (new_param_decl) => uast(
+    type: "Synthetic",
+    children: "identifier", "type_ref"
+)
+
+new_param_decls <- (new_param_decls) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+operator <- (operator) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+param_decl <- (param_decl) => uast(
+    type: "Synthetic",
+    children: "identifier", "type_ref"
+)
+
+param_decls <- (param_decls) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+param_expr <- (param_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+range_expr <- (range_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return_stmt <- (return_stmt) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+stmt <- (stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sub_expr <- (sub_expr) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+symbol <- (symbol) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+symbol_param <- (symbol_param) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+symbol_pattern <- (symbol_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: []
+)
+
+term <- (term) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+top_level_decl <- (top_level_decl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tuple_expr <- (tuple_expr) => uast(
+    type: "Tuple",
+    children: []
+)
+
+type_args <- (type_args) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_args_enclosed <- (type_args_enclosed) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type_ref <- (type_ref) => uast(
+    type: "Synthetic",
+    children: "ident_param", "type_args", "type_ref"
+)
+
+var_decl <- (var_decl) => uast(
+    type: "Synthetic",
+    children: "expr", "identifier", "type_ref"
+)
+
+var_decls <- (var_decls) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+var_member <- (var_member) => uast(
+    type: "Synthetic",
+    children: "var_decls"
+)
+
+var_param_decl <- (var_param_decl) => uast(
+    type: "Synthetic",
+    children: "identifier", "type_ref"
+)
+
+var_param_decls <- (var_param_decls) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+var_stmt <- (var_stmt) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variant_case <- (variant_case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: "def_method", "identifier", "param_decls"
+)
+
+variant_decl <- (variant_decl) => uast(
+    type: "Synthetic",
+    children: "ident_param", "param_decls", "variant_member"
+)
+
+variant_member <- (variant_member) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while_stmt <- (while_stmt) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+_ <- (_) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+    children: []
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+    children: []
+)
+
+class <- (class) => uast(
+    type: "Class",
+    roles: "Class", "Declaration"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+component <- (component) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+continue <- (continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+    children: []
+)
+
+def <- (def) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+enum <- (enum) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+    children: []
+)
+
+export <- (export) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+extends <- (extends) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+false <- (false) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+float <- (float) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+hex_char <- (hex_char) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+    children: []
+)
+
+in <- (in) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+match <- (match) => uast(
+    type: "Match",
+    roles: "Match"
+    children: []
+)
+
+new <- (new) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+null <- (null) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+printable <- (printable) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+private <- (private) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+super <- (super) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+this <- (this) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+true <- (true) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+type <- (type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+var <- (var) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+

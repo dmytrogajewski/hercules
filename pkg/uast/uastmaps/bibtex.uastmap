@@ -1,0 +1,104 @@
+command <- (command) => uast(
+    type: "Synthetic",
+    children: "command_name"
+)
+
+document <- (document) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+entry <- (entry) => uast(
+    type: "Try",
+    roles: "Try"
+    children: "entry_type", "field", "key_brace", "key_paren"
+)
+
+field <- (field) => uast(
+    type: "Field",
+    roles: "Member"
+    children: "identifier", "value"
+)
+
+preamble <- (preamble) => uast(
+    type: "Synthetic",
+    children: "preamble_type", "value"
+)
+
+string <- (string) => uast(
+    type: "Synthetic",
+    children: "identifier", "string_type", "value"
+)
+
+token <- (token) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+value <- (value) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+brace_word <- (brace_word) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+command_name <- (command_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+entry_type <- (entry_type) => uast(
+    type: "Try",
+    roles: "Try"
+    children: []
+)
+
+identifier <- (identifier) => uast(
+    type: "If",
+    children: []
+)
+
+junk <- (junk) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+key_brace <- (key_brace) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+key_paren <- (key_paren) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+number <- (number) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+preamble_type <- (preamble_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quote_word <- (quote_word) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+string_type <- (string_type) => uast(
+    type: "Synthetic",
+    children: []
+)
+

@@ -1,0 +1,358 @@
+_node <- (_node) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+attribute <- (attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+attribute_name <- (attribute_name) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+attribute_value <- (attribute_value) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+await_end <- (await_end) => uast(
+    type: "Await",
+    roles: "Await"
+    children: []
+)
+
+await_start <- (await_start) => uast(
+    type: "Await",
+    roles: "Await"
+    children: []
+)
+
+await_statement <- (await_statement) => uast(
+    type: "Await",
+    roles: "Await"
+    children: []
+)
+
+block_end_tag <- (block_end_tag) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "await", "each", "if", "key", "snippet"
+)
+
+block_start_tag <- (block_start_tag) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "await", "each", "if", "key", "snippet"
+)
+
+block_tag <- (block_tag) => uast(
+    type: "Block",
+    roles: "Body"
+    children: "catch", "else", "then"
+)
+
+catch_block <- (catch_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+catch_start <- (catch_start) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+const_tag <- (const_tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+debug_tag <- (debug_tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doctype <- (doctype) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+document <- (document) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+each_end <- (each_end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+each_start <- (each_start) => uast(
+    type: "Synthetic",
+    children: "svelte_raw_text"
+)
+
+each_statement <- (each_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+element <- (element) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else_block <- (else_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+else_if_block <- (else_if_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+else_if_start <- (else_if_start) => uast(
+    type: "If",
+    children: "svelte_raw_text"
+)
+
+else_start <- (else_start) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+end_tag <- (end_tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+erroneous_end_tag <- (erroneous_end_tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expression <- (expression) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+expression_tag <- (expression_tag) => uast(
+    type: "Synthetic",
+    children: "const", "debug", "html", "render"
+)
+
+html_tag <- (html_tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if_end <- (if_end) => uast(
+    type: "If",
+    children: []
+)
+
+if_start <- (if_start) => uast(
+    type: "If",
+    children: "svelte_raw_text"
+)
+
+if_statement <- (if_statement) => uast(
+    type: "If",
+    children: []
+)
+
+key_end <- (key_end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+key_start <- (key_start) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+key_statement <- (key_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+quoted_attribute_value <- (quoted_attribute_value) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+    children: []
+)
+
+render_tag <- (render_tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+script_element <- (script_element) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+self_closing_tag <- (self_closing_tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+snippet_end <- (snippet_end) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+snippet_start <- (snippet_start) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+snippet_statement <- (snippet_statement) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+start_tag <- (start_tag) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+style_element <- (style_element) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+then_block <- (then_block) => uast(
+    type: "Block",
+    roles: "Body"
+    children: []
+)
+
+then_start <- (then_start) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+as <- (as) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+await <- (await) => uast(
+    type: "Await",
+    roles: "Await"
+    children: []
+)
+
+catch <- (catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+const <- (const) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+debug <- (debug) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doctype <- (doctype) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+each <- (each) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+entity <- (entity) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+erroneous_end_tag_name <- (erroneous_end_tag_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+html <- (html) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+key <- (key) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+raw_text <- (raw_text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+render <- (render) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+snippet <- (snippet) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+snippet_name <- (snippet_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+svelte_raw_text <- (svelte_raw_text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+tag_name <- (tag_name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+text <- (text) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+then <- (then) => uast(
+    type: "Synthetic",
+    children: []
+)
+

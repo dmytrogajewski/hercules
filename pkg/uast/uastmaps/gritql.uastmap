@@ -1,0 +1,808 @@
+addOperation <- (addOperation) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+assignmentAsPattern <- (assignmentAsPattern) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+bubble <- (bubble) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+codeSnippet <- (codeSnippet) => uast(
+    type: "Synthetic",
+    children: "backtickSnippet", "languageSpecificSnippet", "rawBacktickSnippet"
+)
+
+definition <- (definition) => uast(
+    type: "Synthetic",
+    children: "foreignFunctionDefinition", "functionDefinition", "patternDefinition", "predicateDefinition"
+)
+
+divOperation <- (divOperation) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+dot <- (dot) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+dotdotdot <- (dotdotdot) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+every <- (every) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+files <- (files) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+foreignFunctionBody <- (foreignFunctionBody) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "foreignLanguageCode"
+)
+
+foreignFunctionDefinition <- (foreignFunctionDefinition) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "foreignFunctionBody", "foreignLanguageName", "name", "variable"
+)
+
+foreignLanguageCode <- (foreignLanguageCode) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+foreignLanguageName <- (foreignLanguageName) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+functionDefinition <- (functionDefinition) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "functionDefinitionBody", "name", "variable"
+)
+
+functionDefinitionBody <- (functionDefinitionBody) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+    children: "booleanConstant", "log", "predicateAccumulate", "predicateAnd", "predicateAny", "predicateAssignment", "predicateCall", "predicateEqual", "predicateGreater", "predicateGreaterEqual", "predicateIfElse", "predicateLess", "predicateLessEqual", "predicateMatch", "predicateMaybe", "predicateNot", "predicateNotEqual", "predicateOr", "predicateReturn", "predicateRewrite"
+)
+
+langdecl <- (langdecl) => uast(
+    type: "Synthetic",
+    children: "languageName", "language_flavor"
+)
+
+languageName <- (languageName) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+languageSpecificSnippet <- (languageSpecificSnippet) => uast(
+    type: "If",
+    children: "doubleQuoteSnippet", "languageName"
+)
+
+like <- (like) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+list <- (list) => uast(
+    type: "List",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "dotdotdot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+listIndex <- (listIndex) => uast(
+    type: "List",
+    children: "list", "listIndex", "mapAccessor", "signedIntConstant", "variable"
+)
+
+log <- (log) => uast(
+    type: "Synthetic",
+    children: "stringConstant", "variable"
+)
+
+map <- (map) => uast(
+    type: "Synthetic",
+    children: "mapElement"
+)
+
+mapAccessor <- (mapAccessor) => uast(
+    type: "Synthetic",
+    children: "listIndex", "map", "mapAccessor", "name", "variable"
+)
+
+mapElement <- (mapElement) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "name", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+modOperation <- (modOperation) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+mulOperation <- (mulOperation) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+namedArg <- (namedArg) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "name", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+nodeLike <- (nodeLike) => uast(
+    type: "Synthetic",
+    children: "name", "namedArg"
+)
+
+patternAccumulate <- (patternAccumulate) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+patternAfter <- (patternAfter) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+patternAnd <- (patternAnd) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+patternAny <- (patternAny) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+patternAs <- (patternAs) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+patternBefore <- (patternBefore) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+patternContains <- (patternContains) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+patternDefinition <- (patternDefinition) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "langdecl", "name", "patternDefinitionBody", "private", "variable"
+)
+
+patternDefinitionBody <- (patternDefinitionBody) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+patternIfElse <- (patternIfElse) => uast(
+    type: "If",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "predicateAccumulate", "predicateAnd", "predicateAny", "predicateAssignment", "predicateCall", "predicateEqual", "predicateGreater", "predicateGreaterEqual", "predicateIfElse", "predicateLess", "predicateLessEqual", "predicateMatch", "predicateMaybe", "predicateNot", "predicateNotEqual", "predicateOr", "predicateReturn", "predicateRewrite", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+patternIncludes <- (patternIncludes) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+patternLimit <- (patternLimit) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+patternMaybe <- (patternMaybe) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+patternNot <- (patternNot) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+patternOr <- (patternOr) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+patternOrElse <- (patternOrElse) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+patternWhere <- (patternWhere) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "predicateAccumulate", "predicateAnd", "predicateAny", "predicateAssignment", "predicateCall", "predicateEqual", "predicateGreater", "predicateGreaterEqual", "predicateIfElse", "predicateLess", "predicateLessEqual", "predicateMatch", "predicateMaybe", "predicateNot", "predicateNotEqual", "predicateOr", "predicateReturn", "predicateRewrite", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+predicateAccumulate <- (predicateAccumulate) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+predicateAnd <- (predicateAnd) => uast(
+    type: "Synthetic",
+    children: "booleanConstant", "log", "predicateAccumulate", "predicateAnd", "predicateAny", "predicateAssignment", "predicateCall", "predicateEqual", "predicateGreater", "predicateGreaterEqual", "predicateIfElse", "predicateLess", "predicateLessEqual", "predicateMatch", "predicateMaybe", "predicateNot", "predicateNotEqual", "predicateOr", "predicateReturn", "predicateRewrite"
+)
+
+predicateAny <- (predicateAny) => uast(
+    type: "Synthetic",
+    children: "booleanConstant", "log", "predicateAccumulate", "predicateAnd", "predicateAny", "predicateAssignment", "predicateCall", "predicateEqual", "predicateGreater", "predicateGreaterEqual", "predicateIfElse", "predicateLess", "predicateLessEqual", "predicateMatch", "predicateMaybe", "predicateNot", "predicateNotEqual", "predicateOr", "predicateReturn", "predicateRewrite"
+)
+
+predicateAssignment <- (predicateAssignment) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+predicateCall <- (predicateCall) => uast(
+    type: "Call",
+    roles: "Call"
+    children: "name", "namedArg"
+)
+
+predicateDefinition <- (predicateDefinition) => uast(
+    type: "Synthetic",
+    children: "name", "predicateDefinitionBody", "variable"
+)
+
+predicateDefinitionBody <- (predicateDefinitionBody) => uast(
+    type: "Synthetic",
+    children: "booleanConstant", "log", "predicateAccumulate", "predicateAnd", "predicateAny", "predicateAssignment", "predicateCall", "predicateEqual", "predicateGreater", "predicateGreaterEqual", "predicateIfElse", "predicateLess", "predicateLessEqual", "predicateMatch", "predicateMaybe", "predicateNot", "predicateNotEqual", "predicateOr", "predicateReturn", "predicateRewrite"
+)
+
+predicateEqual <- (predicateEqual) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+predicateGreater <- (predicateGreater) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+predicateGreaterEqual <- (predicateGreaterEqual) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+predicateIfElse <- (predicateIfElse) => uast(
+    type: "If",
+    children: "booleanConstant", "log", "predicateAccumulate", "predicateAnd", "predicateAny", "predicateAssignment", "predicateCall", "predicateEqual", "predicateGreater", "predicateGreaterEqual", "predicateIfElse", "predicateLess", "predicateLessEqual", "predicateMatch", "predicateMaybe", "predicateNot", "predicateNotEqual", "predicateOr", "predicateReturn", "predicateRewrite"
+)
+
+predicateLess <- (predicateLess) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+predicateLessEqual <- (predicateLessEqual) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+predicateMatch <- (predicateMatch) => uast(
+    type: "Match",
+    roles: "Match"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+predicateMaybe <- (predicateMaybe) => uast(
+    type: "Synthetic",
+    children: "booleanConstant", "log", "predicateAccumulate", "predicateAnd", "predicateAny", "predicateAssignment", "predicateCall", "predicateEqual", "predicateGreater", "predicateGreaterEqual", "predicateIfElse", "predicateLess", "predicateLessEqual", "predicateMatch", "predicateMaybe", "predicateNot", "predicateNotEqual", "predicateOr", "predicateReturn", "predicateRewrite"
+)
+
+predicateNot <- (predicateNot) => uast(
+    type: "Synthetic",
+    children: "booleanConstant", "log", "predicateAccumulate", "predicateAnd", "predicateAny", "predicateAssignment", "predicateCall", "predicateEqual", "predicateGreater", "predicateGreaterEqual", "predicateIfElse", "predicateLess", "predicateLessEqual", "predicateMatch", "predicateMaybe", "predicateNot", "predicateNotEqual", "predicateOr", "predicateReturn", "predicateRewrite"
+)
+
+predicateNotEqual <- (predicateNotEqual) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+predicateOr <- (predicateOr) => uast(
+    type: "Synthetic",
+    children: "booleanConstant", "log", "predicateAccumulate", "predicateAnd", "predicateAny", "predicateAssignment", "predicateCall", "predicateEqual", "predicateGreater", "predicateGreaterEqual", "predicateIfElse", "predicateLess", "predicateLessEqual", "predicateMatch", "predicateMaybe", "predicateNot", "predicateNotEqual", "predicateOr", "predicateReturn", "predicateRewrite"
+)
+
+predicateReturn <- (predicateReturn) => uast(
+    type: "Return",
+    roles: "Return"
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+predicateRewrite <- (predicateRewrite) => uast(
+    type: "Synthetic",
+    children: "addOperation", "annotation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+range <- (range) => uast(
+    type: "Synthetic",
+    children: "intConstant"
+)
+
+regexPattern <- (regexPattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+    children: "regex", "snippetRegex", "variable"
+)
+
+rewrite <- (rewrite) => uast(
+    type: "Synthetic",
+    children: "addOperation", "annotation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+sequential <- (sequential) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+snippetRegex <- (snippetRegex) => uast(
+    type: "Synthetic",
+    children: "backtickSnippet"
+)
+
+some <- (some) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "definition", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "langdecl", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "version", "within"
+)
+
+subOperation <- (subOperation) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+version <- (version) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+within <- (within) => uast(
+    type: "Synthetic",
+    children: "addOperation", "assignmentAsPattern", "booleanConstant", "bottom", "bubble", "codeSnippet", "divOperation", "dot", "doubleConstant", "every", "files", "intConstant", "like", "list", "listIndex", "log", "map", "mapAccessor", "modOperation", "mulOperation", "nodeLike", "patternAccumulate", "patternAfter", "patternAnd", "patternAny", "patternAs", "patternBefore", "patternContains", "patternIfElse", "patternIncludes", "patternLimit", "patternMaybe", "patternNot", "patternOr", "patternOrElse", "patternWhere", "range", "regexPattern", "rewrite", "sequential", "some", "stringConstant", "subOperation", "top", "undefined", "underscore", "variable", "within"
+)
+
+after <- (after) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+and <- (and) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+annotation <- (annotation) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+any <- (any) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+as <- (as) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+ast <- (ast) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+backtickSnippet <- (backtickSnippet) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+before <- (before) => uast(
+    type: "Loop",
+    roles: "Loop"
+    children: []
+)
+
+booleanConstant <- (booleanConstant) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bottom <- (bottom) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+bubble <- (bubble) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+c <- (c) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+    children: []
+)
+
+contains <- (contains) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+cpp <- (cpp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+csharp <- (csharp) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+css <- (css) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doubleConstant <- (doubleConstant) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+doubleQuoteSnippet <- (doubleQuoteSnippet) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+elixir <- (elixir) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+else <- (else) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+end_column <- (end_column) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+end_line <- (end_line) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+every <- (every) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+go <- (go) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+grit <- (grit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+hcl <- (hcl) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+html <- (html) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: []
+)
+
+includes <- (includes) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+intConstant <- (intConstant) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+java <- (java) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+js <- (js) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+json <- (json) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+kotlin <- (kotlin) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+language <- (language) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+language_flavor <- (language_flavor) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+like <- (like) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+limit <- (limit) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+markdown <- (markdown) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+marzano <- (marzano) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+maybe <- (maybe) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+message <- (message) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+multifile <- (multifile) => uast(
+    type: "If",
+    children: []
+)
+
+name <- (name) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+noBraces <- (noBraces) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+not <- (not) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+or <- (or) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+orelse <- (orelse) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+php <- (php) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+private <- (private) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+python <- (python) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+r <- (r) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rawBacktickSnippet <- (rawBacktickSnippet) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+regex <- (regex) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+return <- (return) => uast(
+    type: "Return",
+    roles: "Return"
+    children: []
+)
+
+ruby <- (ruby) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+rust <- (rust) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sequential <- (sequential) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+signedIntConstant <- (signedIntConstant) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sol <- (sol) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+solidity <- (solidity) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+some <- (some) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+sql <- (sql) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+start_column <- (start_column) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+start_line <- (start_line) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+stringConstant <- (stringConstant) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+toml <- (toml) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+top <- (top) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+undefined <- (undefined) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+underscore <- (underscore) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+universal <- (universal) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+until <- (until) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+    children: []
+)
+
+where <- (where) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+within <- (within) => uast(
+    type: "Synthetic",
+    children: []
+)
+
+yaml <- (yaml) => uast(
+    type: "Synthetic",
+    children: []
+)
+
