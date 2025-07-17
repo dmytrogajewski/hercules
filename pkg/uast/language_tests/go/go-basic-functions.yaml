@@ -19,13 +19,16 @@ parse_cases:
             - type: "Identifier"
               roles: ["Name"]
               token: "Hello"
-            - type: "ParameterList"
             - type: "Block"
+              roles: ["Body"]
+            - type: "Block"
+              roles: ["Body"]
               children:
                 - type: "Return"
                   roles: ["Return"]
                   children:
-                    - type: "ExpressionList"
+                    - type: "Block"
+                      roles: ["Body"]
                       children:
                         - type: "Literal"
                           roles: ["Literal"]
@@ -51,7 +54,8 @@ parse_cases:
             - type: "Identifier"
               roles: ["Name"]
               token: "Add"
-            - type: "ParameterList"
+            - type: "Block"
+              roles: ["Body"]
               children:
                 - type: "Parameter"
                   roles: ["Parameter", "Declaration"]
@@ -66,13 +70,16 @@ parse_cases:
                       roles: ["Name"]
                       token: "b"
             - type: "Block"
+              roles: ["Body"]
               children:
                 - type: "Return"
                   roles: ["Return"]
                   children:
-                    - type: "ExpressionList"
+                    - type: "Block"
+                      roles: ["Body"]
                       children:
-                        - type: "Synthetic"
+                        - type: "BinaryOp"
+                          roles: ["Operator"]
                           children:
                             - type: "Identifier"
                               roles: ["Name"]

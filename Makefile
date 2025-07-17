@@ -8,18 +8,20 @@ endif
 PKG = $(shell go env GOOS)_$(shell go env GOARCH)
 TAGS ?=
 
-all: ${GOBIN}/hercules${EXE} ${GOBIN}/uast${EXE}
+all: ${GOBIN}/hercules${EXE} ${GOBIN}/uast${EXE} ${GOBIN}/herr${EXE}
 
 # Install binaries to system PATH
 install: all
-	@echo "Installing hercules and uast binaries..."
+	@echo "Installing hercules, uast, and herr binaries..."
 	@if [ -w /usr/local/bin ]; then \
 		cp ${GOBIN}/hercules${EXE} /usr/local/bin/; \
 		cp ${GOBIN}/uast${EXE} /usr/local/bin/; \
+		cp ${GOBIN}/herr${EXE} /usr/local/bin/; \
 		echo "Installed to /usr/local/bin"; \
 	elif [ -w $(shell go env GOPATH)/bin ]; then \
 		cp ${GOBIN}/hercules${EXE} $(shell go env GOPATH)/bin/; \
 		cp ${GOBIN}/uast${EXE} $(shell go env GOPATH)/bin/; \
+		cp ${GOBIN}/herr${EXE} $(shell go env GOPATH)/bin/; \
 		echo "Installed to $(shell go env GOPATH)/bin"; \
 	else \
 		echo "Error: Cannot write to /usr/local/bin or $(shell go env GOPATH)/bin"; \
@@ -126,8 +128,9 @@ benchplot-timeout: all
 	python3 scripts/benchmark_plot.py benchmark_results.txt
 
 clean:
-	rm ./hercules
+	rm -f ./hercules
 	rm -f ./uast
+	rm -f ./herr
 	rm -f *.prof
 	rm -f benchmark_results.txt
 	rm -rf benchmark_plots/
@@ -163,3 +166,7 @@ ${GOBIN}/hercules${EXE}: *.go */*.go */*/*.go */*/*/*.go internal/pb/pb.pb.go in
 ${GOBIN}/uast${EXE}: *.go */*.go */*/*.go */*/*/*.go
 	LDFLAGS="-X github.com/dmytrogajewski/hercules.BinaryGitHash=$(shell git rev-parse HEAD)"; \
 	CGO_ENABLED=1 go build -tags "$(TAGS)" -ldflags "$$LDFLAGS" -o ${GOBIN}/uast${EXE} ./cmd/uast
+
+${GOBIN}/herr${EXE}: *.go */*.go */*/*.go */*/*/*.go
+	LDFLAGS="-X github.com/dmytrogajewski/hercules.BinaryGitHash=$(shell git rev-parse HEAD)"; \
+	CGO_ENABLED=1 go build -tags "$(TAGS)" -ldflags "$$LDFLAGS" -o ${GOBIN}/herr${EXE} ./cmd/herr

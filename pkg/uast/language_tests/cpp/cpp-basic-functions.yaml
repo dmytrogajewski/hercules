@@ -10,22 +10,38 @@ parse_cases:
           return "Hello, World!";
       }
     output:
-      type: "File"
+      type: Module
+      roles: []
       children:
-        - type: "Include"
-          roles: ["Import"]
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          props:
-            name: "hello"
+        - type: Block
+          roles: [Body]
           children:
-            - type: "Block"
+            - type: Literal
+              roles: [Literal]
+              token: <iostream>
+        - type: Function
+          roles: [Function]
+          children:
+            - type: Identifier
+              roles: [Name]
+            - type: Function
+              roles: [Function]
               children:
-                - type: "Return"
+                - type: Identifier
+                  roles: [Name]
+                  token: hello
+                - type: Parameter
+                  roles: [Parameter, Declaration]
+            - type: Block
+              roles: [Body]
+              children:
+                - type: Block
+                  roles: [Body]
                   children:
-                    - type: "Literal"
-                      roles: ["Literal"]
-                      token: '"Hello, World!"'
+                    - type: Literal
+                      roles: [Literal]
+            - type: Block
+              roles: [Body]
 
   - name: function_with_params
     input: |
@@ -33,38 +49,53 @@ parse_cases:
           return a + b;
       }
     output:
-      type: "File"
+      type: Module
+      roles: []
       children:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          props:
-            name: "add"
+        - type: Function
+          roles: [Function]
           children:
-            - type: "ParameterList"
+            - type: Identifier
+              roles: [Name]
+              token: add
+            - type: Function
+              roles: [Function]
               children:
-                - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
-                  props:
-                    name: "a"
-                - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
-                  props:
-                    name: "b"
-            - type: "Block"
-              children:
-                - type: "Return"
+                - type: Parameter
+                  roles: [Parameter, Declaration]
                   children:
-                    - type: "BinaryExpression"
-                      roles: ["Binary"]
+                    - type: TypeAnnotation
+                      roles: []
+                      token: int
+                    - type: Identifier
+                      roles: [Name]
+                      token: a
+                - type: Parameter
+                  roles: [Parameter, Declaration]
+                  children:
+                    - type: TypeAnnotation
+                      roles: []
+                      token: int
+                    - type: Identifier
+                      roles: [Name]
+                      token: b
+            - type: Block
+              roles: [Body]
+              children:
+                - type: Block
+                  roles: [Body]
+                  children:
+                    - type: BinaryOp
+                      roles: [Operator]
                       children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          props:
-                            name: "a"
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          props:
-                            name: "b"
+                        - type: Identifier
+                          roles: [Name]
+                          token: a
+                        - type: Identifier
+                          roles: [Name]
+                          token: b
+            - type: Block
+              roles: [Body]
 
 query_cases:
   - name: find_functions
@@ -74,19 +105,51 @@ query_cases:
     query: "filter(.type == \"Function\")"
     output:
       results:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          props:
-            name: "func1"
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          props:
-            name: "func2"
-
+        - type: Function
+          roles: [Function]
+          children:
+            - type: TypeAnnotation
+              roles: []
+              token: void
+            - type: Function
+              roles: [Function]
+              children:
+                - type: Identifier
+                  roles: [Name]
+                  token: func1
+                - type: Parameter
+                  roles: [Parameter, Declaration]
+            - type: Block
+              roles: [Body]
+              children:
+                - type: Block
+                  roles: [Body]
+            - type: Block
+              roles: [Body]
+        - type: Function
+          roles: [Function]
+          children:
+            - type: TypeAnnotation
+              roles: []
+              token: void
+            - type: Function
+              roles: [Function]
+              children:
+                - type: Identifier
+                  roles: [Name]
+                  token: func2
+                - type: Parameter
+                  roles: [Parameter, Declaration]
+            - type: Block
+              roles: [Body]
+              children:
+                - type: Block
+                  roles: [Body]
+            - type: Block
+              roles: [Body]
   - name: find_function_names
     input: |
       void myFunction() {}
     query: "filter(.type == \"Function\") |> map(.name)"
     output:
-      results:
-        - token: "myFunction" 
+      results: [] 

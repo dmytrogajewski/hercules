@@ -3,7 +3,7 @@ package uast
 import (
 	"fmt"
 
-	"github.com/dmytrogajewski/hercules/pkg/uast/internal/node"
+	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
 
 // DetectChanges detects structural changes between two UAST nodes.
