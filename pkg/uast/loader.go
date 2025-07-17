@@ -1,143 +1,104 @@
 package uast
 
 import (
-	"embed"
-	"errors"
+	"fmt"
 	"io/fs"
 	"path/filepath"
+	"strings"
 
-	"gopkg.in/yaml.v3"
+	forest "github.com/alexaandru/go-sitter-forest"
+	sitter "github.com/alexaandru/go-tree-sitter-bare"
+	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/mapping"
 )
 
-//go:embed providers/*.yaml
-var providerFS embed.FS
-
-type ProviderConfig struct {
-	Language   string             `yaml:"language"`
-	Extensions []string           `yaml:"extensions"`
-	Parser     string             `yaml:"parser"`
-	Mapping    map[string]Mapping `yaml:"mapping"`
+// Loader loads UAST providers for different languages.
+type Loader struct {
+	embedFS fs.FS
 }
 
-type Mapping struct {
-	Type        string          `yaml:"type"`
-	Roles       []string        `yaml:"roles,omitempty"`
-	Props       map[string]any  `yaml:"props,omitempty"`
-	SkipIfEmpty bool            `yaml:"skip_if_empty,omitempty"`
-	Skip        bool            `yaml:"skip,omitempty"`
-	Name        *NameExtraction `yaml:"name,omitempty"`
-	Children    []ChildMapping  `yaml:"children,omitempty"` // TODO: Add support for nested children
-	Token       string          `yaml:"token,omitempty"`    // Token extraction source
-}
-
-type Providers map[string]*ProviderConfig
-
-func LoadProviders() (Providers, error) {
-	providers := Providers{}
-	entries, err := readProviderEntries()
-	if err != nil {
-		return nil, err
+// NewLoader creates a new loader with the given embedded filesystem.
+func NewLoader(embedFS fs.FS) *Loader {
+	return &Loader{
+		embedFS: embedFS,
 	}
-	for _, entry := range entries {
-		if shouldSkipEntry(entry) {
-			continue
-		}
-		cfg, err := loadProviderConfig(entry)
+}
+
+// LoadProvider loads a provider for the given language.
+func (l *Loader) LoadProvider(language string) (Provider, error) {
+	dslContent, err := l.loadDSLMapping(language)
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to load mapping for %s: %w", language, err)
+	}
+
+	rules, err := (&mapping.MappingParser{}).ParseMapping(string(dslContent))
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse DSL mappings for %s: %w", language, err)
+	}
+
+	// Removed ValidateMappings, parsing already validates rules
+
+	lang := l.getLanguage(language)
+
+	return NewDSLProvider(lang, language, rules), nil
+}
+
+// loadDSLMapping loads DSL mapping content for a language.
+func (l *Loader) loadDSLMapping(language string) ([]byte, error) {
+	if l.embedFS == nil {
+		return nil, fmt.Errorf("embedFS is nil")
+	}
+
+	mappingPath := filepath.Join("uastmaps", language+".uastmap")
+	content, err := fs.ReadFile(l.embedFS, mappingPath)
+
+	if err != nil {
+		return nil, fmt.Errorf("mapping file not found: %s", mappingPath)
+	}
+
+	return content, nil
+}
+
+// getLanguage returns the Tree-sitter language for the given language name.
+func (l *Loader) getLanguage(language string) *sitter.Language {
+	return forest.GetLanguage(language)
+}
+
+// LoadAllProviders loads all available providers.
+func (l *Loader) LoadAllProviders() (map[string]Provider, error) {
+	providers := make(map[string]Provider)
+
+	// Walk through the providers directory to find all .uastmap files
+	err := fs.WalkDir(l.embedFS, "providers", func(path string, d fs.DirEntry, err error) error {
 		if err != nil {
-			return nil, err
+			return err
 		}
-		if isDuplicateProvider(providers, cfg.Language) {
-			return nil, createDuplicateProviderError(cfg.Language)
+
+		if d.IsDir() {
+			return nil
 		}
-		providers[cfg.Language] = cfg
+
+		if !strings.HasSuffix(path, ".uastmap") {
+			return nil
+		}
+
+		// Extract language name from filename
+		base := filepath.Base(path)
+		language := strings.TrimSuffix(base, ".uastmap")
+
+		provider, err := l.LoadProvider(language)
+		if err != nil {
+			return fmt.Errorf("failed to load provider for %s: %w", language, err)
+		}
+
+		providers[language] = provider
+		return nil
+	})
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to load providers: %w", err)
 	}
+
 	return providers, nil
-}
-
-func readProviderEntries() ([]fs.DirEntry, error) {
-	return fs.ReadDir(providerFS, "providers")
-}
-
-func shouldSkipEntry(entry fs.DirEntry) bool {
-	return entry.IsDir() || !isYamlFile(entry.Name())
-}
-
-func isYamlFile(name string) bool {
-	return filepath.Ext(name) == ".yaml"
-}
-
-func loadProviderConfig(entry fs.DirEntry) (*ProviderConfig, error) {
-	data, err := readProviderFile(entry.Name())
-	if err != nil {
-		return nil, err
-	}
-	cfg, err := parseProviderConfig(data)
-	if err != nil {
-		return nil, err
-	}
-	if isMissingLanguage(cfg) {
-		return nil, createMissingLanguageError(entry.Name())
-	}
-	if isMissingParser(cfg) {
-		return nil, createMissingParserError(entry.Name())
-	}
-	if hasInvalidMapping(cfg) {
-		return nil, createInvalidMappingError(cfg.Language)
-	}
-	return cfg, nil
-}
-
-func readProviderFile(name string) ([]byte, error) {
-	return providerFS.ReadFile("providers/" + name)
-}
-
-func parseProviderConfig(data []byte) (*ProviderConfig, error) {
-	var cfg ProviderConfig
-	err := yaml.Unmarshal(data, &cfg)
-	if err != nil {
-		return nil, err
-	}
-	return &cfg, nil
-}
-
-func isMissingLanguage(cfg *ProviderConfig) bool {
-	return cfg.Language == ""
-}
-
-func createMissingLanguageError(filename string) error {
-	return errors.New("missing language in " + filename)
-}
-
-func isMissingParser(cfg *ProviderConfig) bool {
-	return cfg.Parser == ""
-}
-
-func createMissingParserError(filename string) error {
-	return errors.New("missing parser in " + filename)
-}
-
-func hasInvalidMapping(cfg *ProviderConfig) bool {
-	for _, mapping := range cfg.Mapping {
-		if isMissingMappingType(mapping) {
-			return true
-		}
-	}
-	return false
-}
-
-func isMissingMappingType(mapping Mapping) bool {
-	return mapping.Type == ""
-}
-
-func createInvalidMappingError(language string) error {
-	return errors.New("missing type for " + language + ":kind")
-}
-
-func isDuplicateProvider(providers Providers, language string) bool {
-	_, exists := providers[language]
-	return exists
-}
-
-func createDuplicateProviderError(language string) error {
-	return errors.New("duplicate provider for language " + language)
 }

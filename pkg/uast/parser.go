@@ -1,55 +1,83 @@
 package uast
 
 import (
+	"embed"
+	"slices"
 	"strings"
 
-	"github.com/dmytrogajewski/hercules/pkg/uast/internal/node"
+	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
+
+var ProvidersMap map[string][]string = map[string][]string{
+	"go": {".go"},
+	//" csharp":     {".cs"},
+	// "kotlin":     {".kt"},
+	// "haskell":    {".hs"},
+	// "ocaml":      {".ml"},
+	// "fsharp":     {".fs"},
+	// "clojure":    {".clj"},
+	// "erlang":     {".erl"},
+	// "elixir":     {".ex", ".exs"},
+	// "bash":       {".sh", ".bash"},
+	// "powershell": {".ps1"},
+	// "javascript": {".js", ".jsx"},
+	// "typescript": {".ts", ".tsx"},
+	// "python":     {".py"},
+	// "rust":       {".rs"},
+	// "ruby":       {".rb"},
+	// "php":        {".php"},
+	// "sql":        {".sql"},
+	// "html":       {".html", ".htm"},
+	// "css":        {".css"},
+	// "xml":        {".xml"},
+	// "json":       {".json"},
+	// "yaml":       {".yaml", ".yml"},
+	// "toml":       {".toml"},
+	// "ini":        {".ini"},
+	// "markdown":   {".md"},
+	// "dockerfile": {".dockerfile"},
+	// "makefile":   {".makefile"},
+	// "c":          {".c"},
+	// "cpp":        {".cpp", ".cc", ".cxx"},
+	// "java":       {".java"},
+	// "scala":      {".scala"},
+	// "lua":        {".lua"},
+	// "perl":       {".pl"},
+	// "r":          {".r"},
+	// "dart":       {".dart"},
+	// "sh":         {".sh", ".bash"},
+	// "ps1":        {".ps1"},
+}
+
+//go:embed uastmaps
+var uastMapFs embed.FS
 
 // Parser implements Provider using embedded parsers
 // Entry point for UAST parsing
 // Parser is the main entry point for UAST parsing. It manages language providers and their configurations.
 type Parser struct {
-	providers map[string]LanguageProvider
-	configs   Providers // language -> *ProviderConfig
+	providers map[string]Provider
 }
 
-// LanguageProvider defines the interface for language-specific UAST providers.
-type LanguageProvider interface {
-	// Parse parses the given file content and returns the root UAST node.
-	// filename is the name of the file being parsed.
-	// content is the file content as bytes.
-	// Returns the root Node or an error if parsing fails.
-	Parse(filename string, content []byte) (*node.Node, error)
-	// Language returns the language name handled by this provider.
-	Language() string
-}
-
-// NewParser creates a new Parser with configuration-based language providers.
+// NewParser creates a new Parser with DSL-based language providers.
 // It loads provider configurations and instantiates providers for each supported language.
 // Returns a pointer to the Parser or an error if loading providers fails.
 func NewParser() (*Parser, error) {
-	configs, err := LoadProviders()
-	if err != nil {
-		return nil, err
-	}
 	p := &Parser{
-		providers: make(map[string]LanguageProvider),
-		configs:   configs,
+		providers: make(map[string]Provider),
 	}
-	for language, providerConfig := range configs {
-		provider := NewProviderForLanguage(language, providerConfig)
-		if provider != nil {
-			p.providers[language] = provider
-		}
-	}
-	return p, nil
-}
 
-// NewProviderForLanguage instantiates a provider for a given language and configuration.
-// Returns a LanguageProvider or nil if the language is not supported.
-func NewProviderForLanguage(language string, config *ProviderConfig) LanguageProvider {
-	return FactoryCreateProvider(language, config)
+	loader := NewLoader(uastMapFs)
+
+	for lang := range ProvidersMap {
+		pr, err := loader.LoadProvider(lang)
+		if err != nil {
+			return nil, err
+		}
+		p.providers[lang] = pr
+	}
+
+	return p, nil
 }
 
 // Parse parses the given file content using the appropriate language provider.
@@ -95,18 +123,14 @@ func (p *Parser) Parse(filename string, content []byte) (*node.Node, error) {
 }
 
 func (p *Parser) detectLanguage(filename string) string {
-	ext := strings.ToLower(getFileExtension(filename))
-	if ext == "" {
+	fileExt := strings.ToLower(getFileExtension(filename))
+	if fileExt == "" {
 		return ""
 	}
-	if !strings.HasPrefix(ext, ".") {
-		ext = "." + ext
-	}
-	for language, config := range p.configs {
-		for _, configExt := range config.Extensions {
-			if configExt == ext {
-				return language
-			}
+
+	for lang, exts := range ProvidersMap {
+		if slices.Contains(exts, fileExt) {
+			return lang
 		}
 	}
 	return ""

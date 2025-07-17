@@ -5,7 +5,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/dmytrogajewski/hercules/pkg/uast/internal/node"
+	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
 
 // Benchmark parsing performance with different file sizes and languages

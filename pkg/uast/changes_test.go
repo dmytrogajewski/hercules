@@ -4,7 +4,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/dmytrogajewski/hercules/pkg/uast/internal/node"
+	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
 
 func TestDetectChanges_NodeAdded(t *testing.T) {

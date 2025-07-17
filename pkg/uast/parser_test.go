@@ -3,7 +3,7 @@ package uast
 import (
 	"testing"
 
-	"github.com/dmytrogajewski/hercules/pkg/uast/internal/node"
+	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
 
 type mockProvider struct {
@@ -15,26 +15,16 @@ type mockProvider struct {
 func (m *mockProvider) Parse(filename string, content []byte) (*node.Node, error) {
 	return m.parseNode, m.parseErr
 }
-func (m *mockProvider) Language() string { return m.lang }
+func (m *mockProvider) Language() string                 { return m.lang }
+func (m *mockProvider) SupportedLanguages() []string     { return []string{m.lang} }
+func (m *mockProvider) IsSupported(filename string) bool { return true }
 
 func TestNewParser_CreatesProviders(t *testing.T) {
-	cfg := &ProviderConfig{
-		Language:   "go",
-		Extensions: []string{".go"},
-		Parser:     string(ParserTreeSitter),
-		Mapping:    map[string]Mapping{"foo": {Type: "Bar"}},
-	}
-	providers := Providers{"go": cfg}
-	// Use NewParser and inject configs for test
+	// Create a mock parser with providers
 	p := &Parser{
-		providers: make(map[string]LanguageProvider),
-		configs:   providers,
-	}
-	for language, providerConfig := range providers {
-		provider := NewProviderForLanguage(language, providerConfig)
-		if provider != nil {
-			p.providers[language] = provider
-		}
+		providers: map[string]Provider{
+			"go": &mockProvider{lang: "go"},
+		},
 	}
 	langs := p.SupportedLanguages()
 	if len(langs) == 0 {
@@ -44,10 +34,9 @@ func TestNewParser_CreatesProviders(t *testing.T) {
 
 func TestParser_Parse(t *testing.T) {
 	p := &Parser{
-		providers: map[string]LanguageProvider{
+		providers: map[string]Provider{
 			"go": &mockProvider{lang: "go", parseNode: &node.Node{Type: "Root"}},
 		},
-		configs: Providers{"go": &ProviderConfig{Language: "go", Extensions: []string{".go"}}},
 	}
 	node, err := p.Parse("foo.go", []byte(""))
 	if err != nil {
@@ -67,20 +56,23 @@ func TestParser_Parse(t *testing.T) {
 }
 
 func TestParser_detectLanguage(t *testing.T) {
-	cfg := &ProviderConfig{Language: "go", Extensions: []string{".go"}}
-	p := &Parser{configs: Providers{"go": cfg}}
+	p := &Parser{}
 	lang := p.detectLanguage("foo.go")
 	if lang != "go" {
 		t.Errorf("expected go, got %s", lang)
 	}
 	lang = p.detectLanguage("foo.py")
+	if lang != "python" {
+		t.Errorf("expected python, got %s", lang)
+	}
+	lang = p.detectLanguage("foo.xyz")
 	if lang != "" {
 		t.Errorf("expected empty, got %s", lang)
 	}
 }
 
 func TestParser_SupportedLanguages(t *testing.T) {
-	p := &Parser{providers: map[string]LanguageProvider{"go": &mockProvider{lang: "go"}}}
+	p := &Parser{providers: map[string]Provider{"go": &mockProvider{lang: "go"}}}
 	langs := p.SupportedLanguages()
 	if len(langs) != 1 || langs[0] != "go" {
 		t.Errorf("expected [go], got %v", langs)
@@ -88,10 +80,8 @@ func TestParser_SupportedLanguages(t *testing.T) {
 }
 
 func TestParser_IsSupported(t *testing.T) {
-	cfg := &ProviderConfig{Language: "go", Extensions: []string{".go"}}
 	p := &Parser{
-		providers: map[string]LanguageProvider{"go": &mockProvider{lang: "go"}},
-		configs:   Providers{"go": cfg},
+		providers: map[string]Provider{"go": &mockProvider{lang: "go"}},
 	}
 	if !p.IsSupported("foo.go") {
 		t.Errorf("expected true for .go")
@@ -234,25 +224,6 @@ func main() {
 	}
 	// Collect all nodes in the tree
 	nodes := uast.Find(func(n *node.Node) bool { return true })
-	// Print all node types for debugging
-	for _, n := range nodes {
-		t.Logf("Node type: %s, Props: %v", n.Type, n.Props)
-	}
-	// Print Props and Token for all Function and Method nodes
-	for _, n := range nodes {
-		if n.Type == "Function" || n.Type == "Method" {
-			t.Logf("%s Props: %v, Token: %q", n.Type, n.Props, n.Token)
-		}
-	}
-	// Print children of Method node for debugging
-	for _, n := range nodes {
-		if n.Type == "Method" {
-			t.Logf("Method node children: %d", len(n.Children))
-			for i, c := range n.Children {
-				t.Logf("  Child %d: Type=%s, Props=%v", i, c.Type, c.Props)
-			}
-		}
-	}
 	// Query: get all function/method names
 	dsl := "filter(.type == \"Function\" || .type == \"Method\") |> map(.name)"
 	ast, err := node.ParseDSL(dsl)

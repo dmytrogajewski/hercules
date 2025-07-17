@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/dmytrogajewski/hercules/pkg/uast/internal/node"
+	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
 
 // Remove old Node interface and Position struct; replaced by canonical Node and Positions in node.go
@@ -53,26 +53,6 @@ const (
 	ProviderEmbedded  ProviderType = "embedded"
 	ProviderBabelfish ProviderType = "babelfish"
 )
-
-// ConditionalFilter defines conditions for including/excluding child nodes
-type ConditionalFilter struct {
-	Type          string            `yaml:"type,omitempty"`
-	ParentContext string            `yaml:"parent_context,omitempty"`
-	HasField      string            `yaml:"has_field,omitempty"`
-	Props         map[string]string `yaml:"props,omitempty"`
-}
-
-// ChildMapping defines how to map child nodes with optional filtering
-type ChildMapping struct {
-	Type        string             `yaml:"type"`
-	ExcludeIf   *ConditionalFilter `yaml:"exclude_if,omitempty"`
-	IncludeOnly *ConditionalFilter `yaml:"include_only,omitempty"`
-}
-
-// NameExtraction defines how to extract names from nodes
-type NameExtraction struct {
-	Source string `yaml:"source"` // "fields.name", "props.name", or "text"
-}
 
 // Error types for better error handling
 type UnsupportedLanguageError struct {
