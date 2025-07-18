@@ -1,86 +1,73 @@
 array <- (array) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 array_elem <- (array_elem) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 document <- (document) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 float <- (float) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 integer <- (integer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 line_string <- (line_string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 map <- (map) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 map_field <- (map_field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "array", "false", "float", "integer", "map", "null", "string", "struct", "tag_string", "true"
 )
 
 quoted_string <- (quoted_string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 struct <- (struct) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "struct_name"
 )
 
 struct_field <- (struct_field) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "array", "false", "float", "identifier", "integer", "map", "null", "string", "struct", "tag_string", "true"
 )
 
 struct_name <- (struct_name) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 tag <- (tag) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tag_string <- (tag_string) => uast(
@@ -91,32 +78,26 @@ tag_string <- (tag_string) => uast(
 top_comment <- (top_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 top_level_struct <- (top_level_struct) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 null <- (null) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

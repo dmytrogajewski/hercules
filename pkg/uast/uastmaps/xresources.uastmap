@@ -1,16 +1,13 @@
 binding <- (binding) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 body <- (body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 components <- (components) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 define_directive <- (define_directive) => uast(
@@ -20,7 +17,7 @@ define_directive <- (define_directive) => uast(
 
 define_function_directive <- (define_function_directive) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "expansion", "identifier", "parameters"
 )
 
@@ -35,8 +32,7 @@ elifdef_directive <- (elifdef_directive) => uast(
 )
 
 else_directive <- (else_directive) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 if_directive <- (if_directive) => uast(
@@ -57,7 +53,6 @@ include_directive <- (include_directive) => uast(
 parameters <- (parameters) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 resource <- (resource) => uast(
@@ -66,13 +61,11 @@ resource <- (resource) => uast(
 )
 
 resource_value <- (resource_value) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 resources <- (resources) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 simple_directive <- (simple_directive) => uast(
@@ -81,8 +74,7 @@ simple_directive <- (simple_directive) => uast(
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 undef_directive <- (undef_directive) => uast(
@@ -91,49 +83,40 @@ undef_directive <- (undef_directive) => uast(
 )
 
 any_component <- (any_component) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 component <- (component) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 directive <- (directive) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 expansion <- (expansion) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 preprocessor_comment <- (preprocessor_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 string_content <- (string_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

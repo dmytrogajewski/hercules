@@ -1,11 +1,9 @@
 config <- (config) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 directive <- (directive) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 directive_include <- (directive_include) => uast(
@@ -20,7 +18,7 @@ directive_set <- (directive_set) => uast(
 
 entry <- (entry) => uast(
     type: "Try",
-    roles: "Try"
+    roles: "Try",
     children: "key_type", "value_type"
 )
 
@@ -30,8 +28,7 @@ section <- (section) => uast(
 )
 
 section_body <- (section_body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 section_header <- (section_header) => uast(
@@ -40,33 +37,27 @@ section_header <- (section_header) => uast(
 )
 
 INCLUDE <- (INCLUDE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SET <- (SET) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 key_type <- (key_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 section_header_type <- (section_header_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 value_type <- (value_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

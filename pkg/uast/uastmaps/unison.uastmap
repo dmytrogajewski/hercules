@@ -1,16 +1,13 @@
 ability_declaration <- (ability_declaration) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ability_name <- (ability_name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 arrow_symbol <- (arrow_symbol) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bang <- (bang) => uast(
@@ -19,30 +16,27 @@ bang <- (bang) => uast(
 )
 
 close_parens <- (close_parens) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 constructor <- (constructor) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "arrow_symbol", "built_in_hash", "delayed", "effect", "forall", "hash_qualifier", "operator", "path", "regular_identifier", "sequence_type", "tuple_or_parenthesized_type", "unit"
 )
 
 constructor_name <- (constructor_name) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 ctor <- (ctor) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 delay_block <- (delay_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "and", "arrow_symbol", "bang", "built_in_hash", "cases", "delay_block", "delay_quote", "delayed", "doc_block", "effect", "exp_if", "exp_let", "float", "forall", "force", "handler", "hash_qualifier", "int", "literal_boolean", "literal_byte", "literal_char", "literal_function", "literal_hex", "literal_list", "literal_termlink", "literal_text", "literal_typelink", "match", "nat", "operator", "or", "path", "pattern", "prefix_operator", "regular_identifier", "rewrite_block", "sequence_type", "tuple_or_parenthesized", "tuple_or_parenthesized_type", "type_signature_colon", "unit", "with"
 )
 
@@ -52,35 +46,30 @@ delay_quote <- (delay_quote) => uast(
 )
 
 delayed <- (delayed) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 destructuring_bind <- (destructuring_bind) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "and", "arrow_symbol", "bang", "built_in_hash", "cases", "delay_block", "delay_quote", "delayed", "doc_block", "effect", "exp_if", "exp_let", "float", "forall", "force", "handler", "hash_qualifier", "int", "literal_boolean", "literal_byte", "literal_char", "literal_function", "literal_hex", "literal_list", "literal_termlink", "literal_text", "literal_typelink", "match", "nat", "operator", "or", "path", "pattern", "prefix_operator", "regular_identifier", "rewrite_block", "sequence_type", "tuple_or_parenthesized", "tuple_or_parenthesized_type", "type_signature_colon", "unit", "with"
 )
 
 effect <- (effect) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 effect_bind <- (effect_bind) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 effect_pattern <- (effect_pattern) => uast(
     type: "Pattern",
     roles: "Pattern"
-    children: []
 )
 
 effect_pure <- (effect_pure) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 exp_if <- (exp_if) => uast(
@@ -96,19 +85,16 @@ exp_let <- (exp_let) => uast(
 field_name <- (field_name) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 forall <- (forall) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 force <- (force) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 guard <- (guard) => uast(
@@ -118,7 +104,7 @@ guard <- (guard) => uast(
 
 guarded_block <- (guarded_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "and", "arrow_symbol", "bang", "built_in_hash", "cases", "delay_block", "delay_quote", "delayed", "doc_block", "effect", "exp_if", "exp_let", "float", "forall", "force", "handler", "hash_qualifier", "int", "literal_boolean", "literal_byte", "literal_char", "literal_function", "literal_hex", "literal_list", "literal_termlink", "literal_text", "literal_typelink", "match", "nat", "operator", "or", "path", "pattern", "prefix_operator", "regular_identifier", "rewrite_block", "sequence_type", "tuple_or_parenthesized", "tuple_or_parenthesized_type", "type_signature_colon", "unit", "with"
 )
 
@@ -128,126 +114,109 @@ handler <- (handler) => uast(
 )
 
 hash_qualifier <- (hash_qualifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 kw_else <- (kw_else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kw_forall <- (kw_forall) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 kw_if <- (kw_if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 kw_then <- (kw_then) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 literal_boolean <- (literal_boolean) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 literal_char <- (literal_char) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 literal_function <- (literal_function) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "and", "arrow_symbol", "bang", "built_in_hash", "cases", "delay_block", "delay_quote", "delayed", "doc_block", "effect", "exp_if", "exp_let", "float", "forall", "force", "handler", "hash_qualifier", "int", "literal_boolean", "literal_byte", "literal_char", "literal_function", "literal_hex", "literal_list", "literal_termlink", "literal_text", "literal_typelink", "match", "nat", "operator", "or", "path", "pattern", "prefix_operator", "regular_identifier", "rewrite_block", "sequence_type", "tuple_or_parenthesized", "tuple_or_parenthesized_type", "type_signature_colon", "unit", "with"
 )
 
 literal_list <- (literal_list) => uast(
     type: "Literal",
-    roles: "Literal"
+    roles: "Literal",
     children: "and", "arrow_symbol", "bang", "built_in_hash", "cases", "delay_block", "delay_quote", "delayed", "doc_block", "effect", "exp_if", "exp_let", "float", "forall", "force", "handler", "hash_qualifier", "int", "literal_boolean", "literal_byte", "literal_char", "literal_function", "literal_hex", "literal_list", "literal_termlink", "literal_text", "literal_typelink", "match", "nat", "operator", "or", "path", "pattern", "prefix_operator", "regular_identifier", "rewrite_block", "sequence_type", "tuple_or_parenthesized", "tuple_or_parenthesized_type", "type_signature_colon", "unit", "with"
 )
 
 literal_list_pattern <- (literal_list_pattern) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 literal_termlink <- (literal_termlink) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 literal_text <- (literal_text) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 literal_typelink <- (literal_typelink) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 namespace <- (namespace) => uast(
     type: "Namespace",
     roles: "Module"
-    children: []
 )
 
 open_parens <- (open_parens) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 parenthesized_or_tuple_pattern <- (parenthesized_or_tuple_pattern) => uast(
-    type: "Tuple",
-    children: []
+    type: "Tuple"
 )
 
 pattern <- (pattern) => uast(
     type: "Pattern",
-    roles: "Pattern"
+    roles: "Pattern",
     children: "and", "arrow_symbol", "bang", "built_in_hash", "cases", "delay_block", "delay_quote", "delayed", "doc_block", "effect", "exp_if", "exp_let", "float", "forall", "force", "handler", "hash_qualifier", "int", "literal_boolean", "literal_byte", "literal_char", "literal_function", "literal_hex", "literal_list", "literal_termlink", "literal_text", "literal_typelink", "match", "nat", "operator", "or", "path", "pattern", "prefix_operator", "regular_identifier", "rewrite_block", "sequence_type", "tuple_or_parenthesized", "tuple_or_parenthesized_type", "type_signature_colon", "unit", "with"
 )
 
 record <- (record) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 record_field <- (record_field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "arrow_symbol", "built_in_hash", "delayed", "effect", "forall", "hash_qualifier", "operator", "path", "regular_identifier", "sequence_type", "tuple_or_parenthesized_type", "unit"
 )
 
 regular_identifier <- (regular_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 rewrite_block <- (rewrite_block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 rewrite_case <- (rewrite_case) => uast(
     type: "Case",
-    roles: "Branch"
+    roles: "Branch",
     children: "and", "arrow_symbol", "bang", "built_in_hash", "cases", "delay_block", "delay_quote", "delayed", "doc_block", "effect", "exp_if", "exp_let", "float", "forall", "force", "handler", "hash_qualifier", "int", "literal_boolean", "literal_byte", "literal_char", "literal_function", "literal_hex", "literal_list", "literal_termlink", "literal_text", "literal_typelink", "match", "nat", "operator", "or", "path", "pattern", "prefix_operator", "regular_identifier", "rewrite_block", "sequence_type", "tuple_or_parenthesized", "tuple_or_parenthesized_type", "type_signature_colon", "unit", "with"
 )
 
@@ -257,18 +226,15 @@ rewrite_term <- (rewrite_term) => uast(
 )
 
 rewrite_type <- (rewrite_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sequence_type <- (sequence_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 term_declaration <- (term_declaration) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 term_definition <- (term_definition) => uast(
@@ -277,8 +243,7 @@ term_definition <- (term_definition) => uast(
 )
 
 term_type <- (term_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 test_watch_expression <- (test_watch_expression) => uast(
@@ -292,29 +257,24 @@ tuple_or_parenthesized <- (tuple_or_parenthesized) => uast(
 )
 
 tuple_or_parenthesized_type <- (tuple_or_parenthesized_type) => uast(
-    type: "Tuple",
-    children: []
+    type: "Tuple"
 )
 
 type_argument <- (type_argument) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type_constructor <- (type_constructor) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 type_declaration <- (type_declaration) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type_name <- (type_name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type_signature <- (type_signature) => uast(
@@ -323,38 +283,31 @@ type_signature <- (type_signature) => uast(
 )
 
 type_signature_colon <- (type_signature_colon) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unison <- (unison) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unit <- (unit) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 use <- (use) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 use_clause <- (use_clause) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 var_or_as <- (var_or_as) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 var_or_nullary_ctor <- (var_or_nullary_ctor) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 watch_expression <- (watch_expression) => uast(
@@ -363,288 +316,233 @@ watch_expression <- (watch_expression) => uast(
 )
 
 ability <- (ability) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 and <- (and) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 at_token <- (at_token) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 blank_pattern <- (blank_pattern) => uast(
     type: "Pattern",
     roles: "Pattern"
-    children: []
 )
 
 built_in_hash <- (built_in_hash) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 case <- (case) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 cases <- (cases) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 close_bracket <- (close_bracket) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 colon <- (colon) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comma <- (comma) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 concat <- (concat) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cons <- (cons) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cyclic_index <- (cyclic_index) => uast(
     type: "Index",
     roles: "Index"
-    children: []
 )
 
 do <- (do) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 doc_block <- (doc_block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 dot <- (dot) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 float <- (float) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fold <- (fold) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 forall <- (forall) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 handle <- (handle) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hash_cid <- (hash_cid) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hash_prefix <- (hash_prefix) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 int <- (int) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kw_equals <- (kw_equals) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kw_let <- (kw_let) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kw_termlink <- (kw_termlink) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kw_typelink <- (kw_typelink) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 literal_byte <- (literal_byte) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 literal_hex <- (literal_hex) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 match <- (match) => uast(
     type: "Match",
     roles: "Match"
-    children: []
 )
 
 nat <- (nat) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 open_bracket <- (open_bracket) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 operator <- (operator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 or <- (or) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 otherwise <- (otherwise) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 path <- (path) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 pipe <- (pipe) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 prefix_operator <- (prefix_operator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 rewrite <- (rewrite) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 rewrite_arrow <- (rewrite_arrow) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 signature <- (signature) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 snoc <- (snoc) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 structural <- (structural) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 term <- (term) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 then <- (then) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type_kw <- (type_kw) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unique <- (unique) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 use <- (use) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 where <- (where) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 with <- (with) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

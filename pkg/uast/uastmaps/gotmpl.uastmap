@@ -1,23 +1,21 @@
 argument_list <- (argument_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 assignment <- (assignment) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "assignment", "chained_pipeline", "dot", "false", "field", "float_literal", "function_call", "imaginary_literal", "int_literal", "interpreted_string_literal", "method_call", "nil", "parenthesized_pipeline", "raw_string_literal", "rune_literal", "selector_expression", "true", "variable", "variable_definition"
 )
 
 block_action <- (block_action) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "assignment", "block_action", "chained_pipeline", "comment", "define_action", "dot", "false", "field", "float_literal", "function_call", "if_action", "imaginary_literal", "int_literal", "interpreted_string_literal", "method_call", "nil", "parenthesized_pipeline", "range_action", "raw_string_literal", "rune_literal", "selector_expression", "template_action", "text", "true", "variable", "variable_definition", "with_action", "yaml_no_injection_text"
 )
 
 chained_pipeline <- (chained_pipeline) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 define_action <- (define_action) => uast(
@@ -26,19 +24,18 @@ define_action <- (define_action) => uast(
 )
 
 dot <- (dot) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 field <- (field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "identifier"
 )
 
 function_call <- (function_call) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "argument_list", "identifier"
 )
 
@@ -50,18 +47,16 @@ if_action <- (if_action) => uast(
 interpreted_string_literal <- (interpreted_string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 method_call <- (method_call) => uast(
     type: "Method",
-    roles: "Function", "Declaration", "Member"
+    roles: "Function", "Declaration", "Member",
     children: "argument_list", "field", "selector_expression"
 )
 
 parenthesized_pipeline <- (parenthesized_pipeline) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 range_action <- (range_action) => uast(
@@ -71,7 +66,7 @@ range_action <- (range_action) => uast(
 
 range_variable_definition <- (range_variable_definition) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "assignment", "chained_pipeline", "dot", "false", "field", "float_literal", "function_call", "imaginary_literal", "int_literal", "interpreted_string_literal", "method_call", "nil", "parenthesized_pipeline", "raw_string_literal", "rune_literal", "selector_expression", "true", "variable", "variable_definition"
 )
 
@@ -81,8 +76,7 @@ selector_expression <- (selector_expression) => uast(
 )
 
 template <- (template) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 template_action <- (template_action) => uast(
@@ -91,19 +85,18 @@ template_action <- (template_action) => uast(
 )
 
 text <- (text) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 variable <- (variable) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "identifier"
 )
 
 variable_definition <- (variable_definition) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "assignment", "chained_pipeline", "dot", "false", "field", "float_literal", "function_call", "imaginary_literal", "int_literal", "interpreted_string_literal", "method_call", "nil", "parenthesized_pipeline", "raw_string_literal", "rune_literal", "selector_expression", "true", "variable", "variable_definition"
 )
 
@@ -115,112 +108,91 @@ with_action <- (with_action) => uast(
 block <- (block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 define <- (define) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 end <- (end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 field_identifier <- (field_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 float_literal <- (float_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 imaginary_literal <- (imaginary_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 int_literal <- (int_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 nil <- (nil) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 range <- (range) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 raw_string_literal <- (raw_string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 rune_literal <- (rune_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 template <- (template) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 with <- (with) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 yaml_no_injection_text <- (yaml_no_injection_text) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

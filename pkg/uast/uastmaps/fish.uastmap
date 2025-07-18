@@ -1,17 +1,14 @@
 begin_statement <- (begin_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 brace_expansion <- (brace_expansion) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 case_clause <- (case_clause) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 command <- (command) => uast(
@@ -20,28 +17,23 @@ command <- (command) => uast(
 )
 
 command_substitution <- (command_substitution) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 concatenation <- (concatenation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 conditional_execution <- (conditional_execution) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 double_quote_string <- (double_quote_string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else_clause <- (else_clause) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else_if_clause <- (else_if_clause) => uast(
@@ -56,13 +48,13 @@ file_redirect <- (file_redirect) => uast(
 
 for_statement <- (for_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "brace_expansion", "command_substitution", "concatenation", "double_quote_string", "escape_sequence", "float", "glob", "home_dir_expansion", "integer", "single_quote_string", "variable_expansion", "variable_name", "word"
 )
 
 function_definition <- (function_definition) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "brace_expansion", "command_substitution", "concatenation", "double_quote_string", "escape_sequence", "float", "glob", "home_dir_expansion", "integer", "single_quote_string", "variable_expansion", "word"
 )
 
@@ -74,48 +66,39 @@ if_statement <- (if_statement) => uast(
 index <- (index) => uast(
     type: "Index",
     roles: "Index"
-    children: []
 )
 
 list_element_access <- (list_element_access) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 negated_statement <- (negated_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 pipe <- (pipe) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 program <- (program) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 range <- (range) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 redirect_statement <- (redirect_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 single_quote_string <- (single_quote_string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 switch_statement <- (switch_statement) => uast(
@@ -126,151 +109,124 @@ switch_statement <- (switch_statement) => uast(
 variable_expansion <- (variable_expansion) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 while_statement <- (while_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "begin_statement", "break", "command", "conditional_execution", "continue", "for_statement", "function_definition", "if_statement", "negated_statement", "pipe", "redirect_statement", "return", "switch_statement", "while_statement"
 )
 
 word <- (word) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 and <- (and) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 begin <- (begin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 break <- (break) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 case <- (case) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 continue <- (continue) => uast(
     type: "Continue",
     roles: "Continue"
-    children: []
 )
 
 direction <- (direction) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 end <- (end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 float <- (float) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 for <- (for) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 function <- (function) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 glob <- (glob) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 home_dir_expansion <- (home_dir_expansion) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 integer <- (integer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 not <- (not) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 or <- (or) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 stream_redirect <- (stream_redirect) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 switch <- (switch) => uast(
-    type: "Switch",
-    children: []
+    type: "Switch"
 )
 
 variable_name <- (variable_name) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 while <- (while) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 

@@ -1,37 +1,30 @@
 _abstract_declarator <- (_abstract_declarator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _declarator <- (_declarator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _expression <- (_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _field_declarator <- (_field_declarator) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 _statement <- (_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _type_declarator <- (_type_declarator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _type_specifier <- (_type_specifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 abstract_array_declarator <- (abstract_array_declarator) => uast(
@@ -41,13 +34,12 @@ abstract_array_declarator <- (abstract_array_declarator) => uast(
 
 abstract_function_declarator <- (abstract_function_declarator) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "_abstract_declarator", "parameter_list"
 )
 
 abstract_parenthesized_declarator <- (abstract_parenthesized_declarator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 abstract_pointer_declarator <- (abstract_pointer_declarator) => uast(
@@ -66,8 +58,7 @@ alignof_expression <- (alignof_expression) => uast(
 )
 
 argument_list <- (argument_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 array_declarator <- (array_declarator) => uast(
@@ -77,37 +68,33 @@ array_declarator <- (array_declarator) => uast(
 
 assignment_expression <- (assignment_expression) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "_expression", "call_expression", "field_expression", "identifier", "parenthesized_expression", "pointer_expression", "subscript_expression"
 )
 
 attribute <- (attribute) => uast(
     type: "Attribute",
-    roles: "Attribute"
+    roles: "Attribute",
     children: "identifier"
 )
 
 attribute_declaration <- (attribute_declaration) => uast(
     type: "Attribute",
     roles: "Attribute"
-    children: []
 )
 
 attribute_specifier <- (attribute_specifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 attributed_declarator <- (attributed_declarator) => uast(
     type: "Attribute",
     roles: "Attribute"
-    children: []
 )
 
 attributed_statement <- (attributed_statement) => uast(
     type: "Attribute",
     roles: "Attribute"
-    children: []
 )
 
 binary_expression <- (binary_expression) => uast(
@@ -118,24 +105,22 @@ binary_expression <- (binary_expression) => uast(
 bitfield_clause <- (bitfield_clause) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 break_statement <- (break_statement) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 call_expression <- (call_expression) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "_expression", "argument_list"
 )
 
 case_statement <- (case_statement) => uast(
     type: "Case",
-    roles: "Branch"
+    roles: "Branch",
     children: "_expression"
 )
 
@@ -146,14 +131,13 @@ cast_expression <- (cast_expression) => uast(
 
 catch_clause <- (catch_clause) => uast(
     type: "Catch",
-    roles: "Catch"
+    roles: "Catch",
     children: "_expression", "compound_statement"
 )
 
 char_literal <- (char_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 comma_expression <- (comma_expression) => uast(
@@ -163,18 +147,16 @@ comma_expression <- (comma_expression) => uast(
 
 compound_literal_expression <- (compound_literal_expression) => uast(
     type: "Literal",
-    roles: "Literal"
+    roles: "Literal",
     children: "initializer_list", "type_descriptor"
 )
 
 compound_statement <- (compound_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 concatenated_string <- (concatenated_string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 conditional_expression <- (conditional_expression) => uast(
@@ -185,7 +167,6 @@ conditional_expression <- (conditional_expression) => uast(
 continue_statement <- (continue_statement) => uast(
     type: "Continue",
     roles: "Continue"
-    children: []
 )
 
 declaration <- (declaration) => uast(
@@ -194,8 +175,7 @@ declaration <- (declaration) => uast(
 )
 
 declaration_list <- (declaration_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 do_statement <- (do_statement) => uast(
@@ -204,78 +184,72 @@ do_statement <- (do_statement) => uast(
 )
 
 else_clause <- (else_clause) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 enum_specifier <- (enum_specifier) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "enumerator_list", "primitive_type", "type_identifier"
 )
 
 enumerator <- (enumerator) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "_expression", "identifier"
 )
 
 enumerator_list <- (enumerator_list) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 expression_statement <- (expression_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 field_declaration <- (field_declaration) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "_field_declarator", "_type_specifier"
 )
 
 field_declaration_list <- (field_declaration_list) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 field_designator <- (field_designator) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 field_expression <- (field_expression) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "_expression", "field_identifier"
 )
 
 for_statement <- (for_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "_expression", "_statement", "comma_expression", "declaration"
 )
 
 function_declarator <- (function_declarator) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "_declarator", "_field_declarator", "_type_declarator", "parameter_list"
 )
 
 function_definition <- (function_definition) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "_declarator", "_type_specifier", "compound_statement"
 )
 
 generic_expression <- (generic_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 gnu_asm_clobber_list <- (gnu_asm_clobber_list) => uast(
@@ -314,8 +288,7 @@ gnu_asm_output_operand_list <- (gnu_asm_output_operand_list) => uast(
 )
 
 gnu_asm_qualifier <- (gnu_asm_qualifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 goto_statement <- (goto_statement) => uast(
@@ -334,8 +307,7 @@ init_declarator <- (init_declarator) => uast(
 )
 
 initializer_list <- (initializer_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 initializer_pair <- (initializer_pair) => uast(
@@ -364,33 +336,27 @@ monitor_statement <- (monitor_statement) => uast(
 )
 
 ms_based_modifier <- (ms_based_modifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 ms_call_modifier <- (ms_call_modifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 ms_declspec_modifier <- (ms_declspec_modifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 ms_pointer_modifier <- (ms_pointer_modifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 ms_unaligned_ptr_modifier <- (ms_unaligned_ptr_modifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 null <- (null) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 offsetof_expression <- (offsetof_expression) => uast(
@@ -400,24 +366,21 @@ offsetof_expression <- (offsetof_expression) => uast(
 
 parameter_declaration <- (parameter_declaration) => uast(
     type: "Parameter",
-    roles: "Parameter"
+    roles: "Parameter",
     children: "_abstract_declarator", "_declarator", "_type_specifier"
 )
 
 parameter_list <- (parameter_list) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 parenthesized_declarator <- (parenthesized_declarator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 parenthesized_expression <- (parenthesized_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 pointer_declarator <- (pointer_declarator) => uast(
@@ -432,7 +395,7 @@ pointer_expression <- (pointer_expression) => uast(
 
 preproc_call <- (preproc_call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "preproc_arg", "preproc_directive"
 )
 
@@ -442,8 +405,7 @@ preproc_def <- (preproc_def) => uast(
 )
 
 preproc_defined <- (preproc_defined) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 preproc_elif <- (preproc_elif) => uast(
@@ -457,13 +419,12 @@ preproc_elifdef <- (preproc_elifdef) => uast(
 )
 
 preproc_else <- (preproc_else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 preproc_function_def <- (preproc_function_def) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "identifier", "preproc_arg", "preproc_params"
 )
 
@@ -483,14 +444,12 @@ preproc_include <- (preproc_include) => uast(
 )
 
 preproc_params <- (preproc_params) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return_statement <- (return_statement) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 sized_type_specifier <- (sized_type_specifier) => uast(
@@ -516,24 +475,21 @@ stop_statement <- (stop_statement) => uast(
 storage_class_specifier <- (storage_class_specifier) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 string_literal <- (string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 struct_specifier <- (struct_specifier) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "field_declaration_list", "type_identifier"
 )
 
 subscript_designator <- (subscript_designator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 subscript_expression <- (subscript_expression) => uast(
@@ -552,8 +508,7 @@ task_definition <- (task_definition) => uast(
 )
 
 translation_unit <- (translation_unit) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type_definition <- (type_definition) => uast(
@@ -567,8 +522,7 @@ type_descriptor <- (type_descriptor) => uast(
 )
 
 type_qualifier <- (type_qualifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 unary_expression <- (unary_expression) => uast(
@@ -594,477 +548,387 @@ update_expression <- (update_expression) => uast(
 variadic_parameter <- (variadic_parameter) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 while_statement <- (while_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "_statement", "parenthesized_expression"
 )
 
 NULL <- (NULL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _Alignof <- (_Alignof) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _Atomic <- (_Atomic) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _Generic <- (_Generic) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _Noreturn <- (_Noreturn) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 __alignof <- (__alignof) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 __alignof__ <- (__alignof__) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 __asm__ <- (__asm__) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 __attribute__ <- (__attribute__) => uast(
     type: "Attribute",
     roles: "Attribute"
-    children: []
 )
 
 __based <- (__based) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 __cdecl <- (__cdecl) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 __clrcall <- (__clrcall) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 __declspec <- (__declspec) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 __extension__ <- (__extension__) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 __fastcall <- (__fastcall) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 __forceinline <- (__forceinline) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 __inline <- (__inline) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 __inline__ <- (__inline__) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 __restrict__ <- (__restrict__) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 __stdcall <- (__stdcall) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 __thiscall <- (__thiscall) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 __thread <- (__thread) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 __unaligned <- (__unaligned) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 __vectorcall <- (__vectorcall) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 _alignof <- (_alignof) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _unaligned <- (_unaligned) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 acquire <- (acquire) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 alignof <- (alignof) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 asm <- (asm) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 auto <- (auto) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 break <- (break) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 case <- (case) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 catch <- (catch) => uast(
     type: "Catch",
     roles: "Catch"
-    children: []
 )
 
 character <- (character) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 const <- (const) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 constexpr <- (constexpr) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 continue <- (continue) => uast(
     type: "Continue",
     roles: "Continue"
-    children: []
 )
 
 default <- (default) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 defined <- (defined) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 do <- (do) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 enum <- (enum) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 extern <- (extern) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 field_identifier <- (field_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 for <- (for) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 goto <- (goto) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 inline <- (inline) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 long <- (long) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 monitor <- (monitor) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ms_restrict_modifier <- (ms_restrict_modifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 ms_signed_ptr_modifier <- (ms_signed_ptr_modifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 ms_unsigned_ptr_modifier <- (ms_unsigned_ptr_modifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 noreturn <- (noreturn) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 nullptr <- (nullptr) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 number_literal <- (number_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 offsetof <- (offsetof) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 preproc_arg <- (preproc_arg) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 preproc_directive <- (preproc_directive) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 primitive_type <- (primitive_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 register <- (register) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 restrict <- (restrict) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 short <- (short) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 signed <- (signed) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sizeof <- (sizeof) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 start <- (start) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 statement_identifier <- (statement_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 static <- (static) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 stop <- (stop) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_content <- (string_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 struct <- (struct) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 sub <- (sub) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 switch <- (switch) => uast(
-    type: "Switch",
-    children: []
+    type: "Switch"
 )
 
 system_lib_string <- (system_lib_string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 task <- (task) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 thread_local <- (thread_local) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type_identifier <- (type_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 typedef <- (typedef) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 union <- (union) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unsigned <- (unsigned) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 until <- (until) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 volatile <- (volatile) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 while <- (while) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 

@@ -4,19 +4,18 @@ command <- (command) => uast(
 )
 
 document <- (document) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 entry <- (entry) => uast(
     type: "Try",
-    roles: "Try"
+    roles: "Try",
     children: "entry_type", "field", "key_brace", "key_paren"
 )
 
 field <- (field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "identifier", "value"
 )
 
@@ -31,74 +30,60 @@ string <- (string) => uast(
 )
 
 token <- (token) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 value <- (value) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 brace_word <- (brace_word) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 command_name <- (command_name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 entry_type <- (entry_type) => uast(
     type: "Try",
     roles: "Try"
-    children: []
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 junk <- (junk) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 key_brace <- (key_brace) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 key_paren <- (key_paren) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 number <- (number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 preamble_type <- (preamble_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 quote_word <- (quote_word) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_type <- (string_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

@@ -1,27 +1,22 @@
 expression <- (expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 literal <- (literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 number <- (number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 preprocessor_expression <- (preprocessor_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 statement <- (statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 and <- (and) => uast(
@@ -30,13 +25,11 @@ and <- (and) => uast(
 )
 
 arguments <- (arguments) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 array <- (array) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assign <- (assign) => uast(
@@ -45,13 +38,12 @@ assign <- (assign) => uast(
 )
 
 boolean <- (boolean) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 call <- (call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "arguments", "array", "identifier", "preprocessor_expression"
 )
 
@@ -76,18 +68,16 @@ define <- (define) => uast(
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 endif <- (endif) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 function_definition <- (function_definition) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "arguments", "array", "identifier"
 )
 
@@ -98,7 +88,7 @@ if <- (if) => uast(
 
 import <- (import) => uast(
     type: "Import",
-    roles: "Import"
+    roles: "Import",
     children: "identifier"
 )
 
@@ -133,8 +123,7 @@ not_in <- (not_in) => uast(
 )
 
 once <- (once) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 or <- (or) => uast(
@@ -143,8 +132,7 @@ or <- (or) => uast(
 )
 
 parenthesis <- (parenthesis) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 placeholder <- (placeholder) => uast(
@@ -153,8 +141,7 @@ placeholder <- (placeholder) => uast(
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string <- (string) => uast(
@@ -165,7 +152,6 @@ string <- (string) => uast(
 struct <- (struct) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 subtract <- (subtract) => uast(
@@ -179,8 +165,7 @@ undef <- (undef) => uast(
 )
 
 unknown <- (unknown) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 usage <- (usage) => uast(
@@ -191,52 +176,42 @@ usage <- (usage) => uast(
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 decimal <- (decimal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 double_quoted <- (double_quoted) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 function <- (function) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 single_quoted <- (single_quoted) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

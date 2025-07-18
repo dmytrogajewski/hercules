@@ -1,23 +1,19 @@
 address_literal <- (address_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 address_type <- (address_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 affine_group_literal <- (affine_group_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 annotation <- (annotation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 array_expression <- (array_expression) => uast(
@@ -26,88 +22,77 @@ array_expression <- (array_expression) => uast(
 )
 
 array_type <- (array_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assert_call <- (assert_call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
 )
 
 assert_equal_call <- (assert_equal_call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
 )
 
 assert_not_equal_call <- (assert_not_equal_call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
 )
 
 assert_statement <- (assert_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assignment_operator <- (assignment_operator) => uast(
     type: "Assignment",
     roles: "Assignment"
-    children: []
 )
 
 assignment_statement <- (assignment_statement) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
 )
 
 associated_constant <- (associated_constant) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 associated_function_call <- (associated_function_call) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 block <- (block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 block_height <- (block_height) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 boolean_literal <- (boolean_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 branch <- (branch) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 conditional_statement <- (conditional_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 constant_declaration <- (constant_declaration) => uast(
@@ -116,13 +101,11 @@ constant_declaration <- (constant_declaration) => uast(
 )
 
 constant_identifier <- (constant_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 decimal_digit <- (decimal_digit) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 expression_statement <- (expression_statement) => uast(
@@ -133,13 +116,11 @@ expression_statement <- (expression_statement) => uast(
 field_literal <- (field_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 field_type <- (field_type) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 finalizer <- (finalizer) => uast(
@@ -150,51 +131,44 @@ finalizer <- (finalizer) => uast(
 free_function_call <- (free_function_call) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 function_arguments <- (function_arguments) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
 )
 
 function_declaration <- (function_declaration) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "identifier"
 )
 
 function_parameter <- (function_parameter) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 function_parameters <- (function_parameters) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 future_type <- (future_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 group_coordinate <- (group_coordinate) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 group_type <- (group_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if_conditional <- (if_conditional) => uast(
@@ -205,7 +179,6 @@ if_conditional <- (if_conditional) => uast(
 import_declaration <- (import_declaration) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 inline_declaration <- (inline_declaration) => uast(
@@ -214,69 +187,59 @@ inline_declaration <- (inline_declaration) => uast(
 )
 
 integer_type <- (integer_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 items_block <- (items_block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 line_terminator <- (line_terminator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 locator <- (locator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 loop_statement <- (loop_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
 )
 
 mapping_declaration <- (mapping_declaration) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 method_call <- (method_call) => uast(
     type: "Method",
-    roles: "Function", "Declaration", "Member"
+    roles: "Function", "Declaration", "Member",
     children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
 )
 
 named_type <- (named_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 network_id <- (network_id) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 not_line_feed_or_carriage_return <- (not_line_feed_or_carriage_return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 not_star_or_line_feed_or_carriage_return <- (not_star_or_line_feed_or_carriage_return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 not_star_or_slash_or_line_feed_or_carriage_return <- (not_star_or_slash_or_line_feed_or_carriage_return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 parenthesized_expression <- (parenthesized_expression) => uast(
@@ -287,12 +250,10 @@ parenthesized_expression <- (parenthesized_expression) => uast(
 product_group_literal <- (product_group_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 program_declaration <- (program_declaration) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 program_id <- (program_id) => uast(
@@ -301,154 +262,131 @@ program_id <- (program_id) => uast(
 )
 
 program_item <- (program_item) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 program_name_literal <- (program_name_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 record_declaration <- (record_declaration) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 record_type <- (record_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 rest_of_block_comment <- (rest_of_block_comment) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 rest_of_block_comment_after_star <- (rest_of_block_comment_after_star) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 return_arrow <- (return_arrow) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 return_statement <- (return_statement) => uast(
     type: "Return",
-    roles: "Return"
+    roles: "Return",
     children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
 )
 
 safe_ascii <- (safe_ascii) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 safe_nonascii <- (safe_nonascii) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 scalar_literal <- (scalar_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 scalar_type <- (scalar_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 self_address <- (self_address) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 self_caller <- (self_caller) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 self_signer <- (self_signer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 signature_literal <- (signature_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 signed_literal <- (signed_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 signed_type <- (signed_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_literal <- (string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 struct_component_declaration <- (struct_component_declaration) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 struct_component_declarations <- (struct_component_declarations) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 struct_component_expression <- (struct_component_expression) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
 )
 
 struct_component_initializer <- (struct_component_initializer) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
 )
 
 struct_declaration <- (struct_declaration) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "identifier"
 )
 
 struct_expression <- (struct_expression) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 ternary_else <- (ternary_else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ternary_expression <- (ternary_expression) => uast(
@@ -457,8 +395,7 @@ ternary_expression <- (ternary_expression) => uast(
 )
 
 ternary_if <- (ternary_if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 transition_declaration <- (transition_declaration) => uast(
@@ -477,385 +414,312 @@ tuple_expression <- (tuple_expression) => uast(
 )
 
 tuple_index <- (tuple_index) => uast(
-    type: "Tuple",
-    children: []
+    type: "Tuple"
 )
 
 tuple_type <- (tuple_type) => uast(
-    type: "Tuple",
-    children: []
+    type: "Tuple"
 )
 
 type <- (type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 typed_future_type <- (typed_future_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unit_expression <- (unit_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unit_type <- (unit_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unsigned_literal <- (unsigned_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 unsigned_type <- (unsigned_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 variable <- (variable) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 variable_declaration <- (variable_declaration) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "address_literal", "address_type", "affine_group_literal", "array_expression", "as", "associated_constant", "associated_function_call", "block_height", "boolean_literal", "boolean_type", "field_literal", "field_type", "free_function_call", "group_type", "integer_type", "method_call", "network_id", "parenthesized_expression", "product_group_literal", "scalar_literal", "scalar_type", "self_address", "self_caller", "self_signer", "signature_literal", "signature_type", "signed_literal", "string_literal", "string_type", "struct_component_expression", "struct_expression", "ternary_expression", "tuple_component_expression", "tuple_expression", "unit_expression", "unsigned_literal", "variable"
 )
 
 Fn <- (Fn) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _ <- (_) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 address <- (address) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 aleo1 <- (aleo1) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 aleo_literal <- (aleo_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 as <- (as) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assert <- (assert) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assert_eq <- (assert_eq) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assert_neq <- (assert_neq) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 async <- (async) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 block <- (block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 boolean_type <- (boolean_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 caller <- (caller) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 carriage_return <- (carriage_return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 console <- (console) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 const <- (const) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 constant <- (constant) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 field <- (field) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 finalize <- (finalize) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 for <- (for) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 function <- (function) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 group <- (group) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 height <- (height) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 horizontal_tab <- (horizontal_tab) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 i128 <- (i128) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 i16 <- (i16) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 i32 <- (i32) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 i64 <- (i64) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 i8 <- (i8) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 id <- (id) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 import <- (import) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inline <- (inline) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 let <- (let) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 line_feed <- (line_feed) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 mapping <- (mapping) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 network <- (network) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 nonzero_decimal_digit <- (nonzero_decimal_digit) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 private <- (private) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 program <- (program) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 public <- (public) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 record <- (record) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 scalar <- (scalar) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 self <- (self) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sign <- (sign) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 signature_type <- (signature_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 signer <- (signer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 space <- (space) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_type <- (string_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 struct <- (struct) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 then <- (then) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 transition <- (transition) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 u128 <- (u128) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 u16 <- (u16) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 u32 <- (u32) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 u64 <- (u64) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 u8 <- (u8) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 untyped_future_type <- (untyped_future_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 visible_ascii <- (visible_ascii) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

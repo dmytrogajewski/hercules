@@ -5,32 +5,29 @@ async <- (async) => uast(
 
 await <- (await) => uast(
     type: "Await",
-    roles: "Await"
+    roles: "Await",
     children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
 )
 
 block_content <- (block_content) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 break <- (break) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 call_argument <- (call_argument) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "identifier", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
 )
 
 call_argument_list <- (call_argument_list) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 child_def <- (child_def) => uast(
@@ -44,24 +41,21 @@ dialog <- (dialog) => uast(
 )
 
 dialog_content <- (dialog_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dialog_prefix <- (dialog_prefix) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 doc_comment <- (doc_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 field <- (field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "identifier"
 )
 
@@ -72,35 +66,32 @@ fn_decl <- (fn_decl) => uast(
 
 for <- (for) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "identifier", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
 )
 
 function_call <- (function_call) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "async", "await", "break", "call_argument_list", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
 )
 
 grouping <- (grouping) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 header <- (header) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 header_entry <- (header_entry) => uast(
     type: "Try",
-    roles: "Try"
+    roles: "Try",
     children: "header_tag_content", "identifier"
 )
 
 header_tag_content <- (header_tag_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 if <- (if) => uast(
@@ -116,12 +107,11 @@ impl <- (impl) => uast(
 inline_comment <- (inline_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 loop <- (loop) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
 )
 
@@ -137,13 +127,12 @@ next <- (next) => uast(
 
 return <- (return) => uast(
     type: "Return",
-    roles: "Return"
+    roles: "Return",
     children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 speaker_marker <- (speaker_marker) => uast(
@@ -152,39 +141,34 @@ speaker_marker <- (speaker_marker) => uast(
 )
 
 string_double <- (string_double) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_single <- (string_single) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 symbol_ref <- (symbol_ref) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 text_expr_fragment <- (text_expr_fragment) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 text_raw_fragment <- (text_raw_fragment) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 todo_comment <- (todo_comment) => uast(
     type: "Comment",
-    roles: "Comment"
+    roles: "Comment",
     children: "comment_raw_fragment"
 )
 
 unit_call <- (unit_call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "float_literal", "identifier", "int_literal"
 )
 
@@ -205,185 +189,153 @@ using <- (using) => uast(
 
 while <- (while) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
 )
 
 yield <- (yield) => uast(
     type: "Yield",
-    roles: "Yield"
+    roles: "Yield",
     children: "async", "await", "break", "child_def", "dialog", "doc_comment", "field", "float_literal", "fn_decl", "for", "function_call", "grouping", "header", "if", "impl", "inline_comment", "int_literal", "loop", "model", "next", "return", "speaker_marker", "string_double", "string_single", "symbol_ref", "todo_comment", "unit_call", "unless", "until", "using", "while", "yield"
 )
 
 action <- (action) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 async <- (async) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 await <- (await) => uast(
     type: "Await",
     roles: "Await"
-    children: []
 )
 
 break <- (break) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 comment_raw_fragment <- (comment_raw_fragment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 def <- (def) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 do <- (do) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 end <- (end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 field <- (field) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 float_literal <- (float_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 fn <- (fn) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 for <- (for) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 header_tag_raw_fragment <- (header_tag_raw_fragment) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 impl <- (impl) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 int_literal <- (int_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 loop <- (loop) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 meanwhile <- (meanwhile) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 model <- (model) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 next <- (next) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 scene <- (scene) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 text_escape_fragment <- (text_escape_fragment) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 then <- (then) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unless <- (unless) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 until <- (until) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 using <- (using) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 while <- (while) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 yield <- (yield) => uast(
     type: "Yield",
     roles: "Yield"
-    children: []
 )
 

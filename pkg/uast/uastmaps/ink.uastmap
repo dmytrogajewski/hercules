@@ -1,62 +1,51 @@
 _code_stmt <- (_code_stmt) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _comment <- (_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 _divert_target <- (_divert_target) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _global_keyword <- (_global_keyword) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _logic <- (_logic) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _param_value <- (_param_value) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _redirect <- (_redirect) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 expr <- (expr) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 alt_arm <- (alt_arm) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 alternatives <- (alternatives) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 args <- (args) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assignment <- (assignment) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "expr", "identifier"
 )
 
@@ -68,17 +57,15 @@ binary <- (binary) => uast(
 block_comment <- (block_comment) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 boolean <- (boolean) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 call <- (call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "args", "identifier", "qualified_name"
 )
 
@@ -89,23 +76,20 @@ choice <- (choice) => uast(
 
 choice_block <- (choice_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "choice"
 )
 
 choice_marks <- (choice_marks) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 choice_only <- (choice_only) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 code <- (code) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cond_arm <- (cond_arm) => uast(
@@ -116,7 +100,6 @@ cond_arm <- (cond_arm) => uast(
 cond_block <- (cond_block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 condition <- (condition) => uast(
@@ -156,13 +139,12 @@ gather <- (gather) => uast(
 
 gather_block <- (gather_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "gather"
 )
 
 gather_marks <- (gather_marks) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 global <- (global) => uast(
@@ -171,8 +153,7 @@ global <- (global) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 include <- (include) => uast(
@@ -181,8 +162,7 @@ include <- (include) => uast(
 )
 
 ink <- (ink) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 knot <- (knot) => uast(
@@ -192,7 +172,7 @@ knot <- (knot) => uast(
 
 knot_block <- (knot_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "knot"
 )
 
@@ -204,7 +184,6 @@ label <- (label) => uast(
 line_comment <- (line_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 list <- (list) => uast(
@@ -223,8 +202,7 @@ list_value_defs <- (list_value_defs) => uast(
 )
 
 list_values <- (list_values) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 multiline_alternatives <- (multiline_alternatives) => uast(
@@ -233,8 +211,7 @@ multiline_alternatives <- (multiline_alternatives) => uast(
 )
 
 number <- (number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 paragraph <- (paragraph) => uast(
@@ -248,13 +225,11 @@ param <- (param) => uast(
 )
 
 params <- (params) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 paren <- (paren) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 postfix <- (postfix) => uast(
@@ -263,14 +238,12 @@ postfix <- (postfix) => uast(
 )
 
 qualified_name <- (qualified_name) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 stitch <- (stitch) => uast(
@@ -280,13 +253,12 @@ stitch <- (stitch) => uast(
 
 stitch_block <- (stitch_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "stitch"
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tag <- (tag) => uast(
@@ -305,8 +277,7 @@ text <- (text) => uast(
 )
 
 textrest <- (textrest) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 thread <- (thread) => uast(
@@ -316,7 +287,7 @@ thread <- (thread) => uast(
 
 todo_comment <- (todo_comment) => uast(
     type: "Comment",
-    roles: "Comment"
+    roles: "Comment",
     children: "TODO"
 )
 
@@ -331,155 +302,125 @@ unary <- (unary) => uast(
 )
 
 CONST <- (CONST) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 EXTERNAL <- (EXTERNAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 GLOBAL <- (GLOBAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 INCLUDE <- (INCLUDE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LIST <- (LIST) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 TODO <- (TODO) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 VAR <- (VAR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 and <- (and) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 block_comment_line <- (block_comment_line) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 choice_mark <- (choice_mark) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cycle <- (cycle) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 eol <- (eol) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 function <- (function) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 gather_mark <- (gather_mark) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 glue <- (glue) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 has <- (has) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hasnt <- (hasnt) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 mod <- (mod) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 not <- (not) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 once <- (once) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 or <- (or) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 path <- (path) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ref <- (ref) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 shuffle <- (shuffle) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 stopping <- (stopping) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 temp <- (temp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

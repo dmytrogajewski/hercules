@@ -1,17 +1,15 @@
 braced_list <- (braced_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 catch <- (catch) => uast(
     type: "Catch",
-    roles: "Catch"
+    roles: "Catch",
     children: "identifier"
 )
 
 chunk <- (chunk) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 command <- (command) => uast(
@@ -25,31 +23,27 @@ elif <- (elif) => uast(
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 exception_capture <- (exception_capture) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 finally <- (finally) => uast(
     type: "Finally",
     roles: "Finally"
-    children: []
 )
 
 for <- (for) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "bareword", "braced_list", "exception_capture", "identifier", "indexing", "lambda", "list", "map", "number", "output_capture", "string", "variable", "wildcard"
 )
 
 function_definition <- (function_definition) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 if <- (if) => uast(
@@ -60,49 +54,40 @@ if <- (if) => uast(
 import <- (import) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 indexing <- (indexing) => uast(
     type: "Index",
     roles: "Index"
-    children: []
 )
 
 indices <- (indices) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 lambda <- (lambda) => uast(
     type: "Lambda",
     roles: "Lambda"
-    children: []
 )
 
 lhs <- (lhs) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 list <- (list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 map <- (map) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 option <- (option) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 output_capture <- (output_capture) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 pair <- (pair) => uast(
@@ -112,185 +97,153 @@ pair <- (pair) => uast(
 
 parameter_list <- (parameter_list) => uast(
     type: "Parameter",
-    roles: "Parameter"
+    roles: "Parameter",
     children: "identifier", "option"
 )
 
 pipeline <- (pipeline) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 redirection <- (redirection) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 rhs <- (rhs) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 temporary_assignment <- (temporary_assignment) => uast(
     type: "Assignment",
     roles: "Assignment"
-    children: []
 )
 
 try <- (try) => uast(
     type: "Try",
     roles: "Try"
-    children: []
 )
 
 variable <- (variable) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 variable_assignment <- (variable_assignment) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 variable_declaration <- (variable_declaration) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 variable_deletion <- (variable_deletion) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 while <- (while) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "bareword", "braced_list", "exception_capture", "indexing", "lambda", "list", "map", "number", "output_capture", "string", "variable", "wildcard"
 )
 
 wildcard <- (wildcard) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bareword <- (bareword) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 catch <- (catch) => uast(
     type: "Catch",
     roles: "Catch"
-    children: []
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 del <- (del) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 elif <- (elif) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 file <- (file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 finally <- (finally) => uast(
     type: "Finally",
     roles: "Finally"
-    children: []
 )
 
 fn <- (fn) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 for <- (for) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 io_port <- (io_port) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 number <- (number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 set <- (set) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tmp <- (tmp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 try <- (try) => uast(
     type: "Try",
     roles: "Try"
-    children: []
 )
 
 use <- (use) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 var <- (var) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 while <- (while) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 

@@ -1,21 +1,17 @@
 _declaration <- (_declaration) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _expr <- (_expr) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _statement <- (_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _type <- (_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 adjustment_statement <- (adjustment_statement) => uast(
@@ -30,14 +26,13 @@ argument_list <- (argument_list) => uast(
 
 array_literal_expr <- (array_literal_expr) => uast(
     type: "Literal",
-    roles: "Literal"
+    roles: "Literal",
     children: "array_literal_values"
 )
 
 array_literal_values <- (array_literal_values) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 array_sizes <- (array_sizes) => uast(
@@ -52,7 +47,7 @@ array_type <- (array_type) => uast(
 
 assignment_statement <- (assignment_statement) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "_expr", "builtin_function", "builtin_variable", "ident", "invalid_ident", "member_expr", "subscript_expr"
 )
 
@@ -63,41 +58,36 @@ binary_expr <- (binary_expr) => uast(
 
 block <- (block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "statement_sequence"
 )
 
 boolean <- (boolean) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 break_statement <- (break_statement) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 builtin_function <- (builtin_function) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 builtin_type <- (builtin_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 builtin_variable <- (builtin_variable) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 call_expr <- (call_expr) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "argument_list", "builtin_function", "builtin_type", "builtin_variable", "ident", "invalid_ident"
 )
 
@@ -119,7 +109,6 @@ const_var_declaration <- (const_var_declaration) => uast(
 continue_statement <- (continue_statement) => uast(
     type: "Continue",
     roles: "Continue"
-    children: []
 )
 
 expr_statement <- (expr_statement) => uast(
@@ -129,13 +118,13 @@ expr_statement <- (expr_statement) => uast(
 
 for_statement <- (for_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "_expr", "_statement", "expr_statement", "var_declaration"
 )
 
 function_declaration <- (function_declaration) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "_type", "builtin_function", "builtin_variable", "ident", "invalid_ident", "parameter_list"
 )
 
@@ -150,24 +139,20 @@ hint <- (hint) => uast(
 )
 
 hint_list <- (hint_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 hint_name <- (hint_name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hint_parameter_list <- (hint_parameter_list) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 ident_expr <- (ident_expr) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 if_statement <- (if_statement) => uast(
@@ -181,33 +166,27 @@ include_declaration <- (include_declaration) => uast(
 )
 
 interpolation_qualifier <- (interpolation_qualifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 invalid_hint <- (invalid_hint) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 invalid_ident <- (invalid_ident) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 invalid_render_mode <- (invalid_render_mode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 invalid_shader_type <- (invalid_shader_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 invalid_type <- (invalid_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 member_expr <- (member_expr) => uast(
@@ -216,19 +195,18 @@ member_expr <- (member_expr) => uast(
 )
 
 param_qualifier <- (param_qualifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 parameter <- (parameter) => uast(
     type: "Parameter",
-    roles: "Parameter"
+    roles: "Parameter",
     children: "_type", "array_sizes", "builtin_function", "builtin_variable", "ident", "invalid_ident"
 )
 
 parameter_list <- (parameter_list) => uast(
     type: "Parameter",
-    roles: "Parameter"
+    roles: "Parameter",
     children: "param_qualifier"
 )
 
@@ -238,18 +216,15 @@ paren_expr <- (paren_expr) => uast(
 )
 
 precision_qualifier <- (precision_qualifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 primitive_expr <- (primitive_expr) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 render_mode <- (render_mode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 render_mode_declaration <- (render_mode_declaration) => uast(
@@ -259,13 +234,12 @@ render_mode_declaration <- (render_mode_declaration) => uast(
 
 return_statement <- (return_statement) => uast(
     type: "Return",
-    roles: "Return"
+    roles: "Return",
     children: "_expr"
 )
 
 shader_type <- (shader_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 shader_type_declaration <- (shader_type_declaration) => uast(
@@ -274,31 +248,28 @@ shader_type_declaration <- (shader_type_declaration) => uast(
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 statement_sequence <- (statement_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 struct_declaration <- (struct_declaration) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "builtin_function", "builtin_variable", "ident", "invalid_ident", "struct_member_list"
 )
 
 struct_member <- (struct_member) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "_type", "array_sizes", "builtin_function", "builtin_variable", "ident", "invalid_ident"
 )
 
 struct_member_list <- (struct_member_list) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 subscript_expr <- (subscript_expr) => uast(
@@ -317,8 +288,7 @@ switch_statement <- (switch_statement) => uast(
 )
 
 switch_statements <- (switch_statements) => uast(
-    type: "Switch",
-    children: []
+    type: "Switch"
 )
 
 unary_expr <- (unary_expr) => uast(
@@ -348,1911 +318,1534 @@ varying_declaration <- (varying_declaration) => uast(
 
 while_statement <- (while_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "_statement", "paren_expr"
 )
 
 ACTIVE <- (ACTIVE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ALBEDO <- (ALBEDO) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ALPHA <- (ALPHA) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ALPHA_ANTIALIASING_EDGE <- (ALPHA_ANTIALIASING_EDGE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ALPHA_HASH_SCALE <- (ALPHA_HASH_SCALE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ALPHA_SCISSOR_THRESHOLD <- (ALPHA_SCISSOR_THRESHOLD) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ALPHA_TEXTURE_COORDINATE <- (ALPHA_TEXTURE_COORDINATE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 AMOUNT_RATIO <- (AMOUNT_RATIO) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ANISOTROPY <- (ANISOTROPY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ANISOTROPY_FLOW <- (ANISOTROPY_FLOW) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 AO <- (AO) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 AO_LIGHT_AFFECT <- (AO_LIGHT_AFFECT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ATTENUATION <- (ATTENUATION) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ATTRACTOR_FORCE <- (ATTRACTOR_FORCE) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 AT_CUBEMAP_PASS <- (AT_CUBEMAP_PASS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 AT_HALF_RES_PASS <- (AT_HALF_RES_PASS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 AT_LIGHT_PASS <- (AT_LIGHT_PASS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 AT_QUARTER_RES_PASS <- (AT_QUARTER_RES_PASS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 BACKLIGHT <- (BACKLIGHT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 BINORMAL <- (BINORMAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 BONE_INDICES <- (BONE_INDICES) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 BONE_WEIGHTS <- (BONE_WEIGHTS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CAMERA_DIRECTION_WORLD <- (CAMERA_DIRECTION_WORLD) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CAMERA_POSITION_WORLD <- (CAMERA_POSITION_WORLD) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CANVAS_MATRIX <- (CANVAS_MATRIX) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CLEARCOAT <- (CLEARCOAT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CLEARCOAT_GLOSS <- (CLEARCOAT_GLOSS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 COLLIDED <- (COLLIDED) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 COLLISION_DEPTH <- (COLLISION_DEPTH) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 COLLISION_NORMAL <- (COLLISION_NORMAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CUSTOM <- (CUSTOM) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DELTA <- (DELTA) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DENSITY <- (DENSITY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DEPTH <- (DEPTH) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DEPTH_TEXTURE <- (DEPTH_TEXTURE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DIFFUSE_LIGHT <- (DIFFUSE_LIGHT) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 E <- (E) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 EMISSION <- (EMISSION) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 EMISSION_TRANSFORM <- (EMISSION_TRANSFORM) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 EMITTER_VELOCITY <- (EMITTER_VELOCITY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 EYEDIR <- (EYEDIR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 EYE_OFFSET <- (EYE_OFFSET) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 FLAG_EMIT_COLOR <- (FLAG_EMIT_COLOR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FLAG_EMIT_CUSTOM <- (FLAG_EMIT_CUSTOM) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FLAG_EMIT_POSITION <- (FLAG_EMIT_POSITION) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FLAG_EMIT_ROT_SCALE <- (FLAG_EMIT_ROT_SCALE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FLAG_EMIT_VELOCITY <- (FLAG_EMIT_VELOCITY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FOG <- (FOG) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FRAGCOORD <- (FRAGCOORD) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FRONT_FACING <- (FRONT_FACING) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 HALF_RES_COLOR <- (HALF_RES_COLOR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 INDEX <- (INDEX) => uast(
     type: "Index",
     roles: "Index"
-    children: []
 )
 
 INTERPOLATE_TO_END <- (INTERPOLATE_TO_END) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 INV_PROJECTION_MATRIX <- (INV_PROJECTION_MATRIX) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 INV_VIEW_MATRIX <- (INV_VIEW_MATRIX) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 IRRADIANCE <- (IRRADIANCE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LIFETIME <- (LIFETIME) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 LIGHT <- (LIGHT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LIGHTX_COLOR <- (LIGHTX_COLOR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LIGHTX_DIRECTION <- (LIGHTX_DIRECTION) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LIGHTX_ENABLED <- (LIGHTX_ENABLED) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LIGHTX_ENERGY <- (LIGHTX_ENERGY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LIGHTX_SIZE <- (LIGHTX_SIZE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LIGHT_COLOR <- (LIGHT_COLOR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LIGHT_IS_DIRECTIONAL <- (LIGHT_IS_DIRECTIONAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LIGHT_VERTEX <- (LIGHT_VERTEX) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 MASS <- (MASS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 METALLIC <- (METALLIC) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 MODELVIEW_MATRIX <- (MODELVIEW_MATRIX) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 MODELVIEW_NORMAL_MATRIX <- (MODELVIEW_NORMAL_MATRIX) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 MODEL_MATRIX <- (MODEL_MATRIX) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 MODEL_NORMAL_MATRIX <- (MODEL_NORMAL_MATRIX) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NODE_POSITION_VIEW <- (NODE_POSITION_VIEW) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NODE_POSITION_WORLD <- (NODE_POSITION_WORLD) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NORMAL <- (NORMAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NORMAL_MAP <- (NORMAL_MAP) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NORMAL_MAP_DEPTH <- (NORMAL_MAP_DEPTH) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NORMAL_TEXTURE <- (NORMAL_TEXTURE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NUMBER <- (NUMBER) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 OBJECT_POSITION <- (OBJECT_POSITION) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 OUTPUT_IS_SRGB <- (OUTPUT_IS_SRGB) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PI <- (PI) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 POINT_COORD <- (POINT_COORD) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 POSITION <- (POSITION) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PROJECTION_MATRIX <- (PROJECTION_MATRIX) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 QUARTER_RES_COLOR <- (QUARTER_RES_COLOR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RADIANCE <- (RADIANCE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RANDOM_SEED <- (RANDOM_SEED) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RESTART <- (RESTART) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RESTART_COLOR <- (RESTART_COLOR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RESTART_CUSTOM <- (RESTART_CUSTOM) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RESTART_POSITION <- (RESTART_POSITION) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RESTART_ROT_SCALE <- (RESTART_ROT_SCALE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RESTART_VELOCITY <- (RESTART_VELOCITY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RIM <- (RIM) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RIM_TINT <- (RIM_TINT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ROUGHNESS <- (ROUGHNESS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SCREEN_MATRIX <- (SCREEN_MATRIX) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SCREEN_TEXTURE <- (SCREEN_TEXTURE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SCREEN_UV <- (SCREEN_UV) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SDF <- (SDF) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SHADOW_VERTEX <- (SHADOW_VERTEX) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SIZE <- (SIZE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SKY_COORDS <- (SKY_COORDS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SPECULAR_AMOUNT <- (SPECULAR_AMOUNT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SPECULAR_LIGHT <- (SPECULAR_LIGHT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SPECULAR_SHININESS <- (SPECULAR_SHININESS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SPECULAR_SHININESS_TEXTURE <- (SPECULAR_SHININESS_TEXTURE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SSS_STRENGTH <- (SSS_STRENGTH) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SSS_TRANSMITTANCE_BOOST <- (SSS_TRANSMITTANCE_BOOST) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SSS_TRANSMITTANCE_COLOR <- (SSS_TRANSMITTANCE_COLOR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SSS_TRANSMITTANCE_DEPTH <- (SSS_TRANSMITTANCE_DEPTH) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TANGENT <- (TANGENT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TAU <- (TAU) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TEXTURE_PIXEL_SIZE <- (TEXTURE_PIXEL_SIZE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TIME <- (TIME) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TRANSFORM <- (TRANSFORM) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 USERDATAX <- (USERDATAX) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 UV <- (UV) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 UV2 <- (UV2) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 UVW <- (UVW) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 VELOCITY <- (VELOCITY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 VERTEX <- (VERTEX) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 VIEW <- (VIEW) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 VIEWPORT_SIZE <- (VIEWPORT_SIZE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 VIEW_INDEX <- (VIEW_INDEX) => uast(
     type: "Index",
     roles: "Index"
-    children: []
 )
 
 VIEW_MATRIX <- (VIEW_MATRIX) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 VIEW_MONO_LEFT <- (VIEW_MONO_LEFT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 VIEW_RIGHT <- (VIEW_RIGHT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 WORLD_POSITION <- (WORLD_POSITION) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 abs <- (abs) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 acos <- (acos) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 acosh <- (acosh) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 all <- (all) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 alpha_to_coverage <- (alpha_to_coverage) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 alpha_to_coverage_and_one <- (alpha_to_coverage_and_one) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ambient_light_disabled <- (ambient_light_disabled) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 any <- (any) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 asin <- (asin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 asinh <- (asinh) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 atan <- (atan) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 atanh <- (atanh) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bitCount <- (bitCount) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bitfieldExtract <- (bitfieldExtract) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 bitfieldInsert <- (bitfieldInsert) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 bitfieldReverse <- (bitfieldReverse) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 blend_add <- (blend_add) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 blend_disabled <- (blend_disabled) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 blend_mul <- (blend_mul) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 blend_premul_alpha <- (blend_premul_alpha) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 blend_sub <- (blend_sub) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bool <- (bool) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 break <- (break) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 bvec2 <- (bvec2) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bvec3 <- (bvec3) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bvec4 <- (bvec4) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 canvas_item <- (canvas_item) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 case <- (case) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 ceil <- (ceil) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 clamp <- (clamp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 collision_use_scale <- (collision_use_scale) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 const <- (const) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 continue <- (continue) => uast(
     type: "Continue",
     roles: "Continue"
-    children: []
 )
 
 cos <- (cos) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cosh <- (cosh) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cross <- (cross) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cull_back <- (cull_back) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cull_disabled <- (cull_disabled) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cull_front <- (cull_front) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dFdx <- (dFdx) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dFdxCoarse <- (dFdxCoarse) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dFdxFine <- (dFdxFine) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dFdy <- (dFdy) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dFdyCoarse <- (dFdyCoarse) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dFdyFine <- (dFdyFine) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 default <- (default) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 degrees <- (degrees) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 depth_draw_always <- (depth_draw_always) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 depth_draw_never <- (depth_draw_never) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 depth_draw_opaque <- (depth_draw_opaque) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 depth_prepass_alpha <- (depth_prepass_alpha) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 depth_test_disabled <- (depth_test_disabled) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 determinant <- (determinant) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 diffuse_burley <- (diffuse_burley) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 diffuse_lambert <- (diffuse_lambert) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 diffuse_lambert_wrap <- (diffuse_lambert_wrap) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 diffuse_toon <- (diffuse_toon) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 disable_fog <- (disable_fog) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 disable_force <- (disable_force) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 disable_velocity <- (disable_velocity) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 distance <- (distance) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 do <- (do) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dot <- (dot) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 elif <- (elif) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 emit_subparticle <- (emit_subparticle) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ensure_correct_normals <- (ensure_correct_normals) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 equal <- (equal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 exp <- (exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 exp2 <- (exp2) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 faceforward <- (faceforward) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 filter_anisotropic <- (filter_anisotropic) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 filter_linear <- (filter_linear) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 filter_mipmap <- (filter_mipmap) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 filter_nearest <- (filter_nearest) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 findLSB <- (findLSB) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 findMSB <- (findMSB) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 flat <- (flat) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 float <- (float) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 float <- (float) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 floatBitsToInt <- (floatBitsToInt) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 floatBitsToUint <- (floatBitsToUint) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 floor <- (floor) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fma <- (fma) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fog <- (fog) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fog_disabled <- (fog_disabled) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 for <- (for) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 fract <- (fract) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 frexp <- (frexp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fwidth <- (fwidth) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fwidthCoarse <- (fwidthCoarse) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fwidthFine <- (fwidthFine) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 global <- (global) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 greaterThan <- (greaterThan) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 greaterThanEqual <- (greaterThanEqual) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 group_uniforms <- (group_uniforms) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 highp <- (highp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hint_anisotropy <- (hint_anisotropy) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hint_default_black <- (hint_default_black) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hint_default_transparent <- (hint_default_transparent) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hint_default_white <- (hint_default_white) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hint_depth_texture <- (hint_depth_texture) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hint_normal <- (hint_normal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hint_normal_roughness_texture <- (hint_normal_roughness_texture) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hint_range <- (hint_range) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hint_roughness_a <- (hint_roughness_a) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hint_roughness_b <- (hint_roughness_b) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hint_roughness_g <- (hint_roughness_g) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hint_roughness_gray <- (hint_roughness_gray) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hint_roughness_normal <- (hint_roughness_normal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hint_roughness_r <- (hint_roughness_r) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hint_screen_texture <- (hint_screen_texture) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ident <- (ident) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ident_type <- (ident_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 imulExtended <- (imulExtended) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 include <- (include) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inout <- (inout) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 instance <- (instance) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 int <- (int) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 intBitsToFloat <- (intBitsToFloat) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 integer <- (integer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inverse <- (inverse) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inversesqrt <- (inversesqrt) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 isampler2D <- (isampler2D) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 isampler2DArray <- (isampler2DArray) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 isampler3D <- (isampler3D) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 isinf <- (isinf) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 isnan <- (isnan) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ivec2 <- (ivec2) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ivec3 <- (ivec3) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ivec4 <- (ivec4) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keep_data <- (keep_data) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ldexp <- (ldexp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 length <- (length) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 lessThan <- (lessThan) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 lessThanEqual <- (lessThanEqual) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 light_only <- (light_only) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 log <- (log) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 log2 <- (log2) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 lowp <- (lowp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 mat2 <- (mat2) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 mat3 <- (mat3) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 mat4 <- (mat4) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 matrixCompMult <- (matrixCompMult) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 max <- (max) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 mediump <- (mediump) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 min <- (min) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 mix <- (mix) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 mod <- (mod) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 modf <- (modf) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 normalize <- (normalize) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 not <- (not) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 notEqual <- (notEqual) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 out <- (out) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 outerProduct <- (outerProduct) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 packHalf2x16 <- (packHalf2x16) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 packSnorm2x16 <- (packSnorm2x16) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 packSnorm4x8 <- (packSnorm4x8) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 packUnorm2x16 <- (packUnorm2x16) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 packUnorm4x8 <- (packUnorm4x8) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 particle_trails <- (particle_trails) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 particles <- (particles) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 pow <- (pow) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 radians <- (radians) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 reflect <- (reflect) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 refract <- (refract) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 render_mode <- (render_mode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 repeat_disable <- (repeat_disable) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 repeat_enable <- (repeat_enable) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 round <- (round) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 roundEven <- (roundEven) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sampler2D <- (sampler2D) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sampler2DArray <- (sampler2DArray) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sampler3D <- (sampler3D) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 samplerCube <- (samplerCube) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 samplerCubeArray <- (samplerCubeArray) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 shader_type <- (shader_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 shadow_to_opacity <- (shadow_to_opacity) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 shadows_disabled <- (shadows_disabled) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sign <- (sign) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sin <- (sin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sinh <- (sinh) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 skip_vertex_transform <- (skip_vertex_transform) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 sky <- (sky) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 smooth <- (smooth) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 smoothstep <- (smoothstep) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 source_color <- (source_color) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 spatial <- (spatial) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 specular_disabled <- (specular_disabled) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 specular_schlick_ggx <- (specular_schlick_ggx) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 specular_toon <- (specular_toon) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sqrt <- (sqrt) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sss_mode_skin <- (sss_mode_skin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 step <- (step) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 struct <- (struct) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 switch <- (switch) => uast(
-    type: "Switch",
-    children: []
+    type: "Switch"
 )
 
 tan <- (tan) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tanh <- (tanh) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 texelFetch <- (texelFetch) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 texture <- (texture) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 textureGather <- (textureGather) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 textureGrad <- (textureGrad) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 textureLod <- (textureLod) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 textureProj <- (textureProj) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 textureProjGrad <- (textureProjGrad) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 textureProjLod <- (textureProjLod) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 textureQueryLevels <- (textureQueryLevels) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 textureQueryLod <- (textureQueryLod) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 textureSize <- (textureSize) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 transpose <- (transpose) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 trunc <- (trunc) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 uaddCarry <- (uaddCarry) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 uint <- (uint) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 uintBitsToFloat <- (uintBitsToFloat) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 umulExtended <- (umulExtended) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 uniform <- (uniform) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 unpackHalf2x16 <- (unpackHalf2x16) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unpackSnorm2x16 <- (unpackSnorm2x16) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unpackSnorm4x8 <- (unpackSnorm4x8) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unpackUnorm2x16 <- (unpackUnorm2x16) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unpackUnorm4x8 <- (unpackUnorm4x8) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unshaded <- (unshaded) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 usampler2D <- (usampler2D) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 usampler2DArray <- (usampler2DArray) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 usampler3D <- (usampler3D) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 use_half_res_pass <- (use_half_res_pass) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 use_quarter_res_pass <- (use_quarter_res_pass) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 usubBorrow <- (usubBorrow) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 uvec2 <- (uvec2) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 uvec3 <- (uvec3) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 uvec4 <- (uvec4) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 varying <- (varying) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 vec2 <- (vec2) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 vec3 <- (vec3) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 vec4 <- (vec4) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 vertex_lighting <- (vertex_lighting) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 void <- (void) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 while <- (while) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 wireframe <- (wireframe) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 world_vertex_coords <- (world_vertex_coords) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

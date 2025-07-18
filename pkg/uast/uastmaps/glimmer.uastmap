@@ -1,62 +1,54 @@
 attribute_node <- (attribute_node) => uast(
     type: "Attribute",
     roles: "Attribute"
-    children: []
 )
 
 block_params <- (block_params) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 block_statement <- (block_statement) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "block_statement", "comment_statement", "element_node", "mustache_statement", "text_node"
 )
 
 block_statement_end <- (block_statement_end) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "identifier"
 )
 
 block_statement_start <- (block_statement_start) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "boolean_literal", "identifier", "number_literal", "path_expression", "string_literal", "sub_expression"
 )
 
 boolean_literal <- (boolean_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 concat_statement <- (concat_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 element_node <- (element_node) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 element_node_end <- (element_node_end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 element_node_start <- (element_node_start) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 element_node_void <- (element_node_void) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hash_pair <- (hash_pair) => uast(
@@ -70,76 +62,62 @@ helper_invocation <- (helper_invocation) => uast(
 )
 
 mustache_statement <- (mustache_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 path_expression <- (path_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_literal <- (string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 sub_expression <- (sub_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 template <- (template) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 as <- (as) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 attribute_name <- (attribute_name) => uast(
     type: "Attribute",
     roles: "Attribute"
-    children: []
 )
 
 comment_statement <- (comment_statement) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 number_literal <- (number_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 tag_name <- (tag_name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 text_node <- (text_node) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

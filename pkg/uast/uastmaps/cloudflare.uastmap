@@ -6,13 +6,11 @@ array_func <- (array_func) => uast(
 array_number_field <- (array_number_field) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 array_string_field <- (array_string_field) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 bool_array <- (bool_array) => uast(
@@ -23,7 +21,6 @@ bool_array <- (bool_array) => uast(
 bool_field <- (bool_field) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 bool_func <- (bool_func) => uast(
@@ -32,20 +29,18 @@ bool_func <- (bool_func) => uast(
 )
 
 boolean <- (boolean) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 boollike_field <- (boollike_field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "number"
 )
 
 bytes_field <- (bytes_field) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 compound_expression <- (compound_expression) => uast(
@@ -66,7 +61,6 @@ in_expression <- (in_expression) => uast(
 ip_field <- (ip_field) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 ip_range <- (ip_range) => uast(
@@ -75,24 +69,20 @@ ip_range <- (ip_range) => uast(
 )
 
 ip_set <- (ip_set) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 map_string_array_field <- (map_string_array_field) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 not_expression <- (not_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 not_operator <- (not_operator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 number_array <- (number_array) => uast(
@@ -103,7 +93,6 @@ number_array <- (number_array) => uast(
 number_field <- (number_field) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 number_func <- (number_func) => uast(
@@ -112,13 +101,12 @@ number_func <- (number_func) => uast(
 )
 
 number_set <- (number_set) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 numberlike_field <- (numberlike_field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "number"
 )
 
@@ -128,8 +116,7 @@ simple_expression <- (simple_expression) => uast(
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_array <- (string_array) => uast(
@@ -140,7 +127,6 @@ string_array <- (string_array) => uast(
 string_field <- (string_field) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 string_func <- (string_func) => uast(
@@ -149,220 +135,178 @@ string_func <- (string_func) => uast(
 )
 
 string_set <- (string_set) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 stringlike_field <- (stringlike_field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "number"
 )
 
 all <- (all) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 and <- (and) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 any <- (any) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 concat <- (concat) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 contains <- (contains) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ends_with <- (ends_with) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 eq <- (eq) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ge <- (ge) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 gt <- (gt) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 icmp <- (icmp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ip <- (ip) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ip_list <- (ip_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 ipv4 <- (ipv4) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 le <- (le) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 len <- (len) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 lookup_json_string <- (lookup_json_string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 lower <- (lower) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 lt <- (lt) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 matches <- (matches) => uast(
     type: "Match",
     roles: "Match"
-    children: []
 )
 
 ne <- (ne) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 not <- (not) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 number <- (number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 or <- (or) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 regex_replace <- (regex_replace) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 remove_bytes <- (remove_bytes) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sip <- (sip) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ssl <- (ssl) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 starts_with <- (starts_with) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tcp <- (tcp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 to_string <- (to_string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 udp <- (udp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 upper <- (upper) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 url_decode <- (url_decode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 uuidv4 <- (uuidv4) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 wildcard <- (wildcard) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 xor <- (xor) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

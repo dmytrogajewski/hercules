@@ -4,18 +4,16 @@ argument <- (argument) => uast(
 )
 
 arguments <- (arguments) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 array <- (array) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assign_field <- (assign_field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "array", "assign_field", "assign_local", "assign_receiver_field", "binary", "block", "break", "call", "cast", "closure", "compound_assign_field", "compound_assign_local", "compound_assign_receiver_field", "constant", "define_variable", "false", "field", "float", "for", "grouped_expression", "identifier", "if", "integer", "loop", "match", "mut", "next", "nil", "recover", "ref", "replace_field", "replace_local", "return", "self", "string", "throw", "true", "try", "tuple", "while"
 )
 
@@ -26,7 +24,7 @@ assign_local <- (assign_local) => uast(
 
 assign_receiver_field <- (assign_receiver_field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "array", "assign_field", "assign_local", "assign_receiver_field", "binary", "block", "break", "call", "cast", "closure", "compound_assign_field", "compound_assign_local", "compound_assign_receiver_field", "constant", "define_variable", "false", "field", "float", "for", "grouped_expression", "identifier", "if", "integer", "loop", "match", "mut", "name", "next", "nil", "recover", "ref", "replace_field", "replace_local", "return", "self", "string", "throw", "true", "try", "tuple", "while"
 )
 
@@ -38,13 +36,11 @@ binary <- (binary) => uast(
 block <- (block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 boolean_pattern <- (boolean_pattern) => uast(
     type: "Pattern",
     roles: "Pattern"
-    children: []
 )
 
 bound <- (bound) => uast(
@@ -53,26 +49,24 @@ bound <- (bound) => uast(
 )
 
 bounds <- (bounds) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 call <- (call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "arguments", "array", "assign_field", "assign_local", "assign_receiver_field", "binary", "block", "break", "call", "cast", "closure", "compound_assign_field", "compound_assign_local", "compound_assign_receiver_field", "constant", "define_variable", "false", "field", "float", "for", "grouped_expression", "identifier", "if", "integer", "loop", "match", "mut", "name", "next", "nil", "recover", "ref", "replace_field", "replace_local", "return", "self", "string", "throw", "true", "try", "tuple", "while"
 )
 
 case <- (case) => uast(
     type: "Case",
-    roles: "Branch"
+    roles: "Branch",
     children: "array", "assign_field", "assign_local", "assign_receiver_field", "binary", "block", "boolean_pattern", "break", "call", "cast", "class_pattern", "closure", "compound_assign_field", "compound_assign_local", "compound_assign_receiver_field", "constant", "constant_pattern", "define_variable", "enum_pattern", "false", "field", "float", "for", "grouped_expression", "identifier", "identifier_pattern", "if", "integer", "integer_pattern", "loop", "match", "mut", "mutable_pattern", "next", "nil", "or_pattern", "recover", "ref", "replace_field", "replace_local", "return", "self", "string", "string_pattern", "throw", "true", "try", "tuple", "tuple_pattern", "while", "wildcard_pattern"
 )
 
 cases <- (cases) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 cast <- (cast) => uast(
@@ -82,20 +76,18 @@ cast <- (cast) => uast(
 
 class <- (class) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "class_body", "constant", "modifier", "type_parameters", "visibility"
 )
 
 class_body <- (class_body) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 class_pattern <- (class_pattern) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 closure <- (closure) => uast(
@@ -105,7 +97,7 @@ closure <- (closure) => uast(
 
 compound_assign_field <- (compound_assign_field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "array", "assign_field", "assign_local", "assign_receiver_field", "binary", "block", "break", "call", "cast", "closure", "compound_assign_field", "compound_assign_local", "compound_assign_receiver_field", "constant", "define_variable", "false", "field", "float", "for", "grouped_expression", "identifier", "if", "integer", "loop", "match", "mut", "next", "nil", "recover", "ref", "replace_field", "replace_local", "return", "self", "string", "throw", "true", "try", "tuple", "while"
 )
 
@@ -116,24 +108,23 @@ compound_assign_local <- (compound_assign_local) => uast(
 
 compound_assign_receiver_field <- (compound_assign_receiver_field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "array", "assign_field", "assign_local", "assign_receiver_field", "binary", "block", "break", "call", "cast", "closure", "compound_assign_field", "compound_assign_local", "compound_assign_receiver_field", "constant", "define_variable", "false", "field", "float", "for", "grouped_expression", "identifier", "if", "integer", "loop", "match", "mut", "next", "nil", "recover", "ref", "replace_field", "replace_local", "return", "self", "string", "throw", "true", "try", "tuple", "while"
 )
 
 constant_pattern <- (constant_pattern) => uast(
     type: "Pattern",
-    roles: "Pattern"
+    roles: "Pattern",
     children: "constant", "identifier"
 )
 
 copy <- (copy) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 define_case <- (define_case) => uast(
     type: "Case",
-    roles: "Branch"
+    roles: "Branch",
     children: "arguments", "constant"
 )
 
@@ -144,13 +135,13 @@ define_constant <- (define_constant) => uast(
 
 define_field <- (define_field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "field", "fn_type", "generic_type", "move_type", "mut_type", "ref_type", "tuple_type", "type", "uni_type", "visibility"
 )
 
 define_variable <- (define_variable) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "array", "assign_field", "assign_local", "assign_receiver_field", "binary", "block", "break", "call", "cast", "closure", "compound_assign_field", "compound_assign_local", "compound_assign_receiver_field", "constant", "define_variable", "false", "field", "float", "fn_type", "for", "generic_type", "grouped_expression", "identifier", "if", "integer", "loop", "match", "modifier", "move_type", "mut", "mut_type", "next", "nil", "recover", "ref", "ref_type", "replace_field", "replace_local", "return", "self", "string", "throw", "true", "try", "tuple", "tuple_type", "type", "uni_type", "while"
 )
 
@@ -166,35 +157,33 @@ else_if <- (else_if) => uast(
 
 enum_pattern <- (enum_pattern) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "arguments", "constant"
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 extern_import <- (extern_import) => uast(
     type: "Import",
-    roles: "Import"
+    roles: "Import",
     children: "path", "tags"
 )
 
 external_function <- (external_function) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "arguments", "block", "fn_type", "generic_type", "identifier", "move_type", "mut_type", "ref_type", "tuple_type", "type", "uni_type", "visibility"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 field_pattern <- (field_pattern) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "boolean_pattern", "class_pattern", "constant_pattern", "enum_pattern", "field", "identifier_pattern", "integer_pattern", "mutable_pattern", "or_pattern", "string_pattern", "tuple_pattern", "wildcard_pattern"
 )
 
@@ -205,7 +194,7 @@ fn_type <- (fn_type) => uast(
 
 for <- (for) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "array", "assign_field", "assign_local", "assign_receiver_field", "binary", "block", "boolean_pattern", "break", "call", "cast", "class_pattern", "closure", "compound_assign_field", "compound_assign_local", "compound_assign_receiver_field", "constant", "constant_pattern", "define_variable", "enum_pattern", "false", "field", "float", "for", "grouped_expression", "identifier", "identifier_pattern", "if", "integer", "integer_pattern", "loop", "match", "mut", "mutable_pattern", "next", "nil", "or_pattern", "recover", "ref", "replace_field", "replace_local", "return", "self", "string", "string_pattern", "throw", "true", "try", "tuple", "tuple_pattern", "while", "wildcard_pattern"
 )
 
@@ -215,13 +204,11 @@ generic_type <- (generic_type) => uast(
 )
 
 grouped_expression <- (grouped_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if <- (if) => uast(
@@ -235,48 +222,45 @@ implement_trait <- (implement_trait) => uast(
 )
 
 implement_trait_body <- (implement_trait_body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 import <- (import) => uast(
     type: "Import",
-    roles: "Import"
+    roles: "Import",
     children: "path", "symbols", "tags"
 )
 
 import_as <- (import_as) => uast(
     type: "Import",
-    roles: "Import"
+    roles: "Import",
     children: "as", "constant", "identifier", "self"
 )
 
 interpolation <- (interpolation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 loop <- (loop) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "block"
 )
 
 match <- (match) => uast(
     type: "Match",
-    roles: "Match"
+    roles: "Match",
     children: "array", "assign_field", "assign_local", "assign_receiver_field", "binary", "block", "break", "call", "cases", "cast", "closure", "compound_assign_field", "compound_assign_local", "compound_assign_receiver_field", "constant", "define_variable", "false", "field", "float", "for", "grouped_expression", "identifier", "if", "integer", "loop", "match", "mut", "next", "nil", "recover", "ref", "replace_field", "replace_local", "return", "self", "string", "throw", "true", "try", "tuple", "while"
 )
 
 method <- (method) => uast(
     type: "Method",
-    roles: "Function", "Declaration", "Member"
+    roles: "Function", "Declaration", "Member",
     children: "arguments", "block", "fn_type", "generic_type", "identifier", "modifier", "move_type", "mut_type", "ref_type", "tuple_type", "type", "type_parameters", "uni_type", "visibility"
 )
 
 modifier <- (modifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 move_type <- (move_type) => uast(
@@ -285,8 +269,7 @@ move_type <- (move_type) => uast(
 )
 
 mut <- (mut) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 mut_type <- (mut_type) => uast(
@@ -295,14 +278,12 @@ mut_type <- (mut_type) => uast(
 )
 
 mutable <- (mutable) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 mutable_pattern <- (mutable_pattern) => uast(
     type: "Pattern",
     roles: "Pattern"
-    children: []
 )
 
 named_argument <- (named_argument) => uast(
@@ -313,22 +294,18 @@ named_argument <- (named_argument) => uast(
 or_pattern <- (or_pattern) => uast(
     type: "Pattern",
     roles: "Pattern"
-    children: []
 )
 
 path <- (path) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 recover <- (recover) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ref <- (ref) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ref_type <- (ref_type) => uast(
@@ -338,19 +315,18 @@ ref_type <- (ref_type) => uast(
 
 reopen_class <- (reopen_class) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "bounds", "constant", "reopen_class_body"
 )
 
 reopen_class_body <- (reopen_class_body) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 replace_field <- (replace_field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "array", "assign_field", "assign_local", "assign_receiver_field", "binary", "block", "break", "call", "cast", "closure", "compound_assign_field", "compound_assign_local", "compound_assign_receiver_field", "constant", "define_variable", "false", "field", "float", "for", "grouped_expression", "identifier", "if", "integer", "loop", "match", "mut", "next", "nil", "recover", "ref", "replace_field", "replace_local", "return", "self", "string", "throw", "true", "try", "tuple", "while"
 )
 
@@ -360,51 +336,42 @@ replace_local <- (replace_local) => uast(
 )
 
 required_traits <- (required_traits) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 requirements <- (requirements) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_pattern <- (string_pattern) => uast(
     type: "Pattern",
     roles: "Pattern"
-    children: []
 )
 
 symbols <- (symbols) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tags <- (tags) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 throw <- (throw) => uast(
     type: "Throw",
     roles: "Throw"
-    children: []
 )
 
 trait <- (trait) => uast(
@@ -413,51 +380,43 @@ trait <- (trait) => uast(
 )
 
 trait_body <- (trait_body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 try <- (try) => uast(
     type: "Try",
     roles: "Try"
-    children: []
 )
 
 tuple <- (tuple) => uast(
-    type: "Tuple",
-    children: []
+    type: "Tuple"
 )
 
 tuple_pattern <- (tuple_pattern) => uast(
-    type: "Tuple",
-    children: []
+    type: "Tuple"
 )
 
 tuple_type <- (tuple_type) => uast(
-    type: "Tuple",
-    children: []
+    type: "Tuple"
 )
 
 type_arguments <- (type_arguments) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type_parameter <- (type_parameter) => uast(
     type: "Parameter",
-    roles: "Parameter"
+    roles: "Parameter",
     children: "constant", "requirements"
 )
 
 type_parameters <- (type_parameters) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 uni_type <- (uni_type) => uast(
@@ -467,277 +426,226 @@ uni_type <- (uni_type) => uast(
 
 while <- (while) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "array", "assign_field", "assign_local", "assign_receiver_field", "binary", "block", "break", "call", "cast", "closure", "compound_assign_field", "compound_assign_local", "compound_assign_receiver_field", "constant", "define_variable", "false", "field", "float", "for", "grouped_expression", "identifier", "if", "integer", "loop", "match", "mut", "next", "nil", "recover", "ref", "replace_field", "replace_local", "return", "self", "string", "throw", "true", "try", "tuple", "while"
 )
 
 and <- (and) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 as <- (as) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 async <- (async) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 break <- (break) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 builtin <- (builtin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 case <- (case) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 constant <- (constant) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 copy <- (copy) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 enum <- (enum) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 extern <- (extern) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 field <- (field) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 float <- (float) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fn <- (fn) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 for <- (for) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 identifier_pattern <- (identifier_pattern) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 impl <- (impl) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 import <- (import) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inline <- (inline) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 integer <- (integer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 integer_pattern <- (integer_pattern) => uast(
     type: "Pattern",
     roles: "Pattern"
-    children: []
 )
 
 let <- (let) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 line_comment <- (line_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 loop <- (loop) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 match <- (match) => uast(
     type: "Match",
     roles: "Match"
-    children: []
 )
 
 move <- (move) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 mut <- (mut) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 name <- (name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 next <- (next) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 nil <- (nil) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 or <- (or) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 recover <- (recover) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ref <- (ref) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 rest_argument <- (rest_argument) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 self <- (self) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 static <- (static) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_content <- (string_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 throw <- (throw) => uast(
     type: "Throw",
     roles: "Throw"
-    children: []
 )
 
 trait <- (trait) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 try <- (try) => uast(
     type: "Try",
     roles: "Try"
-    children: []
 )
 
 type <- (type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type <- (type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 uni <- (uni) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 visibility <- (visibility) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 while <- (while) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 wildcard_pattern <- (wildcard_pattern) => uast(
     type: "Pattern",
     roles: "Pattern"
-    children: []
 )
 

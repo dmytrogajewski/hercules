@@ -2,6 +2,8 @@
 package node
 
 import (
+	"crypto/sha1"
+	"encoding/binary"
 	"fmt"
 	"strings"
 	"sync"
@@ -33,7 +35,7 @@ type Positions struct {
 //	Props: additional properties (language-specific)
 //	Children: child nodes (ordered)
 type Node struct {
-	Id       uint64            `json:"id,omitempty"`
+	Id       string            `json:"id,omitempty"`
 	Type     string            `json:"type,omitempty"`
 	Token    string            `json:"token,omitempty"`
 	Roles    []Role            `json:"roles,omitempty"`
@@ -62,7 +64,7 @@ type nodeTransformFrame struct {
 }
 
 // New creates a new Node from the pool and initializes it with the given values
-func New(id uint64, nodeType, token string, roles []Role, pos *Positions, props map[string]string) *Node {
+func New(id string, nodeType, token string, roles []Role, pos *Positions, props map[string]string) *Node {
 	node := nodePool.Get().(*Node)
 	node.Id = id
 	node.Type = nodeType
@@ -77,7 +79,7 @@ func New(id uint64, nodeType, token string, roles []Role, pos *Positions, props 
 // NewWithType creates a new Node with just a type
 func NewWithType(nodeType string) *Node {
 	node := nodePool.Get().(*Node)
-	node.Id = 0
+	node.Id = ""
 	node.Type = nodeType
 	node.Token = ""
 	node.Roles = nil
@@ -90,7 +92,7 @@ func NewWithType(nodeType string) *Node {
 // NewNodeWithToken creates a new Node with type and token
 func NewNodeWithToken(nodeType, token string) *Node {
 	node := nodePool.Get().(*Node)
-	node.Id = 0
+	node.Id = ""
 	node.Type = nodeType
 	node.Token = token
 	node.Roles = nil
@@ -108,7 +110,7 @@ func NewLiteralNode(token string) *Node {
 // Release returns a Node to the pool for reuse
 func (n *Node) Release() {
 	// Clear the node to prevent memory leaks
-	n.Id = 0
+	n.Id = ""
 	n.Type = ""
 	n.Token = ""
 	n.Roles = nil
@@ -287,6 +289,9 @@ func (n *Node) ToMap() map[string]any {
 	result := map[string]any{
 		"type": n.Type,
 	}
+	if n.Id != "" {
+		result["id"] = fmt.Sprintf("%x", n.Id)
+	}
 	if n.Token != "" {
 		result["token"] = n.Token
 	}
@@ -298,6 +303,28 @@ func (n *Node) ToMap() map[string]any {
 		roles[i] = string(role)
 	}
 	result["roles"] = roles
+
+	// Always include pos, even if nil
+	if n.Pos == nil {
+		result["pos"] = map[string]any{
+			"start_line":   0,
+			"start_col":    0,
+			"start_offset": 0,
+			"end_line":     0,
+			"end_col":      0,
+			"end_offset":   0,
+		}
+	} else {
+		result["pos"] = map[string]any{
+			"start_line":   n.Pos.StartLine,
+			"start_col":    n.Pos.StartCol,
+			"start_offset": n.Pos.StartOffset,
+			"end_line":     n.Pos.EndLine,
+			"end_col":      n.Pos.EndCol,
+			"end_offset":   n.Pos.EndOffset,
+		}
+	}
+
 	if len(n.Children) > 0 {
 		children := make([]map[string]any, len(n.Children))
 		for i, child := range n.Children {
@@ -692,4 +719,43 @@ func processRemainingNodesPostOrderIterative(node *Node, fn func(*Node)) {
 			}
 		}
 	}
+}
+
+// AssignStableIDs assigns a stable id to each node in the tree based on its content and position.
+func (n *Node) AssignStableIDs() {
+	if n == nil {
+		return
+	}
+	var assign func(node *Node)
+	assign = func(node *Node) {
+		if node == nil {
+			return
+		}
+		h := sha1.New()
+		h.Write([]byte(node.Type))
+		h.Write([]byte(node.Token))
+		if node.Pos != nil {
+			buf := make([]byte, 8*6)
+			binary.LittleEndian.PutUint64(buf[0:8], uint64(node.Pos.StartLine))
+			binary.LittleEndian.PutUint64(buf[8:16], uint64(node.Pos.StartCol))
+			binary.LittleEndian.PutUint64(buf[16:24], uint64(node.Pos.StartOffset))
+			binary.LittleEndian.PutUint64(buf[24:32], uint64(node.Pos.EndLine))
+			binary.LittleEndian.PutUint64(buf[32:40], uint64(node.Pos.EndCol))
+			binary.LittleEndian.PutUint64(buf[40:48], uint64(node.Pos.EndOffset))
+			h.Write(buf)
+		}
+		for _, r := range node.Roles {
+			h.Write([]byte(r))
+		}
+		for _, c := range node.Children {
+			assign(c)
+			buf := make([]byte, 8)
+			copy(buf, []byte(c.Id))
+			h.Write(buf)
+		}
+		// Use first 8 bytes of SHA1 as uint64 id
+		idBytes := h.Sum(nil)[:8]
+		node.Id = string(idBytes)
+	}
+	assign(n)
 }

@@ -1,28 +1,23 @@
 expression <- (expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 argument_list <- (argument_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 assert_command <- (assert_command) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assignment <- (assignment) => uast(
     type: "Assignment",
     roles: "Assignment"
-    children: []
 )
 
 attributes <- (attributes) => uast(
     type: "Attribute",
     roles: "Attribute"
-    children: []
 )
 
 binary_expression <- (binary_expression) => uast(
@@ -32,7 +27,7 @@ binary_expression <- (binary_expression) => uast(
 
 call_expression <- (call_expression) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "argument_list", "expression"
 )
 
@@ -43,13 +38,12 @@ conditional_expression <- (conditional_expression) => uast(
 
 entry_command <- (entry_command) => uast(
     type: "Try",
-    roles: "Try"
+    roles: "Try",
     children: "symbol"
 )
 
 fillexp <- (fillexp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 input_section <- (input_section) => uast(
@@ -58,18 +52,15 @@ input_section <- (input_section) => uast(
 )
 
 keep_command <- (keep_command) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 linkerscript <- (linkerscript) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 lma_region <- (lma_region) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 load_memory_address <- (load_memory_address) => uast(
@@ -93,13 +84,11 @@ overlay_command <- (overlay_command) => uast(
 )
 
 parenthesized_expression <- (parenthesized_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 phdr <- (phdr) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 phdrs_command <- (phdrs_command) => uast(
@@ -108,28 +97,23 @@ phdrs_command <- (phdrs_command) => uast(
 )
 
 provide_command <- (provide_command) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 quoted_symbol <- (quoted_symbol) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 region <- (region) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 section_type <- (section_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sections_command <- (sections_command) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unary_expression <- (unary_expression) => uast(
@@ -140,138 +124,111 @@ unary_expression <- (unary_expression) => uast(
 wildcard_pattern <- (wildcard_pattern) => uast(
     type: "Pattern",
     roles: "Pattern"
-    children: []
 )
 
 ASSERT <- (ASSERT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 AT <- (AT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 COPY <- (COPY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DSECT <- (DSECT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ENTRY <- (ENTRY) => uast(
     type: "Try",
     roles: "Try"
-    children: []
 )
 
 FILEHDR <- (FILEHDR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 INFO <- (INFO) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 KEEP <- (KEEP) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LENGTH <- (LENGTH) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 MEMORY <- (MEMORY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NOCROSSREFS <- (NOCROSSREFS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NOLOAD <- (NOLOAD) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ORIGIN <- (ORIGIN) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 OVERLAY <- (OVERLAY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PHDRS <- (PHDRS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PROVIDE <- (PROVIDE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PROVIDE_HIDDEN <- (PROVIDE_HIDDEN) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SECTIONS <- (SECTIONS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 filename <- (filename) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 l <- (l) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 len <- (len) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 number <- (number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 o <- (o) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 org <- (org) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 symbol <- (symbol) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

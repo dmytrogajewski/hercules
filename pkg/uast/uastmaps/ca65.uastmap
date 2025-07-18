@@ -1,219 +1,180 @@
 abs_addr_inst <- (abs_addr_inst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 abs_x_addr_inst <- (abs_x_addr_inst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 abs_y_addr_inst <- (abs_y_addr_inst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 acc_addr_inst <- (acc_addr_inst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 add_exp <- (add_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 addr_ctrl_cmd <- (addr_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 align_ctrl_cmd <- (align_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 asciiz_ctrl_cmd <- (asciiz_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assert_ctrl_cmd <- (assert_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 autoimport_ctrl_cmd <- (autoimport_ctrl_cmd) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 bankbytes_ctrl_cmd <- (bankbytes_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bin_16 <- (bin_16) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bin_8 <- (bin_8) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bit_and_exp <- (bit_and_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bit_or_exp <- (bit_or_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bit_xor_exp <- (bit_xor_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bool_and_exp <- (bool_and_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bool_not_exp <- (bool_not_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bool_or_exp <- (bool_or_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bool_xor_exp <- (bool_xor_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 byte_ctrl_cmd <- (byte_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ca65 <- (ca65) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 case_ctrl_cmd <- (case_ctrl_cmd) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 charmap_ctrl_cmd <- (charmap_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 condes_ctrl_cmd <- (condes_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 constructor_ctrl_cmd <- (constructor_ctrl_cmd) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 ctrl_cmd <- (ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dbyt_ctrl_cmd <- (dbyt_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 debuginfo_ctrl_cmd <- (debuginfo_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 define_ctrl_cmd <- (define_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 delmac_ctrl_cmd <- (delmac_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 destructor_ctrl_cmd <- (destructor_ctrl_cmd) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 div_exp <- (div_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dword_ctrl_cmd <- (dword_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 elseif_ctrl_cmd <- (elseif_ctrl_cmd) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 endmacro_ctrl_cmd <- (endmacro_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 endrepeat_ctrl_cmd <- (endrepeat_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 enum_body <- (enum_body) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "enum_member"
 )
 
 enum_ctrl_cmd <- (enum_ctrl_cmd) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 enum_member <- (enum_member) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "expression", "symbol"
 )
 
 enum_name <- (enum_name) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "symbol"
 )
 
 eq_cmp <- (eq_cmp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 error_ctrl_cmd <- (error_ctrl_cmd) => uast(
@@ -222,33 +183,27 @@ error_ctrl_cmd <- (error_ctrl_cmd) => uast(
 )
 
 exitmacro_ctrl_cmd <- (exitmacro_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 export_ctrl_cmd <- (export_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 exportee <- (exportee) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 exportzp_ctrl_cmd <- (exportzp_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 expression <- (expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 faraddr_ctrl_cmd <- (faraddr_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fatal_ctrl_cmd <- (fatal_ctrl_cmd) => uast(
@@ -257,591 +212,474 @@ fatal_ctrl_cmd <- (fatal_ctrl_cmd) => uast(
 )
 
 gt_cmp <- (gt_cmp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 gte_cmp <- (gte_cmp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hex_16 <- (hex_16) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hex_8 <- (hex_8) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 imm_addr_inst <- (imm_addr_inst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 impl_addr_inst <- (impl_addr_inst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ind_addr_inst <- (ind_addr_inst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ind_x_addr_inst <- (ind_x_addr_inst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ind_y_addr_inst <- (ind_y_addr_inst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inst <- (inst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 lt_cmp <- (lt_cmp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 lte_cmp <- (lte_cmp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 mod_exp <- (mod_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 mult_exp <- (mult_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 neq_cmp <- (neq_cmp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 operand_16 <- (operand_16) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 operand_8 <- (operand_8) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 plus_symbol <- (plus_symbol) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 rel_addr_inst <- (rel_addr_inst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 shift_l_exp <- (shift_l_exp) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 shift_r_exp <- (shift_r_exp) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sub_exp <- (sub_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sub_symbol <- (sub_symbol) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unary_bankbyte_exp <- (unary_bankbyte_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unary_hibyte_exp <- (unary_hibyte_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unary_lobyte_exp <- (unary_lobyte_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unary_neg_exp <- (unary_neg_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unary_not_exp <- (unary_not_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unary_pos_exp <- (unary_pos_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 zp_addr_inst <- (zp_addr_inst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 zp_x_addr_inst <- (zp_x_addr_inst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 zp_y_addr_inst <- (zp_y_addr_inst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 a16_ctrl_cmd <- (a16_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 a8_ctrl_cmd <- (a8_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 acc_register <- (acc_register) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 adc_opcode <- (adc_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 and_opcode <- (and_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 asl_opcode <- (asl_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bcc_opcode <- (bcc_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bcs_opcode <- (bcs_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 beq_opcode <- (beq_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bit_opcode <- (bit_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bmi_opcode <- (bmi_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bne_opcode <- (bne_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bpl_opcode <- (bpl_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 brk_opcode <- (brk_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bss_ctrl_cmd <- (bss_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bvc_opcode <- (bvc_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bvs_opcode <- (bvs_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 clc_opcode <- (clc_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cld_opcode <- (cld_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cli_opcode <- (cli_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 clv_opcode <- (clv_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cmp_opcode <- (cmp_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 code_ctrl_cmd <- (code_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 constructor_keyword <- (constructor_keyword) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 cpx_opcode <- (cpx_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cpy_opcode <- (cpy_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 data_ctrl_cmd <- (data_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dec_16 <- (dec_16) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dec_8 <- (dec_8) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dec_opcode <- (dec_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 destructor_keyword <- (destructor_keyword) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 dex_opcode <- (dex_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dey_opcode <- (dey_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else_ctrl_cmd <- (else_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 end_ctrl_cmd <- (end_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 endif_ctrl_cmd <- (endif_ctrl_cmd) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 endscope_ctrl_cmd <- (endscope_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 endstruct_ctrl_cmd <- (endstruct_ctrl_cmd) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 endunion_ctrl_cmd <- (endunion_ctrl_cmd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 eor_opcode <- (eor_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 error_keyword <- (error_keyword) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 h <- (h) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 imm_prefix <- (imm_prefix) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inc_opcode <- (inc_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 interruptor_keyword <- (interruptor_keyword) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inx_opcode <- (inx_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 iny_opcode <- (iny_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 jmp_opcode <- (jmp_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 jsr_opcode <- (jsr_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 label <- (label) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 lda_opcode <- (lda_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 lderror_keyword <- (lderror_keyword) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ldwarning_keyword <- (ldwarning_keyword) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ldx_opcode <- (ldx_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ldy_opcode <- (ldy_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 lsr_opcode <- (lsr_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 nop_opcode <- (nop_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ora_opcode <- (ora_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 pha_opcode <- (pha_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 php_opcode <- (php_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 pla_opcode <- (pla_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 plp_opcode <- (plp_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 rol_opcode <- (rol_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ror_opcode <- (ror_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 rti_opcode <- (rti_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 rts_opcode <- (rts_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sbc_opcode <- (sbc_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sec_opcode <- (sec_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sed_opcode <- (sed_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sei_opcode <- (sei_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sta_opcode <- (sta_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 stx_opcode <- (stx_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sty_opcode <- (sty_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 symbol <- (symbol) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tax_opcode <- (tax_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tay_opcode <- (tay_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tcs_opcode <- (tcs_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tsx_opcode <- (tsx_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 txa_opcode <- (txa_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tya_opcode <- (tya_opcode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 warning_keyword <- (warning_keyword) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 x_register <- (x_register) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 y_register <- (y_register) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

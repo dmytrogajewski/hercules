@@ -1,21 +1,18 @@
 eel_expression <- (eel_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 eel_primary_expression <- (eel_primary_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 statement <- (statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 afx_attribute <- (afx_attribute) => uast(
     type: "Attribute",
-    roles: "Attribute"
+    roles: "Attribute",
     children: "afx_meta_property_identifier", "afx_property_identifier", "afx_property_path", "afx_spread", "eel_expression", "string"
 )
 
@@ -35,13 +32,11 @@ afx_element_self_closing <- (afx_element_self_closing) => uast(
 )
 
 afx_identifier <- (afx_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 afx_meta_property_identifier <- (afx_meta_property_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 afx_opening_element <- (afx_opening_element) => uast(
@@ -52,19 +47,16 @@ afx_opening_element <- (afx_opening_element) => uast(
 afx_package_name <- (afx_package_name) => uast(
     type: "Package",
     roles: "Module"
-    children: []
 )
 
 afx_property_path <- (afx_property_path) => uast(
     type: "Property",
     roles: "Member"
-    children: []
 )
 
 afx_spread <- (afx_spread) => uast(
     type: "Spread",
     roles: "Spread"
-    children: []
 )
 
 afx_type <- (afx_type) => uast(
@@ -73,25 +65,23 @@ afx_type <- (afx_type) => uast(
 )
 
 afx_type_name <- (afx_type_name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assignment <- (assignment) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "boolean", "null", "number", "prototype_instance", "string", "value_dsl", "value_expression"
 )
 
 block <- (block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "comment", "property"
 )
 
 boolean <- (boolean) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 copy <- (copy) => uast(
@@ -100,18 +90,16 @@ copy <- (copy) => uast(
 )
 
 deletion <- (deletion) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 eel_array <- (eel_array) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 eel_arrow_function <- (eel_arrow_function) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "eel_expression", "eel_parameter"
 )
 
@@ -122,18 +110,16 @@ eel_binary_expression <- (eel_binary_expression) => uast(
 
 eel_method_call <- (eel_method_call) => uast(
     type: "Method",
-    roles: "Function", "Declaration", "Member"
+    roles: "Function", "Declaration", "Member",
     children: "eel_expression"
 )
 
 eel_not_expression <- (eel_not_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 eel_object <- (eel_object) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 eel_object_pair <- (eel_object_pair) => uast(
@@ -142,8 +128,7 @@ eel_object_pair <- (eel_object_pair) => uast(
 )
 
 eel_object_path <- (eel_object_path) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 eel_offset_access <- (eel_offset_access) => uast(
@@ -152,8 +137,7 @@ eel_offset_access <- (eel_offset_access) => uast(
 )
 
 eel_parenthesized_expression <- (eel_parenthesized_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 eel_ternary_expression <- (eel_ternary_expression) => uast(
@@ -162,87 +146,71 @@ eel_ternary_expression <- (eel_ternary_expression) => uast(
 )
 
 fileglobbing <- (fileglobbing) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 filepath <- (filepath) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 include_statement <- (include_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 meta_property <- (meta_property) => uast(
     type: "Property",
     roles: "Member"
-    children: []
 )
 
 namespace_declaration <- (namespace_declaration) => uast(
     type: "Namespace",
     roles: "Module"
-    children: []
 )
 
 null <- (null) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 package_name <- (package_name) => uast(
     type: "Package",
     roles: "Module"
-    children: []
 )
 
 path <- (path) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 path_part <- (path_part) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 program <- (program) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 property <- (property) => uast(
     type: "Property",
     roles: "Member"
-    children: []
 )
 
 prototype_instance <- (prototype_instance) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 prototype_signature <- (prototype_signature) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 resource <- (resource) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type <- (type) => uast(
@@ -251,8 +219,7 @@ type <- (type) => uast(
 )
 
 type_name <- (type_name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 value_dsl <- (value_dsl) => uast(
@@ -266,129 +233,105 @@ value_expression <- (value_expression) => uast(
 )
 
 FALSE <- (FALSE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NULL <- (NULL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TRUE <- (TRUE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 afx_comment <- (afx_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 afx_property_identifier <- (afx_property_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 afx_text <- (afx_text) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 alias_namespace <- (alias_namespace) => uast(
     type: "Namespace",
     roles: "Module"
-    children: []
 )
 
 and <- (and) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 dsl_content <- (dsl_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dsl_start <- (dsl_start) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 eel_method_name <- (eel_method_name) => uast(
     type: "Method",
     roles: "Function", "Declaration", "Member"
-    children: []
 )
 
 eel_parameter <- (eel_parameter) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 eel_path_identifier <- (eel_path_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 eel_property_name <- (eel_property_name) => uast(
     type: "Property",
     roles: "Member"
-    children: []
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 include <- (include) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 namespace <- (namespace) => uast(
     type: "Namespace",
     roles: "Module"
-    children: []
 )
 
 not <- (not) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 null <- (null) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 number <- (number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 or <- (or) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 prototype <- (prototype) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

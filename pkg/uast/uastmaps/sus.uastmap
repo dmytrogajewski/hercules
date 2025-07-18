@@ -25,13 +25,13 @@ assign_to <- (assign_to) => uast(
 
 binary_op <- (binary_op) => uast(
     type: "BinaryOp",
-    roles: "Operator"
+    roles: "Operator",
     children: "array_op", "binary_op", "field_access", "func_call", "number", "parenthesis_expression", "template_global", "unary_op"
 )
 
 block <- (block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "assign_left_side", "block", "decl_assign_statement", "domain_statement", "for_statement", "if_statement", "interface_statement"
 )
 
@@ -62,19 +62,19 @@ domain_statement <- (domain_statement) => uast(
 
 field_access <- (field_access) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "array_op", "binary_op", "field_access", "func_call", "identifier", "number", "parenthesis_expression", "template_global", "unary_op"
 )
 
 for_statement <- (for_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "array_op", "binary_op", "block", "declaration", "field_access", "func_call", "number", "parenthesis_expression", "template_global", "unary_op"
 )
 
 func_call <- (func_call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "array_op", "binary_op", "field_access", "func_call", "number", "parenthesis_expression", "parenthesis_expression_list", "template_global", "unary_op"
 )
 
@@ -90,13 +90,13 @@ if_statement <- (if_statement) => uast(
 
 interface_ports <- (interface_ports) => uast(
     type: "Interface",
-    roles: "Interface", "Declaration"
+    roles: "Interface", "Declaration",
     children: "declaration_list"
 )
 
 interface_statement <- (interface_statement) => uast(
     type: "Interface",
-    roles: "Interface", "Declaration"
+    roles: "Interface", "Declaration",
     children: "identifier", "interface_ports"
 )
 
@@ -107,7 +107,7 @@ latency_specifier <- (latency_specifier) => uast(
 
 namespace_list <- (namespace_list) => uast(
     type: "Namespace",
-    roles: "Module"
+    roles: "Module",
     children: "identifier"
 )
 
@@ -153,7 +153,7 @@ template_global <- (template_global) => uast(
 
 unary_op <- (unary_op) => uast(
     type: "UnaryOp",
-    roles: "Operator"
+    roles: "Operator",
     children: "array_op", "binary_op", "field_access", "func_call", "number", "parenthesis_expression", "template_global", "unary_op"
 )
 
@@ -163,118 +163,96 @@ write_modifiers <- (write_modifiers) => uast(
 )
 
 __builtin__ <- (__builtin__) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 const <- (const) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 domain <- (domain) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 extern <- (extern) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 for <- (for) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 gen <- (gen) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 initial <- (initial) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 input <- (input) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 interface <- (interface) => uast(
     type: "Interface",
     roles: "Interface", "Declaration"
-    children: []
 )
 
 module <- (module) => uast(
     type: "Module",
     roles: "Module"
-    children: []
 )
 
 multi_line_comment <- (multi_line_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 number <- (number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 output <- (output) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 reg <- (reg) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 single_line_comment <- (single_line_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 state <- (state) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 struct <- (struct) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 type <- (type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

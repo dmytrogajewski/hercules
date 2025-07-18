@@ -1,38 +1,34 @@
 binop <- (binop) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 binop_keyword <- (binop_keyword) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bool <- (bool) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 expr_binop <- (expr_binop) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 expr_call <- (expr_call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "bool", "expr_binop", "expr_call", "expr_field", "expr_function", "expr_if", "expr_import", "expr_index", "expr_stmt", "expr_term_braces", "expr_term_brackets", "expr_term_parens", "expr_unop", "ident", "null", "number", "string"
 )
 
 expr_field <- (expr_field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "bool", "expr_call", "expr_field", "expr_index", "expr_term_braces", "expr_term_brackets", "expr_term_parens", "ident", "null", "number", "string"
 )
 
 expr_function <- (expr_function) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "bool", "expr_binop", "expr_call", "expr_field", "expr_function", "expr_if", "expr_import", "expr_index", "expr_stmt", "expr_term_braces", "expr_term_brackets", "expr_term_parens", "expr_unop", "function_args", "ident", "null", "number", "string"
 )
 
@@ -44,59 +40,49 @@ expr_if <- (expr_if) => uast(
 expr_import <- (expr_import) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 expr_index <- (expr_index) => uast(
     type: "Index",
-    roles: "Index"
+    roles: "Index",
     children: "bool", "expr_binop", "expr_call", "expr_field", "expr_function", "expr_if", "expr_import", "expr_index", "expr_stmt", "expr_term_braces", "expr_term_brackets", "expr_term_parens", "expr_unop", "ident", "null", "number", "string"
 )
 
 expr_stmt <- (expr_stmt) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 expr_term_braces <- (expr_term_braces) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 expr_term_brackets <- (expr_term_brackets) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 expr_term_parens <- (expr_term_parens) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 expr_unop <- (expr_unop) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fstring_double <- (fstring_double) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fstring_triple <- (fstring_triple) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 function_args <- (function_args) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 number <- (number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 seq_assoc_expr <- (seq_assoc_expr) => uast(
@@ -110,13 +96,12 @@ seq_assoc_ident <- (seq_assoc_ident) => uast(
 )
 
 seq_elem <- (seq_elem) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 seq_for <- (seq_for) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "bool", "expr_binop", "expr_call", "expr_field", "expr_function", "expr_if", "expr_import", "expr_index", "expr_term_braces", "expr_term_brackets", "expr_term_parens", "expr_unop", "ident", "null", "number", "seq_assoc_expr", "seq_assoc_ident", "seq_elem", "seq_for", "seq_if", "seq_stmt", "string"
 )
 
@@ -126,13 +111,11 @@ seq_if <- (seq_if) => uast(
 )
 
 seq_stmt <- (seq_stmt) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 stmt_assert <- (stmt_assert) => uast(
@@ -151,23 +134,19 @@ stmt_trace <- (stmt_trace) => uast(
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_double <- (string_double) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_hole <- (string_hole) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_triple <- (string_triple) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type_apply <- (type_apply) => uast(
@@ -177,130 +156,106 @@ type_apply <- (type_apply) => uast(
 
 type_function <- (type_function) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "type_apply", "type_function", "type_term"
 )
 
 type_term <- (type_term) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unop <- (unop) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unop_keyword <- (unop_keyword) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 and <- (and) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assert <- (assert) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 for <- (for) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 ident <- (ident) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 import <- (import) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 let <- (let) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 not <- (not) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 null <- (null) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 num_binary <- (num_binary) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 num_decimal <- (num_decimal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 num_hexadecimal <- (num_hexadecimal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 or <- (or) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 shebang <- (shebang) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_escape <- (string_escape) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 trace <- (trace) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

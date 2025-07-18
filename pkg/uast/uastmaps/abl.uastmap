@@ -1,11 +1,9 @@
 _expression <- (_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _statement <- (_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 abl_statement <- (abl_statement) => uast(
@@ -14,58 +12,47 @@ abl_statement <- (abl_statement) => uast(
 )
 
 abstract <- (abstract) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 access_tuning <- (access_tuning) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 accumulate_aggregate <- (accumulate_aggregate) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 accumulate_expression <- (accumulate_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 accumulate_statement <- (accumulate_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 additive_expression <- (additive_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ambiguous_expression <- (ambiguous_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 argument <- (argument) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 argument_mode <- (argument_mode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 argument_tuning <- (argument_tuning) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 arguments <- (arguments) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 array_access <- (array_access) => uast(
@@ -76,40 +63,34 @@ array_access <- (array_access) => uast(
 array_literal <- (array_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 assign_statement <- (assign_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assignment <- (assignment) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "array_access", "function_call", "identifier", "member_access", "object_access", "qualified_name"
 )
 
 assignment_operator <- (assignment_operator) => uast(
     type: "Assignment",
     roles: "Assignment"
-    children: []
 )
 
 available_expression <- (available_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 body <- (body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 boolean_literal <- (boolean_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 buffer_definition <- (buffer_definition) => uast(
@@ -123,8 +104,7 @@ button_definition <- (button_definition) => uast(
 )
 
 button_tuning <- (button_tuning) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 can_find_expression <- (can_find_expression) => uast(
@@ -135,86 +115,75 @@ can_find_expression <- (can_find_expression) => uast(
 case_condition <- (case_condition) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 case_otherwise_branch <- (case_otherwise_branch) => uast(
     type: "Case",
-    roles: "Branch"
+    roles: "Branch",
     children: "_statement"
 )
 
 case_statement <- (case_statement) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 case_when_branch <- (case_when_branch) => uast(
     type: "Case",
-    roles: "Branch"
+    roles: "Branch",
     children: "_statement"
 )
 
 catch_statement <- (catch_statement) => uast(
     type: "Catch",
-    roles: "Catch"
+    roles: "Catch",
     children: "CLASS", "identifier", "qualified_name"
 )
 
 class_statement <- (class_statement) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "identifier", "qualified_name", "string_literal"
 )
 
 class_tuning <- (class_tuning) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 class_type <- (class_type) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 comparison_expression <- (comparison_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 constant <- (constant) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 constructor_definition <- (constructor_definition) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 current_changed_expression <- (current_changed_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 data_relation <- (data_relation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 data_source_definition <- (data_source_definition) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dataset_definition <- (dataset_definition) => uast(
@@ -223,25 +192,21 @@ dataset_definition <- (dataset_definition) => uast(
 )
 
 dataset_expression <- (dataset_expression) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 destructor_definition <- (destructor_definition) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 do_block <- (do_block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 do_tuning <- (do_tuning) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else_statement <- (else_statement) => uast(
@@ -252,58 +217,50 @@ else_statement <- (else_statement) => uast(
 enum_definition <- (enum_definition) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 enum_member <- (enum_member) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "identifier", "number_literal", "string_literal"
 )
 
 enum_statement <- (enum_statement) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "identifier"
 )
 
 enum_tuning <- (enum_tuning) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 error_scope_statement <- (error_scope_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 event_definition <- (event_definition) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 field_definition <- (field_definition) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 field_option <- (field_option) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 final <- (final) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 finally_statement <- (finally_statement) => uast(
     type: "Finally",
     roles: "Finally"
-    children: []
 )
 
 find_statement <- (find_statement) => uast(
@@ -313,72 +270,65 @@ find_statement <- (find_statement) => uast(
 
 for_phrase <- (for_phrase) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "EACH", "FIRST", "LAST", "identifier", "qualified_name"
 )
 
 for_statement <- (for_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "EACH", "FIRST", "LAST", "identifier", "qualified_name"
 )
 
 function_call <- (function_call) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "identifier", "object_access"
 )
 
 function_call_statement <- (function_call_statement) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 function_parameter <- (function_parameter) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "identifier"
 )
 
 function_parameter_mode <- (function_parameter_mode) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 function_parameter_tuning <- (function_parameter_tuning) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 function_statement <- (function_statement) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "identifier"
 )
 
 generic_expression <- (generic_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 generic_parameter <- (generic_parameter) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 generic_type <- (generic_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 getter <- (getter) => uast(
     type: "Getter",
     roles: "Getter"
-    children: []
 )
 
 if_statement <- (if_statement) => uast(
@@ -397,18 +347,15 @@ image_phrase <- (image_phrase) => uast(
 )
 
 image_tuning <- (image_tuning) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 implements <- (implements) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 include <- (include) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 include_argument <- (include_argument) => uast(
@@ -419,18 +366,15 @@ include_argument <- (include_argument) => uast(
 index_definition <- (index_definition) => uast(
     type: "Index",
     roles: "Index"
-    children: []
 )
 
 index_tuning <- (index_tuning) => uast(
     type: "Index",
     roles: "Index"
-    children: []
 )
 
 inherits <- (inherits) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 input_close_statement <- (input_close_statement) => uast(
@@ -449,35 +393,30 @@ input_stream_statement <- (input_stream_statement) => uast(
 )
 
 input_stream_tuning <- (input_stream_tuning) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 interface_statement <- (interface_statement) => uast(
     type: "Interface",
-    roles: "Interface", "Declaration"
+    roles: "Interface", "Declaration",
     children: "identifier", "qualified_name", "string_literal"
 )
 
 interface_tuning <- (interface_tuning) => uast(
     type: "Interface",
     roles: "Interface", "Declaration"
-    children: []
 )
 
 label <- (label) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 locked_expression <- (locked_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 logical_expression <- (logical_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 member_access <- (member_access) => uast(
@@ -487,35 +426,30 @@ member_access <- (member_access) => uast(
 
 method_definition <- (method_definition) => uast(
     type: "Method",
-    roles: "Function", "Declaration", "Member"
+    roles: "Function", "Declaration", "Member",
     children: "identifier"
 )
 
 method_tuning <- (method_tuning) => uast(
     type: "Method",
     roles: "Function", "Declaration", "Member"
-    children: []
 )
 
 multiplicative_expression <- (multiplicative_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 new_expression <- (new_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 null_statement <- (null_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 number_literal <- (number_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 object_access <- (object_access) => uast(
@@ -524,13 +458,11 @@ object_access <- (object_access) => uast(
 )
 
 of <- (of) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 of_phrase <- (of_phrase) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 on_endkey_phrase <- (on_endkey_phrase) => uast(
@@ -549,8 +481,7 @@ on_quit_phrase <- (on_quit_phrase) => uast(
 )
 
 on_statement <- (on_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 on_stop_phrase <- (on_stop_phrase) => uast(
@@ -569,80 +500,69 @@ output_stream_statement <- (output_stream_statement) => uast(
 )
 
 output_stream_tuning <- (output_stream_tuning) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 parameters <- (parameters) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 parenthesized_expression <- (parenthesized_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 preprocessor_directive <- (preprocessor_directive) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 preselect_phrase <- (preselect_phrase) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 primitive_type <- (primitive_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 procedure_parameter_definition <- (procedure_parameter_definition) => uast(
     type: "Parameter",
-    roles: "Parameter"
+    roles: "Parameter",
     children: "identifier"
 )
 
 procedure_parameter_tuning <- (procedure_parameter_tuning) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 procedure_statement <- (procedure_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 prompt_for_statement <- (prompt_for_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "identifier"
 )
 
 property_definition <- (property_definition) => uast(
     type: "Property",
-    roles: "Member"
+    roles: "Member",
     children: "identifier"
 )
 
 property_tuning <- (property_tuning) => uast(
     type: "Property",
     roles: "Member"
-    children: []
 )
 
 property_type <- (property_type) => uast(
     type: "Property",
     roles: "Member"
-    children: []
 )
 
 qualified_name <- (qualified_name) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 query_definition <- (query_definition) => uast(
@@ -651,24 +571,20 @@ query_definition <- (query_definition) => uast(
 )
 
 query_definition_tuning <- (query_definition_tuning) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 query_fields <- (query_fields) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 query_tuning <- (query_tuning) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 range_notation <- (range_notation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 record_phrase <- (record_phrase) => uast(
@@ -677,30 +593,26 @@ record_phrase <- (record_phrase) => uast(
 )
 
 repeat_statement <- (repeat_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 repeat_tuning <- (repeat_tuning) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return_statement <- (return_statement) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 return_tuning <- (return_tuning) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 return_type <- (return_type) => uast(
     type: "Return",
-    roles: "Return"
+    roles: "Return",
     children: "class_type", "generic_type", "identifier", "primitive_type", "qualified_name"
 )
 
@@ -710,29 +622,24 @@ run_statement <- (run_statement) => uast(
 )
 
 run_tuning <- (run_tuning) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 scope_tuning <- (scope_tuning) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 serializable <- (serializable) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 serialization_tuning <- (serialization_tuning) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 setter <- (setter) => uast(
     type: "Setter",
     roles: "Setter"
-    children: []
 )
 
 size_phrase <- (size_phrase) => uast(
@@ -741,8 +648,7 @@ size_phrase <- (size_phrase) => uast(
 )
 
 sort_clause <- (sort_clause) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sort_column <- (sort_column) => uast(
@@ -751,18 +657,15 @@ sort_column <- (sort_column) => uast(
 )
 
 sort_order <- (sort_order) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 source_code <- (source_code) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 stop_after_phrase <- (stop_after_phrase) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 stream_definition <- (stream_definition) => uast(
@@ -773,18 +676,15 @@ stream_definition <- (stream_definition) => uast(
 string_literal <- (string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 string_literal_attribute <- (string_literal_attribute) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 temp_table_definition <- (temp_table_definition) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 temp_table_expression <- (temp_table_expression) => uast(
@@ -793,8 +693,7 @@ temp_table_expression <- (temp_table_expression) => uast(
 )
 
 temp_table_tuning <- (temp_table_tuning) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ternary_expression <- (ternary_expression) => uast(
@@ -803,8 +702,7 @@ ternary_expression <- (ternary_expression) => uast(
 )
 
 to_phrase <- (to_phrase) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type_tuning <- (type_tuning) => uast(
@@ -813,8 +711,7 @@ type_tuning <- (type_tuning) => uast(
 )
 
 unary_expression <- (unary_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 undo_statement <- (undo_statement) => uast(
@@ -823,24 +720,21 @@ undo_statement <- (undo_statement) => uast(
 )
 
 use_widget_pool <- (use_widget_pool) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 using <- (using) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 using_field <- (using_field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "identifier", "qualified_name"
 )
 
 using_statement <- (using_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 var_statement <- (var_statement) => uast(
@@ -850,31 +744,28 @@ var_statement <- (var_statement) => uast(
 
 variable <- (variable) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "identifier"
 )
 
 variable_assignment <- (variable_assignment) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 variable_definition <- (variable_definition) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "identifier"
 )
 
 variable_tuning <- (variable_tuning) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 when_expression <- (when_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 where_clause <- (where_clause) => uast(
@@ -884,19 +775,17 @@ where_clause <- (where_clause) => uast(
 
 while_phrase <- (while_phrase) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "_expression"
 )
 
 widget_field <- (widget_field) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 widget_phrase <- (widget_phrase) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 workfile_definition <- (workfile_definition) => uast(
@@ -905,1038 +794,836 @@ workfile_definition <- (workfile_definition) => uast(
 )
 
 workfile_tuning <- (workfile_tuning) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ABSTRACT <- (ABSTRACT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ACCUM <- (ACCUM) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ACCUMULATE <- (ACCUMULATE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 AMBIGUOUS <- (AMBIGUOUS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 AND <- (AND) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ANYWHERE <- (ANYWHERE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 APPEND <- (APPEND) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 AS <- (AS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ASC <- (ASC) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ASCENDING <- (ASCENDING) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ASSEMBLY <- (ASSEMBLY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ASSIGN <- (ASSIGN) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ASYNCHRONOUS <- (ASYNCHRONOUS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 AVAIL <- (AVAIL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 AVAILABLE <- (AVAILABLE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 AVERAGE <- (AVERAGE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 BEGINS <- (BEGINS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 BGCOLOR <- (BGCOLOR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 BINARY <- (BINARY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 BIND <- (BIND) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 BREAK <- (BREAK) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 BUFFER <- (BUFFER) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 BUTTON <- (BUTTON) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 BY <- (BY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 C <- (C) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CACHE <- (CACHE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CASE <- (CASE) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 CATCH <- (CATCH) => uast(
     type: "Catch",
     roles: "Catch"
-    children: []
 )
 
 CHAR <- (CHAR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CHARACTER <- (CHARACTER) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CLASS <- (CLASS) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 CLOSE <- (CLOSE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 COLLATE <- (COLLATE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 COLUMN <- (COLUMN) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CONSTRUCTOR <- (CONSTRUCTOR) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 CONTAINS <- (CONTAINS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CONVERT <- (CONVERT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 COUNT <- (COUNT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CURRENT <- (CURRENT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DATASET <- (DATASET) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 DATE <- (DATE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DATETIME <- (DATETIME) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DCOLOR <- (DCOLOR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DECIMAL <- (DECIMAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DECIMALS <- (DECIMALS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DEF <- (DEF) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DEFAULT <- (DEFAULT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DEFINE <- (DEFINE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DESC <- (DESC) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DESCENDING <- (DESCENDING) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DESTRUCTOR <- (DESTRUCTOR) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 DO <- (DO) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 EACH <- (EACH) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ECHO <- (ECHO) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 EDITING <- (EDITING) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ELSE <- (ELSE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 END <- (END) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ENDKEY <- (ENDKEY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ENUM <- (ENUM) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 EQ <- (EQ) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ERROR <- (ERROR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 EVENT <- (EVENT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 EXCEPT <- (EXCEPT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 EXTENT <- (EXTENT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FALSE <- (FALSE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FGCOLOR <- (FGCOLOR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FIELD <- (FIELD) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 FIELDS <- (FIELDS) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 FILE <- (FILE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FINAL <- (FINAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FINALLY <- (FINALLY) => uast(
     type: "Finally",
     roles: "Finally"
-    children: []
 )
 
 FIND <- (FIND) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FIRST <- (FIRST) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FLAGS <- (FLAGS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FONT <- (FONT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FOR <- (FOR) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 FORMAT <- (FORMAT) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 FRAME <- (FRAME) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FROM <- (FROM) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FUNCTION <- (FUNCTION) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 GE <- (GE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 GET <- (GET) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 GLOBAL <- (GLOBAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 GT <- (GT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 HANDLE <- (HANDLE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 HELP <- (HELP) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 IF <- (IF) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 IMAGE <- (IMAGE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 IMPLEMENTS <- (IMPLEMENTS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 IN <- (IN) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 INDEX <- (INDEX) => uast(
     type: "Index",
     roles: "Index"
-    children: []
 )
 
 INHERITS <- (INHERITS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 INIT <- (INIT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 INITIAL <- (INITIAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 INPUT <- (INPUT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 INT <- (INT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 INT64 <- (INT64) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 INTEGER <- (INTEGER) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 INTERFACE <- (INTERFACE) => uast(
     type: "Interface",
     roles: "Interface", "Declaration"
-    children: []
 )
 
 IS <- (IS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 L <- (L) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LABEL <- (LABEL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LANDSCAPE <- (LANDSCAPE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LAST <- (LAST) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LE <- (LE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LEAVE <- (LEAVE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LIKE <- (LIKE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LOCKED <- (LOCKED) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LOGICAL <- (LOGICAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LONGCHAR <- (LONGCHAR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LT <- (LT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 MAP <- (MAP) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 MATCHES <- (MATCHES) => uast(
     type: "Match",
     roles: "Match"
-    children: []
 )
 
 MAXIMUM <- (MAXIMUM) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 MEMPTR <- (MEMPTR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 METHOD <- (METHOD) => uast(
     type: "Method",
     roles: "Function", "Declaration", "Member"
-    children: []
 )
 
 MINIMUM <- (MINIMUM) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 MOD <- (MOD) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 MODULO <- (MODULO) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NE <- (NE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NEW <- (NEW) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NEXT <- (NEXT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NO <- (NO) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NOT <- (NOT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 OF <- (OF) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 OLD <- (OLD) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ON <- (ON) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 OR <- (OR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 OTHERWISE <- (OTHERWISE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 OUTPUT <- (OUTPUT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 OVERRIDE <- (OVERRIDE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PAGED <- (PAGED) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PARAM <- (PARAM) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PARAMETER <- (PARAMETER) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 PERSISTENT <- (PERSISTENT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PFCOLOR <- (PFCOLOR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PORTRAIT <- (PORTRAIT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PRESELECT <- (PRESELECT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PREV <- (PREV) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PRIMARY <- (PRIMARY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PRIVATE <- (PRIVATE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PROCEDURE <- (PROCEDURE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PROPATH <- (PROPATH) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PROPERTY <- (PROPERTY) => uast(
     type: "Property",
     roles: "Member"
-    children: []
 )
 
 PROTECTED <- (PROTECTED) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PUBLIC <- (PUBLIC) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 QUERY <- (QUERY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 QUIT <- (QUIT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 R <- (R) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RAW <- (RAW) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RECID <- (RECID) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 REPEAT <- (REPEAT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RETRY <- (RETRY) => uast(
     type: "Try",
     roles: "Try"
-    children: []
 )
 
 RETURN <- (RETURN) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 RETURNS <- (RETURNS) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 ROW <- (ROW) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ROWID <- (ROWID) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RUN <- (RUN) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SCROLLING <- (SCROLLING) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SERIALIZABLE <- (SERIALIZABLE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SERVER <- (SERVER) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SET <- (SET) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 SHARED <- (SHARED) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SIGNATURE <- (SIGNATURE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SINGLETON <- (SINGLETON) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SIZE <- (SIZE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SOURCE <- (SOURCE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 STATIC <- (STATIC) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 STOP <- (STOP) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 STREAM <- (STREAM) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 T <- (T) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TABLE <- (TABLE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TARGET <- (TARGET) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 THEN <- (THEN) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 THROW <- (THROW) => uast(
     type: "Throw",
     roles: "Throw"
-    children: []
 )
 
 TO <- (TO) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TOOLTIP <- (TOOLTIP) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TOTAL <- (TOTAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TRANSACTION <- (TRANSACTION) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TRANSPARENT <- (TRANSPARENT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TRUE <- (TRUE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 U <- (U) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 UNBUFFERED <- (UNBUFFERED) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 UNDO <- (UNDO) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 UNIQUE <- (UNIQUE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 USING <- (USING) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 VAR <- (VAR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 VARIABLE <- (VARIABLE) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 VOID <- (VOID) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 WHEN <- (WHEN) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 WHERE <- (WHERE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 WHILE <- (WHILE) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 WITH <- (WITH) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 WORKFILE <- (WORKFILE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 X <- (X) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 Y <- (Y) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 YES <- (YES) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 date_literal <- (date_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 file_name <- (file_name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 null_expression <- (null_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

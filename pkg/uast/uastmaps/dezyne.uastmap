@@ -30,26 +30,25 @@ binding <- (binding) => uast(
 
 blocking <- (blocking) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "assign", "blocking", "call_statement", "compound", "defer", "guard", "if_statement", "illegal", "interface_action_statement", "invariant", "on", "reply", "return", "skip_statement", "variable"
 )
 
 call <- (call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "arguments", "compound_name"
 )
 
 call_statement <- (call_statement) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "call"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 component <- (component) => uast(
@@ -73,8 +72,7 @@ defer <- (defer) => uast(
 )
 
 direction <- (direction) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dollars <- (dollars) => uast(
@@ -89,7 +87,7 @@ end_point <- (end_point) => uast(
 
 enum <- (enum) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "fields", "scoped_name"
 )
 
@@ -99,8 +97,7 @@ event <- (event) => uast(
 )
 
 event_name <- (event_name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 extern <- (extern) => uast(
@@ -110,37 +107,36 @@ extern <- (extern) => uast(
 
 fields <- (fields) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "member_name"
 )
 
 formal <- (formal) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "formal_direction", "type_name", "var_name"
 )
 
 formal_direction <- (formal_direction) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 formals <- (formals) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "formal"
 )
 
 function <- (function) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "compound", "formals", "function_body_one_line", "name", "type_name"
 )
 
 function_body_one_line <- (function_body_one_line) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "binary_expression", "call", "compound_name", "dollars", "group", "literal", "unary_expression"
 )
 
@@ -160,8 +156,7 @@ guard_condition <- (guard_condition) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if_statement <- (if_statement) => uast(
@@ -170,13 +165,12 @@ if_statement <- (if_statement) => uast(
 )
 
 illegal <- (illegal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 import <- (import) => uast(
     type: "Import",
-    roles: "Import"
+    roles: "Import",
     children: "file_name"
 )
 
@@ -192,25 +186,24 @@ int <- (int) => uast(
 
 interface <- (interface) => uast(
     type: "Interface",
-    roles: "Interface", "Declaration"
+    roles: "Interface", "Declaration",
     children: "interface_body", "scoped_name"
 )
 
 interface_action <- (interface_action) => uast(
     type: "Interface",
     roles: "Interface", "Declaration"
-    children: []
 )
 
 interface_action_statement <- (interface_action_statement) => uast(
     type: "Interface",
-    roles: "Interface", "Declaration"
+    roles: "Interface", "Declaration",
     children: "interface_action"
 )
 
 interface_body <- (interface_body) => uast(
     type: "Interface",
-    roles: "Interface", "Declaration"
+    roles: "Interface", "Declaration",
     children: "behavior", "enum", "event", "extern", "int"
 )
 
@@ -222,17 +215,15 @@ invariant <- (invariant) => uast(
 literal <- (literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 name <- (name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 namespace <- (namespace) => uast(
     type: "Namespace",
-    roles: "Module"
+    roles: "Module",
     children: "component", "compound_name", "enum", "extern", "function", "int", "interface", "namespace"
 )
 
@@ -247,13 +238,11 @@ port <- (port) => uast(
 )
 
 port_direction <- (port_direction) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 port_qualifier <- (port_qualifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 port_qualifiers <- (port_qualifiers) => uast(
@@ -268,7 +257,7 @@ reply <- (reply) => uast(
 
 return <- (return) => uast(
     type: "Return",
-    roles: "Return"
+    roles: "Return",
     children: "binary_expression", "call", "compound_name", "dollars", "group", "literal", "unary_expression"
 )
 
@@ -278,13 +267,11 @@ root <- (root) => uast(
 )
 
 scoped_name <- (scoped_name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 skip_statement <- (skip_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 system <- (system) => uast(
@@ -304,13 +291,13 @@ trigger <- (trigger) => uast(
 
 trigger_formal <- (trigger_formal) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "name"
 )
 
 trigger_formals <- (trigger_formals) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "trigger_formal"
 )
 
@@ -330,209 +317,170 @@ unary_expression <- (unary_expression) => uast(
 )
 
 var_name <- (var_name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 variable <- (variable) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "binary_expression", "call", "compound_name", "dollars", "group", "literal", "type_name", "unary_expression", "var_name"
 )
 
 asterisk <- (asterisk) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 behavior <- (behavior) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 behaviour <- (behaviour) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 blocking <- (blocking) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 bool <- (bool) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 component <- (component) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 defer <- (defer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dollars_content <- (dollars_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 enum <- (enum) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 extern <- (extern) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 external <- (external) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 file_name <- (file_name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 illegal <- (illegal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 import <- (import) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inevitable <- (inevitable) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 injected <- (injected) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inout <- (inout) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 interface <- (interface) => uast(
     type: "Interface",
     roles: "Interface", "Declaration"
-    children: []
 )
 
 invariant <- (invariant) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 member_name <- (member_name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 namespace <- (namespace) => uast(
     type: "Namespace",
     roles: "Module"
-    children: []
 )
 
 number <- (number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 on <- (on) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 optional <- (optional) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 otherwise <- (otherwise) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 out <- (out) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 provides <- (provides) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 reply <- (reply) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 requires <- (requires) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 subint <- (subint) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 system <- (system) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 void <- (void) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

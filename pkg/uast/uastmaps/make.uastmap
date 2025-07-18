@@ -1,12 +1,12 @@
 RECIPEPREFIX_assignment <- (RECIPEPREFIX_assignment) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "text"
 )
 
 VPATH_assignment <- (VPATH_assignment) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "VPATH", "paths"
 )
 
@@ -23,12 +23,10 @@ arguments <- (arguments) => uast(
 automatic_variable <- (automatic_variable) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 concatenation <- (concatenation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 conditional <- (conditional) => uast(
@@ -58,7 +56,7 @@ export_directive <- (export_directive) => uast(
 
 function_call <- (function_call) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "abspath", "addprefix", "addsuffix", "and", "basename", "call", "dir", "error", "eval", "file", "filter", "findstring", "firstword", "flavor", "foreach", "if", "info", "join", "lastword", "notdir", "or", "origin", "patsubst", "realpath", "sort", "strip", "subst", "suffix", "value", "warning", "wildcard", "word", "wordlist", "words"
 )
 
@@ -88,53 +86,43 @@ include_directive <- (include_directive) => uast(
 )
 
 list <- (list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 makefile <- (makefile) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 override_directive <- (override_directive) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 paths <- (paths) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 pattern_list <- (pattern_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 prerequisites <- (prerequisites) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 private_directive <- (private_directive) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 raw_text <- (raw_text) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 recipe <- (recipe) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 recipe_line <- (recipe_line) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 rule <- (rule) => uast(
@@ -144,24 +132,22 @@ rule <- (rule) => uast(
 
 shell_assignment <- (shell_assignment) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "shell_command", "word"
 )
 
 shell_command <- (shell_command) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 shell_function <- (shell_function) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "shell"
 )
 
 shell_text <- (shell_text) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string <- (string) => uast(
@@ -175,13 +161,11 @@ substitution_reference <- (substitution_reference) => uast(
 )
 
 targets <- (targets) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 text <- (text) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 undefine_directive <- (undefine_directive) => uast(
@@ -196,14 +180,13 @@ unexport_directive <- (unexport_directive) => uast(
 
 variable_assignment <- (variable_assignment) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "list", "text", "word"
 )
 
 variable_reference <- (variable_reference) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 vpath_directive <- (vpath_directive) => uast(
@@ -212,290 +195,233 @@ vpath_directive <- (vpath_directive) => uast(
 )
 
 D <- (D) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 F <- (F) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 VPATH <- (VPATH) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 abspath <- (abspath) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 addprefix <- (addprefix) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 addsuffix <- (addsuffix) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 and <- (and) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 basename <- (basename) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 call <- (call) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 define <- (define) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dir <- (dir) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 endef <- (endef) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 endif <- (endif) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 error <- (error) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 escape <- (escape) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 eval <- (eval) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 export <- (export) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 file <- (file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 filter <- (filter) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 findstring <- (findstring) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 firstword <- (firstword) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 flavor <- (flavor) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 foreach <- (foreach) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 ifdef <- (ifdef) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 ifeq <- (ifeq) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 ifndef <- (ifndef) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 ifneq <- (ifneq) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 include <- (include) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 info <- (info) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 join <- (join) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 lastword <- (lastword) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 notdir <- (notdir) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 or <- (or) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 origin <- (origin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 override <- (override) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 patsubst <- (patsubst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 private <- (private) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 realpath <- (realpath) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 shell <- (shell) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sinclude <- (sinclude) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sort <- (sort) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 strip <- (strip) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 subst <- (subst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 suffix <- (suffix) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 undefine <- (undefine) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unexport <- (unexport) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 value <- (value) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 vpath <- (vpath) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 warning <- (warning) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 wildcard <- (wildcard) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 word <- (word) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 word <- (word) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 wordlist <- (wordlist) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 words <- (words) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

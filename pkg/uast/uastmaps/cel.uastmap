@@ -1,6 +1,5 @@
 arguments <- (arguments) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 binary_expression <- (binary_expression) => uast(
@@ -11,12 +10,11 @@ binary_expression <- (binary_expression) => uast(
 binary_literal <- (binary_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 call_expression <- (call_expression) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "arguments", "identifier"
 )
 
@@ -28,75 +26,66 @@ conditional_expression <- (conditional_expression) => uast(
 decimal_literal <- (decimal_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 double_quote_string_literal <- (double_quote_string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 expr <- (expr) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 field_initializer <- (field_initializer) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "binary_expression", "call_expression", "conditional_expression", "false", "float_literal", "identifier", "index_expression", "int_literal", "list_expression", "map_expression", "member_call_expression", "null", "parenthesized_expression", "select_expression", "string_literal", "struct_expression", "true", "uint_literal", "unary_expression"
 )
 
 hex_literal <- (hex_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 index_expression <- (index_expression) => uast(
     type: "Index",
-    roles: "Index"
+    roles: "Index",
     children: "binary_expression", "call_expression", "conditional_expression", "false", "float_literal", "identifier", "index_expression", "int_literal", "list_expression", "map_expression", "member_call_expression", "null", "parenthesized_expression", "select_expression", "string_literal", "struct_expression", "true", "uint_literal", "unary_expression"
 )
 
 int_literal <- (int_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 list_expression <- (list_expression) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 map_entry <- (map_entry) => uast(
     type: "Try",
-    roles: "Try"
+    roles: "Try",
     children: "binary_expression", "call_expression", "conditional_expression", "false", "float_literal", "identifier", "index_expression", "int_literal", "list_expression", "map_expression", "member_call_expression", "null", "parenthesized_expression", "select_expression", "string_literal", "struct_expression", "true", "uint_literal", "unary_expression"
 )
 
 map_expression <- (map_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 member_call_expression <- (member_call_expression) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "arguments", "binary_expression", "call_expression", "conditional_expression", "false", "float_literal", "identifier", "index_expression", "int_literal", "list_expression", "map_expression", "member_call_expression", "null", "parenthesized_expression", "select_expression", "string_literal", "struct_expression", "true", "uint_literal", "unary_expression"
 )
 
 octal_literal <- (octal_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 parenthesized_expression <- (parenthesized_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 select_expression <- (select_expression) => uast(
@@ -107,43 +96,38 @@ select_expression <- (select_expression) => uast(
 single_quoted_string_literal <- (single_quoted_string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 string_literal <- (string_literal) => uast(
     type: "Literal",
-    roles: "Literal"
+    roles: "Literal",
     children: "double_quote_string_literal", "identifier", "single_quoted_string_literal", "triple_double_quote_string_literal", "triple_single_quoted_string_literal"
 )
 
 struct_expression <- (struct_expression) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "binary_expression", "call_expression", "conditional_expression", "false", "float_literal", "identifier", "index_expression", "int_literal", "list_expression", "map_expression", "member_call_expression", "null", "parenthesized_expression", "select_expression", "string_literal", "struct_expression", "struct_fields", "true", "uint_literal", "unary_expression"
 )
 
 struct_fields <- (struct_fields) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 triple_double_quote_string_literal <- (triple_double_quote_string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 triple_single_quoted_string_literal <- (triple_single_quoted_string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 uint_literal <- (uint_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 unary_expression <- (unary_expression) => uast(
@@ -152,84 +136,68 @@ unary_expression <- (unary_expression) => uast(
 )
 
 B <- (B) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 O <- (O) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 U <- (U) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 X <- (X) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _ <- (_) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 b <- (b) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 float_literal <- (float_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 null <- (null) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 o <- (o) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 u <- (u) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 x <- (x) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

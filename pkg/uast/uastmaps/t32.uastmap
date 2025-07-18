@@ -4,13 +4,12 @@ address <- (address) => uast(
 )
 
 argument_list <- (argument_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 assignment_expression <- (assignment_expression) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "address", "assignment_expression", "binary_expression", "bitmask", "call_expression", "character", "file_handle", "float", "frequency", "identifier", "integer", "literal", "macro", "path", "percentage", "recursive_macro_expansion", "string", "symbol", "time", "unary_expression"
 )
 
@@ -20,25 +19,22 @@ binary_expression <- (binary_expression) => uast(
 )
 
 bitmask <- (bitmask) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 block <- (block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 call_expression <- (call_expression) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "address", "argument_list", "assignment_expression", "binary_expression", "bitmask", "call_expression", "character", "file_handle", "float", "frequency", "identifier", "integer", "literal", "macro", "path", "percentage", "string", "symbol", "time", "unary_expression"
 )
 
 character <- (character) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 command_expression <- (command_expression) => uast(
@@ -48,19 +44,19 @@ command_expression <- (command_expression) => uast(
 
 elif_block <- (elif_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "address", "assignment_expression", "binary_expression", "bitmask", "call_expression", "character", "file_handle", "float", "frequency", "identifier", "integer", "literal", "macro", "path", "percentage", "string", "symbol", "time", "unary_expression"
 )
 
 else_block <- (else_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "identifier"
 )
 
 format_expression <- (format_expression) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "identifier"
 )
 
@@ -71,13 +67,12 @@ hll_abstract_array_declarator <- (hll_abstract_array_declarator) => uast(
 
 hll_abstract_function_declarator <- (hll_abstract_function_declarator) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "hll_abstract_array_declarator", "hll_abstract_function_declarator", "hll_abstract_parenthesized_declarator", "hll_abstract_pointer_declarator", "hll_parameter_list"
 )
 
 hll_abstract_parenthesized_declarator <- (hll_abstract_parenthesized_declarator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hll_abstract_pointer_declarator <- (hll_abstract_pointer_declarator) => uast(
@@ -86,8 +81,7 @@ hll_abstract_pointer_declarator <- (hll_abstract_pointer_declarator) => uast(
 )
 
 hll_argument_list <- (hll_argument_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 hll_array_declarator <- (hll_array_declarator) => uast(
@@ -97,7 +91,7 @@ hll_array_declarator <- (hll_array_declarator) => uast(
 
 hll_assignment_expression <- (hll_assignment_expression) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "hll_assignment_expression", "hll_binary_expression", "hll_call_expression", "hll_cast_expression", "hll_char_literal", "hll_conditional_expression", "hll_field_expression", "hll_number_literal", "hll_parenthesized_expression", "hll_pointer_expression", "hll_sizeof_expression", "hll_string_literal", "hll_subscript_expression", "hll_unary_expression", "hll_update_expression", "identifier", "symbol", "trace32_hll_variable"
 )
 
@@ -108,7 +102,7 @@ hll_binary_expression <- (hll_binary_expression) => uast(
 
 hll_call_expression <- (hll_call_expression) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "hll_argument_list", "hll_assignment_expression", "hll_binary_expression", "hll_call_expression", "hll_cast_expression", "hll_char_literal", "hll_conditional_expression", "hll_field_expression", "hll_number_literal", "hll_parenthesized_expression", "hll_pointer_expression", "hll_sizeof_expression", "hll_string_literal", "hll_subscript_expression", "hll_unary_expression", "hll_update_expression", "identifier", "symbol", "trace32_hll_variable"
 )
 
@@ -120,7 +114,6 @@ hll_cast_expression <- (hll_cast_expression) => uast(
 hll_char_literal <- (hll_char_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 hll_comma_expression <- (hll_comma_expression) => uast(
@@ -140,42 +133,39 @@ hll_declaration <- (hll_declaration) => uast(
 
 hll_enum_specifier <- (hll_enum_specifier) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "hll_type_identifier"
 )
 
 hll_field_expression <- (hll_field_expression) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "hll_assignment_expression", "hll_binary_expression", "hll_call_expression", "hll_cast_expression", "hll_char_literal", "hll_conditional_expression", "hll_field_expression", "hll_field_identifier", "hll_number_literal", "hll_parenthesized_expression", "hll_pointer_expression", "hll_sizeof_expression", "hll_string_literal", "hll_subscript_expression", "hll_unary_expression", "hll_update_expression", "identifier", "symbol", "trace32_hll_variable"
 )
 
 hll_function_declarator <- (hll_function_declarator) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "hll_array_declarator", "hll_function_declarator", "hll_parameter_list", "hll_parenthesized_declarator", "hll_pointer_declarator", "trace32_hll_variable"
 )
 
 hll_parameter_declaration <- (hll_parameter_declaration) => uast(
     type: "Parameter",
-    roles: "Parameter"
+    roles: "Parameter",
     children: "hll_abstract_array_declarator", "hll_abstract_function_declarator", "hll_abstract_parenthesized_declarator", "hll_abstract_pointer_declarator", "hll_array_declarator", "hll_enum_specifier", "hll_function_declarator", "hll_parenthesized_declarator", "hll_pointer_declarator", "hll_primitive_type", "hll_sized_type_specifier", "hll_struct_specifier", "hll_type_identifier", "hll_union_specifier", "trace32_hll_variable"
 )
 
 hll_parameter_list <- (hll_parameter_list) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 hll_parenthesized_declarator <- (hll_parenthesized_declarator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hll_parenthesized_expression <- (hll_parenthesized_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hll_pointer_declarator <- (hll_pointer_declarator) => uast(
@@ -206,12 +196,11 @@ hll_sizeof_expression <- (hll_sizeof_expression) => uast(
 hll_string_literal <- (hll_string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 hll_struct_specifier <- (hll_struct_specifier) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "hll_type_identifier"
 )
 
@@ -228,12 +217,10 @@ hll_type_descriptor <- (hll_type_descriptor) => uast(
 hll_type_pattern <- (hll_type_pattern) => uast(
     type: "Pattern",
     roles: "Pattern"
-    children: []
 )
 
 hll_type_qualifier <- (hll_type_qualifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 hll_unary_expression <- (hll_unary_expression) => uast(
@@ -252,19 +239,17 @@ hll_update_expression <- (hll_update_expression) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if_block <- (if_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "address", "assignment_expression", "binary_expression", "bitmask", "call_expression", "character", "file_handle", "float", "frequency", "hll_assignment_expression", "hll_binary_expression", "hll_call_expression", "hll_cast_expression", "hll_char_literal", "hll_conditional_expression", "hll_field_expression", "hll_number_literal", "hll_parenthesized_expression", "hll_pointer_expression", "hll_sizeof_expression", "hll_string_literal", "hll_subscript_expression", "hll_unary_expression", "hll_update_expression", "identifier", "integer", "literal", "macro", "path", "percentage", "string", "symbol", "time", "trace32_hll_variable", "unary_expression"
 )
 
 integer <- (integer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 labeled_expression <- (labeled_expression) => uast(
@@ -275,12 +260,10 @@ labeled_expression <- (labeled_expression) => uast(
 literal <- (literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 macro <- (macro) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 macro_definition <- (macro_definition) => uast(
@@ -296,7 +279,6 @@ memory_space <- (memory_space) => uast(
 module <- (module) => uast(
     type: "Module",
     roles: "Module"
-    children: []
 )
 
 option_expression <- (option_expression) => uast(
@@ -306,52 +288,47 @@ option_expression <- (option_expression) => uast(
 
 parameter_declaration <- (parameter_declaration) => uast(
     type: "Parameter",
-    roles: "Parameter"
+    roles: "Parameter",
     children: "identifier", "macro"
 )
 
 recursive_macro_expansion <- (recursive_macro_expansion) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 repeat_block <- (repeat_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "address", "assignment_expression", "binary_expression", "bitmask", "call_expression", "character", "file_handle", "float", "frequency", "identifier", "integer", "literal", "macro", "path", "percentage", "string", "symbol", "time", "unary_expression"
 )
 
 script <- (script) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 subroutine_block <- (subroutine_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "identifier"
 )
 
 subroutine_call_expression <- (subroutine_call_expression) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "argument_list", "identifier"
 )
 
 symbol <- (symbol) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 trace32_hll_variable <- (trace32_hll_variable) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 unary_expression <- (unary_expression) => uast(
@@ -361,235 +338,191 @@ unary_expression <- (unary_expression) => uast(
 
 while_block <- (while_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "address", "assignment_expression", "binary_expression", "bitmask", "call_expression", "character", "file_handle", "float", "frequency", "hll_assignment_expression", "hll_binary_expression", "hll_call_expression", "hll_cast_expression", "hll_char_literal", "hll_conditional_expression", "hll_field_expression", "hll_number_literal", "hll_parenthesized_expression", "hll_pointer_expression", "hll_sizeof_expression", "hll_string_literal", "hll_subscript_expression", "hll_unary_expression", "hll_update_expression", "identifier", "integer", "literal", "macro", "path", "percentage", "string", "symbol", "time", "trace32_hll_variable", "unary_expression"
 )
 
 AddSticker <- (AddSticker) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 EXPORT <- (EXPORT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 GLOBAL <- (GLOBAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 IF <- (IF) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 LOCAL <- (LOCAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 Local <- (Local) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NEWGLOBAL <- (NEWGLOBAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NEWLOCAL <- (NEWLOCAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 OS <- (OS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PATtern <- (PATtern) => uast(
     type: "Pattern",
     roles: "Pattern"
-    children: []
 )
 
 PRIVATE <- (PRIVATE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 Ref <- (Ref) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TREE <- (TREE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 Var <- (Var) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 WRITE <- (WRITE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 access_class <- (access_class) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 command <- (command) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 const <- (const) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 enum <- (enum) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 file_handle <- (file_handle) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 float <- (float) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 frequency <- (frequency) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 function <- (function) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 hll_escape_sequence <- (hll_escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hll_field_identifier <- (hll_field_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 hll_number_literal <- (hll_number_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 hll_primitive_type <- (hll_primitive_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hll_type_identifier <- (hll_type_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 long <- (long) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 name <- (name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 path <- (path) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 percentage <- (percentage) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 short <- (short) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 signed <- (signed) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sizeof <- (sizeof) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 struct <- (struct) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 subcommand <- (subcommand) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 subfunction <- (subfunction) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 time <- (time) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type <- (type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 union <- (union) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unsigned <- (unsigned) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 volatile <- (volatile) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

@@ -1,6 +1,5 @@
 _immediate_escape_sequence <- (_immediate_escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 arg_command <- (arg_command) => uast(
@@ -11,7 +10,6 @@ arg_command <- (arg_command) => uast(
 block <- (block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 branch <- (branch) => uast(
@@ -30,8 +28,7 @@ build_arg_deprecated <- (build_arg_deprecated) => uast(
 )
 
 build_args <- (build_args) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 build_command <- (build_command) => uast(
@@ -65,8 +62,7 @@ chown <- (chown) => uast(
 )
 
 cmd_command <- (cmd_command) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 compose <- (compose) => uast(
@@ -100,31 +96,28 @@ docker_target <- (docker_target) => uast(
 )
 
 double_quoted_string <- (double_quoted_string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 earthfile_ref <- (earthfile_ref) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 elif_block <- (elif_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "block", "options", "shell_fragment"
 )
 
 else_block <- (else_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "block"
 )
 
 entrypoint_command <- (entrypoint_command) => uast(
     type: "Try",
     roles: "Try"
-    children: []
 )
 
 env_command <- (env_command) => uast(
@@ -133,23 +126,20 @@ env_command <- (env_command) => uast(
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 expansion <- (expansion) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 expose_command <- (expose_command) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 for_command <- (for_command) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "options", "strings", "variable"
 )
 
@@ -166,12 +156,11 @@ from_dockerfile_command <- (from_dockerfile_command) => uast(
 function_command <- (function_command) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 function_ref <- (function_ref) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "earthfile_ref", "identifier"
 )
 
@@ -186,13 +175,11 @@ host_command <- (host_command) => uast(
 )
 
 id <- (id) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if_command <- (if_command) => uast(
@@ -201,13 +188,11 @@ if_command <- (if_command) => uast(
 )
 
 image_digest <- (image_digest) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 image_name <- (image_name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 image_spec <- (image_spec) => uast(
@@ -216,24 +201,21 @@ image_spec <- (image_spec) => uast(
 )
 
 image_tag <- (image_tag) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 images <- (images) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 import_command <- (import_command) => uast(
     type: "Import",
-    roles: "Import"
+    roles: "Import",
     children: "identifier", "options"
 )
 
 interactive <- (interactive) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 label <- (label) => uast(
@@ -242,8 +224,7 @@ label <- (label) => uast(
 )
 
 label_command <- (label_command) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 let_command <- (let_command) => uast(
@@ -259,7 +240,6 @@ load <- (load) => uast(
 locally_command <- (locally_command) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 mount <- (mount) => uast(
@@ -273,13 +253,12 @@ oidc <- (oidc) => uast(
 )
 
 options <- (options) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 platform <- (platform) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "string"
 )
 
@@ -329,18 +308,15 @@ set_command <- (set_command) => uast(
 )
 
 sharing <- (sharing) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 shell_fragment <- (shell_fragment) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 single_quoted_string <- (single_quoted_string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 source_file <- (source_file) => uast(
@@ -349,18 +325,15 @@ source_file <- (source_file) => uast(
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_array <- (string_array) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 strings <- (strings) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 target <- (target) => uast(
@@ -369,13 +342,11 @@ target <- (target) => uast(
 )
 
 target_artifact <- (target_artifact) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 target_artifact_build_args <- (target_artifact_build_args) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 target_ref <- (target_ref) => uast(
@@ -384,13 +355,12 @@ target_ref <- (target_ref) => uast(
 )
 
 target_ref_with_build_args <- (target_ref_with_build_args) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 try_command <- (try_command) => uast(
     type: "Try",
-    roles: "Try"
+    roles: "Try",
     children: "block"
 )
 
@@ -400,8 +370,7 @@ unknown_option <- (unknown_option) => uast(
 )
 
 unquoted_string <- (unquoted_string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 user_command <- (user_command) => uast(
@@ -412,7 +381,6 @@ user_command <- (user_command) => uast(
 variable <- (variable) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 version_command <- (version_command) => uast(
@@ -421,13 +389,11 @@ version_command <- (version_command) => uast(
 )
 
 volume_command <- (volume_command) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 wait_command <- (wait_command) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 with_docker_command <- (with_docker_command) => uast(
@@ -436,323 +402,261 @@ with_docker_command <- (with_docker_command) => uast(
 )
 
 workdir_command <- (workdir_command) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ARG <- (ARG) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 AS <- (AS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 BUILD <- (BUILD) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CACHE <- (CACHE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CMD <- (CMD) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 COMMAND <- (COMMAND) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 COPY <- (COPY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DO <- (DO) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ELSE <- (ELSE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 END <- (END) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ENTRYPOINT <- (ENTRYPOINT) => uast(
     type: "Try",
     roles: "Try"
-    children: []
 )
 
 ENV <- (ENV) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 EXPOSE <- (EXPOSE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FINALLY <- (FINALLY) => uast(
     type: "Finally",
     roles: "Finally"
-    children: []
 )
 
 FOR <- (FOR) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 FROM <- (FROM) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FUNCTION <- (FUNCTION) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 HOST <- (HOST) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 IF <- (IF) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 IMPORT <- (IMPORT) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 IN <- (IN) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LABEL <- (LABEL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LET <- (LET) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LOCALLY <- (LOCALLY) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 PROJECT <- (PROJECT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RUN <- (RUN) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SET <- (SET) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 TRY <- (TRY) => uast(
     type: "Try",
     roles: "Try"
-    children: []
 )
 
 USER <- (USER) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 VERSION <- (VERSION) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 VOLUME <- (VOLUME) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 WAIT <- (WAIT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 WORKDIR <- (WORKDIR) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 allow_privileged <- (allow_privileged) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 auto_skip <- (auto_skip) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 aws <- (aws) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cache_hint <- (cache_hint) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 dir <- (dir) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 entrypoint <- (entrypoint) => uast(
     type: "Try",
     roles: "Try"
-    children: []
 )
 
 feature_flag <- (feature_flag) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 force <- (force) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 global <- (global) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 if_exists <- (if_exists) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 keep_own <- (keep_own) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keep_ts <- (keep_ts) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 line_continuation <- (line_continuation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 line_continuation_comment <- (line_continuation_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 network_none <- (network_none) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 no_cache <- (no_cache) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 number <- (number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 pass_args <- (pass_args) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 persist <- (persist) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 privileged <- (privileged) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 push <- (push) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 raw_output <- (raw_output) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 required <- (required) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ssh <- (ssh) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 symlink_no_follow <- (symlink_no_follow) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 version_major_minor <- (version_major_minor) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 without_earthly_labels <- (without_earthly_labels) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
