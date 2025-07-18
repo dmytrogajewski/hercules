@@ -4,18 +4,15 @@ accumulation_clause <- (accumulation_clause) => uast(
 )
 
 accumulation_verb <- (accumulation_verb) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 array_dimension <- (array_dimension) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 char_lit <- (char_lit) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 complex_num_lit <- (complex_num_lit) => uast(
@@ -39,8 +36,7 @@ defun_header <- (defun_header) => uast(
 )
 
 defun_keyword <- (defun_keyword) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dis_expr <- (dis_expr) => uast(
@@ -55,36 +51,32 @@ do_clause <- (do_clause) => uast(
 
 for_clause <- (for_clause) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "char_lit", "comment", "complex_num_lit", "dis_expr", "fancy_literal", "include_reader_macro", "kwd_lit", "list_lit", "nil_lit", "num_lit", "package_lit", "path_lit", "quoting_lit", "read_cond_lit", "self_referential_reader_macro", "set_lit", "splicing_read_cond_lit", "str_lit", "sym_lit", "syn_quoting_lit", "unquote_splicing_lit", "unquoting_lit", "var_quoting_lit", "vec_lit"
 )
 
 for_clause_word <- (for_clause_word) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 format_directive_type <- (format_directive_type) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "char_lit", "num_lit"
 )
 
 format_modifiers <- (format_modifiers) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 format_prefix_parameters <- (format_prefix_parameters) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 format_specifier <- (format_specifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 include_reader_macro <- (include_reader_macro) => uast(
@@ -93,13 +85,11 @@ include_reader_macro <- (include_reader_macro) => uast(
 )
 
 kwd_lit <- (kwd_lit) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kwd_symbol <- (kwd_symbol) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 list_lit <- (list_lit) => uast(
@@ -110,13 +100,11 @@ list_lit <- (list_lit) => uast(
 loop_clause <- (loop_clause) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 loop_macro <- (loop_macro) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 map_lit <- (map_lit) => uast(
@@ -130,8 +118,7 @@ meta_lit <- (meta_lit) => uast(
 )
 
 num_lit <- (num_lit) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 old_meta_lit <- (old_meta_lit) => uast(
@@ -141,13 +128,12 @@ old_meta_lit <- (old_meta_lit) => uast(
 
 package_lit <- (package_lit) => uast(
     type: "Package",
-    roles: "Module"
+    roles: "Module",
     children: "cl", "sym_lit"
 )
 
 path_lit <- (path_lit) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 quoting_lit <- (quoting_lit) => uast(
@@ -181,13 +167,11 @@ splicing_read_cond_lit <- (splicing_read_cond_lit) => uast(
 )
 
 str_lit <- (str_lit) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sym_lit <- (sym_lit) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 syn_quoting_lit <- (syn_quoting_lit) => uast(
@@ -222,7 +206,7 @@ vec_lit <- (vec_lit) => uast(
 
 while_clause <- (while_clause) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "vec_lit"
 )
 
@@ -232,256 +216,207 @@ with_clause <- (with_clause) => uast(
 )
 
 Newline <- (Newline) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 V <- (V) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _ <- (_) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 above <- (above) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 across <- (across) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 always <- (always) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 and <- (and) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 as <- (as) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 being <- (being) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 below <- (below) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 block_comment <- (block_comment) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 by <- (by) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cl <- (cl) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 defgeneric <- (defgeneric) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 defmacro <- (defmacro) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 defmethod <- (defmethod) => uast(
     type: "Method",
     roles: "Function", "Declaration", "Member"
-    children: []
 )
 
 defun <- (defun) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 do <- (do) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 downfrom <- (downfrom) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 downto <- (downto) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fancy_literal <- (fancy_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 finally <- (finally) => uast(
     type: "Finally",
     roles: "Finally"
-    children: []
 )
 
 for <- (for) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 from <- (from) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 initially <- (initially) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 into <- (into) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 loop <- (loop) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 never <- (never) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 nil_lit <- (nil_lit) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 on <- (on) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 repeat <- (repeat) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 self_referential_reader_macro <- (self_referential_reader_macro) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 then <- (then) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 thereis <- (thereis) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 to <- (to) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unless <- (unless) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 until <- (until) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 upfrom <- (upfrom) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 upto <- (upto) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 using <- (using) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 v <- (v) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 when <- (when) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 while <- (while) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 with <- (with) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

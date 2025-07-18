@@ -1,11 +1,9 @@
 arguments <- (arguments) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 array <- (array) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assign <- (assign) => uast(
@@ -15,25 +13,22 @@ assign <- (assign) => uast(
 
 binary_operation <- (binary_operation) => uast(
     type: "BinaryOp",
-    roles: "Operator"
+    roles: "Operator",
     children: "array", "assign", "binary_operation", "call", "false", "float", "function", "identifier", "int", "map", "member", "none", "parentheses_expression", "string", "subscript", "true", "unary_operation"
 )
 
 body <- (body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 call <- (call) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 function <- (function) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 if <- (if) => uast(
@@ -42,8 +37,7 @@ if <- (if) => uast(
 )
 
 map <- (map) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 member <- (member) => uast(
@@ -54,7 +48,6 @@ member <- (member) => uast(
 module <- (module) => uast(
     type: "Module",
     roles: "Module"
-    children: []
 )
 
 pair <- (pair) => uast(
@@ -65,23 +58,19 @@ pair <- (pair) => uast(
 parameters <- (parameters) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 parentheses_expression <- (parentheses_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 subscript <- (subscript) => uast(
@@ -91,88 +80,74 @@ subscript <- (subscript) => uast(
 
 unary_operation <- (unary_operation) => uast(
     type: "UnaryOp",
-    roles: "Operator"
+    roles: "Operator",
     children: "array", "assign", "binary_operation", "call", "false", "float", "function", "identifier", "int", "map", "member", "none", "parentheses_expression", "string", "subscript", "true", "unary_operation"
 )
 
 while <- (while) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "array", "assign", "binary_operation", "call", "false", "float", "function", "identifier", "int", "map", "member", "none", "parentheses_expression", "string", "subscript", "true", "unary_operation"
 )
 
 break <- (break) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 continue <- (continue) => uast(
     type: "Continue",
     roles: "Continue"
-    children: []
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 float <- (float) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fn <- (fn) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 int <- (int) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 none <- (none) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 while <- (while) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 

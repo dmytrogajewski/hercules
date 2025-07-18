@@ -1,52 +1,45 @@
 arrInitializer <- (arrInitializer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 asm <- (asm) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 asmBody <- (asmBody) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assignment <- (assignment) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "exprBinary", "exprBrackets", "exprCall", "exprDot", "exprParens", "exprSubscript", "exprTpl", "exprUnary", "identifier", "inherited", "kAssign", "kAssignAdd", "kAssignDiv", "kAssignMul", "kAssignSub", "kFalse", "kNil", "kSpecialize", "kTrue", "lambda", "literalNumber", "literalString", "varAssignDef"
 )
 
 block <- (block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 blockTr <- (blockTr) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 case <- (case) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 caseCase <- (caseCase) => uast(
     type: "Case",
-    roles: "Branch"
+    roles: "Branch",
     children: "asm", "assignment", "block", "case", "caseLabel", "for", "foreach", "goto", "if", "ifElse", "raise", "repeat", "statement", "try", "varDef", "while", "with"
 )
 
 caseLabel <- (caseLabel) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 declArg <- (declArg) => uast(
@@ -55,18 +48,16 @@ declArg <- (declArg) => uast(
 )
 
 declArgs <- (declArgs) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 declArray <- (declArray) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 declClass <- (declClass) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "typeref"
 )
 
@@ -76,41 +67,36 @@ declConst <- (declConst) => uast(
 )
 
 declConsts <- (declConsts) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 declEnum <- (declEnum) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 declEnumValue <- (declEnumValue) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "defaultValue", "identifier"
 )
 
 declExport <- (declExport) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 declExports <- (declExports) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 declField <- (declField) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "defaultValue", "identifier", "type"
 )
 
 declFile <- (declFile) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 declHelper <- (declHelper) => uast(
@@ -129,14 +115,12 @@ declLabel <- (declLabel) => uast(
 )
 
 declLabels <- (declLabels) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 declMetaClass <- (declMetaClass) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 declProc <- (declProc) => uast(
@@ -155,23 +139,19 @@ declProp <- (declProp) => uast(
 )
 
 declPropArgs <- (declPropArgs) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 declSection <- (declSection) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 declSet <- (declSet) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 declString <- (declString) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 declType <- (declType) => uast(
@@ -180,13 +160,11 @@ declType <- (declType) => uast(
 )
 
 declTypes <- (declTypes) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 declUses <- (declUses) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 declVar <- (declVar) => uast(
@@ -200,13 +178,11 @@ declVariant <- (declVariant) => uast(
 )
 
 declVariantClause <- (declVariantClause) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 declVars <- (declVars) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 defProc <- (defProc) => uast(
@@ -215,13 +191,11 @@ defProc <- (defProc) => uast(
 )
 
 defaultValue <- (defaultValue) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 exceptionElse <- (exceptionElse) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 exceptionHandler <- (exceptionHandler) => uast(
@@ -230,8 +204,7 @@ exceptionHandler <- (exceptionHandler) => uast(
 )
 
 exprArgs <- (exprArgs) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 exprBinary <- (exprBinary) => uast(
@@ -240,13 +213,12 @@ exprBinary <- (exprBinary) => uast(
 )
 
 exprBrackets <- (exprBrackets) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 exprCall <- (exprCall) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "exprArgs", "exprBinary", "exprBrackets", "exprCall", "exprDot", "exprParens", "exprSubscript", "exprTpl", "exprUnary", "identifier", "inherited", "kFalse", "kNil", "kSpecialize", "kTrue", "lambda", "literalNumber", "literalString"
 )
 
@@ -256,8 +228,7 @@ exprDot <- (exprDot) => uast(
 )
 
 exprParens <- (exprParens) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 exprSubscript <- (exprSubscript) => uast(
@@ -276,19 +247,18 @@ exprUnary <- (exprUnary) => uast(
 )
 
 finalization <- (finalization) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 for <- (for) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "asm", "assignment", "block", "case", "exprBinary", "exprBrackets", "exprCall", "exprDot", "exprParens", "exprSubscript", "exprTpl", "exprUnary", "for", "foreach", "goto", "identifier", "if", "ifElse", "inherited", "kFalse", "kNil", "kSpecialize", "kTrue", "lambda", "literalNumber", "literalString", "raise", "repeat", "statement", "try", "varDef", "while", "with"
 )
 
 foreach <- (foreach) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "asm", "assignment", "block", "case", "exprBinary", "exprBrackets", "exprCall", "exprDot", "exprParens", "exprSubscript", "exprTpl", "exprUnary", "for", "foreach", "goto", "identifier", "if", "ifElse", "inherited", "kFalse", "kNil", "kSpecialize", "kTrue", "lambda", "literalNumber", "literalString", "raise", "repeat", "statement", "try", "varDef", "while", "with"
 )
 
@@ -298,8 +268,7 @@ genericArg <- (genericArg) => uast(
 )
 
 genericArgs <- (genericArgs) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 genericDot <- (genericDot) => uast(
@@ -313,13 +282,11 @@ genericTpl <- (genericTpl) => uast(
 )
 
 goto <- (goto) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 guid <- (guid) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 if <- (if) => uast(
@@ -333,101 +300,85 @@ ifElse <- (ifElse) => uast(
 )
 
 implementation <- (implementation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inherited <- (inherited) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 initialization <- (initialization) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 interface <- (interface) => uast(
     type: "Interface",
     roles: "Interface", "Declaration"
-    children: []
 )
 
 kDot <- (kDot) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kEndDot <- (kEndDot) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 label <- (label) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 lambda <- (lambda) => uast(
     type: "Lambda",
-    roles: "Lambda"
+    roles: "Lambda",
     children: "asm", "block", "blockTr", "declArgs", "declConsts", "declExports", "declLabels", "declProc", "declTypes", "declUses", "declVars", "defProc", "typeref"
 )
 
 legacyFormat <- (legacyFormat) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 library <- (library) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 literalChar <- (literalChar) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 literalNumber <- (literalNumber) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 literalString <- (literalString) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 moduleName <- (moduleName) => uast(
     type: "Module",
     roles: "Module"
-    children: []
 )
 
 operatorName <- (operatorName) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 procAttribute <- (procAttribute) => uast(
     type: "Attribute",
-    roles: "Attribute"
+    roles: "Attribute",
     children: "exprBinary", "exprBrackets", "exprCall", "exprDot", "exprParens", "exprSubscript", "exprTpl", "exprUnary", "identifier", "inherited", "kDispId", "kFalse", "kNil", "kSpecialize", "kTrue", "lambda", "literalNumber", "literalString"
 )
 
 procExternal <- (procExternal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 program <- (program) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 raise <- (raise) => uast(
@@ -436,18 +387,16 @@ raise <- (raise) => uast(
 )
 
 range <- (range) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 recInitializer <- (recInitializer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 recInitializerField <- (recInitializerField) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "arrInitializer", "exprBinary", "exprBrackets", "exprCall", "exprDot", "exprParens", "exprSubscript", "exprTpl", "exprUnary", "identifier", "inherited", "kFalse", "kNil", "kSpecialize", "kTrue", "lambda", "literalNumber", "literalString", "recInitializer"
 )
 
@@ -457,35 +406,30 @@ repeat <- (repeat) => uast(
 )
 
 root <- (root) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 rttiAttributes <- (rttiAttributes) => uast(
     type: "Attribute",
     roles: "Attribute"
-    children: []
 )
 
 statement <- (statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 statements <- (statements) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 try <- (try) => uast(
     type: "Try",
-    roles: "Try"
+    roles: "Try",
     children: "exceptionElse", "exceptionHandler", "kExcept", "kFinally", "statements"
 )
 
 type <- (type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 typeref <- (typeref) => uast(
@@ -494,8 +438,7 @@ typeref <- (typeref) => uast(
 )
 
 typerefArgs <- (typerefArgs) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 typerefDot <- (typerefDot) => uast(
@@ -514,8 +457,7 @@ typerefTpl <- (typerefTpl) => uast(
 )
 
 unit <- (unit) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 varAssignDef <- (varAssignDef) => uast(
@@ -530,7 +472,7 @@ varDef <- (varDef) => uast(
 
 while <- (while) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "asm", "assignment", "block", "case", "exprBinary", "exprBrackets", "exprCall", "exprDot", "exprParens", "exprSubscript", "exprTpl", "exprUnary", "for", "foreach", "goto", "identifier", "if", "ifElse", "inherited", "kFalse", "kNil", "kSpecialize", "kTrue", "lambda", "literalNumber", "literalString", "raise", "repeat", "statement", "try", "varDef", "while", "with"
 )
 
@@ -542,811 +484,653 @@ with <- (with) => uast(
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 kAbsolute <- (kAbsolute) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kAbstract <- (kAbstract) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kAdd <- (kAdd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kAlias <- (kAlias) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kAnd <- (kAnd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kArray <- (kArray) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kAs <- (kAs) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kAsm <- (kAsm) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kAssembler <- (kAssembler) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kAssign <- (kAssign) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kAssignAdd <- (kAssignAdd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kAssignDiv <- (kAssignDiv) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kAssignMul <- (kAssignMul) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kAssignSub <- (kAssignSub) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kAt <- (kAt) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kBegin <- (kBegin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kCase <- (kCase) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 kCdecl <- (kCdecl) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kClass <- (kClass) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 kConst <- (kConst) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kConstref <- (kConstref) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kConstructor <- (kConstructor) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 kCppdecl <- (kCppdecl) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kCvar <- (kCvar) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kDefault <- (kDefault) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kDelayed <- (kDelayed) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kDeprecated <- (kDeprecated) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kDestructor <- (kDestructor) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 kDispId <- (kDispId) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kDispInterface <- (kDispInterface) => uast(
     type: "Interface",
     roles: "Interface", "Declaration"
-    children: []
 )
 
 kDiv <- (kDiv) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kDo <- (kDo) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kDownto <- (kDownto) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kDynamic <- (kDynamic) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kElse <- (kElse) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kEnd <- (kEnd) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kEq <- (kEq) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kExcept <- (kExcept) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kExperimental <- (kExperimental) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kExport <- (kExport) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kExports <- (kExports) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kExternal <- (kExternal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kFalse <- (kFalse) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kFar <- (kFar) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kFdiv <- (kFdiv) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kFile <- (kFile) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kFinalization <- (kFinalization) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kFinally <- (kFinally) => uast(
     type: "Finally",
     roles: "Finally"
-    children: []
 )
 
 kFor <- (kFor) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 kForward <- (kForward) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 kFunction <- (kFunction) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 kGeneric <- (kGeneric) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kGoto <- (kGoto) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kGt <- (kGt) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kGte <- (kGte) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kHardfloat <- (kHardfloat) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kHat <- (kHat) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kHelper <- (kHelper) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kIf <- (kIf) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 kImplementation <- (kImplementation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kImplements <- (kImplements) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kIn <- (kIn) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kIndex <- (kIndex) => uast(
     type: "Index",
     roles: "Index"
-    children: []
 )
 
 kInherited <- (kInherited) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kInitialization <- (kInitialization) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kInline <- (kInline) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kInterface <- (kInterface) => uast(
     type: "Interface",
     roles: "Interface", "Declaration"
-    children: []
 )
 
 kInterrupt <- (kInterrupt) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kIocheck <- (kIocheck) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kIs <- (kIs) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kLabel <- (kLabel) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kLibrary <- (kLibrary) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kLocal <- (kLocal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kLt <- (kLt) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kLte <- (kLte) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kMessage <- (kMessage) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kMod <- (kMod) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kMs_abi_cdecl <- (kMs_abi_cdecl) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kMs_abi_default <- (kMs_abi_default) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kMul <- (kMul) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kMwpascal <- (kMwpascal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kName <- (kName) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kNear <- (kNear) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kNeq <- (kNeq) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kNil <- (kNil) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kNodefault <- (kNodefault) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kNoreturn <- (kNoreturn) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 kNostackframe <- (kNostackframe) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kNot <- (kNot) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kObjccategory <- (kObjccategory) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kObjcclass <- (kObjcclass) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 kObjcprotocol <- (kObjcprotocol) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kObject <- (kObject) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kOf <- (kOf) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kOn <- (kOn) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kOperator <- (kOperator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kOptional <- (kOptional) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kOr <- (kOr) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kOut <- (kOut) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kOverload <- (kOverload) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kOverride <- (kOverride) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kPacked <- (kPacked) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kPascal <- (kPascal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kPlatform <- (kPlatform) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 kPrivate <- (kPrivate) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kProcedure <- (kProcedure) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kProgram <- (kProgram) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kProperty <- (kProperty) => uast(
     type: "Property",
     roles: "Member"
-    children: []
 )
 
 kProtected <- (kProtected) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kPublic <- (kPublic) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kPublished <- (kPublished) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kRaise <- (kRaise) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kRead <- (kRead) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kRecord <- (kRecord) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kReference <- (kReference) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kRegister <- (kRegister) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kReintroduce <- (kReintroduce) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kRepeat <- (kRepeat) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kRequired <- (kRequired) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kResourcestring <- (kResourcestring) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kSafecall <- (kSafecall) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 kSaveregisters <- (kSaveregisters) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kSealed <- (kSealed) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kSet <- (kSet) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 kShl <- (kShl) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kShr <- (kShr) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kSoftfloat <- (kSoftfloat) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kSpecialize <- (kSpecialize) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kStatic <- (kStatic) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kStdcall <- (kStdcall) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 kStored <- (kStored) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kStrict <- (kStrict) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kString <- (kString) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kSub <- (kSub) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kSysv_abi_cdecl <- (kSysv_abi_cdecl) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kSysv_abi_default <- (kSysv_abi_default) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kThen <- (kThen) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kThreadvar <- (kThreadvar) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kTo <- (kTo) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kTrue <- (kTrue) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kTry <- (kTry) => uast(
     type: "Try",
     roles: "Try"
-    children: []
 )
 
 kType <- (kType) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kUnimplemented <- (kUnimplemented) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kUnit <- (kUnit) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kUntil <- (kUntil) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kUses <- (kUses) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kVar <- (kVar) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kVarargs <- (kVarargs) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kVectorcall <- (kVectorcall) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 kVirtual <- (kVirtual) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kWhile <- (kWhile) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 kWinapi <- (kWinapi) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kWith <- (kWith) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kWrite <- (kWrite) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kXor <- (kXor) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 pp <- (pp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

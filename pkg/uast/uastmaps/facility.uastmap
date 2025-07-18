@@ -1,19 +1,16 @@
 attribute <- (attribute) => uast(
     type: "Attribute",
     roles: "Attribute"
-    children: []
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 doc_comment <- (doc_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 dto <- (dto) => uast(
@@ -23,7 +20,7 @@ dto <- (dto) => uast(
 
 enum <- (enum) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "identifier"
 )
 
@@ -39,52 +36,47 @@ external_dto <- (external_dto) => uast(
 
 external_enum <- (external_enum) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "identifier"
 )
 
 field <- (field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "identifier"
 )
 
 field_list <- (field_list) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 list_type <- (list_type) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 method <- (method) => uast(
     type: "Method",
-    roles: "Function", "Declaration", "Member"
+    roles: "Function", "Declaration", "Member",
     children: "identifier"
 )
 
 parameter <- (parameter) => uast(
     type: "Parameter",
-    roles: "Parameter"
+    roles: "Parameter",
     children: "identifier"
 )
 
 range <- (range) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 remarks <- (remarks) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 required_type <- (required_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 service <- (service) => uast(
@@ -95,17 +87,14 @@ service <- (service) => uast(
 service_block <- (service_block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 template_type <- (template_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type <- (type) => uast(
@@ -116,170 +105,137 @@ type <- (type) => uast(
 values_block <- (values_block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 boolean <- (boolean) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bytes <- (bytes) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 csharp <- (csharp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 data <- (data) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 datetime <- (datetime) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 decimal <- (decimal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 double <- (double) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 enum <- (enum) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 error <- (error) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 errors <- (errors) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 event <- (event) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 extern <- (extern) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 float <- (float) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 http <- (http) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 info <- (info) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 int32 <- (int32) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 int64 <- (int64) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 js <- (js) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 map <- (map) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 method <- (method) => uast(
     type: "Method",
     roles: "Function", "Declaration", "Member"
-    children: []
 )
 
 nullable <- (nullable) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 number_literal <- (number_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 object <- (object) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 obsolete <- (obsolete) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 proto <- (proto) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 required <- (required) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 result <- (result) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 service <- (service) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_literal <- (string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 validate <- (validate) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

@@ -1,12 +1,10 @@
 array_literal <- (array_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 binary_expression <- (binary_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 complex_invocation_expression <- (complex_invocation_expression) => uast(
@@ -21,43 +19,40 @@ data_declaration <- (data_declaration) => uast(
 
 data_property_function <- (data_property_function) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "identifier", "parameter_list"
 )
 
 data_property_list <- (data_property_list) => uast(
     type: "Property",
     roles: "Member"
-    children: []
 )
 
 data_property_value <- (data_property_value) => uast(
     type: "Property",
-    roles: "Member"
+    roles: "Member",
     children: "identifier"
 )
 
 dict_entry <- (dict_entry) => uast(
     type: "Try",
-    roles: "Try"
+    roles: "Try",
     children: "array_literal", "binary_expression", "dict_literal", "float_literal", "function_literal", "group_literal", "identifier", "int_literal", "member_access", "simple_invocation_expression", "string_literal", "type_expression", "unary_expression"
 )
 
 dict_literal <- (dict_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 enum_case_list <- (enum_case_list) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 enum_declaration <- (enum_declaration) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "enum_case_list", "identifier"
 )
 
@@ -69,55 +64,50 @@ extern_declaration <- (extern_declaration) => uast(
 float_literal <- (float_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 function_body <- (function_body) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 function_declaration <- (function_declaration) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "function_literal", "identifier"
 )
 
 function_literal <- (function_literal) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "function_body", "parameter_list"
 )
 
 group_literal <- (group_literal) => uast(
     type: "Literal",
-    roles: "Literal"
+    roles: "Literal",
     children: "array_literal", "binary_expression", "complex_invocation_expression", "dict_literal", "float_literal", "function_literal", "group_literal", "identifier", "int_literal", "member_access", "string_literal", "type_expression", "unary_expression"
 )
 
 import_declaration <- (import_declaration) => uast(
     type: "Import",
-    roles: "Import"
+    roles: "Import",
     children: "identifier", "import_members", "import_module"
 )
 
 import_members <- (import_members) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 import_module <- (import_module) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 int_literal <- (int_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 let_declaration <- (let_declaration) => uast(
@@ -132,14 +122,13 @@ member_access <- (member_access) => uast(
 
 module_declaration <- (module_declaration) => uast(
     type: "Module",
-    roles: "Module"
+    roles: "Module",
     children: "identifier"
 )
 
 parameter_list <- (parameter_list) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 simple_invocation_expression <- (simple_invocation_expression) => uast(
@@ -148,24 +137,21 @@ simple_invocation_expression <- (simple_invocation_expression) => uast(
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_literal <- (string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 type_body <- (type_body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type_case <- (type_case) => uast(
     type: "Case",
-    roles: "Branch"
+    roles: "Branch",
     children: "array_literal", "binary_expression", "dict_literal", "float_literal", "function_literal", "group_literal", "identifier", "int_literal", "member_access", "simple_invocation_expression", "string_literal", "type_expression", "unary_expression"
 )
 
@@ -175,77 +161,63 @@ type_expression <- (type_expression) => uast(
 )
 
 unary_expression <- (unary_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 data <- (data) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 enum <- (enum) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 enum_case_reference <- (enum_case_reference) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 extern <- (extern) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 func <- (func) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 import <- (import) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 let <- (let) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 member_identifier <- (member_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 module <- (module) => uast(
     type: "Module",
     roles: "Module"
-    children: []
 )
 
 type <- (type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

@@ -1,6 +1,5 @@
 argument_list <- (argument_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 binary_expression <- (binary_expression) => uast(
@@ -11,12 +10,11 @@ binary_expression <- (binary_expression) => uast(
 byte_string_literal <- (byte_string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 call_expression <- (call_expression) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "argument_list", "identifier"
 )
 
@@ -32,13 +30,12 @@ delete_node <- (delete_node) => uast(
 
 delete_property <- (delete_property) => uast(
     type: "Property",
-    roles: "Member"
+    roles: "Member",
     children: "identifier"
 )
 
 document <- (document) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dtsi_include <- (dtsi_include) => uast(
@@ -47,13 +44,11 @@ dtsi_include <- (dtsi_include) => uast(
 )
 
 file_version <- (file_version) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 incbin <- (incbin) => uast(
@@ -62,8 +57,7 @@ incbin <- (incbin) => uast(
 )
 
 integer_cells <- (integer_cells) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 memory_reservation <- (memory_reservation) => uast(
@@ -77,18 +71,15 @@ node <- (node) => uast(
 )
 
 omit_if_no_ref <- (omit_if_no_ref) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 parenthesized_expression <- (parenthesized_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 path <- (path) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 path_node <- (path_node) => uast(
@@ -97,8 +88,7 @@ path_node <- (path_node) => uast(
 )
 
 plugin <- (plugin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 preproc_def <- (preproc_def) => uast(
@@ -107,8 +97,7 @@ preproc_def <- (preproc_def) => uast(
 )
 
 preproc_defined <- (preproc_defined) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 preproc_elif <- (preproc_elif) => uast(
@@ -122,13 +111,12 @@ preproc_elifdef <- (preproc_elifdef) => uast(
 )
 
 preproc_else <- (preproc_else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 preproc_function_def <- (preproc_function_def) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "identifier", "preproc_arg", "preproc_params"
 )
 
@@ -148,8 +136,7 @@ preproc_include <- (preproc_include) => uast(
 )
 
 preproc_params <- (preproc_params) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 preproc_undef <- (preproc_undef) => uast(
@@ -159,7 +146,7 @@ preproc_undef <- (preproc_undef) => uast(
 
 property <- (property) => uast(
     type: "Property",
-    roles: "Member"
+    roles: "Member",
     children: "byte_string_literal", "identifier", "incbin", "integer_cells", "integer_literal", "reference", "string_literal"
 )
 
@@ -171,7 +158,6 @@ reference <- (reference) => uast(
 string_literal <- (string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 unary_expression <- (unary_expression) => uast(
@@ -180,39 +166,32 @@ unary_expression <- (unary_expression) => uast(
 )
 
 unit_address <- (unit_address) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 defined <- (defined) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 integer_literal <- (integer_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 preproc_arg <- (preproc_arg) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 system_lib_string <- (system_lib_string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

@@ -15,7 +15,7 @@ array_value <- (array_value) => uast(
 
 assignment_expression <- (assignment_expression) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "array_expression", "array_value", "assignment_expression", "binary_expression", "break_expression", "for_expression", "function_call", "identifier", "if_expression", "integer_literal", "let_expression", "meta_cast", "meta_expression", "meta_lvalue", "method_call", "new_expression", "nil_literal", "record_expression", "record_value", "sequence_expression", "string_literal", "unary_expression", "while_expression"
 )
 
@@ -26,13 +26,13 @@ binary_expression <- (binary_expression) => uast(
 
 class_declaration <- (class_declaration) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "field_declaration", "identifier", "method_declaration"
 )
 
 class_type <- (class_type) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "field_declaration", "method_declaration"
 )
 
@@ -43,25 +43,25 @@ extends_qualifier <- (extends_qualifier) => uast(
 
 field_declaration <- (field_declaration) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "array_expression", "array_value", "assignment_expression", "binary_expression", "break_expression", "for_expression", "function_call", "identifier", "if_expression", "integer_literal", "let_expression", "meta_cast", "meta_expression", "meta_lvalue", "meta_type_identifier", "method_call", "new_expression", "nil_literal", "record_expression", "record_value", "sequence_expression", "string_literal", "type_identifier", "unary_expression", "while_expression"
 )
 
 for_expression <- (for_expression) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "array_expression", "array_value", "assignment_expression", "binary_expression", "break_expression", "for_expression", "function_call", "identifier", "if_expression", "integer_literal", "let_expression", "meta_cast", "meta_expression", "meta_lvalue", "method_call", "new_expression", "nil_literal", "record_expression", "record_value", "sequence_expression", "string_literal", "unary_expression", "while_expression"
 )
 
 function_call <- (function_call) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "array_expression", "array_value", "assignment_expression", "binary_expression", "break_expression", "for_expression", "function_call", "identifier", "if_expression", "integer_literal", "let_expression", "meta_cast", "meta_expression", "meta_lvalue", "method_call", "new_expression", "nil_literal", "record_expression", "record_value", "sequence_expression", "string_literal", "unary_expression", "while_expression"
 )
 
 function_declaration <- (function_declaration) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "array_expression", "array_value", "assignment_expression", "binary_expression", "break_expression", "for_expression", "function_call", "identifier", "if_expression", "integer_literal", "let_expression", "meta_cast", "meta_expression", "meta_lvalue", "meta_type_identifier", "method_call", "new_expression", "nil_literal", "parameters", "record_expression", "record_value", "sequence_expression", "string_literal", "type_identifier", "unary_expression", "while_expression"
 )
 
@@ -72,7 +72,7 @@ if_expression <- (if_expression) => uast(
 
 import_declaration <- (import_declaration) => uast(
     type: "Import",
-    roles: "Import"
+    roles: "Import",
     children: "string_literal"
 )
 
@@ -102,19 +102,18 @@ meta_lvalue <- (meta_lvalue) => uast(
 )
 
 meta_type_identifier <- (meta_type_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 method_call <- (method_call) => uast(
     type: "Method",
-    roles: "Function", "Declaration", "Member"
+    roles: "Function", "Declaration", "Member",
     children: "array_expression", "array_value", "assignment_expression", "binary_expression", "break_expression", "for_expression", "function_call", "identifier", "if_expression", "integer_literal", "let_expression", "meta_cast", "meta_expression", "meta_lvalue", "method_call", "new_expression", "nil_literal", "record_expression", "record_value", "sequence_expression", "string_literal", "unary_expression", "while_expression"
 )
 
 method_declaration <- (method_declaration) => uast(
     type: "Method",
-    roles: "Function", "Declaration", "Member"
+    roles: "Function", "Declaration", "Member",
     children: "array_expression", "array_value", "assignment_expression", "binary_expression", "break_expression", "for_expression", "function_call", "identifier", "if_expression", "integer_literal", "let_expression", "meta_cast", "meta_expression", "meta_lvalue", "meta_type_identifier", "method_call", "new_expression", "nil_literal", "parameters", "record_expression", "record_value", "sequence_expression", "string_literal", "type_identifier", "unary_expression", "while_expression"
 )
 
@@ -125,7 +124,7 @@ new_expression <- (new_expression) => uast(
 
 parameters <- (parameters) => uast(
     type: "Parameter",
-    roles: "Parameter"
+    roles: "Parameter",
     children: "identifier", "meta_type_identifier", "type_identifier"
 )
 
@@ -150,24 +149,20 @@ record_value <- (record_value) => uast(
 )
 
 sequence_expression <- (sequence_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_literal <- (string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 type_alias <- (type_alias) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type_declaration <- (type_declaration) => uast(
@@ -182,198 +177,163 @@ unary_expression <- (unary_expression) => uast(
 
 variable_declaration <- (variable_declaration) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "array_expression", "array_value", "assignment_expression", "binary_expression", "break_expression", "for_expression", "function_call", "identifier", "if_expression", "integer_literal", "let_expression", "meta_cast", "meta_expression", "meta_lvalue", "meta_type_identifier", "method_call", "new_expression", "nil_literal", "record_expression", "record_value", "sequence_expression", "string_literal", "type_identifier", "unary_expression", "while_expression"
 )
 
 while_expression <- (while_expression) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "array_expression", "array_value", "assignment_expression", "binary_expression", "break_expression", "for_expression", "function_call", "identifier", "if_expression", "integer_literal", "let_expression", "meta_cast", "meta_expression", "meta_lvalue", "method_call", "new_expression", "nil_literal", "record_expression", "record_value", "sequence_expression", "string_literal", "unary_expression", "while_expression"
 )
 
 _cast <- (_cast) => uast(
-    type: "Cast",
-    children: []
+    type: "Cast"
 )
 
 _chunks <- (_chunks) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _exp <- (_exp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _lvalue <- (_lvalue) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _namety <- (_namety) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 array <- (array) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 break_expression <- (break_expression) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 class <- (class) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 do <- (do) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 end <- (end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 extends <- (extends) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 field_identifier <- (field_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 for <- (for) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 function <- (function) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 import <- (import) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 integer_literal <- (integer_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 let <- (let) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 method <- (method) => uast(
     type: "Method",
     roles: "Function", "Declaration", "Member"
-    children: []
 )
 
 new <- (new) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 nil_literal <- (nil_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 of <- (of) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 operator <- (operator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 primitive <- (primitive) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 then <- (then) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 to <- (to) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type <- (type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type_identifier <- (type_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 var <- (var) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 while <- (while) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 

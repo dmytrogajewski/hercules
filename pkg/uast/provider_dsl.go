@@ -244,13 +244,40 @@ func (dn *DSLNode) matchPattern(mappingRule *mapping.MappingRule) map[string]str
 func (dn *DSLNode) extractCaptureText(captureName string) string {
 	mappingRule := dn.findMappingRule(dn.Root.Type())
 	captures := dn.matchPattern(mappingRule)
-	if captures == nil {
-		return ""
+	if captures != nil {
+		if val, ok := captures[captureName]; ok {
+			return val
+		}
 	}
-	if val, ok := captures[captureName]; ok {
-		return val
+	// Fallback: try to extract by field name
+	fieldNode := dn.Root.ChildByFieldName(captureName)
+	if !fieldNode.IsNull() {
+		if fieldNode.ChildCount() == 0 {
+			return dn.extractNodeText(fieldNode)
+		}
+		// Not a leaf: return node type as placeholder
+		return fieldNode.Type()
+	}
+	// Recursively search for a descendant node of the given type
+	desc := findDescendantByType(dn.Root, captureName)
+	if !desc.IsNull() {
+		return dn.extractNodeText(desc)
 	}
 	return ""
+}
+
+func findDescendantByType(node sitter.Node, typ string) sitter.Node {
+	if node.Type() == typ {
+		return node
+	}
+	for i := uint32(0); i < node.NamedChildCount(); i++ {
+		child := node.NamedChild(i)
+		found := findDescendantByType(child, typ)
+		if !found.IsNull() {
+			return found
+		}
+	}
+	return sitter.Node{}
 }
 
 // --- Condition Evaluation ---
@@ -379,7 +406,7 @@ func (dn *DSLNode) createMappedNode(mappingRule *mapping.MappingRule, children [
 	dn.extractProperties(mappingRule, props)
 	dn.extractName(mappingRule, props)
 
-	uastNode := node.New(0, mappingRule.UASTSpec.Type, dn.extractTokenText(mappingRule), roles, dn.extractPositions(), props)
+	uastNode := node.New("", mappingRule.UASTSpec.Type, dn.extractTokenText(mappingRule), roles, dn.extractPositions(), props)
 	uastNode.Children = children
 
 	dn.extractToken(mappingRule, uastNode)
@@ -470,6 +497,10 @@ func (dn *DSLNode) extractProperties(mappingRule *mapping.MappingRule, props map
 
 // extractPropertyValue extracts a property value from the node
 func (dn *DSLNode) extractPropertyValue(propStr string) string {
+	if strings.HasPrefix(propStr, "@") && len(propStr) > 1 {
+		// Property references a capture
+		return dn.extractCaptureText(propStr[1:])
+	}
 	if dn.isDescendantProperty(propStr) {
 		return dn.extractDescendantProperty(propStr)
 	}
@@ -687,7 +718,7 @@ func (dn *DSLNode) createUnmappedChildNode(child sitter.Node) *DSLNode {
 
 // createIncludeUnmappedNode creates a node when IncludeUnmapped is true
 func (dn *DSLNode) createIncludeUnmappedNode(nodeType string, mappedChildren []*node.Node, props map[string]string, roles []node.Role) *node.Node {
-	node := node.New(0, dn.Language+":"+nodeType, dn.Token(), roles, dn.Positions(), props)
+	node := node.New("", dn.Language+":"+nodeType, dn.Token(), roles, dn.Positions(), props)
 	node.Children = mappedChildren
 	return node
 }
@@ -698,7 +729,41 @@ func (dn *DSLNode) createSyntheticNode(mappedChildren []*node.Node) *node.Node {
 		return mappedChildren[0]
 	}
 	if len(mappedChildren) > 1 {
-		synth := node.New(0, "Synthetic", "", nil, nil, nil)
+		// Compute span covering all children
+		minStartLine, minStartCol, minStartOffset := -1, -1, -1
+		maxEndLine, maxEndCol, maxEndOffset := -1, -1, -1
+		for _, c := range mappedChildren {
+			if c.Pos == nil {
+				continue
+			}
+			if minStartLine == -1 || c.Pos.StartLine < minStartLine {
+				minStartLine = c.Pos.StartLine
+			}
+			if minStartCol == -1 || c.Pos.StartCol < minStartCol {
+				minStartCol = c.Pos.StartCol
+			}
+			if minStartOffset == -1 || c.Pos.StartOffset < minStartOffset {
+				minStartOffset = c.Pos.StartOffset
+			}
+			if c.Pos.EndLine > maxEndLine {
+				maxEndLine = c.Pos.EndLine
+			}
+			if c.Pos.EndCol > maxEndCol {
+				maxEndCol = c.Pos.EndCol
+			}
+			if c.Pos.EndOffset > maxEndOffset {
+				maxEndOffset = c.Pos.EndOffset
+			}
+		}
+		pos := &node.Positions{
+			StartLine:   minStartLine,
+			StartCol:    minStartCol,
+			StartOffset: minStartOffset,
+			EndLine:     maxEndLine,
+			EndCol:      maxEndCol,
+			EndOffset:   maxEndOffset,
+		}
+		synth := node.New("", "Synthetic", "", nil, pos, nil)
 		synth.Children = mappedChildren
 		return synth
 	}
@@ -716,11 +781,11 @@ func (dn *DSLNode) Token() string {
 // Positions returns the source code positions for this node.
 func (dn *DSLNode) Positions() *node.Positions {
 	return &node.Positions{
-		StartLine:   int(dn.Root.StartPoint().Row),
-		StartCol:    int(dn.Root.StartPoint().Column),
+		StartLine:   int(dn.Root.StartPoint().Row) + 1,
+		StartCol:    int(dn.Root.StartPoint().Column) + 1,
 		StartOffset: int(dn.Root.StartByte()),
-		EndLine:     int(dn.Root.EndPoint().Row),
-		EndCol:      int(dn.Root.EndPoint().Column),
+		EndLine:     int(dn.Root.EndPoint().Row) + 1,
+		EndCol:      int(dn.Root.EndPoint().Column) + 1,
 		EndOffset:   int(dn.Root.EndByte()),
 	}
 }

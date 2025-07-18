@@ -1,11 +1,9 @@
 aggregate <- (aggregate) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 aggregate_operation <- (aggregate_operation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 append <- (append) => uast(
@@ -15,7 +13,7 @@ append <- (append) => uast(
 
 assignment <- (assignment) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "binary_expression", "case", "date", "f_string", "field", "function_call", "keyword_average", "keyword_avg", "keyword_count_distinct", "keyword_max", "keyword_min", "keyword_stddev", "keyword_sum", "literal", "s_string", "time", "timestamp"
 )
 
@@ -27,54 +25,46 @@ binary_expression <- (binary_expression) => uast(
 case <- (case) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 case_condition <- (case_condition) => uast(
     type: "Case",
-    roles: "Branch"
+    roles: "Branch",
     children: "literal"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 conditions <- (conditions) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 date <- (date) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 decimal_number <- (decimal_number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 derives <- (derives) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 direction <- (direction) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 f_string <- (f_string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 field <- (field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "identifier"
 )
 
@@ -89,35 +79,31 @@ from <- (from) => uast(
 )
 
 from_text <- (from_text) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 function_call <- (function_call) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "identifier"
 )
 
 function_definition <- (function_definition) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "binary_expression", "identifier", "s_string"
 )
 
 group <- (group) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 integer <- (integer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 joins <- (joins) => uast(
@@ -128,41 +114,36 @@ joins <- (joins) => uast(
 literal <- (literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 literal_string <- (literal_string) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 loop <- (loop) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 module_call <- (module_call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "identifier"
 )
 
 parameter <- (parameter) => uast(
     type: "Parameter",
-    roles: "Parameter"
+    roles: "Parameter",
     children: "identifier", "literal"
 )
 
 pipeline <- (pipeline) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 program <- (program) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 prql <- (prql) => uast(
@@ -176,28 +157,23 @@ range <- (range) => uast(
 )
 
 s_string <- (s_string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 select <- (select) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sorts <- (sorts) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 takes <- (takes) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 target <- (target) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 term <- (term) => uast(
@@ -206,282 +182,228 @@ term <- (term) => uast(
 )
 
 time <- (time) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 timestamp <- (timestamp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 timezone <- (timezone) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 transforms <- (transforms) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 variable <- (variable) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "identifier"
 )
 
 window <- (window) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 window_definitions <- (window_definitions) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 T <- (T) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 Z <- (Z) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _ <- (_) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bang <- (bang) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_aggregate <- (keyword_aggregate) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_append <- (keyword_append) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_average <- (keyword_average) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_avg <- (keyword_avg) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_case <- (keyword_case) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 keyword_count <- (keyword_count) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_count_distinct <- (keyword_count_distinct) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_csv <- (keyword_csv) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_derive <- (keyword_derive) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_expanding <- (keyword_expanding) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_false <- (keyword_false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_filter <- (keyword_filter) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_format <- (keyword_format) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 keyword_from <- (keyword_from) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_from_text <- (keyword_from_text) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_full <- (keyword_full) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_group <- (keyword_group) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_inner <- (keyword_inner) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_intersect <- (keyword_intersect) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_join <- (keyword_join) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_json <- (keyword_json) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_left <- (keyword_left) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_let <- (keyword_let) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_loop <- (keyword_loop) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 keyword_max <- (keyword_max) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_min <- (keyword_min) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_null <- (keyword_null) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_prql <- (keyword_prql) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_rank <- (keyword_rank) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_remove <- (keyword_remove) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_right <- (keyword_right) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_rolling <- (keyword_rolling) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_rows <- (keyword_rows) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_select <- (keyword_select) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_side <- (keyword_side) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_sort <- (keyword_sort) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_stddev <- (keyword_stddev) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_sum <- (keyword_sum) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_take <- (keyword_take) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_target <- (keyword_target) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_true <- (keyword_true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_version <- (keyword_version) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_window <- (keyword_window) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 pipe <- (pipe) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

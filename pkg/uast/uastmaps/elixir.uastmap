@@ -1,74 +1,64 @@
 access_call <- (access_call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "access_call", "alias", "anonymous_function", "atom", "binary_operator", "bitstring", "block", "boolean", "call", "char", "charlist", "dot", "float", "identifier", "integer", "list", "map", "nil", "operator_identifier", "quoted_atom", "sigil", "string", "tuple", "unary_operator"
 )
 
 after_block <- (after_block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 anonymous_function <- (anonymous_function) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 arguments <- (arguments) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 binary_operator <- (binary_operator) => uast(
     type: "BinaryOp",
-    roles: "Operator"
+    roles: "Operator",
     children: "access_call", "alias", "and", "anonymous_function", "arguments", "atom", "binary_operator", "bitstring", "block", "boolean", "call", "char", "charlist", "dot", "float", "identifier", "in", "integer", "keywords", "list", "map", "nil", "operator_identifier", "or", "quoted_atom", "sigil", "string", "tuple", "unary_operator", "when"
 )
 
 bitstring <- (bitstring) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 block <- (block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 body <- (body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 boolean <- (boolean) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 call <- (call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "call", "dot", "identifier"
 )
 
 catch_block <- (catch_block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 charlist <- (charlist) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 do_block <- (do_block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 dot <- (dot) => uast(
@@ -79,47 +69,38 @@ dot <- (dot) => uast(
 else_block <- (else_block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 interpolation <- (interpolation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keywords <- (keywords) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 list <- (list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 map <- (map) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 map_content <- (map_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 nil <- (nil) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 operator_identifier <- (operator_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 pair <- (pair) => uast(
@@ -128,29 +109,24 @@ pair <- (pair) => uast(
 )
 
 quoted_atom <- (quoted_atom) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 quoted_keyword <- (quoted_keyword) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 rescue_block <- (rescue_block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 sigil <- (sigil) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 source <- (source) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 stab_clause <- (stab_clause) => uast(
@@ -159,156 +135,127 @@ stab_clause <- (stab_clause) => uast(
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 struct <- (struct) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 tuple <- (tuple) => uast(
-    type: "Tuple",
-    children: []
+    type: "Tuple"
 )
 
 unary_operator <- (unary_operator) => uast(
     type: "UnaryOp",
-    roles: "Operator"
+    roles: "Operator",
     children: "access_call", "alias", "anonymous_function", "atom", "binary_operator", "bitstring", "block", "boolean", "call", "char", "charlist", "dot", "float", "identifier", "integer", "list", "map", "nil", "not", "operator_identifier", "quoted_atom", "sigil", "string", "tuple", "unary_operator"
 )
 
 after <- (after) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 alias <- (alias) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 and <- (and) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 atom <- (atom) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 catch <- (catch) => uast(
     type: "Catch",
     roles: "Catch"
-    children: []
 )
 
 char <- (char) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 do <- (do) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 end <- (end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 float <- (float) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fn <- (fn) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 integer <- (integer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword <- (keyword) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 nil <- (nil) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 not <- (not) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 or <- (or) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 quoted_content <- (quoted_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 rescue <- (rescue) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sigil_modifiers <- (sigil_modifiers) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 sigil_name <- (sigil_name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 when <- (when) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

@@ -1,11 +1,9 @@
 arguments <- (arguments) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 array_type <- (array_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assign <- (assign) => uast(
@@ -16,78 +14,67 @@ assign <- (assign) => uast(
 attribute <- (attribute) => uast(
     type: "Attribute",
     roles: "Attribute"
-    children: []
 )
 
 attributes <- (attributes) => uast(
     type: "Attribute",
     roles: "Attribute"
-    children: []
 )
 
 binary_operation <- (binary_operation) => uast(
     type: "BinaryOp",
-    roles: "Operator"
+    roles: "Operator",
     children: "array_type", "assign", "binary_operation", "call", "cast", "character", "enum_type", "float", "function", "identifier", "if", "inline_assembly", "int", "member", "parentheses_expression", "pointer_type", "slice_type", "special_identifier", "string", "struct_type", "subscript", "switch", "unary_operation"
 )
 
 body <- (body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 call <- (call) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 cast <- (cast) => uast(
-    type: "Cast",
-    children: []
+    type: "Cast"
 )
 
 character <- (character) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 constant <- (constant) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 defer <- (defer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 enum_type <- (enum_type) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 enum_type_fields <- (enum_type_fields) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "identifier"
 )
 
 function <- (function) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "type_right"
 )
 
 global_assembly <- (global_assembly) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 global_assembly_body <- (global_assembly_body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 if <- (if) => uast(
@@ -96,13 +83,11 @@ if <- (if) => uast(
 )
 
 inline_assembly <- (inline_assembly) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inline_assembly_body <- (inline_assembly_body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 member <- (member) => uast(
@@ -113,50 +98,42 @@ member <- (member) => uast(
 module <- (module) => uast(
     type: "Module",
     roles: "Module"
-    children: []
 )
 
 parameters <- (parameters) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 parentheses_expression <- (parentheses_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 pointer_type <- (pointer_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 slice_type <- (slice_type) => uast(
-    type: "Slice",
-    children: []
+    type: "Slice"
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 struct_type <- (struct_type) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 struct_type_fields <- (struct_type_fields) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "identifier"
 )
 
@@ -166,147 +143,121 @@ subscript <- (subscript) => uast(
 )
 
 switch <- (switch) => uast(
-    type: "Switch",
-    children: []
+    type: "Switch"
 )
 
 switch_cases <- (switch_cases) => uast(
-    type: "Switch",
-    children: []
+    type: "Switch"
 )
 
 type <- (type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type_right <- (type_right) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unary_operation <- (unary_operation) => uast(
     type: "UnaryOp",
-    roles: "Operator"
+    roles: "Operator",
     children: "array_type", "assign", "binary_operation", "call", "cast", "character", "enum_type", "float", "function", "identifier", "if", "inline_assembly", "int", "member", "parentheses_expression", "pointer_type", "slice_type", "special_identifier", "string", "struct_type", "subscript", "switch", "unary_operation"
 )
 
 variable <- (variable) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 while <- (while) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 as <- (as) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 asm <- (asm) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 break <- (break) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 const <- (const) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 continue <- (continue) => uast(
     type: "Continue",
     roles: "Continue"
-    children: []
 )
 
 defer <- (defer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 enum <- (enum) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 float <- (float) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fn <- (fn) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 int <- (int) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 special_identifier <- (special_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 struct <- (struct) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 switch <- (switch) => uast(
-    type: "Switch",
-    children: []
+    type: "Switch"
 )
 
 then <- (then) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 while <- (while) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 

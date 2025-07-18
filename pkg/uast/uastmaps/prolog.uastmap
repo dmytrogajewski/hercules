@@ -1,67 +1,55 @@
 arg_list <- (arg_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 arg_list_separator <- (arg_list_separator) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 atom <- (atom) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 clause_term <- (clause_term) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 curly_bracketed_notation <- (curly_bracketed_notation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 directive_term <- (directive_term) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 empty_curly_brackets <- (empty_curly_brackets) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 empty_list <- (empty_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 functional_notation <- (functional_notation) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "atom"
 )
 
 list_notation <- (list_notation) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_notation_separator <- (list_notation_separator) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 open <- (open) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 open_ct <- (open_ct) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 operator_notation <- (operator_notation) => uast(
@@ -70,95 +58,77 @@ operator_notation <- (operator_notation) => uast(
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 binary_operator <- (binary_operator) => uast(
     type: "BinaryOp",
     roles: "Operator"
-    children: []
 )
 
 close <- (close) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 close_curly <- (close_curly) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 close_list <- (close_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 comma <- (comma) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 directive_head <- (directive_head) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 double_quoted_list_notation <- (double_quoted_list_notation) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 end <- (end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 float_number <- (float_number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 integer <- (integer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 open_curly <- (open_curly) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 open_list <- (open_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 prefix_operator <- (prefix_operator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 prexif_operator <- (prexif_operator) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 semicolon <- (semicolon) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 variable_term <- (variable_term) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 

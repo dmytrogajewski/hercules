@@ -1,50 +1,44 @@
 args <- (args) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 autolink <- (autolink) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 block_attribute <- (block_attribute) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "args"
 )
 
 block_quote <- (block_quote) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "content"
 )
 
 checked <- (checked) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 class <- (class) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 class_name <- (class_name) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 code <- (code) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 code_block <- (code_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "code", "language"
 )
 
@@ -60,7 +54,7 @@ collapsed_reference_link <- (collapsed_reference_link) => uast(
 
 comment <- (comment) => uast(
     type: "Comment",
-    roles: "Comment"
+    roles: "Comment",
     children: "content"
 )
 
@@ -70,8 +64,7 @@ content <- (content) => uast(
 )
 
 definition <- (definition) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 delete <- (delete) => uast(
@@ -80,8 +73,7 @@ delete <- (delete) => uast(
 )
 
 delete_begin <- (delete_begin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 div <- (div) => uast(
@@ -90,8 +82,7 @@ div <- (div) => uast(
 )
 
 document <- (document) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 emphasis <- (emphasis) => uast(
@@ -100,8 +91,7 @@ emphasis <- (emphasis) => uast(
 )
 
 emphasis_begin <- (emphasis_begin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 footnote <- (footnote) => uast(
@@ -110,18 +100,15 @@ footnote <- (footnote) => uast(
 )
 
 footnote_content <- (footnote_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 footnote_marker_begin <- (footnote_marker_begin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 footnote_reference <- (footnote_reference) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 frontmatter <- (frontmatter) => uast(
@@ -130,8 +117,7 @@ frontmatter <- (frontmatter) => uast(
 )
 
 frontmatter_content <- (frontmatter_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 full_reference_image <- (full_reference_image) => uast(
@@ -155,8 +141,7 @@ highlighted <- (highlighted) => uast(
 )
 
 highlighted_begin <- (highlighted_begin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 image_description <- (image_description) => uast(
@@ -167,12 +152,11 @@ image_description <- (image_description) => uast(
 inline_attribute <- (inline_attribute) => uast(
     type: "Attribute",
     roles: "Attribute"
-    children: []
 )
 
 inline_comment <- (inline_comment) => uast(
     type: "Comment",
-    roles: "Comment"
+    roles: "Comment",
     children: "content"
 )
 
@@ -187,8 +171,7 @@ inline_link <- (inline_link) => uast(
 )
 
 inline_link_destination <- (inline_link_destination) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 insert <- (insert) => uast(
@@ -197,18 +180,16 @@ insert <- (insert) => uast(
 )
 
 insert_begin <- (insert_begin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 key <- (key) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 key_value <- (key_value) => uast(
     type: "KeyValue",
-    roles: "Key", "Value"
+    roles: "Key", "Value",
     children: "key", "value"
 )
 
@@ -228,8 +209,7 @@ link_text <- (link_text) => uast(
 )
 
 list <- (list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_item <- (list_item) => uast(
@@ -238,8 +218,7 @@ list_item <- (list_item) => uast(
 )
 
 list_item_content <- (list_item_content) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_task <- (list_marker_task) => uast(
@@ -253,8 +232,7 @@ math <- (math) => uast(
 )
 
 note <- (note) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 paragraph <- (paragraph) => uast(
@@ -264,13 +242,13 @@ paragraph <- (paragraph) => uast(
 
 raw_block <- (raw_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "content", "raw_block_info"
 )
 
 raw_block_info <- (raw_block_info) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "language", "language_marker"
 )
 
@@ -281,13 +259,12 @@ raw_inline <- (raw_inline) => uast(
 
 raw_inline_attribute <- (raw_inline_attribute) => uast(
     type: "Attribute",
-    roles: "Attribute"
+    roles: "Attribute",
     children: "language"
 )
 
 reference_label <- (reference_label) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 section <- (section) => uast(
@@ -296,8 +273,7 @@ section <- (section) => uast(
 )
 
 section_content <- (section_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 span <- (span) => uast(
@@ -311,8 +287,7 @@ strong <- (strong) => uast(
 )
 
 strong_begin <- (strong_begin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 subscript <- (subscript) => uast(
@@ -321,8 +296,7 @@ subscript <- (subscript) => uast(
 )
 
 subscript_begin <- (subscript_begin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 superscript <- (superscript) => uast(
@@ -331,13 +305,11 @@ superscript <- (superscript) => uast(
 )
 
 superscript_begin <- (superscript_begin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 table <- (table) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 table_caption <- (table_caption) => uast(
@@ -351,18 +323,15 @@ table_cell <- (table_cell) => uast(
 )
 
 table_header <- (table_header) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 table_row <- (table_row) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 table_separator <- (table_separator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 term <- (term) => uast(
@@ -373,22 +342,18 @@ term <- (term) => uast(
 thematic_break <- (thematic_break) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 todo <- (todo) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unchecked <- (unchecked) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 value <- (value) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 verbatim <- (verbatim) => uast(
@@ -397,328 +362,264 @@ verbatim <- (verbatim) => uast(
 )
 
 INFO <- (INFO) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NOTE <- (NOTE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TODO <- (TODO) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 WIP <- (WIP) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 X <- (X) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 XXX <- (XXX) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _ <- (_) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 backslash_escape <- (backslash_escape) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 block_quote_marker <- (block_quote_marker) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 code_block_marker_begin <- (code_block_marker_begin) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 code_block_marker_end <- (code_block_marker_end) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 delete_end <- (delete_end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 div_marker_begin <- (div_marker_begin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 div_marker_end <- (div_marker_end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ellipsis <- (ellipsis) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 em_dash <- (em_dash) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 emphasis_end <- (emphasis_end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 en_dash <- (en_dash) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fixme <- (fixme) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 footnote_marker_end <- (footnote_marker_end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 frontmatter_marker <- (frontmatter_marker) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hard_line_break <- (hard_line_break) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 highlighted_end <- (highlighted_end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 insert_end <- (insert_end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 language <- (language) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 language_marker <- (language_marker) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 link_destination <- (link_destination) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 list_marker_dash <- (list_marker_dash) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_decimal_paren <- (list_marker_decimal_paren) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_decimal_parens <- (list_marker_decimal_parens) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_decimal_period <- (list_marker_decimal_period) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_definition <- (list_marker_definition) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_lower_alpha_paren <- (list_marker_lower_alpha_paren) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_lower_alpha_parens <- (list_marker_lower_alpha_parens) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_lower_alpha_period <- (list_marker_lower_alpha_period) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_lower_roman_paren <- (list_marker_lower_roman_paren) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_lower_roman_parens <- (list_marker_lower_roman_parens) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_lower_roman_period <- (list_marker_lower_roman_period) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_plus <- (list_marker_plus) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_star <- (list_marker_star) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_upper_alpha_paren <- (list_marker_upper_alpha_paren) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_upper_alpha_parens <- (list_marker_upper_alpha_parens) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_upper_alpha_period <- (list_marker_upper_alpha_period) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_upper_roman_paren <- (list_marker_upper_roman_paren) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_upper_roman_parens <- (list_marker_upper_roman_parens) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 list_marker_upper_roman_period <- (list_marker_upper_roman_period) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 marker <- (marker) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 math_marker <- (math_marker) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 math_marker_begin <- (math_marker_begin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 math_marker_end <- (math_marker_end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 quotation_marks <- (quotation_marks) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 raw_block_marker_begin <- (raw_block_marker_begin) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 raw_block_marker_end <- (raw_block_marker_end) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 raw_inline_marker_begin <- (raw_inline_marker_begin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 raw_inline_marker_end <- (raw_inline_marker_end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 strong_end <- (strong_end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 subscript_end <- (subscript_end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 superscript_end <- (superscript_end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 symbol <- (symbol) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 table_cell_alignment <- (table_cell_alignment) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 verbatim_marker_begin <- (verbatim_marker_begin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 verbatim_marker_end <- (verbatim_marker_end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 x <- (x) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

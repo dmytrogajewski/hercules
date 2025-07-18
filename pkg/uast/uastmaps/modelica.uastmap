@@ -1,60 +1,49 @@
 _Argument <- (_Argument) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _ClassSpecifier <- (_ClassSpecifier) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 _Element <- (_Element) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _Equation <- (_Equation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _Expression <- (_Expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _ImportClause <- (_ImportClause) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 _Literal <- (_Literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 _PrimaryExpression <- (_PrimaryExpression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _SimpleExpression <- (_SimpleExpression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _Statement <- (_Statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _UnsignedNumberLiteral <- (_UnsignedNumberLiteral) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 AlgorithmSection <- (AlgorithmSection) => uast(
@@ -74,7 +63,7 @@ ArrayConcatenation <- (ArrayConcatenation) => uast(
 
 ArrayConstructor <- (ArrayConstructor) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "ComprehensionClause", "ExpressionList"
 )
 
@@ -90,37 +79,37 @@ BinaryExpression <- (BinaryExpression) => uast(
 
 BreakStatement <- (BreakStatement) => uast(
     type: "Break",
-    roles: "Break"
+    roles: "Break",
     children: "AnnotationClause", "DescriptionString"
 )
 
 ClassDefinition <- (ClassDefinition) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "ClassPrefixes", "_ClassSpecifier", "encapsulated"
 )
 
 ClassDefinitionClause <- (ClassDefinitionClause) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "ClassDefinition", "final"
 )
 
 ClassModification <- (ClassModification) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "_Argument"
 )
 
 ClassOrInheritanceModification <- (ClassOrInheritanceModification) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "InheritanceModification", "_Argument"
 )
 
 ClassPrefixes <- (ClassPrefixes) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "block", "class", "connector", "expandable", "function", "impure", "model", "operator", "package", "partial", "pure", "record", "type"
 )
 
@@ -156,7 +145,7 @@ ComponentReferencePart <- (ComponentReferencePart) => uast(
 
 CompoundImportClause <- (CompoundImportClause) => uast(
     type: "Import",
-    roles: "Import"
+    roles: "Import",
     children: "AnnotationClause", "DescriptionString", "IDENT", "Name"
 )
 
@@ -167,7 +156,7 @@ ComprehensionClause <- (ComprehensionClause) => uast(
 
 ConditionAttribute <- (ConditionAttribute) => uast(
     type: "Attribute",
-    roles: "Attribute"
+    roles: "Attribute",
     children: "_Expression"
 )
 
@@ -193,7 +182,7 @@ Declaration <- (Declaration) => uast(
 
 DerClassSpecifier <- (DerClassSpecifier) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "AnnotationClause", "DescriptionString", "IDENT", "TypeSpecifier"
 )
 
@@ -204,7 +193,7 @@ DescriptionString <- (DescriptionString) => uast(
 
 DestructuringAssignmentStatement <- (DestructuringAssignmentStatement) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "AnnotationClause", "ComponentReference", "DescriptionString", "FunctionArguments", "ParenthesizedExpression"
 )
 
@@ -264,13 +253,12 @@ ElseWhenStatementClause <- (ElseWhenStatementClause) => uast(
 )
 
 EndExpression <- (EndExpression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 EnumerationLiteral <- (EnumerationLiteral) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "AnnotationClause", "DescriptionString", "IDENT"
 )
 
@@ -291,61 +279,61 @@ ExtendsClause <- (ExtendsClause) => uast(
 
 ExternalFunctionCall <- (ExternalFunctionCall) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "ComponentReference", "ExpressionList", "IDENT"
 )
 
 ExternalFunctionClause <- (ExternalFunctionClause) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "AnnotationClause", "ExternalFunctionCall", "LanguageSpecification"
 )
 
 ForEquation <- (ForEquation) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "AnnotationClause", "DescriptionString", "ForIndex", "_Equation"
 )
 
 ForIndex <- (ForIndex) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "IDENT", "_Expression"
 )
 
 ForStatement <- (ForStatement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "AnnotationClause", "DescriptionString", "ForIndex", "_Statement"
 )
 
 FunctionArgument <- (FunctionArgument) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "FunctionPartialApplication", "_Expression"
 )
 
 FunctionArguments <- (FunctionArguments) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "ComprehensionClause", "FunctionArgument", "NamedArgument"
 )
 
 FunctionCall <- (FunctionCall) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "ComponentReference", "FunctionArguments", "der", "initial", "pure"
 )
 
 FunctionCallStatement <- (FunctionCallStatement) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "AnnotationClause", "ComponentReference", "DescriptionString", "FunctionArguments"
 )
 
 FunctionPartialApplication <- (FunctionPartialApplication) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "NamedArgument", "TypeSpecifier"
 )
 
@@ -382,12 +370,11 @@ LanguageSpecification <- (LanguageSpecification) => uast(
 LogicalLiteral <- (LogicalLiteral) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 LongClassSpecifier <- (LongClassSpecifier) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "AlgorithmSection", "AnnotationClause", "ClassModification", "DescriptionString", "ElementList", "EquationSection", "ExternalFunctionClause", "IDENT", "InitialElementList", "extends"
 )
 
@@ -428,25 +415,25 @@ RangeExpression <- (RangeExpression) => uast(
 
 ReturnStatement <- (ReturnStatement) => uast(
     type: "Return",
-    roles: "Return"
+    roles: "Return",
     children: "AnnotationClause", "DescriptionString"
 )
 
 ShortClassDefinition <- (ShortClassDefinition) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "ClassPrefixes", "ShortClassSpecifier"
 )
 
 ShortClassSpecifier <- (ShortClassSpecifier) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "AnnotationClause", "ArraySubscripts", "ClassModification", "DescriptionString", "EnumerationLiteral", "IDENT", "TypeSpecifier", "enumeration", "input", "output"
 )
 
 SimpleAssignmentStatement <- (SimpleAssignmentStatement) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "AnnotationClause", "ComponentReference", "DescriptionString", "_Expression"
 )
 
@@ -457,7 +444,7 @@ SimpleEquation <- (SimpleEquation) => uast(
 
 SimpleImportClause <- (SimpleImportClause) => uast(
     type: "Import",
-    roles: "Import"
+    roles: "Import",
     children: "AnnotationClause", "DescriptionString", "IDENT", "Name"
 )
 
@@ -474,7 +461,6 @@ StoredDefinition <- (StoredDefinition) => uast(
 StringLiteral <- (StringLiteral) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 Subscript <- (Subscript) => uast(
@@ -500,13 +486,11 @@ UnqualifiedImportClause <- (UnqualifiedImportClause) => uast(
 UnsignedIntegerLiteral <- (UnsignedIntegerLiteral) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 UnsignedRealLiteral <- (UnsignedRealLiteral) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 WhenEquation <- (WhenEquation) => uast(
@@ -521,7 +505,7 @@ WhenStatement <- (WhenStatement) => uast(
 
 WhileStatement <- (WhileStatement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "AnnotationClause", "DescriptionString", "_Expression", "_Statement"
 )
 
@@ -533,344 +517,278 @@ WithinClause <- (WithinClause) => uast(
 BLOCK_COMMENT <- (BLOCK_COMMENT) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 BOM <- (BOM) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 IDENT <- (IDENT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LINE_COMMENT <- (LINE_COMMENT) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 STRING <- (STRING) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 UNSIGNED_INTEGER <- (UNSIGNED_INTEGER) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 UNSIGNED_REAL <- (UNSIGNED_REAL) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 algorithm <- (algorithm) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 and <- (and) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 annotation <- (annotation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 block <- (block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 break <- (break) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 class <- (class) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 connect <- (connect) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 connector <- (connector) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 constant <- (constant) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 constrainedby <- (constrainedby) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 der <- (der) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 discrete <- (discrete) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 each <- (each) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 elseif <- (elseif) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 elsewhen <- (elsewhen) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 encapsulated <- (encapsulated) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 end <- (end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 enumeration <- (enumeration) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 equation <- (equation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 expandable <- (expandable) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 extends <- (extends) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 external <- (external) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 final <- (final) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 flow <- (flow) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 for <- (for) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 function <- (function) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 import <- (import) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 impure <- (impure) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 initial <- (initial) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inner <- (inner) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 input <- (input) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 loop <- (loop) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 model <- (model) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 not <- (not) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 operator <- (operator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 or <- (or) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 outer <- (outer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 output <- (output) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 package <- (package) => uast(
     type: "Package",
     roles: "Module"
-    children: []
 )
 
 parameter <- (parameter) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 partial <- (partial) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 protected <- (protected) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 public <- (public) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 pure <- (pure) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 record <- (record) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 redeclare <- (redeclare) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 replaceable <- (replaceable) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 stream <- (stream) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 then <- (then) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type <- (type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 when <- (when) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 while <- (while) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 within <- (within) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

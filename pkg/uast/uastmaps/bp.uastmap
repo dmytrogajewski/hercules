@@ -1,6 +1,6 @@
 assignment <- (assignment) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "binary_expression", "boolean_literal", "identifier", "integer_literal", "interpreted_string_literal", "list_expression", "map_expression", "operator", "raw_string_literal", "select_expression"
 )
 
@@ -12,13 +12,11 @@ binary_expression <- (binary_expression) => uast(
 boolean_literal <- (boolean_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 condition <- (condition) => uast(
@@ -29,13 +27,11 @@ condition <- (condition) => uast(
 integer_literal <- (integer_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 interpreted_string_literal <- (interpreted_string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 list_expression <- (list_expression) => uast(
@@ -50,103 +46,88 @@ map_expression <- (map_expression) => uast(
 
 module <- (module) => uast(
     type: "Module",
-    roles: "Module"
+    roles: "Module",
     children: "identifier", "property"
 )
 
 pattern_binding <- (pattern_binding) => uast(
     type: "Pattern",
-    roles: "Pattern"
+    roles: "Pattern",
     children: "any", "identifier", "operator"
 )
 
 property <- (property) => uast(
     type: "Property",
-    roles: "Member"
+    roles: "Member",
     children: "binary_expression", "boolean_literal", "identifier", "integer_literal", "interpreted_string_literal", "list_expression", "map_expression", "raw_string_literal", "select_expression"
 )
 
 select_case <- (select_case) => uast(
     type: "Case",
-    roles: "Branch"
+    roles: "Branch",
     children: "binary_expression", "boolean_literal", "identifier", "integer_literal", "interpreted_string_literal", "list_expression", "map_expression", "raw_string_literal", "select_expression", "select_pattern", "unset"
 )
 
 select_cases <- (select_cases) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 select_expression <- (select_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 select_pattern <- (select_pattern) => uast(
     type: "Pattern",
     roles: "Pattern"
-    children: []
 )
 
 select_value <- (select_value) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 any <- (any) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 default <- (default) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 operator <- (operator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 raw_string_literal <- (raw_string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 select <- (select) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unset <- (unset) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 

@@ -313,8 +313,6 @@ func GenerateMappingDSL(nodes []NodeTypeInfo) string {
 				}
 				sb.WriteString(fmt.Sprintf("\"%s\"", r))
 			}
-		} else {
-			sb.WriteString(",\n    roles: []")
 		}
 		// Collect children from both n.Children and n.Fields
 		childTypes := map[string]struct{}{}
@@ -330,7 +328,6 @@ func GenerateMappingDSL(nodes []NodeTypeInfo) string {
 				}
 			}
 		}
-		// Emit children field
 		if len(childTypes) > 0 {
 			var keys []string
 			for k := range childTypes {
@@ -344,8 +341,6 @@ func GenerateMappingDSL(nodes []NodeTypeInfo) string {
 				}
 				sb.WriteString(fmt.Sprintf("\"%s\"", k))
 			}
-		} else {
-			sb.WriteString(",\n    children: []")
 		}
 		sb.WriteString("\n)\n\n")
 	}

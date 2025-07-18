@@ -1,12 +1,11 @@
 comment <- (comment) => uast(
     type: "Comment",
-    roles: "Comment"
+    roles: "Comment",
     children: "identifier", "value"
 )
 
 document <- (document) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 external_body <- (external_body) => uast(
@@ -15,13 +14,11 @@ external_body <- (external_body) => uast(
 )
 
 graphql_body <- (graphql_body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 graphql_data <- (graphql_data) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 header <- (header) => uast(
@@ -30,34 +27,28 @@ header <- (header) => uast(
 )
 
 http_version <- (http_version) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 json_body <- (json_body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 multipart_form_data <- (multipart_form_data) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 path <- (path) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 pre_request_script <- (pre_request_script) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 raw_body <- (raw_body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 request <- (request) => uast(
@@ -71,8 +62,7 @@ request_separator <- (request_separator) => uast(
 )
 
 res_handler_script <- (res_handler_script) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 res_redirect <- (res_redirect) => uast(
@@ -86,8 +76,7 @@ response <- (response) => uast(
 )
 
 script <- (script) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 section <- (section) => uast(
@@ -96,55 +85,47 @@ section <- (section) => uast(
 )
 
 target_url <- (target_url) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 value <- (value) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 variable <- (variable) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "identifier"
 )
 
 variable_declaration <- (variable_declaration) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "identifier", "value"
 )
 
 xml_body <- (xml_body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 header_entity <- (header_entity) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 method <- (method) => uast(
     type: "Method",
     roles: "Function", "Declaration", "Member"
-    children: []
 )
 
 status_code <- (status_code) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 status_text <- (status_text) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

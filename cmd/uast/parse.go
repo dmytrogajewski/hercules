@@ -57,7 +57,7 @@ func runParse(files []string, lang, output, format string, progress bool, writer
 			fmt.Fprintf(os.Stderr, "[%d/%d] %s\n", i+1, len(files), file)
 		}
 
-		if err := parseFile(file, lang, output, format, writer); err != nil {
+		if err := ParseFile(file, lang, output, format, writer); err != nil {
 			return fmt.Errorf("failed to parse %s: %w", file, err)
 		}
 	}
@@ -86,10 +86,12 @@ func parseStdin(lang, output, format string, writer io.Writer) error {
 		return fmt.Errorf("parse error: %w", err)
 	}
 
+	node.AssignStableIDs()
+
 	return outputNode(node, output, format, writer)
 }
 
-func parseFile(file, lang, output, format string, writer io.Writer) error {
+func ParseFile(file, lang, output, format string, writer io.Writer) error {
 	code, err := os.ReadFile(file)
 	if err != nil {
 		return fmt.Errorf("failed to read file %s: %w", file, err)
@@ -110,6 +112,8 @@ func parseFile(file, lang, output, format string, writer io.Writer) error {
 	if err != nil {
 		return fmt.Errorf("parse error in %s: %w", file, err)
 	}
+
+	node.AssignStableIDs()
 
 	return outputNode(node, output, format, writer)
 }

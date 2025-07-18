@@ -19,25 +19,23 @@ array_declaration <- (array_declaration) => uast(
 )
 
 begin <- (begin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 block <- (block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "procedure_statement"
 )
 
 boolean_literal <- (boolean_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 class_declaration <- (class_declaration) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "identifier", "specification"
 )
 
@@ -57,13 +55,11 @@ division <- (division) => uast(
 )
 
 do <- (do) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 end <- (end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 equal <- (equal) => uast(
@@ -84,7 +80,6 @@ exponentiation <- (exponentiation) => uast(
 external_class_declaration <- (external_class_declaration) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 external_item <- (external_item) => uast(
@@ -99,13 +94,12 @@ external_procedure_declaration <- (external_procedure_declaration) => uast(
 
 for_statement <- (for_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "activation_statement", "addition", "and_expression", "block", "boolean_literal", "character_literal", "conditional_statement", "connection_statement", "division", "equal", "eqv_expression", "exponentiation", "for_statement", "goto_statement", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "inner", "integer_division", "is_expression", "label_declaration", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "reference_assignment", "remote_identifier", "string_concat", "string_literal", "subtraction", "value_assignment", "while_statement"
 )
 
 goto <- (goto) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 goto_statement <- (goto_statement) => uast(
@@ -144,8 +138,7 @@ is_expression <- (is_expression) => uast(
 )
 
 label_declaration <- (label_declaration) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 less_than <- (less_than) => uast(
@@ -169,8 +162,7 @@ multiplication <- (multiplication) => uast(
 )
 
 negative <- (negative) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 not_equal <- (not_equal) => uast(
@@ -186,12 +178,11 @@ not_expression <- (not_expression) => uast(
 number_literal <- (number_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 object_generator <- (object_generator) => uast(
     type: "Generator",
-    roles: "Generator"
+    roles: "Generator",
     children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction"
 )
 
@@ -206,8 +197,7 @@ otherwise_clause <- (otherwise_clause) => uast(
 )
 
 positive <- (positive) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 procedure_declaration <- (procedure_declaration) => uast(
@@ -221,8 +211,7 @@ procedure_statement <- (procedure_statement) => uast(
 )
 
 protection_specification <- (protection_specification) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 qualified_object <- (qualified_object) => uast(
@@ -247,7 +236,7 @@ ref_not_equal <- (ref_not_equal) => uast(
 
 reference_assignment <- (reference_assignment) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "reference_assignment", "remote_identifier", "string_concat", "string_literal", "subtraction"
 )
 
@@ -257,13 +246,11 @@ remote_identifier <- (remote_identifier) => uast(
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 specification <- (specification) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 string_concat <- (string_concat) => uast(
@@ -274,7 +261,6 @@ string_concat <- (string_concat) => uast(
 string_literal <- (string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 subtraction <- (subtraction) => uast(
@@ -288,19 +274,18 @@ switch_declaration <- (switch_declaration) => uast(
 )
 
 type_expression <- (type_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 value_assignment <- (value_assignment) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction", "value_assignment"
 )
 
 variable_declaration <- (variable_declaration) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "addition", "and_expression", "boolean_literal", "character_literal", "conditional_statement", "division", "equal", "eqv_expression", "exponentiation", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "integer_division", "is_expression", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "remote_identifier", "string_concat", "string_literal", "subtraction", "type_expression"
 )
 
@@ -316,335 +301,271 @@ when_clause <- (when_clause) => uast(
 
 while_statement <- (while_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "activation_statement", "addition", "and_expression", "block", "boolean_literal", "character_literal", "conditional_statement", "connection_statement", "division", "equal", "eqv_expression", "exponentiation", "for_statement", "goto_statement", "greater_than", "greater_than_or_equal", "identifier", "imp_expression", "in_expression", "inner", "integer_division", "is_expression", "label_declaration", "less_than", "less_than_or_equal", "local_object", "multiplication", "negative", "none", "not_equal", "not_expression", "notext", "number_literal", "object_generator", "or_expression", "positive", "procedure_statement", "qualified_object", "ref_equal", "ref_not_equal", "reference_assignment", "remote_identifier", "string_concat", "string_literal", "subtraction", "value_assignment", "while_statement"
 )
 
 activate <- (activate) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 after <- (after) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 and <- (and) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 array <- (array) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 at <- (at) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 before <- (before) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 begin <- (begin) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 boolean <- (boolean) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 character <- (character) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 character_literal <- (character_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 class <- (class) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 delay <- (delay) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 directive <- (directive) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 end <- (end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 end_comment <- (end_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 eq <- (eq) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 eqv <- (eqv) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 external <- (external) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 first_directive <- (first_directive) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 for <- (for) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 ge <- (ge) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 gt <- (gt) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hidden <- (hidden) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 imp <- (imp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inner <- (inner) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inspect <- (inspect) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 integer <- (integer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 is <- (is) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 label <- (label) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 le <- (le) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 line_comment <- (line_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 long <- (long) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 lt <- (lt) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 name <- (name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ne <- (ne) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 new <- (new) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 none <- (none) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 not <- (not) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 notext <- (notext) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 or <- (or) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 otherwise <- (otherwise) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 prior <- (prior) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 procedure <- (procedure) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 protected <- (protected) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 qua <- (qua) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 reactivate <- (reactivate) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 real <- (real) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ref <- (ref) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 short <- (short) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 step <- (step) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 switch <- (switch) => uast(
-    type: "Switch",
-    children: []
+    type: "Switch"
 )
 
 text <- (text) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 then <- (then) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 this <- (this) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 until <- (until) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 value <- (value) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 virtual <- (virtual) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 when <- (when) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 while <- (while) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 

@@ -1,6 +1,6 @@
 block <- (block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "contents", "directive", "expr"
 )
 
@@ -22,17 +22,14 @@ checkbox <- (checkbox) => uast(
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 contents <- (contents) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 description <- (description) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 directive <- (directive) => uast(
@@ -52,19 +49,18 @@ drawer <- (drawer) => uast(
 
 dynamic_block <- (dynamic_block) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "contents", "directive", "expr"
 )
 
 entry <- (entry) => uast(
     type: "Try",
-    roles: "Try"
+    roles: "Try",
     children: "entry_name", "timestamp"
 )
 
 expr <- (expr) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 fndef <- (fndef) => uast(
@@ -74,7 +70,7 @@ fndef <- (fndef) => uast(
 
 formula <- (formula) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "expr"
 )
 
@@ -84,13 +80,11 @@ headline <- (headline) => uast(
 )
 
 hr <- (hr) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 item <- (item) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 latex_env <- (latex_env) => uast(
@@ -114,25 +108,22 @@ paragraph <- (paragraph) => uast(
 )
 
 plan <- (plan) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 property <- (property) => uast(
     type: "Property",
-    roles: "Member"
+    roles: "Member",
     children: "expr", "value"
 )
 
 property_drawer <- (property_drawer) => uast(
     type: "Property",
     roles: "Member"
-    children: []
 )
 
 row <- (row) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 section <- (section) => uast(
@@ -141,8 +132,7 @@ section <- (section) => uast(
 )
 
 stars <- (stars) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 table <- (table) => uast(
@@ -151,8 +141,7 @@ table <- (table) => uast(
 )
 
 tag <- (tag) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tag_list <- (tag_list) => uast(
@@ -166,78 +155,63 @@ timestamp <- (timestamp) => uast(
 )
 
 tsexp <- (tsexp) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 value <- (value) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _ <- (_) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bullet <- (bullet) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 date <- (date) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 day <- (day) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 delay <- (delay) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 duration <- (duration) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 entry_name <- (entry_name) => uast(
     type: "Try",
     roles: "Try"
-    children: []
 )
 
 name <- (name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 num <- (num) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 repeat <- (repeat) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 str <- (str) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sym <- (sym) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 time <- (time) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

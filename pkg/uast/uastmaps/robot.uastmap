@@ -1,33 +1,27 @@
 argument <- (argument) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 arguments <- (arguments) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 block <- (block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 body <- (body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 continuation <- (continuation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dictionary_variable <- (dictionary_variable) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 else_statement <- (else_statement) => uast(
@@ -41,19 +35,17 @@ elseif_statement <- (elseif_statement) => uast(
 )
 
 except_statement <- (except_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 finally_statement <- (finally_statement) => uast(
     type: "Finally",
     roles: "Finally"
-    children: []
 )
 
 for_statement <- (for_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "block", "in", "in_enumerate", "in_range", "in_zip", "variable_list"
 )
 
@@ -63,59 +55,48 @@ if_statement <- (if_statement) => uast(
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 in_enumerate <- (in_enumerate) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 in_range <- (in_range) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 in_zip <- (in_zip) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inline_else_statement <- (inline_else_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inline_elseif_statement <- (inline_elseif_statement) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 inline_if_statement <- (inline_if_statement) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 inline_python_expression <- (inline_python_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inline_statement <- (inline_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_definition <- (keyword_definition) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_invocation <- (keyword_invocation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword_setting <- (keyword_setting) => uast(
@@ -124,52 +105,43 @@ keyword_setting <- (keyword_setting) => uast(
 )
 
 keyword_setting_name <- (keyword_setting_name) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 keywords_section <- (keywords_section) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 list_variable <- (list_variable) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 python_expression <- (python_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return_statement <- (return_statement) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 return_value <- (return_value) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 scalar_variable <- (scalar_variable) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 section <- (section) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 setting_name <- (setting_name) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 setting_statement <- (setting_statement) => uast(
@@ -178,186 +150,155 @@ setting_statement <- (setting_statement) => uast(
 )
 
 settings_section <- (settings_section) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 statement <- (statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 test_case_definition <- (test_case_definition) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 test_case_setting <- (test_case_setting) => uast(
     type: "Case",
-    roles: "Branch"
+    roles: "Branch",
     children: "test_case_setting_name"
 )
 
 test_case_setting_name <- (test_case_setting_name) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 test_cases_section <- (test_cases_section) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 try_statement <- (try_statement) => uast(
     type: "Try",
     roles: "Try"
-    children: []
 )
 
 variable_assignment <- (variable_assignment) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 variable_definition <- (variable_definition) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 variable_list <- (variable_list) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 variables_section <- (variables_section) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 while_statement <- (while_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "arguments", "block"
 )
 
 ELSE <- (ELSE) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 END <- (END) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 EXCEPT <- (EXCEPT) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 FINALLY <- (FINALLY) => uast(
     type: "Finally",
     roles: "Finally"
-    children: []
 )
 
 FOR <- (FOR) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 IF <- (IF) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 IN <- (IN) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RETURN <- (RETURN) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 TRY <- (TRY) => uast(
     type: "Try",
     roles: "Try"
-    children: []
 )
 
 WHILE <- (WHILE) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 break_statement <- (break_statement) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 continue_statement <- (continue_statement) => uast(
     type: "Continue",
     roles: "Continue"
-    children: []
 )
 
 ellipses <- (ellipses) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 extra_text <- (extra_text) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 keyword <- (keyword) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 name <- (name) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 section_header <- (section_header) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 text_chunk <- (text_chunk) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 variable_name <- (variable_name) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 

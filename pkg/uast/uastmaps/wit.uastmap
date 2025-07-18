@@ -1,21 +1,18 @@
 _gate_item <- (_gate_item) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _typedef_item <- (_typedef_item) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 alias_item <- (alias_item) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 block_comment <- (block_comment) => uast(
     type: "Block",
-    roles: "Body"
+    roles: "Body",
     children: "doc_comment"
 )
 
@@ -25,30 +22,27 @@ body <- (body) => uast(
 )
 
 definitions <- (definitions) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 deprecated_gate <- (deprecated_gate) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 enum_case <- (enum_case) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "id"
 )
 
 enum_cases <- (enum_cases) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 enum_items <- (enum_items) => uast(
     type: "Enum",
-    roles: "Enum", "Declaration"
+    roles: "Enum", "Declaration",
     children: "id"
 )
 
@@ -58,8 +52,7 @@ export_item <- (export_item) => uast(
 )
 
 extern_type <- (extern_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 flags_items <- (flags_items) => uast(
@@ -73,40 +66,36 @@ func_item <- (func_item) => uast(
 )
 
 func_type <- (func_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 future <- (future) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 handle <- (handle) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 import_item <- (import_item) => uast(
     type: "Import",
-    roles: "Import"
+    roles: "Import",
     children: "id"
 )
 
 include_item <- (include_item) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 interface_item <- (interface_item) => uast(
     type: "Interface",
-    roles: "Interface", "Declaration"
+    roles: "Interface", "Declaration",
     children: "id"
 )
 
 line_comment <- (line_comment) => uast(
     type: "Comment",
-    roles: "Comment"
+    roles: "Comment",
     children: "doc_comment"
 )
 
@@ -121,24 +110,21 @@ named_type <- (named_type) => uast(
 )
 
 option <- (option) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 package_decl <- (package_decl) => uast(
     type: "Package",
     roles: "Module"
-    children: []
 )
 
 param_list <- (param_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 record_field <- (record_field) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "id", "ty"
 )
 
@@ -155,32 +141,26 @@ resource_item <- (resource_item) => uast(
 resource_method <- (resource_method) => uast(
     type: "Method",
     roles: "Function", "Declaration", "Member"
-    children: []
 )
 
 result <- (result) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 result_list <- (result_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 since_gate <- (since_gate) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 stream <- (stream) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 toplevel_use_item <- (toplevel_use_item) => uast(
@@ -189,18 +169,15 @@ toplevel_use_item <- (toplevel_use_item) => uast(
 )
 
 tuple <- (tuple) => uast(
-    type: "Tuple",
-    children: []
+    type: "Tuple"
 )
 
 tuple_list <- (tuple_list) => uast(
-    type: "Tuple",
-    children: []
+    type: "Tuple"
 )
 
 ty <- (ty) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 type_item <- (type_item) => uast(
@@ -214,30 +191,26 @@ unstable_gate <- (unstable_gate) => uast(
 )
 
 use_item <- (use_item) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 use_names_item <- (use_names_item) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 use_path <- (use_path) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 variant_case <- (variant_case) => uast(
     type: "Case",
-    roles: "Branch"
+    roles: "Branch",
     children: "id", "ty"
 )
 
 variant_cases <- (variant_cases) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 variant_items <- (variant_items) => uast(
@@ -251,253 +224,204 @@ world_item <- (world_item) => uast(
 )
 
 _ <- (_) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 as <- (as) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 async <- (async) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 bool <- (bool) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 borrow <- (borrow) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 char <- (char) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 constructor <- (constructor) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 deprecated <- (deprecated) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 doc_comment <- (doc_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 enum <- (enum) => uast(
     type: "Enum",
     roles: "Enum", "Declaration"
-    children: []
 )
 
 export <- (export) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 f32 <- (f32) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 f64 <- (f64) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 feature <- (feature) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 flags <- (flags) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 func <- (func) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 future <- (future) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 id <- (id) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 import <- (import) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 include <- (include) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 interface <- (interface) => uast(
     type: "Interface",
     roles: "Interface", "Declaration"
-    children: []
 )
 
 list <- (list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 option <- (option) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 package <- (package) => uast(
     type: "Package",
     roles: "Module"
-    children: []
 )
 
 record <- (record) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 resource <- (resource) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 result <- (result) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 s16 <- (s16) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 s32 <- (s32) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 s64 <- (s64) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 s8 <- (s8) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 since <- (since) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 static <- (static) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 stream <- (stream) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tuple <- (tuple) => uast(
-    type: "Tuple",
-    children: []
+    type: "Tuple"
 )
 
 type <- (type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 u16 <- (u16) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 u32 <- (u32) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 u64 <- (u64) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 u8 <- (u8) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 uint <- (uint) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unstable <- (unstable) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 use <- (use) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 variant <- (variant) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 version <- (version) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 version <- (version) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 with <- (with) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 world <- (world) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

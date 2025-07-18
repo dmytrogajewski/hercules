@@ -4,8 +4,7 @@ absolute_value <- (absolute_value) => uast(
 )
 
 argument_list <- (argument_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 binary_expression <- (binary_expression) => uast(
@@ -16,7 +15,6 @@ binary_expression <- (binary_expression) => uast(
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 conditional <- (conditional) => uast(
@@ -26,7 +24,7 @@ conditional <- (conditional) => uast(
 
 conditional_instruction <- (conditional_instruction) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "binary_expression", "binary_literal", "carg", "decimal_literal", "hexadecimal_literal", "instruction", "interpolated", "macro_arg", "narg", "octal_literal", "parenthesized_expression", "pc", "reptn", "string_literal", "symbol", "unary_expression"
 )
 
@@ -43,7 +41,6 @@ data_space <- (data_space) => uast(
 decimal_literal <- (decimal_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 directive <- (directive) => uast(
@@ -52,18 +49,15 @@ directive <- (directive) => uast(
 )
 
 element_list <- (element_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 end <- (end) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 expression_list <- (expression_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 external_definition <- (external_definition) => uast(
@@ -123,13 +117,12 @@ indirect_address_predec <- (indirect_address_predec) => uast(
 
 instruction <- (instruction) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration"
+    roles: "Struct", "Declaration",
     children: "instruction_mnemonic", "macro_arg", "operand_list", "size"
 )
 
 interpolated <- (interpolated) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 label <- (label) => uast(
@@ -138,13 +131,12 @@ label <- (label) => uast(
 )
 
 macro_arg <- (macro_arg) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 macro_call <- (macro_call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "argument_list", "binary_expression", "binary_literal", "carg", "decimal_literal", "hexadecimal_literal", "interpolated", "macro_arg", "narg", "octal_literal", "parenthesized_expression", "pc", "reptn", "string_literal", "symbol", "unary_expression"
 )
 
@@ -154,13 +146,11 @@ macro_definition <- (macro_definition) => uast(
 )
 
 memory_type <- (memory_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 named_register <- (named_register) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 offset_address <- (offset_address) => uast(
@@ -179,8 +169,7 @@ offset_definition <- (offset_definition) => uast(
 )
 
 operand_list <- (operand_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 opt <- (opt) => uast(
@@ -189,33 +178,27 @@ opt <- (opt) => uast(
 )
 
 option <- (option) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 option_list <- (option_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 parenthesized_expression <- (parenthesized_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 path <- (path) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 pc <- (pc) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 quoted_arg <- (quoted_arg) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 register_definition <- (register_definition) => uast(
@@ -224,8 +207,7 @@ register_definition <- (register_definition) => uast(
 )
 
 register_list <- (register_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 register_list_definition <- (register_list_definition) => uast(
@@ -239,8 +221,7 @@ register_range <- (register_range) => uast(
 )
 
 rem <- (rem) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 repeat <- (repeat) => uast(
@@ -254,29 +235,25 @@ section <- (section) => uast(
 )
 
 section_type <- (section_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_literal <- (string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 symbol <- (symbol) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 symbol_assignment <- (symbol_assignment) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "binary_expression", "binary_literal", "carg", "decimal_literal", "hexadecimal_literal", "interpolated", "macro_arg", "narg", "octal_literal", "parenthesized_expression", "pc", "reptn", "string_literal", "symbol", "unary_expression"
 )
 
@@ -286,8 +263,7 @@ symbol_definition <- (symbol_definition) => uast(
 )
 
 symbol_list <- (symbol_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 unary_expression <- (unary_expression) => uast(
@@ -296,81 +272,66 @@ unary_expression <- (unary_expression) => uast(
 )
 
 address_register <- (address_register) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 binary_literal <- (binary_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 carg <- (carg) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 control_mnemonic <- (control_mnemonic) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 data_register <- (data_register) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 directive_mnemonic <- (directive_mnemonic) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 float_register <- (float_register) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 hexadecimal_literal <- (hexadecimal_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 instruction_mnemonic <- (instruction_mnemonic) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
-    children: []
 )
 
 narg <- (narg) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 octal_literal <- (octal_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 operator <- (operator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 register_number <- (register_number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 reptn <- (reptn) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 size <- (size) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

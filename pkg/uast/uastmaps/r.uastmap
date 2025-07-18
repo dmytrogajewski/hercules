@@ -10,7 +10,7 @@ arguments <- (arguments) => uast(
 
 binary_operator <- (binary_operator) => uast(
     type: "BinaryOp",
-    roles: "Operator"
+    roles: "Operator",
     children: "binary_operator", "braced_expression", "break", "call", "complex", "dot_dot_i", "dots", "extract_operator", "false", "float", "for_statement", "function_definition", "identifier", "if_statement", "inf", "integer", "na", "namespace_operator", "nan", "next", "null", "parenthesized_expression", "repeat_statement", "return", "special", "string", "subset", "subset2", "true", "unary_operator", "while_statement"
 )
 
@@ -21,13 +21,12 @@ braced_expression <- (braced_expression) => uast(
 
 call <- (call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "arguments", "binary_operator", "braced_expression", "break", "call", "complex", "dot_dot_i", "dots", "extract_operator", "false", "float", "for_statement", "function_definition", "identifier", "if_statement", "inf", "integer", "na", "namespace_operator", "nan", "next", "null", "parenthesized_expression", "repeat_statement", "return", "string", "subset", "subset2", "true", "unary_operator", "while_statement"
 )
 
 complex <- (complex) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 extract_operator <- (extract_operator) => uast(
@@ -36,19 +35,18 @@ extract_operator <- (extract_operator) => uast(
 )
 
 float <- (float) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 for_statement <- (for_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "binary_operator", "braced_expression", "break", "call", "complex", "dot_dot_i", "dots", "extract_operator", "false", "float", "for_statement", "function_definition", "identifier", "if_statement", "inf", "integer", "na", "namespace_operator", "nan", "next", "null", "parenthesized_expression", "repeat_statement", "return", "string", "subset", "subset2", "true", "unary_operator", "while_statement"
 )
 
 function_definition <- (function_definition) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "binary_operator", "braced_expression", "break", "call", "complex", "dot_dot_i", "dots", "extract_operator", "false", "float", "for_statement", "function", "function_definition", "identifier", "if_statement", "inf", "integer", "na", "namespace_operator", "nan", "next", "null", "parameters", "parenthesized_expression", "repeat_statement", "return", "string", "subset", "subset2", "true", "unary_operator", "while_statement"
 )
 
@@ -58,30 +56,28 @@ if_statement <- (if_statement) => uast(
 )
 
 integer <- (integer) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 na <- (na) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 namespace_operator <- (namespace_operator) => uast(
     type: "Namespace",
-    roles: "Module"
+    roles: "Module",
     children: "dot_dot_i", "dots", "identifier", "string"
 )
 
 parameter <- (parameter) => uast(
     type: "Parameter",
-    roles: "Parameter"
+    roles: "Parameter",
     children: "binary_operator", "braced_expression", "break", "call", "complex", "dot_dot_i", "dots", "extract_operator", "false", "float", "for_statement", "function_definition", "identifier", "if_statement", "inf", "integer", "na", "namespace_operator", "nan", "next", "null", "parenthesized_expression", "repeat_statement", "return", "string", "subset", "subset2", "true", "unary_operator", "while_statement"
 )
 
 parameters <- (parameters) => uast(
     type: "Parameter",
-    roles: "Parameter"
+    roles: "Parameter",
     children: "parameter"
 )
 
@@ -91,8 +87,7 @@ parenthesized_expression <- (parenthesized_expression) => uast(
 )
 
 program <- (program) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 repeat_statement <- (repeat_statement) => uast(
@@ -106,8 +101,7 @@ string <- (string) => uast(
 )
 
 string_content <- (string_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 subset <- (subset) => uast(
@@ -122,164 +116,135 @@ subset2 <- (subset2) => uast(
 
 unary_operator <- (unary_operator) => uast(
     type: "UnaryOp",
-    roles: "Operator"
+    roles: "Operator",
     children: "binary_operator", "braced_expression", "break", "call", "complex", "dot_dot_i", "dots", "extract_operator", "false", "float", "for_statement", "function_definition", "identifier", "if_statement", "inf", "integer", "na", "namespace_operator", "nan", "next", "null", "parenthesized_expression", "repeat_statement", "return", "string", "subset", "subset2", "true", "unary_operator", "while_statement"
 )
 
 while_statement <- (while_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "binary_operator", "braced_expression", "break", "call", "complex", "dot_dot_i", "dots", "extract_operator", "false", "float", "for_statement", "function_definition", "identifier", "if_statement", "inf", "integer", "na", "namespace_operator", "nan", "next", "null", "parenthesized_expression", "repeat_statement", "return", "string", "subset", "subset2", "true", "unary_operator", "while_statement"
 )
 
 L <- (L) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NA <- (NA) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NA_character_ <- (NA_character_) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NA_complex_ <- (NA_complex_) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NA_integer_ <- (NA_integer_) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 NA_real_ <- (NA_real_) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 break <- (break) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 comma <- (comma) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 dot_dot_i <- (dot_dot_i) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 dots <- (dots) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 for <- (for) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 function <- (function) => uast(
     type: "Function",
     roles: "Function", "Declaration"
-    children: []
 )
 
 i <- (i) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inf <- (inf) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 nan <- (nan) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 next <- (next) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 null <- (null) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 repeat <- (repeat) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 special <- (special) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 while <- (while) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 

@@ -1,11 +1,10 @@
 argument_list <- (argument_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 assignment_statement <- (assignment_statement) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "binary_expression", "call_expression", "float_literal", "index_expression", "integer_literal", "interpreted_string_literal", "null", "parenthesized_expression", "raw_string_literal", "reference_list_expression", "regex_literal", "unary_expression", "variable_identifier"
 )
 
@@ -17,12 +16,11 @@ binary_expression <- (binary_expression) => uast(
 boolean_literal <- (boolean_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 call_expression <- (call_expression) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "argument_list", "function_expression", "modifier"
 )
 
@@ -34,58 +32,50 @@ declaration_statement <- (declaration_statement) => uast(
 duration_literal <- (duration_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 expression_statement <- (expression_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 function_expression <- (function_expression) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "identifier"
 )
 
 index_expression <- (index_expression) => uast(
     type: "Index",
-    roles: "Index"
+    roles: "Index",
     children: "integer_literal", "interpreted_string_literal", "raw_string_literal", "variable_identifier"
 )
 
 interpreted_string_literal <- (interpreted_string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 match_expression <- (match_expression) => uast(
     type: "Match",
     roles: "Match"
-    children: []
 )
 
 match_statement <- (match_statement) => uast(
     type: "Match",
     roles: "Match"
-    children: []
 )
 
 parenthesized_expression <- (parenthesized_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 reference_list_expression <- (reference_list_expression) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 regex_literal <- (regex_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 rule_definition <- (rule_definition) => uast(
@@ -94,18 +84,15 @@ rule_definition <- (rule_definition) => uast(
 )
 
 section <- (section) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 section_key <- (section_key) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unary_expression <- (unary_expression) => uast(
@@ -115,183 +102,149 @@ unary_expression <- (unary_expression) => uast(
 
 variable_identifier <- (variable_identifier) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "attribute_identifier"
 )
 
 after <- (after) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 all <- (all) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 and <- (and) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 any <- (any) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 attribute_identifier <- (attribute_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 before <- (before) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 cidr <- (cidr) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 condition <- (condition) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 d <- (d) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 events <- (events) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 float_literal <- (float_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 h <- (h) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 integer_literal <- (integer_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 keyword_operator <- (keyword_operator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 m <- (m) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 match <- (match) => uast(
     type: "Match",
     roles: "Match"
-    children: []
 )
 
 meta <- (meta) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 modifier <- (modifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 not <- (not) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 null <- (null) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 operator <- (operator) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 options <- (options) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 or <- (or) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 outcome <- (outcome) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 over <- (over) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 raw_string_literal <- (raw_string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 regex <- (regex) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 rule <- (rule) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

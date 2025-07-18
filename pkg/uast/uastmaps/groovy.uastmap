@@ -1,77 +1,65 @@
 access_modifier <- (access_modifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 access_op <- (access_op) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 annotation <- (annotation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 argument_list <- (argument_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 array_type <- (array_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assertion <- (assertion) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assignment <- (assignment) => uast(
     type: "Assignment",
     roles: "Assignment"
-    children: []
 )
 
 binary_op <- (binary_op) => uast(
     type: "BinaryOp",
     roles: "Operator"
-    children: []
 )
 
 boolean_literal <- (boolean_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 builtintype <- (builtintype) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 case <- (case) => uast(
     type: "Case",
-    roles: "Branch"
+    roles: "Branch",
     children: "access_op", "binary_op", "boolean_literal", "closure", "dotted_identifier", "function_call", "identifier", "increment_op", "index", "list", "map", "null", "number_literal", "parenthesized_expression", "string", "ternary_op", "this", "unary_op"
 )
 
 class_definition <- (class_definition) => uast(
     type: "Class",
-    roles: "Class", "Declaration"
+    roles: "Class", "Declaration",
     children: "boolean_literal", "closure", "dotted_identifier", "function_call", "generic_parameters", "identifier", "index", "list", "map", "number_literal", "parenthesized_expression", "string", "this"
 )
 
 closure <- (closure) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 declaration <- (declaration) => uast(
@@ -81,48 +69,47 @@ declaration <- (declaration) => uast(
 
 do_while_loop <- (do_while_loop) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "access_op", "assertion", "assignment", "binary_op", "boolean_literal", "break", "class_definition", "closure", "continue", "declaration", "do_while_loop", "dotted_identifier", "for_in_loop", "for_loop", "function_call", "function_declaration", "function_definition", "groovy_import", "groovy_package", "identifier", "if_statement", "increment_op", "index", "juxt_function_call", "label", "list", "map", "null", "number_literal", "parenthesized_expression", "return", "string", "switch_statement", "ternary_op", "this", "try_statement", "unary_op", "while_loop"
 )
 
 dotted_identifier <- (dotted_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 for_in_loop <- (for_in_loop) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "access_op", "assertion", "assignment", "binary_op", "boolean_literal", "break", "class_definition", "closure", "continue", "declaration", "do_while_loop", "dotted_identifier", "for_in_loop", "for_loop", "function_call", "function_declaration", "function_definition", "groovy_import", "groovy_package", "identifier", "if_statement", "increment_op", "index", "juxt_function_call", "label", "list", "map", "null", "number_literal", "parenthesized_expression", "return", "string", "switch_statement", "ternary_op", "this", "try_statement", "unary_op", "while_loop"
 )
 
 for_loop <- (for_loop) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "access_op", "assertion", "assignment", "binary_op", "boolean_literal", "break", "class_definition", "closure", "continue", "declaration", "do_while_loop", "dotted_identifier", "for_in_loop", "for_loop", "function_call", "function_declaration", "function_definition", "groovy_import", "groovy_package", "identifier", "if_statement", "increment_op", "index", "juxt_function_call", "label", "list", "map", "null", "number_literal", "parenthesized_expression", "return", "string", "switch_statement", "ternary_op", "this", "try_statement", "unary_op", "while_loop"
 )
 
 for_parameters <- (for_parameters) => uast(
     type: "Parameter",
-    roles: "Parameter"
+    roles: "Parameter",
     children: "access_op", "assertion", "assignment", "binary_op", "boolean_literal", "break", "class_definition", "closure", "continue", "declaration", "do_while_loop", "dotted_identifier", "for_in_loop", "for_loop", "function_call", "function_declaration", "function_definition", "groovy_import", "groovy_package", "identifier", "if_statement", "increment_op", "index", "juxt_function_call", "label", "list", "map", "null", "number_literal", "parenthesized_expression", "return", "string", "switch_statement", "ternary_op", "this", "try_statement", "unary_op", "while_loop"
 )
 
 function_call <- (function_call) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "argument_list", "closure", "dotted_identifier", "function_call", "identifier", "index", "parenthesized_expression", "this"
 )
 
 function_declaration <- (function_declaration) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "array_type", "builtintype", "def", "identifier", "parameter_list", "type_with_generics"
 )
 
 function_definition <- (function_definition) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "array_type", "builtintype", "closure", "def", "identifier", "parameter_list", "type_with_generics"
 )
 
@@ -134,40 +121,34 @@ generic_param <- (generic_param) => uast(
 generic_parameters <- (generic_parameters) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 generics <- (generics) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 groovy_doc <- (groovy_doc) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 groovy_doc_param <- (groovy_doc_param) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 groovy_doc_throws <- (groovy_doc_throws) => uast(
     type: "Throw",
     roles: "Throw"
-    children: []
 )
 
 groovy_import <- (groovy_import) => uast(
     type: "Import",
-    roles: "Import"
+    roles: "Import",
     children: "identifier", "qualified_name"
 )
 
 groovy_package <- (groovy_package) => uast(
     type: "Package",
     roles: "Module"
-    children: []
 )
 
 if_statement <- (if_statement) => uast(
@@ -176,24 +157,21 @@ if_statement <- (if_statement) => uast(
 )
 
 increment_op <- (increment_op) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 index <- (index) => uast(
     type: "Index",
     roles: "Index"
-    children: []
 )
 
 interpolation <- (interpolation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 juxt_function_call <- (juxt_function_call) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "argument_list", "dotted_identifier", "identifier", "index"
 )
 
@@ -203,13 +181,11 @@ label <- (label) => uast(
 )
 
 list <- (list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 map <- (map) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 map_item <- (map_item) => uast(
@@ -218,68 +194,57 @@ map_item <- (map_item) => uast(
 )
 
 modifier <- (modifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 number_literal <- (number_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 parameter <- (parameter) => uast(
     type: "Parameter",
-    roles: "Parameter"
+    roles: "Parameter",
     children: "access_op", "array_type", "binary_op", "boolean_literal", "builtintype", "closure", "def", "dotted_identifier", "function_call", "identifier", "increment_op", "index", "list", "map", "null", "number_literal", "parenthesized_expression", "string", "ternary_op", "this", "type_with_generics", "unary_op"
 )
 
 parameter_list <- (parameter_list) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 parenthesized_expression <- (parenthesized_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 pipeline <- (pipeline) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 qualified_name <- (qualified_name) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 shebang <- (shebang) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 switch_block <- (switch_block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 switch_statement <- (switch_statement) => uast(
@@ -294,303 +259,248 @@ ternary_op <- (ternary_op) => uast(
 
 try_statement <- (try_statement) => uast(
     type: "Try",
-    roles: "Try"
+    roles: "Try",
     children: "access_op", "assertion", "assignment", "binary_op", "boolean_literal", "break", "class_definition", "closure", "continue", "declaration", "do_while_loop", "dotted_identifier", "for_in_loop", "for_loop", "function_call", "function_declaration", "function_definition", "groovy_import", "groovy_package", "identifier", "if_statement", "increment_op", "index", "juxt_function_call", "label", "list", "map", "null", "number_literal", "parenthesized_expression", "return", "string", "switch_statement", "ternary_op", "this", "try_statement", "unary_op", "while_loop"
 )
 
 type_with_generics <- (type_with_generics) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unary_op <- (unary_op) => uast(
     type: "UnaryOp",
     roles: "Operator"
-    children: []
 )
 
 while_loop <- (while_loop) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "access_op", "assertion", "assignment", "binary_op", "boolean_literal", "break", "class_definition", "closure", "continue", "declaration", "do_while_loop", "dotted_identifier", "for_in_loop", "for_loop", "function_call", "function_declaration", "function_definition", "groovy_import", "groovy_package", "identifier", "if_statement", "increment_op", "index", "juxt_function_call", "label", "list", "map", "null", "number_literal", "parenthesized_expression", "return", "string", "switch_statement", "ternary_op", "this", "try_statement", "unary_op", "while_loop"
 )
 
 _ <- (_) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 as <- (as) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assert <- (assert) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 boolean <- (boolean) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 break <- (break) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 case <- (case) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 catch <- (catch) => uast(
     type: "Catch",
     roles: "Catch"
-    children: []
 )
 
 char <- (char) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 class <- (class) => uast(
     type: "Class",
     roles: "Class", "Declaration"
-    children: []
 )
 
 continue <- (continue) => uast(
     type: "Continue",
     roles: "Continue"
-    children: []
 )
 
 def <- (def) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 default <- (default) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 do <- (do) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 double <- (double) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 extends <- (extends) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 final <- (final) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 finally <- (finally) => uast(
     type: "Finally",
     roles: "Finally"
-    children: []
 )
 
 first_line <- (first_line) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 float <- (float) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 for <- (for) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 groovy_doc_at_text <- (groovy_doc_at_text) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 groovy_doc_tag <- (groovy_doc_tag) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 import <- (import) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 instanceof <- (instanceof) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 int <- (int) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 interface <- (interface) => uast(
     type: "Interface",
     roles: "Interface", "Declaration"
-    children: []
 )
 
 long <- (long) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 new <- (new) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 null <- (null) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 package <- (package) => uast(
     type: "Package",
     roles: "Module"
-    children: []
 )
 
 pipeline <- (pipeline) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 private <- (private) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 protected <- (protected) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 public <- (public) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
     type: "Return",
     roles: "Return"
-    children: []
 )
 
 short <- (short) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 static <- (static) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_content <- (string_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_internal_quote <- (string_internal_quote) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 switch <- (switch) => uast(
-    type: "Switch",
-    children: []
+    type: "Switch"
 )
 
 synchronized <- (synchronized) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 this <- (this) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 try <- (try) => uast(
     type: "Try",
     roles: "Try"
-    children: []
 )
 
 void <- (void) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 while <- (while) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 wildcard_import <- (wildcard_import) => uast(
     type: "Import",
     roles: "Import"
-    children: []
 )
 

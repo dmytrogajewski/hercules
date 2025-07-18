@@ -1,16 +1,13 @@
 _expression <- (_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 action <- (action) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 action_constraint <- (action_constraint) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 action_eq_constraint <- (action_eq_constraint) => uast(
@@ -29,28 +26,23 @@ action_in_list_constraint <- (action_in_list_constraint) => uast(
 )
 
 all_actions <- (all_actions) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 all_principals <- (all_principals) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 all_resources <- (all_resources) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 annotation <- (annotation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 argument_list <- (argument_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 binary_expression <- (binary_expression) => uast(
@@ -60,13 +52,12 @@ binary_expression <- (binary_expression) => uast(
 
 call_expression <- (call_expression) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "_expression", "argument_list"
 )
 
 condition <- (condition) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 contains_all_expression <- (contains_all_expression) => uast(
@@ -80,8 +71,7 @@ contains_expression <- (contains_expression) => uast(
 )
 
 effect <- (effect) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 entity <- (entity) => uast(
@@ -90,19 +80,16 @@ entity <- (entity) => uast(
 )
 
 entlist <- (entlist) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 expression_list <- (expression_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 ext_fun_call <- (ext_fun_call) => uast(
     type: "Call",
     roles: "Call"
-    children: []
 )
 
 has_expression <- (has_expression) => uast(
@@ -117,7 +104,7 @@ if_then_else <- (if_then_else) => uast(
 
 index_expression <- (index_expression) => uast(
     type: "Index",
-    roles: "Index"
+    roles: "Index",
     children: "_expression"
 )
 
@@ -132,28 +119,23 @@ like_expression <- (like_expression) => uast(
 )
 
 parenthesized_expression <- (parenthesized_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 path <- (path) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 policy <- (policy) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 principal <- (principal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 principal_constraint <- (principal_constraint) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 principal_eq_constraint <- (principal_eq_constraint) => uast(
@@ -162,8 +144,7 @@ principal_eq_constraint <- (principal_eq_constraint) => uast(
 )
 
 principal_eq_template_constraint <- (principal_eq_template_constraint) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 principal_in_constraint <- (principal_in_constraint) => uast(
@@ -172,8 +153,7 @@ principal_in_constraint <- (principal_in_constraint) => uast(
 )
 
 principal_in_template_constraint <- (principal_in_template_constraint) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 principal_is_constraint <- (principal_is_constraint) => uast(
@@ -183,24 +163,21 @@ principal_is_constraint <- (principal_is_constraint) => uast(
 
 record_attribute <- (record_attribute) => uast(
     type: "Attribute",
-    roles: "Attribute"
+    roles: "Attribute",
     children: "false", "identifier", "int", "str", "true"
 )
 
 record_literal <- (record_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 resource <- (resource) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 resource_constraint <- (resource_constraint) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 resource_eq_constraint <- (resource_eq_constraint) => uast(
@@ -209,8 +186,7 @@ resource_eq_constraint <- (resource_eq_constraint) => uast(
 )
 
 resource_eq_template_constraint <- (resource_eq_template_constraint) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 resource_in_constraint <- (resource_in_constraint) => uast(
@@ -219,8 +195,7 @@ resource_in_constraint <- (resource_in_constraint) => uast(
 )
 
 resource_in_template_constraint <- (resource_in_template_constraint) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 resource_is_constraint <- (resource_is_constraint) => uast(
@@ -229,8 +204,7 @@ resource_is_constraint <- (resource_is_constraint) => uast(
 )
 
 scope <- (scope) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 selector_expression <- (selector_expression) => uast(
@@ -241,12 +215,10 @@ selector_expression <- (selector_expression) => uast(
 set_literal <- (set_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unary_expression <- (unary_expression) => uast(
@@ -255,124 +227,100 @@ unary_expression <- (unary_expression) => uast(
 )
 
 action <- (action) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 contains <- (contains) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 containsAll <- (containsAll) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 context <- (context) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 field_identifier <- (field_identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 forbid <- (forbid) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 has <- (has) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 int <- (int) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 is <- (is) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 like <- (like) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 permit <- (permit) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 principal <- (principal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 resource <- (resource) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 str <- (str) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 then <- (then) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unless <- (unless) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 when <- (when) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

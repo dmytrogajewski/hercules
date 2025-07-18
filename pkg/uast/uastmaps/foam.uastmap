@@ -1,17 +1,14 @@
 code <- (code) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 code_body <- (code_body) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 dict <- (dict) => uast(
@@ -41,7 +38,7 @@ foam <- (foam) => uast(
 
 key_value <- (key_value) => uast(
     type: "KeyValue",
-    roles: "Key", "Value"
+    roles: "Key", "Value",
     children: "boolean", "code", "dict", "dimensions", "identifier", "list", "macro", "number_literal", "preproc_call", "pyfoam_expression", "string_literal"
 )
 
@@ -51,13 +48,12 @@ list <- (list) => uast(
 )
 
 macro <- (macro) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 preproc_call <- (preproc_call) => uast(
     type: "Call",
-    roles: "Call"
+    roles: "Call",
     children: "dict_headless", "identifier", "macro", "preproc_call", "string_literal"
 )
 
@@ -73,44 +69,37 @@ pyfoam_template <- (pyfoam_template) => uast(
 
 pyfoam_variable <- (pyfoam_variable) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "single_python_line"
 )
 
 single_python_line <- (single_python_line) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_literal <- (string_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 boolean <- (boolean) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 number_literal <- (number_literal) => uast(
     type: "Literal",
     roles: "Literal"
-    children: []
 )
 
 prev_scope <- (prev_scope) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

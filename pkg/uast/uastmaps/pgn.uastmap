@@ -1,12 +1,10 @@
 double_quote <- (double_quote) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 freestanding_comment <- (freestanding_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 game <- (game) => uast(
@@ -21,31 +19,27 @@ header <- (header) => uast(
 
 inline_comment <- (inline_comment) => uast(
     type: "Comment",
-    roles: "Comment"
+    roles: "Comment",
     children: "inline_comment_delimiter_close", "inline_comment_delimiter_open", "inline_comment_text"
 )
 
 inline_comment_delimiter_close <- (inline_comment_delimiter_close) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 inline_comment_delimiter_open <- (inline_comment_delimiter_open) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 inline_comment_text <- (inline_comment_text) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 lan_move <- (lan_move) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 movetext <- (movetext) => uast(
@@ -60,24 +54,21 @@ recursive_variation <- (recursive_variation) => uast(
 
 rest_of_line_comment <- (rest_of_line_comment) => uast(
     type: "Comment",
-    roles: "Comment"
+    roles: "Comment",
     children: "rest_of_line_comment_delimiter_open", "rest_of_line_comment_text"
 )
 
 rest_of_line_comment_delimiter_open <- (rest_of_line_comment_delimiter_open) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 result_code <- (result_code) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 san_move <- (san_move) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 series_of_games <- (series_of_games) => uast(
@@ -91,23 +82,19 @@ tagpair <- (tagpair) => uast(
 )
 
 tagpair_delimiter_close <- (tagpair_delimiter_close) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tagpair_delimiter_open <- (tagpair_delimiter_open) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tagpair_value_contents <- (tagpair_value_contents) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 trailing_garbage <- (trailing_garbage) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 variation <- (variation) => uast(
@@ -116,8 +103,7 @@ variation <- (variation) => uast(
 )
 
 variation_delimiter_close <- (variation_delimiter_close) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 variation_movetext <- (variation_movetext) => uast(
@@ -126,54 +112,44 @@ variation_movetext <- (variation_movetext) => uast(
 )
 
 O <- (O) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 P <- (P) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 annotation <- (annotation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 check_or_mate_condition <- (check_or_mate_condition) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 move_number <- (move_number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 o <- (o) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 old_style_twic_section_comment <- (old_style_twic_section_comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 rest_of_line_comment_text <- (rest_of_line_comment_text) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 tagpair_key <- (tagpair_key) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 variation_delimiter_open <- (variation_delimiter_open) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

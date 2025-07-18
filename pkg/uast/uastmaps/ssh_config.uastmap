@@ -1,6 +1,5 @@
 bytes <- (bytes) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 condition <- (condition) => uast(
@@ -9,8 +8,7 @@ condition <- (condition) => uast(
 )
 
 config <- (config) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 host_declaration <- (host_declaration) => uast(
@@ -20,770 +18,622 @@ host_declaration <- (host_declaration) => uast(
 
 match_declaration <- (match_declaration) => uast(
     type: "Match",
-    roles: "Match"
+    roles: "Match",
     children: "Match"
 )
 
 number <- (number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 parameter <- (parameter) => uast(
     type: "Parameter",
-    roles: "Parameter"
+    roles: "Parameter",
     children: "AddKeysToAgent", "AddressFamily", "BatchMode", "BindAddress", "BindInterface", "CASignatureAlgorithms", "CanonicalDomains", "CanonicalizeFallbackLocal", "CanonicalizeHostname", "CanonicalizeMaxDots", "CanonicalizePermittedCNAMEs", "CertificateFile", "ChallengeResponseAuthentication", "CheckHostIP", "Ciphers", "ClearAllForwardings", "Compression", "ConnectTimeout", "ConnectionAttempts", "ControlMaster", "ControlPath", "ControlPersist", "DynamicForward", "EnableEscapeCommandline", "EnableSSHKeysign", "EscapeChar", "ExitOnForwardFailure", "FingerprintHash", "ForkAfterAuthentication", "ForwardAgent", "ForwardX11", "ForwardX11Timeout", "ForwardX11Trusted", "GSSAPIAuthentication", "GSSAPIDelegateCredentials", "GlobalKnownHostsFile", "HashKnownHosts", "HostKeyAlgorithms", "HostKeyAlias", "HostbasedAcceptedAlgorithms", "HostbasedAuthentication", "HostbasedKeyTypes", "Hostname", "IPQoS", "IdentitiesOnly", "IdentityAgent", "IdentityFile", "IgnoreUnknown", "Include", "KbdInteractiveAuthentication", "KexAlgorithms", "KnownHostsCommand", "LocalCommand", "LocalForward", "LogLevel", "LogVerbose", "MACs", "NoHostAuthenticationForLocalhost", "NumberOfPasswordPrompts", "PKCS11Provider", "PasswordAuthentication", "PermitLocalCommand", "PermitRemoteOpen", "Port", "PreferredAuthentications", "ProxyCommand", "ProxyJump", "ProxyUseFdpass", "PubkeyAcceptedAlgorithms", "PubkeyAcceptedKeyTypes", "PubkeyAuthentication", "RekeyLimit", "RemoteCommand", "RemoteForward", "RequestTTY", "RequiredRSASize", "RevokedHostKeys", "SSH_AUTH_SOCK", "SecurityKeyProvider", "SendEnv", "ServerAliveCountMax", "ServerAliveInterval", "SessionType", "SetEnv", "StdinNull", "StreamLocalBindMask", "StreamLocalBindUnlink", "StrictHostKeyChecking", "SyslogFacility", "TCPKeepAlive", "Tag", "Tunnel", "TunnelDevice", "UpdateHostKeys", "UseKeychain", "User", "UserKnownHostsFile", "VerifyHostKeyDNS", "VisualHostKey", "XAuthLocation", "always", "any", "ask", "authentication", "auto", "autoask", "bytes", "cipher", "confirm", "default", "ethernet", "facility", "force", "inet", "inet6", "ipqos", "kex", "key_sig", "mac", "md5", "no", "none", "number", "off", "pattern", "sha256", "sig", "string", "subsystem", "time", "unbound", "uri", "variable", "verbosity", "yes"
 )
 
 pattern <- (pattern) => uast(
     type: "Pattern",
     roles: "Pattern"
-    children: []
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 time <- (time) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 variable <- (variable) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
-    children: []
 )
 
 AddKeysToAgent <- (AddKeysToAgent) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 AddressFamily <- (AddressFamily) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 BatchMode <- (BatchMode) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 BindAddress <- (BindAddress) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 BindInterface <- (BindInterface) => uast(
     type: "Interface",
     roles: "Interface", "Declaration"
-    children: []
 )
 
 CASignatureAlgorithms <- (CASignatureAlgorithms) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CanonicalDomains <- (CanonicalDomains) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CanonicalizeFallbackLocal <- (CanonicalizeFallbackLocal) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CanonicalizeHostname <- (CanonicalizeHostname) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CanonicalizeMaxDots <- (CanonicalizeMaxDots) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CanonicalizePermittedCNAMEs <- (CanonicalizePermittedCNAMEs) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CertificateFile <- (CertificateFile) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 ChallengeResponseAuthentication <- (ChallengeResponseAuthentication) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 CheckHostIP <- (CheckHostIP) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 Ciphers <- (Ciphers) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ClearAllForwardings <- (ClearAllForwardings) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 Compression <- (Compression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ConnectTimeout <- (ConnectTimeout) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ConnectionAttempts <- (ConnectionAttempts) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ControlMaster <- (ControlMaster) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ControlPath <- (ControlPath) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ControlPersist <- (ControlPersist) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 DynamicForward <- (DynamicForward) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 EnableEscapeCommandline <- (EnableEscapeCommandline) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 EnableSSHKeysign <- (EnableSSHKeysign) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 EscapeChar <- (EscapeChar) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ExitOnForwardFailure <- (ExitOnForwardFailure) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 FingerprintHash <- (FingerprintHash) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ForkAfterAuthentication <- (ForkAfterAuthentication) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 ForwardAgent <- (ForwardAgent) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 ForwardX11 <- (ForwardX11) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 ForwardX11Timeout <- (ForwardX11Timeout) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 ForwardX11Trusted <- (ForwardX11Trusted) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 GSSAPIAuthentication <- (GSSAPIAuthentication) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 GSSAPIDelegateCredentials <- (GSSAPIDelegateCredentials) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 GlobalKnownHostsFile <- (GlobalKnownHostsFile) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 HashKnownHosts <- (HashKnownHosts) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 Host <- (Host) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 HostKeyAlgorithms <- (HostKeyAlgorithms) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 HostKeyAlias <- (HostKeyAlias) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 HostbasedAcceptedAlgorithms <- (HostbasedAcceptedAlgorithms) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 HostbasedAuthentication <- (HostbasedAuthentication) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 HostbasedKeyTypes <- (HostbasedKeyTypes) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 Hostname <- (Hostname) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 IPQoS <- (IPQoS) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 IdentitiesOnly <- (IdentitiesOnly) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 IdentityAgent <- (IdentityAgent) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 IdentityFile <- (IdentityFile) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 IgnoreUnknown <- (IgnoreUnknown) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 Include <- (Include) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 KbdInteractiveAuthentication <- (KbdInteractiveAuthentication) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 KexAlgorithms <- (KexAlgorithms) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 KnownHostsCommand <- (KnownHostsCommand) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LocalCommand <- (LocalCommand) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LocalForward <- (LocalForward) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 LogLevel <- (LogLevel) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 LogVerbose <- (LogVerbose) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 MACs <- (MACs) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 Match <- (Match) => uast(
     type: "Match",
     roles: "Match"
-    children: []
 )
 
 NoHostAuthenticationForLocalhost <- (NoHostAuthenticationForLocalhost) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 NumberOfPasswordPrompts <- (NumberOfPasswordPrompts) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PKCS11Provider <- (PKCS11Provider) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PasswordAuthentication <- (PasswordAuthentication) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PermitLocalCommand <- (PermitLocalCommand) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PermitRemoteOpen <- (PermitRemoteOpen) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 Port <- (Port) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PreferredAuthentications <- (PreferredAuthentications) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ProxyCommand <- (ProxyCommand) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ProxyJump <- (ProxyJump) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ProxyUseFdpass <- (ProxyUseFdpass) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PubkeyAcceptedAlgorithms <- (PubkeyAcceptedAlgorithms) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PubkeyAcceptedKeyTypes <- (PubkeyAcceptedKeyTypes) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 PubkeyAuthentication <- (PubkeyAuthentication) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RekeyLimit <- (RekeyLimit) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RemoteCommand <- (RemoteCommand) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RemoteForward <- (RemoteForward) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 RequestTTY <- (RequestTTY) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RequiredRSASize <- (RequiredRSASize) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 RevokedHostKeys <- (RevokedHostKeys) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SSH_AUTH_SOCK <- (SSH_AUTH_SOCK) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SecurityKeyProvider <- (SecurityKeyProvider) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SendEnv <- (SendEnv) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ServerAliveCountMax <- (ServerAliveCountMax) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ServerAliveInterval <- (ServerAliveInterval) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SessionType <- (SessionType) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SetEnv <- (SetEnv) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 StdinNull <- (StdinNull) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 StreamLocalBindMask <- (StreamLocalBindMask) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 StreamLocalBindUnlink <- (StreamLocalBindUnlink) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 StrictHostKeyChecking <- (StrictHostKeyChecking) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 SyslogFacility <- (SyslogFacility) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TCPKeepAlive <- (TCPKeepAlive) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 Tag <- (Tag) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 Tunnel <- (Tunnel) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 TunnelDevice <- (TunnelDevice) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 UpdateHostKeys <- (UpdateHostKeys) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 UseKeychain <- (UseKeychain) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 User <- (User) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 UserKnownHostsFile <- (UserKnownHostsFile) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 VerifyHostKeyDNS <- (VerifyHostKeyDNS) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 VisualHostKey <- (VisualHostKey) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 XAuthLocation <- (XAuthLocation) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 all <- (all) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 always <- (always) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 any <- (any) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ask <- (ask) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 authentication <- (authentication) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 auto <- (auto) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 autoask <- (autoask) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 canonical <- (canonical) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cipher <- (cipher) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 confirm <- (confirm) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 default <- (default) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ethernet <- (ethernet) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 exec <- (exec) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 facility <- (facility) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 final <- (final) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 force <- (force) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 host <- (host) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inet <- (inet) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inet6 <- (inet6) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ipqos <- (ipqos) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 kex <- (kex) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 key_sig <- (key_sig) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 localnetwork <- (localnetwork) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 localuser <- (localuser) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 mac <- (mac) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 md5 <- (md5) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 no <- (no) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 none <- (none) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 off <- (off) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 originalhost <- (originalhost) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sha256 <- (sha256) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sig <- (sig) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 subsystem <- (subsystem) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tagged <- (tagged) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 token <- (token) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unbound <- (unbound) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 uri <- (uri) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 user <- (user) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 verbosity <- (verbosity) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 yes <- (yes) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

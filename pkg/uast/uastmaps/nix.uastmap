@@ -1,6 +1,5 @@
 _expression <- (_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 apply_expression <- (apply_expression) => uast(
@@ -19,8 +18,7 @@ attrpath <- (attrpath) => uast(
 )
 
 attrset_expression <- (attrset_expression) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 binary_expression <- (binary_expression) => uast(
@@ -40,19 +38,19 @@ binding_set <- (binding_set) => uast(
 
 formal <- (formal) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "_expression", "identifier"
 )
 
 formals <- (formals) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "ellipses", "formal"
 )
 
 function_expression <- (function_expression) => uast(
     type: "Function",
-    roles: "Function", "Declaration"
+    roles: "Function", "Declaration",
     children: "apply_expression", "assert_expression", "attrset_expression", "binary_expression", "float_expression", "formals", "function_expression", "has_attr_expression", "hpath_expression", "identifier", "if_expression", "indented_string_expression", "integer_expression", "let_attrset_expression", "let_expression", "list_expression", "parenthesized_expression", "path_expression", "rec_attrset_expression", "select_expression", "spath_expression", "string_expression", "unary_expression", "uri_expression", "variable_expression", "with_expression"
 )
 
@@ -62,8 +60,7 @@ has_attr_expression <- (has_attr_expression) => uast(
 )
 
 hpath_expression <- (hpath_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 if_expression <- (if_expression) => uast(
@@ -72,8 +69,7 @@ if_expression <- (if_expression) => uast(
 )
 
 indented_string_expression <- (indented_string_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inherit <- (inherit) => uast(
@@ -97,8 +93,7 @@ interpolation <- (interpolation) => uast(
 )
 
 let_attrset_expression <- (let_attrset_expression) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 let_expression <- (let_expression) => uast(
@@ -117,13 +112,11 @@ parenthesized_expression <- (parenthesized_expression) => uast(
 )
 
 path_expression <- (path_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 rec_attrset_expression <- (rec_attrset_expression) => uast(
-    type: "Set",
-    children: []
+    type: "Set"
 )
 
 select_expression <- (select_expression) => uast(
@@ -137,8 +130,7 @@ source_code <- (source_code) => uast(
 )
 
 string_expression <- (string_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unary_expression <- (unary_expression) => uast(
@@ -148,7 +140,7 @@ unary_expression <- (unary_expression) => uast(
 
 variable_expression <- (variable_expression) => uast(
     type: "Variable",
-    roles: "Variable", "Declaration"
+    roles: "Variable", "Declaration",
     children: "identifier"
 )
 
@@ -158,108 +150,87 @@ with_expression <- (with_expression) => uast(
 )
 
 assert <- (assert) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 dollar_escape <- (dollar_escape) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 ellipses <- (ellipses) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 float_expression <- (float_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 inherit <- (inherit) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 integer_expression <- (integer_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 let <- (let) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 or <- (or) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 path_fragment <- (path_fragment) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 rec <- (rec) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 spath_expression <- (spath_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_fragment <- (string_fragment) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 then <- (then) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 uri_expression <- (uri_expression) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 with <- (with) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

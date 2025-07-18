@@ -1,6 +1,5 @@
 definition <- (definition) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 anonymous_node <- (anonymous_node) => uast(
@@ -15,7 +14,7 @@ capture <- (capture) => uast(
 
 field_definition <- (field_definition) => uast(
     type: "Field",
-    roles: "Member"
+    roles: "Member",
     children: "identifier"
 )
 
@@ -42,13 +41,11 @@ named_node <- (named_node) => uast(
 negated_field <- (negated_field) => uast(
     type: "Field",
     roles: "Member"
-    children: []
 )
 
 parameters <- (parameters) => uast(
     type: "Parameter",
     roles: "Parameter"
-    children: []
 )
 
 predicate <- (predicate) => uast(
@@ -57,53 +54,43 @@ predicate <- (predicate) => uast(
 )
 
 program <- (program) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 quantifier <- (quantifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string_content <- (string_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 MISSING <- (MISSING) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 _ <- (_) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 predicate_type <- (predicate_type) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 

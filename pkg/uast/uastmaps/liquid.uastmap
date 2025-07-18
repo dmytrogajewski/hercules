@@ -9,25 +9,22 @@ argument <- (argument) => uast(
 )
 
 argument_list <- (argument_list) => uast(
-    type: "List",
-    children: []
+    type: "List"
 )
 
 assignment_statement <- (assignment_statement) => uast(
     type: "Assignment",
-    roles: "Assignment"
+    roles: "Assignment",
     children: "access", "boolean", "filter", "identifier", "number", "predicate", "string"
 )
 
 block <- (block) => uast(
     type: "Block",
     roles: "Body"
-    children: []
 )
 
 boolean <- (boolean) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 capture_statement <- (capture_statement) => uast(
@@ -37,19 +34,17 @@ capture_statement <- (capture_statement) => uast(
 
 case_statement <- (case_statement) => uast(
     type: "Case",
-    roles: "Branch"
+    roles: "Branch",
     children: "access", "block", "else_clause", "identifier"
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 custom_unpaired_statement <- (custom_unpaired_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cycle_statement <- (cycle_statement) => uast(
@@ -58,18 +53,15 @@ cycle_statement <- (cycle_statement) => uast(
 )
 
 decrement_statement <- (decrement_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 echo_statement <- (echo_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else_clause <- (else_clause) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 elsif_clause <- (elsif_clause) => uast(
@@ -84,13 +76,13 @@ filter <- (filter) => uast(
 
 for_loop_statement <- (for_loop_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "access", "argument_list", "block", "else_clause", "identifier", "range"
 )
 
 form_statement <- (form_statement) => uast(
     type: "Loop",
-    roles: "Loop"
+    roles: "Loop",
     children: "access", "argument_list", "identifier", "string"
 )
 
@@ -100,38 +92,31 @@ if_statement <- (if_statement) => uast(
 )
 
 include_statement <- (include_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 increment_statement <- (increment_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 javascript_statement <- (javascript_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 js_content <- (js_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 json_content <- (json_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 layout_statement <- (layout_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 liquid_tag <- (liquid_tag) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 paginate_statement <- (paginate_statement) => uast(
@@ -145,8 +130,7 @@ predicate <- (predicate) => uast(
 )
 
 program <- (program) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 range <- (range) => uast(
@@ -155,8 +139,7 @@ range <- (range) => uast(
 )
 
 raw_statement <- (raw_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 render_statement <- (render_statement) => uast(
@@ -165,33 +148,27 @@ render_statement <- (render_statement) => uast(
 )
 
 schema_statement <- (schema_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 section_statement <- (section_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sections_statement <- (sections_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 style_content <- (style_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 style_statement <- (style_statement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tablerow_statement <- (tablerow_statement) => uast(
@@ -200,8 +177,7 @@ tablerow_statement <- (tablerow_statement) => uast(
 )
 
 template_content <- (template_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unless_statement <- (unless_statement) => uast(
@@ -215,302 +191,244 @@ when_clause <- (when_clause) => uast(
 )
 
 and <- (and) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 as <- (as) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 assign <- (assign) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 break_statement <- (break_statement) => uast(
     type: "Break",
     roles: "Break"
-    children: []
 )
 
 by <- (by) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 capture <- (capture) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 case <- (case) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 contains <- (contains) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 continue_statement <- (continue_statement) => uast(
     type: "Continue",
     roles: "Continue"
-    children: []
 )
 
 custom_keyword <- (custom_keyword) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 cycle <- (cycle) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 decrement <- (decrement) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 echo <- (echo) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 else <- (else) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 elsif <- (elsif) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 endcapture <- (endcapture) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 endcase <- (endcase) => uast(
     type: "Case",
     roles: "Branch"
-    children: []
 )
 
 endcomment <- (endcomment) => uast(
     type: "Comment",
     roles: "Comment"
-    children: []
 )
 
 endfor <- (endfor) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 endform <- (endform) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 endif <- (endif) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 endjavascript <- (endjavascript) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 endpaginate <- (endpaginate) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 endraw <- (endraw) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 endschema <- (endschema) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 endstyle <- (endstyle) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 endtablerow <- (endtablerow) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 endunless <- (endunless) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 false <- (false) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 for <- (for) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 form <- (form) => uast(
     type: "Loop",
     roles: "Loop"
-    children: []
 )
 
 front_matter <- (front_matter) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 if <- (if) => uast(
-    type: "If",
-    children: []
+    type: "If"
 )
 
 in <- (in) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 include <- (include) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 include_relative <- (include_relative) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 increment <- (increment) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 javascript <- (javascript) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 layout <- (layout) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 liquid <- (liquid) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 none <- (none) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 number <- (number) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 or <- (or) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 paginate <- (paginate) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 raw <- (raw) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 raw_content <- (raw_content) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 render <- (render) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 schema <- (schema) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 section <- (section) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 sections <- (sections) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 style <- (style) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 tablerow <- (tablerow) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 true <- (true) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 unless <- (unless) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 when <- (when) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
 with <- (with) => uast(
-    type: "Synthetic",
-    children: []
+    type: "Synthetic"
 )
 
