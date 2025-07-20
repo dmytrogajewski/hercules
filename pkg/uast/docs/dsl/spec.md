@@ -15,7 +15,7 @@ The DSL embodies three key principles:
 1. **Functional Pipeline Composition**: Operations flow left-to-right using the `|>` operator
 2. **Static Compilation**: All queries compile to efficient Go closures with no runtime reflection  
 3. **Performance Optimization**: Membership predicates use hash-set lookups for O(1) performance
-4. **Mapping-driven**: All type, role, and property assignment is from YAML mapping files per language
+4. **Mapping-driven**: All type, role, and property assignment is from DSL mapping files per language
 5. **Non-recursive implementation**: Explicit stack for AST/UAST traversal
 6. **Test coverage**: The test suite covers all grammar features and edge cases
 

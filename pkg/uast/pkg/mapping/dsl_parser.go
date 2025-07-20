@@ -2,30 +2,253 @@ package mapping
 
 import (
 	"fmt"
+	"io"
 	"os"
 	"strconv"
 	"strings"
 )
 
+// LanguageInfo represents language declaration information from mapping files
+type LanguageInfo struct {
+	Name       string   `json:"name"`
+	Extensions []string `json:"extensions"`
+	Files      []string `json:"files"`
+}
+
+// ParseLanguageDeclaration parses a language declaration from mapping DSL content using AST.
+func ParseLanguageDeclaration(content string) (*LanguageInfo, error) {
+	// Use the DSL parser to parse the content
+	ast, err := parseMappingDSL(content)
+	if err != nil {
+		return nil, fmt.Errorf("failed to parse DSL: %w", err)
+	}
+
+	// Extract language declaration from AST
+	return extractLanguageDeclarationFromAST(ast)
+}
+
+// extractLanguageDeclarationFromAST extracts language declaration from the parsed AST
+func extractLanguageDeclarationFromAST(ast interface{}) (*LanguageInfo, error) {
+	var langInfo *LanguageInfo
+
+	var walk func(n *node32)
+	walk = func(n *node32) {
+		if n == nil {
+			return
+		}
+
+		// Look for language declaration nodes
+		if n.pegRule == ruleLanguageDeclaration {
+			info, err := extractLanguageDeclaration(n)
+			if err == nil {
+				langInfo = info
+			}
+			return
+		}
+
+		// Continue walking the tree
+		for child := n.up; child != nil; child = child.next {
+			walk(child)
+		}
+	}
+
+	switch n := ast.(type) {
+	case *node32:
+		walk(n)
+	case []*node32:
+		for _, child := range n {
+			walk(child)
+		}
+	default:
+		return nil, fmt.Errorf("invalid AST root type: %T", ast)
+	}
+
+	if langInfo == nil {
+		return nil, fmt.Errorf("no language declaration found")
+	}
+
+	return langInfo, nil
+}
+
+// extractLanguageDeclaration extracts language info from a language declaration node
+func extractLanguageDeclaration(node *node32) (*LanguageInfo, error) {
+	// The language declaration should have the structure:
+	// [language "name", extensions: ".ext1", ".ext2"]
+
+	text := extractText(node)
+
+	// Find the language name (between quotes after "language")
+	langStart := strings.Index(text, `language "`)
+	if langStart == -1 {
+		return nil, fmt.Errorf("invalid language declaration format")
+	}
+
+	langStart += len(`language "`)
+	langEnd := strings.Index(text[langStart:], `"`)
+	if langEnd == -1 {
+		return nil, fmt.Errorf("invalid language declaration format")
+	}
+
+	languageName := text[langStart : langStart+langEnd]
+
+	// Check for extensions and files sections
+	extStart := strings.Index(text, "extensions:")
+	filesStart := strings.Index(text, "files:")
+
+	var extensions []string
+	var files []string
+
+	if extStart != -1 {
+		// Parse extensions
+		extStart += len("extensions:")
+		extText := text[extStart:]
+
+		// Check if there's a files section after extensions
+		if filesStart != -1 && filesStart > extStart {
+			// Parse extensions up to files section
+			extText = extText[:filesStart-extStart]
+			extText = strings.TrimSpace(extText)
+			extText = strings.Trim(extText, ",")
+		}
+
+		extensions = parseExtensionsFromText(extText)
+	}
+
+	if filesStart != -1 {
+		// Parse files
+		filesStart += len("files:")
+		filesText := text[filesStart:]
+		files = parseFilesFromText(filesText)
+	}
+
+	return &LanguageInfo{
+		Name:       languageName,
+		Extensions: extensions,
+		Files:      files,
+	}, nil
+}
+
+// parseExtensionsFromText parses extensions from the extensions part of language declaration
+func parseExtensionsFromText(extText string) []string {
+	extText = strings.TrimSpace(extText)
+	extText = strings.Trim(extText, "[]")
+
+	var extensions []string
+	var current strings.Builder
+	inQuotes := false
+	for i := 0; i < len(extText); i++ {
+		c := extText[i]
+		if c == '"' || c == '\'' {
+			if inQuotes {
+				// End of quoted extension
+				inQuotes = false
+				if current.Len() > 0 {
+					ext := current.String()
+					if ext := strings.TrimSpace(ext); ext != "" {
+						extensions = append(extensions, ext)
+					}
+					current.Reset()
+				}
+			} else {
+				// Start of quoted extension
+				inQuotes = true
+			}
+			continue
+		}
+		if c == ',' && !inQuotes {
+			// End of unquoted extension
+			if ext := strings.TrimSpace(current.String()); ext != "" {
+				extensions = append(extensions, ext)
+			}
+			current.Reset()
+			continue
+		}
+		current.WriteByte(c)
+	}
+	// Add last extension
+	if ext := strings.TrimSpace(current.String()); ext != "" {
+		extensions = append(extensions, ext)
+	}
+	return extensions
+}
+
+// parseFilesFromText parses files from the files part of language declaration
+func parseFilesFromText(filesText string) []string {
+	filesText = strings.TrimSpace(filesText)
+	// Remove trailing bracket and comma if present
+	filesText = strings.TrimRight(filesText, "],")
+
+	var files []string
+	var current strings.Builder
+	inQuotes := false
+	for i := 0; i < len(filesText); i++ {
+		c := filesText[i]
+		if c == '"' || c == '\'' {
+			if inQuotes {
+				// End of quoted file
+				inQuotes = false
+				if current.Len() > 0 {
+					file := current.String()
+					if file := strings.TrimSpace(file); file != "" {
+						files = append(files, file)
+					}
+					current.Reset()
+				}
+			} else {
+				// Start of quoted file
+				inQuotes = true
+			}
+			continue
+		}
+		if c == ',' && !inQuotes {
+			// End of unquoted file
+			if file := strings.TrimSpace(current.String()); file != "" {
+				files = append(files, file)
+			}
+			current.Reset()
+			continue
+		}
+		current.WriteByte(c)
+	}
+	// Add last file
+	if file := strings.TrimSpace(current.String()); file != "" {
+		files = append(files, file)
+	}
+	return files
+}
+
 // MappingParser parses the mapping DSL and returns validated mapping rules.
 type MappingParser struct{}
 
 // ParseMapping parses the mapping DSL input and returns mapping rules.
-func (p *MappingParser) ParseMapping(input string) ([]MappingRule, error) {
+func (p *MappingParser) ParseMapping(reader io.Reader) ([]MappingRule, *LanguageInfo, error) {
+	content, err := io.ReadAll(reader)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	input := string(content)
 	input = strings.ReplaceAll(input, "\r\n", "\n")
 	input = strings.ReplaceAll(input, "\r", "\n")
 	ast, err := parseMappingDSL(input)
+
 	if err != nil {
-		fmt.Println("DEBUG: DSL input:")
-		fmt.Println(input)
-		fmt.Printf("DEBUG: parse error: %v\n", err)
-		return nil, err
+		return nil, nil, err
 	}
+
 	rules, err := buildMappingRulesFromAST(ast)
+
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
-	return rules, nil
+
+	langInfo, err := extractLanguageDeclarationFromAST(ast)
+
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return rules, langInfo, nil
 }
 
 // parseMappingDSL uses the generated PEG parser to parse the input DSL.
@@ -50,11 +273,13 @@ func buildMappingRulesFromAST(ast interface{}) ([]MappingRule, error) {
 		}
 		if n.pegRule == ruleRule {
 			rule, err := extractMappingRule(n)
-
-			rules = append(rules, rule)
-			if err != nil {
-				//
+			if err == nil {
+				rules = append(rules, rule)
 			}
+		}
+		// Skip language declarations - they're handled separately
+		if n.pegRule == ruleLanguageDeclaration {
+			return
 		}
 		for child := n.up; child != nil; child = child.next {
 			walk(child)

@@ -1,5 +1,7 @@
+[language "go", extensions: ".go"]
+
 _expression <- (_expression) => uast(
-    type: "List"
+    type: "Synthetic"
 )
 
 _simple_statement <- (_simple_statement) => uast(
@@ -23,7 +25,7 @@ argument_list <- (argument_list) => uast(
 )
 
 array_type <- (array_type) => uast(
-    type: "List",
+    type: "Synthetic",
     children: "_expression", "_type"
 )
 
@@ -34,7 +36,7 @@ assignment_statement <- (assignment_statement) => uast(
 )
 
 binary_expression <- (binary_expression) => uast(
-    type: "BinaryOp",
+    type: "Synthetic",
     children: "_expression"
 )
 
@@ -72,8 +74,7 @@ composite_literal <- (composite_literal) => uast(
 )
 
 const_declaration <- (const_declaration) => uast(
-    type: "Synthetic",
-    roles: "Constant"
+    type: "Synthetic"
 )
 
 const_spec <- (const_spec) => uast(
@@ -300,7 +301,7 @@ pointer_type <- (pointer_type) => uast(
 )
 
 qualified_type <- (qualified_type) => uast(
-    type: "If",
+    type: "Synthetic",
     children: "package_identifier", "type_identifier"
 )
 
@@ -349,12 +350,12 @@ slice_expression <- (slice_expression) => uast(
 )
 
 slice_type <- (slice_type) => uast(
-    type: "List",
+    type: "Slice",
     children: "_type"
 )
 
 source_file <- (source_file) => uast(
-    type: "File"
+    type: "Synthetic"
 )
 
 struct_type <- (struct_type) => uast(
@@ -436,7 +437,6 @@ var_declaration <- (var_declaration) => uast(
 
 var_spec <- (var_spec) => uast(
     type: "Synthetic",
-    roles: "Variable",
     children: "_type", "expression_list", "identifier"
 )
 
@@ -455,7 +455,7 @@ variadic_parameter_declaration <- (variadic_parameter_declaration) => uast(
 )
 
 blank_identifier <- (blank_identifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 break <- (break) => uast(
@@ -478,8 +478,7 @@ comment <- (comment) => uast(
 )
 
 const <- (const) => uast(
-    type: "Synthetic",
-    roles: "Constant"
+    type: "Synthetic"
 )
 
 continue <- (continue) => uast(
@@ -488,8 +487,7 @@ continue <- (continue) => uast(
 )
 
 default <- (default) => uast(
-    type: "If",
-    roles: "Condition"
+    type: "Synthetic"
 )
 
 defer <- (defer) => uast(
@@ -497,8 +495,7 @@ defer <- (defer) => uast(
 )
 
 else <- (else) => uast(
-    type: "If",
-    roles: "Condition"
+    type: "Synthetic"
 )
 
 escape_sequence <- (escape_sequence) => uast(
@@ -514,8 +511,7 @@ false <- (false) => uast(
 )
 
 field_identifier <- (field_identifier) => uast(
-    type: "Field",
-    roles: "Member"
+    type: "Identifier"
 )
 
 float_literal <- (float_literal) => uast(
@@ -529,8 +525,7 @@ for <- (for) => uast(
 )
 
 func <- (func) => uast(
-    type: "Function",
-    roles: "Function", "Declaration"
+    type: "Synthetic"
 )
 
 go <- (go) => uast(
@@ -601,7 +596,7 @@ package_identifier <- (package_identifier) => uast(
 )
 
 range <- (range) => uast(
-    type: "Loop"
+    type: "Synthetic"
 )
 
 raw_string_literal_content <- (raw_string_literal_content) => uast(
@@ -620,7 +615,7 @@ rune_literal <- (rune_literal) => uast(
 )
 
 select <- (select) => uast(
-    type: "Switch"
+    type: "Synthetic"
 )
 
 struct <- (struct) => uast(
@@ -637,8 +632,7 @@ true <- (true) => uast(
 )
 
 type <- (type) => uast(
-    type: "TypeAnnotation",
-    roles: "Type", "Declaration"
+    type: "Synthetic"
 )
 
 type_identifier <- (type_identifier) => uast(
@@ -646,5 +640,5 @@ type_identifier <- (type_identifier) => uast(
 )
 
 var <- (var) => uast(
-    type: "Variable"
+    type: "Synthetic"
 )

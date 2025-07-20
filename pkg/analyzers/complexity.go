@@ -6,7 +6,6 @@ import (
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
 
-// CyclomaticComplexityAnalyzer implement CodeAnalyzer interface
 type CyclomaticComplexityAnalyzer struct{}
 
 func (c *CyclomaticComplexityAnalyzer) Name() string {
@@ -23,12 +22,30 @@ func (c *CyclomaticComplexityAnalyzer) Thresholds() Thresholds {
 	}
 }
 
-// Analyze cyclomatic complexity using formula
-// Cyclomatic complexity is a software metric used to measure the complexity of a program's control flow.
-// The formula is: V(G) = E - N + 2P where:
-// E = Number of edges in the control flow graph (CFG)
-// N = Number of nodes in the CFG
-// P = Number of connected components (typically 1 for a single program or function)
+var decisionPointTypes = map[string]bool{
+	node.UASTIf:       true,
+	node.UASTLoop:     true,
+	node.UASTSwitch:   true,
+	node.UASTCase:     true,
+	node.UASTTry:      true,
+	node.UASTCatch:    true,
+	node.UASTThrow:    true,
+	node.UASTBreak:    true,
+	node.UASTContinue: true,
+}
+
+var logicalOperators = map[string]bool{
+	"&&": true,
+	"||": true,
+	"!":  true,
+}
+
+var decisionPointRoles = map[string]bool{
+	node.RoleCondition: true,
+	node.RoleBreak:     true,
+	node.RoleContinue:  true,
+}
+
 func (c *CyclomaticComplexityAnalyzer) Analyze(root *node.Node) (map[string]any, error) {
 	if root == nil {
 		return map[string]any{
@@ -41,9 +58,11 @@ func (c *CyclomaticComplexityAnalyzer) Analyze(root *node.Node) (map[string]any,
 	complexityByFunction := make(map[string]int)
 	totalComplexity := 0
 
-	// Find all function nodes using canonical roles/types
 	functions := root.Find(func(n *node.Node) bool {
-		return hasRole(n, "Function") || hasRole(n, "Declaration") || n.Type == "Function" || n.Type == "Method"
+		return n.HasRole(node.RoleFunction) ||
+			n.HasRole(node.RoleDeclaration) ||
+			n.Type == node.UASTFunction ||
+			n.Type == node.UASTMethod
 	})
 
 	for _, fn := range functions {
@@ -61,112 +80,65 @@ func (c *CyclomaticComplexityAnalyzer) Analyze(root *node.Node) (map[string]any,
 }
 
 func extractFunctionName(fn *node.Node) string {
-	// Try to find function name using multiple strategies
-	// 1. Look for Name role in children
 	for _, child := range fn.Children {
-		if hasRole(child, "Name") {
+		if child.HasRole(node.RoleName) {
 			return strings.TrimSpace(child.Token)
 		}
 	}
 
-	// 2. Check props for name
 	if name, ok := fn.Props["name"]; ok && name != "" {
 		return strings.TrimSpace(name)
 	}
 
-	// 3. Check props for function name
 	if name, ok := fn.Props["function_name"]; ok && name != "" {
 		return strings.TrimSpace(name)
 	}
 
-	// 4. Look for identifier with Name role in subtree
-	query := "rfilter(.roles has \"Name\")"
-	matches, err := fn.FindDSL(query)
+	matches, err := fn.FindDSL("rfilter(.roles has \"Name\")")
 	if err == nil && len(matches) > 0 {
 		return strings.TrimSpace(matches[0].Token)
 	}
 
-	// 5. Fallback to anonymous
 	return "anonymous"
 }
 
 func calculateFunctionComplexity(fn *node.Node) int {
-	// Base complexity is 1 for any function
 	complexity := 1
-
-	// Use comprehensive UAST query DSL to find all canonical decision points
-	// This query matches all common decision point types across languages
-	query := `rfilter(.type == "If" || .type == "Loop" || .type == "Switch" || .type == "Case" || .type == "Try" || .type == "Catch" || .type == "Throw" || .type == "Conditional" || .type == "While" || .type == "For" || .type == "DoWhile" || .type == "ForEach" || .type == "Guard" || .type == "Assert" || .type == "Break" || .type == "Continue" || .type == "Return" || .type == "Goto" || .type == "Label" || .type == "BinaryOp" || .type == "UnaryOp")`
-
-	matches, err := fn.FindDSL(query)
-	if err != nil {
-		// DSL query failed - this indicates a problem with the query or implementation
-		// We should fix the query rather than fall back to manual traversal
-		return complexity
-	}
-
-	// Filter matches to only include actual decision points
-	decisionPoints := 0
-	for _, match := range matches {
-		if isDecisionPoint(match) {
-			decisionPoints++
+	fn.VisitPreOrder(func(n *node.Node) {
+		if isDecisionPoint(n) {
+			complexity++
 		}
-	}
-	complexity += decisionPoints
-
+	})
 	return complexity
 }
 
 func isDecisionPoint(n *node.Node) bool {
-	// Check by type
-	decisionTypes := []string{
-		"If", "Loop", "Switch", "Case", "Try", "Catch", "Throw",
-		"Conditional", "While", "For", "DoWhile", "ForEach",
-		"Guard", "Assert", "Break", "Continue",
-		"Return", "Goto", "Label",
-	}
-
-	for _, dt := range decisionTypes {
-		if n.Type == dt {
-			return true
-		}
-	}
-
-	// Check BinaryOp and UnaryOp with specific operators
-	if n.Type == "BinaryOp" || n.Type == "UnaryOp" {
-		if operator, ok := n.Props["operator"]; ok {
-			// Only logical operators count as decision points
-			logicalOperators := []string{"&&", "||", "!"}
-			for _, op := range logicalOperators {
-				if operator == op {
-					return true
-				}
-			}
-		}
-	}
-
-	// Check by roles
-	decisionRoles := []string{
-		"Condition", "Decision", "ControlFlow", "Exception",
-		"Break", "Continue", "Return", "Goto",
-	}
-
-	for _, role := range n.Roles {
-		for _, dr := range decisionRoles {
-			if string(role) == dr {
+	if n.Type == node.UASTIf {
+		for _, role := range n.Roles {
+			if string(role) == node.RoleCondition || string(role) == node.RoleBranch {
 				return true
 			}
 		}
+		return false
 	}
 
-	return false
-}
+	if n.Type == node.UASTLoop || n.Type == node.UASTSwitch ||
+		n.Type == node.UASTCase || n.Type == node.UASTTry || n.Type == node.UASTCatch ||
+		n.Type == node.UASTThrow || n.Type == node.UASTBreak || n.Type == node.UASTContinue {
+		return true
+	}
 
-func hasRole(n *node.Node, role string) bool {
-	for _, r := range n.Roles {
-		if string(r) == role {
+	if n.Type == node.UASTBinaryOp || n.Type == node.UASTUnaryOp {
+		if operator, ok := n.Props["operator"]; ok {
+			return logicalOperators[operator]
+		}
+	}
+
+	for _, role := range n.Roles {
+		if string(role) == "Condition" {
 			return true
 		}
 	}
+
 	return false
 }

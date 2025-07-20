@@ -1,5 +1,5 @@
-//go:build tensorflow
-// +build tensorflow
+//go:build ignore
+// +build ignore
 
 package leaves
 

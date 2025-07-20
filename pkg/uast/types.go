@@ -39,20 +39,12 @@ type Change struct {
 	File   string
 }
 
-// Provider is responsible for parsing source code into UAST nodes
-type Provider interface {
+// Parser is responsible for parsing source code into UAST nodes
+type LanguageParser interface {
 	Parse(filename string, content []byte) (*node.Node, error)
-	SupportedLanguages() []string
-	IsSupported(filename string) bool
+	Language() string
+	Extensions() []string
 }
-
-// ProviderType represents the type of UAST provider
-type ProviderType string
-
-const (
-	ProviderEmbedded  ProviderType = "embedded"
-	ProviderBabelfish ProviderType = "babelfish"
-)
 
 // Error types for better error handling
 type UnsupportedLanguageError struct {
@@ -74,13 +66,13 @@ func (e ParseError) Error() string {
 	return fmt.Sprintf("parse error in %s (%s): %s", e.Filename, e.Language, e.Message)
 }
 
-type ProviderError struct {
-	Provider string
-	Message  string
+type LanguageParserError struct {
+	Parser  string
+	Message string
 }
 
-func (e ProviderError) Error() string {
-	return fmt.Sprintf("provider error (%s): %s", e.Provider, e.Message)
+func (e LanguageParserError) Error() string {
+	return fmt.Sprintf("parser error (%s): %s", e.Parser, e.Message)
 }
 
 // getFileExtension returns the file extension (with dot)

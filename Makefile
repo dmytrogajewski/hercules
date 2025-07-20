@@ -1,4 +1,4 @@
-GOBIN ?= .
+GOBIN ?= bin
 GO111MODULE=on
 ifneq ($(OS),Windows_NT)
 EXE =
@@ -8,7 +8,20 @@ endif
 PKG = $(shell go env GOOS)_$(shell go env GOARCH)
 TAGS ?=
 
-all: ${GOBIN}/hercules${EXE} ${GOBIN}/uast${EXE} ${GOBIN}/herr${EXE}
+all: precompile ${GOBIN}/hercules${EXE} ${GOBIN}/uast${EXE} ${GOBIN}/herr${EXE}
+
+# Pre-compile UAST mappings for faster startup
+precompile:
+	@echo "Pre-compiling UAST mappings..."
+	@mkdir -p ${GOBIN}
+	@go run ./scripts/precompgen/precompile.go -o pkg/uast/embedded_mappings.gen.go
+
+
+
+# Generate UAST mappings for all languages
+uastmaps-gen:
+	@echo "Generating UAST mappings..."
+	@python3 scripts/uastmapsgen/gen_uastmaps.py
 
 # Install binaries to system PATH
 install: all
@@ -60,82 +73,83 @@ benchprofile: all
 # Run benchmarks and generate performance plots
 benchplot: all
 	CGO_ENABLED=1 go test -bench=. -benchmem ./pkg/uast > benchmark_results.txt 2>&1
-	python3 scripts/benchmark_plot.py benchmark_results.txt
+	python3 scripts/benchmark/benchmark_plot.py benchmark_results.txt
 
 # Run benchmarks with verbose output and generate plots
 benchplotv: all
 	CGO_ENABLED=1 go test -bench=. -benchmem -v ./pkg/uast > benchmark_results.txt 2>&1
-	python3 scripts/benchmark_plot.py benchmark_results.txt
+	python3 scripts/benchmark/benchmark_plot.py benchmark_results.txt
 
 # Run comprehensive benchmark suite with organized results
 bench: all
-	python3 scripts/benchmark_runner.py
+	python3 scripts/benchmark/benchmark_runner.py
 
 # Run benchmarks without plots
 bench-no-plots: all
-	python3 scripts/benchmark_runner.py --no-plots
+	python3 scripts/benchmark/benchmark_runner.py --no-plots
 
 # Generate report for latest benchmark run
 report:
-	python3 scripts/benchmark_report.py
+	python3 scripts/benchmark/benchmark_report.py
 
 # Generate report for specific run
 report-run:
-	python3 scripts/benchmark_report.py $(RUN_NAME)
+	python3 scripts/benchmark/benchmark_report.py $(RUN_NAME)
 
 # List all benchmark runs
 bench-list:
-	python3 scripts/benchmark_report.py --list
+	python3 scripts/benchmark/benchmark_report.py --list
 
 # Compare latest run with previous
 compare:
-	python3 scripts/benchmark_comparison.py $(shell python3 scripts/benchmark_report.py --list | head -1)
+	python3 scripts/benchmark/benchmark_comparison.py $(shell python3 scripts/benchmark/benchmark_report.py --list | head -1)
 
 # Compare specific runs
 compare-runs:
-	python3 scripts/benchmark_comparison.py $(CURRENT_RUN) --baseline $(BASELINE_RUN)
+	python3 scripts/benchmark/benchmark_comparison.py $(CURRENT_RUN) --baseline $(BASELINE_RUN)
 
 # Compare last N benchmark runs (usage: make compare-last N=3)
 compare-last:
 	@N=$${N:-2}; \
 	echo "Comparing last $$N benchmark runs..."; \
 	if [ $$N -eq 2 ]; then \
-		LATEST=$$(python3 scripts/benchmark_report.py --list | grep -v "Available benchmark runs:" | head -1 | xargs); \
-		PREVIOUS=$$(python3 scripts/benchmark_report.py --list | grep -v "Available benchmark runs:" | head -2 | tail -1 | xargs); \
+		LATEST=$$(python3 scripts/benchmark/benchmark_report.py --list | grep -v "Available benchmark runs:" | head -1 | xargs); \
+		PREVIOUS=$$(python3 scripts/benchmark/benchmark_report.py --list | grep -v "Available benchmark runs:" | head -2 | tail -1 | xargs); \
 		echo "Latest: $$LATEST"; \
 		echo "Previous: $$PREVIOUS"; \
-		python3 scripts/benchmark_comparison.py "$$LATEST" --baseline "$$PREVIOUS"; \
+		python3 scripts/benchmark/benchmark_comparison.py "$$LATEST" --baseline "$$PREVIOUS"; \
 	else \
-		RUNS=$$(python3 scripts/benchmark_report.py --list | grep -v "Available benchmark runs:" | head -$$N | tr '\n' ' '); \
+		RUNS=$$(python3 scripts/benchmark/benchmark_report.py --list | grep -v "Available benchmark runs:" | head -$$N | tr '\n' ' '); \
 		echo "Comparing $$N runs:"; \
 		echo "$$RUNS" | nl; \
-		python3 scripts/benchmark_comparison_multi.py "$$RUNS"; \
+		python3 scripts/benchmark/benchmark_comparison_multi.py "$$RUNS"; \
 	fi
 
 # Run benchmarks with profiling and generate plots
 benchplotprofile: all
 	CGO_ENABLED=1 go test -bench=. -benchmem -cpuprofile=cpu.prof -memprofile=mem.prof ./pkg/uast > benchmark_results.txt 2>&1
-	python3 scripts/benchmark_plot.py benchmark_results.txt
+	python3 scripts/benchmark/benchmark_plot.py benchmarks/benchmark_results.txt
 
 # Run specific benchmark and generate plots (usage: make benchplot-simple BENCH=BenchmarkParse)
 benchplot-simple: all
 	CGO_ENABLED=1 go test -bench=$(BENCH) -benchmem ./pkg/uast > benchmark_results.txt 2>&1
-	python3 scripts/benchmark_plot.py benchmark_results.txt
+	python3 scripts/benchmark/benchmark_plot.py benchmarks/benchmark_results.txt
 
 # Run benchmarks with timeout and generate plots (usage: make benchplot-timeout TIMEOUT=30s)
 benchplot-timeout: all
 	CGO_ENABLED=1 go test -bench=. -benchmem -timeout=$(TIMEOUT) ./pkg/uast > benchmark_results.txt 2>&1
-	python3 scripts/benchmark_plot.py benchmark_results.txt
+	python3 scripts/benchmark/benchmark_plot.py benchmarks/benchmark_results.txt
 
 clean:
 	rm -f ./hercules
 	rm -f ./uast
 	rm -f ./herr
+	rm -rf ${GOBIN}/
 	rm -f *.prof
-	rm -f benchmark_results.txt
+	rm -f benchmarks/benchmark_results.txt
 	rm -rf benchmark_plots/
 ${GOBIN}/protoc-gen-gogo${EXE}:
-	go build github.com/gogo/protobuf/protoc-gen-gogo
+	go build -o ${GOBIN}/protoc-gen-gogo${EXE} github.com/gogo/protobuf/protoc-gen-gogo
 
 ifneq ($(OS),Windows_NT)
 internal/pb/pb.pb.go: internal/pb/pb.proto ${GOBIN}/protoc-gen-gogo

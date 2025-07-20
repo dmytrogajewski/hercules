@@ -33,7 +33,14 @@
           "description": "Ending byte offset"
         }
       },
-      "required": ["start_line", "start_col", "start_offset", "end_line", "end_col", "end_offset"],
+      "required": [
+        "start_line",
+        "start_col",
+        "start_offset",
+        "end_line",
+        "end_col",
+        "end_offset"
+      ],
       "additionalProperties": false
     },
     "Role": {
@@ -84,11 +91,14 @@
         "Finally",
         "Throw",
         "Await",
+        "Generator",
         "Yield",
         "Spread",
         "Pattern",
         "Match",
-        "Return"
+        "Return",
+        "Break",
+        "Continue"
       ]
     },
     "NodeType": {
@@ -198,4 +208,4 @@
   },
   "required": ["type"],
   "additionalProperties": false
-} 
+}

@@ -1,3 +1,5 @@
+[language "tcl", extensions: ".tcl"]
+
 argument <- (argument) => uast(
     type: "Synthetic",
     children: "braced_word", "quoted_word", "simple_word"
@@ -238,4 +240,3 @@ while <- (while) => uast(
     type: "Loop",
     roles: "Loop"
 )
-

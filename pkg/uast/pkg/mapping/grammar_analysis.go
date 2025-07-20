@@ -289,8 +289,21 @@ func contains(s, substr string) bool {
 }
 
 // GenerateMappingDSL emits mapping DSL for a set of node types, using canonical UAST types/roles.
-func GenerateMappingDSL(nodes []NodeTypeInfo) string {
+func GenerateMappingDSL(nodes []NodeTypeInfo, language string, extensions []string) string {
 	var sb strings.Builder
+
+	// Add language declaration if provided
+	if language != "" && len(extensions) > 0 {
+		sb.WriteString(fmt.Sprintf("[language \"%s\", extensions: ", language))
+		for i, ext := range extensions {
+			if i > 0 {
+				sb.WriteString(", ")
+			}
+			sb.WriteString(fmt.Sprintf("\"%s\"", ext))
+		}
+		sb.WriteString("]\n\n")
+	}
+
 	for _, n := range nodes {
 		if !isValidIdentifier(n.Name) {
 			continue

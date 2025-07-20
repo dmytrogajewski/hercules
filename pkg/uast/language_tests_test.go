@@ -93,14 +93,15 @@ func (tr *TestRunner) LoadTestSuite(filepath string) (*TestSuite, error) {
 
 // DumpRawAST dumps the raw AST for debugging purposes
 func (tr *TestRunner) DumpRawAST(language, input string, filename string) error {
-	// Get the language provider for this language
-	provider, exists := tr.parser.providers[language]
+	// Get the language provider for this language using the loader
+	ext := "." + getLanguageFileExtension(language)
+	provider, exists := tr.parser.loader.LanguageParser(ext)
 	if !exists {
 		return fmt.Errorf("no provider found for language: %s", language)
 	}
 
 	// Try to get raw tree-sitter AST if it's a DSL provider
-	if dslProvider, ok := provider.(*DSLProvider); ok {
+	if dslProvider, ok := provider.(*DSLParser); ok {
 		return tr.DumpRawTreeSitterAST(dslProvider, input, filename)
 	}
 
@@ -122,7 +123,7 @@ func (tr *TestRunner) DumpRawAST(language, input string, filename string) error 
 }
 
 // DumpRawTreeSitterAST dumps the actual tree-sitter AST before mapping
-func (tr *TestRunner) DumpRawTreeSitterAST(provider *DSLProvider, input string, filename string) error {
+func (tr *TestRunner) DumpRawTreeSitterAST(provider *DSLParser, input string, filename string) error {
 	parser := sitter.NewParser()
 	parser.SetLanguage(provider.language)
 	tree, err := parser.ParseString(context.Background(), nil, []byte(input))

@@ -45,11 +45,11 @@ func (pm *PatternMatcher) MatchPattern(query *sitter.Query, node *sitter.Node, s
 // compileTreeSitterQuery compiles a pattern to a Tree-sitter query object.
 func compileTreeSitterQuery(pattern string, lang *sitter.Language) (*sitter.Query, error) {
 	if lang == nil {
-		return nil, fmt.Errorf("Tree-sitter language is nil")
+		return nil, fmt.Errorf("tree-sitter language is nil")
 	}
 	q, err := sitter.NewQuery(lang, []byte(pattern))
 	if err != nil {
-		return nil, fmt.Errorf("Tree-sitter query compilation failed: %w", err)
+		return nil, fmt.Errorf("tree-sitter query compilation failed: %w", err)
 	}
 	return q, nil
 }

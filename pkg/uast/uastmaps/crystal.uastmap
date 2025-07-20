@@ -1,3 +1,5 @@
+[language "crystal", extensions: ".cr"]
+
 abstract_method_def <- (abstract_method_def) => uast(
     type: "Method",
     roles: "Function", "Declaration", "Member",
@@ -939,4 +941,3 @@ yield <- (yield) => uast(
     type: "Yield",
     roles: "Yield"
 )
-
