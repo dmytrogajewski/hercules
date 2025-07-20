@@ -6,8 +6,6 @@ import (
 	"sort"
 	"strings"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
 func TestDSLParser_Parse_Valid(t *testing.T) {
@@ -1367,18 +1365,34 @@ func TestDSLParser_ComplexityAnalyzerQuery(t *testing.T) {
 
 	ast, err := ParseDSL(query)
 
-	assert.NoError(t, err)
-	assert.NotNil(t, ast)
+	if err != nil {
+		t.Fatalf("ParseDSL failed: %v", err)
+	}
+	if ast == nil {
+		t.Fatalf("ParseDSL returned nil")
+	}
 
 	// Verify it's a recursive filter
 	rfilterNode, ok := ast.(*RFilterNode)
-	assert.True(t, ok)
-	assert.NotNil(t, rfilterNode.Expr)
+	if !ok {
+		t.Fatalf("ParseDSL returned wrong type")
+	}
+	if rfilterNode.Expr == nil {
+		t.Fatalf("ParseDSL returned nil expr")
+	}
 
 	// Verify the condition is a complex OR expression
 	callNode, ok := rfilterNode.Expr.(*CallNode)
-	assert.True(t, ok)
-	assert.Equal(t, "||", callNode.Name)
-	assert.NotNil(t, callNode.Args)
-	assert.Len(t, callNode.Args, 2)
+	if !ok {
+		t.Fatalf("ParseDSL returned wrong type")
+	}
+	if callNode.Name != "||" {
+		t.Fatalf("ParseDSL returned wrong name")
+	}
+	if callNode.Args == nil {
+		t.Fatalf("ParseDSL returned nil args")
+	}
+	if len(callNode.Args) != 2 {
+		t.Fatalf("ParseDSL returned wrong args length")
+	}
 }

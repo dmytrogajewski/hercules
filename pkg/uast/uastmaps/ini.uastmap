@@ -1,3 +1,5 @@
+[language "ini", extensions: ".ini"]
+
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
@@ -30,4 +32,3 @@ setting_value <- (setting_value) => uast(
 text <- (text) => uast(
     type: "Synthetic"
 )
-

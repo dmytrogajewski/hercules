@@ -1,3 +1,5 @@
+[language "dockerfile", extensions: ".dockerfile", files: "Dockerfile"]
+
 add_instruction <- (add_instruction) => uast(
     type: "Struct",
     roles: "Struct", "Declaration"
@@ -311,4 +313,3 @@ variable <- (variable) => uast(
     type: "Variable",
     roles: "Variable", "Declaration"
 )
-

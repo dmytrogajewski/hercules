@@ -1,3 +1,5 @@
+[language "git_config", extensions: ".gitconfig"]
+
 comment <- (comment) => uast(
     type: "Comment",
     roles: "Comment"
@@ -56,4 +58,3 @@ section_name <- (section_name) => uast(
 true <- (true) => uast(
     type: "Synthetic"
 )
-

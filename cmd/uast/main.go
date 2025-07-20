@@ -16,24 +16,8 @@ var (
 func main() {
 	rootCmd := &cobra.Command{
 		Use:   "uast",
-		Short: "Unified AST - Parse, analyze, and transform code across 100+ languages",
-		Long: `UAST (Unified Abstract Syntax Tree) provides a language-agnostic representation
-of source code for static analysis, refactoring, and code understanding.
-
-Key features:
-  • Parse 100+ programming languages with Tree-sitter
-  • Query code structure with functional DSL
-  • Detect changes and analyze code patterns
-  • Transform and refactor code across languages
-
-Examples:
-  uast parse main.go                    # Parse a Go file
-  uast query "filter(.type == 'Function')" main.go  # Find all functions
-  uast analyze *.go                     # Analyze all Go files
-  uast diff file1.go file2.go          # Compare two files
-  uast explore main.go                  # Interactive exploration`,
-		SilenceUsage:  true,
-		SilenceErrors: true,
+		Short: "UAST (Universal Abstract Syntax Tree) parser and analyzer",
+		Long:  `UAST is a tool for parsing source code into Universal Abstract Syntax Trees.`,
 	}
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.uast.yaml)")
@@ -41,10 +25,10 @@ Examples:
 	rootCmd.PersistentFlags().BoolVarP(&quiet, "quiet", "q", false, "suppress output")
 
 	rootCmd.AddCommand(parseCmd())
-	rootCmd.AddCommand(queryCmd())
-	rootCmd.AddCommand(analyzeCmd())
 	rootCmd.AddCommand(diffCmd())
+	rootCmd.AddCommand(queryCmd())
 	rootCmd.AddCommand(exploreCmd())
+	rootCmd.AddCommand(analyzeCmd())
 	rootCmd.AddCommand(completionCmd())
 	rootCmd.AddCommand(versionCmd())
 	rootCmd.AddCommand(validateCmd())

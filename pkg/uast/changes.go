@@ -187,8 +187,8 @@ func isOnePositionNil(beforePos, afterPos *node.Positions) bool {
 
 // hasSignificantLineOrColumnChange checks if line or column change is significant
 func hasSignificantLineOrColumnChange(beforePos, afterPos *node.Positions) bool {
-	lineDiff := abs(beforePos.StartLine - afterPos.StartLine)
-	columnDiff := abs(beforePos.StartCol - afterPos.StartCol)
+	lineDiff := abs(int(beforePos.StartLine) - int(afterPos.StartLine))
+	columnDiff := abs(int(beforePos.StartCol) - int(afterPos.StartCol))
 	return lineDiff > 1 || columnDiff > 10
 }
 

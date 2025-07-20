@@ -215,10 +215,14 @@ The following table defines the canonical, language-agnostic UAST roles. Roles a
 | Finally      | Node is a finally block                                          | SHOULD be used for finally nodes |
 | Throw        | Node is a throw/raise statement                                  | SHOULD be used for throw nodes |
 | Await        | Node is an await expression                                      | SHOULD be used for await nodes |
+| Generator    | Generator function                                               | SHOULD be used for generator functions |
 | Yield        | Node is a yield expression                                       | SHOULD be used for yield nodes |
 | Spread       | Node is a spread/rest element (e.g., ...args)                    | SHOULD be used for spread nodes |
 | Pattern      | Node is a pattern in pattern matching                            | SHOULD be used for pattern nodes |
 | Match        | Node is a match statement (e.g., Python 3.10+)                   | SHOULD be used for match nodes |
+| Return       | Node is a return stmt                                            | SHOULD be used for return nodes |
+| Break        | Node is a break stmt                                             | SHOULD be used for break nodes |
+| Continue     | Node is a continue stmt                                          | SHOULD be used for continue nodes |
 
 ## 4. Serialization Formats
 

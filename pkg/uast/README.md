@@ -4,7 +4,7 @@
 [![Go Version](https://img.shields.io/github/go-mod/go-version/dmytrogajewski/hercules)](https://golang.org)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE.md)
 
-A Go-native **Unified AST (UAST)** data model backed by Tree-sitter parsers plus a compact **domain-specific language (DSL)** for querying and transforming trees. Parse, analyze, and refactor code written in 100+ languages with one toolkit.
+A Go-native **Unified AST (UAST)** data model backed by Tree-sitter parsers plus a compact **domain-specific language (DSL)** for querying and transforming trees. Parse, analyze, and refactor code written in 66+ languages with one toolkit.
 
 ## 📋 Table of Contents
 
@@ -48,12 +48,12 @@ Source Code → Tree-sitter Parser → Mapping-driven Conversion → UAST → DS
 
 ## ✨ Features
 
-- **🌍 Multi-language Support**: Parse 100+ programming languages with Tree-sitter grammars
+- **🌍 Multi-language Support**: Parse 66+ programming languages with Tree-sitter grammars
 - **🔍 Powerful DSL**: Query and filter nodes with a functional pipeline syntax
 - **⚡ High Performance**: Optimized for speed with streaming iterators and memory pools
 - **🛠️ Go-native API**: Ergonomic Go APIs for navigation, mutation, and transformation
 - **📊 Change Detection**: Language-agnostic diffing and change analysis
-- **🎯 Mapping-driven**: YAML-based configuration for language-specific conversions
+- **🎯 Mapping-driven**: DSL-based configuration for language-specific conversions
 
 ## 📦 Installation
 
@@ -115,13 +115,22 @@ The UAST DSL provides a functional pipeline syntax for querying nodes:
 
 ```go
 // Find all exported functions
-nodes := node.FindDSL("filter(.type == \"Function\" && .roles has \"Exported\")")
+nodes, err := node.FindDSL("filter(.type == \"Function\" && .roles has \"Exported\")")
+if err != nil {
+    log.Fatal(err)
+}
 
 // Count all string literals
-nodes := node.FindDSL("filter(.type == \"Literal\") |> reduce(count)")
+nodes, err := node.FindDSL("filter(.type == \"Literal\") |> reduce(count)")
+if err != nil {
+    log.Fatal(err)
+}
 
 // Find function calls with specific names
-nodes := node.FindDSL("filter(.type == \"Call\" && .props.name == \"printf\")")
+nodes, err := node.FindDSL("filter(.type == \"Call\" && .props.name == \"printf\")")
+if err != nil {
+    log.Fatal(err)
+}
 ```
 
 **Supported DSL Operations:**
@@ -155,7 +164,7 @@ functions := node.Find(func(n *uast.Node) bool {
 
 ```go
 // Transform nodes in-place
-node.Transform(root, func(n *uast.Node) bool {
+node.TransformInPlace(func(n *uast.Node) bool {
     if node.HasRole(n, uast.RoleString) {
         n.Token = strings.Trim(n.Token, "\"")
     }
@@ -196,7 +205,7 @@ uast --help
 
 ## 🌍 Language Support
 
-UAST supports 100+ programming languages including:
+UAST supports 66+ programming languages including:
 
 **Popular Languages:**
 - Go, Python, Java, JavaScript, TypeScript
@@ -211,6 +220,7 @@ UAST supports 100+ programming languages including:
 **Specialized Languages:**
 - SQL, Haskell, OCaml, Scala, Elixir, Erlang
 - F#, Clojure, Lua, Perl
+- And 50+ more languages
 
 See the [language roadmap](LANGUAGE_ROADMAP.md) for the complete list and status.
 

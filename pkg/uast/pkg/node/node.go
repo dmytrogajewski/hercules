@@ -9,18 +9,135 @@ import (
 	"sync"
 )
 
+const (
+	UASTFile           = "File"
+	UASTFunction       = "Function"
+	UASTFunctionDecl   = "FunctionDecl"
+	UASTMethod         = "Method"
+	UASTClass          = "Class"
+	UASTInterface      = "Interface"
+	UASTStruct         = "Struct"
+	UASTEnum           = "Enum"
+	UASTEnumMember     = "EnumMember"
+	UASTVariable       = "Variable"
+	UASTParameter      = "Parameter"
+	UASTBlock          = "Block"
+	UASTIf             = "If"
+	UASTLoop           = "Loop"
+	UASTSwitch         = "Switch"
+	UASTCase           = "Case"
+	UASTReturn         = "Return"
+	UASTBreak          = "Break"
+	UASTContinue       = "Continue"
+	UASTAssignment     = "Assignment"
+	UASTCall           = "Call"
+	UASTIdentifier     = "Identifier"
+	UASTLiteral        = "Literal"
+	UASTBinaryOp       = "BinaryOp"
+	UASTUnaryOp        = "UnaryOp"
+	UASTImport         = "Import"
+	UASTPackage        = "Package"
+	UASTAttribute      = "Attribute"
+	UASTComment        = "Comment"
+	UASTDocString      = "DocString"
+	UASTTypeAnnotation = "TypeAnnotation"
+	UASTField          = "Field"
+	UASTProperty       = "Property"
+	UASTGetter         = "Getter"
+	UASTSetter         = "Setter"
+	UASTLambda         = "Lambda"
+	UASTTry            = "Try"
+	UASTCatch          = "Catch"
+	UASTFinally        = "Finally"
+	UASTThrow          = "Throw"
+	UASTModule         = "Module"
+	UASTNamespace      = "Namespace"
+	UASTDecorator      = "Decorator"
+	UASTSpread         = "Spread"
+	UASTTuple          = "Tuple"
+	UASTList           = "List"
+	UASTDict           = "Dict"
+	UASTSet            = "Set"
+	UASTKeyValue       = "KeyValue"
+	UASTIndex          = "Index"
+	UASTSlice          = "Slice"
+	UASTCast           = "Cast"
+	UASTAwait          = "Await"
+	UASTYield          = "Yield"
+	UASTGenerator      = "Generator"
+	UASTComprehension  = "Comprehension"
+	UASTPattern        = "Pattern"
+	UASTMatch          = "Match"
+	UASTSynthetic      = "Synthetic"
+)
+
+const (
+	RoleFunction    = "Function"
+	RoleDeclaration = "Declaration"
+	RoleName        = "Name"
+	RoleReference   = "Reference"
+	RoleAssignment  = "Assignment"
+	RoleCall        = "Call"
+	RoleParameter   = "Parameter"
+	RoleArgument    = "Argument"
+	RoleCondition   = "Condition"
+	RoleBody        = "Body"
+	RoleExported    = "Exported"
+	RolePublic      = "Public"
+	RolePrivate     = "Private"
+	RoleStatic      = "Static"
+	RoleConstant    = "Constant"
+	RoleMutable     = "Mutable"
+	RoleGetter      = "Getter"
+	RoleSetter      = "Setter"
+	RoleLiteral     = "Literal"
+	RoleVariable    = "Variable"
+	RoleLoop        = "Loop"
+	RoleBranch      = "Branch"
+	RoleImport      = "Import"
+	RoleDoc         = "Doc"
+	RoleComment     = "Comment"
+	RoleAttribute   = "Attribute"
+	RoleAnnotation  = "Annotation"
+	RoleOperator    = "Operator"
+	RoleIndex       = "Index"
+	RoleKey         = "Key"
+	RoleValue       = "Value"
+	RoleType        = "Type"
+	RoleInterface   = "Interface"
+	RoleClass       = "Class"
+	RoleStruct      = "Struct"
+	RoleEnum        = "Enum"
+	RoleMember      = "Member"
+	RoleModule      = "Module"
+	RoleLambda      = "Lambda"
+	RoleTry         = "Try"
+	RoleCatch       = "Catch"
+	RoleFinally     = "Finally"
+	RoleThrow       = "Throw"
+	RoleAwait       = "Await"
+	RoleYield       = "Yield"
+	RoleSpread      = "Spread"
+	RolePattern     = "Pattern"
+	RoleMatch       = "Match"
+	RoleReturn      = "Return"
+	RoleBreak       = "Break"
+	RoleContinue    = "Continue"
+	RoleGenerator   = "Generator"
+)
+
 // Role represents a syntactic/semantic label for a node.
 type Role string
 
 // Positions represents the byte and line/col offsets for a node.
 // All fields are 1-based except StartOffset/EndOffset, which are byte offsets.
 type Positions struct {
-	StartLine   int `json:"start_line,omitempty"`
-	StartCol    int `json:"start_col,omitempty"`
-	StartOffset int `json:"start_offset,omitempty"`
-	EndLine     int `json:"end_line,omitempty"`
-	EndCol      int `json:"end_col,omitempty"`
-	EndOffset   int `json:"end_offset,omitempty"`
+	StartLine   uint `json:"start_line,omitempty"`
+	StartCol    uint `json:"start_col,omitempty"`
+	StartOffset uint `json:"start_offset,omitempty"`
+	EndLine     uint `json:"end_line,omitempty"`
+	EndCol      uint `json:"end_col,omitempty"`
+	EndOffset   uint `json:"end_offset,omitempty"`
 }
 
 // Node is the canonical UAST node structure.

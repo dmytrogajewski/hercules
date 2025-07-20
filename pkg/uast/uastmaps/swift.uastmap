@@ -1,3 +1,5 @@
+[language "swift", extensions: ".swift"]
+
 additive_expression <- (additive_expression) => uast(
     type: "Synthetic",
     children: "additive_expression", "array_literal", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "directive", "disjunction_expression", "equality_expression", "fully_open_range", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "open_end_range_expression", "open_start_range_expression", "playground_literal", "postfix_expression", "prefix_expression", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "value_pack_expansion", "value_parameter_pack"
@@ -1294,4 +1296,3 @@ yield <- (yield) => uast(
     type: "Yield",
     roles: "Yield"
 )
-

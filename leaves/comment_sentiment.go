@@ -1,5 +1,5 @@
-//go:build tensorflow
-// +build tensorflow
+//go:build ignore
+// +build ignore
 
 package leaves
 
@@ -12,16 +12,15 @@ import (
 	"strings"
 
 	"github.com/dmytrogajewski/hercules/internal/core"
-	"github.com/dmytrogajewski/hercules/internal/pb"
-	items "github.com/dmytrogajewski/hercules/internal/plumbing"
-	uast_items "github.com/dmytrogajewski/hercules/internal/plumbing/uast"
-	"github.com/gogo/protobuf/proto"
+	"github.com/dmytrogajewski/hercules/internal/core/items"
+	"github.com/dmytrogajewski/hercules/internal/plumbing"
+	"github.com/dmytrogajewski/hercules/leaves/uast_items"
 	"gopkg.in/bblfsh/sdk.v2/uast"
 	"gopkg.in/bblfsh/sdk.v2/uast/nodes"
 	progress "gopkg.in/cheggaaa/pb.v1"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"
-	sentiment "gopkg.in/vmarkovtsev/BiDiSentiment.v1"
+	// sentiment "gopkg.in/vmarkovtsev/BiDiSentiment.v1" // Temporarily disabled
 )
 
 var _ core.PipelineItem = (*CommentSentimentAnalysis)(nil)
@@ -195,11 +194,11 @@ func (sent *CommentSentimentAnalysis) Finalize() interface{} {
 	for _, key := range ticks {
 		texts = append(texts, sent.commentsByTick[key]...)
 	}
-	session, err := sentiment.OpenSession()
-	if err != nil {
-		panic(err)
-	}
-	defer session.Close()
+	// session, err := sentiment.OpenSession() // Temporarily disabled
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// defer session.Close()
 	var bar *progress.ProgressBar
 	callback := func(pos int, total int) {
 		if bar == nil {
@@ -216,22 +215,25 @@ func (sent *CommentSentimentAnalysis) Finalize() interface{} {
 		bar.Set(pos)
 	}
 	// we run the bulk evaluation in the end for efficiency
-	weights, err := sentiment.EvaluateWithProgress(texts, session, callback)
+	// weights, err := sentiment.EvaluateWithProgress(texts, session, callback) // Temporarily disabled
 	if bar != nil {
 		bar.Finish()
 	}
-	if err != nil {
-		panic(err)
-	}
+	// if err != nil {
+	// 	panic(err)
+	// }
 	pos := 0
 	for _, key := range ticks {
 		sum := float32(0)
 		comments := make([]string, 0, len(sent.commentsByTick[key]))
 		for _, comment := range sent.commentsByTick[key] {
-			if weights[pos] < 0.5*(1-sent.Gap) || weights[pos] > 0.5*(1+sent.Gap) {
-				sum += weights[pos]
-				comments = append(comments, comment)
+			if pos >= len(texts) { // Temporarily disabled
+				break
 			}
+			// if weights[pos] < 0.5*(1-sent.Gap) || weights[pos] > 0.5*(1+sent.Gap) { // Temporarily disabled
+			// 	sum += weights[pos] // Temporarily disabled
+			// 	comments = append(comments, comment) // Temporarily disabled
+			// } // Temporarily disabled
 			pos++
 		}
 		if len(comments) > 0 {
@@ -278,25 +280,25 @@ func (sent *CommentSentimentAnalysis) serializeText(result *CommentSentimentResu
 
 func (sent *CommentSentimentAnalysis) serializeBinary(
 	result *CommentSentimentResult, writer io.Writer) error {
-	message := pb.CommentSentimentResults{
-		SentimentByTick: map[int32]*pb.Sentiment{},
-	}
-	for key, val := range result.EmotionsByTick {
-		commits := make([]string, len(result.commitsByTick[key]))
-		for i, commit := range result.commitsByTick[key] {
-			commits[i] = commit.String()
-		}
-		message.SentimentByTick[int32(key)] = &pb.Sentiment{
-			Value:    val,
-			Comments: result.CommentsByTick[key],
-			Commits:  commits,
-		}
-	}
-	serialized, err := proto.Marshal(&message)
-	if err != nil {
-		return err
-	}
-	writer.Write(serialized)
+	// message := pb.CommentSentimentResults{ // Temporarily disabled
+	// 	SentimentByTick: map[int32]*pb.Sentiment{}, // Temporarily disabled
+	// } // Temporarily disabled
+	// for key, val := range result.EmotionsByTick { // Temporarily disabled
+	// 	commits := make([]string, len(result.commitsByTick[key])) // Temporarily disabled
+	// 	for i, commit := range result.commitsByTick[key] { // Temporarily disabled
+	// 		commits[i] = commit.String() // Temporarily disabled
+	// 	} // Temporarily disabled
+	// 	message.SentimentByTick[int32(key)] = &pb.Sentiment{ // Temporarily disabled
+	// 		Value:    val, // Temporarily disabled
+	// 		Comments: result.CommentsByTick[key], // Temporarily disabled
+	// 		Commits:  commits, // Temporarily disabled
+	// 	} // Temporarily disabled
+	// } // Temporarily disabled
+	// serialized, err := proto.Marshal(&message) // Temporarily disabled
+	// if err != nil { // Temporarily disabled
+	// 	return err // Temporarily disabled
+	// } // Temporarily disabled
+	// writer.Write(serialized) // Temporarily disabled
 	return nil
 }
 

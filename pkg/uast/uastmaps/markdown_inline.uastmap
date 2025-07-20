@@ -1,3 +1,5 @@
+[language "markdown_inline", extensions: ".md", ".markdown"]
+
 atx_heading <- (atx_heading) => uast(
     type: "Synthetic",
     children: "inline"
@@ -215,4 +217,3 @@ setext_h1_underline <- (setext_h1_underline) => uast(
 setext_h2_underline <- (setext_h2_underline) => uast(
     type: "Set"
 )
-

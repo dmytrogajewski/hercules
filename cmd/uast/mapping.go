@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 
 	forest "github.com/alexaandru/go-sitter-forest"
 	sitter "github.com/alexaandru/go-tree-sitter-bare"
@@ -13,7 +14,7 @@ import (
 )
 
 func mappingCmd() *cobra.Command {
-	var nodeTypesPath, mappingPath, format, language string
+	var nodeTypesPath, mappingPath, format, language, extensions string
 	var coverage, generate, showTreeSitter bool
 
 	cmd := &cobra.Command{
@@ -21,7 +22,7 @@ func mappingCmd() *cobra.Command {
 		Short: "UAST mapping helpers: grammar analysis, classification, coverage",
 		Long:  `Analyze node-types.json, classify nodes, compute mapping coverage, and show tree-sitter JSON structure.`,
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return runMappingHelper(nodeTypesPath, mappingPath, format, coverage, generate, showTreeSitter, language, args)
+			return runMappingHelper(nodeTypesPath, mappingPath, format, coverage, generate, showTreeSitter, language, extensions, args)
 		},
 	}
 
@@ -32,11 +33,12 @@ func mappingCmd() *cobra.Command {
 	cmd.Flags().BoolVar(&generate, "generate", false, "Generate .uastmap DSL from node-types.json")
 	cmd.Flags().BoolVar(&showTreeSitter, "show-treesitter", false, "Show original tree-sitter JSON structure for input files")
 	cmd.Flags().StringVar(&language, "language", "", "Language for tree-sitter parsing (language name or grammar file path)")
+	cmd.Flags().StringVar(&extensions, "extensions", "", "Comma-separated list of file extensions for language declaration")
 
 	return cmd
 }
 
-func runMappingHelper(nodeTypesPath, mappingPath, format string, coverage, generate, showTreeSitter bool, language string, args []string) error {
+func runMappingHelper(nodeTypesPath, mappingPath, format string, coverage, generate, showTreeSitter bool, language, extensions string, args []string) error {
 	if showTreeSitter {
 		return showTreeSitterJSON(args, language)
 	}
@@ -57,18 +59,29 @@ func runMappingHelper(nodeTypesPath, mappingPath, format string, coverage, gener
 	nodes = mapping.ApplyHeuristicClassification(nodes)
 
 	if generate {
-		dsl := mapping.GenerateMappingDSL(nodes)
+		// Parse extensions string into slice
+		var extensionsSlice []string
+		if extensions != "" {
+			extensionsSlice = strings.Split(extensions, ",")
+			// Trim spaces from each extension
+			for i, ext := range extensionsSlice {
+				extensionsSlice[i] = strings.TrimSpace(ext)
+			}
+		}
+
+		dsl := mapping.GenerateMappingDSL(nodes, language, extensionsSlice)
 		fmt.Print(dsl)
 		return nil
 	}
 
 	var rules []mapping.MappingRule
 	if mappingPath != "" {
-		data, err := os.ReadFile(mappingPath)
+		data, err := os.Open(mappingPath)
 		if err != nil {
-			return fmt.Errorf("failed to read mapping DSL: %w", err)
+			return fmt.Errorf("failed to open mapping DSL: %w", err)
 		}
-		rules, err = (&mapping.MappingParser{}).ParseMapping(string(data))
+		defer data.Close()
+		_, _, err = (&mapping.MappingParser{}).ParseMapping(data)
 		if err != nil {
 			return fmt.Errorf("failed to load mapping DSL: %w", err)
 		}

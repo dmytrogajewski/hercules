@@ -202,7 +202,7 @@ Each grammar construct maps to specific Go language features:
 - **Type-safe**: All operations are designed to be statically type-checked
 - **Optimization-friendly**: Structure enables aggressive compile-time optimizations
 - **Implementation is non-recursive**: Uses explicit stack for AST/UAST traversal
-- **Mapping-driven**: All type/role/property assignment is from YAML mapping files
+- **Mapping-driven**: All type/role/property assignment is from DSL mapping files
 - **Test coverage**: The test suite covers all grammar features and edge cases
 
 This BNF specification provides the foundation for implementing a complete parser for the UAST Query Language DSL.
