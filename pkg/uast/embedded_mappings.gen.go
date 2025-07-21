@@ -52389,7 +52389,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(qualified_type)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					Children: []string{
@@ -52973,7 +52973,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(blank_identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -53171,7 +53171,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(field_identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
 					
 					
@@ -53263,7 +53263,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
 					
 					
@@ -53279,7 +53279,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				UASTSpec: mapping.UASTSpec{
 					Type: "If",
 					
-					
+					Roles: []string{
+
+						"Condition",
+
+					},
 					
 					
 				},
@@ -53457,7 +53461,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(package_identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
 					
 					
@@ -53615,7 +53619,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(type_identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
 					
 					
@@ -182355,7 +182359,7 @@ func newgoPatternMatcher() *goPatternMatcher {
 			Pattern: "(qualified_type)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				Children: []string{
@@ -182939,7 +182943,7 @@ func newgoPatternMatcher() *goPatternMatcher {
 			Pattern: "(blank_identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -183137,7 +183141,7 @@ func newgoPatternMatcher() *goPatternMatcher {
 			Pattern: "(field_identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
 				
 				
@@ -183229,7 +183233,7 @@ func newgoPatternMatcher() *goPatternMatcher {
 			Pattern: "(identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
 				
 				
@@ -183245,7 +183249,11 @@ func newgoPatternMatcher() *goPatternMatcher {
 			UASTSpec: mapping.UASTSpec{
 				Type: "If",
 				
-				
+				Roles: []string{
+
+					"Condition",
+
+				},
 				
 				
 			},
@@ -183423,7 +183431,7 @@ func newgoPatternMatcher() *goPatternMatcher {
 			Pattern: "(package_identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
 				
 				
@@ -183581,7 +183589,7 @@ func newgoPatternMatcher() *goPatternMatcher {
 			Pattern: "(type_identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
 				
 				

@@ -11,7 +11,7 @@ import (
 	"strings"
 
 	"github.com/dmytrogajewski/hercules"
-	"github.com/dmytrogajewski/hercules/internal/pb"
+	"github.com/dmytrogajewski/hercules/api/proto/pb"
 	"github.com/gogo/protobuf/proto"
 	"github.com/spf13/cobra"
 	progress "gopkg.in/cheggaaa/pb.v1"

@@ -1003,3 +1003,36 @@ func printUASTTreeRec(data interface{}, errorPath []string, curPath []string, li
 		*lines = append(*lines, line)
 	}
 }
+
+// getRoleSuggestion provides helpful suggestions for role validation errors
+func getRoleSuggestion(description, actualValue string) string {
+	if strings.Contains(description, "roles") {
+		if actualValue == "" || actualValue == "[]" {
+			return "Node is missing roles. Consider adding appropriate roles like 'Identifier', 'Function', 'Declaration', etc."
+		}
+		return "Check that the roles match the expected UAST schema roles for this node type."
+	}
+	return ""
+}
+
+// extractExpectedRoles extracts expected roles from validation error description
+func extractExpectedRoles(description string) string {
+	// Look for patterns like "expected one of [Role1, Role2, Role3]"
+	if strings.Contains(description, "expected one of") {
+		start := strings.Index(description, "[")
+		end := strings.Index(description, "]")
+		if start != -1 && end != -1 && end > start {
+			return description[start+1 : end]
+		}
+	}
+
+	// Look for patterns like "must be one of: Role1, Role2, Role3"
+	if strings.Contains(description, "must be one of:") {
+		parts := strings.Split(description, "must be one of:")
+		if len(parts) > 1 {
+			return strings.TrimSpace(parts[1])
+		}
+	}
+
+	return "valid UAST roles"
+}

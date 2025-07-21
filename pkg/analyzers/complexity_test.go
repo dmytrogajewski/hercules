@@ -140,6 +140,7 @@ func TestIsDecisionPoint(t *testing.T) {
 
 	for _, nodeType := range decisionTypes {
 		testNode := node.NewWithType(nodeType)
+		testNode.Roles = []node.Role{node.RoleCondition}
 		if !isDecisionPoint(testNode) {
 			t.Errorf("Expected node type '%s' to be a decision point", nodeType)
 		}

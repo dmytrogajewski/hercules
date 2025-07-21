@@ -8,7 +8,7 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/dmytrogajewski/hercules/internal/core"
+	"github.com/dmytrogajewski/hercules/internal/app/core"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/src-d/go-billy.v4/osfs"
 	"gopkg.in/src-d/go-git.v4"
