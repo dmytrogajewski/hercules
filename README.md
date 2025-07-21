@@ -174,6 +174,52 @@ cache:
 - **Modern Go**: Go 1.24+, AWS SDK v2, Gorilla Mux, Viper
 - **Distroless container**: Minimal, secure, non-root
 
+## 📁 Project Structure
+
+This project follows the [Standard Go Project Layout](https://github.com/golang-standards/project-layout):
+
+```
+hercules/
+├── api/                    # Protocol definitions and schemas
+│   └── proto/             # Protocol buffer files
+├── build/                 # Build and CI/CD artifacts
+│   ├── bin/              # Compiled binaries
+│   ├── scripts/          # Build and maintenance scripts
+│   └── tools/            # Build tools
+├── cmd/                   # Main applications
+│   ├── herr/             # Hercules analyzer binary
+│   └── uast/             # UAST parser binary
+├── configs/               # Configuration templates
+├── deployments/           # Deployment configurations
+│   ├── docker/           # Docker configurations
+│   ├── k8s/              # Kubernetes manifests
+│   └── helm/             # Helm charts
+├── docs/                  # Documentation
+├── examples/              # Examples and plugins
+├── internal/              # Private application code
+│   ├── app/              # Application-specific code
+│   ├── pkg/              # Private libraries
+│   └── server/           # Server implementations
+├── pkg/                   # Public libraries
+│   ├── analyzers/        # Code analysis tools
+│   └── uast/             # UAST parsing and manipulation
+├── test/                  # Test data and benchmarks
+│   ├── data/             # Test data
+│   ├── fixtures/         # Test fixtures
+│   └── benchmarks/       # Benchmark results
+└── third_party/           # Third-party dependencies
+    ├── grammars/         # Language grammars
+    └── go-sitter-forest/ # Tree-sitter grammars
+```
+
+**Key packages:**
+- `pkg/analyzers/`: Public code analysis APIs
+- `pkg/uast/`: Universal Abstract Syntax Tree parsing and manipulation
+- `internal/app/core/`: Core application logic and pipeline
+- `internal/pkg/`: Private utility libraries
+- `cmd/herr/`: Main Hercules analyzer binary
+- `cmd/uast/`: UAST parser binary
+
 ---
 
 ## 📦 Deployment

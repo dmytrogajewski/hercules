@@ -1,12 +1,13 @@
 vendor
 cmd/hercules/plugin_template_source.go
-contrib/_plugin_example/churn_analysis.pb.go
-pb/pb.pb.go
-pb/pb_pb2.py
+examples/contrib/_plugin_example/churn_analysis.pb.go
+api/proto/pb/pb.pb.go
+api/proto/pb/pb_pb2.py
 coverage.txt
-protoc-gen-gogo
-hercules
-herr
+build/tools/protoc-gen-gogo
+build/bin/hercules
+build/bin/herr
+build/bin/uast
 python/dist
 python/build
 
@@ -48,15 +49,16 @@ _testmain.go
 
 **/__pycache__
 debug*
-test_data/
+test/data/
 temp_repo/
-benchmark_plots/
+test/benchmark_plots/
 test_submodule/
 
-grammars/
+third_party/grammars/
 grammars_json/
-go-sitter-forest/
-benchmarks/
-benchmark_results.txt
+third_party/go-sitter-forest/
+test/benchmarks/
+test/benchmarks/benchmark_results.txt
 debug/
-bin/
+build/bin/
+build.log
