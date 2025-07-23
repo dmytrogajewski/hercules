@@ -53589,7 +53589,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(field_identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
 					
 					
@@ -184847,7 +184847,7 @@ func newgoPatternMatcher() *goPatternMatcher {
 			Pattern: "(field_identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
 				
 				
