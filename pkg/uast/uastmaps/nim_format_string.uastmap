@@ -5,6 +5,7 @@ double_curlies <- (double_curlies) => uast(
 )
 
 escaped_curly <- (escaped_curly) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -14,6 +15,7 @@ format_specifiers <- (format_specifiers) => uast(
 )
 
 matching_curlies <- (matching_curlies) => uast(
+    token: "self",
     type: "Match",
     roles: "Match",
     children: "closing_curly", "equals", "format_specifiers", "nim_expression", "opening_curly"
@@ -25,6 +27,7 @@ nim_expression <- (nim_expression) => uast(
 )
 
 source_file <- (source_file) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -34,7 +37,9 @@ string_literal <- (string_literal) => uast(
 )
 
 closing_curly <- (closing_curly) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Literal",
+    type: "Literal"
 )
 
 colon <- (colon) => uast(
@@ -42,6 +47,7 @@ colon <- (colon) => uast(
 )
 
 equals <- (equals) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -50,6 +56,7 @@ fill_align <- (fill_align) => uast(
 )
 
 hash <- (hash) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -58,6 +65,7 @@ min_width <- (min_width) => uast(
 )
 
 opening_curly <- (opening_curly) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -66,6 +74,7 @@ precision <- (precision) => uast(
 )
 
 sign <- (sign) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -74,5 +83,6 @@ type <- (type) => uast(
 )
 
 zero <- (zero) => uast(
+    token: "self",
     type: "Synthetic"
 )

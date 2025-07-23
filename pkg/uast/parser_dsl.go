@@ -598,6 +598,17 @@ func (dn *DSLNode) extractTokenFromNode(source string) string {
 	}
 }
 
+// extractTokenFromChildType finds the first child of the specified type and extracts its token
+func (dn *DSLNode) extractTokenFromChildType(nodeType string) string {
+	for i := uint32(0); i < dn.Root.NamedChildCount(); i++ {
+		child := dn.Root.NamedChild(i)
+		if child.Type() == nodeType {
+			return dn.extractNodeText(child)
+		}
+	}
+	return ""
+}
+
 // extractTokenFromDescendant finds the first descendant of the specified type and extracts its token
 func (dn *DSLNode) extractTokenFromDescendant(nodeType string) string {
 	return dn.findDescendantToken(nodeType)
@@ -642,7 +653,23 @@ func (dn *DSLNode) extractTokenText(mappingRule *mapping.MappingRule) string {
 		return dn.extractCaptureText(captureName)
 	}
 
-	return tokenSpec
+	switch tokenSpec {
+	case "self":
+		return dn.extractNodeText(dn.Root)
+	case "text":
+		return dn.extractNodeText(dn.Root)
+	default:
+
+		if after, ok := strings.CutPrefix(tokenSpec, "child:"); ok {
+			return dn.extractTokenFromChildType(after)
+		}
+
+		if after, ok := strings.CutPrefix(tokenSpec, "descendant:"); ok {
+			return dn.extractTokenFromDescendant(after)
+		}
+
+		return tokenSpec
+	}
 }
 
 // extractPositions extracts position information from the Tree-sitter node

@@ -5,6 +5,7 @@ declaration <- (declaration) => uast(
 )
 
 expression <- (expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -13,6 +14,7 @@ statement <- (statement) => uast(
 )
 
 variable <- (variable) => uast(
+    token: "self",
     type: "Variable",
     roles: "Variable", "Declaration"
 )
@@ -22,6 +24,7 @@ arguments <- (arguments) => uast(
 )
 
 assignment_statement <- (assignment_statement) => uast(
+    token: "self",
     type: "Assignment",
     roles: "Assignment"
 )
@@ -32,7 +35,8 @@ attribute <- (attribute) => uast(
 )
 
 binary_expression <- (binary_expression) => uast(
-    type: "Synthetic",
+    token: "self",
+    type: "Attribute",
     children: "expression"
 )
 
@@ -42,6 +46,8 @@ block <- (block) => uast(
 )
 
 bracket_index_expression <- (bracket_index_expression) => uast(
+    token: "self",
+    roles: "Body",
     type: "Index",
     roles: "Index",
     children: "expression", "function_call", "parenthesized_expression", "variable"
@@ -52,6 +58,7 @@ chunk <- (chunk) => uast(
 )
 
 comment <- (comment) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment",
     children: "comment_content"
@@ -63,6 +70,7 @@ do_statement <- (do_statement) => uast(
 )
 
 dot_index_expression <- (dot_index_expression) => uast(
+    token: "self",
     type: "Index",
     roles: "Index",
     children: "function_call", "identifier", "parenthesized_expression", "variable"
@@ -74,7 +82,8 @@ else_statement <- (else_statement) => uast(
 )
 
 elseif_statement <- (elseif_statement) => uast(
-    type: "If",
+    token: "self",
+    type: "Synthetic",
     children: "block", "expression"
 )
 
@@ -83,6 +92,7 @@ empty_statement <- (empty_statement) => uast(
 )
 
 expression_list <- (expression_list) => uast(
+    token: "self",
     type: "List",
     children: "expression"
 )
@@ -94,6 +104,7 @@ field <- (field) => uast(
 )
 
 for_generic_clause <- (for_generic_clause) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -105,6 +116,7 @@ for_numeric_clause <- (for_numeric_clause) => uast(
 )
 
 for_statement <- (for_statement) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop",
     children: "block", "for_generic_clause", "for_numeric_clause"
@@ -117,6 +129,8 @@ function_call <- (function_call) => uast(
 )
 
 function_declaration <- (function_declaration) => uast(
+    token: "self",
+    roles: "Call",
     type: "Function",
     roles: "Function", "Declaration",
     children: "block", "dot_index_expression", "identifier", "method_index_expression", "parameters"
@@ -129,7 +143,9 @@ function_definition <- (function_definition) => uast(
 )
 
 goto_statement <- (goto_statement) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Function", "Declaration",
+    type: "Function"
 )
 
 if_statement <- (if_statement) => uast(
@@ -138,7 +154,9 @@ if_statement <- (if_statement) => uast(
 )
 
 label_statement <- (label_statement) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Condition",
+    type: "If"
 )
 
 method_index_expression <- (method_index_expression) => uast(
@@ -148,6 +166,7 @@ method_index_expression <- (method_index_expression) => uast(
 )
 
 parameters <- (parameters) => uast(
+    token: "self",
     type: "Parameter",
     roles: "Parameter",
     children: "identifier"
@@ -158,6 +177,7 @@ parenthesized_expression <- (parenthesized_expression) => uast(
 )
 
 repeat_statement <- (repeat_statement) => uast(
+    token: "self",
     type: "Synthetic",
     children: "block", "expression"
 )
@@ -168,7 +188,9 @@ return_statement <- (return_statement) => uast(
 )
 
 string <- (string) => uast(
-    type: "Synthetic",
+    token: "self",
+    roles: "Return",
+    type: "Return",
     children: "string_content"
 )
 
@@ -177,6 +199,7 @@ string_content <- (string_content) => uast(
 )
 
 table_constructor <- (table_constructor) => uast(
+    token: "self",
     type: "Struct",
     roles: "Struct", "Declaration"
 )
@@ -187,6 +210,8 @@ unary_expression <- (unary_expression) => uast(
 )
 
 variable_declaration <- (variable_declaration) => uast(
+    token: "self",
+    roles: "Operator",
     type: "Variable",
     roles: "Variable", "Declaration"
 )
@@ -198,6 +223,7 @@ variable_list <- (variable_list) => uast(
 )
 
 while_statement <- (while_statement) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop",
     children: "block", "expression"
@@ -208,6 +234,7 @@ and <- (and) => uast(
 )
 
 break_statement <- (break_statement) => uast(
+    token: "self",
     type: "Break",
     roles: "Break"
 )
@@ -218,6 +245,7 @@ comment_content <- (comment_content) => uast(
 )
 
 do <- (do) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -226,7 +254,8 @@ else <- (else) => uast(
 )
 
 elseif <- (elseif) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 end <- (end) => uast(
@@ -234,6 +263,7 @@ end <- (end) => uast(
 )
 
 escape_sequence <- (escape_sequence) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -242,6 +272,7 @@ false <- (false) => uast(
 )
 
 for <- (for) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -252,6 +283,7 @@ function <- (function) => uast(
 )
 
 goto <- (goto) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -260,7 +292,8 @@ hash_bang_line <- (hash_bang_line) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 if <- (if) => uast(
@@ -268,6 +301,7 @@ if <- (if) => uast(
 )
 
 in <- (in) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -276,6 +310,7 @@ local <- (local) => uast(
 )
 
 nil <- (nil) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -284,6 +319,7 @@ not <- (not) => uast(
 )
 
 number <- (number) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -292,6 +328,7 @@ or <- (or) => uast(
 )
 
 repeat <- (repeat) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -301,6 +338,7 @@ return <- (return) => uast(
 )
 
 then <- (then) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -309,6 +347,7 @@ true <- (true) => uast(
 )
 
 until <- (until) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -317,6 +356,7 @@ vararg_expression <- (vararg_expression) => uast(
 )
 
 while <- (while) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )

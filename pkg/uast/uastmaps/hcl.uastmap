@@ -5,6 +5,7 @@ attr_splat <- (attr_splat) => uast(
 )
 
 attribute <- (attribute) => uast(
+    token: "self",
     type: "Attribute",
     roles: "Attribute"
 )
@@ -15,6 +16,7 @@ binary_operation <- (binary_operation) => uast(
 )
 
 block <- (block) => uast(
+    token: "self",
     type: "Block",
     roles: "Body"
 )
@@ -25,6 +27,7 @@ block_end <- (block_end) => uast(
 )
 
 block_start <- (block_start) => uast(
+    token: "self",
     type: "Block",
     roles: "Body"
 )
@@ -34,6 +37,7 @@ body <- (body) => uast(
 )
 
 bool_lit <- (bool_lit) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -42,6 +46,7 @@ collection_value <- (collection_value) => uast(
 )
 
 conditional <- (conditional) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -50,6 +55,7 @@ config_file <- (config_file) => uast(
 )
 
 expression <- (expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -59,6 +65,7 @@ for_cond <- (for_cond) => uast(
 )
 
 for_expr <- (for_expr) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -69,6 +76,7 @@ for_intro <- (for_intro) => uast(
 )
 
 for_object_expr <- (for_object_expr) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -79,6 +87,7 @@ for_tuple_expr <- (for_tuple_expr) => uast(
 )
 
 full_splat <- (full_splat) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -88,6 +97,7 @@ function_arguments <- (function_arguments) => uast(
 )
 
 function_call <- (function_call) => uast(
+    token: "self",
     type: "Function",
     roles: "Function", "Declaration"
 )
@@ -97,6 +107,7 @@ get_attr <- (get_attr) => uast(
 )
 
 heredoc_start <- (heredoc_start) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -105,6 +116,7 @@ heredoc_template <- (heredoc_template) => uast(
 )
 
 index <- (index) => uast(
+    token: "self",
     type: "Index",
     roles: "Index"
 )
@@ -115,6 +127,7 @@ legacy_index <- (legacy_index) => uast(
 )
 
 literal_value <- (literal_value) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal"
 )
@@ -125,6 +138,7 @@ new_index <- (new_index) => uast(
 )
 
 numeric_lit <- (numeric_lit) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -133,6 +147,7 @@ object <- (object) => uast(
 )
 
 object_elem <- (object_elem) => uast(
+    token: "self",
     type: "Synthetic",
     children: "expression"
 )
@@ -142,6 +157,7 @@ object_end <- (object_end) => uast(
 )
 
 object_start <- (object_start) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -150,6 +166,7 @@ operation <- (operation) => uast(
 )
 
 quoted_template <- (quoted_template) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -158,6 +175,7 @@ splat <- (splat) => uast(
 )
 
 string_lit <- (string_lit) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -166,6 +184,7 @@ template_directive <- (template_directive) => uast(
 )
 
 template_else_intro <- (template_else_intro) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -174,6 +193,7 @@ template_expr <- (template_expr) => uast(
 )
 
 template_for <- (template_for) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -184,6 +204,7 @@ template_for_end <- (template_for_end) => uast(
 )
 
 template_for_start <- (template_for_start) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -193,6 +214,8 @@ template_if <- (template_if) => uast(
 )
 
 template_if_end <- (template_if_end) => uast(
+    token: "self",
+    roles: "Condition",
     type: "If"
 )
 
@@ -201,6 +224,7 @@ template_if_intro <- (template_if_intro) => uast(
 )
 
 template_interpolation <- (template_interpolation) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -210,6 +234,8 @@ template_literal <- (template_literal) => uast(
 )
 
 tuple <- (tuple) => uast(
+    token: "self",
+    roles: "Literal",
     type: "Tuple"
 )
 
@@ -218,6 +244,7 @@ tuple_end <- (tuple_end) => uast(
 )
 
 tuple_start <- (tuple_start) => uast(
+    token: "self",
     type: "Tuple"
 )
 
@@ -227,6 +254,7 @@ unary_operation <- (unary_operation) => uast(
 )
 
 variable_expr <- (variable_expr) => uast(
+    token: "self",
     type: "Variable",
     roles: "Variable", "Declaration"
 )
@@ -237,7 +265,9 @@ comment <- (comment) => uast(
 )
 
 ellipsis <- (ellipsis) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 else <- (else) => uast(
@@ -245,6 +275,7 @@ else <- (else) => uast(
 )
 
 endfor <- (endfor) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -254,6 +285,7 @@ endif <- (endif) => uast(
 )
 
 false <- (false) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -263,7 +295,8 @@ for <- (for) => uast(
 )
 
 heredoc_identifier <- (heredoc_identifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 identifier <- (identifier) => uast(
@@ -271,7 +304,9 @@ identifier <- (identifier) => uast(
 )
 
 if <- (if) => uast(
-    type: "If"
+    token: "self",
+    roles: "Reference",
+    type: "Identifier"
 )
 
 in <- (in) => uast(
@@ -279,6 +314,7 @@ in <- (in) => uast(
 )
 
 null_lit <- (null_lit) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -287,6 +323,7 @@ quoted_template_end <- (quoted_template_end) => uast(
 )
 
 quoted_template_start <- (quoted_template_start) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -295,6 +332,7 @@ strip_marker <- (strip_marker) => uast(
 )
 
 template_directive_end <- (template_directive_end) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -303,6 +341,7 @@ template_directive_start <- (template_directive_start) => uast(
 )
 
 template_interpolation_end <- (template_interpolation_end) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -311,5 +350,6 @@ template_interpolation_start <- (template_interpolation_start) => uast(
 )
 
 true <- (true) => uast(
+    token: "self",
     type: "Synthetic"
 )

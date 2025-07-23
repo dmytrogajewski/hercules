@@ -7,6 +7,7 @@ anonymous_function_expr <- (anonymous_function_expr) => uast(
 )
 
 anything_pattern <- (anything_pattern) => uast(
+    token: "self",
     type: "Pattern",
     roles: "Pattern"
 )
@@ -17,6 +18,7 @@ as_clause <- (as_clause) => uast(
 )
 
 bin_op_expr <- (bin_op_expr) => uast(
+    token: "self",
     type: "Synthetic",
     children: "anonymous_function_expr", "case_of_expr", "char_constant_expr", "field_access_expr", "field_accessor_function_expr", "function_call_expr", "glsl_code_expr", "if_else_expr", "let_in_expr", "list_expr", "negate_expr", "number_constant_expr", "operator", "operator_as_function_expr", "parenthesized_expr", "record_expr", "string_constant_expr", "tuple_expr", "unit_expr", "value_expr"
 )
@@ -27,6 +29,8 @@ block_comment <- (block_comment) => uast(
 )
 
 case_of_branch <- (case_of_branch) => uast(
+    token: "self",
+    roles: "Comment",
     type: "Case",
     roles: "Branch",
     children: "anonymous_function_expr", "bin_op_expr", "case_of_expr", "char_constant_expr", "field_access_expr", "field_accessor_function_expr", "function_call_expr", "glsl_code_expr", "if_else_expr", "let_in_expr", "list_expr", "negate_expr", "number_constant_expr", "operator_as_function_expr", "parenthesized_expr", "pattern", "record_expr", "string_constant_expr", "tuple_expr", "unit_expr", "value_expr"
@@ -39,6 +43,7 @@ case_of_expr <- (case_of_expr) => uast(
 )
 
 char_constant_expr <- (char_constant_expr) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -49,7 +54,8 @@ cons_pattern <- (cons_pattern) => uast(
 )
 
 dot <- (dot) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Pattern"
 )
 
 exposed_operator <- (exposed_operator) => uast(
@@ -58,6 +64,7 @@ exposed_operator <- (exposed_operator) => uast(
 )
 
 exposed_type <- (exposed_type) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -67,6 +74,7 @@ exposed_union_constructors <- (exposed_union_constructors) => uast(
 )
 
 exposed_value <- (exposed_value) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -76,6 +84,7 @@ exposing_list <- (exposing_list) => uast(
 )
 
 field <- (field) => uast(
+    token: "self",
     type: "Field",
     roles: "Member",
     children: "anonymous_function_expr", "bin_op_expr", "case_of_expr", "char_constant_expr", "field_access_expr", "field_accessor_function_expr", "function_call_expr", "glsl_code_expr", "if_else_expr", "let_in_expr", "list_expr", "lower_case_identifier", "negate_expr", "number_constant_expr", "operator_as_function_expr", "parenthesized_expr", "record_expr", "string_constant_expr", "tuple_expr", "unit_expr", "value_expr"
@@ -88,6 +97,7 @@ field_access_expr <- (field_access_expr) => uast(
 )
 
 field_accessor_function_expr <- (field_accessor_function_expr) => uast(
+    token: "self",
     type: "Function",
     roles: "Function", "Declaration"
 )
@@ -99,6 +109,7 @@ field_type <- (field_type) => uast(
 )
 
 file <- (file) => uast(
+    token: "self",
     type: "Synthetic",
     children: "module_declaration"
 )
@@ -110,6 +121,7 @@ function_call_expr <- (function_call_expr) => uast(
 )
 
 function_declaration_left <- (function_declaration_left) => uast(
+    token: "self",
     type: "Function",
     roles: "Function", "Declaration",
     children: "anything_pattern", "char_constant_expr", "list_pattern", "lower_pattern", "number_constant_expr", "pattern", "record_pattern", "string_constant_expr", "tuple_pattern", "unit_expr"
@@ -121,7 +133,8 @@ glsl_code_expr <- (glsl_code_expr) => uast(
 )
 
 if_else_expr <- (if_else_expr) => uast(
-    type: "If",
+    token: "self",
+    type: "Synthetic",
     children: "anonymous_function_expr", "bin_op_expr", "case_of_expr", "char_constant_expr", "field_access_expr", "field_accessor_function_expr", "function_call_expr", "glsl_code_expr", "if_else_expr", "let_in_expr", "list_expr", "negate_expr", "number_constant_expr", "operator_as_function_expr", "parenthesized_expr", "record_expr", "string_constant_expr", "tuple_expr", "unit_expr", "value_expr"
 )
 
@@ -132,6 +145,7 @@ import_clause <- (import_clause) => uast(
 )
 
 infix_declaration <- (infix_declaration) => uast(
+    token: "self",
     type: "Synthetic",
     children: "lower_case_identifier", "number_literal", "operator_identifier"
 )
@@ -142,6 +156,7 @@ let_in_expr <- (let_in_expr) => uast(
 )
 
 list_expr <- (list_expr) => uast(
+    token: "self",
     type: "List",
     children: "anonymous_function_expr", "bin_op_expr", "case_of_expr", "char_constant_expr", "field_access_expr", "field_accessor_function_expr", "function_call_expr", "glsl_code_expr", "if_else_expr", "let_in_expr", "list_expr", "negate_expr", "number_constant_expr", "operator_as_function_expr", "parenthesized_expr", "record_expr", "string_constant_expr", "tuple_expr", "unit_expr", "value_expr"
 )
@@ -152,6 +167,7 @@ list_pattern <- (list_pattern) => uast(
 )
 
 lower_pattern <- (lower_pattern) => uast(
+    token: "self",
     type: "Pattern",
     roles: "Pattern"
 )
@@ -161,6 +177,7 @@ lower_type_name <- (lower_type_name) => uast(
 )
 
 module_declaration <- (module_declaration) => uast(
+    token: "self",
     type: "Module",
     roles: "Module",
     children: "exposing_list", "upper_case_qid"
@@ -171,6 +188,7 @@ negate_expr <- (negate_expr) => uast(
 )
 
 nullary_constructor_argument_pattern <- (nullary_constructor_argument_pattern) => uast(
+    token: "self",
     type: "Struct",
     roles: "Struct", "Declaration"
 )
@@ -180,6 +198,7 @@ number_constant_expr <- (number_constant_expr) => uast(
 )
 
 operator <- (operator) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -190,7 +209,8 @@ operator_as_function_expr <- (operator_as_function_expr) => uast(
 )
 
 operator_identifier <- (operator_identifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 parenthesized_expr <- (parenthesized_expr) => uast(
@@ -199,6 +219,7 @@ parenthesized_expr <- (parenthesized_expr) => uast(
 )
 
 pattern <- (pattern) => uast(
+    token: "self",
     type: "Pattern",
     roles: "Pattern",
     children: "anything_pattern", "char_constant_expr", "cons_pattern", "list_pattern", "lower_pattern", "number_constant_expr", "pattern", "record_pattern", "string_constant_expr", "tuple_pattern", "union_pattern", "unit_expr"
@@ -210,7 +231,8 @@ port_annotation <- (port_annotation) => uast(
 )
 
 record_base_identifier <- (record_base_identifier) => uast(
-    type: "If"
+    token: "self",
+    type: "TypeAnnotation"
 )
 
 record_expr <- (record_expr) => uast(
@@ -219,6 +241,7 @@ record_expr <- (record_expr) => uast(
 )
 
 record_pattern <- (record_pattern) => uast(
+    token: "self",
     type: "Pattern",
     roles: "Pattern",
     children: "lower_pattern"
@@ -230,6 +253,7 @@ record_type <- (record_type) => uast(
 )
 
 string_constant_expr <- (string_constant_expr) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -239,6 +263,7 @@ tuple_expr <- (tuple_expr) => uast(
 )
 
 tuple_pattern <- (tuple_pattern) => uast(
+    token: "self",
     type: "Tuple",
     children: "pattern"
 )
@@ -249,6 +274,7 @@ tuple_type <- (tuple_type) => uast(
 )
 
 type_alias_declaration <- (type_alias_declaration) => uast(
+    token: "self",
     type: "Synthetic",
     children: "lower_type_name", "type_expression", "upper_case_identifier"
 )
@@ -260,7 +286,8 @@ type_annotation <- (type_annotation) => uast(
 )
 
 type_declaration <- (type_declaration) => uast(
-    type: "Synthetic",
+    token: "self",
+    type: "TypeAnnotation",
     children: "lower_type_name", "union_variant", "upper_case_identifier"
 )
 
@@ -270,6 +297,7 @@ type_expression <- (type_expression) => uast(
 )
 
 type_ref <- (type_ref) => uast(
+    token: "self",
     type: "Synthetic",
     children: "record_type", "tuple_type", "type_expression", "type_ref", "type_variable"
 )
@@ -280,6 +308,8 @@ type_variable <- (type_variable) => uast(
 )
 
 union_pattern <- (union_pattern) => uast(
+    token: "self",
+    roles: "Variable", "Declaration",
     type: "Pattern",
     roles: "Pattern",
     children: "anything_pattern", "char_constant_expr", "list_pattern", "lower_pattern", "nullary_constructor_argument_pattern", "number_constant_expr", "pattern", "record_pattern", "string_constant_expr", "tuple_pattern", "unit_expr", "upper_case_qid"
@@ -291,6 +321,7 @@ union_variant <- (union_variant) => uast(
 )
 
 unit_expr <- (unit_expr) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -300,6 +331,7 @@ upper_case_qid <- (upper_case_qid) => uast(
 )
 
 value_declaration <- (value_declaration) => uast(
+    token: "self",
     type: "Synthetic",
     children: "anonymous_function_expr", "bin_op_expr", "case_of_expr", "char_constant_expr", "field_access_expr", "field_accessor_function_expr", "function_call_expr", "function_declaration_left", "glsl_code_expr", "if_else_expr", "let_in_expr", "list_expr", "negate_expr", "number_constant_expr", "operator_as_function_expr", "parenthesized_expr", "pattern", "record_expr", "string_constant_expr", "tuple_expr", "unit_expr", "value_expr"
 )
@@ -310,6 +342,7 @@ value_expr <- (value_expr) => uast(
 )
 
 value_qid <- (value_qid) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -318,6 +351,7 @@ alias <- (alias) => uast(
 )
 
 arrow <- (arrow) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -326,6 +360,7 @@ as <- (as) => uast(
 )
 
 backslash <- (backslash) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -335,6 +370,7 @@ case <- (case) => uast(
 )
 
 close_char <- (close_char) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -343,6 +379,7 @@ close_quote <- (close_quote) => uast(
 )
 
 colon <- (colon) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -351,6 +388,7 @@ double_dot <- (double_dot) => uast(
 )
 
 effect <- (effect) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -359,6 +397,7 @@ else <- (else) => uast(
 )
 
 eq <- (eq) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -367,6 +406,7 @@ exposing <- (exposing) => uast(
 )
 
 glsl_content <- (glsl_content) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -375,6 +415,7 @@ if <- (if) => uast(
 )
 
 import <- (import) => uast(
+    token: "self",
     type: "Import",
     roles: "Import"
 )
@@ -384,6 +425,7 @@ in <- (in) => uast(
 )
 
 infix <- (infix) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -392,6 +434,7 @@ invalid_string_escape <- (invalid_string_escape) => uast(
 )
 
 let <- (let) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -401,7 +444,9 @@ line_comment <- (line_comment) => uast(
 )
 
 lower_case_identifier <- (lower_case_identifier) => uast(
-    type: "If"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 module <- (module) => uast(
@@ -410,6 +455,7 @@ module <- (module) => uast(
 )
 
 number_literal <- (number_literal) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal"
 )
@@ -419,6 +465,7 @@ of <- (of) => uast(
 )
 
 open_char <- (open_char) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -427,6 +474,7 @@ open_quote <- (open_quote) => uast(
 )
 
 port <- (port) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -435,6 +483,7 @@ regular_string_part <- (regular_string_part) => uast(
 )
 
 string_escape <- (string_escape) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -443,6 +492,7 @@ then <- (then) => uast(
 )
 
 type <- (type) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -451,7 +501,8 @@ underscore <- (underscore) => uast(
 )
 
 upper_case_identifier <- (upper_case_identifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 where <- (where) => uast(

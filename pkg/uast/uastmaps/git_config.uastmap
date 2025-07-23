@@ -6,7 +6,9 @@ comment <- (comment) => uast(
 )
 
 config <- (config) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 section <- (section) => uast(
@@ -14,6 +16,7 @@ section <- (section) => uast(
 )
 
 section_header <- (section_header) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -22,6 +25,7 @@ shell_command <- (shell_command) => uast(
 )
 
 string <- (string) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -30,6 +34,7 @@ subsection_name <- (subsection_name) => uast(
 )
 
 variable <- (variable) => uast(
+    token: "self",
     type: "Variable",
     roles: "Variable", "Declaration",
     children: "false", "integer", "string", "true"
@@ -40,6 +45,7 @@ escape_sequence <- (escape_sequence) => uast(
 )
 
 false <- (false) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -48,6 +54,7 @@ integer <- (integer) => uast(
 )
 
 name <- (name) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -56,5 +63,6 @@ section_name <- (section_name) => uast(
 )
 
 true <- (true) => uast(
+    token: "self",
     type: "Synthetic"
 )

@@ -6,6 +6,7 @@ acronym_definition <- (acronym_definition) => uast(
 )
 
 acronym_reference <- (acronym_reference) => uast(
+    token: "self",
     type: "Synthetic",
     children: "brack_group_key_value", "curly_group_text"
 )
@@ -16,6 +17,7 @@ asy_environment <- (asy_environment) => uast(
 )
 
 asydef_environment <- (asydef_environment) => uast(
+    token: "self",
     type: "Synthetic",
     children: "begin", "end", "source_code"
 )
@@ -25,6 +27,7 @@ author <- (author) => uast(
 )
 
 author_declaration <- (author_declaration) => uast(
+    token: "self",
     type: "Synthetic",
     children: "brack_group", "curly_group_author_list"
 )
@@ -35,6 +38,7 @@ begin <- (begin) => uast(
 )
 
 biblatex_include <- (biblatex_include) => uast(
+    token: "self",
     type: "Synthetic",
     children: "brack_group_key_value", "curly_group_glob_pattern"
 )
@@ -45,6 +49,7 @@ bibstyle_include <- (bibstyle_include) => uast(
 )
 
 bibtex_include <- (bibtex_include) => uast(
+    token: "self",
     type: "Synthetic",
     children: "curly_group_path_list"
 )
@@ -56,7 +61,9 @@ block_comment <- (block_comment) => uast(
 )
 
 brack_group <- (brack_group) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 brack_group_argc <- (brack_group_argc) => uast(
@@ -65,6 +72,7 @@ brack_group_argc <- (brack_group_argc) => uast(
 )
 
 brack_group_key_value <- (brack_group_key_value) => uast(
+    token: "self",
     type: "KeyValue",
     roles: "Key", "Value",
     children: "key_value_pair"
@@ -76,6 +84,7 @@ brack_group_text <- (brack_group_text) => uast(
 )
 
 caption <- (caption) => uast(
+    token: "self",
     type: "Synthetic",
     children: "brack_group", "curly_group"
 )
@@ -86,6 +95,7 @@ changes_replaced <- (changes_replaced) => uast(
 )
 
 chapter <- (chapter) => uast(
+    token: "self",
     type: "Synthetic",
     children: "brack_group", "curly_group"
 )
@@ -96,6 +106,7 @@ citation <- (citation) => uast(
 )
 
 class_include <- (class_include) => uast(
+    token: "self",
     type: "Class",
     roles: "Class", "Declaration",
     children: "brack_group_key_value", "curly_group_path"
@@ -107,6 +118,7 @@ color_definition <- (color_definition) => uast(
 )
 
 color_reference <- (color_reference) => uast(
+    token: "self",
     type: "Synthetic",
     children: "brack_group_text", "curly_group", "curly_group_text"
 )
@@ -117,6 +129,7 @@ color_set_definition <- (color_set_definition) => uast(
 )
 
 comment_environment <- (comment_environment) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment",
     children: "begin", "comment", "end"
@@ -127,6 +140,7 @@ curly_group <- (curly_group) => uast(
 )
 
 curly_group_author_list <- (curly_group_author_list) => uast(
+    token: "self",
     type: "List"
 )
 
@@ -136,6 +150,7 @@ curly_group_command_name <- (curly_group_command_name) => uast(
 )
 
 curly_group_glob_pattern <- (curly_group_glob_pattern) => uast(
+    token: "self",
     type: "Pattern",
     roles: "Pattern",
     children: "glob_pattern"
@@ -146,6 +161,7 @@ curly_group_impl <- (curly_group_impl) => uast(
 )
 
 curly_group_key_value <- (curly_group_key_value) => uast(
+    token: "self",
     type: "KeyValue",
     roles: "Key", "Value",
     children: "key_value_pair"
@@ -157,6 +173,7 @@ curly_group_label <- (curly_group_label) => uast(
 )
 
 curly_group_label_list <- (curly_group_label_list) => uast(
+    token: "self",
     type: "List",
     children: "label"
 )
@@ -167,6 +184,7 @@ curly_group_path <- (curly_group_path) => uast(
 )
 
 curly_group_path_list <- (curly_group_path_list) => uast(
+    token: "self",
     type: "List",
     children: "path"
 )
@@ -176,6 +194,7 @@ curly_group_spec <- (curly_group_spec) => uast(
 )
 
 curly_group_text <- (curly_group_text) => uast(
+    token: "self",
     type: "Synthetic",
     children: "text"
 )
@@ -186,7 +205,8 @@ curly_group_text_list <- (curly_group_text_list) => uast(
 )
 
 curly_group_uri <- (curly_group_uri) => uast(
-    type: "Synthetic",
+    token: "self",
+    type: "List",
     children: "uri"
 )
 
@@ -195,6 +215,7 @@ displayed_equation <- (displayed_equation) => uast(
 )
 
 end <- (end) => uast(
+    token: "self",
     type: "Synthetic",
     children: "curly_group_text"
 )
@@ -206,6 +227,7 @@ enum_item <- (enum_item) => uast(
 )
 
 environment_definition <- (environment_definition) => uast(
+    token: "self",
     type: "Synthetic",
     children: "brack_group_argc", "curly_group_impl", "curly_group_spec", "curly_group_text"
 )
@@ -216,6 +238,7 @@ generic_command <- (generic_command) => uast(
 )
 
 generic_environment <- (generic_environment) => uast(
+    token: "self",
     type: "Synthetic",
     children: "begin", "end"
 )
@@ -226,6 +249,7 @@ glob_pattern <- (glob_pattern) => uast(
 )
 
 glossary_entry_definition <- (glossary_entry_definition) => uast(
+    token: "self",
     type: "Try",
     roles: "Try",
     children: "curly_group_key_value", "curly_group_text"
@@ -238,6 +262,7 @@ glossary_entry_reference <- (glossary_entry_reference) => uast(
 )
 
 graphics_include <- (graphics_include) => uast(
+    token: "self",
     type: "Synthetic",
     children: "brack_group_key_value", "curly_group_path"
 )
@@ -248,6 +273,7 @@ hyperlink <- (hyperlink) => uast(
 )
 
 import_include <- (import_include) => uast(
+    token: "self",
     type: "Import",
     roles: "Import",
     children: "curly_group_path"
@@ -259,6 +285,7 @@ inkscape_include <- (inkscape_include) => uast(
 )
 
 inline_formula <- (inline_formula) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -270,7 +297,8 @@ key_value_pair <- (key_value_pair) => uast(
 )
 
 label_definition <- (label_definition) => uast(
-    type: "Synthetic",
+    token: "self",
+    type: "KeyValue",
     children: "curly_group_label"
 )
 
@@ -280,6 +308,7 @@ label_number <- (label_number) => uast(
 )
 
 label_reference <- (label_reference) => uast(
+    token: "self",
     type: "Synthetic",
     children: "curly_group_label_list"
 )
@@ -290,6 +319,7 @@ label_reference_range <- (label_reference_range) => uast(
 )
 
 latex_include <- (latex_include) => uast(
+    token: "self",
     type: "Synthetic",
     children: "curly_group_path"
 )
@@ -300,6 +330,7 @@ let_command_definition <- (let_command_definition) => uast(
 )
 
 listing_environment <- (listing_environment) => uast(
+    token: "self",
     type: "List",
     children: "begin", "end", "source_code"
 )
@@ -310,6 +341,7 @@ luacode_environment <- (luacode_environment) => uast(
 )
 
 math_delimiter <- (math_delimiter) => uast(
+    token: "self",
     type: "Synthetic",
     children: "command_name", "word"
 )
@@ -320,6 +352,7 @@ math_environment <- (math_environment) => uast(
 )
 
 minted_environment <- (minted_environment) => uast(
+    token: "self",
     type: "Synthetic",
     children: "begin", "end", "source_code"
 )
@@ -330,6 +363,7 @@ new_command_definition <- (new_command_definition) => uast(
 )
 
 old_command_definition <- (old_command_definition) => uast(
+    token: "self",
     type: "Synthetic",
     children: "command_name"
 )
@@ -339,6 +373,7 @@ operator <- (operator) => uast(
 )
 
 package_include <- (package_include) => uast(
+    token: "self",
     type: "Package",
     roles: "Module",
     children: "brack_group_key_value", "curly_group_path_list"
@@ -350,6 +385,7 @@ paired_delimiter_definition <- (paired_delimiter_definition) => uast(
 )
 
 paragraph <- (paragraph) => uast(
+    token: "self",
     type: "Synthetic",
     children: "brack_group", "curly_group"
 )
@@ -360,6 +396,7 @@ part <- (part) => uast(
 )
 
 pycode_environment <- (pycode_environment) => uast(
+    token: "self",
     type: "Synthetic",
     children: "begin", "end", "source_code"
 )
@@ -371,6 +408,7 @@ sageblock_environment <- (sageblock_environment) => uast(
 )
 
 sagesilent_environment <- (sagesilent_environment) => uast(
+    token: "self",
     type: "Synthetic",
     children: "begin", "end", "source_code"
 )
@@ -381,6 +419,7 @@ section <- (section) => uast(
 )
 
 source_file <- (source_file) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -390,6 +429,7 @@ subparagraph <- (subparagraph) => uast(
 )
 
 subscript <- (subscript) => uast(
+    token: "self",
     type: "Synthetic",
     children: "command_name", "curly_group", "letter"
 )
@@ -400,6 +440,7 @@ subsection <- (subsection) => uast(
 )
 
 subsubsection <- (subsubsection) => uast(
+    token: "self",
     type: "Synthetic",
     children: "brack_group", "curly_group"
 )
@@ -410,6 +451,7 @@ superscript <- (superscript) => uast(
 )
 
 svg_include <- (svg_include) => uast(
+    token: "self",
     type: "Synthetic",
     children: "brack_group_key_value", "curly_group_path"
 )
@@ -420,6 +462,7 @@ text <- (text) => uast(
 )
 
 text_mode <- (text_mode) => uast(
+    token: "self",
     type: "Synthetic",
     children: "curly_group"
 )
@@ -430,6 +473,7 @@ theorem_definition <- (theorem_definition) => uast(
 )
 
 tikz_library_import <- (tikz_library_import) => uast(
+    token: "self",
     type: "Import",
     roles: "Import",
     children: "curly_group_path_list"
@@ -441,6 +485,7 @@ title_declaration <- (title_declaration) => uast(
 )
 
 todo <- (todo) => uast(
+    token: "self",
     type: "Synthetic",
     children: "brack_group", "curly_group", "todo_command_name"
 )
@@ -450,6 +495,7 @@ value <- (value) => uast(
 )
 
 verbatim_environment <- (verbatim_environment) => uast(
+    token: "self",
     type: "Synthetic",
     children: "begin", "comment", "end"
 )
@@ -460,6 +506,7 @@ verbatim_include <- (verbatim_include) => uast(
 )
 
 _ <- (_) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -468,6 +515,7 @@ argc <- (argc) => uast(
 )
 
 command_name <- (command_name) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -477,7 +525,9 @@ comment <- (comment) => uast(
 )
 
 delimiter <- (delimiter) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 label <- (label) => uast(
@@ -485,6 +535,7 @@ label <- (label) => uast(
 )
 
 letter <- (letter) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -494,7 +545,9 @@ line_comment <- (line_comment) => uast(
 )
 
 path <- (path) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 placeholder <- (placeholder) => uast(
@@ -502,6 +555,7 @@ placeholder <- (placeholder) => uast(
 )
 
 source_code <- (source_code) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -510,6 +564,7 @@ todo_command_name <- (todo_command_name) => uast(
 )
 
 uri <- (uri) => uast(
+    token: "self",
     type: "Synthetic"
 )
 

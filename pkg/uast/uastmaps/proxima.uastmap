@@ -5,6 +5,7 @@ arg_name <- (arg_name) => uast(
 )
 
 argument <- (argument) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -13,7 +14,8 @@ document <- (document) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 tag <- (tag) => uast(
@@ -21,6 +23,7 @@ tag <- (tag) => uast(
 )
 
 comment <- (comment) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment"
 )
@@ -30,6 +33,7 @@ escaped_char <- (escaped_char) => uast(
 )
 
 tag_at <- (tag_at) => uast(
+    token: "self",
     type: "Synthetic"
 )
 

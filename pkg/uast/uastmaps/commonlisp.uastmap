@@ -6,6 +6,7 @@ accumulation_clause <- (accumulation_clause) => uast(
 )
 
 accumulation_verb <- (accumulation_verb) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -14,6 +15,7 @@ array_dimension <- (array_dimension) => uast(
 )
 
 char_lit <- (char_lit) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -23,6 +25,7 @@ complex_num_lit <- (complex_num_lit) => uast(
 )
 
 condition_clause <- (condition_clause) => uast(
+    token: "self",
     type: "Synthetic",
     children: "vec_lit"
 )
@@ -33,6 +36,7 @@ defun <- (defun) => uast(
 )
 
 defun_header <- (defun_header) => uast(
+    token: "self",
     type: "Synthetic",
     children: "char_lit", "comment", "complex_num_lit", "defun_keyword", "dis_expr", "fancy_literal", "include_reader_macro", "kwd_lit", "list_lit", "nil_lit", "num_lit", "package_lit", "path_lit", "quoting_lit", "read_cond_lit", "self_referential_reader_macro", "set_lit", "splicing_read_cond_lit", "str_lit", "sym_lit", "syn_quoting_lit", "unquote_splicing_lit", "unquoting_lit", "var_quoting_lit", "vec_lit"
 )
@@ -42,6 +46,7 @@ defun_keyword <- (defun_keyword) => uast(
 )
 
 dis_expr <- (dis_expr) => uast(
+    token: "self",
     type: "Synthetic",
     children: "char_lit", "complex_num_lit", "fancy_literal", "include_reader_macro", "kwd_lit", "list_lit", "nil_lit", "num_lit", "package_lit", "path_lit", "quoting_lit", "read_cond_lit", "self_referential_reader_macro", "set_lit", "splicing_read_cond_lit", "str_lit", "sym_lit", "syn_quoting_lit", "unquote_splicing_lit", "unquoting_lit", "var_quoting_lit", "vec_lit"
 )
@@ -52,6 +57,7 @@ do_clause <- (do_clause) => uast(
 )
 
 for_clause <- (for_clause) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop",
     children: "char_lit", "comment", "complex_num_lit", "dis_expr", "fancy_literal", "include_reader_macro", "kwd_lit", "list_lit", "nil_lit", "num_lit", "package_lit", "path_lit", "quoting_lit", "read_cond_lit", "self_referential_reader_macro", "set_lit", "splicing_read_cond_lit", "str_lit", "sym_lit", "syn_quoting_lit", "unquote_splicing_lit", "unquoting_lit", "var_quoting_lit", "vec_lit"
@@ -63,6 +69,7 @@ for_clause_word <- (for_clause_word) => uast(
 )
 
 format_directive_type <- (format_directive_type) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop",
     children: "char_lit", "num_lit"
@@ -73,6 +80,7 @@ format_modifiers <- (format_modifiers) => uast(
 )
 
 format_prefix_parameters <- (format_prefix_parameters) => uast(
+    token: "self",
     type: "Parameter",
     roles: "Parameter"
 )
@@ -82,6 +90,7 @@ format_specifier <- (format_specifier) => uast(
 )
 
 include_reader_macro <- (include_reader_macro) => uast(
+    token: "self",
     type: "Synthetic",
     children: "char_lit", "complex_num_lit", "fancy_literal", "include_reader_macro", "kwd_lit", "list_lit", "meta_lit", "nil_lit", "num_lit", "old_meta_lit", "package_lit", "path_lit", "quoting_lit", "read_cond_lit", "self_referential_reader_macro", "set_lit", "splicing_read_cond_lit", "str_lit", "sym_lit", "syn_quoting_lit", "unquote_splicing_lit", "unquoting_lit", "var_quoting_lit", "vec_lit"
 )
@@ -91,6 +100,7 @@ kwd_lit <- (kwd_lit) => uast(
 )
 
 kwd_symbol <- (kwd_symbol) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -100,6 +110,7 @@ list_lit <- (list_lit) => uast(
 )
 
 loop_clause <- (loop_clause) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -110,6 +121,7 @@ loop_macro <- (loop_macro) => uast(
 )
 
 map_lit <- (map_lit) => uast(
+    token: "self",
     type: "Synthetic",
     children: "char_lit", "complex_num_lit", "fancy_literal", "include_reader_macro", "kwd_lit", "list_lit", "meta_lit", "nil_lit", "num_lit", "old_meta_lit", "package_lit", "path_lit", "quoting_lit", "read_cond_lit", "self_referential_reader_macro", "set_lit", "splicing_read_cond_lit", "str_lit", "sym_lit", "syn_quoting_lit", "unquote_splicing_lit", "unquoting_lit", "var_quoting_lit", "vec_lit"
 )
@@ -120,6 +132,7 @@ meta_lit <- (meta_lit) => uast(
 )
 
 num_lit <- (num_lit) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -129,6 +142,7 @@ old_meta_lit <- (old_meta_lit) => uast(
 )
 
 package_lit <- (package_lit) => uast(
+    token: "self",
     type: "Package",
     roles: "Module",
     children: "cl", "sym_lit"
@@ -139,6 +153,7 @@ path_lit <- (path_lit) => uast(
 )
 
 quoting_lit <- (quoting_lit) => uast(
+    token: "self",
     type: "Synthetic",
     children: "char_lit", "complex_num_lit", "fancy_literal", "include_reader_macro", "kwd_lit", "list_lit", "meta_lit", "nil_lit", "num_lit", "old_meta_lit", "package_lit", "path_lit", "quoting_lit", "read_cond_lit", "self_referential_reader_macro", "set_lit", "splicing_read_cond_lit", "str_lit", "sym_lit", "syn_quoting_lit", "unquote_splicing_lit", "unquoting_lit", "var_quoting_lit", "vec_lit"
 )
@@ -149,6 +164,7 @@ read_cond_lit <- (read_cond_lit) => uast(
 )
 
 repeat_clause <- (repeat_clause) => uast(
+    token: "self",
     type: "Synthetic",
     children: "vec_lit"
 )
@@ -159,6 +175,7 @@ set_lit <- (set_lit) => uast(
 )
 
 source <- (source) => uast(
+    token: "self",
     type: "Synthetic",
     children: "vec_lit"
 )
@@ -169,6 +186,7 @@ splicing_read_cond_lit <- (splicing_read_cond_lit) => uast(
 )
 
 str_lit <- (str_lit) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -177,6 +195,7 @@ sym_lit <- (sym_lit) => uast(
 )
 
 syn_quoting_lit <- (syn_quoting_lit) => uast(
+    token: "self",
     type: "Synthetic",
     children: "char_lit", "complex_num_lit", "fancy_literal", "include_reader_macro", "kwd_lit", "list_lit", "nil_lit", "num_lit", "package_lit", "path_lit", "quoting_lit", "read_cond_lit", "self_referential_reader_macro", "set_lit", "splicing_read_cond_lit", "str_lit", "sym_lit", "syn_quoting_lit", "unquote_splicing_lit", "unquoting_lit", "var_quoting_lit", "vec_lit"
 )
@@ -187,6 +206,7 @@ termination_clause <- (termination_clause) => uast(
 )
 
 unquote_splicing_lit <- (unquote_splicing_lit) => uast(
+    token: "self",
     type: "Synthetic",
     children: "char_lit", "complex_num_lit", "fancy_literal", "include_reader_macro", "kwd_lit", "list_lit", "meta_lit", "nil_lit", "num_lit", "old_meta_lit", "package_lit", "path_lit", "quoting_lit", "read_cond_lit", "self_referential_reader_macro", "set_lit", "splicing_read_cond_lit", "str_lit", "sym_lit", "syn_quoting_lit", "unquote_splicing_lit", "unquoting_lit", "var_quoting_lit", "vec_lit"
 )
@@ -197,6 +217,7 @@ unquoting_lit <- (unquoting_lit) => uast(
 )
 
 var_quoting_lit <- (var_quoting_lit) => uast(
+    token: "self",
     type: "Synthetic",
     children: "char_lit", "complex_num_lit", "fancy_literal", "include_reader_macro", "kwd_lit", "list_lit", "meta_lit", "nil_lit", "num_lit", "old_meta_lit", "package_lit", "path_lit", "quoting_lit", "read_cond_lit", "self_referential_reader_macro", "set_lit", "splicing_read_cond_lit", "str_lit", "sym_lit", "syn_quoting_lit", "unquote_splicing_lit", "unquoting_lit", "var_quoting_lit", "vec_lit"
 )
@@ -207,6 +228,7 @@ vec_lit <- (vec_lit) => uast(
 )
 
 while_clause <- (while_clause) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop",
     children: "vec_lit"
@@ -218,6 +240,7 @@ with_clause <- (with_clause) => uast(
 )
 
 Newline <- (Newline) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -226,6 +249,7 @@ V <- (V) => uast(
 )
 
 _ <- (_) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -234,6 +258,7 @@ above <- (above) => uast(
 )
 
 across <- (across) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -242,6 +267,7 @@ always <- (always) => uast(
 )
 
 and <- (and) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -250,6 +276,7 @@ as <- (as) => uast(
 )
 
 being <- (being) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -258,6 +285,7 @@ below <- (below) => uast(
 )
 
 block_comment <- (block_comment) => uast(
+    token: "self",
     type: "Block",
     roles: "Body"
 )
@@ -267,6 +295,7 @@ by <- (by) => uast(
 )
 
 cl <- (cl) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -276,7 +305,9 @@ comment <- (comment) => uast(
 )
 
 defgeneric <- (defgeneric) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 defmacro <- (defmacro) => uast(
@@ -284,6 +315,7 @@ defmacro <- (defmacro) => uast(
 )
 
 defmethod <- (defmethod) => uast(
+    token: "self",
     type: "Method",
     roles: "Function", "Declaration", "Member"
 )
@@ -293,6 +325,7 @@ defun <- (defun) => uast(
 )
 
 do <- (do) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -301,6 +334,7 @@ downfrom <- (downfrom) => uast(
 )
 
 downto <- (downto) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -309,6 +343,7 @@ else <- (else) => uast(
 )
 
 fancy_literal <- (fancy_literal) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal"
 )
@@ -319,6 +354,7 @@ finally <- (finally) => uast(
 )
 
 for <- (for) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -328,7 +364,8 @@ from <- (from) => uast(
 )
 
 if <- (if) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 in <- (in) => uast(
@@ -336,6 +373,7 @@ in <- (in) => uast(
 )
 
 initially <- (initially) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -344,6 +382,7 @@ into <- (into) => uast(
 )
 
 loop <- (loop) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -353,6 +392,7 @@ never <- (never) => uast(
 )
 
 nil_lit <- (nil_lit) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -361,6 +401,7 @@ on <- (on) => uast(
 )
 
 repeat <- (repeat) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -370,6 +411,7 @@ return <- (return) => uast(
 )
 
 self_referential_reader_macro <- (self_referential_reader_macro) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -378,6 +420,7 @@ then <- (then) => uast(
 )
 
 thereis <- (thereis) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -386,6 +429,7 @@ to <- (to) => uast(
 )
 
 unless <- (unless) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -394,6 +438,7 @@ until <- (until) => uast(
 )
 
 upfrom <- (upfrom) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -402,6 +447,7 @@ upto <- (upto) => uast(
 )
 
 using <- (using) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -410,6 +456,7 @@ v <- (v) => uast(
 )
 
 when <- (when) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -419,5 +466,6 @@ while <- (while) => uast(
 )
 
 with <- (with) => uast(
+    token: "self",
     type: "Synthetic"
 )

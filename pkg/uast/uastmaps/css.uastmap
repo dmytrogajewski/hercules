@@ -5,6 +5,7 @@ adjacent_sibling_selector <- (adjacent_sibling_selector) => uast(
 )
 
 arguments <- (arguments) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -13,6 +14,7 @@ at_rule <- (at_rule) => uast(
 )
 
 attribute_name <- (attribute_name) => uast(
+    token: "self",
     type: "Attribute",
     roles: "Attribute"
 )
@@ -23,6 +25,7 @@ attribute_selector <- (attribute_selector) => uast(
 )
 
 binary_expression <- (binary_expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -31,6 +34,7 @@ binary_query <- (binary_query) => uast(
 )
 
 block <- (block) => uast(
+    token: "self",
     type: "Block",
     roles: "Body"
 )
@@ -41,6 +45,8 @@ call_expression <- (call_expression) => uast(
 )
 
 charset_statement <- (charset_statement) => uast(
+    token: "self",
+    roles: "Call",
     type: "Set"
 )
 
@@ -49,6 +55,7 @@ child_selector <- (child_selector) => uast(
 )
 
 class_name <- (class_name) => uast(
+    token: "self",
     type: "Class",
     roles: "Class", "Declaration"
 )
@@ -59,6 +66,7 @@ class_selector <- (class_selector) => uast(
 )
 
 color_value <- (color_value) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -67,6 +75,7 @@ declaration <- (declaration) => uast(
 )
 
 descendant_selector <- (descendant_selector) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -75,6 +84,7 @@ feature_query <- (feature_query) => uast(
 )
 
 float_value <- (float_value) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -83,6 +93,7 @@ grid_value <- (grid_value) => uast(
 )
 
 id_selector <- (id_selector) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -92,7 +103,9 @@ import_statement <- (import_statement) => uast(
 )
 
 integer_value <- (integer_value) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Import",
+    type: "Import"
 )
 
 keyframe_block <- (keyframe_block) => uast(
@@ -101,6 +114,8 @@ keyframe_block <- (keyframe_block) => uast(
 )
 
 keyframe_block_list <- (keyframe_block_list) => uast(
+    token: "self",
+    roles: "Body",
     type: "Block",
     roles: "Body"
 )
@@ -110,6 +125,7 @@ keyframes_statement <- (keyframes_statement) => uast(
 )
 
 media_statement <- (media_statement) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -119,6 +135,7 @@ namespace_selector <- (namespace_selector) => uast(
 )
 
 namespace_statement <- (namespace_statement) => uast(
+    token: "self",
     type: "Namespace",
     roles: "Module"
 )
@@ -128,6 +145,7 @@ parenthesized_query <- (parenthesized_query) => uast(
 )
 
 parenthesized_value <- (parenthesized_value) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -136,6 +154,7 @@ postcss_statement <- (postcss_statement) => uast(
 )
 
 pseudo_class_selector <- (pseudo_class_selector) => uast(
+    token: "self",
     type: "Class",
     roles: "Class", "Declaration"
 )
@@ -145,6 +164,7 @@ pseudo_element_selector <- (pseudo_element_selector) => uast(
 )
 
 rule_set <- (rule_set) => uast(
+    token: "self",
     type: "Set"
 )
 
@@ -153,6 +173,7 @@ selector_query <- (selector_query) => uast(
 )
 
 selectors <- (selectors) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -161,6 +182,7 @@ sibling_selector <- (sibling_selector) => uast(
 )
 
 string_value <- (string_value) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -169,6 +191,7 @@ stylesheet <- (stylesheet) => uast(
 )
 
 supports_statement <- (supports_statement) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -177,6 +200,7 @@ unary_query <- (unary_query) => uast(
 )
 
 universal_selector <- (universal_selector) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -185,6 +209,7 @@ and <- (and) => uast(
 )
 
 at_keyword <- (at_keyword) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -194,7 +219,9 @@ comment <- (comment) => uast(
 )
 
 escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 feature_name <- (feature_name) => uast(
@@ -202,6 +229,7 @@ feature_name <- (feature_name) => uast(
 )
 
 from <- (from) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -211,6 +239,7 @@ function_name <- (function_name) => uast(
 )
 
 id_name <- (id_name) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -219,6 +248,8 @@ identifier <- (identifier) => uast(
 )
 
 important <- (important) => uast(
+    token: "self",
+    roles: "Reference",
     type: "Import",
     roles: "Import"
 )
@@ -229,7 +260,9 @@ js_comment <- (js_comment) => uast(
 )
 
 keyframes_name <- (keyframes_name) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 keyword_query <- (keyword_query) => uast(
@@ -237,6 +270,7 @@ keyword_query <- (keyword_query) => uast(
 )
 
 namespace_name <- (namespace_name) => uast(
+    token: "self",
     type: "Namespace",
     roles: "Module"
 )
@@ -246,6 +280,7 @@ nesting_selector <- (nesting_selector) => uast(
 )
 
 not <- (not) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -254,6 +289,7 @@ of <- (of) => uast(
 )
 
 only <- (only) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -262,6 +298,7 @@ or <- (or) => uast(
 )
 
 plain_value <- (plain_value) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -271,6 +308,7 @@ property_name <- (property_name) => uast(
 )
 
 selector <- (selector) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -279,6 +317,7 @@ string_content <- (string_content) => uast(
 )
 
 tag_name <- (tag_name) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -287,5 +326,6 @@ to <- (to) => uast(
 )
 
 unit <- (unit) => uast(
+    token: "self",
     type: "Synthetic"
 )

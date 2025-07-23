@@ -6,6 +6,7 @@ argument <- (argument) => uast(
 )
 
 arguments <- (arguments) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -15,6 +16,7 @@ array_index <- (array_index) => uast(
 )
 
 binop_expr <- (binop_expr) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -23,6 +25,7 @@ braced_word <- (braced_word) => uast(
 )
 
 braced_word_simple <- (braced_word_simple) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -32,6 +35,7 @@ catch <- (catch) => uast(
 )
 
 command <- (command) => uast(
+    token: "self",
     type: "Synthetic",
     children: "array_index", "braced_word", "command_substitution", "escaped_character", "quoted_word", "simple_word", "unpack", "variable_substitution", "word_list"
 )
@@ -41,6 +45,7 @@ command_substitution <- (command_substitution) => uast(
 )
 
 else <- (else) => uast(
+    token: "self",
     type: "Synthetic",
     children: "array_index", "braced_word", "command_substitution", "escaped_character", "quoted_word", "simple_word", "unpack", "variable_substitution"
 )
@@ -51,6 +56,7 @@ elseif <- (elseif) => uast(
 )
 
 expr <- (expr) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -59,6 +65,7 @@ expr_cmd <- (expr_cmd) => uast(
 )
 
 finally <- (finally) => uast(
+    token: "self",
     type: "Finally",
     roles: "Finally"
 )
@@ -69,6 +76,7 @@ foreach <- (foreach) => uast(
 )
 
 global <- (global) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -77,7 +85,8 @@ id <- (id) => uast(
 )
 
 if <- (if) => uast(
-    type: "If",
+    token: "self",
+    type: "Synthetic",
     children: "array_index", "braced_word", "command_substitution", "else", "elseif", "escaped_character", "expr", "quoted_word", "simple_word", "unpack", "variable_substitution"
 )
 
@@ -87,6 +96,7 @@ namespace <- (namespace) => uast(
 )
 
 procedure <- (procedure) => uast(
+    token: "self",
     type: "Synthetic",
     children: "arguments", "array_index", "braced_word", "command_substitution", "escaped_character", "quoted_word", "simple_word", "unpack", "variable_substitution"
 )
@@ -96,6 +106,7 @@ quoted_word <- (quoted_word) => uast(
 )
 
 regexp <- (regexp) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -104,6 +115,7 @@ set <- (set) => uast(
 )
 
 source_file <- (source_file) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -112,6 +124,7 @@ ternary_expr <- (ternary_expr) => uast(
 )
 
 try <- (try) => uast(
+    token: "self",
     type: "Try",
     roles: "Try"
 )
@@ -121,6 +134,7 @@ unary_expr <- (unary_expr) => uast(
 )
 
 variable_substitution <- (variable_substitution) => uast(
+    token: "self",
     type: "Variable",
     roles: "Variable", "Declaration"
 )
@@ -131,6 +145,7 @@ while <- (while) => uast(
 )
 
 word_list <- (word_list) => uast(
+    token: "self",
     type: "List"
 )
 
@@ -140,6 +155,7 @@ catch <- (catch) => uast(
 )
 
 comment <- (comment) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment"
 )
@@ -149,7 +165,8 @@ else <- (else) => uast(
 )
 
 elseif <- (elseif) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 eq <- (eq) => uast(
@@ -157,6 +174,7 @@ eq <- (eq) => uast(
 )
 
 error <- (error) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -165,6 +183,7 @@ escaped_character <- (escaped_character) => uast(
 )
 
 expr <- (expr) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -174,6 +193,7 @@ finally <- (finally) => uast(
 )
 
 foreach <- (foreach) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -183,7 +203,8 @@ global <- (global) => uast(
 )
 
 if <- (if) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 in <- (in) => uast(
@@ -191,6 +212,7 @@ in <- (in) => uast(
 )
 
 namespace <- (namespace) => uast(
+    token: "self",
     type: "Namespace",
     roles: "Module"
 )
@@ -200,6 +222,7 @@ ne <- (ne) => uast(
 )
 
 ni <- (ni) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -208,6 +231,7 @@ number <- (number) => uast(
 )
 
 on <- (on) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -216,6 +240,7 @@ proc <- (proc) => uast(
 )
 
 regexp <- (regexp) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -224,6 +249,7 @@ set <- (set) => uast(
 )
 
 simple_word <- (simple_word) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -233,6 +259,7 @@ try <- (try) => uast(
 )
 
 unpack <- (unpack) => uast(
+    token: "self",
     type: "Synthetic"
 )
 

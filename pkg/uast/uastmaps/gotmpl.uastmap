@@ -5,6 +5,7 @@ argument_list <- (argument_list) => uast(
 )
 
 assignment <- (assignment) => uast(
+    token: "self",
     type: "Assignment",
     roles: "Assignment",
     children: "assignment", "chained_pipeline", "dot", "false", "field", "float_literal", "function_call", "imaginary_literal", "int_literal", "interpreted_string_literal", "method_call", "nil", "parenthesized_pipeline", "raw_string_literal", "rune_literal", "selector_expression", "true", "variable", "variable_definition"
@@ -17,6 +18,7 @@ block_action <- (block_action) => uast(
 )
 
 chained_pipeline <- (chained_pipeline) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -26,6 +28,7 @@ define_action <- (define_action) => uast(
 )
 
 dot <- (dot) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -36,6 +39,7 @@ field <- (field) => uast(
 )
 
 function_call <- (function_call) => uast(
+    token: "self",
     type: "Function",
     roles: "Function", "Declaration",
     children: "argument_list", "identifier"
@@ -47,6 +51,7 @@ if_action <- (if_action) => uast(
 )
 
 interpreted_string_literal <- (interpreted_string_literal) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal"
 )
@@ -58,7 +63,9 @@ method_call <- (method_call) => uast(
 )
 
 parenthesized_pipeline <- (parenthesized_pipeline) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Call",
+    type: "Call"
 )
 
 range_action <- (range_action) => uast(
@@ -67,6 +74,7 @@ range_action <- (range_action) => uast(
 )
 
 range_variable_definition <- (range_variable_definition) => uast(
+    token: "self",
     type: "Variable",
     roles: "Variable", "Declaration",
     children: "assignment", "chained_pipeline", "dot", "false", "field", "float_literal", "function_call", "imaginary_literal", "int_literal", "interpreted_string_literal", "method_call", "nil", "parenthesized_pipeline", "raw_string_literal", "rune_literal", "selector_expression", "true", "variable", "variable_definition"
@@ -78,6 +86,7 @@ selector_expression <- (selector_expression) => uast(
 )
 
 template <- (template) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -87,6 +96,7 @@ template_action <- (template_action) => uast(
 )
 
 text <- (text) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -97,6 +107,7 @@ variable <- (variable) => uast(
 )
 
 variable_definition <- (variable_definition) => uast(
+    token: "self",
     type: "Variable",
     roles: "Variable", "Declaration",
     children: "assignment", "chained_pipeline", "dot", "false", "field", "float_literal", "function_call", "imaginary_literal", "int_literal", "interpreted_string_literal", "method_call", "nil", "parenthesized_pipeline", "raw_string_literal", "rune_literal", "selector_expression", "true", "variable", "variable_definition"
@@ -108,6 +119,7 @@ with_action <- (with_action) => uast(
 )
 
 block <- (block) => uast(
+    token: "self",
     type: "Block",
     roles: "Body"
 )
@@ -118,7 +130,9 @@ comment <- (comment) => uast(
 )
 
 define <- (define) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 else <- (else) => uast(
@@ -126,6 +140,7 @@ else <- (else) => uast(
 )
 
 end <- (end) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -134,6 +149,7 @@ escape_sequence <- (escape_sequence) => uast(
 )
 
 false <- (false) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -142,6 +158,8 @@ field_identifier <- (field_identifier) => uast(
 )
 
 float_literal <- (float_literal) => uast(
+    token: "self",
+    roles: "Reference",
     type: "Literal",
     roles: "Literal"
 )
@@ -151,7 +169,9 @@ identifier <- (identifier) => uast(
 )
 
 if <- (if) => uast(
-    type: "If"
+    token: "self",
+    roles: "Reference",
+    type: "Identifier"
 )
 
 imaginary_literal <- (imaginary_literal) => uast(
@@ -160,6 +180,8 @@ imaginary_literal <- (imaginary_literal) => uast(
 )
 
 int_literal <- (int_literal) => uast(
+    token: "self",
+    roles: "Literal",
     type: "Literal",
     roles: "Literal"
 )
@@ -169,6 +191,7 @@ nil <- (nil) => uast(
 )
 
 range <- (range) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -178,6 +201,8 @@ raw_string_literal <- (raw_string_literal) => uast(
 )
 
 rune_literal <- (rune_literal) => uast(
+    token: "self",
+    roles: "Literal",
     type: "Literal",
     roles: "Literal"
 )
@@ -187,6 +212,7 @@ template <- (template) => uast(
 )
 
 true <- (true) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -195,5 +221,6 @@ with <- (with) => uast(
 )
 
 yaml_no_injection_text <- (yaml_no_injection_text) => uast(
+    token: "self",
     type: "Synthetic"
 )
