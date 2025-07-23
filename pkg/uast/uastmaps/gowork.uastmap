@@ -6,7 +6,9 @@ comment <- (comment) => uast(
 )
 
 file_path <- (file_path) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 go_directive <- (go_directive) => uast(
@@ -14,6 +16,7 @@ go_directive <- (go_directive) => uast(
 )
 
 go_version <- (go_version) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -23,6 +26,8 @@ interpreted_string_literal <- (interpreted_string_literal) => uast(
 )
 
 module_path <- (module_path) => uast(
+    token: "self",
+    roles: "Literal",
     type: "Module",
     roles: "Module"
 )
@@ -32,6 +37,7 @@ replace_directive <- (replace_directive) => uast(
 )
 
 replace_spec <- (replace_spec) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -40,7 +46,8 @@ source_file <- (source_file) => uast(
 )
 
 use_directive <- (use_directive) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "File"
 )
 
 use_spec <- (use_spec) => uast(
@@ -48,6 +55,7 @@ use_spec <- (use_spec) => uast(
 )
 
 version <- (version) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -56,6 +64,7 @@ escape_sequence <- (escape_sequence) => uast(
 )
 
 go <- (go) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -65,7 +74,9 @@ raw_string_literal <- (raw_string_literal) => uast(
 )
 
 replace <- (replace) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Literal",
+    type: "Literal"
 )
 
 use <- (use) => uast(

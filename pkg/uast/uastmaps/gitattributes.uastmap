@@ -5,6 +5,7 @@ ansi_c_escape <- (ansi_c_escape) => uast(
 )
 
 attribute <- (attribute) => uast(
+    token: "self",
     type: "Attribute",
     roles: "Attribute"
 )
@@ -14,6 +15,7 @@ builtin_attr <- (builtin_attr) => uast(
 )
 
 class_range <- (class_range) => uast(
+    token: "self",
     type: "Class",
     roles: "Class", "Declaration"
 )
@@ -24,7 +26,9 @@ comment <- (comment) => uast(
 )
 
 file <- (file) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 ignored_value <- (ignored_value) => uast(
@@ -32,6 +36,7 @@ ignored_value <- (ignored_value) => uast(
 )
 
 macro_def <- (macro_def) => uast(
+    token: "self",
     type: "Synthetic",
     children: "attr_name"
 )
@@ -43,6 +48,7 @@ pattern <- (pattern) => uast(
 )
 
 quoted_pattern <- (quoted_pattern) => uast(
+    token: "self",
     type: "Pattern",
     roles: "Pattern",
     children: "dir_sep"
@@ -53,6 +59,7 @@ range_notation <- (range_notation) => uast(
 )
 
 attr_name <- (attr_name) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -61,6 +68,7 @@ attr_reset <- (attr_reset) => uast(
 )
 
 attr_set <- (attr_set) => uast(
+    token: "self",
     type: "Set"
 )
 
@@ -69,6 +77,7 @@ attr_unset <- (attr_unset) => uast(
 )
 
 binary <- (binary) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -77,6 +86,7 @@ boolean_value <- (boolean_value) => uast(
 )
 
 character_class <- (character_class) => uast(
+    token: "self",
     type: "Class",
     roles: "Class", "Declaration"
 )
@@ -86,6 +96,7 @@ crlf <- (crlf) => uast(
 )
 
 delta <- (delta) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -94,6 +105,7 @@ diff <- (diff) => uast(
 )
 
 dir_sep <- (dir_sep) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -102,6 +114,7 @@ encoding <- (encoding) => uast(
 )
 
 eol <- (eol) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -110,6 +123,7 @@ escaped_char <- (escaped_char) => uast(
 )
 
 filter <- (filter) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -118,6 +132,7 @@ ident <- (ident) => uast(
 )
 
 macro_tag <- (macro_tag) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -126,6 +141,7 @@ merge <- (merge) => uast(
 )
 
 pattern_negation <- (pattern_negation) => uast(
+    token: "self",
     type: "Pattern",
     roles: "Pattern"
 )
@@ -135,6 +151,7 @@ range_negation <- (range_negation) => uast(
 )
 
 redundant_escape <- (redundant_escape) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -143,6 +160,7 @@ string_value <- (string_value) => uast(
 )
 
 text <- (text) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -151,6 +169,7 @@ trailing_slash <- (trailing_slash) => uast(
 )
 
 whitespace <- (whitespace) => uast(
+    token: "self",
     type: "Synthetic"
 )
 

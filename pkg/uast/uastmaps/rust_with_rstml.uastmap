@@ -5,6 +5,7 @@ _declaration_statement <- (_declaration_statement) => uast(
 )
 
 _expression <- (_expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -14,6 +15,8 @@ _literal <- (_literal) => uast(
 )
 
 _literal_pattern <- (_literal_pattern) => uast(
+    token: "self",
+    roles: "Literal",
     type: "Literal",
     roles: "Literal"
 )
@@ -24,7 +27,8 @@ _pattern <- (_pattern) => uast(
 )
 
 _type <- (_type) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Pattern"
 )
 
 abstract_type <- (abstract_type) => uast(
@@ -33,6 +37,7 @@ abstract_type <- (abstract_type) => uast(
 )
 
 arguments <- (arguments) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -42,6 +47,7 @@ array_expression <- (array_expression) => uast(
 )
 
 array_type <- (array_type) => uast(
+    token: "self",
     type: "Synthetic",
     children: "_expression", "_type"
 )
@@ -53,7 +59,9 @@ assignment_expression <- (assignment_expression) => uast(
 )
 
 associated_type <- (associated_type) => uast(
-    type: "Synthetic",
+    token: "self",
+    roles: "Assignment",
+    type: "Assignment",
     children: "trait_bounds", "type_identifier", "type_parameters"
 )
 
@@ -63,6 +71,8 @@ async_block <- (async_block) => uast(
 )
 
 attribute <- (attribute) => uast(
+    token: "self",
+    roles: "Body",
     type: "Attribute",
     roles: "Attribute",
     children: "_expression", "token_tree"
@@ -74,6 +84,7 @@ attribute_item <- (attribute_item) => uast(
 )
 
 await_expression <- (await_expression) => uast(
+    token: "self",
     type: "Await",
     roles: "Await"
 )
@@ -84,6 +95,7 @@ base_field_initializer <- (base_field_initializer) => uast(
 )
 
 binary_expression <- (binary_expression) => uast(
+    token: "self",
     type: "Synthetic",
     children: "_expression"
 )
@@ -94,6 +106,8 @@ block <- (block) => uast(
 )
 
 block_comment <- (block_comment) => uast(
+    token: "self",
+    roles: "Body",
     type: "Block",
     roles: "Body",
     children: "doc_comment", "inner_doc_comment_marker", "outer_doc_comment_marker"
@@ -105,7 +119,9 @@ boolean_literal <- (boolean_literal) => uast(
 )
 
 bounded_type <- (bounded_type) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Literal",
+    type: "Literal"
 )
 
 bracketed_type <- (bracketed_type) => uast(
@@ -113,6 +129,7 @@ bracketed_type <- (bracketed_type) => uast(
 )
 
 break_expression <- (break_expression) => uast(
+    token: "self",
     type: "Break",
     roles: "Break"
 )
@@ -124,6 +141,8 @@ call_expression <- (call_expression) => uast(
 )
 
 captured_pattern <- (captured_pattern) => uast(
+    token: "self",
+    roles: "Call",
     type: "Pattern",
     roles: "Pattern"
 )
@@ -134,6 +153,7 @@ close_tag <- (close_tag) => uast(
 )
 
 closure_expression <- (closure_expression) => uast(
+    token: "self",
     type: "Synthetic",
     children: "_", "_expression", "_type", "closure_parameters"
 )
@@ -144,6 +164,7 @@ closure_parameters <- (closure_parameters) => uast(
 )
 
 comment_node <- (comment_node) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment"
 )
@@ -155,6 +176,7 @@ compound_assignment_expr <- (compound_assignment_expr) => uast(
 )
 
 const_block <- (const_block) => uast(
+    token: "self",
     type: "Block",
     roles: "Body",
     children: "block"
@@ -166,6 +188,7 @@ const_item <- (const_item) => uast(
 )
 
 const_parameter <- (const_parameter) => uast(
+    token: "self",
     type: "Parameter",
     roles: "Parameter",
     children: "_type", "identifier"
@@ -178,6 +201,8 @@ constrained_type_parameter <- (constrained_type_parameter) => uast(
 )
 
 continue_expression <- (continue_expression) => uast(
+    token: "self",
+    roles: "Parameter",
     type: "Continue",
     roles: "Continue"
 )
@@ -187,7 +212,8 @@ declaration_list <- (declaration_list) => uast(
 )
 
 delim_nodes <- (delim_nodes) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "List"
 )
 
 doctype_node <- (doctype_node) => uast(
@@ -195,6 +221,7 @@ doctype_node <- (doctype_node) => uast(
 )
 
 dynamic_type <- (dynamic_type) => uast(
+    token: "self",
     type: "Synthetic",
     children: "function_type", "generic_type", "higher_ranked_trait_bound", "scoped_type_identifier", "type_identifier"
 )
@@ -205,6 +232,7 @@ element_node <- (element_node) => uast(
 )
 
 else_clause <- (else_clause) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -213,6 +241,7 @@ empty_statement <- (empty_statement) => uast(
 )
 
 enum_item <- (enum_item) => uast(
+    token: "self",
     type: "Enum",
     roles: "Enum", "Declaration",
     children: "enum_variant_list", "type_identifier", "type_parameters"
@@ -225,6 +254,7 @@ enum_variant <- (enum_variant) => uast(
 )
 
 enum_variant_list <- (enum_variant_list) => uast(
+    token: "self",
     type: "Enum",
     roles: "Enum", "Declaration"
 )
@@ -234,6 +264,7 @@ expression_statement <- (expression_statement) => uast(
 )
 
 extern_crate_declaration <- (extern_crate_declaration) => uast(
+    token: "self",
     type: "Synthetic",
     children: "identifier"
 )
@@ -243,6 +274,7 @@ extern_modifier <- (extern_modifier) => uast(
 )
 
 field_declaration <- (field_declaration) => uast(
+    token: "self",
     type: "Field",
     roles: "Member",
     children: "_type", "field_identifier"
@@ -254,6 +286,7 @@ field_declaration_list <- (field_declaration_list) => uast(
 )
 
 field_expression <- (field_expression) => uast(
+    token: "self",
     type: "Field",
     roles: "Member",
     children: "_expression", "field_identifier", "integer_literal"
@@ -266,6 +299,7 @@ field_initializer <- (field_initializer) => uast(
 )
 
 field_initializer_list <- (field_initializer_list) => uast(
+    token: "self",
     type: "Field",
     roles: "Member"
 )
@@ -277,6 +311,7 @@ field_pattern <- (field_pattern) => uast(
 )
 
 for_expression <- (for_expression) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop",
     children: "_expression", "_pattern", "block"
@@ -287,6 +322,7 @@ for_lifetimes <- (for_lifetimes) => uast(
 )
 
 foreign_mod_item <- (foreign_mod_item) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop",
     children: "declaration_list"
@@ -297,6 +333,7 @@ fragment_specifier <- (fragment_specifier) => uast(
 )
 
 function_item <- (function_item) => uast(
+    token: "self",
     type: "Function",
     roles: "Function", "Declaration",
     children: "_type", "block", "identifier", "metavariable", "parameters", "type_parameters"
@@ -308,6 +345,7 @@ function_modifiers <- (function_modifiers) => uast(
 )
 
 function_signature_item <- (function_signature_item) => uast(
+    token: "self",
     type: "Function",
     roles: "Function", "Declaration",
     children: "_type", "identifier", "metavariable", "parameters", "type_parameters"
@@ -320,6 +358,8 @@ function_type <- (function_type) => uast(
 )
 
 generic_function <- (generic_function) => uast(
+    token: "self",
+    roles: "Function", "Declaration",
     type: "Function",
     roles: "Function", "Declaration",
     children: "field_expression", "identifier", "scoped_identifier", "type_arguments"
@@ -330,7 +370,9 @@ generic_identifier <- (generic_identifier) => uast(
 )
 
 generic_type <- (generic_type) => uast(
-    type: "Synthetic",
+    token: "self",
+    roles: "Reference",
+    type: "Identifier",
     children: "identifier", "scoped_identifier", "scoped_type_identifier", "type_arguments", "type_identifier"
 )
 
@@ -340,6 +382,7 @@ generic_type_with_turbofish <- (generic_type_with_turbofish) => uast(
 )
 
 higher_ranked_trait_bound <- (higher_ranked_trait_bound) => uast(
+    token: "self",
     type: "Synthetic",
     children: "_type", "type_parameters"
 )
@@ -349,7 +392,9 @@ identifier <- (identifier) => uast(
 )
 
 if_expression <- (if_expression) => uast(
-    type: "If",
+    token: "self",
+    roles: "Reference",
+    type: "Identifier",
     children: "_expression", "block", "else_clause", "let_chain", "let_condition"
 )
 
@@ -359,6 +404,7 @@ impl_item <- (impl_item) => uast(
 )
 
 index_expression <- (index_expression) => uast(
+    token: "self",
     type: "Index",
     roles: "Index"
 )
@@ -369,6 +415,7 @@ inner_attribute_item <- (inner_attribute_item) => uast(
 )
 
 label <- (label) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -377,6 +424,7 @@ let_chain <- (let_chain) => uast(
 )
 
 let_condition <- (let_condition) => uast(
+    token: "self",
     type: "Synthetic",
     children: "_expression", "_pattern"
 )
@@ -387,7 +435,8 @@ let_declaration <- (let_declaration) => uast(
 )
 
 lifetime <- (lifetime) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 line_comment <- (line_comment) => uast(
@@ -397,6 +446,8 @@ line_comment <- (line_comment) => uast(
 )
 
 loop_expression <- (loop_expression) => uast(
+    token: "self",
+    roles: "Comment",
     type: "Loop",
     roles: "Loop",
     children: "block"
@@ -408,6 +459,7 @@ macro_definition <- (macro_definition) => uast(
 )
 
 macro_invocation <- (macro_invocation) => uast(
+    token: "self",
     type: "Synthetic",
     children: "identifier", "scoped_identifier"
 )
@@ -418,6 +470,7 @@ macro_rule <- (macro_rule) => uast(
 )
 
 match_arm <- (match_arm) => uast(
+    token: "self",
     type: "Match",
     roles: "Match",
     children: "_expression", "match_pattern"
@@ -429,6 +482,8 @@ match_block <- (match_block) => uast(
 )
 
 match_expression <- (match_expression) => uast(
+    token: "self",
+    roles: "Body",
     type: "Match",
     roles: "Match",
     children: "_expression", "match_block"
@@ -441,7 +496,8 @@ match_pattern <- (match_pattern) => uast(
 )
 
 mod_item <- (mod_item) => uast(
-    type: "Synthetic",
+    token: "self",
+    type: "Pattern",
     children: "declaration_list", "identifier"
 )
 
@@ -451,6 +507,7 @@ mut_pattern <- (mut_pattern) => uast(
 )
 
 negative_literal <- (negative_literal) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal"
 )
@@ -460,6 +517,7 @@ never_type <- (never_type) => uast(
 )
 
 node_attribute <- (node_attribute) => uast(
+    token: "self",
     type: "Attribute",
     roles: "Attribute",
     children: "node_identifier", "rust_expression"
@@ -470,7 +528,9 @@ node_identifier <- (node_identifier) => uast(
 )
 
 open_tag <- (open_tag) => uast(
-    type: "Synthetic",
+    token: "self",
+    roles: "Reference",
+    type: "Identifier",
     children: "block", "node_attribute", "node_identifier"
 )
 
@@ -481,6 +541,8 @@ optional_type_parameter <- (optional_type_parameter) => uast(
 )
 
 or_pattern <- (or_pattern) => uast(
+    token: "self",
+    roles: "Parameter",
     type: "Pattern",
     roles: "Pattern"
 )
@@ -492,6 +554,7 @@ ordered_field_declaration_list <- (ordered_field_declaration_list) => uast(
 )
 
 parameter <- (parameter) => uast(
+    token: "self",
     type: "Parameter",
     roles: "Parameter",
     children: "_pattern", "_type", "self"
@@ -503,6 +566,7 @@ parameters <- (parameters) => uast(
 )
 
 parenthesized_expression <- (parenthesized_expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -512,7 +576,8 @@ pointer_type <- (pointer_type) => uast(
 )
 
 qualified_type <- (qualified_type) => uast(
-    type: "If",
+    token: "self",
+    type: "Synthetic",
     children: "_type"
 )
 
@@ -521,6 +586,7 @@ range_expression <- (range_expression) => uast(
 )
 
 range_pattern <- (range_pattern) => uast(
+    token: "self",
     type: "Pattern",
     roles: "Pattern"
 )
@@ -531,6 +597,8 @@ raw_string_literal <- (raw_string_literal) => uast(
 )
 
 ref_pattern <- (ref_pattern) => uast(
+    token: "self",
+    roles: "Literal",
     type: "Pattern",
     roles: "Pattern"
 )
@@ -541,6 +609,7 @@ reference_expression <- (reference_expression) => uast(
 )
 
 reference_pattern <- (reference_pattern) => uast(
+    token: "self",
     type: "Pattern",
     roles: "Pattern"
 )
@@ -551,6 +620,7 @@ reference_type <- (reference_type) => uast(
 )
 
 remaining_field_pattern <- (remaining_field_pattern) => uast(
+    token: "self",
     type: "Field",
     roles: "Member"
 )
@@ -560,6 +630,7 @@ removed_trait_bound <- (removed_trait_bound) => uast(
 )
 
 return_expression <- (return_expression) => uast(
+    token: "self",
     type: "Return",
     roles: "Return"
 )
@@ -570,7 +641,9 @@ scoped_identifier <- (scoped_identifier) => uast(
 )
 
 scoped_type_identifier <- (scoped_type_identifier) => uast(
-    type: "If",
+    token: "self",
+    roles: "Reference",
+    type: "Identifier",
     children: "bracketed_type", "crate", "generic_type", "identifier", "metavariable", "scoped_identifier", "self", "super", "type_identifier"
 )
 
@@ -580,7 +653,8 @@ scoped_use_list <- (scoped_use_list) => uast(
 )
 
 self_closing_element_node <- (self_closing_element_node) => uast(
-    type: "Synthetic",
+    token: "self",
+    type: "List",
     children: "block", "generic_identifier", "node_attribute", "node_identifier"
 )
 
@@ -590,6 +664,8 @@ self_parameter <- (self_parameter) => uast(
 )
 
 shorthand_field_initializer <- (shorthand_field_initializer) => uast(
+    token: "self",
+    roles: "Parameter",
     type: "Field",
     roles: "Member"
 )
@@ -599,7 +675,8 @@ slice_pattern <- (slice_pattern) => uast(
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Pattern"
 )
 
 static_item <- (static_item) => uast(
@@ -608,6 +685,7 @@ static_item <- (static_item) => uast(
 )
 
 string_literal <- (string_literal) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal"
 )
@@ -619,6 +697,7 @@ struct_expression <- (struct_expression) => uast(
 )
 
 struct_item <- (struct_item) => uast(
+    token: "self",
     type: "Struct",
     roles: "Struct", "Declaration",
     children: "field_declaration_list", "ordered_field_declaration_list", "type_identifier", "type_parameters"
@@ -631,6 +710,7 @@ struct_pattern <- (struct_pattern) => uast(
 )
 
 token_binding_pattern <- (token_binding_pattern) => uast(
+    token: "self",
     type: "Pattern",
     roles: "Pattern",
     children: "fragment_specifier", "metavariable"
@@ -641,6 +721,7 @@ token_repetition <- (token_repetition) => uast(
 )
 
 token_repetition_pattern <- (token_repetition_pattern) => uast(
+    token: "self",
     type: "Pattern",
     roles: "Pattern"
 )
@@ -650,6 +731,7 @@ token_tree <- (token_tree) => uast(
 )
 
 token_tree_pattern <- (token_tree_pattern) => uast(
+    token: "self",
     type: "Pattern",
     roles: "Pattern"
 )
@@ -659,6 +741,7 @@ trait_bounds <- (trait_bounds) => uast(
 )
 
 trait_item <- (trait_item) => uast(
+    token: "self",
     type: "Synthetic",
     children: "declaration_list", "trait_bounds", "type_identifier", "type_parameters"
 )
@@ -669,6 +752,8 @@ try_block <- (try_block) => uast(
 )
 
 try_expression <- (try_expression) => uast(
+    token: "self",
+    roles: "Body",
     type: "Try",
     roles: "Try"
 )
@@ -678,6 +763,7 @@ tuple_expression <- (tuple_expression) => uast(
 )
 
 tuple_pattern <- (tuple_pattern) => uast(
+    token: "self",
     type: "Tuple"
 )
 
@@ -688,6 +774,7 @@ tuple_struct_pattern <- (tuple_struct_pattern) => uast(
 )
 
 tuple_type <- (tuple_type) => uast(
+    token: "self",
     type: "Tuple"
 )
 
@@ -696,6 +783,7 @@ type_arguments <- (type_arguments) => uast(
 )
 
 type_binding <- (type_binding) => uast(
+    token: "self",
     type: "Synthetic",
     children: "_type", "type_arguments", "type_identifier"
 )
@@ -706,6 +794,7 @@ type_cast_expression <- (type_cast_expression) => uast(
 )
 
 type_item <- (type_item) => uast(
+    token: "self",
     type: "Synthetic",
     children: "_type", "type_identifier", "type_parameters"
 )
@@ -716,6 +805,7 @@ type_parameters <- (type_parameters) => uast(
 )
 
 unary_expression <- (unary_expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -725,6 +815,7 @@ union_item <- (union_item) => uast(
 )
 
 unit_expression <- (unit_expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -733,6 +824,7 @@ unit_type <- (unit_type) => uast(
 )
 
 unsafe_block <- (unsafe_block) => uast(
+    token: "self",
     type: "Block",
     roles: "Body"
 )
@@ -743,6 +835,7 @@ use_as_clause <- (use_as_clause) => uast(
 )
 
 use_declaration <- (use_declaration) => uast(
+    token: "self",
     type: "Synthetic",
     children: "crate", "identifier", "metavariable", "scoped_identifier", "scoped_use_list", "self", "super", "use_as_clause", "use_list", "use_wildcard"
 )
@@ -752,7 +845,8 @@ use_list <- (use_list) => uast(
 )
 
 use_wildcard <- (use_wildcard) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "List"
 )
 
 variadic_parameter <- (variadic_parameter) => uast(
@@ -762,7 +856,9 @@ variadic_parameter <- (variadic_parameter) => uast(
 )
 
 visibility_modifier <- (visibility_modifier) => uast(
-    type: "If"
+    token: "self",
+    roles: "Parameter",
+    type: "Parameter"
 )
 
 where_clause <- (where_clause) => uast(
@@ -770,6 +866,7 @@ where_clause <- (where_clause) => uast(
 )
 
 where_predicate <- (where_predicate) => uast(
+    token: "self",
     type: "Synthetic",
     children: "array_type", "generic_type", "higher_ranked_trait_bound", "lifetime", "pointer_type", "primitive_type", "reference_type", "scoped_type_identifier", "trait_bounds", "tuple_type", "type_identifier"
 )
@@ -781,6 +878,7 @@ while_expression <- (while_expression) => uast(
 )
 
 yield_expression <- (yield_expression) => uast(
+    token: "self",
     type: "Yield",
     roles: "Yield"
 )
@@ -790,6 +888,7 @@ _ <- (_) => uast(
 )
 
 as <- (as) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -798,6 +897,7 @@ async <- (async) => uast(
 )
 
 await <- (await) => uast(
+    token: "self",
     type: "Await",
     roles: "Await"
 )
@@ -808,6 +908,8 @@ block <- (block) => uast(
 )
 
 break <- (break) => uast(
+    token: "self",
+    roles: "Body",
     type: "Break",
     roles: "Break"
 )
@@ -818,7 +920,9 @@ char_literal <- (char_literal) => uast(
 )
 
 const <- (const) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Literal",
+    type: "Literal"
 )
 
 continue <- (continue) => uast(
@@ -827,6 +931,7 @@ continue <- (continue) => uast(
 )
 
 crate <- (crate) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -835,6 +940,7 @@ default <- (default) => uast(
 )
 
 doc_comment <- (doc_comment) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment"
 )
@@ -844,6 +950,7 @@ dyn <- (dyn) => uast(
 )
 
 else <- (else) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -853,6 +960,7 @@ enum <- (enum) => uast(
 )
 
 escape_sequence <- (escape_sequence) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -861,6 +969,7 @@ expr <- (expr) => uast(
 )
 
 extern <- (extern) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -869,7 +978,8 @@ false <- (false) => uast(
 )
 
 field_identifier <- (field_identifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 float_literal <- (float_literal) => uast(
@@ -878,7 +988,9 @@ float_literal <- (float_literal) => uast(
 )
 
 fn <- (fn) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Literal",
+    type: "Literal"
 )
 
 for <- (for) => uast(
@@ -887,6 +999,7 @@ for <- (for) => uast(
 )
 
 ident <- (ident) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -895,6 +1008,7 @@ if <- (if) => uast(
 )
 
 impl <- (impl) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -903,6 +1017,7 @@ in <- (in) => uast(
 )
 
 inner_doc_comment_marker <- (inner_doc_comment_marker) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment"
 )
@@ -913,7 +1028,9 @@ integer_literal <- (integer_literal) => uast(
 )
 
 item <- (item) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Literal",
+    type: "Literal"
 )
 
 let <- (let) => uast(
@@ -921,7 +1038,8 @@ let <- (let) => uast(
 )
 
 lifetime <- (lifetime) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 literal <- (literal) => uast(
@@ -930,6 +1048,7 @@ literal <- (literal) => uast(
 )
 
 loop <- (loop) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -940,6 +1059,7 @@ match <- (match) => uast(
 )
 
 meta <- (meta) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -949,6 +1069,7 @@ metavariable <- (metavariable) => uast(
 )
 
 mod <- (mod) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -957,7 +1078,8 @@ move <- (move) => uast(
 )
 
 mutable_specifier <- (mutable_specifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 outer_doc_comment_marker <- (outer_doc_comment_marker) => uast(
@@ -966,6 +1088,7 @@ outer_doc_comment_marker <- (outer_doc_comment_marker) => uast(
 )
 
 pat <- (pat) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -974,6 +1097,7 @@ path <- (path) => uast(
 )
 
 primitive_type <- (primitive_type) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -982,6 +1106,7 @@ pub <- (pub) => uast(
 )
 
 ref <- (ref) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -991,6 +1116,7 @@ return <- (return) => uast(
 )
 
 self <- (self) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -999,7 +1125,8 @@ shebang <- (shebang) => uast(
 )
 
 shorthand_field_identifier <- (shorthand_field_identifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 static <- (static) => uast(
@@ -1007,6 +1134,7 @@ static <- (static) => uast(
 )
 
 stmt <- (stmt) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1015,6 +1143,7 @@ string_content <- (string_content) => uast(
 )
 
 struct <- (struct) => uast(
+    token: "self",
     type: "Struct",
     roles: "Struct", "Declaration"
 )
@@ -1024,6 +1153,7 @@ super <- (super) => uast(
 )
 
 text_node <- (text_node) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1032,6 +1162,7 @@ trait <- (trait) => uast(
 )
 
 true <- (true) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1041,6 +1172,7 @@ try <- (try) => uast(
 )
 
 tt <- (tt) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1049,6 +1181,7 @@ ty <- (ty) => uast(
 )
 
 type <- (type) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1057,7 +1190,9 @@ type_identifier <- (type_identifier) => uast(
 )
 
 union <- (union) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Reference",
+    type: "Identifier"
 )
 
 unsafe <- (unsafe) => uast(
@@ -1065,6 +1200,7 @@ unsafe <- (unsafe) => uast(
 )
 
 use <- (use) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1073,6 +1209,7 @@ view <- (view) => uast(
 )
 
 vis <- (vis) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1081,6 +1218,7 @@ where <- (where) => uast(
 )
 
 while <- (while) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )

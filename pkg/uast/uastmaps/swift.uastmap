@@ -6,6 +6,7 @@ additive_expression <- (additive_expression) => uast(
 )
 
 array_literal <- (array_literal) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal",
     children: "additive_expression", "array_literal", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "directive", "disjunction_expression", "equality_expression", "fully_open_range", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "open_end_range_expression", "open_start_range_expression", "playground_literal", "postfix_expression", "prefix_expression", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "value_pack_expansion", "value_parameter_pack"
@@ -17,7 +18,8 @@ array_type <- (array_type) => uast(
 )
 
 as_expression <- (as_expression) => uast(
-    type: "Synthetic",
+    token: "self",
+    type: "List",
     children: "additive_expression", "array_literal", "array_type", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "dictionary_type", "directive", "disjunction_expression", "equality_expression", "existential_type", "fully_open_range", "function_type", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "metatype", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "opaque_type", "open_end_range_expression", "open_start_range_expression", "optional_type", "playground_literal", "postfix_expression", "prefix_expression", "protocol_composition_type", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "suppressed_constraint", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "tuple_type", "type_modifiers", "type_pack_expansion", "type_parameter_pack", "user_type", "value_pack_expansion", "value_parameter_pack"
 )
 
@@ -26,6 +28,7 @@ as_operator <- (as_operator) => uast(
 )
 
 assignment <- (assignment) => uast(
+    token: "self",
     type: "Assignment",
     roles: "Assignment",
     children: "additive_expression", "array_literal", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "directive", "directly_assignable_expression", "disjunction_expression", "equality_expression", "fully_open_range", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "open_end_range_expression", "open_start_range_expression", "playground_literal", "postfix_expression", "prefix_expression", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "value_pack_expansion", "value_parameter_pack"
@@ -37,6 +40,7 @@ associatedtype_declaration <- (associatedtype_declaration) => uast(
 )
 
 attribute <- (attribute) => uast(
+    token: "child:identifier",
     type: "Attribute",
     roles: "Attribute"
 )
@@ -46,6 +50,7 @@ availability_condition <- (availability_condition) => uast(
 )
 
 await_expression <- (await_expression) => uast(
+    token: "self",
     type: "Await",
     roles: "Await",
     children: "additive_expression", "array_literal", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "directive", "disjunction_expression", "equality_expression", "fully_open_range", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "open_end_range_expression", "open_start_range_expression", "playground_literal", "postfix_expression", "prefix_expression", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "value_pack_expansion", "value_parameter_pack"
@@ -56,6 +61,7 @@ bang <- (bang) => uast(
 )
 
 bitwise_operation <- (bitwise_operation) => uast(
+    token: "self",
     type: "Synthetic",
     children: "additive_expression", "array_literal", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "directive", "disjunction_expression", "equality_expression", "fully_open_range", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "open_end_range_expression", "open_start_range_expression", "playground_literal", "postfix_expression", "prefix_expression", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "value_pack_expansion", "value_parameter_pack"
 )
@@ -66,6 +72,8 @@ boolean_literal <- (boolean_literal) => uast(
 )
 
 call_expression <- (call_expression) => uast(
+    token: "self",
+    roles: "Literal",
     type: "Call",
     roles: "Call"
 )
@@ -77,6 +85,7 @@ call_suffix <- (call_suffix) => uast(
 )
 
 capture_list <- (capture_list) => uast(
+    token: "self",
     type: "List"
 )
 
@@ -86,6 +95,7 @@ capture_list_item <- (capture_list_item) => uast(
 )
 
 catch_block <- (catch_block) => uast(
+    token: "self",
     type: "Block",
     roles: "Body",
     children: "pattern"
@@ -97,6 +107,7 @@ check_expression <- (check_expression) => uast(
 )
 
 class_body <- (class_body) => uast(
+    token: "self",
     type: "Class",
     roles: "Class", "Declaration"
 )
@@ -108,7 +119,9 @@ class_declaration <- (class_declaration) => uast(
 )
 
 comparison_expression <- (comparison_expression) => uast(
-    type: "Synthetic",
+    token: "child:identifier",
+    roles: "Declaration",
+    type: "Class",
     children: "additive_expression", "array_literal", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "directive", "disjunction_expression", "equality_expression", "fully_open_range", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "open_end_range_expression", "open_start_range_expression", "playground_literal", "postfix_expression", "prefix_expression", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "value_pack_expansion", "value_parameter_pack"
 )
 
@@ -118,7 +131,8 @@ computed_getter <- (computed_getter) => uast(
 )
 
 computed_modify <- (computed_modify) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 computed_property <- (computed_property) => uast(
@@ -127,6 +141,7 @@ computed_property <- (computed_property) => uast(
 )
 
 computed_setter <- (computed_setter) => uast(
+    token: "self",
     type: "Setter",
     roles: "Setter"
 )
@@ -137,6 +152,7 @@ conjunction_expression <- (conjunction_expression) => uast(
 )
 
 constructor_expression <- (constructor_expression) => uast(
+    token: "self",
     type: "Struct",
     roles: "Struct", "Declaration",
     children: "array_type", "dictionary_type", "user_type"
@@ -149,6 +165,7 @@ constructor_suffix <- (constructor_suffix) => uast(
 )
 
 control_transfer_statement <- (control_transfer_statement) => uast(
+    token: "self",
     type: "Synthetic",
     children: "additive_expression", "array_literal", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "directive", "disjunction_expression", "equality_expression", "fully_open_range", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "open_end_range_expression", "open_start_range_expression", "playground_literal", "postfix_expression", "prefix_expression", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "value_pack_expansion", "value_parameter_pack"
 )
@@ -158,6 +175,7 @@ custom_operator <- (custom_operator) => uast(
 )
 
 deinit_declaration <- (deinit_declaration) => uast(
+    token: "self",
     type: "Synthetic",
     children: "function_body"
 )
@@ -167,7 +185,9 @@ deprecated_operator_declaration_body <- (deprecated_operator_declaration_body) =
 )
 
 diagnostic <- (diagnostic) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Body",
+    type: "Block"
 )
 
 dictionary_literal <- (dictionary_literal) => uast(
@@ -177,6 +197,8 @@ dictionary_literal <- (dictionary_literal) => uast(
 )
 
 dictionary_type <- (dictionary_type) => uast(
+    token: "self",
+    roles: "Literal",
     type: "Dict",
     children: "array_type", "dictionary_type", "existential_type", "function_type", "metatype", "opaque_type", "optional_type", "protocol_composition_type", "suppressed_constraint", "tuple_type", "type_modifiers", "type_pack_expansion", "type_parameter_pack", "user_type"
 )
@@ -186,6 +208,7 @@ didset_clause <- (didset_clause) => uast(
 )
 
 directive <- (directive) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -194,6 +217,7 @@ directly_assignable_expression <- (directly_assignable_expression) => uast(
 )
 
 disjunction_expression <- (disjunction_expression) => uast(
+    token: "self",
     type: "Synthetic",
     children: "additive_expression", "array_literal", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "directive", "disjunction_expression", "equality_expression", "fully_open_range", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "open_end_range_expression", "open_start_range_expression", "playground_literal", "postfix_expression", "prefix_expression", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "value_pack_expansion", "value_parameter_pack"
 )
@@ -203,6 +227,7 @@ do_statement <- (do_statement) => uast(
 )
 
 enum_class_body <- (enum_class_body) => uast(
+    token: "self",
     type: "Class",
     roles: "Class", "Declaration"
 )
@@ -214,6 +239,7 @@ enum_entry <- (enum_entry) => uast(
 )
 
 enum_type_parameters <- (enum_type_parameters) => uast(
+    token: "self",
     type: "Enum",
     roles: "Enum", "Declaration",
     children: "array_type", "dictionary_type", "existential_type", "function_type", "metatype", "opaque_type", "optional_type", "protocol_composition_type", "suppressed_constraint", "tuple_type", "type_pack_expansion", "type_parameter_pack", "user_type"
@@ -225,6 +251,7 @@ equality_constraint <- (equality_constraint) => uast(
 )
 
 equality_expression <- (equality_expression) => uast(
+    token: "self",
     type: "Synthetic",
     children: "additive_expression", "array_literal", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "directive", "disjunction_expression", "equality_expression", "fully_open_range", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "open_end_range_expression", "open_start_range_expression", "playground_literal", "postfix_expression", "prefix_expression", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "value_pack_expansion", "value_parameter_pack"
 )
@@ -234,6 +261,7 @@ existential_type <- (existential_type) => uast(
 )
 
 external_macro_definition <- (external_macro_definition) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -244,7 +272,9 @@ for_statement <- (for_statement) => uast(
 )
 
 fully_open_range <- (fully_open_range) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Loop",
+    type: "Loop"
 )
 
 function_body <- (function_body) => uast(
@@ -253,6 +283,8 @@ function_body <- (function_body) => uast(
 )
 
 function_declaration <- (function_declaration) => uast(
+    token: "self",
+    roles: "Body",
     type: "Function",
     roles: "Function", "Declaration",
     children: "additive_expression", "array_literal", "array_type", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "dictionary_type", "directive", "disjunction_expression", "equality_expression", "existential_type", "fully_open_range", "function_body", "function_type", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "metatype", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "opaque_type", "open_end_range_expression", "open_start_range_expression", "optional_type", "playground_literal", "postfix_expression", "prefix_expression", "protocol_composition_type", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "suppressed_constraint", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "tuple_type", "type_modifiers", "type_pack_expansion", "type_parameter_pack", "user_type", "value_pack_expansion", "value_parameter_pack"
@@ -264,6 +296,7 @@ function_modifier <- (function_modifier) => uast(
 )
 
 function_type <- (function_type) => uast(
+    token: "self",
     type: "Function",
     roles: "Function", "Declaration",
     children: "array_type", "dictionary_type", "existential_type", "function_type", "metatype", "opaque_type", "optional_type", "protocol_composition_type", "suppressed_constraint", "tuple_type", "type_modifiers", "type_pack_expansion", "type_parameter_pack", "user_type"
@@ -274,6 +307,7 @@ getter_specifier <- (getter_specifier) => uast(
 )
 
 guard_statement <- (guard_statement) => uast(
+    token: "self",
     type: "Synthetic",
     children: "additive_expression", "array_literal", "array_type", "as", "as_expression", "assignment", "async", "availability_condition", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "case", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "dictionary_type", "directive", "disjunction_expression", "equality_expression", "existential_type", "fully_open_range", "function_type", "hex_literal", "if_statement", "infix_expression", "integer_literal", "is", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "metatype", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "opaque_type", "open_end_range_expression", "open_start_range_expression", "optional_type", "pattern", "playground_literal", "postfix_expression", "prefix_expression", "protocol_composition_type", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "suppressed_constraint", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "tuple_type", "type_annotation", "type_modifiers", "type_pack_expansion", "type_parameter_pack", "user_type", "value_binding_pattern", "value_pack_expansion", "value_parameter_pack", "where_clause", "wildcard_pattern"
 )
@@ -283,7 +317,9 @@ identifier <- (identifier) => uast(
 )
 
 if_statement <- (if_statement) => uast(
-    type: "If",
+    token: "self",
+    roles: "Reference",
+    type: "Identifier",
     children: "additive_expression", "array_literal", "array_type", "as", "as_expression", "assignment", "async", "availability_condition", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "case", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "dictionary_type", "directive", "disjunction_expression", "equality_expression", "existential_type", "fully_open_range", "function_type", "hex_literal", "if_statement", "infix_expression", "integer_literal", "is", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "metatype", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "opaque_type", "open_end_range_expression", "open_start_range_expression", "optional_type", "pattern", "playground_literal", "postfix_expression", "prefix_expression", "protocol_composition_type", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "suppressed_constraint", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "tuple_type", "type_annotation", "type_modifiers", "type_pack_expansion", "type_parameter_pack", "user_type", "value_binding_pattern", "value_pack_expansion", "value_parameter_pack", "where_clause", "wildcard_pattern"
 )
 
@@ -293,7 +329,9 @@ import_declaration <- (import_declaration) => uast(
 )
 
 infix_expression <- (infix_expression) => uast(
-    type: "Synthetic",
+    token: "self",
+    roles: "Import",
+    type: "Import",
     children: "additive_expression", "array_literal", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "directive", "disjunction_expression", "equality_expression", "fully_open_range", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "open_end_range_expression", "open_start_range_expression", "playground_literal", "postfix_expression", "prefix_expression", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "value_pack_expansion", "value_parameter_pack"
 )
 
@@ -303,7 +341,8 @@ inheritance_constraint <- (inheritance_constraint) => uast(
 )
 
 inheritance_modifier <- (inheritance_modifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 inheritance_specifier <- (inheritance_specifier) => uast(
@@ -312,6 +351,7 @@ inheritance_specifier <- (inheritance_specifier) => uast(
 )
 
 init_declaration <- (init_declaration) => uast(
+    token: "self",
     type: "Synthetic",
     children: "additive_expression", "array_literal", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "directive", "disjunction_expression", "equality_expression", "fully_open_range", "function_body", "hex_literal", "if_statement", "infix_expression", "init", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "open_end_range_expression", "open_start_range_expression", "playground_literal", "postfix_expression", "prefix_expression", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "value_pack_expansion", "value_parameter_pack"
 )
@@ -322,6 +362,7 @@ interpolated_expression <- (interpolated_expression) => uast(
 )
 
 key_path_expression <- (key_path_expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -330,6 +371,7 @@ key_path_string_expression <- (key_path_string_expression) => uast(
 )
 
 lambda_function_type <- (lambda_function_type) => uast(
+    token: "self",
     type: "Function",
     roles: "Function", "Declaration",
     children: "array_type", "dictionary_type", "existential_type", "function_type", "metatype", "opaque_type", "optional_type", "protocol_composition_type", "suppressed_constraint", "tuple_type", "type_modifiers", "type_pack_expansion", "type_parameter_pack", "user_type"
@@ -341,6 +383,7 @@ lambda_function_type_parameters <- (lambda_function_type_parameters) => uast(
 )
 
 lambda_literal <- (lambda_literal) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal",
     children: "capture_list", "lambda_function_type"
@@ -353,7 +396,9 @@ lambda_parameter <- (lambda_parameter) => uast(
 )
 
 line_str_text <- (line_str_text) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Parameter",
+    type: "Parameter"
 )
 
 line_string_literal <- (line_string_literal) => uast(
@@ -363,7 +408,9 @@ line_string_literal <- (line_string_literal) => uast(
 )
 
 macro_declaration <- (macro_declaration) => uast(
-    type: "Synthetic",
+    token: "self",
+    roles: "Literal",
+    type: "Literal",
     children: "additive_expression", "array_literal", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "directive", "disjunction_expression", "equality_expression", "fully_open_range", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_definition", "macro_invocation", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "open_end_range_expression", "open_start_range_expression", "playground_literal", "postfix_expression", "prefix_expression", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "value_pack_expansion", "value_parameter_pack"
 )
 
@@ -373,6 +420,7 @@ macro_definition <- (macro_definition) => uast(
 )
 
 macro_invocation <- (macro_invocation) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -381,6 +429,7 @@ member_modifier <- (member_modifier) => uast(
 )
 
 metatype <- (metatype) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -389,7 +438,8 @@ modifiers <- (modifiers) => uast(
 )
 
 modify_specifier <- (modify_specifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 multi_line_str_text <- (multi_line_str_text) => uast(
@@ -397,6 +447,7 @@ multi_line_str_text <- (multi_line_str_text) => uast(
 )
 
 multi_line_string_literal <- (multi_line_string_literal) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal",
     children: "interpolated_expression", "multi_line_str_text", "str_escaped_char"
@@ -408,7 +459,8 @@ multiplicative_expression <- (multiplicative_expression) => uast(
 )
 
 mutation_modifier <- (mutation_modifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 navigation_expression <- (navigation_expression) => uast(
@@ -417,6 +469,7 @@ navigation_expression <- (navigation_expression) => uast(
 )
 
 navigation_suffix <- (navigation_suffix) => uast(
+    token: "self",
     type: "Synthetic",
     children: "integer_literal", "simple_identifier"
 )
@@ -427,6 +480,7 @@ nil_coalescing_expression <- (nil_coalescing_expression) => uast(
 )
 
 opaque_type <- (opaque_type) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -436,6 +490,7 @@ open_end_range_expression <- (open_end_range_expression) => uast(
 )
 
 open_start_range_expression <- (open_start_range_expression) => uast(
+    token: "self",
     type: "Synthetic",
     children: "additive_expression", "array_literal", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "directive", "disjunction_expression", "equality_expression", "fully_open_range", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "open_end_range_expression", "open_start_range_expression", "playground_literal", "postfix_expression", "prefix_expression", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "value_pack_expansion", "value_parameter_pack"
 )
@@ -445,6 +500,7 @@ operator_declaration <- (operator_declaration) => uast(
 )
 
 optional_type <- (optional_type) => uast(
+    token: "self",
     type: "Synthetic",
     children: "array_type", "dictionary_type", "tuple_type", "user_type"
 )
@@ -454,6 +510,7 @@ ownership_modifier <- (ownership_modifier) => uast(
 )
 
 parameter <- (parameter) => uast(
+    token: "self",
     type: "Parameter",
     roles: "Parameter",
     children: "array_type", "dictionary_type", "existential_type", "function_type", "metatype", "opaque_type", "optional_type", "protocol_composition_type", "simple_identifier", "suppressed_constraint", "tuple_type", "type_modifiers", "type_pack_expansion", "type_parameter_pack", "user_type"
@@ -465,6 +522,7 @@ parameter_modifier <- (parameter_modifier) => uast(
 )
 
 parameter_modifiers <- (parameter_modifiers) => uast(
+    token: "self",
     type: "Parameter",
     roles: "Parameter"
 )
@@ -476,6 +534,7 @@ pattern <- (pattern) => uast(
 )
 
 playground_literal <- (playground_literal) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal"
 )
@@ -486,6 +545,7 @@ postfix_expression <- (postfix_expression) => uast(
 )
 
 precedence_group_attribute <- (precedence_group_attribute) => uast(
+    token: "self",
     type: "Attribute",
     roles: "Attribute"
 )
@@ -496,6 +556,7 @@ precedence_group_attributes <- (precedence_group_attributes) => uast(
 )
 
 precedence_group_declaration <- (precedence_group_declaration) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -505,7 +566,8 @@ prefix_expression <- (prefix_expression) => uast(
 )
 
 property_behavior_modifier <- (property_behavior_modifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 property_declaration <- (property_declaration) => uast(
@@ -515,7 +577,8 @@ property_declaration <- (property_declaration) => uast(
 )
 
 property_modifier <- (property_modifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Property"
 )
 
 protocol_body <- (protocol_body) => uast(
@@ -524,7 +587,9 @@ protocol_body <- (protocol_body) => uast(
 )
 
 protocol_composition_type <- (protocol_composition_type) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Body",
+    type: "Block"
 )
 
 protocol_declaration <- (protocol_declaration) => uast(
@@ -533,6 +598,7 @@ protocol_declaration <- (protocol_declaration) => uast(
 )
 
 protocol_function_declaration <- (protocol_function_declaration) => uast(
+    token: "self",
     type: "Function",
     roles: "Function", "Declaration",
     children: "additive_expression", "array_literal", "array_type", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "dictionary_type", "directive", "disjunction_expression", "equality_expression", "existential_type", "fully_open_range", "function_type", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "metatype", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "opaque_type", "open_end_range_expression", "open_start_range_expression", "optional_type", "playground_literal", "postfix_expression", "prefix_expression", "protocol_composition_type", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "suppressed_constraint", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "tuple_type", "type_modifiers", "type_pack_expansion", "type_parameter_pack", "user_type", "value_pack_expansion", "value_parameter_pack"
@@ -545,6 +611,7 @@ protocol_property_declaration <- (protocol_property_declaration) => uast(
 )
 
 protocol_property_requirements <- (protocol_property_requirements) => uast(
+    token: "self",
     type: "Property",
     roles: "Member"
 )
@@ -555,6 +622,7 @@ range_expression <- (range_expression) => uast(
 )
 
 raw_str_interpolation <- (raw_str_interpolation) => uast(
+    token: "self",
     type: "Synthetic",
     children: "interpolated_expression"
 )
@@ -566,6 +634,8 @@ raw_string_literal <- (raw_string_literal) => uast(
 )
 
 regex_literal <- (regex_literal) => uast(
+    token: "self",
+    roles: "Literal",
     type: "Literal",
     roles: "Literal"
 )
@@ -577,6 +647,7 @@ repeat_while_statement <- (repeat_while_statement) => uast(
 )
 
 selector_expression <- (selector_expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -585,7 +656,8 @@ self_expression <- (self_expression) => uast(
 )
 
 setter_specifier <- (setter_specifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 shebang_line <- (shebang_line) => uast(
@@ -593,7 +665,8 @@ shebang_line <- (shebang_line) => uast(
 )
 
 simple_identifier <- (simple_identifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 source_file <- (source_file) => uast(
@@ -601,6 +674,7 @@ source_file <- (source_file) => uast(
 )
 
 special_literal <- (special_literal) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal"
 )
@@ -610,6 +684,7 @@ statements <- (statements) => uast(
 )
 
 str_escaped_char <- (str_escaped_char) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -619,6 +694,7 @@ subscript_declaration <- (subscript_declaration) => uast(
 )
 
 super_expression <- (super_expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -628,6 +704,7 @@ suppressed_constraint <- (suppressed_constraint) => uast(
 )
 
 switch_entry <- (switch_entry) => uast(
+    token: "self",
     type: "Switch"
 )
 
@@ -636,6 +713,7 @@ switch_pattern <- (switch_pattern) => uast(
 )
 
 switch_statement <- (switch_statement) => uast(
+    token: "self",
     type: "Switch",
     children: "additive_expression", "array_literal", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "directive", "disjunction_expression", "equality_expression", "fully_open_range", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "open_end_range_expression", "open_start_range_expression", "playground_literal", "postfix_expression", "prefix_expression", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "value_pack_expansion", "value_parameter_pack"
 )
@@ -646,6 +724,7 @@ ternary_expression <- (ternary_expression) => uast(
 )
 
 throws <- (throws) => uast(
+    token: "self",
     type: "Throw",
     roles: "Throw"
 )
@@ -657,6 +736,7 @@ try_expression <- (try_expression) => uast(
 )
 
 try_operator <- (try_operator) => uast(
+    token: "self",
     type: "Try",
     roles: "Try"
 )
@@ -667,6 +747,7 @@ tuple_expression <- (tuple_expression) => uast(
 )
 
 tuple_type <- (tuple_type) => uast(
+    token: "self",
     type: "Tuple",
     children: "tuple_type_item"
 )
@@ -677,6 +758,7 @@ tuple_type_item <- (tuple_type_item) => uast(
 )
 
 type_annotation <- (type_annotation) => uast(
+    token: "self",
     type: "TypeAnnotation",
     roles: "Type",
     children: "array_type", "dictionary_type", "existential_type", "function_type", "metatype", "opaque_type", "optional_type", "protocol_composition_type", "suppressed_constraint", "tuple_type", "type_modifiers", "type_pack_expansion", "type_parameter_pack", "user_type"
@@ -688,6 +770,7 @@ type_arguments <- (type_arguments) => uast(
 )
 
 type_constraint <- (type_constraint) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -696,7 +779,8 @@ type_constraints <- (type_constraints) => uast(
 )
 
 type_identifier <- (type_identifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 type_modifiers <- (type_modifiers) => uast(
@@ -704,6 +788,7 @@ type_modifiers <- (type_modifiers) => uast(
 )
 
 type_pack_expansion <- (type_pack_expansion) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -714,6 +799,8 @@ type_parameter <- (type_parameter) => uast(
 )
 
 type_parameter_modifiers <- (type_parameter_modifiers) => uast(
+    token: "self",
+    roles: "Parameter",
     type: "Parameter",
     roles: "Parameter"
 )
@@ -724,6 +811,7 @@ type_parameter_pack <- (type_parameter_pack) => uast(
 )
 
 type_parameters <- (type_parameters) => uast(
+    token: "self",
     type: "Parameter",
     roles: "Parameter"
 )
@@ -734,6 +822,7 @@ typealias_declaration <- (typealias_declaration) => uast(
 )
 
 user_type <- (user_type) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -743,6 +832,7 @@ value_argument <- (value_argument) => uast(
 )
 
 value_argument_label <- (value_argument_label) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -751,6 +841,7 @@ value_arguments <- (value_arguments) => uast(
 )
 
 value_binding_pattern <- (value_binding_pattern) => uast(
+    token: "self",
     type: "Pattern",
     roles: "Pattern",
     children: "let", "var"
@@ -761,6 +852,7 @@ value_pack_expansion <- (value_pack_expansion) => uast(
 )
 
 value_parameter_pack <- (value_parameter_pack) => uast(
+    token: "self",
     type: "Parameter",
     roles: "Parameter"
 )
@@ -770,6 +862,7 @@ visibility_modifier <- (visibility_modifier) => uast(
 )
 
 where_clause <- (where_clause) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -780,6 +873,8 @@ while_statement <- (while_statement) => uast(
 )
 
 willset_clause <- (willset_clause) => uast(
+    token: "self",
+    roles: "Loop",
     type: "Set"
 )
 
@@ -789,7 +884,9 @@ willset_didset_block <- (willset_didset_block) => uast(
 )
 
 Protocol <- (Protocol) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Body",
+    type: "Block"
 )
 
 Type <- (Type) => uast(
@@ -797,6 +894,7 @@ Type <- (Type) => uast(
 )
 
 _expression <- (_expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -805,6 +903,7 @@ _modify <- (_modify) => uast(
 )
 
 actor <- (actor) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -813,6 +912,7 @@ any <- (any) => uast(
 )
 
 arch <- (arch) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -821,6 +921,7 @@ as <- (as) => uast(
 )
 
 associatedtype <- (associatedtype) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -829,6 +930,7 @@ async <- (async) => uast(
 )
 
 available <- (available) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -838,6 +940,7 @@ await <- (await) => uast(
 )
 
 bin_literal <- (bin_literal) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal"
 )
@@ -847,6 +950,7 @@ borrowing <- (borrowing) => uast(
 )
 
 break <- (break) => uast(
+    token: "self",
     type: "Break",
     roles: "Break"
 )
@@ -857,6 +961,7 @@ canImport <- (canImport) => uast(
 )
 
 case <- (case) => uast(
+    token: "self",
     type: "Case",
     roles: "Branch"
 )
@@ -867,6 +972,7 @@ catch_keyword <- (catch_keyword) => uast(
 )
 
 class <- (class) => uast(
+    token: "self",
     type: "Class",
     roles: "Class", "Declaration"
 )
@@ -877,6 +983,7 @@ colorLiteral <- (colorLiteral) => uast(
 )
 
 column <- (column) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -886,7 +993,9 @@ comment <- (comment) => uast(
 )
 
 compiler <- (compiler) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 consuming <- (consuming) => uast(
@@ -894,6 +1003,7 @@ consuming <- (consuming) => uast(
 )
 
 continue <- (continue) => uast(
+    token: "self",
     type: "Continue",
     roles: "Continue"
 )
@@ -903,6 +1013,7 @@ convenience <- (convenience) => uast(
 )
 
 default_keyword <- (default_keyword) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -911,6 +1022,7 @@ deinit <- (deinit) => uast(
 )
 
 didSet <- (didSet) => uast(
+    token: "self",
     type: "Set"
 )
 
@@ -919,6 +1031,7 @@ distributed <- (distributed) => uast(
 )
 
 do <- (do) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -927,6 +1040,7 @@ dsohandle <- (dsohandle) => uast(
 )
 
 dynamic <- (dynamic) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -935,6 +1049,7 @@ each <- (each) => uast(
 )
 
 else <- (else) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -944,6 +1059,7 @@ enum <- (enum) => uast(
 )
 
 extension <- (extension) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -952,6 +1068,7 @@ externalMacro <- (externalMacro) => uast(
 )
 
 fallthrough <- (fallthrough) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -960,6 +1077,7 @@ false <- (false) => uast(
 )
 
 file <- (file) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -968,6 +1086,7 @@ fileID <- (fileID) => uast(
 )
 
 fileLiteral <- (fileLiteral) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal"
 )
@@ -977,6 +1096,7 @@ filePath <- (filePath) => uast(
 )
 
 fileprivate <- (fileprivate) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -985,6 +1105,7 @@ final <- (final) => uast(
 )
 
 for <- (for) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -994,6 +1115,7 @@ func <- (func) => uast(
 )
 
 function <- (function) => uast(
+    token: "self",
     type: "Function",
     roles: "Function", "Declaration"
 )
@@ -1003,6 +1125,7 @@ get <- (get) => uast(
 )
 
 guard <- (guard) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1012,7 +1135,9 @@ hex_literal <- (hex_literal) => uast(
 )
 
 if <- (if) => uast(
-    type: "If"
+    token: "self",
+    roles: "Literal",
+    type: "Literal"
 )
 
 imageLiteral <- (imageLiteral) => uast(
@@ -1021,6 +1146,7 @@ imageLiteral <- (imageLiteral) => uast(
 )
 
 import <- (import) => uast(
+    token: "self",
     type: "Import",
     roles: "Import"
 )
@@ -1030,6 +1156,7 @@ in <- (in) => uast(
 )
 
 indirect <- (indirect) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1038,6 +1165,7 @@ infix <- (infix) => uast(
 )
 
 init <- (init) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1046,6 +1174,7 @@ inout <- (inout) => uast(
 )
 
 integer_literal <- (integer_literal) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal"
 )
@@ -1055,6 +1184,7 @@ internal <- (internal) => uast(
 )
 
 is <- (is) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1063,6 +1193,7 @@ keyPath <- (keyPath) => uast(
 )
 
 lazy <- (lazy) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1071,6 +1202,7 @@ let <- (let) => uast(
 )
 
 line <- (line) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1079,6 +1211,7 @@ macro <- (macro) => uast(
 )
 
 multiline_comment <- (multiline_comment) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment"
 )
@@ -1088,6 +1221,7 @@ mutating <- (mutating) => uast(
 )
 
 nil <- (nil) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1096,6 +1230,7 @@ nonisolated <- (nonisolated) => uast(
 )
 
 nonmutating <- (nonmutating) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1105,7 +1240,9 @@ oct_literal <- (oct_literal) => uast(
 )
 
 open <- (open) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Literal",
+    type: "Literal"
 )
 
 operator <- (operator) => uast(
@@ -1113,6 +1250,7 @@ operator <- (operator) => uast(
 )
 
 optional <- (optional) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1121,6 +1259,7 @@ os <- (os) => uast(
 )
 
 override <- (override) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1130,6 +1269,7 @@ package <- (package) => uast(
 )
 
 postfix <- (postfix) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1138,6 +1278,7 @@ precedencegroup <- (precedencegroup) => uast(
 )
 
 prefix <- (prefix) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1146,6 +1287,7 @@ private <- (private) => uast(
 )
 
 protocol <- (protocol) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1154,6 +1296,7 @@ public <- (public) => uast(
 )
 
 raw_str_continuing_indicator <- (raw_str_continuing_indicator) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1162,6 +1305,7 @@ raw_str_end_part <- (raw_str_end_part) => uast(
 )
 
 raw_str_interpolation_start <- (raw_str_interpolation_start) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1170,6 +1314,7 @@ raw_str_part <- (raw_str_part) => uast(
 )
 
 real_literal <- (real_literal) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal"
 )
@@ -1179,6 +1324,7 @@ repeat <- (repeat) => uast(
 )
 
 required <- (required) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1188,6 +1334,7 @@ return <- (return) => uast(
 )
 
 selector <- (selector) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1196,6 +1343,7 @@ self <- (self) => uast(
 )
 
 set <- (set) => uast(
+    token: "self",
     type: "Set"
 )
 
@@ -1204,6 +1352,7 @@ some <- (some) => uast(
 )
 
 statement_label <- (statement_label) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1212,6 +1361,7 @@ static <- (static) => uast(
 )
 
 struct <- (struct) => uast(
+    token: "self",
     type: "Struct",
     roles: "Struct", "Declaration"
 )
@@ -1221,6 +1371,7 @@ subscript <- (subscript) => uast(
 )
 
 super <- (super) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1229,6 +1380,7 @@ swift <- (swift) => uast(
 )
 
 switch <- (switch) => uast(
+    token: "self",
     type: "Switch"
 )
 
@@ -1237,6 +1389,7 @@ targetEnvironment <- (targetEnvironment) => uast(
 )
 
 throw_keyword <- (throw_keyword) => uast(
+    token: "self",
     type: "Throw",
     roles: "Throw"
 )
@@ -1246,6 +1399,7 @@ true <- (true) => uast(
 )
 
 try <- (try) => uast(
+    token: "self",
     type: "Try",
     roles: "Try"
 )
@@ -1255,6 +1409,7 @@ typealias <- (typealias) => uast(
 )
 
 u <- (u) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1263,6 +1418,7 @@ unavailable <- (unavailable) => uast(
 )
 
 unowned <- (unowned) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1271,6 +1427,7 @@ var <- (var) => uast(
 )
 
 weak <- (weak) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1279,6 +1436,7 @@ where_keyword <- (where_keyword) => uast(
 )
 
 while <- (while) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -1289,6 +1447,7 @@ wildcard_pattern <- (wildcard_pattern) => uast(
 )
 
 willSet <- (willSet) => uast(
+    token: "self",
     type: "Set"
 )
 

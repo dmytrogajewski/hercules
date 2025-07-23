@@ -5,6 +5,7 @@ aggregate <- (aggregate) => uast(
 )
 
 aggregate_operation <- (aggregate_operation) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -14,6 +15,7 @@ append <- (append) => uast(
 )
 
 assignment <- (assignment) => uast(
+    token: "self",
     type: "Assignment",
     roles: "Assignment",
     children: "binary_expression", "case", "date", "f_string", "field", "function_call", "keyword_average", "keyword_avg", "keyword_count_distinct", "keyword_max", "keyword_min", "keyword_stddev", "keyword_sum", "literal", "s_string", "time", "timestamp"
@@ -25,6 +27,8 @@ binary_expression <- (binary_expression) => uast(
 )
 
 case <- (case) => uast(
+    token: "self",
+    roles: "Operator",
     type: "Case",
     roles: "Branch"
 )
@@ -36,6 +40,7 @@ case_condition <- (case_condition) => uast(
 )
 
 comment <- (comment) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment"
 )
@@ -45,6 +50,7 @@ conditions <- (conditions) => uast(
 )
 
 date <- (date) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -53,6 +59,7 @@ decimal_number <- (decimal_number) => uast(
 )
 
 derives <- (derives) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -61,6 +68,7 @@ direction <- (direction) => uast(
 )
 
 f_string <- (f_string) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -71,6 +79,7 @@ field <- (field) => uast(
 )
 
 filter <- (filter) => uast(
+    token: "self",
     type: "Synthetic",
     children: "binary_expression", "date", "f_string", "field", "literal", "s_string", "time", "timestamp"
 )
@@ -81,6 +90,7 @@ from <- (from) => uast(
 )
 
 from_text <- (from_text) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -91,6 +101,8 @@ function_call <- (function_call) => uast(
 )
 
 function_definition <- (function_definition) => uast(
+    token: "self",
+    roles: "Call",
     type: "Function",
     roles: "Function", "Declaration",
     children: "binary_expression", "identifier", "s_string"
@@ -101,7 +113,8 @@ group <- (group) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 integer <- (integer) => uast(
@@ -109,6 +122,7 @@ integer <- (integer) => uast(
 )
 
 joins <- (joins) => uast(
+    token: "self",
     type: "Synthetic",
     children: "term"
 )
@@ -119,6 +133,7 @@ literal <- (literal) => uast(
 )
 
 literal_string <- (literal_string) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal"
 )
@@ -129,6 +144,7 @@ loop <- (loop) => uast(
 )
 
 module_call <- (module_call) => uast(
+    token: "self",
     type: "Call",
     roles: "Call",
     children: "identifier"
@@ -141,7 +157,9 @@ parameter <- (parameter) => uast(
 )
 
 pipeline <- (pipeline) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Parameter",
+    type: "Parameter"
 )
 
 program <- (program) => uast(
@@ -149,7 +167,8 @@ program <- (program) => uast(
 )
 
 prql <- (prql) => uast(
-    type: "Synthetic",
+    token: "self",
+    type: "File",
     children: "literal", "target"
 )
 
@@ -159,6 +178,7 @@ range <- (range) => uast(
 )
 
 s_string <- (s_string) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -167,6 +187,7 @@ select <- (select) => uast(
 )
 
 sorts <- (sorts) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -175,6 +196,7 @@ takes <- (takes) => uast(
 )
 
 target <- (target) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -184,6 +206,7 @@ term <- (term) => uast(
 )
 
 time <- (time) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -192,6 +215,7 @@ timestamp <- (timestamp) => uast(
 )
 
 timezone <- (timezone) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -201,6 +225,7 @@ transforms <- (transforms) => uast(
 )
 
 variable <- (variable) => uast(
+    token: "self",
     type: "Variable",
     roles: "Variable", "Declaration",
     children: "identifier"
@@ -211,6 +236,7 @@ window <- (window) => uast(
 )
 
 window_definitions <- (window_definitions) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -219,6 +245,7 @@ T <- (T) => uast(
 )
 
 Z <- (Z) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -227,6 +254,7 @@ _ <- (_) => uast(
 )
 
 bang <- (bang) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -235,6 +263,7 @@ keyword_aggregate <- (keyword_aggregate) => uast(
 )
 
 keyword_append <- (keyword_append) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -243,6 +272,7 @@ keyword_average <- (keyword_average) => uast(
 )
 
 keyword_avg <- (keyword_avg) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -252,7 +282,9 @@ keyword_case <- (keyword_case) => uast(
 )
 
 keyword_count <- (keyword_count) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Branch",
+    type: "Case"
 )
 
 keyword_count_distinct <- (keyword_count_distinct) => uast(
@@ -260,6 +292,7 @@ keyword_count_distinct <- (keyword_count_distinct) => uast(
 )
 
 keyword_csv <- (keyword_csv) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -268,6 +301,7 @@ keyword_derive <- (keyword_derive) => uast(
 )
 
 keyword_expanding <- (keyword_expanding) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -276,6 +310,7 @@ keyword_false <- (keyword_false) => uast(
 )
 
 keyword_filter <- (keyword_filter) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -285,6 +320,7 @@ keyword_format <- (keyword_format) => uast(
 )
 
 keyword_from <- (keyword_from) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -293,6 +329,7 @@ keyword_from_text <- (keyword_from_text) => uast(
 )
 
 keyword_full <- (keyword_full) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -301,6 +338,7 @@ keyword_group <- (keyword_group) => uast(
 )
 
 keyword_inner <- (keyword_inner) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -309,6 +347,7 @@ keyword_intersect <- (keyword_intersect) => uast(
 )
 
 keyword_join <- (keyword_join) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -317,6 +356,7 @@ keyword_json <- (keyword_json) => uast(
 )
 
 keyword_left <- (keyword_left) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -325,6 +365,7 @@ keyword_let <- (keyword_let) => uast(
 )
 
 keyword_loop <- (keyword_loop) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -334,6 +375,7 @@ keyword_max <- (keyword_max) => uast(
 )
 
 keyword_min <- (keyword_min) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -342,6 +384,7 @@ keyword_null <- (keyword_null) => uast(
 )
 
 keyword_prql <- (keyword_prql) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -350,6 +393,7 @@ keyword_rank <- (keyword_rank) => uast(
 )
 
 keyword_remove <- (keyword_remove) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -358,6 +402,7 @@ keyword_right <- (keyword_right) => uast(
 )
 
 keyword_rolling <- (keyword_rolling) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -366,6 +411,7 @@ keyword_rows <- (keyword_rows) => uast(
 )
 
 keyword_select <- (keyword_select) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -374,6 +420,7 @@ keyword_side <- (keyword_side) => uast(
 )
 
 keyword_sort <- (keyword_sort) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -382,6 +429,7 @@ keyword_stddev <- (keyword_stddev) => uast(
 )
 
 keyword_sum <- (keyword_sum) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -390,6 +438,7 @@ keyword_take <- (keyword_take) => uast(
 )
 
 keyword_target <- (keyword_target) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -398,6 +447,7 @@ keyword_true <- (keyword_true) => uast(
 )
 
 keyword_version <- (keyword_version) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -406,5 +456,6 @@ keyword_window <- (keyword_window) => uast(
 )
 
 pipe <- (pipe) => uast(
+    token: "self",
     type: "Synthetic"
 )

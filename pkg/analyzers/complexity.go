@@ -135,7 +135,7 @@ func isDecisionPoint(n *node.Node) bool {
 	}
 
 	for _, role := range n.Roles {
-		if string(role) == "Condition" {
+		if string(role) == node.RoleCondition {
 			return true
 		}
 	}

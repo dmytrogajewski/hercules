@@ -7,6 +7,8 @@ access_call <- (access_call) => uast(
 )
 
 after_block <- (after_block) => uast(
+    token: "self",
+    roles: "Call",
     type: "Block",
     roles: "Body"
 )
@@ -17,7 +19,8 @@ anonymous_function <- (anonymous_function) => uast(
 )
 
 arguments <- (arguments) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Lambda"
 )
 
 binary_operator <- (binary_operator) => uast(
@@ -27,6 +30,7 @@ binary_operator <- (binary_operator) => uast(
 )
 
 bitstring <- (bitstring) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -36,7 +40,9 @@ block <- (block) => uast(
 )
 
 body <- (body) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Body",
+    type: "Block"
 )
 
 boolean <- (boolean) => uast(
@@ -44,6 +50,7 @@ boolean <- (boolean) => uast(
 )
 
 call <- (call) => uast(
+    token: "self",
     type: "Call",
     roles: "Call",
     children: "call", "dot", "identifier"
@@ -55,6 +62,8 @@ catch_block <- (catch_block) => uast(
 )
 
 charlist <- (charlist) => uast(
+    token: "self",
+    roles: "Body",
     type: "List"
 )
 
@@ -64,7 +73,9 @@ do_block <- (do_block) => uast(
 )
 
 dot <- (dot) => uast(
-    type: "Synthetic",
+    token: "self",
+    roles: "Body",
+    type: "Block",
     children: "access_call", "alias", "anonymous_function", "atom", "binary_operator", "bitstring", "block", "boolean", "call", "char", "charlist", "dot", "float", "identifier", "integer", "list", "map", "nil", "operator_identifier", "quoted_atom", "sigil", "string", "tuple", "unary_operator"
 )
 
@@ -74,7 +85,9 @@ else_block <- (else_block) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    token: "self",
+    roles: "Body",
+    type: "Block"
 )
 
 interpolation <- (interpolation) => uast(
@@ -82,6 +95,7 @@ interpolation <- (interpolation) => uast(
 )
 
 keywords <- (keywords) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -90,6 +104,7 @@ list <- (list) => uast(
 )
 
 map <- (map) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -98,6 +113,7 @@ map_content <- (map_content) => uast(
 )
 
 nil <- (nil) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -106,7 +122,9 @@ operator_identifier <- (operator_identifier) => uast(
 )
 
 pair <- (pair) => uast(
-    type: "Synthetic",
+    token: "self",
+    roles: "Reference",
+    type: "Identifier",
     children: "access_call", "alias", "anonymous_function", "atom", "binary_operator", "bitstring", "block", "boolean", "call", "char", "charlist", "dot", "float", "identifier", "integer", "keyword", "list", "map", "nil", "operator_identifier", "quoted_atom", "quoted_keyword", "sigil", "string", "tuple", "unary_operator"
 )
 
@@ -115,6 +133,7 @@ quoted_atom <- (quoted_atom) => uast(
 )
 
 quoted_keyword <- (quoted_keyword) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -124,7 +143,9 @@ rescue_block <- (rescue_block) => uast(
 )
 
 sigil <- (sigil) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Body",
+    type: "Block"
 )
 
 source <- (source) => uast(
@@ -132,6 +153,7 @@ source <- (source) => uast(
 )
 
 stab_clause <- (stab_clause) => uast(
+    token: "self",
     type: "Synthetic",
     children: "arguments", "binary_operator", "body"
 )
@@ -141,6 +163,7 @@ string <- (string) => uast(
 )
 
 struct <- (struct) => uast(
+    token: "self",
     type: "Struct",
     roles: "Struct", "Declaration"
 )
@@ -150,6 +173,7 @@ tuple <- (tuple) => uast(
 )
 
 unary_operator <- (unary_operator) => uast(
+    token: "self",
     type: "UnaryOp",
     roles: "Operator",
     children: "access_call", "alias", "anonymous_function", "atom", "binary_operator", "bitstring", "block", "boolean", "call", "char", "charlist", "dot", "float", "identifier", "integer", "list", "map", "nil", "not", "operator_identifier", "quoted_atom", "sigil", "string", "tuple", "unary_operator"
@@ -160,6 +184,7 @@ after <- (after) => uast(
 )
 
 alias <- (alias) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -168,6 +193,7 @@ and <- (and) => uast(
 )
 
 atom <- (atom) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -177,6 +203,7 @@ catch <- (catch) => uast(
 )
 
 char <- (char) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -186,7 +213,9 @@ comment <- (comment) => uast(
 )
 
 do <- (do) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 else <- (else) => uast(
@@ -194,6 +223,7 @@ else <- (else) => uast(
 )
 
 end <- (end) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -202,6 +232,7 @@ escape_sequence <- (escape_sequence) => uast(
 )
 
 false <- (false) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -210,6 +241,7 @@ float <- (float) => uast(
 )
 
 fn <- (fn) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -218,6 +250,7 @@ in <- (in) => uast(
 )
 
 integer <- (integer) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -226,6 +259,7 @@ keyword <- (keyword) => uast(
 )
 
 nil <- (nil) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -234,6 +268,7 @@ not <- (not) => uast(
 )
 
 or <- (or) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -242,6 +277,7 @@ quoted_content <- (quoted_content) => uast(
 )
 
 rescue <- (rescue) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -250,6 +286,7 @@ sigil_modifiers <- (sigil_modifiers) => uast(
 )
 
 sigil_name <- (sigil_name) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -258,5 +295,6 @@ true <- (true) => uast(
 )
 
 when <- (when) => uast(
+    token: "self",
     type: "Synthetic"
 )

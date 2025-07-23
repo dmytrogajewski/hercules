@@ -5,6 +5,7 @@ expression <- (expression) => uast(
 )
 
 literal <- (literal) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal"
 )
@@ -14,6 +15,7 @@ primary_expression <- (primary_expression) => uast(
 )
 
 statement <- (statement) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -22,7 +24,8 @@ type <- (type) => uast(
 )
 
 abstract_modifier <- (abstract_modifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 anonymous_class <- (anonymous_class) => uast(
@@ -32,6 +35,8 @@ anonymous_class <- (anonymous_class) => uast(
 )
 
 anonymous_function <- (anonymous_function) => uast(
+    token: "self",
+    roles: "Declaration",
     type: "Function",
     roles: "Function", "Declaration",
     children: "attribute_list", "bottom_type", "compound_statement", "formal_parameters", "reference_modifier", "static_modifier", "type"
@@ -43,6 +48,7 @@ anonymous_function_use_clause <- (anonymous_function_use_clause) => uast(
 )
 
 argument <- (argument) => uast(
+    token: "self",
     type: "Synthetic",
     children: "name", "reference_modifier"
 )
@@ -52,6 +58,7 @@ arguments <- (arguments) => uast(
 )
 
 array_creation_expression <- (array_creation_expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -60,6 +67,7 @@ array_element_initializer <- (array_element_initializer) => uast(
 )
 
 arrow_function <- (arrow_function) => uast(
+    token: "self",
     type: "Function",
     roles: "Function", "Declaration",
     children: "attribute_list", "bottom_type", "expression", "formal_parameters", "reference_modifier", "static_modifier", "type"
@@ -72,6 +80,8 @@ assignment_expression <- (assignment_expression) => uast(
 )
 
 attribute <- (attribute) => uast(
+    token: "self",
+    roles: "Assignment",
     type: "Attribute",
     roles: "Attribute",
     children: "arguments"
@@ -83,6 +93,7 @@ attribute_group <- (attribute_group) => uast(
 )
 
 attribute_list <- (attribute_list) => uast(
+    token: "self",
     type: "Attribute",
     roles: "Attribute"
 )
@@ -94,6 +105,7 @@ augmented_assignment_expression <- (augmented_assignment_expression) => uast(
 )
 
 base_clause <- (base_clause) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -103,7 +115,9 @@ binary_expression <- (binary_expression) => uast(
 )
 
 boolean <- (boolean) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Operator",
+    type: "BinaryOp"
 )
 
 break_statement <- (break_statement) => uast(
@@ -112,7 +126,9 @@ break_statement <- (break_statement) => uast(
 )
 
 by_ref <- (by_ref) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Break",
+    type: "Break"
 )
 
 case_statement <- (case_statement) => uast(
@@ -122,6 +138,8 @@ case_statement <- (case_statement) => uast(
 )
 
 cast_expression <- (cast_expression) => uast(
+    token: "self",
+    roles: "Branch",
     type: "Cast",
     children: "cast_type", "clone_expression", "error_suppression_expression", "include_expression", "include_once_expression", "primary_expression", "unary_op_expression"
 )
@@ -131,6 +149,7 @@ cast_type <- (cast_type) => uast(
 )
 
 catch_clause <- (catch_clause) => uast(
+    token: "self",
     type: "Catch",
     roles: "Catch",
     children: "compound_statement", "type_list", "variable_name"
@@ -142,6 +161,7 @@ class_constant_access_expression <- (class_constant_access_expression) => uast(
 )
 
 class_declaration <- (class_declaration) => uast(
+    token: "self",
     type: "Class",
     roles: "Class", "Declaration",
     children: "attribute_list", "declaration_list", "name"
@@ -153,6 +173,7 @@ class_interface_clause <- (class_interface_clause) => uast(
 )
 
 clone_expression <- (clone_expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -162,7 +183,9 @@ colon_block <- (colon_block) => uast(
 )
 
 compound_statement <- (compound_statement) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Body",
+    type: "Block"
 )
 
 conditional_expression <- (conditional_expression) => uast(
@@ -171,6 +194,7 @@ conditional_expression <- (conditional_expression) => uast(
 )
 
 const_declaration <- (const_declaration) => uast(
+    token: "self",
     type: "Synthetic",
     children: "attribute_list", "type"
 )
@@ -180,6 +204,7 @@ const_element <- (const_element) => uast(
 )
 
 continue_statement <- (continue_statement) => uast(
+    token: "self",
     type: "Continue",
     roles: "Continue"
 )
@@ -189,7 +214,8 @@ declaration_list <- (declaration_list) => uast(
 )
 
 declare_directive <- (declare_directive) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "List"
 )
 
 declare_statement <- (declare_statement) => uast(
@@ -197,6 +223,7 @@ declare_statement <- (declare_statement) => uast(
 )
 
 default_statement <- (default_statement) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -206,6 +233,7 @@ disjunctive_normal_form_type <- (disjunctive_normal_form_type) => uast(
 )
 
 do_statement <- (do_statement) => uast(
+    token: "self",
     type: "Synthetic",
     children: "parenthesized_expression", "statement"
 )
@@ -216,6 +244,7 @@ dynamic_variable_name <- (dynamic_variable_name) => uast(
 )
 
 echo_statement <- (echo_statement) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -225,7 +254,8 @@ else_clause <- (else_clause) => uast(
 )
 
 else_if_clause <- (else_if_clause) => uast(
-    type: "If",
+    token: "self",
+    type: "Synthetic",
     children: "colon_block", "parenthesized_expression", "statement"
 )
 
@@ -234,6 +264,7 @@ empty_statement <- (empty_statement) => uast(
 )
 
 encapsed_string <- (encapsed_string) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -244,6 +275,8 @@ enum_case <- (enum_case) => uast(
 )
 
 enum_declaration <- (enum_declaration) => uast(
+    token: "self",
+    roles: "Branch",
     type: "Enum",
     roles: "Enum", "Declaration",
     children: "attribute_list", "enum_declaration_list", "name"
@@ -255,7 +288,8 @@ enum_declaration_list <- (enum_declaration_list) => uast(
 )
 
 error_suppression_expression <- (error_suppression_expression) => uast(
-    type: "Synthetic"
+    token: "child:identifier",
+    type: "List"
 )
 
 exit_statement <- (exit_statement) => uast(
@@ -263,6 +297,7 @@ exit_statement <- (exit_statement) => uast(
 )
 
 expression_statement <- (expression_statement) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -271,6 +306,7 @@ final_modifier <- (final_modifier) => uast(
 )
 
 finally_clause <- (finally_clause) => uast(
+    token: "self",
     type: "Finally",
     roles: "Finally",
     children: "compound_statement"
@@ -283,6 +319,8 @@ for_statement <- (for_statement) => uast(
 )
 
 foreach_statement <- (foreach_statement) => uast(
+    token: "self",
+    roles: "Loop",
     type: "Loop",
     roles: "Loop",
     children: "colon_block", "statement"
@@ -294,6 +332,7 @@ formal_parameters <- (formal_parameters) => uast(
 )
 
 function_call_expression <- (function_call_expression) => uast(
+    token: "self",
     type: "Function",
     roles: "Function", "Declaration",
     children: "arguments", "array_creation_expression", "dynamic_variable_name", "encapsed_string", "function_call_expression", "heredoc", "member_call_expression", "name", "nowdoc", "nullsafe_member_call_expression", "object_creation_expression", "parenthesized_expression", "qualified_name", "relative_name", "scoped_call_expression", "string", "subscript_expression", "variable_name"
@@ -306,6 +345,8 @@ function_definition <- (function_definition) => uast(
 )
 
 function_static_declaration <- (function_static_declaration) => uast(
+    token: "self",
+    roles: "Function", "Declaration",
     type: "Function",
     roles: "Function", "Declaration"
 )
@@ -315,6 +356,7 @@ global_declaration <- (global_declaration) => uast(
 )
 
 goto_statement <- (goto_statement) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -324,6 +366,7 @@ heredoc <- (heredoc) => uast(
 )
 
 heredoc_body <- (heredoc_body) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -333,7 +376,9 @@ if_statement <- (if_statement) => uast(
 )
 
 include_expression <- (include_expression) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Condition",
+    type: "If"
 )
 
 include_once_expression <- (include_once_expression) => uast(
@@ -341,6 +386,7 @@ include_once_expression <- (include_once_expression) => uast(
 )
 
 interface_declaration <- (interface_declaration) => uast(
+    token: "self",
     type: "Interface",
     roles: "Interface", "Declaration",
     children: "attribute_list", "declaration_list", "name"
@@ -351,6 +397,7 @@ intersection_type <- (intersection_type) => uast(
 )
 
 list_literal <- (list_literal) => uast(
+    token: "self",
     type: "Literal",
     roles: "Literal"
 )
@@ -361,6 +408,8 @@ match_block <- (match_block) => uast(
 )
 
 match_condition_list <- (match_condition_list) => uast(
+    token: "self",
+    roles: "Body",
     type: "List"
 )
 
@@ -371,6 +420,7 @@ match_conditional_expression <- (match_conditional_expression) => uast(
 )
 
 match_default_expression <- (match_default_expression) => uast(
+    token: "self",
     type: "Match",
     roles: "Match",
     children: "expression"
@@ -383,6 +433,7 @@ match_expression <- (match_expression) => uast(
 )
 
 member_access_expression <- (member_access_expression) => uast(
+    token: "self",
     type: "Synthetic",
     children: "array_creation_expression", "cast_expression", "class_constant_access_expression", "dynamic_variable_name", "encapsed_string", "expression", "function_call_expression", "heredoc", "member_access_expression", "member_call_expression", "name", "nowdoc", "nullsafe_member_access_expression", "nullsafe_member_call_expression", "object_creation_expression", "parenthesized_expression", "qualified_name", "relative_name", "scoped_call_expression", "scoped_property_access_expression", "string", "subscript_expression", "variable_name"
 )
@@ -394,6 +445,7 @@ member_call_expression <- (member_call_expression) => uast(
 )
 
 method_declaration <- (method_declaration) => uast(
+    token: "self",
     type: "Method",
     roles: "Function", "Declaration", "Member",
     children: "attribute_list", "bottom_type", "compound_statement", "formal_parameters", "name", "type"
@@ -404,6 +456,7 @@ name <- (name) => uast(
 )
 
 named_label_statement <- (named_label_statement) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -412,6 +465,7 @@ named_type <- (named_type) => uast(
 )
 
 namespace_definition <- (namespace_definition) => uast(
+    token: "self",
     type: "Namespace",
     roles: "Module",
     children: "compound_statement", "namespace_name"
@@ -423,6 +477,7 @@ namespace_name <- (namespace_name) => uast(
 )
 
 namespace_use_clause <- (namespace_use_clause) => uast(
+    token: "self",
     type: "Namespace",
     roles: "Module",
     children: "const", "function", "name"
@@ -435,6 +490,7 @@ namespace_use_declaration <- (namespace_use_declaration) => uast(
 )
 
 namespace_use_group <- (namespace_use_group) => uast(
+    token: "self",
     type: "Namespace",
     roles: "Module"
 )
@@ -445,6 +501,7 @@ nowdoc <- (nowdoc) => uast(
 )
 
 nowdoc_body <- (nowdoc_body) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -453,6 +510,7 @@ null <- (null) => uast(
 )
 
 nullsafe_member_access_expression <- (nullsafe_member_access_expression) => uast(
+    token: "self",
     type: "Synthetic",
     children: "array_creation_expression", "cast_expression", "class_constant_access_expression", "dynamic_variable_name", "encapsed_string", "expression", "function_call_expression", "heredoc", "member_access_expression", "member_call_expression", "name", "nowdoc", "nullsafe_member_access_expression", "nullsafe_member_call_expression", "object_creation_expression", "parenthesized_expression", "qualified_name", "relative_name", "scoped_call_expression", "scoped_property_access_expression", "string", "subscript_expression", "variable_name"
 )
@@ -464,6 +522,7 @@ nullsafe_member_call_expression <- (nullsafe_member_call_expression) => uast(
 )
 
 object_creation_expression <- (object_creation_expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -472,6 +531,7 @@ optional_type <- (optional_type) => uast(
 )
 
 pair <- (pair) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -480,6 +540,7 @@ parenthesized_expression <- (parenthesized_expression) => uast(
 )
 
 primitive_type <- (primitive_type) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -488,6 +549,7 @@ print_intrinsic <- (print_intrinsic) => uast(
 )
 
 program <- (program) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -498,6 +560,7 @@ property_declaration <- (property_declaration) => uast(
 )
 
 property_element <- (property_element) => uast(
+    token: "self",
     type: "Property",
     roles: "Member",
     children: "expression", "variable_name"
@@ -510,6 +573,7 @@ property_hook <- (property_hook) => uast(
 )
 
 property_hook_list <- (property_hook_list) => uast(
+    token: "self",
     type: "Property",
     roles: "Member"
 )
@@ -521,7 +585,9 @@ property_promotion_parameter <- (property_promotion_parameter) => uast(
 )
 
 qualified_name <- (qualified_name) => uast(
-    type: "If",
+    token: "self",
+    roles: "Parameter",
+    type: "Parameter",
     children: "namespace_name"
 )
 
@@ -530,6 +596,7 @@ readonly_modifier <- (readonly_modifier) => uast(
 )
 
 reference_assignment_expression <- (reference_assignment_expression) => uast(
+    token: "self",
     type: "Assignment",
     roles: "Assignment",
     children: "cast_expression", "dynamic_variable_name", "expression", "function_call_expression", "list_literal", "member_access_expression", "member_call_expression", "nullsafe_member_access_expression", "nullsafe_member_call_expression", "scoped_call_expression", "scoped_property_access_expression", "subscript_expression", "variable_name"
@@ -540,6 +607,7 @@ reference_modifier <- (reference_modifier) => uast(
 )
 
 relative_name <- (relative_name) => uast(
+    token: "self",
     type: "Synthetic",
     children: "namespace", "namespace_name"
 )
@@ -549,6 +617,7 @@ relative_scope <- (relative_scope) => uast(
 )
 
 require_expression <- (require_expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -557,6 +626,7 @@ require_once_expression <- (require_once_expression) => uast(
 )
 
 return_statement <- (return_statement) => uast(
+    token: "self",
     type: "Return",
     roles: "Return"
 )
@@ -568,6 +638,7 @@ scoped_call_expression <- (scoped_call_expression) => uast(
 )
 
 scoped_property_access_expression <- (scoped_property_access_expression) => uast(
+    token: "self",
     type: "Property",
     roles: "Member",
     children: "array_creation_expression", "cast_expression", "class_constant_access_expression", "dynamic_variable_name", "encapsed_string", "function_call_expression", "heredoc", "member_access_expression", "member_call_expression", "name", "nowdoc", "nullsafe_member_access_expression", "nullsafe_member_call_expression", "object_creation_expression", "parenthesized_expression", "qualified_name", "relative_name", "relative_scope", "scoped_call_expression", "scoped_property_access_expression", "string", "subscript_expression", "variable_name"
@@ -578,6 +649,7 @@ sequence_expression <- (sequence_expression) => uast(
 )
 
 shell_command_expression <- (shell_command_expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -588,7 +660,9 @@ simple_parameter <- (simple_parameter) => uast(
 )
 
 static_modifier <- (static_modifier) => uast(
-    type: "If"
+    token: "self",
+    roles: "Parameter",
+    type: "Parameter"
 )
 
 static_variable_declaration <- (static_variable_declaration) => uast(
@@ -598,6 +672,7 @@ static_variable_declaration <- (static_variable_declaration) => uast(
 )
 
 string <- (string) => uast(
+    token: "child:identifier",
     type: "Synthetic"
 )
 
@@ -606,6 +681,7 @@ string_content <- (string_content) => uast(
 )
 
 subscript_expression <- (subscript_expression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -615,6 +691,8 @@ switch_block <- (switch_block) => uast(
 )
 
 switch_statement <- (switch_statement) => uast(
+    token: "self",
+    roles: "Body",
     type: "Switch",
     children: "parenthesized_expression", "switch_block"
 )
@@ -625,6 +703,7 @@ throw_expression <- (throw_expression) => uast(
 )
 
 trait_declaration <- (trait_declaration) => uast(
+    token: "self",
     type: "Synthetic",
     children: "attribute_list", "declaration_list", "name"
 )
@@ -636,6 +715,7 @@ try_statement <- (try_statement) => uast(
 )
 
 type_list <- (type_list) => uast(
+    token: "self",
     type: "List"
 )
 
@@ -646,6 +726,7 @@ unary_op_expression <- (unary_op_expression) => uast(
 )
 
 union_type <- (union_type) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -654,6 +735,7 @@ unset_statement <- (unset_statement) => uast(
 )
 
 update_expression <- (update_expression) => uast(
+    token: "self",
     type: "Synthetic",
     children: "cast_expression", "dynamic_variable_name", "function_call_expression", "member_access_expression", "member_call_expression", "nullsafe_member_access_expression", "nullsafe_member_call_expression", "scoped_call_expression", "scoped_property_access_expression", "subscript_expression", "variable_name"
 )
@@ -663,6 +745,7 @@ use_as_clause <- (use_as_clause) => uast(
 )
 
 use_declaration <- (use_declaration) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -671,6 +754,7 @@ use_instead_of_clause <- (use_instead_of_clause) => uast(
 )
 
 use_list <- (use_list) => uast(
+    token: "self",
     type: "List"
 )
 
@@ -680,6 +764,7 @@ variable_name <- (variable_name) => uast(
 )
 
 variadic_parameter <- (variadic_parameter) => uast(
+    token: "self",
     type: "Parameter",
     roles: "Parameter",
     children: "attribute_list", "reference_modifier", "type", "variable_name"
@@ -690,6 +775,7 @@ variadic_placeholder <- (variadic_placeholder) => uast(
 )
 
 variadic_unpacking <- (variadic_unpacking) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -698,6 +784,7 @@ visibility_modifier <- (visibility_modifier) => uast(
 )
 
 while_statement <- (while_statement) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop",
     children: "colon_block", "parenthesized_expression", "statement"
@@ -709,7 +796,8 @@ yield_expression <- (yield_expression) => uast(
 )
 
 abstract <- (abstract) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Yield"
 )
 
 and <- (and) => uast(
@@ -717,6 +805,7 @@ and <- (and) => uast(
 )
 
 array <- (array) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -725,6 +814,7 @@ as <- (as) => uast(
 )
 
 bool <- (bool) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -733,6 +823,7 @@ bottom_type <- (bottom_type) => uast(
 )
 
 break <- (break) => uast(
+    token: "self",
     type: "Break",
     roles: "Break"
 )
@@ -743,6 +834,7 @@ callable <- (callable) => uast(
 )
 
 case <- (case) => uast(
+    token: "self",
     type: "Case",
     roles: "Branch"
 )
@@ -753,6 +845,7 @@ catch <- (catch) => uast(
 )
 
 class <- (class) => uast(
+    token: "self",
     type: "Class",
     roles: "Class", "Declaration"
 )
@@ -762,6 +855,7 @@ clone <- (clone) => uast(
 )
 
 comment <- (comment) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment"
 )
@@ -771,6 +865,7 @@ const <- (const) => uast(
 )
 
 continue <- (continue) => uast(
+    token: "self",
     type: "Continue",
     roles: "Continue"
 )
@@ -780,6 +875,7 @@ declare <- (declare) => uast(
 )
 
 default <- (default) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -788,6 +884,7 @@ do <- (do) => uast(
 )
 
 echo <- (echo) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -796,7 +893,8 @@ else <- (else) => uast(
 )
 
 elseif <- (elseif) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 encoding <- (encoding) => uast(
@@ -804,6 +902,7 @@ encoding <- (encoding) => uast(
 )
 
 enddeclare <- (enddeclare) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -813,6 +912,7 @@ endfor <- (endfor) => uast(
 )
 
 endforeach <- (endforeach) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -822,6 +922,7 @@ endif <- (endif) => uast(
 )
 
 endswitch <- (endswitch) => uast(
+    token: "self",
     type: "Switch"
 )
 
@@ -831,6 +932,7 @@ endwhile <- (endwhile) => uast(
 )
 
 enum <- (enum) => uast(
+    token: "self",
     type: "Enum",
     roles: "Enum", "Declaration"
 )
@@ -840,6 +942,7 @@ escape_sequence <- (escape_sequence) => uast(
 )
 
 exit <- (exit) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -848,6 +951,7 @@ extends <- (extends) => uast(
 )
 
 false <- (false) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -856,6 +960,7 @@ final <- (final) => uast(
 )
 
 finally <- (finally) => uast(
+    token: "self",
     type: "Finally",
     roles: "Finally"
 )
@@ -865,6 +970,7 @@ float <- (float) => uast(
 )
 
 float <- (float) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -873,6 +979,7 @@ fn <- (fn) => uast(
 )
 
 for <- (for) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -883,6 +990,7 @@ foreach <- (foreach) => uast(
 )
 
 from <- (from) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -892,6 +1000,7 @@ function <- (function) => uast(
 )
 
 global <- (global) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -900,6 +1009,7 @@ goto <- (goto) => uast(
 )
 
 heredoc_end <- (heredoc_end) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -908,7 +1018,8 @@ heredoc_start <- (heredoc_start) => uast(
 )
 
 if <- (if) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 implements <- (implements) => uast(
@@ -916,6 +1027,7 @@ implements <- (implements) => uast(
 )
 
 include <- (include) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -924,6 +1036,7 @@ include_once <- (include_once) => uast(
 )
 
 instanceof <- (instanceof) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -932,6 +1045,7 @@ insteadof <- (insteadof) => uast(
 )
 
 int <- (int) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -940,6 +1054,7 @@ integer <- (integer) => uast(
 )
 
 interface <- (interface) => uast(
+    token: "self",
     type: "Interface",
     roles: "Interface", "Declaration"
 )
@@ -949,6 +1064,7 @@ iterable <- (iterable) => uast(
 )
 
 list <- (list) => uast(
+    token: "self",
     type: "List"
 )
 
@@ -958,6 +1074,7 @@ match <- (match) => uast(
 )
 
 mixed <- (mixed) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -967,6 +1084,7 @@ namespace <- (namespace) => uast(
 )
 
 new <- (new) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -975,6 +1093,7 @@ nowdoc_string <- (nowdoc_string) => uast(
 )
 
 null <- (null) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -983,6 +1102,7 @@ operation <- (operation) => uast(
 )
 
 or <- (or) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -991,6 +1111,7 @@ parent <- (parent) => uast(
 )
 
 php_tag <- (php_tag) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -999,6 +1120,7 @@ print <- (print) => uast(
 )
 
 private <- (private) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1007,6 +1129,7 @@ protected <- (protected) => uast(
 )
 
 public <- (public) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1015,6 +1138,7 @@ readonly <- (readonly) => uast(
 )
 
 require <- (require) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1023,6 +1147,7 @@ require_once <- (require_once) => uast(
 )
 
 return <- (return) => uast(
+    token: "self",
     type: "Return",
     roles: "Return"
 )
@@ -1032,6 +1157,7 @@ self <- (self) => uast(
 )
 
 static <- (static) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1040,6 +1166,7 @@ strict_types <- (strict_types) => uast(
 )
 
 string <- (string) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1048,6 +1175,7 @@ switch <- (switch) => uast(
 )
 
 throw <- (throw) => uast(
+    token: "self",
     type: "Throw",
     roles: "Throw"
 )
@@ -1057,6 +1185,7 @@ ticks <- (ticks) => uast(
 )
 
 trait <- (trait) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1065,6 +1194,7 @@ true <- (true) => uast(
 )
 
 try <- (try) => uast(
+    token: "self",
     type: "Try",
     roles: "Try"
 )
@@ -1074,6 +1204,7 @@ unset <- (unset) => uast(
 )
 
 use <- (use) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1082,6 +1213,7 @@ var_modifier <- (var_modifier) => uast(
 )
 
 void <- (void) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -1091,6 +1223,7 @@ while <- (while) => uast(
 )
 
 xor <- (xor) => uast(
+    token: "self",
     type: "Synthetic"
 )
 

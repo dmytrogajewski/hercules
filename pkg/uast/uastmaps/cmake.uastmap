@@ -5,6 +5,7 @@ argument <- (argument) => uast(
 )
 
 argument_list <- (argument_list) => uast(
+    token: "self",
     type: "List"
 )
 
@@ -14,6 +15,7 @@ block_command <- (block_command) => uast(
 )
 
 block_def <- (block_def) => uast(
+    token: "self",
     type: "Block",
     roles: "Body"
 )
@@ -23,6 +25,7 @@ body <- (body) => uast(
 )
 
 bracket_argument <- (bracket_argument) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -32,7 +35,9 @@ bracket_comment <- (bracket_comment) => uast(
 )
 
 cache_var <- (cache_var) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 else_command <- (else_command) => uast(
@@ -40,7 +45,8 @@ else_command <- (else_command) => uast(
 )
 
 elseif_command <- (elseif_command) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 endblock_command <- (endblock_command) => uast(
@@ -49,6 +55,7 @@ endblock_command <- (endblock_command) => uast(
 )
 
 endforeach_command <- (endforeach_command) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -59,7 +66,8 @@ endfunction_command <- (endfunction_command) => uast(
 )
 
 endif_command <- (endif_command) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 endmacro_command <- (endmacro_command) => uast(
@@ -67,6 +75,7 @@ endmacro_command <- (endmacro_command) => uast(
 )
 
 endwhile_command <- (endwhile_command) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -76,6 +85,7 @@ env_var <- (env_var) => uast(
 )
 
 escape_sequence <- (escape_sequence) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -85,6 +95,7 @@ foreach_command <- (foreach_command) => uast(
 )
 
 foreach_loop <- (foreach_loop) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -95,6 +106,7 @@ function_command <- (function_command) => uast(
 )
 
 function_def <- (function_def) => uast(
+    token: "self",
     type: "Function",
     roles: "Function", "Declaration"
 )
@@ -104,7 +116,8 @@ if_command <- (if_command) => uast(
 )
 
 if_condition <- (if_condition) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 macro_command <- (macro_command) => uast(
@@ -112,6 +125,7 @@ macro_command <- (macro_command) => uast(
 )
 
 macro_def <- (macro_def) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -120,6 +134,7 @@ normal_command <- (normal_command) => uast(
 )
 
 normal_var <- (normal_var) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -128,6 +143,7 @@ quoted_argument <- (quoted_argument) => uast(
 )
 
 quoted_element <- (quoted_element) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -136,7 +152,8 @@ source_file <- (source_file) => uast(
 )
 
 unquoted_argument <- (unquoted_argument) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "File"
 )
 
 variable <- (variable) => uast(
@@ -145,6 +162,7 @@ variable <- (variable) => uast(
 )
 
 variable_ref <- (variable_ref) => uast(
+    token: "self",
     type: "Variable",
     roles: "Variable", "Declaration"
 )
@@ -155,6 +173,7 @@ while_command <- (while_command) => uast(
 )
 
 while_loop <- (while_loop) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -164,6 +183,7 @@ CACHE <- (CACHE) => uast(
 )
 
 ENV <- (ENV) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -173,7 +193,9 @@ block <- (block) => uast(
 )
 
 bracket_argument_close <- (bracket_argument_close) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Body",
+    type: "Block"
 )
 
 bracket_argument_content <- (bracket_argument_content) => uast(
@@ -181,6 +203,7 @@ bracket_argument_content <- (bracket_argument_content) => uast(
 )
 
 bracket_argument_open <- (bracket_argument_open) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -190,6 +213,7 @@ bracket_comment_close <- (bracket_comment_close) => uast(
 )
 
 bracket_comment_content <- (bracket_comment_content) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment"
 )
@@ -200,6 +224,7 @@ bracket_comment_open <- (bracket_comment_open) => uast(
 )
 
 else <- (else) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -208,6 +233,7 @@ elseif <- (elseif) => uast(
 )
 
 endblock <- (endblock) => uast(
+    token: "self",
     type: "Block",
     roles: "Body"
 )
@@ -218,6 +244,7 @@ endforeach <- (endforeach) => uast(
 )
 
 endfunction <- (endfunction) => uast(
+    token: "self",
     type: "Function",
     roles: "Function", "Declaration"
 )
@@ -227,6 +254,7 @@ endif <- (endif) => uast(
 )
 
 endmacro <- (endmacro) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -236,6 +264,7 @@ endwhile <- (endwhile) => uast(
 )
 
 foreach <- (foreach) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -246,7 +275,8 @@ function <- (function) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Synthetic"
 )
 
 if <- (if) => uast(
@@ -254,6 +284,7 @@ if <- (if) => uast(
 )
 
 line_comment <- (line_comment) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment"
 )
@@ -263,6 +294,7 @@ macro <- (macro) => uast(
 )
 
 while <- (while) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )

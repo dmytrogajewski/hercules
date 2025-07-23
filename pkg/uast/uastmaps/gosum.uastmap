@@ -5,6 +5,7 @@ checksum <- (checksum) => uast(
 )
 
 checksum_database <- (checksum_database) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -13,6 +14,7 @@ checksum_value <- (checksum_value) => uast(
 )
 
 version <- (version) => uast(
+    token: "self",
     type: "Synthetic",
     children: "alpha", "beta", "dev", "hex_number", "module_version", "number", "number_with_decimal", "pre", "rc"
 )
@@ -22,6 +24,7 @@ alpha <- (alpha) => uast(
 )
 
 beta <- (beta) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -30,6 +33,7 @@ dev <- (dev) => uast(
 )
 
 hash <- (hash) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -38,6 +42,7 @@ hash_version <- (hash_version) => uast(
 )
 
 hex_number <- (hex_number) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -47,6 +52,7 @@ module_path <- (module_path) => uast(
 )
 
 module_version <- (module_version) => uast(
+    token: "self",
     type: "Module",
     roles: "Module"
 )
@@ -56,6 +62,7 @@ number <- (number) => uast(
 )
 
 number_with_decimal <- (number_with_decimal) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -64,5 +71,6 @@ pre <- (pre) => uast(
 )
 
 rc <- (rc) => uast(
+    token: "self",
     type: "Synthetic"
 )

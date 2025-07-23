@@ -5,6 +5,7 @@ bool <- (bool) => uast(
 )
 
 interpolated_variable <- (interpolated_variable) => uast(
+    token: "self",
     type: "Variable",
     roles: "Variable", "Declaration"
 )
@@ -14,7 +15,8 @@ source_file <- (source_file) => uast(
 )
 
 string_interpolated <- (string_interpolated) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "File"
 )
 
 string_literal <- (string_literal) => uast(
@@ -23,7 +25,9 @@ string_literal <- (string_literal) => uast(
 )
 
 value <- (value) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Literal",
+    type: "Literal"
 )
 
 variable <- (variable) => uast(
@@ -33,6 +37,7 @@ variable <- (variable) => uast(
 )
 
 comment <- (comment) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment"
 )
@@ -42,6 +47,7 @@ escape_sequence <- (escape_sequence) => uast(
 )
 
 false <- (false) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -50,7 +56,9 @@ identifier <- (identifier) => uast(
 )
 
 integer <- (integer) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Reference",
+    type: "Identifier"
 )
 
 raw_value <- (raw_value) => uast(
@@ -58,6 +66,7 @@ raw_value <- (raw_value) => uast(
 )
 
 shell_command <- (shell_command) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -66,5 +75,6 @@ true <- (true) => uast(
 )
 
 url <- (url) => uast(
+    token: "self",
     type: "Synthetic"
 )

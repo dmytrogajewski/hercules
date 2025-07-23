@@ -7,7 +7,9 @@ bracket_char_class <- (bracket_char_class) => uast(
 )
 
 bracket_char_escaped <- (bracket_char_escaped) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Declaration",
+    type: "Class"
 )
 
 bracket_expr <- (bracket_expr) => uast(
@@ -15,6 +17,7 @@ bracket_expr <- (bracket_expr) => uast(
 )
 
 bracket_range <- (bracket_range) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -23,6 +26,7 @@ document <- (document) => uast(
 )
 
 pattern <- (pattern) => uast(
+    token: "self",
     type: "Pattern",
     roles: "Pattern",
     children: "directory_separator", "directory_separator_escaped"
@@ -34,6 +38,7 @@ pattern_char_escaped <- (pattern_char_escaped) => uast(
 )
 
 alnum <- (alnum) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -42,6 +47,7 @@ alpha <- (alpha) => uast(
 )
 
 blank <- (blank) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -50,6 +56,7 @@ bracket_char <- (bracket_char) => uast(
 )
 
 bracket_negation <- (bracket_negation) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -58,6 +65,7 @@ cntrl <- (cntrl) => uast(
 )
 
 comment <- (comment) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment"
 )
@@ -67,6 +75,7 @@ digit <- (digit) => uast(
 )
 
 directory_separator <- (directory_separator) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -75,6 +84,7 @@ directory_separator_escaped <- (directory_separator_escaped) => uast(
 )
 
 graph <- (graph) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -83,6 +93,7 @@ lower <- (lower) => uast(
 )
 
 negation <- (negation) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -92,6 +103,7 @@ pattern_char <- (pattern_char) => uast(
 )
 
 print <- (print) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -100,6 +112,7 @@ punct <- (punct) => uast(
 )
 
 space <- (space) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -108,6 +121,7 @@ upper <- (upper) => uast(
 )
 
 wildcard_char_single <- (wildcard_char_single) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -116,6 +130,7 @@ wildcard_chars <- (wildcard_chars) => uast(
 )
 
 wildcard_chars_allow_slash <- (wildcard_chars_allow_slash) => uast(
+    token: "self",
     type: "Synthetic"
 )
 

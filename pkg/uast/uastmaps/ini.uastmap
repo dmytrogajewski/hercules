@@ -6,7 +6,9 @@ comment <- (comment) => uast(
 )
 
 document <- (document) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 section <- (section) => uast(
@@ -14,6 +16,7 @@ section <- (section) => uast(
 )
 
 section_name <- (section_name) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -22,6 +25,7 @@ setting <- (setting) => uast(
 )
 
 setting_name <- (setting_name) => uast(
+    token: "self",
     type: "Set"
 )
 
@@ -30,5 +34,6 @@ setting_value <- (setting_value) => uast(
 )
 
 text <- (text) => uast(
+    token: "self",
     type: "Synthetic"
 )

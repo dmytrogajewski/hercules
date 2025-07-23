@@ -5,6 +5,7 @@ bytes <- (bytes) => uast(
 )
 
 condition <- (condition) => uast(
+    token: "self",
     type: "Synthetic",
     children: "canonical", "exec", "final", "host", "localnetwork", "localuser", "originalhost", "pattern", "string", "tagged", "user"
 )
@@ -14,6 +15,7 @@ config <- (config) => uast(
 )
 
 host_declaration <- (host_declaration) => uast(
+    token: "self",
     type: "Synthetic",
     children: "Host", "pattern"
 )
@@ -25,6 +27,7 @@ match_declaration <- (match_declaration) => uast(
 )
 
 number <- (number) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -35,6 +38,8 @@ parameter <- (parameter) => uast(
 )
 
 pattern <- (pattern) => uast(
+    token: "self",
+    roles: "Parameter",
     type: "Pattern",
     roles: "Pattern"
 )
@@ -44,6 +49,7 @@ string <- (string) => uast(
 )
 
 time <- (time) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -53,6 +59,7 @@ variable <- (variable) => uast(
 )
 
 AddKeysToAgent <- (AddKeysToAgent) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -61,6 +68,7 @@ AddressFamily <- (AddressFamily) => uast(
 )
 
 BatchMode <- (BatchMode) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -69,6 +77,7 @@ BindAddress <- (BindAddress) => uast(
 )
 
 BindInterface <- (BindInterface) => uast(
+    token: "self",
     type: "Interface",
     roles: "Interface", "Declaration"
 )
@@ -78,6 +87,7 @@ CASignatureAlgorithms <- (CASignatureAlgorithms) => uast(
 )
 
 CanonicalDomains <- (CanonicalDomains) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -86,6 +96,7 @@ CanonicalizeFallbackLocal <- (CanonicalizeFallbackLocal) => uast(
 )
 
 CanonicalizeHostname <- (CanonicalizeHostname) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -94,6 +105,7 @@ CanonicalizeMaxDots <- (CanonicalizeMaxDots) => uast(
 )
 
 CanonicalizePermittedCNAMEs <- (CanonicalizePermittedCNAMEs) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -102,6 +114,7 @@ CertificateFile <- (CertificateFile) => uast(
 )
 
 ChallengeResponseAuthentication <- (ChallengeResponseAuthentication) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -110,6 +123,7 @@ CheckHostIP <- (CheckHostIP) => uast(
 )
 
 Ciphers <- (Ciphers) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -119,6 +133,7 @@ ClearAllForwardings <- (ClearAllForwardings) => uast(
 )
 
 Compression <- (Compression) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -127,6 +142,7 @@ ConnectTimeout <- (ConnectTimeout) => uast(
 )
 
 ConnectionAttempts <- (ConnectionAttempts) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -135,6 +151,7 @@ ControlMaster <- (ControlMaster) => uast(
 )
 
 ControlPath <- (ControlPath) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -143,6 +160,7 @@ ControlPersist <- (ControlPersist) => uast(
 )
 
 DynamicForward <- (DynamicForward) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -152,6 +170,7 @@ EnableEscapeCommandline <- (EnableEscapeCommandline) => uast(
 )
 
 EnableSSHKeysign <- (EnableSSHKeysign) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -160,6 +179,7 @@ EscapeChar <- (EscapeChar) => uast(
 )
 
 ExitOnForwardFailure <- (ExitOnForwardFailure) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -169,6 +189,7 @@ FingerprintHash <- (FingerprintHash) => uast(
 )
 
 ForkAfterAuthentication <- (ForkAfterAuthentication) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -179,6 +200,7 @@ ForwardAgent <- (ForwardAgent) => uast(
 )
 
 ForwardX11 <- (ForwardX11) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -189,6 +211,7 @@ ForwardX11Timeout <- (ForwardX11Timeout) => uast(
 )
 
 ForwardX11Trusted <- (ForwardX11Trusted) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -198,6 +221,7 @@ GSSAPIAuthentication <- (GSSAPIAuthentication) => uast(
 )
 
 GSSAPIDelegateCredentials <- (GSSAPIDelegateCredentials) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -206,6 +230,7 @@ GlobalKnownHostsFile <- (GlobalKnownHostsFile) => uast(
 )
 
 HashKnownHosts <- (HashKnownHosts) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -214,6 +239,7 @@ Host <- (Host) => uast(
 )
 
 HostKeyAlgorithms <- (HostKeyAlgorithms) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -222,6 +248,7 @@ HostKeyAlias <- (HostKeyAlias) => uast(
 )
 
 HostbasedAcceptedAlgorithms <- (HostbasedAcceptedAlgorithms) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -230,6 +257,7 @@ HostbasedAuthentication <- (HostbasedAuthentication) => uast(
 )
 
 HostbasedKeyTypes <- (HostbasedKeyTypes) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -238,6 +266,7 @@ Hostname <- (Hostname) => uast(
 )
 
 IPQoS <- (IPQoS) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -246,6 +275,7 @@ IdentitiesOnly <- (IdentitiesOnly) => uast(
 )
 
 IdentityAgent <- (IdentityAgent) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -254,6 +284,7 @@ IdentityFile <- (IdentityFile) => uast(
 )
 
 IgnoreUnknown <- (IgnoreUnknown) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -262,6 +293,7 @@ Include <- (Include) => uast(
 )
 
 KbdInteractiveAuthentication <- (KbdInteractiveAuthentication) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -270,6 +302,7 @@ KexAlgorithms <- (KexAlgorithms) => uast(
 )
 
 KnownHostsCommand <- (KnownHostsCommand) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -278,6 +311,7 @@ LocalCommand <- (LocalCommand) => uast(
 )
 
 LocalForward <- (LocalForward) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -287,6 +321,7 @@ LogLevel <- (LogLevel) => uast(
 )
 
 LogVerbose <- (LogVerbose) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -295,6 +330,7 @@ MACs <- (MACs) => uast(
 )
 
 Match <- (Match) => uast(
+    token: "self",
     type: "Match",
     roles: "Match"
 )
@@ -305,6 +341,7 @@ NoHostAuthenticationForLocalhost <- (NoHostAuthenticationForLocalhost) => uast(
 )
 
 NumberOfPasswordPrompts <- (NumberOfPasswordPrompts) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -313,6 +350,7 @@ PKCS11Provider <- (PKCS11Provider) => uast(
 )
 
 PasswordAuthentication <- (PasswordAuthentication) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -321,6 +359,7 @@ PermitLocalCommand <- (PermitLocalCommand) => uast(
 )
 
 PermitRemoteOpen <- (PermitRemoteOpen) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -329,6 +368,7 @@ Port <- (Port) => uast(
 )
 
 PreferredAuthentications <- (PreferredAuthentications) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -337,6 +377,7 @@ ProxyCommand <- (ProxyCommand) => uast(
 )
 
 ProxyJump <- (ProxyJump) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -345,6 +386,7 @@ ProxyUseFdpass <- (ProxyUseFdpass) => uast(
 )
 
 PubkeyAcceptedAlgorithms <- (PubkeyAcceptedAlgorithms) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -353,6 +395,7 @@ PubkeyAcceptedKeyTypes <- (PubkeyAcceptedKeyTypes) => uast(
 )
 
 PubkeyAuthentication <- (PubkeyAuthentication) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -361,6 +404,7 @@ RekeyLimit <- (RekeyLimit) => uast(
 )
 
 RemoteCommand <- (RemoteCommand) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -370,6 +414,7 @@ RemoteForward <- (RemoteForward) => uast(
 )
 
 RequestTTY <- (RequestTTY) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -378,6 +423,7 @@ RequiredRSASize <- (RequiredRSASize) => uast(
 )
 
 RevokedHostKeys <- (RevokedHostKeys) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -386,6 +432,7 @@ SSH_AUTH_SOCK <- (SSH_AUTH_SOCK) => uast(
 )
 
 SecurityKeyProvider <- (SecurityKeyProvider) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -394,6 +441,7 @@ SendEnv <- (SendEnv) => uast(
 )
 
 ServerAliveCountMax <- (ServerAliveCountMax) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -402,6 +450,7 @@ ServerAliveInterval <- (ServerAliveInterval) => uast(
 )
 
 SessionType <- (SessionType) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -410,6 +459,7 @@ SetEnv <- (SetEnv) => uast(
 )
 
 StdinNull <- (StdinNull) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -418,6 +468,7 @@ StreamLocalBindMask <- (StreamLocalBindMask) => uast(
 )
 
 StreamLocalBindUnlink <- (StreamLocalBindUnlink) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -426,6 +477,7 @@ StrictHostKeyChecking <- (StrictHostKeyChecking) => uast(
 )
 
 SyslogFacility <- (SyslogFacility) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -434,6 +486,7 @@ TCPKeepAlive <- (TCPKeepAlive) => uast(
 )
 
 Tag <- (Tag) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -442,6 +495,7 @@ Tunnel <- (Tunnel) => uast(
 )
 
 TunnelDevice <- (TunnelDevice) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -450,6 +504,7 @@ UpdateHostKeys <- (UpdateHostKeys) => uast(
 )
 
 UseKeychain <- (UseKeychain) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -458,6 +513,7 @@ User <- (User) => uast(
 )
 
 UserKnownHostsFile <- (UserKnownHostsFile) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -466,6 +522,7 @@ VerifyHostKeyDNS <- (VerifyHostKeyDNS) => uast(
 )
 
 VisualHostKey <- (VisualHostKey) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -474,6 +531,7 @@ XAuthLocation <- (XAuthLocation) => uast(
 )
 
 all <- (all) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -482,6 +540,7 @@ always <- (always) => uast(
 )
 
 any <- (any) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -490,6 +549,7 @@ ask <- (ask) => uast(
 )
 
 authentication <- (authentication) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -498,6 +558,7 @@ auto <- (auto) => uast(
 )
 
 autoask <- (autoask) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -506,6 +567,7 @@ canonical <- (canonical) => uast(
 )
 
 cipher <- (cipher) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -515,7 +577,9 @@ comment <- (comment) => uast(
 )
 
 confirm <- (confirm) => uast(
-    type: "Synthetic"
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
 )
 
 default <- (default) => uast(
@@ -523,6 +587,7 @@ default <- (default) => uast(
 )
 
 ethernet <- (ethernet) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -531,6 +596,7 @@ exec <- (exec) => uast(
 )
 
 facility <- (facility) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -539,6 +605,7 @@ final <- (final) => uast(
 )
 
 force <- (force) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
@@ -548,6 +615,7 @@ host <- (host) => uast(
 )
 
 inet <- (inet) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -556,6 +624,7 @@ inet6 <- (inet6) => uast(
 )
 
 ipqos <- (ipqos) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -564,6 +633,7 @@ kex <- (kex) => uast(
 )
 
 key_sig <- (key_sig) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -572,6 +642,7 @@ localnetwork <- (localnetwork) => uast(
 )
 
 localuser <- (localuser) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -580,6 +651,7 @@ mac <- (mac) => uast(
 )
 
 md5 <- (md5) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -588,6 +660,7 @@ no <- (no) => uast(
 )
 
 none <- (none) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -596,6 +669,7 @@ off <- (off) => uast(
 )
 
 originalhost <- (originalhost) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -604,6 +678,7 @@ sha256 <- (sha256) => uast(
 )
 
 sig <- (sig) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -612,6 +687,7 @@ subsystem <- (subsystem) => uast(
 )
 
 tagged <- (tagged) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -620,6 +696,7 @@ token <- (token) => uast(
 )
 
 unbound <- (unbound) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -628,6 +705,7 @@ uri <- (uri) => uast(
 )
 
 user <- (user) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -636,5 +714,6 @@ verbosity <- (verbosity) => uast(
 )
 
 yes <- (yes) => uast(
+    token: "self",
     type: "Synthetic"
 )

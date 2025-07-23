@@ -6,7 +6,8 @@ attribute <- (attribute) => uast(
 )
 
 doctype <- (doctype) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Attribute"
 )
 
 document <- (document) => uast(
@@ -14,6 +15,7 @@ document <- (document) => uast(
 )
 
 element <- (element) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -22,6 +24,7 @@ end_tag <- (end_tag) => uast(
 )
 
 erroneous_end_tag <- (erroneous_end_tag) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -31,6 +34,7 @@ quoted_attribute_value <- (quoted_attribute_value) => uast(
 )
 
 script_element <- (script_element) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -39,6 +43,7 @@ self_closing_tag <- (self_closing_tag) => uast(
 )
 
 start_tag <- (start_tag) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -47,6 +52,7 @@ style_element <- (style_element) => uast(
 )
 
 attribute_name <- (attribute_name) => uast(
+    token: "self",
     type: "Attribute",
     roles: "Attribute"
 )
@@ -57,6 +63,7 @@ attribute_value <- (attribute_value) => uast(
 )
 
 comment <- (comment) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment"
 )
@@ -66,6 +73,7 @@ doctype <- (doctype) => uast(
 )
 
 entity <- (entity) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -74,6 +82,7 @@ erroneous_end_tag_name <- (erroneous_end_tag_name) => uast(
 )
 
 raw_text <- (raw_text) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -82,5 +91,6 @@ tag_name <- (tag_name) => uast(
 )
 
 text <- (text) => uast(
+    token: "self",
     type: "Synthetic"
 )
