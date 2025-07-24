@@ -126,6 +126,7 @@ chevron <- (chevron) => uast(
 class_definition <- (class_definition) => uast(
     type: "Class",
     roles: "Class", "Declaration",
+    props: {"name": "child:identifier"},
     children: "argument_list", "block", "identifier", "type_parameter"
 )
 
@@ -286,6 +287,7 @@ format_specifier <- (format_specifier) => uast(
 function_definition <- (function_definition) => uast(
     type: "Function",
     roles: "Function", "Declaration",
+    props: {"name": "child:identifier"},
     children: "block", "identifier", "parameters", "type", "type_parameter"
 )
 
@@ -752,7 +754,8 @@ global <- (global) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if <- (if) => uast(

@@ -301,6 +301,7 @@ function_item <- (function_item) => uast(
     token: "self",
     type: "Function",
     roles: "Function", "Declaration",
+    props: {"name": "child:identifier"},
     children: "_type", "block", "identifier", "metavariable", "parameters", "type_parameters"
 )
 
@@ -982,7 +983,8 @@ ident <- (ident) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if <- (if) => uast(

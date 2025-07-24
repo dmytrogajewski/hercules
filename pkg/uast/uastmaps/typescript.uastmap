@@ -344,6 +344,7 @@ function_declaration <- (function_declaration) => uast(
     token: "self",
     type: "Function",
     roles: "Function", "Declaration",
+    props: {"name": "child:identifier"},
     children: "asserts_annotation", "formal_parameters", "identifier", "statement_block", "type_annotation", "type_parameters", "type_predicate_annotation"
 )
 
@@ -387,7 +388,8 @@ generic_type <- (generic_type) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if_statement <- (if_statement) => uast(

@@ -366,8 +366,8 @@ heredoc_body <- (heredoc_body) => uast(
 
 identifier <- (identifier) => uast(
     token: "self",
-    roles: "Body",
-    type: "Block"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if <- (if) => uast(
@@ -757,8 +757,9 @@ comment <- (comment) => uast(
 
 def <- (def) => uast(
     token: "self",
-    roles: "Comment",
-    type: "Comment"
+    type: "Method",
+    roles: "Function", "Declaration",
+    props: {"name": "child:identifier"}
 )
 
 do <- (do) => uast(

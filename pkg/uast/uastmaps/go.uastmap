@@ -183,6 +183,7 @@ function_declaration <- (function_declaration) => uast(
     token: "self",
     type: "Function",
     roles: "Function", "Declaration",
+    props: {"name": "child:identifier"},
     children: "_simple_type", "block", "identifier", "parameter_list", "type_parameter_list"
 )
 
@@ -599,7 +600,8 @@ goto <- (goto) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "Identifier"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if <- (if) => uast(

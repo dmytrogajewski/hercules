@@ -287,6 +287,7 @@ function_declaration <- (function_declaration) => uast(
     roles: "Body",
     type: "Function",
     roles: "Function", "Declaration",
+    props: {"name": "child:simple_identifier"},
     children: "additive_expression", "array_literal", "array_type", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "dictionary_type", "directive", "disjunction_expression", "equality_expression", "existential_type", "fully_open_range", "function_body", "function_type", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "metatype", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "opaque_type", "open_end_range_expression", "open_start_range_expression", "optional_type", "playground_literal", "postfix_expression", "prefix_expression", "protocol_composition_type", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "suppressed_constraint", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "tuple_type", "type_modifiers", "type_pack_expansion", "type_parameter_pack", "user_type", "value_pack_expansion", "value_parameter_pack"
 )
 
@@ -313,7 +314,8 @@ guard_statement <- (guard_statement) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if_statement <- (if_statement) => uast(

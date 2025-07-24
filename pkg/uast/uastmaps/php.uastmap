@@ -164,6 +164,7 @@ class_declaration <- (class_declaration) => uast(
     token: "self",
     type: "Class",
     roles: "Class", "Declaration",
+    props: {"name": "child:name"},
     children: "attribute_list", "declaration_list", "name"
 )
 
@@ -341,6 +342,7 @@ function_call_expression <- (function_call_expression) => uast(
 function_definition <- (function_definition) => uast(
     type: "Function",
     roles: "Function", "Declaration",
+    props: {"name": "child:name"},
     children: "attribute_list", "bottom_type", "compound_statement", "formal_parameters", "name", "type"
 )
 
@@ -452,7 +454,8 @@ method_declaration <- (method_declaration) => uast(
 )
 
 name <- (name) => uast(
-    type: "Synthetic"
+    type: "Identifier",
+    roles: "Name"
 )
 
 named_label_statement <- (named_label_statement) => uast(

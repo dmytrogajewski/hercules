@@ -217,6 +217,7 @@ function_body <- (function_body) => uast(
 function_declaration <- (function_declaration) => uast(
     type: "Function",
     roles: "Function", "Declaration",
+    props: {"name": "child:simple_identifier"},
     children: "receiver_type"
 )
 
@@ -252,7 +253,8 @@ getter <- (getter) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if_expression <- (if_expression) => uast(

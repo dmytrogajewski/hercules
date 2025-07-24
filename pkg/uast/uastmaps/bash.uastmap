@@ -115,6 +115,7 @@ for_statement <- (for_statement) => uast(
 function_definition <- (function_definition) => uast(
     type: "Function",
     roles: "Function", "Declaration",
+    props: {"name": "child:word"},
     children: "compound_statement", "file_redirect", "herestring_redirect", "if_statement", "subshell", "test_command", "word"
 )
 

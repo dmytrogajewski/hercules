@@ -112,6 +112,7 @@ class_declaration <- (class_declaration) => uast(
     roles: "Body",
     type: "Class",
     roles: "Class", "Declaration",
+    props: {"name": "child:identifier"},
     children: "class_body", "decorator", "identifier"
 )
 
@@ -219,6 +220,7 @@ formal_parameters <- (formal_parameters) => uast(
 function_declaration <- (function_declaration) => uast(
     type: "Function",
     roles: "Function", "Declaration",
+    props: {"name": "child:identifier"},
     children: "formal_parameters", "identifier", "statement_block"
 )
 
@@ -519,6 +521,7 @@ variable_declarator <- (variable_declarator) => uast(
     roles: "Variable", "Declaration",
     type: "Variable",
     roles: "Variable", "Declaration",
+    props: {"name": "child:identifier"},
     children: "array_pattern", "expression", "identifier", "object_pattern"
 )
 
@@ -675,7 +678,8 @@ html_comment <- (html_comment) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if <- (if) => uast(

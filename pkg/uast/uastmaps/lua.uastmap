@@ -133,12 +133,14 @@ function_declaration <- (function_declaration) => uast(
     roles: "Call",
     type: "Function",
     roles: "Function", "Declaration",
+    props: {"name": "child:identifier"},
     children: "block", "dot_index_expression", "identifier", "method_index_expression", "parameters"
 )
 
 function_definition <- (function_definition) => uast(
     type: "Function",
     roles: "Function", "Declaration",
+    props: {"name": "child:identifier"},
     children: "block", "parameters"
 )
 

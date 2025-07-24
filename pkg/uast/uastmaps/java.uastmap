@@ -166,6 +166,7 @@ class_declaration <- (class_declaration) => uast(
     roles: "Body",
     type: "Class",
     roles: "Class", "Declaration",
+    props: {"name": "child:identifier"},
     children: "class_body", "identifier", "permits", "super_interfaces", "superclass", "type_parameters"
 )
 
@@ -402,6 +403,7 @@ marker_annotation <- (marker_annotation) => uast(
 method_declaration <- (method_declaration) => uast(
     type: "Method",
     roles: "Function", "Declaration", "Member",
+    props: {"name": "child:identifier"},
     children: "_unannotated_type", "block", "dimensions", "formal_parameters", "identifier", "type_parameters"
 )
 
@@ -699,6 +701,7 @@ uses_module_directive <- (uses_module_directive) => uast(
 variable_declarator <- (variable_declarator) => uast(
     type: "Variable",
     roles: "Variable", "Declaration",
+    props: {"name": "child:identifier"},
     children: "array_initializer", "dimensions", "expression", "identifier", "underscore_pattern"
 )
 
@@ -874,7 +877,8 @@ hex_integer_literal <- (hex_integer_literal) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if <- (if) => uast(

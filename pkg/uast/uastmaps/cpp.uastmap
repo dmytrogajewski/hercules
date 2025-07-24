@@ -423,6 +423,7 @@ function_declarator <- (function_declarator) => uast(
 function_definition <- (function_definition) => uast(
     type: "Function",
     roles: "Function", "Declaration",
+    props: {"name": "child:_declarator"},
     children: "_declarator", "_field_declarator", "compound_statement", "operator_cast", "try_statement", "type_specifier"
 )
 
@@ -1449,7 +1450,8 @@ goto <- (goto) => uast(
 
 identifier <- (identifier) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if <- (if) => uast(
