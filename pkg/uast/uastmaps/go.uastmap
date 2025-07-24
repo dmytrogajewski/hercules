@@ -599,13 +599,12 @@ goto <- (goto) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    type: "Identifier"
 )
 
 if <- (if) => uast(
     token: "self",
-    roles: "Reference",
-    type: "Identifier"
+    type: "If"
 )
 
 imaginary_literal <- (imaginary_literal) => uast(
@@ -662,7 +661,7 @@ package <- (package) => uast(
 )
 
 package_identifier <- (package_identifier) => uast(
-    type: "If"
+    type: "Identifier"
 )
 
 range <- (range) => uast(
@@ -713,7 +712,7 @@ type <- (type) => uast(
 )
 
 type_identifier <- (type_identifier) => uast(
-    type: "If"
+    type: "Identifier"
 )
 
 var <- (var) => uast(

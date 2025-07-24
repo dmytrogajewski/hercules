@@ -115,7 +115,7 @@ func runPipelineFuncs(funcs []QueryFunc, stages []DSLNode, nodes []*Node) []*Nod
 	results := nodes
 	for i, f := range funcs {
 		if isLastReduceStage(i, funcs, stages) {
-			results = f([]*Node{{Children: results}})
+			results = f(results)
 		} else {
 			results = f(results)
 		}
@@ -365,10 +365,10 @@ func runField(n *FieldNode, nodes []*Node) []*Node {
 				for _, r := range node.Roles {
 					out = append(out, NewLiteralNode(string(r)))
 				}
-			} else if hasProp(node, fieldName) {
-				out = append(out, NewLiteralNode(node.Props[fieldName]))
 			} else if isTypeField(fieldName, node) {
 				out = append(out, NewLiteralNode(node.Type))
+			} else if hasProp(node, fieldName) {
+				out = append(out, NewLiteralNode(node.Props[fieldName]))
 			}
 		} else {
 			value := getNestedFieldValue(node, n.Fields)
@@ -423,22 +423,33 @@ func getNestedFieldValue(node *Node, fields []string) interface{} {
 					return nil
 				}
 				return current.Children
+			} else if field == "props" {
+				// Special handling for props - return the props map for nested access
+				if isLastField(i, fields) {
+					return current.Props
+				}
+				// Continue with props map for nested access
+				current = &Node{Props: current.Props}
 			} else if hasProp(current, field) {
 				propValue := current.Props[field]
 				if isLastField(i, fields) {
 					return propValue
 				}
+				// For nested access, we need to continue with the prop value
+				// But since props are strings, we can't continue nesting
 				return nil
 			} else {
 				return nil
 			}
 		} else {
+			// For non-first fields, we're trying to access properties of the previous field's value
 			if hasProp(current, field) {
 				propValue := current.Props[field]
 				if isLastField(i, fields) {
 					return propValue
 				}
-				return nil
+				// Continue with the prop value for further nesting
+				current = &Node{Props: map[string]string{field: propValue}}
 			} else {
 				return nil
 			}

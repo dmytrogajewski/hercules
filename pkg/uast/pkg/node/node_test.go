@@ -324,7 +324,10 @@ func TestHasRole(t *testing.T) {
 	if n.HasRole("Missing") {
 		t.Error("HasRole should return false for absent role")
 	}
-	if n.HasRole("Exported") {
+
+	// Test nil node
+	var nilNode *Node
+	if nilNode.HasRole("Exported") {
 		t.Error("HasRole should return false for nil node")
 	}
 }

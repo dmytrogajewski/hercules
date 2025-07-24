@@ -5,6 +5,7 @@ import (
 	"crypto/sha1"
 	"encoding/binary"
 	"fmt"
+	"hash"
 	"strings"
 	"sync"
 )
@@ -328,43 +329,68 @@ func (n *Node) FindDSL(query string) ([]*Node, error) {
 	if len(query) == 0 {
 		return nil, fmt.Errorf("query string is empty")
 	}
+
+	ast, err := n.parseDSLQuery(query)
+	if err != nil {
+		return nil, err
+	}
+
+	initialInput := n.determineInitialInput(ast)
+	return n.executeDSLRuntime(ast, initialInput)
+}
+
+func (n *Node) parseDSLQuery(query string) (interface{}, error) {
 	ast, err := ParseDSL(query)
 	if err != nil {
 		return nil, fmt.Errorf("DSL parse error: %w", err)
 	}
-	// If the top-level AST is a FilterNode, run over n.Children
-	if filter, ok := ast.(*FilterNode); ok {
-		runtime, err := LowerDSL(filter)
-		if err != nil {
-			return nil, fmt.Errorf("DSL lowering error: %w", err)
-		}
-		result := runtime(n.Children)
-		if result == nil {
-			return []*Node{}, nil
-		}
-		return result, nil
-	}
-	// If the top-level AST is a PipelineNode, use n.Children as input
-	if _, ok := ast.(*PipelineNode); ok {
-		runtime, err := LowerDSL(ast)
-		if err != nil {
-			return nil, fmt.Errorf("DSL lowering error: %w", err)
-		}
-		result := runtime(n.Children)
-		if result == nil {
-			return []*Node{}, nil
-		}
-		return result, nil
-	}
+	return ast, nil
+}
+
+func (n *Node) executeDSLRuntime(ast interface{}, initialInput []*Node) ([]*Node, error) {
 	runtime, err := LowerDSL(ast)
 	if err != nil {
 		return nil, fmt.Errorf("DSL lowering error: %w", err)
 	}
-	result := runtime([]*Node{n})
+	result := runtime(initialInput)
 	if result == nil {
 		return []*Node{}, nil
 	}
 	return result, nil
+}
+
+func (n *Node) determineInitialInput(ast interface{}) []*Node {
+	if _, ok := ast.(*FilterNode); ok {
+		return n.Children
+	}
+	if pipeline, ok := ast.(*PipelineNode); ok {
+		return n.determinePipelineInput(pipeline)
+	}
+	return []*Node{n}
+}
+
+func (n *Node) determinePipelineInput(pipeline *PipelineNode) []*Node {
+	if len(pipeline.Stages) == 0 {
+		return n.Children
+	}
+	if mapNode, ok := pipeline.Stages[0].(*MapNode); ok {
+		return n.determineMapNodeInput(mapNode)
+	}
+	return n.Children
+}
+
+func (n *Node) determineMapNodeInput(mapNode *MapNode) []*Node {
+	if fieldNode, ok := mapNode.Expr.(*FieldNode); ok {
+		return n.determineFieldNodeInput(fieldNode)
+	}
+	return n.Children
+}
+
+func (n *Node) determineFieldNodeInput(fieldNode *FieldNode) []*Node {
+	if len(fieldNode.Fields) == 1 && fieldNode.Fields[0] == "children" {
+		return []*Node{n}
+	}
+	return n.Children
 }
 
 // HasRole checks if the node has the given role.
@@ -403,27 +429,61 @@ func (n *Node) ToMap() map[string]any {
 	if n == nil {
 		return nil
 	}
+
+	result := buildBaseMap(n)
+	result["pos"] = buildPositionMap(n.Pos)
+
+	if len(n.Children) > 0 {
+		result["children"] = buildChildrenMap(n.Children)
+	}
+
+	return result
+}
+
+// buildBaseMap creates the base map with type, id, token, props, and roles
+func buildBaseMap(n *Node) map[string]any {
 	result := map[string]any{
 		"type": n.Type,
 	}
-	if n.Id != "" {
-		result["id"] = fmt.Sprintf("%x", n.Id)
-	}
-	if n.Token != "" {
-		result["token"] = n.Token
-	}
-	if len(n.Props) > 0 {
-		result["props"] = n.Props
-	}
-	roles := make([]string, len(n.Roles))
-	for i, role := range n.Roles {
-		roles[i] = string(role)
-	}
-	result["roles"] = roles
 
-	// Always include pos, even if nil
-	if n.Pos == nil {
-		result["pos"] = map[string]any{
+	addIDToMap(result, n.Id)
+	addTokenToMap(result, n.Token)
+	addPropsToMap(result, n.Props)
+	addRolesToMap(result, n.Roles)
+
+	return result
+}
+
+func addIDToMap(result map[string]any, id string) {
+	if id != "" {
+		result["id"] = fmt.Sprintf("%x", id)
+	}
+}
+
+func addTokenToMap(result map[string]any, token string) {
+	if token != "" {
+		result["token"] = token
+	}
+}
+
+func addPropsToMap(result map[string]any, props map[string]string) {
+	if len(props) > 0 {
+		result["props"] = props
+	}
+}
+
+func addRolesToMap(result map[string]any, roles []Role) {
+	roleStrings := make([]string, len(roles))
+	for i, role := range roles {
+		roleStrings[i] = string(role)
+	}
+	result["roles"] = roleStrings
+}
+
+// buildPositionMap creates the position map, handling nil positions
+func buildPositionMap(pos *Positions) map[string]any {
+	if pos == nil {
+		return map[string]any{
 			"start_line":   0,
 			"start_col":    0,
 			"start_offset": 0,
@@ -431,25 +491,25 @@ func (n *Node) ToMap() map[string]any {
 			"end_col":      0,
 			"end_offset":   0,
 		}
-	} else {
-		result["pos"] = map[string]any{
-			"start_line":   n.Pos.StartLine,
-			"start_col":    n.Pos.StartCol,
-			"start_offset": n.Pos.StartOffset,
-			"end_line":     n.Pos.EndLine,
-			"end_col":      n.Pos.EndCol,
-			"end_offset":   n.Pos.EndOffset,
-		}
 	}
 
-	if len(n.Children) > 0 {
-		children := make([]map[string]any, len(n.Children))
-		for i, child := range n.Children {
-			children[i] = child.ToMap()
-		}
-		result["children"] = children
+	return map[string]any{
+		"start_line":   pos.StartLine,
+		"start_col":    pos.StartCol,
+		"start_offset": pos.StartOffset,
+		"end_line":     pos.EndLine,
+		"end_col":      pos.EndCol,
+		"end_offset":   pos.EndOffset,
 	}
-	return result
+}
+
+// buildChildrenMap creates the children map array
+func buildChildrenMap(children []*Node) []map[string]any {
+	childrenMap := make([]map[string]any, len(children))
+	for i, child := range children {
+		childrenMap[i] = child.ToMap()
+	}
+	return childrenMap
 }
 
 func isChildMatch(child, target *Node) bool {
@@ -476,14 +536,26 @@ func nodeString(node *Node) string {
 	buf.WriteString("Type:")
 	buf.WriteString(node.Type)
 
-	if node.Token != "" {
-		buf.WriteString(",Token:")
-		buf.WriteString(node.Token)
-	}
+	appendToken(&buf, node.Token)
+	appendRoles(&buf, node.Roles)
+	appendProps(&buf, node.Props)
+	appendChildren(&buf, node.Children)
 
-	if len(node.Roles) > 0 {
+	buf.WriteString("}")
+	return buf.String()
+}
+
+func appendToken(buf *strings.Builder, token string) {
+	if token != "" {
+		buf.WriteString(",Token:")
+		buf.WriteString(token)
+	}
+}
+
+func appendRoles(buf *strings.Builder, roles []Role) {
+	if len(roles) > 0 {
 		buf.WriteString(",Roles:[")
-		for i, role := range node.Roles {
+		for i, role := range roles {
 			if i > 0 {
 				buf.WriteString(" ")
 			}
@@ -491,19 +563,20 @@ func nodeString(node *Node) string {
 		}
 		buf.WriteString("]")
 	}
+}
 
-	if len(node.Props) > 0 {
+func appendProps(buf *strings.Builder, props map[string]string) {
+	if len(props) > 0 {
 		buf.WriteString(",Props:")
-		buf.WriteString(fmt.Sprintf("%v", node.Props))
+		buf.WriteString(fmt.Sprintf("%v", props))
 	}
+}
 
-	if len(node.Children) > 0 {
+func appendChildren(buf *strings.Builder, children []*Node) {
+	if len(children) > 0 {
 		buf.WriteString(",Children:")
-		buf.WriteString(fmt.Sprintf("%d", len(node.Children)))
+		buf.WriteString(fmt.Sprintf("%d", len(children)))
 	}
-
-	buf.WriteString("}")
-	return buf.String()
 }
 
 func isNodeNil(n *Node) bool {
@@ -580,10 +653,15 @@ func isTargetFound(node, target *Node) bool {
 func nodePushChildAncestors(top nodeAncestorFrame, stack *[]nodeAncestorFrame) {
 	for i := len(top.node.Children) - 1; i >= 0; i-- {
 		child := top.node.Children[i]
-		anc := append([]*Node{}, top.parent...)
-		anc = append(anc, top.node)
+		anc := buildAncestorPath(top.parent, top.node)
 		*stack = append(*stack, nodeAncestorFrame{child, anc})
 	}
+}
+
+func buildAncestorPath(parent []*Node, node *Node) []*Node {
+	anc := append([]*Node{}, parent...)
+	anc = append(anc, node)
+	return anc
 }
 
 func transformNode(n *Node, fn func(*Node) *Node) *Node {
@@ -594,15 +672,20 @@ func transformNode(n *Node, fn func(*Node) *Node) *Node {
 	stack = append(stack, nodeTransformFrame{n, nil, 0, nil})
 	for nodeHasTransformStack(stack) {
 		top := &stack[len(stack)-1]
-		if nodeHasMoreChildren(top) {
-			nodePushChildTransform(top, &stack)
-			nodeIncrementChildIndex(top)
-			continue
-		}
-		nodeProcessTransformedNode(top, results, fn)
-		nodePopTransformStack(&stack)
+		stack = processTransformFrame(top, stack, results, fn)
 	}
 	return results[n]
+}
+
+func processTransformFrame(top *nodeTransformFrame, stack []nodeTransformFrame, results map[*Node]*Node, fn func(*Node) *Node) []nodeTransformFrame {
+	if nodeHasMoreChildren(top) {
+		nodePushChildTransform(top, &stack)
+		nodeIncrementChildIndex(top)
+		return stack
+	}
+	nodeProcessTransformedNode(top, results, fn)
+	nodePopTransformStack(&stack)
+	return stack
 }
 
 func nodeHasTransformStack(stack []nodeTransformFrame) bool {
@@ -692,27 +775,58 @@ func preOrder(node *Node) <-chan *Node {
 			}
 
 			ch <- n
-			childCount := len(n.Children)
-
-			if childCount > 0 {
-				if len(stack) >= maxAllowedDepth {
-					processRemainingNodesDepthLimited(n, ch, 0, 10)
-					continue
-				}
-
-				if cap(stack) < len(stack)+childCount {
-					newStack := make([]*Node, len(stack), len(stack)+childCount+32)
-					copy(newStack, stack)
-					stack = newStack
-				}
-
-				for i := childCount - 1; i >= 0; i-- {
-					stack = append(stack, n.Children[i])
-				}
-			}
+			stack = processPreOrderChildren(n, stack, maxAllowedDepth, ch)
 		}
 	}()
 	return ch
+}
+
+func initializePreOrderTraversal(node *Node) (chan *Node, []*Node, int) {
+	ch := make(chan *Node)
+	maxAllowedDepth := 25
+	stack := make([]*Node, 0, 64)
+	stack = append(stack, node)
+	return ch, stack, maxAllowedDepth
+}
+
+func processPreOrderNode(n *Node, stack []*Node, maxAllowedDepth int, ch chan<- *Node) []*Node {
+	if n == nil {
+		return stack
+	}
+
+	ch <- n
+	return processPreOrderChildren(n, stack, maxAllowedDepth, ch)
+}
+
+func processPreOrderChildren(n *Node, stack []*Node, maxAllowedDepth int, ch chan<- *Node) []*Node {
+	if len(n.Children) > 0 {
+		if len(stack) >= maxAllowedDepth {
+			processRemainingNodesDepthLimited(n, ch, 0, 10)
+			return stack
+		}
+
+		stack = ensureStackCapacity(stack, len(n.Children))
+		stack = pushChildrenToStackReversed(stack, n.Children)
+	}
+	return stack
+}
+
+// ensureStackCapacity ensures the stack has enough capacity for additional children
+func ensureStackCapacity(stack []*Node, childCount int) []*Node {
+	if cap(stack) < len(stack)+childCount {
+		newStack := make([]*Node, len(stack), len(stack)+childCount+32)
+		copy(newStack, stack)
+		return newStack
+	}
+	return stack
+}
+
+// pushChildrenToStackReversed pushes children to the stack in reverse order for pre-order traversal
+func pushChildrenToStackReversed(stack []*Node, children []*Node) []*Node {
+	for i := len(children) - 1; i >= 0; i-- {
+		stack = append(stack, children[i])
+	}
+	return stack
 }
 
 // Process remaining nodes with depth-limited recursion
@@ -754,15 +868,8 @@ func postOrder(node *Node, fn func(*Node)) {
 	}
 
 	maxAllowedDepth := 25
-	stack := make([]struct {
-		node  *Node
-		index int
-	}, 0, 64)
-
-	stack = append(stack, struct {
-		node  *Node
-		index int
-	}{node, 0})
+	stack := make([]postOrderFrame, 0, 64)
+	stack = append(stack, postOrderFrame{node: node, index: 0})
 
 	for len(stack) > 0 {
 		if len(stack) >= maxAllowedDepth {
@@ -771,35 +878,72 @@ func postOrder(node *Node, fn func(*Node)) {
 		}
 
 		top := &stack[len(stack)-1]
-
-		if top.index == 0 {
-			childCount := len(top.node.Children)
-			if childCount > 0 {
-				if cap(stack) < len(stack)+childCount {
-					newStack := make([]struct {
-						node  *Node
-						index int
-					}, len(stack), len(stack)+childCount+32)
-					copy(newStack, stack)
-					stack = newStack
-				}
-
-				for i := childCount - 1; i >= 0; i-- {
-					stack = append(stack, struct {
-						node  *Node
-						index int
-					}{top.node.Children[i], 0})
-				}
-				top.index = 1
-			} else {
-				fn(top.node)
-				stack = stack[:len(stack)-1]
-			}
-		} else {
-			fn(top.node)
-			stack = stack[:len(stack)-1]
-		}
+		stack = processPostOrderFrame(top, stack, fn)
 	}
+}
+
+func initializePostOrderTraversal(node *Node) ([]postOrderFrame, int) {
+	maxAllowedDepth := 25
+	stack := make([]postOrderFrame, 0, 64)
+	stack = append(stack, postOrderFrame{node: node, index: 0})
+	return stack, maxAllowedDepth
+}
+
+func checkPostOrderDepthLimit(stack []postOrderFrame, node *Node, fn func(*Node)) bool {
+	if len(stack) >= 25 {
+		processRemainingNodesPostOrderDepthLimited(node, fn, 0, 10)
+		return true
+	}
+	return false
+}
+
+func processPostOrderFrame(top *postOrderFrame, stack []postOrderFrame, fn func(*Node)) []postOrderFrame {
+	if top.index == 0 {
+		return processInitialFrame(top, stack, fn)
+	} else {
+		return processCompletedFrame(top, stack, fn)
+	}
+}
+
+func processInitialFrame(top *postOrderFrame, stack []postOrderFrame, fn func(*Node)) []postOrderFrame {
+	if len(top.node.Children) > 0 {
+		stack = ensurePostOrderStackCapacity(stack, len(top.node.Children))
+		stack = pushChildrenToPostOrderStack(stack, top.node.Children)
+		top.index = 1
+		return stack
+	} else {
+		fn(top.node)
+		return stack[:len(stack)-1]
+	}
+}
+
+func processCompletedFrame(top *postOrderFrame, stack []postOrderFrame, fn func(*Node)) []postOrderFrame {
+	fn(top.node)
+	return stack[:len(stack)-1]
+}
+
+// postOrderFrame represents a frame in the post-order traversal stack
+type postOrderFrame struct {
+	node  *Node
+	index int
+}
+
+// ensurePostOrderStackCapacity ensures the post-order stack has enough capacity
+func ensurePostOrderStackCapacity(stack []postOrderFrame, childCount int) []postOrderFrame {
+	if cap(stack) < len(stack)+childCount {
+		newStack := make([]postOrderFrame, len(stack), len(stack)+childCount+32)
+		copy(newStack, stack)
+		return newStack
+	}
+	return stack
+}
+
+// pushChildrenToPostOrderStack pushes children to the post-order stack in reverse order
+func pushChildrenToPostOrderStack(stack []postOrderFrame, children []*Node) []postOrderFrame {
+	for i := len(children) - 1; i >= 0; i-- {
+		stack = append(stack, postOrderFrame{node: children[i], index: 0})
+	}
+	return stack
 }
 
 // Process remaining nodes for post-order with depth limiting
@@ -824,18 +968,25 @@ func processRemainingNodesPostOrderIterative(node *Node, fn func(*Node)) {
 
 	for len(stack) > 0 {
 		n := stack[len(stack)-1]
-
-		if visited[n] {
-			fn(n)
-			stack = stack[:len(stack)-1]
-		} else {
-			visited[n] = true
-
-			for i := len(n.Children) - 1; i >= 0; i-- {
-				stack = append(stack, n.Children[i])
-			}
-		}
+		stack = processPostOrderIterativeNode(n, stack, visited, fn)
 	}
+}
+
+func processPostOrderIterativeNode(n *Node, stack []*Node, visited map[*Node]bool, fn func(*Node)) []*Node {
+	if visited[n] {
+		fn(n)
+		return stack[:len(stack)-1]
+	} else {
+		visited[n] = true
+		return pushChildrenToPostOrderStackReversed(stack, n.Children)
+	}
+}
+
+func pushChildrenToPostOrderStackReversed(stack []*Node, children []*Node) []*Node {
+	for i := len(children) - 1; i >= 0; i-- {
+		stack = append(stack, children[i])
+	}
+	return stack
 }
 
 // AssignStableIDs assigns a stable id to each node in the tree based on its content and position.
@@ -843,36 +994,66 @@ func (n *Node) AssignStableIDs() {
 	if n == nil {
 		return
 	}
-	var assign func(node *Node)
-	assign = func(node *Node) {
-		if node == nil {
-			return
-		}
-		h := sha1.New()
-		h.Write([]byte(node.Type))
-		h.Write([]byte(node.Token))
-		if node.Pos != nil {
-			buf := make([]byte, 8*6)
-			binary.LittleEndian.PutUint64(buf[0:8], uint64(node.Pos.StartLine))
-			binary.LittleEndian.PutUint64(buf[8:16], uint64(node.Pos.StartCol))
-			binary.LittleEndian.PutUint64(buf[16:24], uint64(node.Pos.StartOffset))
-			binary.LittleEndian.PutUint64(buf[24:32], uint64(node.Pos.EndLine))
-			binary.LittleEndian.PutUint64(buf[32:40], uint64(node.Pos.EndCol))
-			binary.LittleEndian.PutUint64(buf[40:48], uint64(node.Pos.EndOffset))
-			h.Write(buf)
-		}
-		for _, r := range node.Roles {
-			h.Write([]byte(r))
-		}
-		for _, c := range node.Children {
-			assign(c)
-			buf := make([]byte, 8)
-			copy(buf, []byte(c.Id))
-			h.Write(buf)
-		}
-		// Use first 8 bytes of SHA1 as uint64 id
-		idBytes := h.Sum(nil)[:8]
-		node.Id = string(idBytes)
+	assignStableIDRecursive(n)
+}
+
+// assignStableIDRecursive recursively assigns stable IDs to nodes
+func assignStableIDRecursive(node *Node) {
+	if node == nil {
+		return
 	}
-	assign(n)
+
+	h := sha1.New()
+	writeNodeContentToHash(h, node)
+
+	// Process children first to get their IDs
+	for _, child := range node.Children {
+		assignStableIDRecursive(child)
+		writeChildIDToHash(h, child)
+	}
+
+	// Use first 8 bytes of SHA1 as uint64 id
+	idBytes := h.Sum(nil)[:8]
+	node.Id = string(idBytes)
+}
+
+// writeNodeContentToHash writes node content to the hash
+func writeNodeContentToHash(h hash.Hash, node *Node) {
+	h.Write([]byte(node.Type))
+	h.Write([]byte(node.Token))
+
+	if node.Pos != nil {
+		writePositionToHash(h, node.Pos)
+	}
+
+	for _, role := range node.Roles {
+		h.Write([]byte(role))
+	}
+}
+
+// writePositionToHash writes position information to the hash
+func writePositionToHash(h hash.Hash, pos *Positions) {
+	buf := make([]byte, 8*6)
+	writeStartPosition(buf, pos)
+	writeEndPosition(buf, pos)
+	h.Write(buf)
+}
+
+func writeStartPosition(buf []byte, pos *Positions) {
+	binary.LittleEndian.PutUint64(buf[0:8], uint64(pos.StartLine))
+	binary.LittleEndian.PutUint64(buf[8:16], uint64(pos.StartCol))
+	binary.LittleEndian.PutUint64(buf[16:24], uint64(pos.StartOffset))
+}
+
+func writeEndPosition(buf []byte, pos *Positions) {
+	binary.LittleEndian.PutUint64(buf[24:32], uint64(pos.EndLine))
+	binary.LittleEndian.PutUint64(buf[32:40], uint64(pos.EndCol))
+	binary.LittleEndian.PutUint64(buf[40:48], uint64(pos.EndOffset))
+}
+
+// writeChildIDToHash writes child ID to the hash
+func writeChildIDToHash(h hash.Hash, child *Node) {
+	buf := make([]byte, 8)
+	copy(buf, []byte(child.Id))
+	h.Write(buf)
 }
