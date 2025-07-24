@@ -1,7 +1,8 @@
 [language "clojure", extensions: ".clj", ".cljs"]
 
 anon_fn_lit <- (anon_fn_lit) => uast(
-    type: "Synthetic",
+    type: "Function",
+    roles: "Function", "Declaration",
     children: "anon_fn_lit", "bool_lit", "char_lit", "derefing_lit", "evaling_lit", "kwd_lit", "list_lit", "map_lit", "meta_lit", "nil_lit", "ns_map_lit", "num_lit", "old_meta_lit", "quoting_lit", "read_cond_lit", "regex_lit", "set_lit", "splicing_read_cond_lit", "str_lit", "sym_lit", "sym_val_lit", "syn_quoting_lit", "tagged_or_ctor_lit", "unquote_splicing_lit", "unquoting_lit", "var_quoting_lit", "vec_lit"
 )
 
@@ -28,18 +29,21 @@ evaling_lit <- (evaling_lit) => uast(
 
 kwd_lit <- (kwd_lit) => uast(
     token: "self",
-    type: "Synthetic",
+    type: "Identifier",
+    roles: "Name",
     children: "kwd_name", "kwd_ns"
 )
 
 list_lit <- (list_lit) => uast(
-    type: "List",
+    type: "Call",
+    roles: "Call",
     children: "anon_fn_lit", "bool_lit", "char_lit", "derefing_lit", "evaling_lit", "kwd_lit", "list_lit", "map_lit", "meta_lit", "nil_lit", "ns_map_lit", "num_lit", "old_meta_lit", "quoting_lit", "read_cond_lit", "regex_lit", "set_lit", "splicing_read_cond_lit", "str_lit", "sym_lit", "sym_val_lit", "syn_quoting_lit", "tagged_or_ctor_lit", "unquote_splicing_lit", "unquoting_lit", "var_quoting_lit", "vec_lit"
 )
 
 map_lit <- (map_lit) => uast(
     token: "self",
-    type: "Synthetic",
+    type: "Map",
+    roles: "Map",
     children: "anon_fn_lit", "bool_lit", "char_lit", "derefing_lit", "evaling_lit", "kwd_lit", "list_lit", "map_lit", "meta_lit", "nil_lit", "ns_map_lit", "num_lit", "old_meta_lit", "quoting_lit", "read_cond_lit", "regex_lit", "set_lit", "splicing_read_cond_lit", "str_lit", "sym_lit", "sym_val_lit", "syn_quoting_lit", "tagged_or_ctor_lit", "unquote_splicing_lit", "unquoting_lit", "var_quoting_lit", "vec_lit"
 )
 
@@ -50,7 +54,8 @@ meta_lit <- (meta_lit) => uast(
 
 ns_map_lit <- (ns_map_lit) => uast(
     token: "self",
-    type: "Synthetic",
+    type: "Module",
+    roles: "Module",
     children: "anon_fn_lit", "auto_res_mark", "bool_lit", "char_lit", "derefing_lit", "evaling_lit", "kwd_lit", "list_lit", "map_lit", "meta_lit", "nil_lit", "ns_map_lit", "num_lit", "old_meta_lit", "quoting_lit", "read_cond_lit", "regex_lit", "set_lit", "splicing_read_cond_lit", "str_lit", "sym_lit", "sym_val_lit", "syn_quoting_lit", "tagged_or_ctor_lit", "unquote_splicing_lit", "unquoting_lit", "var_quoting_lit", "vec_lit"
 )
 
@@ -72,11 +77,13 @@ read_cond_lit <- (read_cond_lit) => uast(
 
 regex_lit <- (regex_lit) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
 set_lit <- (set_lit) => uast(
     type: "Set",
+    roles: "Set",
     children: "anon_fn_lit", "bool_lit", "char_lit", "derefing_lit", "evaling_lit", "kwd_lit", "list_lit", "map_lit", "meta_lit", "nil_lit", "ns_map_lit", "num_lit", "old_meta_lit", "quoting_lit", "read_cond_lit", "regex_lit", "set_lit", "splicing_read_cond_lit", "str_lit", "sym_lit", "sym_val_lit", "syn_quoting_lit", "tagged_or_ctor_lit", "unquote_splicing_lit", "unquoting_lit", "var_quoting_lit", "vec_lit"
 )
 
@@ -92,11 +99,13 @@ splicing_read_cond_lit <- (splicing_read_cond_lit) => uast(
 
 str_lit <- (str_lit) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
 sym_lit <- (sym_lit) => uast(
-    type: "Synthetic",
+    type: "Identifier",
+    roles: "Name",
     children: "meta_lit", "old_meta_lit", "sym_name", "sym_ns"
 )
 
@@ -135,17 +144,20 @@ var_quoting_lit <- (var_quoting_lit) => uast(
 
 vec_lit <- (vec_lit) => uast(
     token: "self",
-    type: "Synthetic",
+    type: "List",
+    roles: "List",
     children: "anon_fn_lit", "bool_lit", "char_lit", "derefing_lit", "evaling_lit", "kwd_lit", "list_lit", "map_lit", "meta_lit", "nil_lit", "ns_map_lit", "num_lit", "old_meta_lit", "quoting_lit", "read_cond_lit", "regex_lit", "set_lit", "splicing_read_cond_lit", "str_lit", "sym_lit", "sym_val_lit", "syn_quoting_lit", "tagged_or_ctor_lit", "unquote_splicing_lit", "unquoting_lit", "var_quoting_lit", "vec_lit"
 )
 
 bool_lit <- (bool_lit) => uast(
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
 char_lit <- (char_lit) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
 comment <- (comment) => uast(
@@ -155,28 +167,34 @@ comment <- (comment) => uast(
 
 kwd_name <- (kwd_name) => uast(
     token: "self",
-    roles: "Comment",
-    type: "Comment"
+    type: "Identifier",
+    roles: "Name"
 )
 
 kwd_ns <- (kwd_ns) => uast(
-    type: "Synthetic"
+    type: "Identifier",
+    roles: "Name"
 )
 
 nil_lit <- (nil_lit) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal", "Null"
 )
 
 num_lit <- (num_lit) => uast(
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal", "Number"
 )
 
 sym_name <- (sym_name) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Identifier",
+    roles: "Name"
 )
 
 sym_ns <- (sym_ns) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
 )

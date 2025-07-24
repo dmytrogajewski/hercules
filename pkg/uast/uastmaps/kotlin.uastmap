@@ -141,8 +141,8 @@ constructor_invocation <- (constructor_invocation) => uast(
 )
 
 control_structure_body <- (control_structure_body) => uast(
-    type: "Struct",
-    roles: "Struct", "Declaration"
+    type: "Block",
+    roles: "Body"
 )
 
 delegation_specifier <- (delegation_specifier) => uast(
@@ -167,8 +167,7 @@ do_while_statement <- (do_while_statement) => uast(
 
 elvis_expression <- (elvis_expression) => uast(
     token: "self",
-    roles: "Loop",
-    type: "Loop"
+    type: "Synthetic"
 )
 
 enum_class_body <- (enum_class_body) => uast(
@@ -209,9 +208,8 @@ for_statement <- (for_statement) => uast(
 
 function_body <- (function_body) => uast(
     token: "self",
-    roles: "Loop",
-    type: "Function",
-    roles: "Function", "Declaration"
+    type: "Block",
+    roles: "Body"
 )
 
 function_declaration <- (function_declaration) => uast(
@@ -252,13 +250,14 @@ getter <- (getter) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if_expression <- (if_expression) => uast(
     token: "self",
-    roles: "Reference",
-    type: "Identifier",
+    type: "If",
+    roles: "Condition",
     children: "additive_expression", "anonymous_function", "as_expression", "bin_literal", "boolean_literal", "call_expression", "callable_reference", "character_literal", "check_expression", "collection_literal", "comparison_expression", "conjunction_expression", "control_structure_body", "disjunction_expression", "elvis_expression", "equality_expression", "hex_literal", "if_expression", "indexing_expression", "infix_expression", "integer_literal", "jump_expression", "lambda_literal", "long_literal", "multiplicative_expression", "navigation_expression", "null_literal", "object_literal", "parenthesized_expression", "postfix_expression", "prefix_expression", "range_expression", "real_literal", "simple_identifier", "spread_expression", "string_literal", "super_expression", "this_expression", "try_expression", "unsigned_literal", "when_expression"
 )
 
@@ -295,7 +294,7 @@ infix_expression <- (infix_expression) => uast(
 )
 
 inheritance_modifier <- (inheritance_modifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 interpolated_expression <- (interpolated_expression) => uast(
@@ -304,13 +303,13 @@ interpolated_expression <- (interpolated_expression) => uast(
 )
 
 interpolated_identifier <- (interpolated_identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 jump_expression <- (jump_expression) => uast(
     token: "self",
-    roles: "Reference",
-    type: "Identifier"
+    type: "Synthetic"
 )
 
 label <- (label) => uast(
@@ -335,7 +334,7 @@ long_literal <- (long_literal) => uast(
 )
 
 member_modifier <- (member_modifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 modifiers <- (modifiers) => uast(
@@ -1038,6 +1037,7 @@ where <- (where) => uast(
 )
 
 while <- (while) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )

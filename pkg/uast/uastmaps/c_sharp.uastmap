@@ -92,7 +92,7 @@ array_creation_expression <- (array_creation_expression) => uast(
 )
 
 array_rank_specifier <- (array_rank_specifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 array_type <- (array_type) => uast(
@@ -119,7 +119,6 @@ assignment_expression <- (assignment_expression) => uast(
 
 attribute <- (attribute) => uast(
     token: "self",
-    roles: "Assignment",
     type: "Attribute",
     roles: "Attribute",
     children: "alias_qualified_name", "generic_name", "identifier", "qualified_name"
@@ -630,7 +629,7 @@ method_declaration <- (method_declaration) => uast(
 )
 
 modifier <- (modifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 namespace_declaration <- (namespace_declaration) => uast(
@@ -1706,8 +1705,7 @@ verbatim_string_literal <- (verbatim_string_literal) => uast(
 
 virtual <- (virtual) => uast(
     token: "self",
-    roles: "Literal",
-    type: "Literal"
+    type: "Synthetic"
 )
 
 volatile <- (volatile) => uast(

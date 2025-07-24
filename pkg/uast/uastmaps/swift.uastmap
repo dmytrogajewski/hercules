@@ -303,7 +303,7 @@ function_type <- (function_type) => uast(
 )
 
 getter_specifier <- (getter_specifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 guard_statement <- (guard_statement) => uast(
@@ -313,13 +313,14 @@ guard_statement <- (guard_statement) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if_statement <- (if_statement) => uast(
     token: "self",
-    roles: "Reference",
-    type: "Identifier",
+    type: "If",
+    roles: "Condition",
     children: "additive_expression", "array_literal", "array_type", "as", "as_expression", "assignment", "async", "availability_condition", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "case", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "dictionary_type", "directive", "disjunction_expression", "equality_expression", "existential_type", "fully_open_range", "function_type", "hex_literal", "if_statement", "infix_expression", "integer_literal", "is", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "metatype", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "opaque_type", "open_end_range_expression", "open_start_range_expression", "optional_type", "pattern", "playground_literal", "postfix_expression", "prefix_expression", "protocol_composition_type", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "suppressed_constraint", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "tuple_type", "type_annotation", "type_modifiers", "type_pack_expansion", "type_parameter_pack", "user_type", "value_binding_pattern", "value_pack_expansion", "value_parameter_pack", "where_clause", "wildcard_pattern"
 )
 
@@ -330,8 +331,7 @@ import_declaration <- (import_declaration) => uast(
 
 infix_expression <- (infix_expression) => uast(
     token: "self",
-    roles: "Import",
-    type: "Import",
+    type: "Synthetic",
     children: "additive_expression", "array_literal", "as_expression", "assignment", "await_expression", "bang", "bin_literal", "bitwise_operation", "boolean_literal", "call_expression", "check_expression", "comparison_expression", "conjunction_expression", "constructor_expression", "custom_operator", "diagnostic", "dictionary_literal", "directive", "disjunction_expression", "equality_expression", "fully_open_range", "hex_literal", "if_statement", "infix_expression", "integer_literal", "key_path_expression", "key_path_string_expression", "lambda_literal", "line_string_literal", "macro_invocation", "multi_line_string_literal", "multiplicative_expression", "navigation_expression", "nil", "nil_coalescing_expression", "oct_literal", "open_end_range_expression", "open_start_range_expression", "playground_literal", "postfix_expression", "prefix_expression", "range_expression", "raw_string_literal", "real_literal", "regex_literal", "selector_expression", "self_expression", "simple_identifier", "special_literal", "super_expression", "switch_statement", "ternary_expression", "try_expression", "tuple_expression", "value_pack_expansion", "value_parameter_pack"
 )
 
@@ -346,7 +346,7 @@ inheritance_modifier <- (inheritance_modifier) => uast(
 )
 
 inheritance_specifier <- (inheritance_specifier) => uast(
-    type: "If",
+    type: "Synthetic",
     children: "function_type", "suppressed_constraint", "user_type"
 )
 
@@ -1376,7 +1376,7 @@ super <- (super) => uast(
 )
 
 swift <- (swift) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 switch <- (switch) => uast(

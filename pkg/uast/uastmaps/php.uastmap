@@ -1171,7 +1171,8 @@ string <- (string) => uast(
 )
 
 switch <- (switch) => uast(
-    type: "Switch"
+    type: "Switch",
+    roles: "Switch"
 )
 
 throw <- (throw) => uast(
@@ -1200,7 +1201,7 @@ try <- (try) => uast(
 )
 
 unset <- (unset) => uast(
-    type: "Set"
+    type: "Synthetic"
 )
 
 use <- (use) => uast(
@@ -1209,7 +1210,7 @@ use <- (use) => uast(
 )
 
 var_modifier <- (var_modifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 void <- (void) => uast(

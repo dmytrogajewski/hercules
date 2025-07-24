@@ -112,7 +112,8 @@ function_def <- (function_def) => uast(
 )
 
 if_command <- (if_command) => uast(
-    type: "If"
+    type: "If",
+    roles: "Condition"
 )
 
 if_condition <- (if_condition) => uast(
@@ -229,7 +230,8 @@ else <- (else) => uast(
 )
 
 elseif <- (elseif) => uast(
-    type: "If"
+    type: "If",
+    roles: "Condition"
 )
 
 endblock <- (endblock) => uast(
@@ -250,7 +252,8 @@ endfunction <- (endfunction) => uast(
 )
 
 endif <- (endif) => uast(
-    type: "If"
+    type: "If",
+    roles: "Condition"
 )
 
 endmacro <- (endmacro) => uast(

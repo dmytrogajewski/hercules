@@ -235,7 +235,7 @@ extern_crate_declaration <- (extern_crate_declaration) => uast(
 )
 
 extern_modifier <- (extern_modifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 field_declaration <- (field_declaration) => uast(
@@ -283,7 +283,7 @@ for_expression <- (for_expression) => uast(
 )
 
 for_lifetimes <- (for_lifetimes) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 foreign_mod_item <- (foreign_mod_item) => uast(
@@ -294,7 +294,7 @@ foreign_mod_item <- (foreign_mod_item) => uast(
 )
 
 fragment_specifier <- (fragment_specifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 function_item <- (function_item) => uast(
@@ -361,7 +361,8 @@ higher_ranked_trait_bound <- (higher_ranked_trait_bound) => uast(
 
 if_expression <- (if_expression) => uast(
     token: "self",
-    type: "Synthetic",
+    type: "If",
+    roles: "Condition",
     children: "_expression", "block", "else_clause", "let_chain", "let_condition"
 )
 
@@ -408,7 +409,7 @@ let_declaration <- (let_declaration) => uast(
 )
 
 lifetime <- (lifetime) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 lifetime_parameter <- (lifetime_parameter) => uast(
@@ -537,7 +538,7 @@ pointer_type <- (pointer_type) => uast(
 )
 
 qualified_type <- (qualified_type) => uast(
-    type: "If",
+    type: "Synthetic",
     children: "_type"
 )
 
@@ -602,7 +603,7 @@ scoped_identifier <- (scoped_identifier) => uast(
 )
 
 scoped_type_identifier <- (scoped_type_identifier) => uast(
-    type: "If",
+    type: "Synthetic",
     children: "bracketed_type", "crate", "generic_type", "identifier", "metavariable", "scoped_identifier", "self", "super", "type_identifier"
 )
 
@@ -952,7 +953,7 @@ false <- (false) => uast(
 )
 
 field_identifier <- (field_identifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 float_literal <- (float_literal) => uast(
@@ -982,13 +983,14 @@ ident <- (ident) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if <- (if) => uast(
     token: "self",
-    roles: "Reference",
-    type: "Identifier"
+    roles: "Condition",
+    type: "If"
 )
 
 impl <- (impl) => uast(
@@ -1107,13 +1109,12 @@ shebang <- (shebang) => uast(
 )
 
 shorthand_field_identifier <- (shorthand_field_identifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 static <- (static) => uast(
     token: "self",
-    roles: "Reference",
-    type: "Identifier"
+    type: "Synthetic"
 )
 
 stmt <- (stmt) => uast(
@@ -1164,13 +1165,12 @@ type <- (type) => uast(
 )
 
 type_identifier <- (type_identifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 union <- (union) => uast(
     token: "self",
-    roles: "Reference",
-    type: "Identifier"
+    type: "Synthetic"
 )
 
 unsafe <- (unsafe) => uast(

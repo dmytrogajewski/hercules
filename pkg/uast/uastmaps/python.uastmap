@@ -273,8 +273,7 @@ for_statement <- (for_statement) => uast(
 )
 
 format_expression <- (format_expression) => uast(
-    type: "Loop",
-    roles: "Loop",
+    type: "Synthetic",
     children: "expression", "expression_list", "format_specifier", "pattern_list", "type_conversion", "yield"
 )
 
@@ -319,6 +318,7 @@ if_clause <- (if_clause) => uast(
 
 if_statement <- (if_statement) => uast(
     type: "If",
+    roles: "Condition",
     children: "block", "elif_clause", "else_clause", "expression"
 )
 
@@ -752,13 +752,13 @@ global <- (global) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if <- (if) => uast(
     token: "self",
-    roles: "Reference",
-    type: "Identifier"
+    type: "Synthetic"
 )
 
 import <- (import) => uast(

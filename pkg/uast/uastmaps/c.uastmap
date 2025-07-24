@@ -29,7 +29,7 @@ statement <- (statement) => uast(
 )
 
 type_specifier <- (type_specifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 abstract_array_declarator <- (abstract_array_declarator) => uast(
@@ -94,7 +94,7 @@ attribute_declaration <- (attribute_declaration) => uast(
 )
 
 attribute_specifier <- (attribute_specifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 attributed_declarator <- (attributed_declarator) => uast(
@@ -317,7 +317,7 @@ gnu_asm_output_operand_list <- (gnu_asm_output_operand_list) => uast(
 )
 
 gnu_asm_qualifier <- (gnu_asm_qualifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 goto_statement <- (goto_statement) => uast(
@@ -328,13 +328,13 @@ goto_statement <- (goto_statement) => uast(
 
 if_statement <- (if_statement) => uast(
     type: "If",
+    roles: "Condition",
     children: "else_clause", "parenthesized_expression", "statement"
 )
 
 init_declarator <- (init_declarator) => uast(
     token: "self",
-    roles: "Condition",
-    type: "If",
+    type: "Synthetic",
     children: "_declarator", "expression", "initializer_list"
 )
 
@@ -360,7 +360,7 @@ linkage_specification <- (linkage_specification) => uast(
 )
 
 macro_type_specifier <- (macro_type_specifier) => uast(
-    type: "If",
+    type: "Synthetic",
     children: "identifier", "type_descriptor"
 )
 
@@ -370,7 +370,7 @@ ms_based_modifier <- (ms_based_modifier) => uast(
 )
 
 ms_call_modifier <- (ms_call_modifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 ms_declspec_modifier <- (ms_declspec_modifier) => uast(
@@ -379,7 +379,7 @@ ms_declspec_modifier <- (ms_declspec_modifier) => uast(
 )
 
 ms_pointer_modifier <- (ms_pointer_modifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 ms_unaligned_ptr_modifier <- (ms_unaligned_ptr_modifier) => uast(
@@ -1048,6 +1048,7 @@ volatile <- (volatile) => uast(
 )
 
 while <- (while) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )

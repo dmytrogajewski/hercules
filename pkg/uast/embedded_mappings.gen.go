@@ -2313,7 +2313,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(type_specifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -2549,7 +2549,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(attribute_specifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -3367,7 +3367,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(gnu_asm_qualifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -3401,7 +3401,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				UASTSpec: mapping.UASTSpec{
 					Type: "If",
 					
-					
+					Roles: []string{
+
+						"Condition",
+
+					},
 					Children: []string{
 
 						"else_clause",
@@ -3421,13 +3425,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(init_declarator)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					Token: "self",
-					Roles: []string{
-
-						"Condition",
-
-					},
+					
 					Children: []string{
 
 						"_declarator",
@@ -3531,7 +3531,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(macro_type_specifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					Children: []string{
@@ -3565,7 +3565,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(ms_call_modifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -3593,7 +3593,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(ms_pointer_modifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -5836,7 +5836,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				
 				UASTSpec: mapping.UASTSpec{
 					Type: "Loop",
-					
+					Token: "self",
 					Roles: []string{
 
 						"Loop",
@@ -6179,7 +6179,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(array_rank_specifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -6294,8 +6294,6 @@ var embeddedMappingsData = []PrecompiledMapping{
 					Type: "Attribute",
 					Token: "self",
 					Roles: []string{
-
-						"Assignment",
 
 						"Attribute",
 
@@ -8157,7 +8155,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(modifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -11779,13 +11777,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(virtual)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Literal",
+					Type: "Synthetic",
 					Token: "self",
-					Roles: []string{
-
-						"Literal",
-
-					},
+					
 					
 					
 				},
@@ -11931,9 +11925,15 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(anon_fn_lit)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Function",
 					
-					
+					Roles: []string{
+
+						"Function",
+
+						"Declaration",
+
+					},
 					Children: []string{
 
 						"anon_fn_lit",
@@ -12177,9 +12177,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(kwd_lit)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Identifier",
 					Token: "self",
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					Children: []string{
 
 						"kwd_name",
@@ -12197,9 +12201,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(list_lit)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "List",
+					Type: "Call",
 					
-					
+					Roles: []string{
+
+						"Call",
+
+					},
 					Children: []string{
 
 						"anon_fn_lit",
@@ -12267,9 +12275,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(map_lit)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Map",
 					Token: "self",
-					
+					Roles: []string{
+
+						"Map",
+
+					},
 					Children: []string{
 
 						"anon_fn_lit",
@@ -12403,9 +12415,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(ns_map_lit)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Module",
 					Token: "self",
-					
+					Roles: []string{
+
+						"Module",
+
+					},
 					Children: []string{
 
 						"anon_fn_lit",
@@ -12681,9 +12697,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(regex_lit)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Literal",
 					Token: "self",
-					
+					Roles: []string{
+
+						"Literal",
+
+					},
 					
 					
 				},
@@ -12697,7 +12717,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				UASTSpec: mapping.UASTSpec{
 					Type: "Set",
 					
-					
+					Roles: []string{
+
+						"Set",
+
+					},
 					Children: []string{
 
 						"anon_fn_lit",
@@ -12849,9 +12873,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(str_lit)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Literal",
 					Token: "self",
-					
+					Roles: []string{
+
+						"Literal",
+
+					},
 					
 					
 				},
@@ -12863,9 +12891,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(sym_lit)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Identifier",
 					
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					Children: []string{
 
 						"meta_lit",
@@ -13303,9 +13335,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(vec_lit)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "List",
 					Token: "self",
-					
+					Roles: []string{
+
+						"List",
+
+					},
 					Children: []string{
 
 						"anon_fn_lit",
@@ -13373,9 +13409,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(bool_lit)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Literal",
 					
-					
+					Roles: []string{
+
+						"Literal",
+
+					},
 					
 					
 				},
@@ -13387,9 +13427,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(char_lit)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Literal",
 					Token: "self",
-					
+					Roles: []string{
+
+						"Literal",
+
+					},
 					
 					
 				},
@@ -13419,11 +13463,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(kwd_name)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Comment",
+					Type: "Identifier",
 					Token: "self",
 					Roles: []string{
 
-						"Comment",
+						"Name",
 
 					},
 					
@@ -13437,9 +13481,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(kwd_ns)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Identifier",
 					
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					
 					
 				},
@@ -13451,9 +13499,15 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(nil_lit)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Literal",
 					Token: "self",
-					
+					Roles: []string{
+
+						"Literal",
+
+						"Null",
+
+					},
 					
 					
 				},
@@ -13465,9 +13519,15 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(num_lit)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Literal",
 					
-					
+					Roles: []string{
+
+						"Literal",
+
+						"Number",
+
+					},
 					
 					
 				},
@@ -13479,9 +13539,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(sym_name)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Identifier",
 					Token: "self",
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					
 					
 				},
@@ -13493,9 +13557,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(sym_ns)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
-					
-					
+					Type: "Identifier",
+					Token: "self",
+					Roles: []string{
+
+						"Name",
+
+					},
 					
 					
 				},
@@ -13883,7 +13951,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				UASTSpec: mapping.UASTSpec{
 					Type: "If",
 					
-					
+					Roles: []string{
+
+						"Condition",
+
+					},
 					
 					
 				},
@@ -14259,7 +14331,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				UASTSpec: mapping.UASTSpec{
 					Type: "If",
 					
-					
+					Roles: []string{
+
+						"Condition",
+
+					},
 					
 					
 				},
@@ -14329,7 +14405,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				UASTSpec: mapping.UASTSpec{
 					Type: "If",
 					
-					
+					Roles: []string{
+
+						"Condition",
+
+					},
 					
 					
 				},
@@ -18603,7 +18683,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(gnu_asm_qualifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -18637,7 +18717,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				UASTSpec: mapping.UASTSpec{
 					Type: "If",
 					
-					
+					Roles: []string{
+
+						"Condition",
+
+					},
 					Children: []string{
 
 						"condition_clause",
@@ -18660,8 +18744,6 @@ var embeddedMappingsData = []PrecompiledMapping{
 					Type: "Import",
 					Token: "self",
 					Roles: []string{
-
-						"Condition",
 
 						"Import",
 
@@ -18809,7 +18891,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(lambda_capture_specifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -18893,7 +18975,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(lambda_specifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -22779,9 +22861,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(type_identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					
 					
 				},
@@ -22793,13 +22879,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(typedef)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Identifier",
+					Type: "Synthetic",
 					Token: "self",
-					Roles: []string{
-
-						"Reference",
-
-					},
+					
 					
 					
 				},
@@ -22896,7 +22978,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				
 				UASTSpec: mapping.UASTSpec{
 					Type: "Loop",
-					
+					Token: "self",
 					Roles: []string{
 
 						"Loop",
@@ -29291,7 +29373,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(visibility_modifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					Children: []string{
@@ -30035,7 +30117,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				UASTSpec: mapping.UASTSpec{
 					Type: "If",
 					
-					
+					Roles: []string{
+
+						"Branch",
+
+					},
 					
 					
 				},
@@ -30215,9 +30301,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					
 					
 				},
@@ -30503,7 +30593,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(regex_modifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
 					
 					
@@ -33129,7 +33219,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(dotted_identifier_list)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -34027,7 +34117,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				UASTSpec: mapping.UASTSpec{
 					Type: "If",
 					
-					
+					Roles: []string{
+
+						"Condition",
+
+					},
 					Children: []string{
 
 						"_statement",
@@ -34063,7 +34157,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(import_specification)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Module",
 					
 					
 					
@@ -34123,7 +34217,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(initialized_identifier_list)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "List",
 					
 					
 					
@@ -35519,7 +35613,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(shift_operator)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
 					
 					
@@ -36761,7 +36855,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(identifier_dollar_escaped)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -59341,9 +59435,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(do_statement)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Loop",
 					
-					
+					Roles: []string{
+
+						"Loop",
+
+					},
 					Children: []string{
 
 						"parenthesized_expression",
@@ -59406,6 +59504,8 @@ var embeddedMappingsData = []PrecompiledMapping{
 					Roles: []string{
 
 						"Loop",
+
+						"For",
 
 					},
 					Children: []string{
@@ -59735,8 +59835,6 @@ var embeddedMappingsData = []PrecompiledMapping{
 					Token: "self",
 					Roles: []string{
 
-						"Loop",
-
 						"Parameter",
 
 					},
@@ -59807,9 +59905,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(if_statement)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "If",
 					Token: "self",
-					
+					Roles: []string{
+
+						"Condition",
+
+					},
 					Children: []string{
 
 						"parenthesized_expression",
@@ -60081,19 +60183,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(method_invocation)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Method",
+					Type: "Call",
 					Token: "child:identifier",
 					Roles: []string{
 
-						"Function",
-
-						"Declaration",
-
-						"Function",
-
-						"Declaration",
-
-						"Member",
+						"Call",
 
 					},
 					Children: []string{
@@ -61445,9 +61539,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(do)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
-					
-					
+					Type: "Loop",
+					Token: "self",
+					Roles: []string{
+
+						"Loop",
+
+					},
 					
 					
 				},
@@ -61665,9 +61763,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					
 					
 				},
@@ -61679,13 +61781,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(if)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Identifier",
+					Type: "Synthetic",
 					Token: "self",
-					Roles: []string{
-
-						"Reference",
-
-					},
+					
 					
 					
 				},
@@ -66183,13 +66281,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(control_structure_body)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Struct",
+					Type: "Block",
 					
 					Roles: []string{
 
-						"Struct",
-
-						"Declaration",
+						"Body",
 
 					},
 					
@@ -66267,13 +66363,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(elvis_expression)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Loop",
+					Type: "Synthetic",
 					Token: "self",
-					Roles: []string{
-
-						"Loop",
-
-					},
+					
 					
 					
 				},
@@ -66405,15 +66497,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(function_body)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Function",
+					Type: "Block",
 					Token: "self",
 					Roles: []string{
 
-						"Loop",
-
-						"Function",
-
-						"Declaration",
+						"Body",
 
 					},
 					
@@ -66561,9 +66649,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					
 					
 				},
@@ -66575,11 +66667,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(if_expression)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Identifier",
+					Type: "If",
 					Token: "self",
 					Roles: []string{
 
-						"Reference",
+						"Condition",
 
 					},
 					Children: []string{
@@ -66781,7 +66873,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(inheritance_modifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -66809,9 +66901,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(interpolated_identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					
 					
 				},
@@ -66823,13 +66919,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(jump_expression)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Identifier",
+					Type: "Synthetic",
 					Token: "self",
-					Roles: []string{
-
-						"Reference",
-
-					},
+					
 					
 					
 				},
@@ -66909,7 +67001,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(member_modifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -69156,7 +69248,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				
 				UASTSpec: mapping.UASTSpec{
 					Type: "Loop",
-					
+					Token: "self",
 					Roles: []string{
 
 						"Loop",
@@ -86165,7 +86257,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				UASTSpec: mapping.UASTSpec{
 					Type: "Switch",
 					
-					
+					Roles: []string{
+
+						"Switch",
+
+					},
 					
 					
 				},
@@ -86255,7 +86351,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(unset)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Set",
+					Type: "Synthetic",
 					
 					
 					
@@ -86283,7 +86379,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(var_modifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -90747,13 +90843,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(format_expression)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Loop",
+					Type: "Synthetic",
 					
-					Roles: []string{
-
-						"Loop",
-
-					},
+					
 					Children: []string{
 
 						"expression",
@@ -90919,7 +91011,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				UASTSpec: mapping.UASTSpec{
 					Type: "If",
 					
-					
+					Roles: []string{
+
+						"Condition",
+
+					},
 					Children: []string{
 
 						"block",
@@ -92355,9 +92451,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					
 					
 				},
@@ -92369,13 +92469,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(if)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Identifier",
+					Type: "Synthetic",
 					Token: "self",
-					Roles: []string{
-
-						"Reference",
-
-					},
+					
 					
 					
 				},
@@ -97043,7 +97139,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(extern_modifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -97221,7 +97317,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(for_lifetimes)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -97257,7 +97353,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(fragment_specifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -97533,9 +97629,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(if_expression)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "If",
 					Token: "self",
-					
+					Roles: []string{
+
+						"Condition",
+
+					},
 					Children: []string{
 
 						"_expression",
@@ -97713,7 +97813,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(lifetime)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -98159,7 +98259,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(qualified_type)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					Children: []string{
@@ -98397,7 +98497,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(scoped_type_identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					Children: []string{
@@ -99665,7 +99765,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(field_identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -99759,9 +99859,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					
 					
 				},
@@ -99773,11 +99877,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(if)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Identifier",
+					Type: "If",
 					Token: "self",
 					Roles: []string{
 
-						"Reference",
+						"Condition",
 
 					},
 					
@@ -100157,7 +100261,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(shorthand_field_identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -100171,13 +100275,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(static)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Identifier",
+					Type: "Synthetic",
 					Token: "self",
-					Roles: []string{
-
-						"Reference",
-
-					},
+					
 					
 					
 				},
@@ -100339,7 +100439,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(type_identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -100353,13 +100453,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(union)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Identifier",
+					Type: "Synthetic",
 					Token: "self",
-					Roles: []string{
-
-						"Reference",
-
-					},
+					
 					
 					
 				},
@@ -101489,7 +101585,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(extern_modifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -101667,7 +101763,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(for_lifetimes)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -101681,13 +101777,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(foreign_mod_item)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Loop",
-					Token: "self",
-					Roles: []string{
-
-						"Loop",
-
-					},
+					Type: "Synthetic",
+					
+					
 					Children: []string{
 
 						"declaration_list",
@@ -101703,7 +101795,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(fragment_specifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -101867,7 +101959,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(generic_identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
 					
 					
@@ -101953,9 +102045,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					
 					
 				},
@@ -102443,7 +102539,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(node_identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -102819,7 +102915,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(scoped_identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					Children: []string{
@@ -104163,7 +104259,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				UASTSpec: mapping.UASTSpec{
 					Type: "If",
 					
-					
+					Roles: []string{
+
+						"Condition",
+
+					},
 					
 					
 				},
@@ -105529,7 +105629,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(CertificateFile)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -106809,7 +106909,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(VerifyHostKeyDNS)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -110627,7 +110727,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(getter_specifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -110817,9 +110917,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					
 					
 				},
@@ -110831,11 +110935,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(if_statement)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Identifier",
+					Type: "If",
 					Token: "self",
 					Roles: []string{
 
-						"Reference",
+						"Condition",
 
 					},
 					Children: []string{
@@ -111029,13 +111133,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(infix_expression)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Import",
+					Type: "Synthetic",
 					Token: "self",
-					Roles: []string{
-
-						"Import",
-
-					},
+					
 					Children: []string{
 
 						"additive_expression",
@@ -111223,7 +111323,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(inheritance_specifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					Children: []string{
@@ -117409,7 +117509,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(swift)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					
@@ -118961,7 +119061,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(primary_expression)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Pattern",
+					Type: "Synthetic",
 					Token: "self",
 					
 					
@@ -119183,7 +119283,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(array_type)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Pattern",
+					Type: "Synthetic",
 					Token: "self",
 					
 					
@@ -119235,7 +119335,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(as_expression)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Lambda",
+					Type: "Cast",
 					Token: "self",
 					
 					
@@ -120481,9 +120581,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					
 					
 				},
@@ -120495,11 +120599,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(if_statement)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Identifier",
+					Type: "If",
 					Token: "self",
 					Roles: []string{
 
-						"Reference",
+						"Condition",
 
 					},
 					Children: []string{
@@ -120629,7 +120733,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(import_specifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					Children: []string{
@@ -123693,9 +123797,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(type_identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					
 					
 				},
@@ -123707,13 +123815,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(typeof)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Identifier",
+					Type: "Synthetic",
 					Token: "self",
-					Roles: []string{
-
-						"Reference",
-
-					},
+					
 					
 					
 				},
@@ -125423,9 +125527,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					
 					
 				},
@@ -125437,11 +125545,11 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(if_statement)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Identifier",
+					Type: "If",
 					Token: "self",
 					Roles: []string{
 
-						"Reference",
+						"Condition",
 
 					},
 					Children: []string{
@@ -125571,7 +125679,7 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(import_specifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Synthetic",
 					
 					
 					Children: []string{
@@ -128635,9 +128743,13 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(type_identifier)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "If",
+					Type: "Identifier",
 					
-					
+					Roles: []string{
+
+						"Name",
+
+					},
 					
 					
 				},
@@ -128649,13 +128761,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(typeof)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Identifier",
+					Type: "Synthetic",
 					Token: "self",
-					Roles: []string{
-
-						"Reference",
-
-					},
+					
 					
 					
 				},
@@ -132825,7 +132933,7 @@ func newcPatternMatcher() *cPatternMatcher {
 			Pattern: "(type_specifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -133061,7 +133169,7 @@ func newcPatternMatcher() *cPatternMatcher {
 			Pattern: "(attribute_specifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -133879,7 +133987,7 @@ func newcPatternMatcher() *cPatternMatcher {
 			Pattern: "(gnu_asm_qualifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -133913,7 +134021,11 @@ func newcPatternMatcher() *cPatternMatcher {
 			UASTSpec: mapping.UASTSpec{
 				Type: "If",
 				
-				
+				Roles: []string{
+
+					"Condition",
+
+				},
 				Children: []string{
 
 					"else_clause",
@@ -133933,13 +134045,9 @@ func newcPatternMatcher() *cPatternMatcher {
 			Pattern: "(init_declarator)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				Token: "self",
-				Roles: []string{
-
-					"Condition",
-
-				},
+				
 				Children: []string{
 
 					"_declarator",
@@ -134043,7 +134151,7 @@ func newcPatternMatcher() *cPatternMatcher {
 			Pattern: "(macro_type_specifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				Children: []string{
@@ -134077,7 +134185,7 @@ func newcPatternMatcher() *cPatternMatcher {
 			Pattern: "(ms_call_modifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -134105,7 +134213,7 @@ func newcPatternMatcher() *cPatternMatcher {
 			Pattern: "(ms_pointer_modifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -136348,7 +136456,7 @@ func newcPatternMatcher() *cPatternMatcher {
 			
 			UASTSpec: mapping.UASTSpec{
 				Type: "Loop",
-				
+				Token: "self",
 				Roles: []string{
 
 					"Loop",
@@ -136731,7 +136839,7 @@ func newc_sharpPatternMatcher() *c_sharpPatternMatcher {
 			Pattern: "(array_rank_specifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -136846,8 +136954,6 @@ func newc_sharpPatternMatcher() *c_sharpPatternMatcher {
 				Type: "Attribute",
 				Token: "self",
 				Roles: []string{
-
-					"Assignment",
 
 					"Attribute",
 
@@ -138709,7 +138815,7 @@ func newc_sharpPatternMatcher() *c_sharpPatternMatcher {
 			Pattern: "(modifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -142331,13 +142437,9 @@ func newc_sharpPatternMatcher() *c_sharpPatternMatcher {
 			Pattern: "(virtual)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Literal",
+				Type: "Synthetic",
 				Token: "self",
-				Roles: []string{
-
-					"Literal",
-
-				},
+				
 				
 				
 			},
@@ -142521,9 +142623,15 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(anon_fn_lit)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Function",
 				
-				
+				Roles: []string{
+
+					"Function",
+
+					"Declaration",
+
+				},
 				Children: []string{
 
 					"anon_fn_lit",
@@ -142767,9 +142875,13 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(kwd_lit)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Identifier",
 				Token: "self",
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				Children: []string{
 
 					"kwd_name",
@@ -142787,9 +142899,13 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(list_lit)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "List",
+				Type: "Call",
 				
-				
+				Roles: []string{
+
+					"Call",
+
+				},
 				Children: []string{
 
 					"anon_fn_lit",
@@ -142857,9 +142973,13 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(map_lit)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Map",
 				Token: "self",
-				
+				Roles: []string{
+
+					"Map",
+
+				},
 				Children: []string{
 
 					"anon_fn_lit",
@@ -142993,9 +143113,13 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(ns_map_lit)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Module",
 				Token: "self",
-				
+				Roles: []string{
+
+					"Module",
+
+				},
 				Children: []string{
 
 					"anon_fn_lit",
@@ -143271,9 +143395,13 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(regex_lit)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Literal",
 				Token: "self",
-				
+				Roles: []string{
+
+					"Literal",
+
+				},
 				
 				
 			},
@@ -143287,7 +143415,11 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			UASTSpec: mapping.UASTSpec{
 				Type: "Set",
 				
-				
+				Roles: []string{
+
+					"Set",
+
+				},
 				Children: []string{
 
 					"anon_fn_lit",
@@ -143439,9 +143571,13 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(str_lit)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Literal",
 				Token: "self",
-				
+				Roles: []string{
+
+					"Literal",
+
+				},
 				
 				
 			},
@@ -143453,9 +143589,13 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(sym_lit)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Identifier",
 				
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				Children: []string{
 
 					"meta_lit",
@@ -143893,9 +144033,13 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(vec_lit)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "List",
 				Token: "self",
-				
+				Roles: []string{
+
+					"List",
+
+				},
 				Children: []string{
 
 					"anon_fn_lit",
@@ -143963,9 +144107,13 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(bool_lit)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Literal",
 				
-				
+				Roles: []string{
+
+					"Literal",
+
+				},
 				
 				
 			},
@@ -143977,9 +144125,13 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(char_lit)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Literal",
 				Token: "self",
-				
+				Roles: []string{
+
+					"Literal",
+
+				},
 				
 				
 			},
@@ -144009,11 +144161,11 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(kwd_name)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Comment",
+				Type: "Identifier",
 				Token: "self",
 				Roles: []string{
 
-					"Comment",
+					"Name",
 
 				},
 				
@@ -144027,9 +144179,13 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(kwd_ns)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Identifier",
 				
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				
 				
 			},
@@ -144041,9 +144197,15 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(nil_lit)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Literal",
 				Token: "self",
-				
+				Roles: []string{
+
+					"Literal",
+
+					"Null",
+
+				},
 				
 				
 			},
@@ -144055,9 +144217,15 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(num_lit)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Literal",
 				
-				
+				Roles: []string{
+
+					"Literal",
+
+					"Number",
+
+				},
 				
 				
 			},
@@ -144069,9 +144237,13 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(sym_name)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Identifier",
 				Token: "self",
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				
 				
 			},
@@ -144083,9 +144255,13 @@ func newclojurePatternMatcher() *clojurePatternMatcher {
 			Pattern: "(sym_ns)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
-				
-				
+				Type: "Identifier",
+				Token: "self",
+				Roles: []string{
+
+					"Name",
+
+				},
 				
 				
 			},
@@ -144513,7 +144689,11 @@ func newcmakePatternMatcher() *cmakePatternMatcher {
 			UASTSpec: mapping.UASTSpec{
 				Type: "If",
 				
-				
+				Roles: []string{
+
+					"Condition",
+
+				},
 				
 				
 			},
@@ -144889,7 +145069,11 @@ func newcmakePatternMatcher() *cmakePatternMatcher {
 			UASTSpec: mapping.UASTSpec{
 				Type: "If",
 				
-				
+				Roles: []string{
+
+					"Condition",
+
+				},
 				
 				
 			},
@@ -144959,7 +145143,11 @@ func newcmakePatternMatcher() *cmakePatternMatcher {
 			UASTSpec: mapping.UASTSpec{
 				Type: "If",
 				
-				
+				Roles: []string{
+
+					"Condition",
+
+				},
 				
 				
 			},
@@ -149303,7 +149491,7 @@ func newcppPatternMatcher() *cppPatternMatcher {
 			Pattern: "(gnu_asm_qualifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -149337,7 +149525,11 @@ func newcppPatternMatcher() *cppPatternMatcher {
 			UASTSpec: mapping.UASTSpec{
 				Type: "If",
 				
-				
+				Roles: []string{
+
+					"Condition",
+
+				},
 				Children: []string{
 
 					"condition_clause",
@@ -149360,8 +149552,6 @@ func newcppPatternMatcher() *cppPatternMatcher {
 				Type: "Import",
 				Token: "self",
 				Roles: []string{
-
-					"Condition",
 
 					"Import",
 
@@ -149509,7 +149699,7 @@ func newcppPatternMatcher() *cppPatternMatcher {
 			Pattern: "(lambda_capture_specifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -149593,7 +149783,7 @@ func newcppPatternMatcher() *cppPatternMatcher {
 			Pattern: "(lambda_specifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -153479,9 +153669,13 @@ func newcppPatternMatcher() *cppPatternMatcher {
 			Pattern: "(type_identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				
 				
 			},
@@ -153493,13 +153687,9 @@ func newcppPatternMatcher() *cppPatternMatcher {
 			Pattern: "(typedef)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Identifier",
+				Type: "Synthetic",
 				Token: "self",
-				Roles: []string{
-
-					"Reference",
-
-				},
+				
 				
 				
 			},
@@ -153596,7 +153786,7 @@ func newcppPatternMatcher() *cppPatternMatcher {
 			
 			UASTSpec: mapping.UASTSpec{
 				Type: "Loop",
-				
+				Token: "self",
 				Roles: []string{
 
 					"Loop",
@@ -160031,7 +160221,7 @@ func newcrystalPatternMatcher() *crystalPatternMatcher {
 			Pattern: "(visibility_modifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				Children: []string{
@@ -160775,7 +160965,11 @@ func newcrystalPatternMatcher() *crystalPatternMatcher {
 			UASTSpec: mapping.UASTSpec{
 				Type: "If",
 				
-				
+				Roles: []string{
+
+					"Branch",
+
+				},
 				
 				
 			},
@@ -160955,9 +161149,13 @@ func newcrystalPatternMatcher() *crystalPatternMatcher {
 			Pattern: "(identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				
 				
 			},
@@ -161243,7 +161441,7 @@ func newcrystalPatternMatcher() *crystalPatternMatcher {
 			Pattern: "(regex_modifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
 				
 				
@@ -163989,7 +164187,7 @@ func newdartPatternMatcher() *dartPatternMatcher {
 			Pattern: "(dotted_identifier_list)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -164887,7 +165085,11 @@ func newdartPatternMatcher() *dartPatternMatcher {
 			UASTSpec: mapping.UASTSpec{
 				Type: "If",
 				
-				
+				Roles: []string{
+
+					"Condition",
+
+				},
 				Children: []string{
 
 					"_statement",
@@ -164923,7 +165125,7 @@ func newdartPatternMatcher() *dartPatternMatcher {
 			Pattern: "(import_specification)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Module",
 				
 				
 				
@@ -164983,7 +165185,7 @@ func newdartPatternMatcher() *dartPatternMatcher {
 			Pattern: "(initialized_identifier_list)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "List",
 				
 				
 				
@@ -166379,7 +166581,7 @@ func newdartPatternMatcher() *dartPatternMatcher {
 			Pattern: "(shift_operator)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
 				
 				
@@ -167621,7 +167823,7 @@ func newdartPatternMatcher() *dartPatternMatcher {
 			Pattern: "(identifier_dollar_escaped)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -190911,9 +191113,13 @@ func newjavaPatternMatcher() *javaPatternMatcher {
 			Pattern: "(do_statement)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Loop",
 				
-				
+				Roles: []string{
+
+					"Loop",
+
+				},
 				Children: []string{
 
 					"parenthesized_expression",
@@ -190976,6 +191182,8 @@ func newjavaPatternMatcher() *javaPatternMatcher {
 				Roles: []string{
 
 					"Loop",
+
+					"For",
 
 				},
 				Children: []string{
@@ -191305,8 +191513,6 @@ func newjavaPatternMatcher() *javaPatternMatcher {
 				Token: "self",
 				Roles: []string{
 
-					"Loop",
-
 					"Parameter",
 
 				},
@@ -191377,9 +191583,13 @@ func newjavaPatternMatcher() *javaPatternMatcher {
 			Pattern: "(if_statement)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "If",
 				Token: "self",
-				
+				Roles: []string{
+
+					"Condition",
+
+				},
 				Children: []string{
 
 					"parenthesized_expression",
@@ -191651,19 +191861,11 @@ func newjavaPatternMatcher() *javaPatternMatcher {
 			Pattern: "(method_invocation)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Method",
+				Type: "Call",
 				Token: "child:identifier",
 				Roles: []string{
 
-					"Function",
-
-					"Declaration",
-
-					"Function",
-
-					"Declaration",
-
-					"Member",
+					"Call",
 
 				},
 				Children: []string{
@@ -193015,9 +193217,13 @@ func newjavaPatternMatcher() *javaPatternMatcher {
 			Pattern: "(do)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
-				
-				
+				Type: "Loop",
+				Token: "self",
+				Roles: []string{
+
+					"Loop",
+
+				},
 				
 				
 			},
@@ -193235,9 +193441,13 @@ func newjavaPatternMatcher() *javaPatternMatcher {
 			Pattern: "(identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				
 				
 			},
@@ -193249,13 +193459,9 @@ func newjavaPatternMatcher() *javaPatternMatcher {
 			Pattern: "(if)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Identifier",
+				Type: "Synthetic",
 				Token: "self",
-				Roles: []string{
-
-					"Reference",
-
-				},
+				
 				
 				
 			},
@@ -197867,13 +198073,11 @@ func newkotlinPatternMatcher() *kotlinPatternMatcher {
 			Pattern: "(control_structure_body)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Struct",
+				Type: "Block",
 				
 				Roles: []string{
 
-					"Struct",
-
-					"Declaration",
+					"Body",
 
 				},
 				
@@ -197951,13 +198155,9 @@ func newkotlinPatternMatcher() *kotlinPatternMatcher {
 			Pattern: "(elvis_expression)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Loop",
+				Type: "Synthetic",
 				Token: "self",
-				Roles: []string{
-
-					"Loop",
-
-				},
+				
 				
 				
 			},
@@ -198089,15 +198289,11 @@ func newkotlinPatternMatcher() *kotlinPatternMatcher {
 			Pattern: "(function_body)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Function",
+				Type: "Block",
 				Token: "self",
 				Roles: []string{
 
-					"Loop",
-
-					"Function",
-
-					"Declaration",
+					"Body",
 
 				},
 				
@@ -198245,9 +198441,13 @@ func newkotlinPatternMatcher() *kotlinPatternMatcher {
 			Pattern: "(identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				
 				
 			},
@@ -198259,11 +198459,11 @@ func newkotlinPatternMatcher() *kotlinPatternMatcher {
 			Pattern: "(if_expression)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Identifier",
+				Type: "If",
 				Token: "self",
 				Roles: []string{
 
-					"Reference",
+					"Condition",
 
 				},
 				Children: []string{
@@ -198465,7 +198665,7 @@ func newkotlinPatternMatcher() *kotlinPatternMatcher {
 			Pattern: "(inheritance_modifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -198493,9 +198693,13 @@ func newkotlinPatternMatcher() *kotlinPatternMatcher {
 			Pattern: "(interpolated_identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				
 				
 			},
@@ -198507,13 +198711,9 @@ func newkotlinPatternMatcher() *kotlinPatternMatcher {
 			Pattern: "(jump_expression)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Identifier",
+				Type: "Synthetic",
 				Token: "self",
-				Roles: []string{
-
-					"Reference",
-
-				},
+				
 				
 				
 			},
@@ -198593,7 +198793,7 @@ func newkotlinPatternMatcher() *kotlinPatternMatcher {
 			Pattern: "(member_modifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -200840,7 +201040,7 @@ func newkotlinPatternMatcher() *kotlinPatternMatcher {
 			
 			UASTSpec: mapping.UASTSpec{
 				Type: "Loop",
-				
+				Token: "self",
 				Roles: []string{
 
 					"Loop",
@@ -218161,7 +218361,11 @@ func newphpPatternMatcher() *phpPatternMatcher {
 			UASTSpec: mapping.UASTSpec{
 				Type: "Switch",
 				
-				
+				Roles: []string{
+
+					"Switch",
+
+				},
 				
 				
 			},
@@ -218251,7 +218455,7 @@ func newphpPatternMatcher() *phpPatternMatcher {
 			Pattern: "(unset)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Set",
+				Type: "Synthetic",
 				
 				
 				
@@ -218279,7 +218483,7 @@ func newphpPatternMatcher() *phpPatternMatcher {
 			Pattern: "(var_modifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -222979,13 +223183,9 @@ func newpythonPatternMatcher() *pythonPatternMatcher {
 			Pattern: "(format_expression)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Loop",
+				Type: "Synthetic",
 				
-				Roles: []string{
-
-					"Loop",
-
-				},
+				
 				Children: []string{
 
 					"expression",
@@ -223151,7 +223351,11 @@ func newpythonPatternMatcher() *pythonPatternMatcher {
 			UASTSpec: mapping.UASTSpec{
 				Type: "If",
 				
-				
+				Roles: []string{
+
+					"Condition",
+
+				},
 				Children: []string{
 
 					"block",
@@ -224587,9 +224791,13 @@ func newpythonPatternMatcher() *pythonPatternMatcher {
 			Pattern: "(identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				
 				
 			},
@@ -224601,13 +224809,9 @@ func newpythonPatternMatcher() *pythonPatternMatcher {
 			Pattern: "(if)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Identifier",
+				Type: "Synthetic",
 				Token: "self",
-				Roles: []string{
-
-					"Reference",
-
-				},
+				
 				
 				
 			},
@@ -229353,7 +229557,7 @@ func newrustPatternMatcher() *rustPatternMatcher {
 			Pattern: "(extern_modifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -229531,7 +229735,7 @@ func newrustPatternMatcher() *rustPatternMatcher {
 			Pattern: "(for_lifetimes)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -229567,7 +229771,7 @@ func newrustPatternMatcher() *rustPatternMatcher {
 			Pattern: "(fragment_specifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -229843,9 +230047,13 @@ func newrustPatternMatcher() *rustPatternMatcher {
 			Pattern: "(if_expression)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "If",
 				Token: "self",
-				
+				Roles: []string{
+
+					"Condition",
+
+				},
 				Children: []string{
 
 					"_expression",
@@ -230023,7 +230231,7 @@ func newrustPatternMatcher() *rustPatternMatcher {
 			Pattern: "(lifetime)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -230469,7 +230677,7 @@ func newrustPatternMatcher() *rustPatternMatcher {
 			Pattern: "(qualified_type)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				Children: []string{
@@ -230707,7 +230915,7 @@ func newrustPatternMatcher() *rustPatternMatcher {
 			Pattern: "(scoped_type_identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				Children: []string{
@@ -231975,7 +232183,7 @@ func newrustPatternMatcher() *rustPatternMatcher {
 			Pattern: "(field_identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -232069,9 +232277,13 @@ func newrustPatternMatcher() *rustPatternMatcher {
 			Pattern: "(identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				
 				
 			},
@@ -232083,11 +232295,11 @@ func newrustPatternMatcher() *rustPatternMatcher {
 			Pattern: "(if)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Identifier",
+				Type: "If",
 				Token: "self",
 				Roles: []string{
 
-					"Reference",
+					"Condition",
 
 				},
 				
@@ -232467,7 +232679,7 @@ func newrustPatternMatcher() *rustPatternMatcher {
 			Pattern: "(shorthand_field_identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -232481,13 +232693,9 @@ func newrustPatternMatcher() *rustPatternMatcher {
 			Pattern: "(static)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Identifier",
+				Type: "Synthetic",
 				Token: "self",
-				Roles: []string{
-
-					"Reference",
-
-				},
+				
 				
 				
 			},
@@ -232649,7 +232857,7 @@ func newrustPatternMatcher() *rustPatternMatcher {
 			Pattern: "(type_identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -232663,13 +232871,9 @@ func newrustPatternMatcher() *rustPatternMatcher {
 			Pattern: "(union)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Identifier",
+				Type: "Synthetic",
 				Token: "self",
-				Roles: []string{
-
-					"Reference",
-
-				},
+				
 				
 				
 			},
@@ -233839,7 +234043,7 @@ func newrust_with_rstmlPatternMatcher() *rust_with_rstmlPatternMatcher {
 			Pattern: "(extern_modifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -234017,7 +234221,7 @@ func newrust_with_rstmlPatternMatcher() *rust_with_rstmlPatternMatcher {
 			Pattern: "(for_lifetimes)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -234031,13 +234235,9 @@ func newrust_with_rstmlPatternMatcher() *rust_with_rstmlPatternMatcher {
 			Pattern: "(foreign_mod_item)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Loop",
-				Token: "self",
-				Roles: []string{
-
-					"Loop",
-
-				},
+				Type: "Synthetic",
+				
+				
 				Children: []string{
 
 					"declaration_list",
@@ -234053,7 +234253,7 @@ func newrust_with_rstmlPatternMatcher() *rust_with_rstmlPatternMatcher {
 			Pattern: "(fragment_specifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -234217,7 +234417,7 @@ func newrust_with_rstmlPatternMatcher() *rust_with_rstmlPatternMatcher {
 			Pattern: "(generic_identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
 				
 				
@@ -234303,9 +234503,13 @@ func newrust_with_rstmlPatternMatcher() *rust_with_rstmlPatternMatcher {
 			Pattern: "(identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				
 				
 			},
@@ -234793,7 +234997,7 @@ func newrust_with_rstmlPatternMatcher() *rust_with_rstmlPatternMatcher {
 			Pattern: "(node_identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -235169,7 +235373,7 @@ func newrust_with_rstmlPatternMatcher() *rust_with_rstmlPatternMatcher {
 			Pattern: "(scoped_identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				Children: []string{
@@ -236513,7 +236717,11 @@ func newrust_with_rstmlPatternMatcher() *rust_with_rstmlPatternMatcher {
 			UASTSpec: mapping.UASTSpec{
 				Type: "If",
 				
-				
+				Roles: []string{
+
+					"Condition",
+
+				},
 				
 				
 			},
@@ -237921,7 +238129,7 @@ func newssh_configPatternMatcher() *ssh_configPatternMatcher {
 			Pattern: "(CertificateFile)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -239201,7 +239409,7 @@ func newssh_configPatternMatcher() *ssh_configPatternMatcher {
 			Pattern: "(VerifyHostKeyDNS)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -243059,7 +243267,7 @@ func newswiftPatternMatcher() *swiftPatternMatcher {
 			Pattern: "(getter_specifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -243249,9 +243457,13 @@ func newswiftPatternMatcher() *swiftPatternMatcher {
 			Pattern: "(identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				
 				
 			},
@@ -243263,11 +243475,11 @@ func newswiftPatternMatcher() *swiftPatternMatcher {
 			Pattern: "(if_statement)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Identifier",
+				Type: "If",
 				Token: "self",
 				Roles: []string{
 
-					"Reference",
+					"Condition",
 
 				},
 				Children: []string{
@@ -243461,13 +243673,9 @@ func newswiftPatternMatcher() *swiftPatternMatcher {
 			Pattern: "(infix_expression)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Import",
+				Type: "Synthetic",
 				Token: "self",
-				Roles: []string{
-
-					"Import",
-
-				},
+				
 				Children: []string{
 
 					"additive_expression",
@@ -243655,7 +243863,7 @@ func newswiftPatternMatcher() *swiftPatternMatcher {
 			Pattern: "(inheritance_specifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				Children: []string{
@@ -249841,7 +250049,7 @@ func newswiftPatternMatcher() *swiftPatternMatcher {
 			Pattern: "(swift)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				
@@ -251513,7 +251721,7 @@ func newtsxPatternMatcher() *tsxPatternMatcher {
 			Pattern: "(primary_expression)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Pattern",
+				Type: "Synthetic",
 				Token: "self",
 				
 				
@@ -251735,7 +251943,7 @@ func newtsxPatternMatcher() *tsxPatternMatcher {
 			Pattern: "(array_type)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Pattern",
+				Type: "Synthetic",
 				Token: "self",
 				
 				
@@ -251787,7 +251995,7 @@ func newtsxPatternMatcher() *tsxPatternMatcher {
 			Pattern: "(as_expression)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Lambda",
+				Type: "Cast",
 				Token: "self",
 				
 				
@@ -253033,9 +253241,13 @@ func newtsxPatternMatcher() *tsxPatternMatcher {
 			Pattern: "(identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				
 				
 			},
@@ -253047,11 +253259,11 @@ func newtsxPatternMatcher() *tsxPatternMatcher {
 			Pattern: "(if_statement)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Identifier",
+				Type: "If",
 				Token: "self",
 				Roles: []string{
 
-					"Reference",
+					"Condition",
 
 				},
 				Children: []string{
@@ -253181,7 +253393,7 @@ func newtsxPatternMatcher() *tsxPatternMatcher {
 			Pattern: "(import_specifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				Children: []string{
@@ -256245,9 +256457,13 @@ func newtsxPatternMatcher() *tsxPatternMatcher {
 			Pattern: "(type_identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				
 				
 			},
@@ -256259,13 +256475,9 @@ func newtsxPatternMatcher() *tsxPatternMatcher {
 			Pattern: "(typeof)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Identifier",
+				Type: "Synthetic",
 				Token: "self",
-				Roles: []string{
-
-					"Reference",
-
-				},
+				
 				
 				
 			},
@@ -258013,9 +258225,13 @@ func newtypescriptPatternMatcher() *typescriptPatternMatcher {
 			Pattern: "(identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				
 				
 			},
@@ -258027,11 +258243,11 @@ func newtypescriptPatternMatcher() *typescriptPatternMatcher {
 			Pattern: "(if_statement)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Identifier",
+				Type: "If",
 				Token: "self",
 				Roles: []string{
 
-					"Reference",
+					"Condition",
 
 				},
 				Children: []string{
@@ -258161,7 +258377,7 @@ func newtypescriptPatternMatcher() *typescriptPatternMatcher {
 			Pattern: "(import_specifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Synthetic",
 				
 				
 				Children: []string{
@@ -261225,9 +261441,13 @@ func newtypescriptPatternMatcher() *typescriptPatternMatcher {
 			Pattern: "(type_identifier)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "If",
+				Type: "Identifier",
 				
-				
+				Roles: []string{
+
+					"Name",
+
+				},
 				
 				
 			},
@@ -261239,13 +261459,9 @@ func newtypescriptPatternMatcher() *typescriptPatternMatcher {
 			Pattern: "(typeof)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Identifier",
+				Type: "Synthetic",
 				Token: "self",
-				Roles: []string{
-
-					"Reference",
-
-				},
+				
 				
 				
 			},
