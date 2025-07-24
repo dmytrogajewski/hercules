@@ -683,7 +683,7 @@ until <- (until) => uast(
 )
 
 visibility_modifier <- (visibility_modifier) => uast(
-    type: "If",
+    type: "Synthetic",
     children: "private", "protected"
 )
 
@@ -794,7 +794,8 @@ else <- (else) => uast(
 )
 
 elsif <- (elsif) => uast(
-    type: "If"
+    type: "If",
+    roles: "Branch"
 )
 
 end <- (end) => uast(
@@ -851,7 +852,8 @@ heredoc_start <- (heredoc_start) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if <- (if) => uast(
@@ -943,7 +945,7 @@ protected <- (protected) => uast(
 )
 
 regex_modifier <- (regex_modifier) => uast(
-    type: "If"
+    type: "Identifier"
 )
 
 require <- (require) => uast(

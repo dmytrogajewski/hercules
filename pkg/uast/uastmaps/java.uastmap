@@ -215,7 +215,8 @@ dimensions_expr <- (dimensions_expr) => uast(
 )
 
 do_statement <- (do_statement) => uast(
-    type: "Synthetic",
+    type: "Loop",
+    roles: "Loop",
     children: "parenthesized_expression", "statement"
 )
 
@@ -232,7 +233,7 @@ element_value_pair <- (element_value_pair) => uast(
 enhanced_for_statement <- (enhanced_for_statement) => uast(
     token: "self",
     type: "Loop",
-    roles: "Loop",
+    roles: "Loop", "For",
     children: "_unannotated_type", "dimensions", "expression", "identifier", "statement", "underscore_pattern"
 )
 
@@ -315,7 +316,6 @@ for_statement <- (for_statement) => uast(
 
 formal_parameter <- (formal_parameter) => uast(
     token: "self",
-    roles: "Loop",
     type: "Parameter",
     roles: "Parameter",
     children: "_unannotated_type", "dimensions", "identifier", "underscore_pattern"
@@ -337,7 +337,8 @@ guard <- (guard) => uast(
 
 if_statement <- (if_statement) => uast(
     token: "self",
-    type: "Synthetic",
+    type: "If",
+    roles: "Condition",
     children: "parenthesized_expression", "statement"
 )
 
@@ -407,9 +408,8 @@ method_declaration <- (method_declaration) => uast(
 
 method_invocation <- (method_invocation) => uast(
     token: "child:identifier",
-    roles: "Function", "Declaration",
-    type: "Method",
-    roles: "Function", "Declaration", "Member",
+    type: "Call",
+    roles: "Call",
     children: "argument_list", "identifier", "primary_expression", "super", "type_arguments"
 )
 
@@ -805,7 +805,9 @@ default <- (default) => uast(
 )
 
 do <- (do) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Loop",
+    roles: "Loop"
 )
 
 double <- (double) => uast(
@@ -874,13 +876,13 @@ hex_integer_literal <- (hex_integer_literal) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if <- (if) => uast(
     token: "self",
-    roles: "Reference",
-    type: "Identifier"
+    type: "Synthetic"
 )
 
 implements <- (implements) => uast(

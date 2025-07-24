@@ -266,7 +266,7 @@ documentation_comment <- (documentation_comment) => uast(
 )
 
 dotted_identifier_list <- (dotted_identifier_list) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 enum_body <- (enum_body) => uast(
@@ -439,6 +439,7 @@ if_null_expression <- (if_null_expression) => uast(
 
 if_statement <- (if_statement) => uast(
     type: "If",
+    roles: "Condition",
     children: "_statement"
 )
 
@@ -450,7 +451,7 @@ import_or_export <- (import_or_export) => uast(
 )
 
 import_specification <- (import_specification) => uast(
-    type: "If"
+    type: "Module"
 )
 
 index_selector <- (index_selector) => uast(
@@ -469,7 +470,7 @@ initialized_identifier <- (initialized_identifier) => uast(
 )
 
 initialized_identifier_list <- (initialized_identifier_list) => uast(
-    type: "If"
+    type: "List"
 )
 
 initialized_variable_definition <- (initialized_variable_definition) => uast(
@@ -856,7 +857,7 @@ shift_expression <- (shift_expression) => uast(
 )
 
 shift_operator <- (shift_operator) => uast(
-    type: "If"
+    type: "Identifier"
 )
 
 spread_element <- (spread_element) => uast(
@@ -1239,7 +1240,7 @@ hide <- (hide) => uast(
 )
 
 identifier_dollar_escaped <- (identifier_dollar_escaped) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 if <- (if) => uast(

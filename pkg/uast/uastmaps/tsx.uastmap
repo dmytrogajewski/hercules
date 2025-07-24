@@ -16,7 +16,7 @@ pattern <- (pattern) => uast(
 
 primary_expression <- (primary_expression) => uast(
     token: "self",
-    type: "Pattern"
+    type: "Synthetic"
 )
 
 primary_type <- (primary_type) => uast(
@@ -76,7 +76,7 @@ array_pattern <- (array_pattern) => uast(
 
 array_type <- (array_type) => uast(
     token: "self",
-    type: "Pattern"
+    type: "Synthetic"
 )
 
 arrow_function <- (arrow_function) => uast(
@@ -87,7 +87,7 @@ arrow_function <- (arrow_function) => uast(
 
 as_expression <- (as_expression) => uast(
     token: "self",
-    type: "Lambda"
+    type: "Cast"
 )
 
 asserts <- (asserts) => uast(
@@ -387,13 +387,14 @@ generic_type <- (generic_type) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 if_statement <- (if_statement) => uast(
     token: "self",
-    roles: "Reference",
-    type: "Identifier",
+    type: "If",
+    roles: "Condition",
     children: "else_clause", "parenthesized_expression", "statement"
 )
 
@@ -431,7 +432,7 @@ import_require_clause <- (import_require_clause) => uast(
 )
 
 import_specifier <- (import_specifier) => uast(
-    type: "If",
+    type: "Synthetic",
     children: "identifier", "string"
 )
 
@@ -1305,13 +1306,13 @@ type <- (type) => uast(
 )
 
 type_identifier <- (type_identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 typeof <- (typeof) => uast(
     token: "self",
-    roles: "Reference",
-    type: "Identifier"
+    type: "Synthetic"
 )
 
 undefined <- (undefined) => uast(

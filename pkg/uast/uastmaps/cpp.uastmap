@@ -477,7 +477,7 @@ gnu_asm_output_operand_list <- (gnu_asm_output_operand_list) => uast(
 )
 
 gnu_asm_qualifier <- (gnu_asm_qualifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 goto_statement <- (goto_statement) => uast(
@@ -488,12 +488,12 @@ goto_statement <- (goto_statement) => uast(
 
 if_statement <- (if_statement) => uast(
     type: "If",
+    roles: "Condition",
     children: "condition_clause", "else_clause", "statement"
 )
 
 import_declaration <- (import_declaration) => uast(
     token: "self",
-    roles: "Condition",
     type: "Import",
     roles: "Import",
     children: "module_name", "module_partition", "string_literal", "system_lib_string"
@@ -532,7 +532,7 @@ lambda_capture_initializer <- (lambda_capture_initializer) => uast(
 )
 
 lambda_capture_specifier <- (lambda_capture_specifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 lambda_declarator <- (lambda_declarator) => uast(
@@ -555,7 +555,7 @@ lambda_expression <- (lambda_expression) => uast(
 )
 
 lambda_specifier <- (lambda_specifier) => uast(
-    type: "If"
+    type: "Synthetic"
 )
 
 linkage_specification <- (linkage_specification) => uast(
@@ -1698,13 +1698,13 @@ try <- (try) => uast(
 )
 
 type_identifier <- (type_identifier) => uast(
-    type: "If"
+    type: "Identifier",
+    roles: "Name"
 )
 
 typedef <- (typedef) => uast(
     token: "self",
-    roles: "Reference",
-    type: "Identifier"
+    type: "Synthetic"
 )
 
 typename <- (typename) => uast(
@@ -1735,6 +1735,7 @@ volatile <- (volatile) => uast(
 )
 
 while <- (while) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
