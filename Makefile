@@ -174,6 +174,6 @@ ${GOBIN}/uast${EXE}: cmd/uast/*.go pkg/uast/*.go pkg/uast/*/*.go pkg/uast/*/*/*.
 	LDFLAGS="-X github.com/dmytrogajewski/hercules.BinaryGitHash=$(shell git rev-parse HEAD)"; \
 	CGO_ENABLED=1 go build -tags "$(TAGS)" -ldflags "$$LDFLAGS" -o ${GOBIN}/uast${EXE} ./cmd/uast
 
-${GOBIN}/herr${EXE}: cmd/herr/*.go pkg/analyzers/*.go internal/pkg/*.go internal/pkg/*/*.go internal/pkg/*/*/*.go
+${GOBIN}/herr${EXE}: cmd/herr/*.go pkg/analyzers/*/*.go internal/pkg/*.go internal/pkg/*/*.go internal/pkg/*/*/*.go
 	LDFLAGS="-X github.com/dmytrogajewski/hercules.BinaryGitHash=$(shell git rev-parse HEAD)"; \
 	CGO_ENABLED=1 go build -tags "$(TAGS)" -ldflags "$$LDFLAGS" -o ${GOBIN}/herr${EXE} ./cmd/herr

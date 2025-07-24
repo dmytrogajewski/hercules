@@ -133,13 +133,13 @@ func TestDSLParser_RecursiveFunctions(t *testing.T) {
 		wantErr bool
 	}{
 		// Recursive filter: should find all FunctionDecl nodes in the entire tree
-		{"rfilter(.type == \"FunctionDecl\")", testUAST, []string{"Root", "Child"}, false},
+		{"rfilter(.props.type == \"FunctionDecl\")", testUAST, []string{"Root", "Child"}, false},
 		// Recursive map: should map all foo values in the entire tree
 		{"rmap(.foo)", testUAST, []string{"bar", "baz", "qux"}, false},
 		// Recursive filter + recursive map: should find FunctionDecl nodes and map their foo values recursively
-		{"rfilter(.type == \"FunctionDecl\") |> rmap(.foo)", testUAST, []string{"bar", "baz", "qux", "qux"}, false},
+		{"rfilter(.props.type == \"FunctionDecl\") |> rmap(.foo)", testUAST, []string{"bar", "baz", "qux", "qux"}, false},
 		// Recursive filter + non-recursive map: should find FunctionDecl nodes but only map those specific nodes
-		{"rfilter(.type == \"FunctionDecl\") |> map(.foo)", testUAST, []string{"bar", "qux"}, false},
+		{"rfilter(.props.type == \"FunctionDecl\") |> map(.foo)", testUAST, []string{"bar", "qux"}, false},
 	}
 	for _, tc := range cases {
 		t.Run(tc.dsl, func(t *testing.T) {
@@ -985,14 +985,14 @@ func TestDSLParser_ExecutionWithComplexQueries(t *testing.T) {
 		wantErr bool
 	}{
 		// Complex filter with logical operators
-		{"filter(.type == \"Function\" && .roles has \"Exported\")", testUAST, []string{"Function"}, false},
-		{"filter(.type == \"Function\" || .type == \"Method\")", testUAST, []string{"Function", "Method", "Function"}, false},
-		{"filter(.type == \"Function\" && .name != \"\")", testUAST, []string{"Function", "Function"}, false},
+		{"rfilter(.type == \"Function\" && .roles has \"Exported\")", testUAST, []string{"Function"}, false},
+		{"rfilter(.type == \"Function\" || .type == \"Method\")", testUAST, []string{"Function", "Method", "Function"}, false},
+		{"rfilter(.type == \"Function\" && .name != \"\")", testUAST, []string{"Function", "Function"}, false},
 		// Complex pipeline
-		{"filter(.type == \"Function\") |> map(.name)", testUAST, []string{"function1", "function2"}, false},
-		{"filter(.roles has \"Exported\") |> map(.name)", testUAST, []string{"function1"}, false},
+		{"rfilter(.type == \"Function\") |> map(.name)", testUAST, []string{"function1", "function2"}, false},
+		{"rfilter(.roles has \"Exported\") |> map(.name)", testUAST, []string{"function1"}, false},
 		// Recursive queries
-		{"rfilter(.type == \"Function\")", testUAST, []string{"Root", "Function", "Function"}, false},
+		{"rfilter(.props.type == \"Function\")", testUAST, []string{"Root", "Function", "Function"}, false},
 		{"rfilter(.roles has \"Exported\")", testUAST, []string{"Function"}, false},
 		// Complex nested queries
 		{"rfilter(.type == \"Function\" && .roles has \"Exported\") |> map(.name)", testUAST, []string{"function1"}, false},
