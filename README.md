@@ -5,7 +5,7 @@
 
 [![CI](https://github.com/dmytrogajewski/hercules/actions/workflows/ci.yml/badge.svg)](https://github.com/dmytrogajewski/hercules/actions/workflows/ci.yml)
 [![Docker Image](https://img.shields.io/badge/docker-ready-blue)](https://github.com/dmytrogajewski/hercules/pkgs/container/hercules)
-[![Go Reference](https://pkg.go.dev/badge/gopkg.in/src-d/hercules.v10.svg)](https://pkg.go.dev/gopkg.in/src-d/hercules.v10)
+[![Go Reference](https://pkg.go.dev/badge/github.com/dmytrogajewski/hercules.svg)](https://pkg.go.dev/github.com/dmytrogajewski/hercules)
 
 Hercules is a scalable, cloud-native Git repository analysis platform. It provides advanced analytics, REST/gRPC APIs, and supports high-scale deployments with S3-compatible caching, Kubernetes, and modern DevOps workflows.
 
@@ -174,6 +174,52 @@ cache:
 - **Modern Go**: Go 1.24+, AWS SDK v2, Gorilla Mux, Viper
 - **Distroless container**: Minimal, secure, non-root
 
+## 📁 Project Structure
+
+This project follows the [Standard Go Project Layout](https://github.com/golang-standards/project-layout):
+
+```
+hercules/
+├── api/                    # Protocol definitions and schemas
+│   └── proto/             # Protocol buffer files
+├── build/                 # Build and CI/CD artifacts
+│   ├── bin/              # Compiled binaries
+│   ├── scripts/          # Build and maintenance scripts
+│   └── tools/            # Build tools
+├── cmd/                   # Main applications
+│   ├── herr/             # Hercules analyzer binary
+│   └── uast/             # UAST parser binary
+├── configs/               # Configuration templates
+├── deployments/           # Deployment configurations
+│   ├── docker/           # Docker configurations
+│   ├── k8s/              # Kubernetes manifests
+│   └── helm/             # Helm charts
+├── docs/                  # Documentation
+├── examples/              # Examples and plugins
+├── internal/              # Private application code
+│   ├── app/              # Application-specific code
+│   ├── pkg/              # Private libraries
+│   └── server/           # Server implementations
+├── pkg/                   # Public libraries
+│   ├── analyzers/        # Code analysis tools
+│   └── uast/             # UAST parsing and manipulation
+├── test/                  # Test data and benchmarks
+│   ├── data/             # Test data
+│   ├── fixtures/         # Test fixtures
+│   └── benchmarks/       # Benchmark results
+└── third_party/           # Third-party dependencies
+    ├── grammars/         # Language grammars
+    └── go-sitter-forest/ # Tree-sitter grammars
+```
+
+**Key packages:**
+- `pkg/analyzers/`: Public code analysis APIs
+- `pkg/uast/`: Universal Abstract Syntax Tree parsing and manipulation
+- `internal/app/core/`: Core application logic and pipeline
+- `internal/pkg/`: Private utility libraries
+- `cmd/herr/`: Main Hercules analyzer binary
+- `cmd/uast/`: UAST parser binary
+
 ---
 
 ## 📦 Deployment
@@ -214,4 +260,33 @@ This project was originally forked from [src-d/hercules](https://github.com/src-
 ## 📝 License
 
 [Apache 2.0](./LICENSE.md)
+
+## Embedded UAST Provider
+
+Hercules supports an **Embedded UAST Provider** as a drop-in alternative to Babelfish for UAST-based analyses. This allows you to run structural code analyses offline, in CI, or in restricted environments without a running Babelfish server.
+
+**Key points:**
+- The embedded provider uses built-in parsers (currently Go's standard library) to generate UASTs for supported languages.
+- Enable it with the CLI flag:
+  ```sh
+  ./hercules --shotness --uast-provider=embedded <repo>
+  ```
+- If a file's language is unsupported, Hercules will skip it or warn, but will not fail the analysis.
+- The default provider is still Babelfish. You can switch back at any time with `--uast-provider=babelfish`.
+
+**Supported languages:**
+- Go (via GoEmbeddedProvider)
+
+**Planned (via Tree-sitter):**
+- Java, Kotlin, Swift, JavaScript/TypeScript/React/Angular, Rust, PHP, Python
+
+**Roadmap:**
+- See `docs/UAST_PROVIDER_ROADMAP.md` for progress and planned language support.
+
+**Example usage:**
+```sh
+./hercules --shotness --uast-provider=embedded <repo>
+```
+
+If you want to contribute support for more languages, see the roadmap and open a PR!
 

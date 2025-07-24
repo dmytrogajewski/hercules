@@ -1,0 +1,260 @@
+[language "fish", extensions: ".fish"]
+
+begin_statement <- (begin_statement) => uast(
+    type: "Synthetic"
+)
+
+brace_expansion <- (brace_expansion) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+case_clause <- (case_clause) => uast(
+    type: "Case",
+    roles: "Branch"
+)
+
+command <- (command) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "brace_expansion", "command_substitution", "concatenation", "double_quote_string", "escape_sequence", "file_redirect", "float", "glob", "home_dir_expansion", "integer", "single_quote_string", "stream_redirect", "variable_expansion", "word"
+)
+
+command_substitution <- (command_substitution) => uast(
+    type: "Synthetic"
+)
+
+concatenation <- (concatenation) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+conditional_execution <- (conditional_execution) => uast(
+    type: "Synthetic"
+)
+
+double_quote_string <- (double_quote_string) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+else_clause <- (else_clause) => uast(
+    type: "Synthetic"
+)
+
+else_if_clause <- (else_if_clause) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "begin_statement", "break", "command", "conditional_execution", "continue", "for_statement", "function_definition", "if_statement", "negated_statement", "pipe", "redirect_statement", "return", "switch_statement", "while_statement"
+)
+
+file_redirect <- (file_redirect) => uast(
+    type: "Synthetic",
+    children: "brace_expansion", "command_substitution", "concatenation", "direction", "double_quote_string", "escape_sequence", "float", "glob", "home_dir_expansion", "integer", "single_quote_string", "variable_expansion", "word"
+)
+
+for_statement <- (for_statement) => uast(
+    token: "self",
+    type: "Loop",
+    roles: "Loop",
+    children: "brace_expansion", "command_substitution", "concatenation", "double_quote_string", "escape_sequence", "float", "glob", "home_dir_expansion", "integer", "single_quote_string", "variable_expansion", "variable_name", "word"
+)
+
+function_definition <- (function_definition) => uast(
+    type: "Function",
+    roles: "Function", "Declaration",
+    children: "brace_expansion", "command_substitution", "concatenation", "double_quote_string", "escape_sequence", "float", "glob", "home_dir_expansion", "integer", "single_quote_string", "variable_expansion", "word"
+)
+
+if_statement <- (if_statement) => uast(
+    token: "self",
+    roles: "Function", "Declaration",
+    type: "Function",
+    children: "begin_statement", "break", "command", "conditional_execution", "continue", "for_statement", "function_definition", "if_statement", "negated_statement", "pipe", "redirect_statement", "return", "switch_statement", "while_statement"
+)
+
+index <- (index) => uast(
+    type: "Index",
+    roles: "Index"
+)
+
+list_element_access <- (list_element_access) => uast(
+    token: "self",
+    type: "List"
+)
+
+negated_statement <- (negated_statement) => uast(
+    type: "Synthetic"
+)
+
+pipe <- (pipe) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+program <- (program) => uast(
+    type: "Synthetic"
+)
+
+range <- (range) => uast(
+    token: "self",
+    type: "File"
+)
+
+redirect_statement <- (redirect_statement) => uast(
+    type: "Synthetic"
+)
+
+return <- (return) => uast(
+    token: "self",
+    type: "Return",
+    roles: "Return"
+)
+
+single_quote_string <- (single_quote_string) => uast(
+    type: "Synthetic"
+)
+
+switch_statement <- (switch_statement) => uast(
+    token: "self",
+    type: "Switch",
+    children: "brace_expansion", "command_substitution", "concatenation", "double_quote_string", "escape_sequence", "float", "glob", "home_dir_expansion", "integer", "single_quote_string", "variable_expansion", "word"
+)
+
+variable_expansion <- (variable_expansion) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+)
+
+while_statement <- (while_statement) => uast(
+    token: "self",
+    type: "Loop",
+    roles: "Loop",
+    children: "begin_statement", "break", "command", "conditional_execution", "continue", "for_statement", "function_definition", "if_statement", "negated_statement", "pipe", "redirect_statement", "return", "switch_statement", "while_statement"
+)
+
+word <- (word) => uast(
+    type: "Synthetic"
+)
+
+and <- (and) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+begin <- (begin) => uast(
+    type: "Synthetic"
+)
+
+break <- (break) => uast(
+    token: "self",
+    type: "Break",
+    roles: "Break"
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+)
+
+comment <- (comment) => uast(
+    token: "self",
+    type: "Comment",
+    roles: "Comment"
+)
+
+continue <- (continue) => uast(
+    type: "Continue",
+    roles: "Continue"
+)
+
+direction <- (direction) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+else <- (else) => uast(
+    type: "Synthetic"
+)
+
+end <- (end) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic"
+)
+
+float <- (float) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+)
+
+function <- (function) => uast(
+    token: "self",
+    type: "Function",
+    roles: "Function", "Declaration"
+)
+
+glob <- (glob) => uast(
+    type: "Synthetic"
+)
+
+home_dir_expansion <- (home_dir_expansion) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+if <- (if) => uast(
+    type: "If"
+)
+
+in <- (in) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic"
+)
+
+not <- (not) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+or <- (or) => uast(
+    type: "Synthetic"
+)
+
+return <- (return) => uast(
+    token: "self",
+    type: "Return",
+    roles: "Return"
+)
+
+stream_redirect <- (stream_redirect) => uast(
+    type: "Synthetic"
+)
+
+switch <- (switch) => uast(
+    token: "self",
+    type: "Switch"
+)
+
+variable_name <- (variable_name) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+)
+
+while <- (while) => uast(
+    token: "self",
+    type: "Loop",
+    roles: "Loop"
+)

@@ -5,17 +5,16 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"runtime/debug"
 	"sort"
 	"strings"
 
+	"github.com/dmytrogajewski/hercules"
+	"github.com/dmytrogajewski/hercules/api/proto/pb"
 	"github.com/gogo/protobuf/proto"
 	"github.com/spf13/cobra"
 	progress "gopkg.in/cheggaaa/pb.v1"
-	"gopkg.in/src-d/hercules.v10"
-	"gopkg.in/src-d/hercules.v10/internal/pb"
 )
 
 // combineCmd represents the combine command
@@ -112,7 +111,7 @@ func loadMessage(fileName string, repos *[]string) (
 		errs = append(errs, "Cannot parse "+fileName+": file size is 0")
 		return nil, nil, errs
 	}
-	buffer, err := ioutil.ReadFile(fileName)
+	buffer, err := os.ReadFile(fileName)
 	if err != nil {
 		errs = append(errs, "Cannot read "+fileName+": "+err.Error())
 		return nil, nil, errs

@@ -1,0 +1,427 @@
+suite: complexity-test
+name: cpp-complexity-test
+
+parse_cases:
+  - name: simple_function
+    input: |
+      int simple_function() {
+          return 42;
+      }
+    output:
+      type: Module
+      children:
+        - type: Function
+          roles: [Function]
+          children:
+            - type: TypeAnnotation
+              roles: []
+              token: int
+            - type: Function
+              roles: [Function]
+              children:
+                - type: Identifier
+                  roles: [Name]
+                  token: simple_function
+                - type: Parameter
+                  roles: [Parameter, Declaration]
+            - type: Block
+              roles: [Body]
+              children:
+                - type: Block
+                  roles: [Body]
+                  children:
+                    - type: Literal
+                      roles: [Literal]
+                      token: "42"
+
+  - name: function_with_if
+    input: |
+      int function_with_if(int x) {
+          if (x > 0) {
+              return x;
+          }
+          return 0;
+      }
+    output:
+      type: Module
+      children:
+        - type: Function
+          roles: [Function]
+          children:
+            - type: TypeAnnotation
+              roles: []
+              token: int
+            - type: Function
+              roles: [Function]
+              children:
+                - type: Identifier
+                  roles: [Name]
+                  token: function_with_if
+                - type: Parameter
+                  roles: [Parameter, Declaration]
+                  children:
+                    - type: Block
+                      roles: [Body]
+                      children:
+                        - type: TypeAnnotation
+                          roles: []
+                          token: int
+                        - type: Identifier
+                          roles: [Name]
+                          token: x
+            - type: Block
+              roles: [Body]
+              children:
+                - type: Block
+                  roles: [Body]
+                  children:
+                    - type: If
+                      roles: [Condition]
+                      children:
+                        - type: BinaryOp
+                          roles: [Operator]
+                          children:
+                            - type: Identifier
+                              roles: [Name]
+                              token: x
+                            - type: Literal
+                              roles: [Literal]
+                              token: "0"
+                        - type: Block
+                          roles: [Body]
+                          children:
+                            - type: Block
+                              roles: [Body]
+                              children:
+                                - type: Identifier
+                                  roles: [Name]
+                                  token: x
+                    - type: Block
+                      roles: [Body]
+                      children:
+                        - type: Literal
+                          roles: [Literal]
+                          token: "0"
+
+  - name: function_with_while
+    input: |
+      int function_with_while(int n) {
+          int sum = 0;
+          while (n > 0) {
+              sum += n;
+              n--;
+          }
+          return sum;
+      }
+    output:
+      type: Module
+      children:
+        - type: Function
+          roles: [Function]
+          children:
+            - type: TypeAnnotation
+              roles: []
+              token: int
+            - type: Function
+              roles: [Function]
+              children:
+                - type: Identifier
+                  roles: [Name]
+                  token: function_with_while
+                - type: Parameter
+                  roles: [Parameter, Declaration]
+                  children:
+                    - type: Block
+                      roles: [Body]
+                      children:
+                        - type: TypeAnnotation
+                          roles: []
+                          token: int
+                        - type: Identifier
+                          roles: [Name]
+                          token: n
+            - type: Block
+              roles: [Body]
+              children:
+                - type: Block
+                  roles: [Body]
+                  children:
+                    - type: Block
+                      roles: [Body]
+                      children:
+                        - type: TypeAnnotation
+                          roles: []
+                          token: int
+                        - type: Block
+                          roles: [Body]
+                          children:
+                            - type: Identifier
+                              roles: [Name]
+                              token: sum
+                            - type: Literal
+                              roles: [Literal]
+                              token: "0"
+                    - type: Loop
+                      roles: [Loop]
+                      children:
+                        - type: BinaryOp
+                          roles: [Operator]
+                          children:
+                            - type: Identifier
+                              roles: [Name]
+                              token: n
+                            - type: Literal
+                              roles: [Literal]
+                              token: "0"
+                        - type: Block
+                          roles: [Body]
+                          children:
+                            - type: Block
+                              roles: [Body]
+                              children:
+                                - type: Assignment
+                                  roles: [Assignment]
+                                  children:
+                                    - type: Identifier
+                                      roles: [Name]
+                                      token: sum
+                                    - type: Identifier
+                                      roles: [Name]
+                                      token: n
+                            - type: Block
+                              roles: [Body]
+                              children:
+                                - type: Literal
+                                  roles: [Literal]
+                                  children:
+                                    - type: Identifier
+                                      roles: [Name]
+                                      token: n
+                    - type: Block
+                      roles: [Body]
+                      children:
+                        - type: Identifier
+                          roles: [Name]
+                          token: sum
+
+query_cases:
+  - name: find_functions_for_complexity
+    input: |
+      int simple_function() {
+          return 42;
+      }
+      
+      int complex_function(int x) {
+          if (x > 0) {
+              return x;
+          }
+          return 0;
+      }
+    query: "filter(.type == \"Function\")"
+    output:
+      results:
+        - type: Function
+          roles: [Function]
+          children:
+            - type: TypeAnnotation
+              roles: []
+              token: int
+            - type: Function
+              roles: [Function]
+              children:
+                - type: Identifier
+                  roles: [Name]
+                  token: simple_function
+                - type: Parameter
+                  roles: [Parameter, Declaration]
+            - type: Block
+              roles: [Body]
+              children:
+                - type: Block
+                  roles: [Body]
+                  children:
+                    - type: Literal
+                      roles: [Literal]
+                      token: "42"
+        - type: Function
+          roles: [Function]
+          children:
+            - type: TypeAnnotation
+              roles: []
+              token: int
+            - type: Function
+              roles: [Function]
+              children:
+                - type: Identifier
+                  roles: [Name]
+                  token: complex_function
+                - type: Parameter
+                  roles: [Parameter, Declaration]
+                  children:
+                    - type: Block
+                      roles: [Body]
+                      children:
+                        - type: TypeAnnotation
+                          roles: []
+                          token: int
+                        - type: Identifier
+                          roles: [Name]
+                          token: x
+            - type: Block
+              roles: [Body]
+              children:
+                - type: Block
+                  roles: [Body]
+                  children:
+                    - type: If
+                      roles: [Condition]
+                      children:
+                        - type: BinaryOp
+                          roles: [Operator]
+                          children:
+                            - type: Identifier
+                              roles: [Name]
+                              token: x
+                            - type: Literal
+                              roles: [Literal]
+                              token: "0"
+                        - type: Block
+                          roles: [Body]
+                          children:
+                            - type: Block
+                              roles: [Body]
+                              children:
+                                - type: Identifier
+                                  roles: [Name]
+                                  token: x
+                    - type: Block
+                      roles: [Body]
+                      children:
+                        - type: Literal
+                          roles: [Literal]
+                          token: "0"
+
+  - name: find_decision_points
+    input: |
+      int test_function(int x) {
+          if (x > 0) {
+              while (x > 10) {
+                  x--;
+              }
+              return x;
+          }
+          return 0;
+      }
+    query: "rfilter(.type == \"If\" || .type == \"Loop\" || .type == \"BinaryOp\" || .type == \"Assignment\")"
+    output:
+      results:
+        - type: If
+          roles: [Condition]
+          children:
+            - type: BinaryOp
+              roles: [Operator]
+              children:
+                - type: Identifier
+                  roles: [Name]
+                  token: x
+                - type: Literal
+                  roles: [Literal]
+                  token: "0"
+            - type: Block
+              roles: [Body]
+              children:
+                - type: Block
+                  roles: [Body]
+                  children:
+                    - type: Loop
+                      roles: [Loop]
+                      children:
+                        - type: BinaryOp
+                          roles: [Operator]
+                          children:
+                            - type: Identifier
+                              roles: [Name]
+                              token: x
+                            - type: Literal
+                              roles: [Literal]
+                              token: "10"
+                        - type: Block
+                          roles: [Body]
+                          children:
+                            - type: Block
+                              roles: [Body]
+                              children:
+                                - type: Assignment
+                                  roles: [Assignment]
+                                  children:
+                                    - type: Identifier
+                                      roles: [Name]
+                                      token: x
+        - type: Loop
+          roles: [Loop]
+          children:
+            - type: BinaryOp
+              roles: [Operator]
+              children:
+                - type: Identifier
+                  roles: [Name]
+                  token: x
+                - type: Literal
+                  roles: [Literal]
+                  token: "10"
+            - type: Block
+              roles: [Body]
+              children:
+                - type: Block
+                  roles: [Body]
+                  children:
+                    - type: Assignment
+                      roles: [Assignment]
+                      children:
+                        - type: Identifier
+                          roles: [Name]
+                          token: x
+        - type: BinaryOp
+          roles: [Operator]
+          children:
+            - type: Identifier
+              roles: [Name]
+              token: x
+            - type: Literal
+              roles: [Literal]
+              token: "0"
+        - type: BinaryOp
+          roles: [Operator]
+          children:
+            - type: Identifier
+              roles: [Name]
+              token: x
+            - type: Literal
+              roles: [Literal]
+              token: "10"
+        - type: Assignment
+          roles: [Assignment]
+          children:
+            - type: Identifier
+              roles: [Name]
+              token: x
+
+  - name: count_complexity_decision_points
+    input: |
+      int complex_function(int x, int y) {
+          if (x > 0 && y < 100) {
+              for (int i = 0; i < x; i++) {
+                  if (i % 2 == 0) {
+                      y++;
+                  } else {
+                      y--;
+                  }
+              }
+              return y;
+          }
+          return 0;
+      }
+    query: "filter(.type == \"If\" || .type == \"Loop\" || .type == \"BinaryOp\" || .type == \"Assignment\")|>count()"
+    output:
+      results:
+        - token: "8"  # 2 if + 1 for + 1 binary (&&) + 1 binary (<) + 1 binary (==) + 1 binary (%) + 1 assignment (++) + 1 assignment (--) 

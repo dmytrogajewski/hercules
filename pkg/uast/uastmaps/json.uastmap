@@ -1,0 +1,62 @@
+[language "json", extensions: ".json"]
+
+_value <- (_value) => uast(
+    type: "Synthetic"
+)
+
+array <- (array) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+document <- (document) => uast(
+    type: "Synthetic"
+)
+
+object <- (object) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+pair <- (pair) => uast(
+    type: "Synthetic",
+    children: "_value", "string"
+)
+
+string <- (string) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
+)
+
+false <- (false) => uast(
+    type: "Synthetic"
+)
+
+null <- (null) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+number <- (number) => uast(
+    type: "Synthetic"
+)
+
+string_content <- (string_content) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+true <- (true) => uast(
+    type: "Synthetic"
+)

@@ -1,0 +1,118 @@
+suite: basic-structure
+name: toml-basic-structure
+
+parse_cases:
+  - name: simple_key_value
+    input: |
+      name = "John"
+      age = 30
+    output:
+      type: "File"
+      children:
+        - type: "KeyValue"
+          children:
+            - type: "Key"
+              roles: ["Key"]
+              props:
+                name: "name"
+            - type: "Value"
+              roles: ["Value"]
+              children:
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: '"John"'
+        - type: "KeyValue"
+          children:
+            - type: "Key"
+              roles: ["Key"]
+              props:
+                name: "age"
+            - type: "Value"
+              roles: ["Value"]
+              children:
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: "30"
+
+  - name: table_structure
+    input: |
+      [person]
+      name = "John"
+      age = 30
+      
+      [person.details]
+      city = "New York"
+    output:
+      type: "File"
+      children:
+        - type: "Table"
+          roles: ["Table"]
+          props:
+            name: "person"
+          children:
+            - type: "KeyValue"
+              children:
+                - type: "Key"
+                  roles: ["Key"]
+                  props:
+                    name: "name"
+                - type: "Value"
+                  roles: ["Value"]
+                  children:
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: '"John"'
+            - type: "KeyValue"
+              children:
+                - type: "Key"
+                  roles: ["Key"]
+                  props:
+                    name: "age"
+                - type: "Value"
+                  roles: ["Value"]
+                  children:
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: "30"
+        - type: "Table"
+          roles: ["Table"]
+          props:
+            name: "person.details"
+          children:
+            - type: "KeyValue"
+              children:
+                - type: "Key"
+                  roles: ["Key"]
+                  props:
+                    name: "city"
+                - type: "Value"
+                  roles: ["Value"]
+                  children:
+                    - type: "Literal"
+                      roles: ["Literal"]
+                      token: '"New York"'
+
+query_cases:
+  - name: find_keys
+    input: |
+      key1 = "value1"
+      key2 = "value2"
+    query: "filter(.type == \"Key\")"
+    output:
+      results:
+        - type: "Key"
+          roles: ["Key"]
+          props:
+            name: "key1"
+        - type: "Key"
+          roles: ["Key"]
+          props:
+            name: "key2"
+
+  - name: find_key_names
+    input: |
+      my_key = "my_value"
+    query: "filter(.type == \"Key\") |> map(.name)"
+    output:
+      results:
+        - token: "my_key" 

@@ -1,0 +1,426 @@
+[language "proto", extensions: ".proto"]
+
+block_lit <- (block_lit) => uast(
+    type: "Block",
+    roles: "Body"
+)
+
+bool <- (bool) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+constant <- (constant) => uast(
+    type: "Synthetic"
+)
+
+edition <- (edition) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "string"
+)
+
+empty_statement <- (empty_statement) => uast(
+    type: "Synthetic"
+)
+
+enum <- (enum) => uast(
+    token: "self",
+    type: "Enum",
+    roles: "Enum", "Declaration"
+)
+
+enum_body <- (enum_body) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+)
+
+enum_field <- (enum_field) => uast(
+    token: "self",
+    roles: "Body",
+    type: "Enum",
+    roles: "Enum", "Declaration"
+)
+
+enum_name <- (enum_name) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+)
+
+enum_value_option <- (enum_value_option) => uast(
+    token: "self",
+    type: "Enum",
+    roles: "Enum", "Declaration"
+)
+
+extend <- (extend) => uast(
+    type: "Synthetic"
+)
+
+extensions <- (extensions) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+field <- (field) => uast(
+    type: "Field",
+    roles: "Member"
+)
+
+field_number <- (field_number) => uast(
+    token: "self",
+    type: "Field",
+    roles: "Member"
+)
+
+field_option <- (field_option) => uast(
+    type: "Field",
+    roles: "Member"
+)
+
+field_options <- (field_options) => uast(
+    token: "self",
+    type: "Field",
+    roles: "Member"
+)
+
+full_ident <- (full_ident) => uast(
+    type: "Synthetic"
+)
+
+import <- (import) => uast(
+    token: "self",
+    type: "Import",
+    roles: "Import",
+    children: "string"
+)
+
+int_lit <- (int_lit) => uast(
+    type: "Synthetic"
+)
+
+key_type <- (key_type) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+map_field <- (map_field) => uast(
+    type: "Field",
+    roles: "Member"
+)
+
+message <- (message) => uast(
+    token: "self",
+    type: "Field"
+)
+
+message_body <- (message_body) => uast(
+    type: "Synthetic"
+)
+
+message_name <- (message_name) => uast(
+    token: "self",
+    roles: "Body",
+    type: "Block"
+)
+
+message_or_enum_type <- (message_or_enum_type) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+)
+
+oneof <- (oneof) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+oneof_field <- (oneof_field) => uast(
+    type: "Field",
+    roles: "Member"
+)
+
+option <- (option) => uast(
+    token: "self",
+    type: "Field"
+)
+
+package <- (package) => uast(
+    type: "Package",
+    roles: "Module"
+)
+
+range <- (range) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+ranges <- (ranges) => uast(
+    type: "Synthetic"
+)
+
+reserved <- (reserved) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+reserved_field_names <- (reserved_field_names) => uast(
+    type: "Field",
+    roles: "Member"
+)
+
+rpc <- (rpc) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+rpc_name <- (rpc_name) => uast(
+    type: "Synthetic"
+)
+
+service <- (service) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+service_name <- (service_name) => uast(
+    type: "Synthetic"
+)
+
+source_file <- (source_file) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+string <- (string) => uast(
+    type: "Synthetic"
+)
+
+syntax <- (syntax) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+type <- (type) => uast(
+    type: "Synthetic"
+)
+
+bool <- (bool) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+bytes <- (bytes) => uast(
+    type: "Synthetic"
+)
+
+comment <- (comment) => uast(
+    token: "self",
+    type: "Comment",
+    roles: "Comment"
+)
+
+decimal_lit <- (decimal_lit) => uast(
+    type: "Synthetic"
+)
+
+double <- (double) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+edition <- (edition) => uast(
+    type: "Synthetic"
+)
+
+enum <- (enum) => uast(
+    token: "self",
+    type: "Enum",
+    roles: "Enum", "Declaration"
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic"
+)
+
+extend <- (extend) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+extensions <- (extensions) => uast(
+    type: "Synthetic"
+)
+
+false <- (false) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+fixed32 <- (fixed32) => uast(
+    type: "Synthetic"
+)
+
+fixed64 <- (fixed64) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+float <- (float) => uast(
+    type: "Synthetic"
+)
+
+float_lit <- (float_lit) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+hex_lit <- (hex_lit) => uast(
+    type: "Synthetic"
+)
+
+identifier <- (identifier) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+import <- (import) => uast(
+    type: "Import",
+    roles: "Import"
+)
+
+int32 <- (int32) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+int64 <- (int64) => uast(
+    type: "Synthetic"
+)
+
+map <- (map) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+max <- (max) => uast(
+    type: "Synthetic"
+)
+
+message <- (message) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+octal_lit <- (octal_lit) => uast(
+    type: "Synthetic"
+)
+
+oneof <- (oneof) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+option <- (option) => uast(
+    type: "Synthetic"
+)
+
+optional <- (optional) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+package <- (package) => uast(
+    type: "Package",
+    roles: "Module"
+)
+
+public <- (public) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+repeated <- (repeated) => uast(
+    type: "Synthetic"
+)
+
+required <- (required) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+reserved <- (reserved) => uast(
+    type: "Synthetic"
+)
+
+reserved_identifier <- (reserved_identifier) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+returns <- (returns) => uast(
+    type: "Return",
+    roles: "Return"
+)
+
+rpc <- (rpc) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+service <- (service) => uast(
+    type: "Synthetic"
+)
+
+sfixed32 <- (sfixed32) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+sfixed64 <- (sfixed64) => uast(
+    type: "Synthetic"
+)
+
+sint32 <- (sint32) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+sint64 <- (sint64) => uast(
+    type: "Synthetic"
+)
+
+stream <- (stream) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+string <- (string) => uast(
+    type: "Synthetic"
+)
+
+syntax <- (syntax) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+to <- (to) => uast(
+    type: "Synthetic"
+)
+
+true <- (true) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+uint32 <- (uint32) => uast(
+    type: "Synthetic"
+)
+
+uint64 <- (uint64) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+weak <- (weak) => uast(
+    type: "Synthetic"
+)

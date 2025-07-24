@@ -1,0 +1,719 @@
+[language "ssh_config", files: "ssh_config"]
+
+bytes <- (bytes) => uast(
+    type: "Synthetic"
+)
+
+condition <- (condition) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "canonical", "exec", "final", "host", "localnetwork", "localuser", "originalhost", "pattern", "string", "tagged", "user"
+)
+
+config <- (config) => uast(
+    type: "Synthetic"
+)
+
+host_declaration <- (host_declaration) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "Host", "pattern"
+)
+
+match_declaration <- (match_declaration) => uast(
+    type: "Match",
+    roles: "Match",
+    children: "Match"
+)
+
+number <- (number) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+parameter <- (parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter",
+    children: "AddKeysToAgent", "AddressFamily", "BatchMode", "BindAddress", "BindInterface", "CASignatureAlgorithms", "CanonicalDomains", "CanonicalizeFallbackLocal", "CanonicalizeHostname", "CanonicalizeMaxDots", "CanonicalizePermittedCNAMEs", "CertificateFile", "ChallengeResponseAuthentication", "CheckHostIP", "Ciphers", "ClearAllForwardings", "Compression", "ConnectTimeout", "ConnectionAttempts", "ControlMaster", "ControlPath", "ControlPersist", "DynamicForward", "EnableEscapeCommandline", "EnableSSHKeysign", "EscapeChar", "ExitOnForwardFailure", "FingerprintHash", "ForkAfterAuthentication", "ForwardAgent", "ForwardX11", "ForwardX11Timeout", "ForwardX11Trusted", "GSSAPIAuthentication", "GSSAPIDelegateCredentials", "GlobalKnownHostsFile", "HashKnownHosts", "HostKeyAlgorithms", "HostKeyAlias", "HostbasedAcceptedAlgorithms", "HostbasedAuthentication", "HostbasedKeyTypes", "Hostname", "IPQoS", "IdentitiesOnly", "IdentityAgent", "IdentityFile", "IgnoreUnknown", "Include", "KbdInteractiveAuthentication", "KexAlgorithms", "KnownHostsCommand", "LocalCommand", "LocalForward", "LogLevel", "LogVerbose", "MACs", "NoHostAuthenticationForLocalhost", "NumberOfPasswordPrompts", "PKCS11Provider", "PasswordAuthentication", "PermitLocalCommand", "PermitRemoteOpen", "Port", "PreferredAuthentications", "ProxyCommand", "ProxyJump", "ProxyUseFdpass", "PubkeyAcceptedAlgorithms", "PubkeyAcceptedKeyTypes", "PubkeyAuthentication", "RekeyLimit", "RemoteCommand", "RemoteForward", "RequestTTY", "RequiredRSASize", "RevokedHostKeys", "SSH_AUTH_SOCK", "SecurityKeyProvider", "SendEnv", "ServerAliveCountMax", "ServerAliveInterval", "SessionType", "SetEnv", "StdinNull", "StreamLocalBindMask", "StreamLocalBindUnlink", "StrictHostKeyChecking", "SyslogFacility", "TCPKeepAlive", "Tag", "Tunnel", "TunnelDevice", "UpdateHostKeys", "UseKeychain", "User", "UserKnownHostsFile", "VerifyHostKeyDNS", "VisualHostKey", "XAuthLocation", "always", "any", "ask", "authentication", "auto", "autoask", "bytes", "cipher", "confirm", "default", "ethernet", "facility", "force", "inet", "inet6", "ipqos", "kex", "key_sig", "mac", "md5", "no", "none", "number", "off", "pattern", "sha256", "sig", "string", "subsystem", "time", "unbound", "uri", "variable", "verbosity", "yes"
+)
+
+pattern <- (pattern) => uast(
+    token: "self",
+    roles: "Parameter",
+    type: "Pattern",
+    roles: "Pattern"
+)
+
+string <- (string) => uast(
+    type: "Synthetic"
+)
+
+time <- (time) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+)
+
+AddKeysToAgent <- (AddKeysToAgent) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+AddressFamily <- (AddressFamily) => uast(
+    type: "Synthetic"
+)
+
+BatchMode <- (BatchMode) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+BindAddress <- (BindAddress) => uast(
+    type: "Synthetic"
+)
+
+BindInterface <- (BindInterface) => uast(
+    token: "self",
+    type: "Interface",
+    roles: "Interface", "Declaration"
+)
+
+CASignatureAlgorithms <- (CASignatureAlgorithms) => uast(
+    type: "Synthetic"
+)
+
+CanonicalDomains <- (CanonicalDomains) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+CanonicalizeFallbackLocal <- (CanonicalizeFallbackLocal) => uast(
+    type: "Synthetic"
+)
+
+CanonicalizeHostname <- (CanonicalizeHostname) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+CanonicalizeMaxDots <- (CanonicalizeMaxDots) => uast(
+    type: "Synthetic"
+)
+
+CanonicalizePermittedCNAMEs <- (CanonicalizePermittedCNAMEs) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+CertificateFile <- (CertificateFile) => uast(
+    type: "Synthetic"
+)
+
+ChallengeResponseAuthentication <- (ChallengeResponseAuthentication) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+CheckHostIP <- (CheckHostIP) => uast(
+    type: "Synthetic"
+)
+
+Ciphers <- (Ciphers) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+ClearAllForwardings <- (ClearAllForwardings) => uast(
+    type: "Loop",
+    roles: "Loop"
+)
+
+Compression <- (Compression) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+ConnectTimeout <- (ConnectTimeout) => uast(
+    type: "Synthetic"
+)
+
+ConnectionAttempts <- (ConnectionAttempts) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+ControlMaster <- (ControlMaster) => uast(
+    type: "Synthetic"
+)
+
+ControlPath <- (ControlPath) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+ControlPersist <- (ControlPersist) => uast(
+    type: "Synthetic"
+)
+
+DynamicForward <- (DynamicForward) => uast(
+    token: "self",
+    type: "Loop",
+    roles: "Loop"
+)
+
+EnableEscapeCommandline <- (EnableEscapeCommandline) => uast(
+    type: "Synthetic"
+)
+
+EnableSSHKeysign <- (EnableSSHKeysign) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+EscapeChar <- (EscapeChar) => uast(
+    type: "Synthetic"
+)
+
+ExitOnForwardFailure <- (ExitOnForwardFailure) => uast(
+    token: "self",
+    type: "Loop",
+    roles: "Loop"
+)
+
+FingerprintHash <- (FingerprintHash) => uast(
+    type: "Synthetic"
+)
+
+ForkAfterAuthentication <- (ForkAfterAuthentication) => uast(
+    token: "self",
+    type: "Loop",
+    roles: "Loop"
+)
+
+ForwardAgent <- (ForwardAgent) => uast(
+    type: "Loop",
+    roles: "Loop"
+)
+
+ForwardX11 <- (ForwardX11) => uast(
+    token: "self",
+    type: "Loop",
+    roles: "Loop"
+)
+
+ForwardX11Timeout <- (ForwardX11Timeout) => uast(
+    type: "Loop",
+    roles: "Loop"
+)
+
+ForwardX11Trusted <- (ForwardX11Trusted) => uast(
+    token: "self",
+    type: "Loop",
+    roles: "Loop"
+)
+
+GSSAPIAuthentication <- (GSSAPIAuthentication) => uast(
+    type: "Synthetic"
+)
+
+GSSAPIDelegateCredentials <- (GSSAPIDelegateCredentials) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+GlobalKnownHostsFile <- (GlobalKnownHostsFile) => uast(
+    type: "Synthetic"
+)
+
+HashKnownHosts <- (HashKnownHosts) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+Host <- (Host) => uast(
+    type: "Synthetic"
+)
+
+HostKeyAlgorithms <- (HostKeyAlgorithms) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+HostKeyAlias <- (HostKeyAlias) => uast(
+    type: "Synthetic"
+)
+
+HostbasedAcceptedAlgorithms <- (HostbasedAcceptedAlgorithms) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+HostbasedAuthentication <- (HostbasedAuthentication) => uast(
+    type: "Synthetic"
+)
+
+HostbasedKeyTypes <- (HostbasedKeyTypes) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+Hostname <- (Hostname) => uast(
+    type: "Synthetic"
+)
+
+IPQoS <- (IPQoS) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+IdentitiesOnly <- (IdentitiesOnly) => uast(
+    type: "Synthetic"
+)
+
+IdentityAgent <- (IdentityAgent) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+IdentityFile <- (IdentityFile) => uast(
+    type: "Synthetic"
+)
+
+IgnoreUnknown <- (IgnoreUnknown) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+Include <- (Include) => uast(
+    type: "Synthetic"
+)
+
+KbdInteractiveAuthentication <- (KbdInteractiveAuthentication) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+KexAlgorithms <- (KexAlgorithms) => uast(
+    type: "Synthetic"
+)
+
+KnownHostsCommand <- (KnownHostsCommand) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+LocalCommand <- (LocalCommand) => uast(
+    type: "Synthetic"
+)
+
+LocalForward <- (LocalForward) => uast(
+    token: "self",
+    type: "Loop",
+    roles: "Loop"
+)
+
+LogLevel <- (LogLevel) => uast(
+    type: "Synthetic"
+)
+
+LogVerbose <- (LogVerbose) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+MACs <- (MACs) => uast(
+    type: "Synthetic"
+)
+
+Match <- (Match) => uast(
+    token: "self",
+    type: "Match",
+    roles: "Match"
+)
+
+NoHostAuthenticationForLocalhost <- (NoHostAuthenticationForLocalhost) => uast(
+    type: "Loop",
+    roles: "Loop"
+)
+
+NumberOfPasswordPrompts <- (NumberOfPasswordPrompts) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+PKCS11Provider <- (PKCS11Provider) => uast(
+    type: "Synthetic"
+)
+
+PasswordAuthentication <- (PasswordAuthentication) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+PermitLocalCommand <- (PermitLocalCommand) => uast(
+    type: "Synthetic"
+)
+
+PermitRemoteOpen <- (PermitRemoteOpen) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+Port <- (Port) => uast(
+    type: "Synthetic"
+)
+
+PreferredAuthentications <- (PreferredAuthentications) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+ProxyCommand <- (ProxyCommand) => uast(
+    type: "Synthetic"
+)
+
+ProxyJump <- (ProxyJump) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+ProxyUseFdpass <- (ProxyUseFdpass) => uast(
+    type: "Synthetic"
+)
+
+PubkeyAcceptedAlgorithms <- (PubkeyAcceptedAlgorithms) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+PubkeyAcceptedKeyTypes <- (PubkeyAcceptedKeyTypes) => uast(
+    type: "Synthetic"
+)
+
+PubkeyAuthentication <- (PubkeyAuthentication) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+RekeyLimit <- (RekeyLimit) => uast(
+    type: "Synthetic"
+)
+
+RemoteCommand <- (RemoteCommand) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+RemoteForward <- (RemoteForward) => uast(
+    type: "Loop",
+    roles: "Loop"
+)
+
+RequestTTY <- (RequestTTY) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+RequiredRSASize <- (RequiredRSASize) => uast(
+    type: "Synthetic"
+)
+
+RevokedHostKeys <- (RevokedHostKeys) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+SSH_AUTH_SOCK <- (SSH_AUTH_SOCK) => uast(
+    type: "Synthetic"
+)
+
+SecurityKeyProvider <- (SecurityKeyProvider) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+SendEnv <- (SendEnv) => uast(
+    type: "Synthetic"
+)
+
+ServerAliveCountMax <- (ServerAliveCountMax) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+ServerAliveInterval <- (ServerAliveInterval) => uast(
+    type: "Synthetic"
+)
+
+SessionType <- (SessionType) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+SetEnv <- (SetEnv) => uast(
+    type: "Set"
+)
+
+StdinNull <- (StdinNull) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+StreamLocalBindMask <- (StreamLocalBindMask) => uast(
+    type: "Synthetic"
+)
+
+StreamLocalBindUnlink <- (StreamLocalBindUnlink) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+StrictHostKeyChecking <- (StrictHostKeyChecking) => uast(
+    type: "Synthetic"
+)
+
+SyslogFacility <- (SyslogFacility) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+TCPKeepAlive <- (TCPKeepAlive) => uast(
+    type: "Synthetic"
+)
+
+Tag <- (Tag) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+Tunnel <- (Tunnel) => uast(
+    type: "Synthetic"
+)
+
+TunnelDevice <- (TunnelDevice) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+UpdateHostKeys <- (UpdateHostKeys) => uast(
+    type: "Synthetic"
+)
+
+UseKeychain <- (UseKeychain) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+User <- (User) => uast(
+    type: "Synthetic"
+)
+
+UserKnownHostsFile <- (UserKnownHostsFile) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+VerifyHostKeyDNS <- (VerifyHostKeyDNS) => uast(
+    type: "Synthetic"
+)
+
+VisualHostKey <- (VisualHostKey) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+XAuthLocation <- (XAuthLocation) => uast(
+    type: "Synthetic"
+)
+
+all <- (all) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+always <- (always) => uast(
+    type: "Synthetic"
+)
+
+any <- (any) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+ask <- (ask) => uast(
+    type: "Synthetic"
+)
+
+authentication <- (authentication) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+auto <- (auto) => uast(
+    type: "Synthetic"
+)
+
+autoask <- (autoask) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+canonical <- (canonical) => uast(
+    type: "Synthetic"
+)
+
+cipher <- (cipher) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+)
+
+confirm <- (confirm) => uast(
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
+)
+
+default <- (default) => uast(
+    type: "Synthetic"
+)
+
+ethernet <- (ethernet) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+exec <- (exec) => uast(
+    type: "Synthetic"
+)
+
+facility <- (facility) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+final <- (final) => uast(
+    type: "Synthetic"
+)
+
+force <- (force) => uast(
+    token: "self",
+    type: "Loop",
+    roles: "Loop"
+)
+
+host <- (host) => uast(
+    type: "Synthetic"
+)
+
+inet <- (inet) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+inet6 <- (inet6) => uast(
+    type: "Synthetic"
+)
+
+ipqos <- (ipqos) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+kex <- (kex) => uast(
+    type: "Synthetic"
+)
+
+key_sig <- (key_sig) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+localnetwork <- (localnetwork) => uast(
+    type: "Synthetic"
+)
+
+localuser <- (localuser) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+mac <- (mac) => uast(
+    type: "Synthetic"
+)
+
+md5 <- (md5) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+no <- (no) => uast(
+    type: "Synthetic"
+)
+
+none <- (none) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+off <- (off) => uast(
+    type: "Synthetic"
+)
+
+originalhost <- (originalhost) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+sha256 <- (sha256) => uast(
+    type: "Synthetic"
+)
+
+sig <- (sig) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+subsystem <- (subsystem) => uast(
+    type: "Synthetic"
+)
+
+tagged <- (tagged) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+token <- (token) => uast(
+    type: "Synthetic"
+)
+
+unbound <- (unbound) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+uri <- (uri) => uast(
+    type: "Synthetic"
+)
+
+user <- (user) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+verbosity <- (verbosity) => uast(
+    type: "Synthetic"
+)
+
+yes <- (yes) => uast(
+    token: "self",
+    type: "Synthetic"
+)

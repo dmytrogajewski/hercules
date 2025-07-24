@@ -1,0 +1,80 @@
+[language "dotenv", extensions: ".env"]
+
+bool <- (bool) => uast(
+    type: "Synthetic"
+)
+
+interpolated_variable <- (interpolated_variable) => uast(
+    token: "self",
+    type: "Variable",
+    roles: "Variable", "Declaration"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic"
+)
+
+string_interpolated <- (string_interpolated) => uast(
+    token: "self",
+    type: "File"
+)
+
+string_literal <- (string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+)
+
+value <- (value) => uast(
+    token: "self",
+    roles: "Literal",
+    type: "Literal"
+)
+
+variable <- (variable) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration",
+    children: "identifier", "value"
+)
+
+comment <- (comment) => uast(
+    token: "self",
+    type: "Comment",
+    roles: "Comment"
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic"
+)
+
+false <- (false) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+identifier <- (identifier) => uast(
+    type: "If"
+)
+
+integer <- (integer) => uast(
+    token: "self",
+    roles: "Reference",
+    type: "Identifier"
+)
+
+raw_value <- (raw_value) => uast(
+    type: "Synthetic"
+)
+
+shell_command <- (shell_command) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+true <- (true) => uast(
+    type: "Synthetic"
+)
+
+url <- (url) => uast(
+    token: "self",
+    type: "Synthetic"
+)

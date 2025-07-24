@@ -8,6 +8,7 @@ import (
 	"runtime"
 	"testing"
 
+	"github.com/dmytrogajewski/hercules/internal/app/core"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/src-d/go-billy.v4/osfs"
 	"gopkg.in/src-d/go-git.v4"
@@ -47,4 +48,19 @@ func TestLoadRepository(t *testing.T) {
 	assert.Panics(t, func() { loadRepository("https://github.com/src-d/porn", "", true, "") })
 	assert.Panics(t, func() { loadRepository(filepath.Dir(filename), "", true, "") })
 	assert.Panics(t, func() { loadRepository("/xxx", "", true, "") })
+}
+
+func TestLoggerSelectionLogic(t *testing.T) {
+	// Test 1: Server mode should use SlogLogger
+	logger := selectLogger(true, "")
+	assert.IsType(t, &core.SlogLogger{}, logger, "Server mode should use SlogLogger")
+
+	// Test 2: CLI mode with log file should use FileLogger
+	logFile := os.TempDir() + "/hercules_test.log"
+	logger = selectLogger(false, logFile)
+	assert.IsType(t, &core.FileLogger{}, logger, "CLI mode with log file should use FileLogger")
+
+	// Test 3: CLI mode without log file should use NoOpLogger
+	logger = selectLogger(false, "")
+	assert.IsType(t, &core.NoOpLogger{}, logger, "CLI mode without log file should use NoOpLogger")
 }

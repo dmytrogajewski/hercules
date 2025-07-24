@@ -1,0 +1,39 @@
+[language "ini", extensions: ".ini"]
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+)
+
+document <- (document) => uast(
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
+)
+
+section <- (section) => uast(
+    type: "Synthetic"
+)
+
+section_name <- (section_name) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+setting <- (setting) => uast(
+    type: "Set"
+)
+
+setting_name <- (setting_name) => uast(
+    token: "self",
+    type: "Set"
+)
+
+setting_value <- (setting_value) => uast(
+    type: "Set"
+)
+
+text <- (text) => uast(
+    token: "self",
+    type: "Synthetic"
+)

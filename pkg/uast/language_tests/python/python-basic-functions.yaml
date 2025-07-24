@@ -1,0 +1,109 @@
+suite: basic-functions
+name: python-basic-functions
+
+parse_cases:
+  - name: simple_function
+    input: |
+      def hello():
+          return "Hello, World!"
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "hello"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "hello"
+            - type: "ParameterList"
+            - type: "Block"
+              children:
+                - type: "Return"
+                  roles: ["Return"]
+                  children:
+                    - type: "Literal"
+                      roles: ["Literal"]
+
+  - name: function_with_params
+    input: |
+      def add(a, b):
+          return a + b
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "add"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "add"
+            - type: "ParameterList"
+              children:
+                - type: "Identifier"
+                  roles: ["Name"]
+                  token: "a"
+                - type: "Identifier"
+                  roles: ["Name"]
+                  token: "b"
+            - type: "Block"
+              children:
+                - type: "Return"
+                  roles: ["Return"]
+                  children:
+                    - type: "BinaryExpression"
+                      roles: ["Binary"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "a"
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "b"
+
+query_cases:
+  - name: find_functions
+    input: |
+      def func1():
+          pass
+      
+      def func2():
+          pass
+    query: "filter(.type == \"Function\")"
+    output:
+      results:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "func1"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "func1"
+            - type: "ParameterList"
+            - type: "Block"
+              children:
+                - type: "Pass"
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "func2"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "func2"
+            - type: "ParameterList"
+            - type: "Block"
+              children:
+                - type: "Pass"
+
+  - name: find_function_names
+    input: |
+      def my_function():
+          pass
+    query: "filter(.type == \"Function\") |> map(.name)"
+    output:
+      results: [] 

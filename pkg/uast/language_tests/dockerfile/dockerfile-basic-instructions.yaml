@@ -1,0 +1,133 @@
+suite: basic-instructions
+name: dockerfile-basic-instructions
+
+parse_cases:
+  - name: simple_instructions
+    input: |
+      FROM ubuntu:20.04
+      RUN apt-get update
+      COPY . /app
+    output:
+      type: "File"
+      children:
+        - type: "Instruction"
+          roles: ["Instruction"]
+          props:
+            name: "FROM"
+          children:
+            - type: "Argument"
+              roles: ["Argument"]
+              children:
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: "ubuntu:20.04"
+        - type: "Instruction"
+          roles: ["Instruction"]
+          props:
+            name: "RUN"
+          children:
+            - type: "Argument"
+              roles: ["Argument"]
+              children:
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: "apt-get update"
+        - type: "Instruction"
+          roles: ["Instruction"]
+          props:
+            name: "COPY"
+          children:
+            - type: "Argument"
+              roles: ["Argument"]
+              children:
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: ". /app"
+
+  - name: instruction_with_comments
+    input: |
+      # Build stage
+      FROM node:16 AS builder
+      WORKDIR /app
+      COPY package*.json ./
+      RUN npm install
+    output:
+      type: "File"
+      children:
+        - type: "Comment"
+          roles: ["Comment"]
+          token: "# Build stage"
+        - type: "Instruction"
+          roles: ["Instruction"]
+          props:
+            name: "FROM"
+          children:
+            - type: "Argument"
+              roles: ["Argument"]
+              children:
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: "node:16 AS builder"
+        - type: "Instruction"
+          roles: ["Instruction"]
+          props:
+            name: "WORKDIR"
+          children:
+            - type: "Argument"
+              roles: ["Argument"]
+              children:
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: "/app"
+        - type: "Instruction"
+          roles: ["Instruction"]
+          props:
+            name: "COPY"
+          children:
+            - type: "Argument"
+              roles: ["Argument"]
+              children:
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: "package*.json ./"
+        - type: "Instruction"
+          roles: ["Instruction"]
+          props:
+            name: "RUN"
+          children:
+            - type: "Argument"
+              roles: ["Argument"]
+              children:
+                - type: "Literal"
+                  roles: ["Literal"]
+                  token: "npm install"
+
+query_cases:
+  - name: find_instructions
+    input: |
+      FROM ubuntu
+      RUN echo "hello"
+      COPY . .
+    query: "filter(.type == \"Instruction\")"
+    output:
+      results:
+        - type: "Instruction"
+          roles: ["Instruction"]
+          props:
+            name: "FROM"
+        - type: "Instruction"
+          roles: ["Instruction"]
+          props:
+            name: "RUN"
+        - type: "Instruction"
+          roles: ["Instruction"]
+          props:
+            name: "COPY"
+
+  - name: find_instruction_names
+    input: |
+      FROM my_image
+    query: "filter(.type == \"Instruction\") |> map(.name)"
+    output:
+      results:
+        - token: "FROM" 

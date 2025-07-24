@@ -1,0 +1,335 @@
+[language "xml", extensions: ".xml"]
+
+_AttType <- (_AttType) => uast(
+    type: "Synthetic"
+)
+
+_EntityDecl <- (_EntityDecl) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+_EnumeratedType <- (_EnumeratedType) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration"
+)
+
+_Reference <- (_Reference) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+_markupdecl <- (_markupdecl) => uast(
+    type: "Synthetic"
+)
+
+AttDef <- (AttDef) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+AttValue <- (AttValue) => uast(
+    type: "Synthetic",
+    children: "_Reference"
+)
+
+AttlistDecl <- (AttlistDecl) => uast(
+    token: "self",
+    type: "List"
+)
+
+Attribute <- (Attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+)
+
+CDSect <- (CDSect) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+CDStart <- (CDStart) => uast(
+    type: "Synthetic"
+)
+
+CharRef <- (CharRef) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+DefaultDecl <- (DefaultDecl) => uast(
+    type: "Synthetic"
+)
+
+ETag <- (ETag) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+EmptyElemTag <- (EmptyElemTag) => uast(
+    type: "Synthetic"
+)
+
+EntityRef <- (EntityRef) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+EntityValue <- (EntityValue) => uast(
+    type: "Synthetic",
+    children: "PEReference", "_Reference"
+)
+
+Enumeration <- (Enumeration) => uast(
+    token: "self",
+    type: "Enum",
+    roles: "Enum", "Declaration"
+)
+
+ExternalID <- (ExternalID) => uast(
+    type: "Synthetic"
+)
+
+GEDecl <- (GEDecl) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+Mixed <- (Mixed) => uast(
+    type: "Synthetic"
+)
+
+NDataDecl <- (NDataDecl) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+NotationDecl <- (NotationDecl) => uast(
+    type: "Synthetic"
+)
+
+NotationType <- (NotationType) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+PEDecl <- (PEDecl) => uast(
+    type: "Synthetic"
+)
+
+PEReference <- (PEReference) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+PI <- (PI) => uast(
+    type: "Synthetic"
+)
+
+PseudoAtt <- (PseudoAtt) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+PseudoAttValue <- (PseudoAttValue) => uast(
+    type: "Synthetic",
+    children: "_Reference"
+)
+
+PubidLiteral <- (PubidLiteral) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+PublicID <- (PublicID) => uast(
+    type: "Synthetic"
+)
+
+STag <- (STag) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+StringType <- (StringType) => uast(
+    type: "Synthetic"
+)
+
+StyleSheetPI <- (StyleSheetPI) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+SystemLiteral <- (SystemLiteral) => uast(
+    type: "Literal",
+    roles: "Literal"
+)
+
+XMLDecl <- (XMLDecl) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+XmlModelPI <- (XmlModelPI) => uast(
+    type: "Synthetic"
+)
+
+children <- (children) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+content <- (content) => uast(
+    type: "Synthetic"
+)
+
+contentspec <- (contentspec) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+doctypedecl <- (doctypedecl) => uast(
+    type: "Synthetic"
+)
+
+document <- (document) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "element"
+)
+
+element <- (element) => uast(
+    type: "Synthetic"
+)
+
+elementdecl <- (elementdecl) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+prolog <- (prolog) => uast(
+    type: "Synthetic"
+)
+
+ANY <- (ANY) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+ATTLIST <- (ATTLIST) => uast(
+    type: "List"
+)
+
+CDATA <- (CDATA) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+CData <- (CData) => uast(
+    type: "Synthetic"
+)
+
+CharData <- (CharData) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+Comment <- (Comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+)
+
+DOCTYPE <- (DOCTYPE) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+ELEMENT <- (ELEMENT) => uast(
+    type: "Synthetic"
+)
+
+EMPTY <- (EMPTY) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+ENTITY <- (ENTITY) => uast(
+    type: "Synthetic"
+)
+
+EncName <- (EncName) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+NDATA <- (NDATA) => uast(
+    type: "Synthetic"
+)
+
+NOTATION <- (NOTATION) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+Name <- (Name) => uast(
+    type: "Synthetic"
+)
+
+Nmtoken <- (Nmtoken) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+PITarget <- (PITarget) => uast(
+    type: "Synthetic"
+)
+
+PUBLIC <- (PUBLIC) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+SYSTEM <- (SYSTEM) => uast(
+    type: "Synthetic"
+)
+
+TokenizedType <- (TokenizedType) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+URI <- (URI) => uast(
+    type: "Synthetic"
+)
+
+VersionNum <- (VersionNum) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+encoding <- (encoding) => uast(
+    type: "Synthetic"
+)
+
+no <- (no) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+standalone <- (standalone) => uast(
+    type: "Synthetic"
+)
+
+version <- (version) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+xml <- (xml) => uast(
+    type: "Synthetic"
+)
+
+yes <- (yes) => uast(
+    token: "self",
+    type: "Synthetic"
+)

@@ -55,3 +55,90 @@ Fix a bug
 ```
 
 Every commit details should describe what was changed, under which context and, if applicable, the GitHub issue it relates to.
+
+## Performance Benchmarking
+
+The project includes a comprehensive benchmark management system to track performance improvements and regressions. This system is particularly important for UAST-related changes.
+
+### Running Benchmarks
+
+The benchmark system provides several commands for different scenarios:
+
+```bash
+# Run all benchmarks and generate plots
+make benchplotv
+
+# Run benchmarks only (no plots)
+make benchv
+
+# Run benchmarks with specific file sizes
+make benchsmall    # Small files only
+make benchmedium   # Medium files only  
+make benchlarge    # Large files only
+make benchxlarge   # Very large files only
+```
+
+### Benchmark Results Management
+
+All benchmark results are automatically saved to the `benchmarks/` directory (which is gitignored). Each run creates a timestamped folder containing:
+
+- Raw benchmark data in JSON format
+- Performance plots (PNG format)
+- Detailed reports with performance metrics
+
+### Available Commands
+
+```bash
+# List all benchmark runs
+make bench-list
+
+# Generate a prettified report for the latest run
+make report
+
+# Compare two benchmark runs
+make compare-runs CURRENT_RUN=<timestamp1> BASELINE_RUN=<timestamp2>
+
+# Compare last two benchmark runs (simple)
+make compare-last
+
+# Run benchmarks with plots
+make benchplotv
+
+# Run benchmarks only (no plots)
+make benchv
+
+# Run full benchmark suite with organized results
+make bench
+```
+
+### Performance Tracking
+
+The benchmark system tracks several key metrics:
+
+- **Parsing Performance**: Time to parse files of various sizes
+- **Memory Usage**: Allocation patterns and memory efficiency
+- **Query Performance**: DSL query execution times
+- **Change Detection**: Performance of diff operations
+
+### Performance Optimization Guidelines
+
+When working on performance improvements:
+
+1. **Baseline Measurement**: Always run benchmarks before making changes
+2. **Incremental Testing**: Test changes with `make benchv` during development
+3. **Documentation**: Update performance documentation when significant improvements are made
+4. **Regression Prevention**: Ensure new code doesn't introduce performance regressions
+
+### Benchmark System Components
+
+- **Python Scripts** (in `scripts/`):
+  - `benchmark_runner.py`: Orchestrates benchmark execution
+  - `benchmark_report.py`: Generates human-readable reports
+  - `benchmark_comparison.py`: Compares benchmark runs
+
+- **Makefile Targets**: Provide convenient access to all benchmark operations
+- **Results Storage**: Organized in `benchmarks/{timestamp}_commit_run/` folders
+
+### Performance Roadmap
+
+The project maintains a performance optimization roadmap in `PERFORMANCE_ROADMAP.md` that outlines planned improvements and tracks completed optimizations. Contributors should refer to this document when working on performance-related features.

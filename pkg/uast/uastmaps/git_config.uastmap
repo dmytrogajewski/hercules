@@ -1,0 +1,68 @@
+[language "git_config", extensions: ".gitconfig"]
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+)
+
+config <- (config) => uast(
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
+)
+
+section <- (section) => uast(
+    type: "Synthetic"
+)
+
+section_header <- (section_header) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+shell_command <- (shell_command) => uast(
+    type: "Synthetic"
+)
+
+string <- (string) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+subsection_name <- (subsection_name) => uast(
+    type: "Synthetic"
+)
+
+variable <- (variable) => uast(
+    token: "self",
+    type: "Variable",
+    roles: "Variable", "Declaration",
+    children: "false", "integer", "string", "true"
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic"
+)
+
+false <- (false) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic"
+)
+
+name <- (name) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+section_name <- (section_name) => uast(
+    type: "Synthetic"
+)
+
+true <- (true) => uast(
+    token: "self",
+    type: "Synthetic"
+)

@@ -1,0 +1,985 @@
+[language "nim", extensions: ".nim"]
+
+accent_quoted <- (accent_quoted) => uast(
+    type: "Synthetic"
+)
+
+argument_list <- (argument_list) => uast(
+    token: "self",
+    type: "List"
+)
+
+array_construction <- (array_construction) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+)
+
+assembly_statement <- (assembly_statement) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "pragma_list"
+)
+
+assignment <- (assignment) => uast(
+    type: "Assignment",
+    roles: "Assignment",
+    children: "accent_quoted", "array_construction", "blank_identifier", "block", "bracket_expression", "call", "case", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "for", "func_expression", "generalized_string", "identifier", "if", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_expression", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_expression", "proc_type", "raw_string_literal", "ref_type", "try", "tuple_construction", "tuple_type", "var_type", "when"
+)
+
+bind_statement <- (bind_statement) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body",
+    children: "accent_quoted", "blank_identifier", "identifier", "statement_list"
+)
+
+block_comment <- (block_comment) => uast(
+    token: "self",
+    roles: "Body",
+    type: "Block",
+    roles: "Body"
+)
+
+block_documentation_comment <- (block_documentation_comment) => uast(
+    type: "Block",
+    roles: "Body"
+)
+
+bracket_expression <- (bracket_expression) => uast(
+    token: "self",
+    roles: "Comment",
+    type: "Comment",
+    children: "accent_quoted", "argument_list", "array_construction", "blank_identifier", "bracket_expression", "call", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "generalized_string", "identifier", "integer_literal", "interpreted_string_literal", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_type", "raw_string_literal", "ref_type", "tuple_construction", "tuple_type", "var_type"
+)
+
+break_statement <- (break_statement) => uast(
+    type: "Break",
+    roles: "Break"
+)
+
+call <- (call) => uast(
+    token: "self",
+    roles: "Break",
+    type: "Call",
+    roles: "Call",
+    children: "accent_quoted", "array_construction", "blank_identifier", "bracket_expression", "call", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "generalized_string", "generic_argument_list", "identifier", "integer_literal", "interpreted_string_literal", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_type", "raw_string_literal", "ref_type", "tuple_construction", "tuple_type", "var_type"
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch",
+    children: "accent_quoted", "array_construction", "blank_identifier", "block", "bracket_expression", "call", "case", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "elif_branch", "else_branch", "enum_type", "float_literal", "for", "func_expression", "generalized_string", "identifier", "if", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_expression", "iterator_type", "long_string_literal", "nil_literal", "object_type", "of_branch", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_expression", "proc_type", "raw_string_literal", "ref_type", "try", "tuple_construction", "tuple_type", "var_type", "when"
+)
+
+cast <- (cast) => uast(
+    token: "self",
+    type: "Cast",
+    children: "accent_quoted", "array_construction", "blank_identifier", "block", "bracket_expression", "call", "case", "cast", "char_literal", "colon_expression", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "for", "func_expression", "generalized_string", "identifier", "if", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_expression", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_expression", "proc_type", "raw_string_literal", "ref_type", "try", "tuple_construction", "tuple_type", "type_expression", "var_type", "when"
+)
+
+char_literal <- (char_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+)
+
+colon_expression <- (colon_expression) => uast(
+    token: "self",
+    roles: "Literal",
+    type: "Literal",
+    children: "accent_quoted", "array_construction", "blank_identifier", "block", "bracket_expression", "call", "case", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "for", "func_expression", "generalized_string", "identifier", "if", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_expression", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_expression", "proc_type", "raw_string_literal", "ref_type", "try", "tuple_construction", "tuple_type", "var_type", "when"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+)
+
+concept_declaration <- (concept_declaration) => uast(
+    token: "self",
+    roles: "Comment",
+    type: "Comment",
+    children: "parameter_list", "refinement_list", "statement_list"
+)
+
+conditional_declaration <- (conditional_declaration) => uast(
+    type: "Synthetic",
+    children: "accent_quoted", "array_construction", "blank_identifier", "block", "bracket_expression", "call", "case", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "elif_branch", "else_branch", "enum_type", "field_declaration_list", "float_literal", "for", "func_expression", "generalized_string", "identifier", "if", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_expression", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_expression", "proc_type", "raw_string_literal", "ref_type", "try", "tuple_construction", "tuple_type", "var_type", "when"
+)
+
+const_section <- (const_section) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+continue_statement <- (continue_statement) => uast(
+    type: "Continue",
+    roles: "Continue"
+)
+
+converter_declaration <- (converter_declaration) => uast(
+    token: "self",
+    roles: "Continue",
+    type: "Continue",
+    children: "accent_quoted", "blank_identifier", "exported_symbol", "generic_parameter_list", "identifier", "parameter_declaration_list", "pragma_list", "statement_list", "term_rewriting_pattern", "type_expression"
+)
+
+curly_construction <- (curly_construction) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+)
+
+curly_expression <- (curly_expression) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "accent_quoted", "argument_list", "array_construction", "blank_identifier", "bracket_expression", "call", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "generalized_string", "identifier", "integer_literal", "interpreted_string_literal", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_type", "raw_string_literal", "ref_type", "tuple_construction", "tuple_type", "var_type"
+)
+
+defer <- (defer) => uast(
+    type: "Synthetic",
+    children: "statement_list"
+)
+
+discard_statement <- (discard_statement) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+distinct_type <- (distinct_type) => uast(
+    type: "Synthetic"
+)
+
+do_block <- (do_block) => uast(
+    token: "self",
+    type: "Block",
+    roles: "Body",
+    children: "parameter_declaration_list", "pragma_list", "statement_list", "type_expression"
+)
+
+documentation_comment <- (documentation_comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+)
+
+dot_expression <- (dot_expression) => uast(
+    token: "self",
+    roles: "Doc",
+    type: "DocString",
+    children: "accent_quoted", "array_construction", "blank_identifier", "bracket_expression", "call", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "generalized_string", "identifier", "integer_literal", "interpreted_string_literal", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_type", "raw_string_literal", "ref_type", "tuple_construction", "tuple_type", "var_type"
+)
+
+dot_generic_call <- (dot_generic_call) => uast(
+    type: "Call",
+    roles: "Call",
+    children: "accent_quoted", "array_construction", "blank_identifier", "bracket_expression", "call", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "generalized_string", "generic_argument_list", "identifier", "integer_literal", "interpreted_string_literal", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_type", "raw_string_literal", "ref_type", "tuple_construction", "tuple_type", "var_type"
+)
+
+elif_branch <- (elif_branch) => uast(
+    token: "self",
+    roles: "Call",
+    type: "Call",
+    children: "accent_quoted", "array_construction", "blank_identifier", "block", "bracket_expression", "call", "case", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "field_declaration_list", "float_literal", "for", "func_expression", "generalized_string", "identifier", "if", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_expression", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_expression", "proc_type", "raw_string_literal", "ref_type", "statement_list", "try", "tuple_construction", "tuple_type", "var_type", "when"
+)
+
+else_branch <- (else_branch) => uast(
+    type: "Synthetic",
+    children: "field_declaration_list", "statement_list"
+)
+
+enum_declaration <- (enum_declaration) => uast(
+    token: "self",
+    type: "Enum",
+    roles: "Enum", "Declaration"
+)
+
+enum_field_declaration <- (enum_field_declaration) => uast(
+    type: "Enum",
+    roles: "Enum", "Declaration",
+    children: "accent_quoted", "array_construction", "blank_identifier", "block", "bracket_expression", "call", "case", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "for", "func_expression", "generalized_string", "identifier", "if", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_expression", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_expression", "proc_type", "raw_string_literal", "ref_type", "try", "tuple_construction", "tuple_type", "var_type", "when"
+)
+
+enum_type <- (enum_type) => uast(
+    token: "self",
+    type: "Enum",
+    roles: "Enum", "Declaration"
+)
+
+equal_expression <- (equal_expression) => uast(
+    type: "Synthetic",
+    children: "accent_quoted", "array_construction", "blank_identifier", "block", "bracket_expression", "call", "case", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "for", "func_expression", "generalized_string", "identifier", "if", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_expression", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_expression", "proc_type", "raw_string_literal", "ref_type", "try", "tuple_construction", "tuple_type", "var_type", "when"
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+except_branch <- (except_branch) => uast(
+    type: "Synthetic",
+    children: "expression_list", "statement_list"
+)
+
+except_clause <- (except_clause) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+export_statement <- (export_statement) => uast(
+    type: "Synthetic"
+)
+
+exported_symbol <- (exported_symbol) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+expression_list <- (expression_list) => uast(
+    type: "List"
+)
+
+field_declaration <- (field_declaration) => uast(
+    token: "self",
+    type: "Field",
+    roles: "Member",
+    children: "accent_quoted", "array_construction", "blank_identifier", "block", "bracket_expression", "call", "case", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "for", "func_expression", "generalized_string", "identifier", "if", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_expression", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_expression", "proc_type", "raw_string_literal", "ref_type", "try", "tuple_construction", "tuple_type", "type_expression", "var_type", "when"
+)
+
+field_declaration_list <- (field_declaration_list) => uast(
+    type: "Field",
+    roles: "Member"
+)
+
+finally_branch <- (finally_branch) => uast(
+    token: "self",
+    type: "Finally",
+    roles: "Finally",
+    children: "statement_list"
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop",
+    children: "accent_quoted", "array_construction", "blank_identifier", "block", "bracket_expression", "call", "case", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "for", "func_expression", "generalized_string", "identifier", "if", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_expression", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_expression", "proc_type", "raw_string_literal", "ref_type", "statement_list", "symbol_declaration_list", "try", "tuple_construction", "tuple_type", "var_type", "when"
+)
+
+func_declaration <- (func_declaration) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "accent_quoted", "blank_identifier", "exported_symbol", "generic_parameter_list", "identifier", "parameter_declaration_list", "pragma_list", "statement_list", "term_rewriting_pattern", "type_expression"
+)
+
+func_expression <- (func_expression) => uast(
+    type: "Synthetic",
+    children: "parameter_declaration_list", "pragma_list", "statement_list", "type_expression"
+)
+
+generalized_string <- (generalized_string) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "dot_expression", "identifier"
+)
+
+generic_argument_list <- (generic_argument_list) => uast(
+    type: "List"
+)
+
+generic_parameter_list <- (generic_parameter_list) => uast(
+    token: "self",
+    type: "Parameter",
+    roles: "Parameter"
+)
+
+if <- (if) => uast(
+    type: "If",
+    children: "accent_quoted", "array_construction", "blank_identifier", "block", "bracket_expression", "call", "case", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "elif_branch", "else_branch", "enum_type", "float_literal", "for", "func_expression", "generalized_string", "identifier", "if", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_expression", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_expression", "proc_type", "raw_string_literal", "ref_type", "statement_list", "try", "tuple_construction", "tuple_type", "var_type", "when"
+)
+
+import_from_statement <- (import_from_statement) => uast(
+    token: "self",
+    type: "Import",
+    roles: "Import",
+    children: "accent_quoted", "array_construction", "blank_identifier", "block", "bracket_expression", "call", "case", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "for", "func_expression", "generalized_string", "identifier", "if", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_expression", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_expression", "proc_type", "raw_string_literal", "ref_type", "try", "tuple_construction", "tuple_type", "var_type", "when"
+)
+
+import_statement <- (import_statement) => uast(
+    type: "Import",
+    roles: "Import"
+)
+
+include_statement <- (include_statement) => uast(
+    token: "self",
+    roles: "Import",
+    type: "Import"
+)
+
+infix_expression <- (infix_expression) => uast(
+    type: "Synthetic",
+    children: "accent_quoted", "and", "array_construction", "as", "blank_identifier", "bracket_expression", "call", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "div", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "from", "generalized_string", "identifier", "in", "infix_expression", "integer_literal", "interpreted_string_literal", "is", "isnot", "iterator_type", "long_string_literal", "mod", "nil_literal", "notin", "object_type", "of", "operator", "or", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_type", "raw_string_literal", "ref_type", "shl", "shr", "tuple_construction", "tuple_type", "typeof", "var_type", "xor"
+)
+
+interpreted_string_literal <- (interpreted_string_literal) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+iterator_declaration <- (iterator_declaration) => uast(
+    type: "Synthetic",
+    children: "accent_quoted", "blank_identifier", "exported_symbol", "generic_parameter_list", "identifier", "parameter_declaration_list", "pragma_list", "statement_list", "term_rewriting_pattern", "type_expression"
+)
+
+iterator_expression <- (iterator_expression) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "parameter_declaration_list", "pragma_list", "statement_list", "type_expression"
+)
+
+iterator_type <- (iterator_type) => uast(
+    type: "Synthetic",
+    children: "parameter_declaration_list", "pragma_list", "type_expression"
+)
+
+let_section <- (let_section) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+long_string_literal <- (long_string_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+)
+
+macro_declaration <- (macro_declaration) => uast(
+    token: "self",
+    roles: "Literal",
+    type: "Literal",
+    children: "accent_quoted", "blank_identifier", "exported_symbol", "generic_parameter_list", "identifier", "parameter_declaration_list", "pragma_list", "statement_list", "term_rewriting_pattern", "type_expression"
+)
+
+method_declaration <- (method_declaration) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member",
+    children: "accent_quoted", "blank_identifier", "exported_symbol", "generic_parameter_list", "identifier", "parameter_declaration_list", "pragma_list", "statement_list", "term_rewriting_pattern", "type_expression"
+)
+
+mixin_statement <- (mixin_statement) => uast(
+    token: "child:identifier",
+    roles: "Function", "Declaration",
+    type: "Method"
+)
+
+nil_literal <- (nil_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+)
+
+object_declaration <- (object_declaration) => uast(
+    token: "self",
+    roles: "Literal",
+    type: "Literal",
+    children: "pragma_list", "type_expression"
+)
+
+object_type <- (object_type) => uast(
+    type: "Synthetic"
+)
+
+of_branch <- (of_branch) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "expression_list", "field_declaration_list", "statement_list"
+)
+
+out_type <- (out_type) => uast(
+    type: "Synthetic"
+)
+
+parameter_declaration <- (parameter_declaration) => uast(
+    token: "self",
+    type: "Parameter",
+    roles: "Parameter",
+    children: "accent_quoted", "array_construction", "blank_identifier", "block", "bracket_expression", "call", "case", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "for", "func_expression", "generalized_string", "identifier", "if", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_expression", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_expression", "proc_type", "raw_string_literal", "ref_type", "try", "tuple_construction", "tuple_type", "type_expression", "var_type", "when"
+)
+
+parameter_declaration_list <- (parameter_declaration_list) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+)
+
+parameter_list <- (parameter_list) => uast(
+    token: "self",
+    type: "Parameter",
+    roles: "Parameter"
+)
+
+parenthesized <- (parenthesized) => uast(
+    type: "Synthetic"
+)
+
+pointer_parameter <- (pointer_parameter) => uast(
+    token: "self",
+    type: "Parameter",
+    roles: "Parameter"
+)
+
+pointer_type <- (pointer_type) => uast(
+    type: "Synthetic"
+)
+
+pragma_expression <- (pragma_expression) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "accent_quoted", "array_construction", "blank_identifier", "bracket_expression", "call", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "generalized_string", "identifier", "integer_literal", "interpreted_string_literal", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "pragma_list", "prefix_expression", "proc_type", "raw_string_literal", "ref_type", "tuple_construction", "tuple_type", "var_type"
+)
+
+pragma_list <- (pragma_list) => uast(
+    type: "List"
+)
+
+pragma_statement <- (pragma_statement) => uast(
+    token: "self",
+    type: "List",
+    children: "statement_list"
+)
+
+prefix_expression <- (prefix_expression) => uast(
+    type: "Synthetic",
+    children: "and", "as", "div", "from", "in", "is", "isnot", "mod", "not", "notin", "of", "operator", "or", "shl", "shr", "xor"
+)
+
+proc_declaration <- (proc_declaration) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "accent_quoted", "blank_identifier", "exported_symbol", "generic_parameter_list", "identifier", "parameter_declaration_list", "pragma_list", "statement_list", "term_rewriting_pattern", "type_expression"
+)
+
+proc_expression <- (proc_expression) => uast(
+    type: "Synthetic",
+    children: "parameter_declaration_list", "pragma_list", "statement_list", "type_expression"
+)
+
+proc_type <- (proc_type) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "parameter_declaration_list", "pragma_list", "type_expression"
+)
+
+raise_statement <- (raise_statement) => uast(
+    type: "Synthetic"
+)
+
+raw_string_literal <- (raw_string_literal) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+ref_parameter <- (ref_parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+)
+
+ref_type <- (ref_type) => uast(
+    token: "self",
+    roles: "Parameter",
+    type: "Parameter"
+)
+
+refinement_list <- (refinement_list) => uast(
+    type: "List"
+)
+
+return_statement <- (return_statement) => uast(
+    token: "self",
+    type: "Return",
+    roles: "Return"
+)
+
+source_file <- (source_file) => uast(
+    type: "Synthetic"
+)
+
+statement_list <- (statement_list) => uast(
+    token: "self",
+    type: "List"
+)
+
+static_parameter <- (static_parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+)
+
+static_statement <- (static_statement) => uast(
+    token: "self",
+    roles: "Parameter",
+    type: "Parameter",
+    children: "statement_list"
+)
+
+string_content <- (string_content) => uast(
+    type: "Synthetic"
+)
+
+symbol_declaration <- (symbol_declaration) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "accent_quoted", "blank_identifier", "exported_symbol", "identifier"
+)
+
+symbol_declaration_list <- (symbol_declaration_list) => uast(
+    type: "List"
+)
+
+template_declaration <- (template_declaration) => uast(
+    token: "self",
+    type: "List",
+    children: "accent_quoted", "blank_identifier", "exported_symbol", "generic_parameter_list", "identifier", "parameter_declaration_list", "pragma_list", "statement_list", "term_rewriting_pattern", "type_expression"
+)
+
+term_rewriting_pattern <- (term_rewriting_pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+)
+
+try <- (try) => uast(
+    token: "self",
+    type: "Try",
+    roles: "Try",
+    children: "statement_list"
+)
+
+tuple_construction <- (tuple_construction) => uast(
+    type: "Struct",
+    roles: "Struct", "Declaration"
+)
+
+tuple_deconstruct_declaration <- (tuple_deconstruct_declaration) => uast(
+    token: "self",
+    type: "Struct",
+    roles: "Struct", "Declaration"
+)
+
+tuple_type <- (tuple_type) => uast(
+    type: "Tuple"
+)
+
+type_declaration <- (type_declaration) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+type_expression <- (type_expression) => uast(
+    type: "Synthetic"
+)
+
+type_parameter <- (type_parameter) => uast(
+    token: "self",
+    type: "Parameter",
+    roles: "Parameter"
+)
+
+type_section <- (type_section) => uast(
+    type: "Synthetic"
+)
+
+type_symbol_declaration <- (type_symbol_declaration) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "accent_quoted", "blank_identifier", "exported_symbol", "identifier", "pragma_list"
+)
+
+typeof <- (typeof) => uast(
+    type: "Synthetic"
+)
+
+using_section <- (using_section) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+var_parameter <- (var_parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+)
+
+var_section <- (var_section) => uast(
+    token: "self",
+    roles: "Parameter",
+    type: "Parameter"
+)
+
+var_type <- (var_type) => uast(
+    type: "Synthetic"
+)
+
+variable_declaration <- (variable_declaration) => uast(
+    token: "self",
+    type: "Variable",
+    roles: "Variable", "Declaration",
+    children: "accent_quoted", "array_construction", "blank_identifier", "block", "bracket_expression", "call", "case", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "for", "func_expression", "generalized_string", "identifier", "if", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_expression", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_expression", "proc_type", "raw_string_literal", "ref_type", "try", "tuple_construction", "tuple_type", "type_expression", "var_type", "when"
+)
+
+variant_declaration <- (variant_declaration) => uast(
+    type: "Synthetic",
+    children: "else_branch", "of_branch"
+)
+
+variant_discriminator_declaration <- (variant_discriminator_declaration) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "accent_quoted", "array_construction", "blank_identifier", "block", "bracket_expression", "call", "case", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "for", "func_expression", "generalized_string", "identifier", "if", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_expression", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_expression", "proc_type", "raw_string_literal", "ref_type", "try", "tuple_construction", "tuple_type", "type_expression", "var_type", "when"
+)
+
+when <- (when) => uast(
+    type: "Synthetic",
+    children: "accent_quoted", "array_construction", "blank_identifier", "block", "bracket_expression", "call", "case", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "elif_branch", "else_branch", "enum_type", "float_literal", "for", "func_expression", "generalized_string", "identifier", "if", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_expression", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_expression", "proc_type", "raw_string_literal", "ref_type", "statement_list", "try", "tuple_construction", "tuple_type", "var_type", "when"
+)
+
+while <- (while) => uast(
+    token: "self",
+    type: "Loop",
+    roles: "Loop",
+    children: "accent_quoted", "array_construction", "blank_identifier", "bracket_expression", "call", "cast", "char_literal", "curly_construction", "curly_expression", "custom_numeric_literal", "distinct_type", "dot_expression", "dot_generic_call", "enum_type", "float_literal", "generalized_string", "identifier", "infix_expression", "integer_literal", "interpreted_string_literal", "iterator_type", "long_string_literal", "nil_literal", "object_type", "out_type", "parenthesized", "pointer_type", "pragma_expression", "prefix_expression", "proc_type", "raw_string_literal", "ref_type", "statement_list", "tuple_construction", "tuple_type", "var_type"
+)
+
+yield_statement <- (yield_statement) => uast(
+    type: "Yield",
+    roles: "Yield"
+)
+
+and <- (and) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+as <- (as) => uast(
+    type: "Synthetic"
+)
+
+asm <- (asm) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+bind <- (bind) => uast(
+    type: "Synthetic"
+)
+
+blank_identifier <- (blank_identifier) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+)
+
+break <- (break) => uast(
+    token: "self",
+    roles: "Body",
+    type: "Break",
+    roles: "Break"
+)
+
+case <- (case) => uast(
+    type: "Case",
+    roles: "Branch"
+)
+
+cast <- (cast) => uast(
+    token: "self",
+    type: "Cast"
+)
+
+comment_content <- (comment_content) => uast(
+    type: "Comment",
+    roles: "Comment"
+)
+
+concept <- (concept) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+const <- (const) => uast(
+    type: "Synthetic"
+)
+
+continue <- (continue) => uast(
+    token: "self",
+    type: "Continue",
+    roles: "Continue"
+)
+
+converter <- (converter) => uast(
+    type: "Synthetic"
+)
+
+custom_numeric_literal <- (custom_numeric_literal) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+defer <- (defer) => uast(
+    type: "Synthetic"
+)
+
+discard <- (discard) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+distinct <- (distinct) => uast(
+    type: "Synthetic"
+)
+
+div <- (div) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+do <- (do) => uast(
+    type: "Synthetic"
+)
+
+elif <- (elif) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+else <- (else) => uast(
+    type: "Synthetic"
+)
+
+enum <- (enum) => uast(
+    token: "self",
+    type: "Enum",
+    roles: "Enum", "Declaration"
+)
+
+except <- (except) => uast(
+    type: "Synthetic"
+)
+
+export <- (export) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+finally <- (finally) => uast(
+    type: "Finally",
+    roles: "Finally"
+)
+
+float_literal <- (float_literal) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+for <- (for) => uast(
+    type: "Loop",
+    roles: "Loop"
+)
+
+from <- (from) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+func <- (func) => uast(
+    type: "Synthetic"
+)
+
+identifier <- (identifier) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+if <- (if) => uast(
+    type: "If"
+)
+
+import <- (import) => uast(
+    token: "self",
+    type: "Import",
+    roles: "Import"
+)
+
+in <- (in) => uast(
+    type: "Synthetic"
+)
+
+include <- (include) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+integer_literal <- (integer_literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+)
+
+is <- (is) => uast(
+    token: "self",
+    roles: "Literal",
+    type: "Literal"
+)
+
+isnot <- (isnot) => uast(
+    type: "Synthetic"
+)
+
+iterator <- (iterator) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+let <- (let) => uast(
+    type: "Synthetic"
+)
+
+macro <- (macro) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+method <- (method) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+)
+
+mixin <- (mixin) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+mod <- (mod) => uast(
+    type: "Synthetic"
+)
+
+nil <- (nil) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+not <- (not) => uast(
+    type: "Synthetic"
+)
+
+notin <- (notin) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+object <- (object) => uast(
+    type: "Synthetic"
+)
+
+of <- (of) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+operator <- (operator) => uast(
+    type: "Synthetic"
+)
+
+or <- (or) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+out <- (out) => uast(
+    type: "Synthetic"
+)
+
+proc <- (proc) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+ptr <- (ptr) => uast(
+    type: "Synthetic"
+)
+
+raise <- (raise) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+ref <- (ref) => uast(
+    type: "Synthetic"
+)
+
+return <- (return) => uast(
+    token: "self",
+    type: "Return",
+    roles: "Return"
+)
+
+shl <- (shl) => uast(
+    type: "Synthetic"
+)
+
+shr <- (shr) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+static <- (static) => uast(
+    type: "Synthetic"
+)
+
+template <- (template) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+try <- (try) => uast(
+    type: "Try",
+    roles: "Try"
+)
+
+tuple <- (tuple) => uast(
+    token: "self",
+    type: "Tuple"
+)
+
+type <- (type) => uast(
+    type: "Synthetic"
+)
+
+using <- (using) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+var <- (var) => uast(
+    type: "Synthetic"
+)
+
+when <- (when) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+)
+
+xor <- (xor) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+yield <- (yield) => uast(
+    type: "Yield",
+    roles: "Yield"
+)

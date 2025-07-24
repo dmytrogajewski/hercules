@@ -1,0 +1,178 @@
+[language "gitattributes", extensions: ".gitattributes"]
+
+ansi_c_escape <- (ansi_c_escape) => uast(
+    type: "Synthetic"
+)
+
+attribute <- (attribute) => uast(
+    token: "self",
+    type: "Attribute",
+    roles: "Attribute"
+)
+
+builtin_attr <- (builtin_attr) => uast(
+    type: "Synthetic"
+)
+
+class_range <- (class_range) => uast(
+    token: "self",
+    type: "Class",
+    roles: "Class", "Declaration"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+)
+
+file <- (file) => uast(
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
+)
+
+ignored_value <- (ignored_value) => uast(
+    type: "Synthetic"
+)
+
+macro_def <- (macro_def) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "attr_name"
+)
+
+pattern <- (pattern) => uast(
+    type: "Pattern",
+    roles: "Pattern",
+    children: "dir_sep"
+)
+
+quoted_pattern <- (quoted_pattern) => uast(
+    token: "self",
+    type: "Pattern",
+    roles: "Pattern",
+    children: "dir_sep"
+)
+
+range_notation <- (range_notation) => uast(
+    type: "Synthetic"
+)
+
+attr_name <- (attr_name) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+attr_reset <- (attr_reset) => uast(
+    type: "Set"
+)
+
+attr_set <- (attr_set) => uast(
+    token: "self",
+    type: "Set"
+)
+
+attr_unset <- (attr_unset) => uast(
+    type: "Set"
+)
+
+binary <- (binary) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+boolean_value <- (boolean_value) => uast(
+    type: "Synthetic"
+)
+
+character_class <- (character_class) => uast(
+    token: "self",
+    type: "Class",
+    roles: "Class", "Declaration"
+)
+
+crlf <- (crlf) => uast(
+    type: "Synthetic"
+)
+
+delta <- (delta) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+diff <- (diff) => uast(
+    type: "If"
+)
+
+dir_sep <- (dir_sep) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+encoding <- (encoding) => uast(
+    type: "Synthetic"
+)
+
+eol <- (eol) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+escaped_char <- (escaped_char) => uast(
+    type: "Synthetic"
+)
+
+filter <- (filter) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+ident <- (ident) => uast(
+    type: "Synthetic"
+)
+
+macro_tag <- (macro_tag) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+merge <- (merge) => uast(
+    type: "Synthetic"
+)
+
+pattern_negation <- (pattern_negation) => uast(
+    token: "self",
+    type: "Pattern",
+    roles: "Pattern"
+)
+
+range_negation <- (range_negation) => uast(
+    type: "Synthetic"
+)
+
+redundant_escape <- (redundant_escape) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+string_value <- (string_value) => uast(
+    type: "Synthetic"
+)
+
+text <- (text) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+trailing_slash <- (trailing_slash) => uast(
+    type: "Synthetic"
+)
+
+whitespace <- (whitespace) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+wildcard <- (wildcard) => uast(
+    type: "Synthetic"
+)

@@ -1,0 +1,100 @@
+suite: struct
+name: go-struct
+
+parse_cases:
+  - name: struct_and_field
+    input: |
+      type Person struct {
+          Name string
+          Age  int
+      }
+      
+      func main() {
+          p := Person{Name: "John", Age: 30}
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Struct"
+          roles: ["Struct", "Declaration"]
+          children:
+            - type: "Block"
+              roles: ["Body"]
+              children:
+                - type: "Field"
+                  roles: ["Field", "Declaration"]
+                  props:
+                    name: "Name"
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "Name"
+                - type: "Field"
+                  roles: ["Field", "Declaration"]
+                  props:
+                    name: "Age"
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "Age"
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "main"
+          token: "main"
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "main"
+            - type: "Block"
+              roles: ["Body"]
+            - type: "Block"
+              roles: ["Body"]
+              children:
+                - type: "Variable"
+                  roles: ["Variable", "Declaration"]
+                  props:
+                    name: "p"
+                  children:
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "p"
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Literal"
+                          roles: ["Literal"]
+                          children:
+                            - type: "Literal"
+                              roles: ["Literal"]
+                              children:
+                                - type: "KeyValue"
+                                  roles: ["Key", "Value"]
+                                  children:
+                                    - type: "Literal"
+                                      roles: ["Literal"]
+                                      children:
+                                        - type: "Identifier"
+                                          roles: ["Name"]
+                                          token: "Name"
+                                    - type: "Literal"
+                                      roles: ["Literal"]
+                                      children:
+                                        - type: "Literal"
+                                          roles: ["Literal"]
+                                          token: "John"
+                                - type: "KeyValue"
+                                  roles: ["Key", "Value"]
+                                  children:
+                                    - type: "Literal"
+                                      roles: ["Literal"]
+                                      children:
+                                        - type: "Identifier"
+                                          roles: ["Name"]
+                                          token: "Age"
+                                    - type: "Literal"
+                                      roles: ["Literal"]
+                                      token: "30" 

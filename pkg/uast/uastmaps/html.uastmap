@@ -1,0 +1,96 @@
+[language "html", extensions: ".html", ".htm"]
+
+attribute <- (attribute) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+)
+
+doctype <- (doctype) => uast(
+    token: "self",
+    type: "Attribute"
+)
+
+document <- (document) => uast(
+    type: "Synthetic"
+)
+
+element <- (element) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+end_tag <- (end_tag) => uast(
+    type: "Synthetic"
+)
+
+erroneous_end_tag <- (erroneous_end_tag) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+quoted_attribute_value <- (quoted_attribute_value) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+)
+
+script_element <- (script_element) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+self_closing_tag <- (self_closing_tag) => uast(
+    type: "Synthetic"
+)
+
+start_tag <- (start_tag) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+style_element <- (style_element) => uast(
+    type: "Synthetic"
+)
+
+attribute_name <- (attribute_name) => uast(
+    token: "self",
+    type: "Attribute",
+    roles: "Attribute"
+)
+
+attribute_value <- (attribute_value) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+)
+
+comment <- (comment) => uast(
+    token: "self",
+    type: "Comment",
+    roles: "Comment"
+)
+
+doctype <- (doctype) => uast(
+    type: "Synthetic"
+)
+
+entity <- (entity) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+erroneous_end_tag_name <- (erroneous_end_tag_name) => uast(
+    type: "Synthetic"
+)
+
+raw_text <- (raw_text) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+tag_name <- (tag_name) => uast(
+    type: "Synthetic"
+)
+
+text <- (text) => uast(
+    token: "self",
+    type: "Synthetic"
+)

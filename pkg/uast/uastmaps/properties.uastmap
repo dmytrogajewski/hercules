@@ -1,0 +1,45 @@
+[language "properties", extensions: ".properties"]
+
+escape <- (escape) => uast(
+    type: "Synthetic"
+)
+
+file <- (file) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+index <- (index) => uast(
+    type: "Index",
+    roles: "Index"
+)
+
+key <- (key) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+property <- (property) => uast(
+    type: "Property",
+    roles: "Member"
+)
+
+secret <- (secret) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+substitution <- (substitution) => uast(
+    type: "Synthetic",
+    children: "escape", "substitution"
+)
+
+value <- (value) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+)

@@ -1,0 +1,461 @@
+[language "prql", extensions: ".prql"]
+
+aggregate <- (aggregate) => uast(
+    type: "Synthetic"
+)
+
+aggregate_operation <- (aggregate_operation) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+append <- (append) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+assignment <- (assignment) => uast(
+    token: "self",
+    type: "Assignment",
+    roles: "Assignment",
+    children: "binary_expression", "case", "date", "f_string", "field", "function_call", "keyword_average", "keyword_avg", "keyword_count_distinct", "keyword_max", "keyword_min", "keyword_stddev", "keyword_sum", "literal", "s_string", "time", "timestamp"
+)
+
+binary_expression <- (binary_expression) => uast(
+    type: "Synthetic",
+    children: "binary_expression", "date", "f_string", "field", "literal", "s_string", "time", "timestamp"
+)
+
+case <- (case) => uast(
+    token: "self",
+    roles: "Operator",
+    type: "Case",
+    roles: "Branch"
+)
+
+case_condition <- (case_condition) => uast(
+    type: "Case",
+    roles: "Branch",
+    children: "literal"
+)
+
+comment <- (comment) => uast(
+    token: "self",
+    type: "Comment",
+    roles: "Comment"
+)
+
+conditions <- (conditions) => uast(
+    type: "Synthetic"
+)
+
+date <- (date) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+decimal_number <- (decimal_number) => uast(
+    type: "Synthetic"
+)
+
+derives <- (derives) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+direction <- (direction) => uast(
+    type: "Synthetic"
+)
+
+f_string <- (f_string) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+field <- (field) => uast(
+    type: "Field",
+    roles: "Member",
+    children: "identifier"
+)
+
+filter <- (filter) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "binary_expression", "date", "f_string", "field", "literal", "s_string", "time", "timestamp"
+)
+
+from <- (from) => uast(
+    type: "Synthetic",
+    children: "identifier"
+)
+
+from_text <- (from_text) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+function_call <- (function_call) => uast(
+    type: "Function",
+    roles: "Function", "Declaration",
+    children: "identifier"
+)
+
+function_definition <- (function_definition) => uast(
+    token: "self",
+    roles: "Call",
+    type: "Function",
+    roles: "Function", "Declaration",
+    children: "binary_expression", "identifier", "s_string"
+)
+
+group <- (group) => uast(
+    type: "Synthetic"
+)
+
+identifier <- (identifier) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+integer <- (integer) => uast(
+    type: "Synthetic"
+)
+
+joins <- (joins) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "term"
+)
+
+literal <- (literal) => uast(
+    type: "Literal",
+    roles: "Literal"
+)
+
+literal_string <- (literal_string) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+loop <- (loop) => uast(
+    type: "Loop",
+    roles: "Loop"
+)
+
+module_call <- (module_call) => uast(
+    token: "self",
+    type: "Call",
+    roles: "Call",
+    children: "identifier"
+)
+
+parameter <- (parameter) => uast(
+    type: "Parameter",
+    roles: "Parameter",
+    children: "identifier", "literal"
+)
+
+pipeline <- (pipeline) => uast(
+    token: "self",
+    roles: "Parameter",
+    type: "Parameter"
+)
+
+program <- (program) => uast(
+    type: "Synthetic"
+)
+
+prql <- (prql) => uast(
+    token: "self",
+    type: "File",
+    children: "literal", "target"
+)
+
+range <- (range) => uast(
+    type: "Synthetic",
+    children: "date", "integer"
+)
+
+s_string <- (s_string) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+select <- (select) => uast(
+    type: "Synthetic"
+)
+
+sorts <- (sorts) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+takes <- (takes) => uast(
+    type: "Synthetic"
+)
+
+target <- (target) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+term <- (term) => uast(
+    type: "Synthetic",
+    children: "assignment", "binary_expression", "date", "f_string", "field", "identifier", "literal", "s_string", "time", "timestamp"
+)
+
+time <- (time) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+timestamp <- (timestamp) => uast(
+    type: "Synthetic"
+)
+
+timezone <- (timezone) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+transforms <- (transforms) => uast(
+    type: "Loop",
+    roles: "Loop"
+)
+
+variable <- (variable) => uast(
+    token: "self",
+    type: "Variable",
+    roles: "Variable", "Declaration",
+    children: "identifier"
+)
+
+window <- (window) => uast(
+    type: "Synthetic"
+)
+
+window_definitions <- (window_definitions) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+T <- (T) => uast(
+    type: "Synthetic"
+)
+
+Z <- (Z) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+_ <- (_) => uast(
+    type: "Synthetic"
+)
+
+bang <- (bang) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_aggregate <- (keyword_aggregate) => uast(
+    type: "Synthetic"
+)
+
+keyword_append <- (keyword_append) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_average <- (keyword_average) => uast(
+    type: "Synthetic"
+)
+
+keyword_avg <- (keyword_avg) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_case <- (keyword_case) => uast(
+    type: "Case",
+    roles: "Branch"
+)
+
+keyword_count <- (keyword_count) => uast(
+    token: "self",
+    roles: "Branch",
+    type: "Case"
+)
+
+keyword_count_distinct <- (keyword_count_distinct) => uast(
+    type: "Synthetic"
+)
+
+keyword_csv <- (keyword_csv) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_derive <- (keyword_derive) => uast(
+    type: "Synthetic"
+)
+
+keyword_expanding <- (keyword_expanding) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_false <- (keyword_false) => uast(
+    type: "Synthetic"
+)
+
+keyword_filter <- (keyword_filter) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_format <- (keyword_format) => uast(
+    type: "Loop",
+    roles: "Loop"
+)
+
+keyword_from <- (keyword_from) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_from_text <- (keyword_from_text) => uast(
+    type: "Synthetic"
+)
+
+keyword_full <- (keyword_full) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_group <- (keyword_group) => uast(
+    type: "Synthetic"
+)
+
+keyword_inner <- (keyword_inner) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_intersect <- (keyword_intersect) => uast(
+    type: "Synthetic"
+)
+
+keyword_join <- (keyword_join) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_json <- (keyword_json) => uast(
+    type: "Synthetic"
+)
+
+keyword_left <- (keyword_left) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_let <- (keyword_let) => uast(
+    type: "Synthetic"
+)
+
+keyword_loop <- (keyword_loop) => uast(
+    token: "self",
+    type: "Loop",
+    roles: "Loop"
+)
+
+keyword_max <- (keyword_max) => uast(
+    type: "Synthetic"
+)
+
+keyword_min <- (keyword_min) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_null <- (keyword_null) => uast(
+    type: "Synthetic"
+)
+
+keyword_prql <- (keyword_prql) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_rank <- (keyword_rank) => uast(
+    type: "Synthetic"
+)
+
+keyword_remove <- (keyword_remove) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_right <- (keyword_right) => uast(
+    type: "Synthetic"
+)
+
+keyword_rolling <- (keyword_rolling) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_rows <- (keyword_rows) => uast(
+    type: "Synthetic"
+)
+
+keyword_select <- (keyword_select) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_side <- (keyword_side) => uast(
+    type: "Synthetic"
+)
+
+keyword_sort <- (keyword_sort) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_stddev <- (keyword_stddev) => uast(
+    type: "Synthetic"
+)
+
+keyword_sum <- (keyword_sum) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_take <- (keyword_take) => uast(
+    type: "Synthetic"
+)
+
+keyword_target <- (keyword_target) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_true <- (keyword_true) => uast(
+    type: "Synthetic"
+)
+
+keyword_version <- (keyword_version) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+keyword_window <- (keyword_window) => uast(
+    type: "Synthetic"
+)
+
+pipe <- (pipe) => uast(
+    token: "self",
+    type: "Synthetic"
+)

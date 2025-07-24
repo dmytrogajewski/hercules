@@ -1,0 +1,269 @@
+[language "tcl", extensions: ".tcl"]
+
+argument <- (argument) => uast(
+    type: "Synthetic",
+    children: "braced_word", "quoted_word", "simple_word"
+)
+
+arguments <- (arguments) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+array_index <- (array_index) => uast(
+    type: "Index",
+    roles: "Index"
+)
+
+binop_expr <- (binop_expr) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+braced_word <- (braced_word) => uast(
+    type: "Synthetic"
+)
+
+braced_word_simple <- (braced_word_simple) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+catch <- (catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+)
+
+command <- (command) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "array_index", "braced_word", "command_substitution", "escaped_character", "quoted_word", "simple_word", "unpack", "variable_substitution", "word_list"
+)
+
+command_substitution <- (command_substitution) => uast(
+    type: "Synthetic"
+)
+
+else <- (else) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "array_index", "braced_word", "command_substitution", "escaped_character", "quoted_word", "simple_word", "unpack", "variable_substitution"
+)
+
+elseif <- (elseif) => uast(
+    type: "If",
+    children: "array_index", "braced_word", "command_substitution", "escaped_character", "expr", "quoted_word", "simple_word", "unpack", "variable_substitution"
+)
+
+expr <- (expr) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+expr_cmd <- (expr_cmd) => uast(
+    type: "Synthetic"
+)
+
+finally <- (finally) => uast(
+    token: "self",
+    type: "Finally",
+    roles: "Finally"
+)
+
+foreach <- (foreach) => uast(
+    type: "Loop",
+    roles: "Loop"
+)
+
+global <- (global) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+id <- (id) => uast(
+    type: "Synthetic"
+)
+
+if <- (if) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "array_index", "braced_word", "command_substitution", "else", "elseif", "escaped_character", "expr", "quoted_word", "simple_word", "unpack", "variable_substitution"
+)
+
+namespace <- (namespace) => uast(
+    type: "Namespace",
+    roles: "Module"
+)
+
+procedure <- (procedure) => uast(
+    token: "self",
+    type: "Synthetic",
+    children: "arguments", "array_index", "braced_word", "command_substitution", "escaped_character", "quoted_word", "simple_word", "unpack", "variable_substitution"
+)
+
+quoted_word <- (quoted_word) => uast(
+    type: "Synthetic"
+)
+
+regexp <- (regexp) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+set <- (set) => uast(
+    type: "Set"
+)
+
+source_file <- (source_file) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+ternary_expr <- (ternary_expr) => uast(
+    type: "Synthetic"
+)
+
+try <- (try) => uast(
+    token: "self",
+    type: "Try",
+    roles: "Try"
+)
+
+unary_expr <- (unary_expr) => uast(
+    type: "Synthetic"
+)
+
+variable_substitution <- (variable_substitution) => uast(
+    token: "self",
+    type: "Variable",
+    roles: "Variable", "Declaration"
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+)
+
+word_list <- (word_list) => uast(
+    token: "self",
+    type: "List"
+)
+
+catch <- (catch) => uast(
+    type: "Catch",
+    roles: "Catch"
+)
+
+comment <- (comment) => uast(
+    token: "self",
+    type: "Comment",
+    roles: "Comment"
+)
+
+else <- (else) => uast(
+    type: "Synthetic"
+)
+
+elseif <- (elseif) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+eq <- (eq) => uast(
+    type: "Synthetic"
+)
+
+error <- (error) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+escaped_character <- (escaped_character) => uast(
+    type: "Synthetic"
+)
+
+expr <- (expr) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+finally <- (finally) => uast(
+    type: "Finally",
+    roles: "Finally"
+)
+
+foreach <- (foreach) => uast(
+    token: "self",
+    type: "Loop",
+    roles: "Loop"
+)
+
+global <- (global) => uast(
+    type: "Synthetic"
+)
+
+if <- (if) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+in <- (in) => uast(
+    type: "Synthetic"
+)
+
+namespace <- (namespace) => uast(
+    token: "self",
+    type: "Namespace",
+    roles: "Module"
+)
+
+ne <- (ne) => uast(
+    type: "Synthetic"
+)
+
+ni <- (ni) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+number <- (number) => uast(
+    type: "Synthetic"
+)
+
+on <- (on) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+proc <- (proc) => uast(
+    type: "Synthetic"
+)
+
+regexp <- (regexp) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+set <- (set) => uast(
+    type: "Set"
+)
+
+simple_word <- (simple_word) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+try <- (try) => uast(
+    type: "Try",
+    roles: "Try"
+)
+
+unpack <- (unpack) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+)

@@ -18,7 +18,7 @@ COPY . .
 
 # Build the application with CGO disabled for better compatibility
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build \
-    -ldflags="-w -s -X gopkg.in/src-d/hercules.v10.BinaryGitHash=$(git rev-parse HEAD)" \
+    -ldflags="-w -s -X github.com/dmytrogajewski/hercules.BinaryGitHash=$(git rev-parse HEAD)" \
     -o hercules ./cmd/hercules
 
 # Final stage

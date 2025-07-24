@@ -1,0 +1,168 @@
+[language "ansible", extensions: ".yml", ".yaml"]
+
+alias <- (alias) => uast(
+    type: "Synthetic"
+)
+
+anchor <- (anchor) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+block_mapping <- (block_mapping) => uast(
+    type: "Block",
+    roles: "Body"
+)
+
+block_mapping_pair <- (block_mapping_pair) => uast(
+    token: "self",
+    type: "Block",
+    roles: "Body",
+    children: "block_node", "flow_node"
+)
+
+block_node <- (block_node) => uast(
+    type: "Block",
+    roles: "Body"
+)
+
+block_scalar <- (block_scalar) => uast(
+    token: "self",
+    type: "Block",
+    roles: "Body"
+)
+
+block_sequence <- (block_sequence) => uast(
+    type: "Block",
+    roles: "Body"
+)
+
+block_sequence_item <- (block_sequence_item) => uast(
+    token: "self",
+    type: "Block",
+    roles: "Body"
+)
+
+document <- (document) => uast(
+    type: "Synthetic"
+)
+
+double_quote_scalar <- (double_quote_scalar) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+flow_mapping <- (flow_mapping) => uast(
+    type: "Synthetic"
+)
+
+flow_node <- (flow_node) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+flow_pair <- (flow_pair) => uast(
+    type: "Synthetic",
+    children: "flow_node"
+)
+
+flow_sequence <- (flow_sequence) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+plain_scalar <- (plain_scalar) => uast(
+    type: "Synthetic"
+)
+
+reserved_directive <- (reserved_directive) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+single_quote_scalar <- (single_quote_scalar) => uast(
+    type: "Synthetic"
+)
+
+stream <- (stream) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+tag_directive <- (tag_directive) => uast(
+    type: "Synthetic"
+)
+
+yaml_directive <- (yaml_directive) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+alias_name <- (alias_name) => uast(
+    type: "Synthetic"
+)
+
+anchor_name <- (anchor_name) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+boolean_scalar <- (boolean_scalar) => uast(
+    type: "Synthetic"
+)
+
+comment <- (comment) => uast(
+    token: "self",
+    type: "Comment",
+    roles: "Comment"
+)
+
+directive_name <- (directive_name) => uast(
+    type: "Synthetic"
+)
+
+directive_parameter <- (directive_parameter) => uast(
+    token: "self",
+    type: "Parameter",
+    roles: "Parameter"
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic"
+)
+
+float_scalar <- (float_scalar) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+integer_scalar <- (integer_scalar) => uast(
+    type: "Synthetic"
+)
+
+null_scalar <- (null_scalar) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+string_scalar <- (string_scalar) => uast(
+    type: "Synthetic"
+)
+
+tag <- (tag) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+tag_handle <- (tag_handle) => uast(
+    type: "Synthetic"
+)
+
+tag_prefix <- (tag_prefix) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+yaml_version <- (yaml_version) => uast(
+    type: "Synthetic"
+)

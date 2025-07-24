@@ -1,0 +1,101 @@
+suite: basic-structure
+name: xml-basic-structure
+
+parse_cases:
+  - name: simple_element
+    input: |
+      <root>
+        <name>John</name>
+        <age>30</age>
+      </root>
+    output:
+      type: "File"
+      children:
+        - type: "Element"
+          roles: ["Element"]
+          props:
+            name: "root"
+          children:
+            - type: "Element"
+              roles: ["Element"]
+              props:
+                name: "name"
+              children:
+                - type: "Text"
+                  roles: ["Text"]
+                  token: "John"
+            - type: "Element"
+              roles: ["Element"]
+              props:
+                name: "age"
+              children:
+                - type: "Text"
+                  roles: ["Text"]
+                  token: "30"
+
+  - name: nested_element
+    input: |
+      <person>
+        <name>John</name>
+        <details>
+          <age>30</age>
+        </details>
+      </person>
+    output:
+      type: "File"
+      children:
+        - type: "Element"
+          roles: ["Element"]
+          props:
+            name: "person"
+          children:
+            - type: "Element"
+              roles: ["Element"]
+              props:
+                name: "name"
+              children:
+                - type: "Text"
+                  roles: ["Text"]
+                  token: "John"
+            - type: "Element"
+              roles: ["Element"]
+              props:
+                name: "details"
+              children:
+                - type: "Element"
+                  roles: ["Element"]
+                  props:
+                    name: "age"
+                  children:
+                    - type: "Text"
+                      roles: ["Text"]
+                      token: "30"
+
+query_cases:
+  - name: find_elements
+    input: |
+      <root>
+        <element1>value1</element1>
+        <element2>value2</element2>
+      </root>
+    query: "filter(.type == \"Element\")"
+    output:
+      results:
+        - type: "Element"
+          roles: ["Element"]
+          props:
+            name: "element1"
+        - type: "Element"
+          roles: ["Element"]
+          props:
+            name: "element2"
+
+  - name: find_element_names
+    input: |
+      <root>
+        <my_element>value</my_element>
+      </root>
+    query: "filter(.type == \"Element\") |> map(.name)"
+    output:
+      results:
+        - token: "my_element" 

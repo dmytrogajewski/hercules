@@ -1,0 +1,139 @@
+[language "gitignore", extensions: ".gitignore"]
+
+bracket_char_class <- (bracket_char_class) => uast(
+    type: "Class",
+    roles: "Class", "Declaration",
+    children: "alnum", "alpha", "blank", "cntrl", "digit", "graph", "lower", "print", "punct", "space", "upper", "xdigit"
+)
+
+bracket_char_escaped <- (bracket_char_escaped) => uast(
+    token: "self",
+    roles: "Declaration",
+    type: "Class"
+)
+
+bracket_expr <- (bracket_expr) => uast(
+    type: "Synthetic"
+)
+
+bracket_range <- (bracket_range) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+document <- (document) => uast(
+    type: "Synthetic"
+)
+
+pattern <- (pattern) => uast(
+    token: "self",
+    type: "Pattern",
+    roles: "Pattern",
+    children: "directory_separator", "directory_separator_escaped"
+)
+
+pattern_char_escaped <- (pattern_char_escaped) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+)
+
+alnum <- (alnum) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+alpha <- (alpha) => uast(
+    type: "Synthetic"
+)
+
+blank <- (blank) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+bracket_char <- (bracket_char) => uast(
+    type: "Synthetic"
+)
+
+bracket_negation <- (bracket_negation) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+cntrl <- (cntrl) => uast(
+    type: "Synthetic"
+)
+
+comment <- (comment) => uast(
+    token: "self",
+    type: "Comment",
+    roles: "Comment"
+)
+
+digit <- (digit) => uast(
+    type: "Synthetic"
+)
+
+directory_separator <- (directory_separator) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+directory_separator_escaped <- (directory_separator_escaped) => uast(
+    type: "Synthetic"
+)
+
+graph <- (graph) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+lower <- (lower) => uast(
+    type: "Synthetic"
+)
+
+negation <- (negation) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+pattern_char <- (pattern_char) => uast(
+    type: "Pattern",
+    roles: "Pattern"
+)
+
+print <- (print) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+punct <- (punct) => uast(
+    type: "Synthetic"
+)
+
+space <- (space) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+upper <- (upper) => uast(
+    type: "Synthetic"
+)
+
+wildcard_char_single <- (wildcard_char_single) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+wildcard_chars <- (wildcard_chars) => uast(
+    type: "Synthetic"
+)
+
+wildcard_chars_allow_slash <- (wildcard_chars_allow_slash) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+xdigit <- (xdigit) => uast(
+    type: "Synthetic"
+)

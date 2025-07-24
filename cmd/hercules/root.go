@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -18,13 +19,19 @@ import (
 	"unicode"
 
 	"github.com/Masterminds/sprig"
+	"github.com/dmytrogajewski/hercules"
+	"github.com/dmytrogajewski/hercules/internal/pkg/config"
+	"github.com/dmytrogajewski/hercules/internal/app/core"
+	"github.com/dmytrogajewski/hercules/api/proto/pb"
+	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/uast"
 	"github.com/gogo/protobuf/proto"
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
-	"golang.org/x/crypto/ssh/terminal"
+	"github.com/spf13/viper"
+	"golang.org/x/term"
 	progress "gopkg.in/cheggaaa/pb.v1"
-	"gopkg.in/src-d/go-billy-siva.v4"
+	sivafs "gopkg.in/src-d/go-billy-siva.v4"
 	"gopkg.in/src-d/go-billy.v4/memfs"
 	"gopkg.in/src-d/go-billy.v4/osfs"
 	"gopkg.in/src-d/go-git.v4"
@@ -34,8 +41,7 @@ import (
 	"gopkg.in/src-d/go-git.v4/storage"
 	"gopkg.in/src-d/go-git.v4/storage/filesystem"
 	"gopkg.in/src-d/go-git.v4/storage/memory"
-	"gopkg.in/src-d/hercules.v10"
-	"gopkg.in/src-d/hercules.v10/internal/pb"
+	"gopkg.in/yaml.v2"
 )
 
 // oneLineWriter splits the output data by lines and outputs one on top of another using '\r'.
@@ -76,7 +82,7 @@ func loadRepository(uri string, cachePath string, disableStatus bool, sshIdentit
 			backend = filesystem.NewStorage(osfs.New(cachePath), cache.NewObjectLRUDefault())
 			_, err = os.Stat(cachePath)
 			if !os.IsNotExist(err) {
-				log.Printf("warning: deleted %s\n", cachePath)
+				core.GetLogger().Warnf("warning: deleted %s\n", cachePath)
 				os.RemoveAll(cachePath)
 			}
 		} else {
@@ -91,7 +97,7 @@ func loadRepository(uri string, cachePath string, disableStatus bool, sshIdentit
 		if sshIdentity != "" {
 			auth, err := loadSSHIdentity(sshIdentity)
 			if err != nil {
-				log.Printf("Failed loading SSH Identity %s\n", err)
+				core.GetLogger().Warnf("Failed loading SSH Identity %s\n", err)
 			}
 			cloneOptions.Auth = auth
 		}
@@ -158,9 +164,19 @@ func loadPlugins() {
 	for path := range pluginFlags {
 		_, err := plugin.Open(path)
 		if err != nil {
-			log.Printf("Failed to load plugin from %s %s\n", path, err)
+			core.GetLogger().Warnf("Failed to load plugin from %s %s\n", path, err)
 		}
 	}
+}
+
+// Helper: returns true if all dependencies are satisfied by the provided set
+func dependenciesSatisfied(requires []string, provided map[string]struct{}) bool {
+	for _, dep := range requires {
+		if _, ok := provided[dep]; !ok {
+			return false
+		}
+	}
+	return true
 }
 
 // rootCmd represents the base command when called without any subcommands
@@ -173,6 +189,7 @@ or several analysis targets. The list of the available targets is printed in --h
 targets can be added using the --plugin system.`,
 	Args: cobra.RangeArgs(1, 2),
 	Run: func(cmd *cobra.Command, args []string) {
+		leaves := hercules.Registry.GetLeaves()
 		flags := cmd.Flags()
 		getBool := func(name string) bool {
 			value, err := flags.GetBool(name)
@@ -192,9 +209,13 @@ targets can be added using the --plugin system.`,
 		commitsFile := getString("commits")
 		head := getBool("head")
 		protobuf := getBool("pb")
+		json := getBool("json")
+		yamlFlag := getBool("yaml")
 		profile := getBool("profile")
 		disableStatus := getBool("quiet")
 		sshIdentity := getString("ssh-identity")
+		allAnalyses := getBool("all")
+		uastProvider := getString("uast-provider")
 
 		if profile {
 			go func() {
@@ -218,6 +239,10 @@ targets can be added using the --plugin system.`,
 		repository := loadRepository(uri, cachePath, disableStatus, sshIdentity)
 
 		// core logic
+		if cmdlineDeployed == nil {
+			core.GetLogger().Infof("[DEBUG] cmdlineDeployed was nil, initializing empty map.")
+			cmdlineDeployed = make(map[string]*bool)
+		}
 		pipeline := hercules.NewPipeline(repository)
 		pipeline.SetFeaturesFromFlags()
 		var bar *progress.ProgressBar
@@ -258,19 +283,75 @@ targets can be added using the --plugin system.`,
 			log.Fatalf("failed to list the commits: %v", err)
 		}
 		cmdlineFacts[hercules.ConfigPipelineCommits] = commits
-		dryRun, _ := cmdlineFacts[hercules.ConfigPipelineDryRun].(bool)
-		var deployed []hercules.LeafPipelineItem
-		for name, valPtr := range cmdlineDeployed {
-			if *valPtr {
-				item := pipeline.DeployItem(hercules.Registry.Summon(name)[0])
-				if !dryRun {
-					deployed = append(deployed, item.(hercules.LeafPipelineItem))
+		if uastProvider != "" {
+			cmdlineFacts[uast.ConfigUASTProvider] = uastProvider
+		}
+		if allAnalyses {
+			repository := loadRepository(uri, cachePath, disableStatus, sshIdentity)
+			// Deploy all leaves and all plumbing items in a single pipeline
+			hercules.Registry = core.NewPipelineItemRegistry()
+			cmdlineDeployed := map[string]*bool{}
+			b := true
+			for _, leaf := range leaves {
+				cmdlineDeployed[leaf.Name()] = &b
+			}
+			pipeline := hercules.NewPipeline(repository)
+			pipeline.SetFeaturesFromFlags()
+			// Deploy all plumbing items
+			for _, item := range hercules.Registry.GetPlumbingItems() {
+				pipeline.DeployItem(item)
+			}
+			// Deploy all leaves
+			for _, leaf := range leaves {
+				pipeline.DeployItem(leaf)
+			}
+			err := pipeline.Initialize(cmdlineFacts)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "[ERROR] Failed to initialize pipeline for --all: %v\n", err)
+				return
+			}
+			results, err := pipeline.Run(commits)
+			if err != nil {
+				fmt.Fprintf(os.Stderr, "[ERROR] Failed to run pipeline for --all: %v\n", err)
+				return
+			}
+			for _, leaf := range leaves {
+				result := results[leaf]
+				fmt.Printf("%s:\n", leaf.Name())
+				if err := leaf.Serialize(result, false, os.Stdout); err != nil {
+					panic(err)
 				}
 			}
+			return
 		}
+
+		var deployed []hercules.LeafPipelineItem
+		// Handle individual analysis flags
+		for _, leaf := range leaves {
+			flagName := leaf.Flag()
+			if getBool(flagName) {
+				b := true
+				cmdlineDeployed[leaf.Name()] = &b
+				pipeline.DeployItem(leaf)
+			}
+		}
+		// Debug: Print pipeline items and their dependencies
+		// fmt.Println("[DEBUG] Pipeline items to be initialized:")
+		// for _, item := range pipeline.Items() {
+		// 	fmt.Printf("  - %s\n", item.Name())
+		// 	fmt.Printf("    Provides: %v\n", item.Provides())
+		// 	fmt.Printf("    Requires: %v\n", item.Requires())
+		// }
 		err = pipeline.Initialize(cmdlineFacts)
 		if err != nil {
 			log.Fatal(err)
+		}
+		// After initialization, collect deployed leaves
+		deployed = nil
+		for _, item := range pipeline.Items() {
+			if leaf, ok := item.(hercules.LeafPipelineItem); ok {
+				deployed = append(deployed, leaf)
+			}
 		}
 		results, err := pipeline.Run(commits)
 		if err != nil {
@@ -279,14 +360,24 @@ targets can be added using the --plugin system.`,
 		if !disableStatus {
 			fmt.Fprint(os.Stderr, "\033[2K\r")
 			// if not a terminal, the user will not see the output, so show the status
-			if !terminal.IsTerminal(int(os.Stdout.Fd())) {
+			if !term.IsTerminal(int(os.Stdout.Fd())) {
 				fmt.Fprint(os.Stderr, "writing...\r")
 			}
 		}
-		if !protobuf {
-			printResults(uri, deployed, results)
-		} else {
+		// Output format precedence: pb > json > yaml (default)
+		if protobuf && (json || yamlFlag) {
+			log.Fatal("--pb cannot be combined with --json or --yaml")
+		}
+		if json && yamlFlag {
+			log.Fatal("--json and --yaml cannot be used together")
+		}
+		if protobuf {
 			protobufResults(uri, deployed, results)
+		} else if json {
+			viper.Set("hercules.json_output", true)
+			jsonResults(uri, deployed, results)
+		} else {
+			printResults(uri, deployed, results)
 		}
 	},
 }
@@ -305,8 +396,43 @@ func printResults(
 	fmt.Println("  commits:", commonResult.CommitsNumber)
 	fmt.Println("  run_time:", commonResult.RunTime.Nanoseconds()/1e6)
 
+	// fmt.Fprintln(os.Stderr, "[DEBUG] Results map keys:")
+	// for k := range results {
+	// 	if k == nil {
+	// 		fmt.Fprintln(os.Stderr, "  <nil>")
+	// 	} else {
+	// 		fmt.Fprintln(os.Stderr, "  ", k.Name())
+	// 	}
+	// }
+	// fmt.Fprintln(os.Stderr, "[DEBUG] Deployed leaf names:")
+	// for _, item := range deployed {
+	// 	fmt.Fprintln(os.Stderr, "  ", item.Name())
+	// }
+	// os.Stderr.Sync()
+	// fmt.Fprintf(os.Stderr, "[DEBUG] Results map len: %d\n", len(results))
+	// fmt.Fprintf(os.Stderr, "[DEBUG] Deployed slice len: %d\n", len(deployed))
+	if len(results) == 0 {
+		// fmt.Fprintln(os.Stderr, "[DEBUG] Results map is empty!")
+		panic("Results map is empty after pipeline.Run; check pipeline deployment and run logic.")
+	}
+	// Build a map from leaf name to result
+	leafResults := make(map[string]interface{})
+	for k, v := range results {
+		if k == nil {
+			continue
+		}
+		leafResults[k.Name()] = v
+	}
+	// fmt.Fprintln(os.Stderr, "[DEBUG] leafResults map keys:")
+	// for k := range leafResults {
+	// 	fmt.Fprintln(os.Stderr, "  ", k)
+	// }
 	for _, item := range deployed {
-		result := results[item]
+		result, ok := leafResults[item.Name()]
+		if !ok {
+			fmt.Fprintf(os.Stderr, "[WARNING] No result for analysis %s\n", item.Name())
+			continue
+		}
 		fmt.Printf("%s:\n", item.Name())
 		if err := item.Serialize(result, false, os.Stdout); err != nil {
 			panic(err)
@@ -344,6 +470,66 @@ func protobufResults(
 		panic(err)
 	}
 	os.Stdout.Write(serialized)
+}
+
+func yamlToJSONCompatible(v interface{}) interface{} {
+	// Recursively convert map[interface{}]interface{} to map[string]interface{}
+	switch x := v.(type) {
+	case map[interface{}]interface{}:
+		m2 := make(map[string]interface{}, len(x))
+		for k, v2 := range x {
+			m2[fmt.Sprint(k)] = yamlToJSONCompatible(v2)
+		}
+		return m2
+	case []interface{}:
+		for i, v2 := range x {
+			x[i] = yamlToJSONCompatible(v2)
+		}
+		return x
+	default:
+		return x
+	}
+}
+
+func jsonResults(
+	uri string, deployed []hercules.LeafPipelineItem,
+	results map[hercules.LeafPipelineItem]interface{}) {
+
+	commonResult := results[nil].(*hercules.CommonAnalysisResult)
+
+	// Create the main JSON structure
+	output := map[string]interface{}{
+		"hercules": map[string]interface{}{
+			"version":         hercules.BinaryVersion,
+			"hash":            hercules.BinaryGitHash,
+			"repository":      uri,
+			"begin_unix_time": commonResult.BeginTime,
+			"end_unix_time":   commonResult.EndTime,
+			"commits":         commonResult.CommitsNumber,
+			"run_time":        commonResult.RunTime.Nanoseconds() / 1e6,
+		},
+	}
+
+	// Add results for each deployed item
+	for _, item := range deployed {
+		result := results[item]
+		buffer := &bytes.Buffer{}
+		if err := item.Serialize(result, false, buffer); err != nil {
+			panic(err)
+		}
+		var yamlData interface{}
+		if err := yaml.Unmarshal(buffer.Bytes(), &yamlData); err != nil {
+			output[item.Name()] = buffer.String()
+		} else {
+			output[item.Name()] = yamlToJSONCompatible(yamlData)
+		}
+	}
+
+	jsonData, err := json.MarshalIndent(output, "", "  ")
+	if err != nil {
+		panic(err)
+	}
+	os.Stdout.Write(jsonData)
 }
 
 // trimRightSpace removes the trailing whitespace characters.
@@ -497,24 +683,71 @@ func init() {
 	rootFlags.Bool("first-parent", false, "Follow only the first parent in the commit history - "+
 		"\"git log --first-parent\".")
 	rootFlags.Bool("pb", false, "The output format will be Protocol Buffers instead of YAML.")
-	rootFlags.Bool("quiet", !terminal.IsTerminal(int(os.Stdin.Fd())),
+	rootFlags.Bool("json", false, "The output format will be JSON instead of YAML.")
+	rootFlags.Bool("yaml", false, "The output format will be YAML (default, mutually exclusive with --json and --pb).")
+	rootFlags.Bool("quiet", !term.IsTerminal(int(os.Stdin.Fd())),
 		"Do not print status updates to stderr.")
 	rootFlags.Bool("profile", false, "Collect the profile to hercules.pprof.")
+	rootFlags.Bool("all", false, "Run all available analyses (mutually exclusive with individual analysis flags).")
 	rootFlags.String("ssh-identity", "", "Path to SSH identity file (e.g., ~/.ssh/id_rsa) to clone from an SSH remote.")
 	err = rootCmd.MarkFlagFilename("ssh-identity")
 	if err != nil {
 		panic(err)
 	}
 	hercules.PathifyFlagValue(rootFlags.Lookup("ssh-identity"))
+	rootFlags.String("log-file", "", "Path to log file. If not set, logging is disabled.")
+	rootFlags.String("log-format", "plain", "Log format: 'plain' or 'json'. Default is 'plain'.")
 	cmdlineFacts, cmdlineDeployed = hercules.Registry.AddFlags(rootFlags)
 	rootCmd.SetUsageFunc(formatUsage)
 	rootCmd.AddCommand(versionCmd)
 	versionCmd.SetUsageFunc(versionCmd.UsageFunc())
 }
 
+func selectLogger(serverMode bool, logFile string) core.Logger {
+	if serverMode {
+		return core.NewSlogLogger(os.Stdout)
+	} else if logFile != "" {
+		f, err := os.OpenFile(logFile, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+		if err == nil {
+			return core.NewFileLogger(f)
+		} else {
+			return &core.NoOpLogger{}
+		}
+	} else {
+		return &core.NoOpLogger{}
+	}
+}
+
 func main() {
+	// Load config
+	cfg, err := config.LoadConfig("")
+	if err != nil {
+		fmt.Fprintln(os.Stderr, "Failed to load config:", err)
+		os.Exit(1)
+	}
+
+	// Detect server mode
+	serverMode := cfg.GRPC.Enabled || cfg.Server.Enabled
+
+	// Parse --log-file flag
+	logFile := ""
+	for i, arg := range os.Args {
+		if arg == "--log-file" && i+1 < len(os.Args) {
+			logFile = os.Args[i+1]
+		}
+	}
+
+	// Debug output
+	fmt.Fprintf(os.Stderr, "DEBUG: serverMode=%v, logFile=%q\n", serverMode, logFile)
+
+	logger := selectLogger(serverMode, logFile)
+	core.SetLogger(logger)
+
+	// Debug output
+	fmt.Fprintf(os.Stderr, "DEBUG: selected logger type: %T\n", logger)
+
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintln(os.Stderr, err)
+		logger.Error(os.Stderr, err)
 		os.Exit(1)
 	}
 }

@@ -1,0 +1,116 @@
+suite: basic-functions
+name: rust-basic-functions
+
+parse_cases:
+  - name: simple_function
+    input: |
+      fn main() {
+          println!("Hello, World!");
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "main"
+          children:
+            - type: "ParameterList"
+            - type: "Block"
+
+  - name: function_with_params
+    input: |
+      fn add(a: i32, b: i32) -> i32 {
+          a + b
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "add"
+          children:
+            - type: "ParameterList"
+              children:
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "a"
+                    - type: "Type"
+                      roles: ["Type"]
+                      token: "i32"
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "b"
+                    - type: "Type"
+                      roles: ["Type"]
+                      token: "i32"
+            - type: "Type"
+              roles: ["Type"]
+              token: "i32"
+            - type: "Block"
+
+query_cases:
+  - name: find_functions
+    input: |
+      fn main() {
+          println!("Hello");
+      }
+      fn helper() -> String {
+          "helper".to_string()
+      }
+    query: "filter(.type == \"Function\")"
+    output:
+      results:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "main"
+          children:
+            - type: "ParameterList"
+            - type: "Block"
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "helper"
+          children:
+            - type: "ParameterList"
+            - type: "Type"
+              roles: ["Type"]
+              token: "String"
+            - type: "Block"
+              children:
+                - type: "Call"
+                  roles: ["Call"]
+                  children:
+                    - type: "Field"
+                      roles: ["Member"]
+                      children:
+                        - type: "Literal"
+                          roles: ["Literal"]
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "to_string"
+                    - type: "ArgumentList"
+
+  - name: find_function_names
+    input: |
+      fn main() {
+          println!("Hello");
+      }
+    query: "filter(.type == \"Function\")"
+    output:
+      results:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          props:
+            name: "main"
+          children:
+            - type: "ParameterList"
+            - type: "Block" 

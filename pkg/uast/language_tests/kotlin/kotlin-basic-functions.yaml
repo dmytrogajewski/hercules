@@ -1,0 +1,137 @@
+suite: basic-functions
+name: kotlin-basic-functions
+
+parse_cases:
+  - name: simple_function
+    input: |
+      fun hello(): String {
+          return "Hello, World!"
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "hello"
+            - type: "ParameterList"
+            - type: "Type"
+              roles: ["Type"]
+              children:
+                - type: "Identifier"
+                  roles: ["Name"]
+                  token: "String"
+            - type: "Block"
+              children:
+                - type: "StatementList"
+                  children:
+                    - type: "Return"
+                      roles: ["Return"]
+                      children:
+                        - type: "Literal"
+                          roles: ["Literal"]
+
+  - name: function_with_params
+    input: |
+      fun add(a: Int, b: Int): Int {
+          return a + b
+      }
+    output:
+      type: "File"
+      children:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "add"
+            - type: "ParameterList"
+              children:
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "a"
+                    - type: "Type"
+                      roles: ["Type"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "Int"
+                - type: "Parameter"
+                  roles: ["Parameter", "Declaration"]
+                  children:
+                    - type: "Identifier"
+                      roles: ["Name"]
+                      token: "b"
+                    - type: "Type"
+                      roles: ["Type"]
+                      children:
+                        - type: "Identifier"
+                          roles: ["Name"]
+                          token: "Int"
+            - type: "Type"
+              roles: ["Type"]
+              children:
+                - type: "Identifier"
+                  roles: ["Name"]
+                  token: "Int"
+            - type: "Block"
+              children:
+                - type: "StatementList"
+                  children:
+                    - type: "Return"
+                      roles: ["Return"]
+                      children:
+                        - type: "BinaryExpression"
+                          roles: ["Binary"]
+                          children:
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "a"
+                            - type: "Identifier"
+                              roles: ["Name"]
+                              token: "b"
+
+query_cases:
+  - name: find_functions
+    input: |
+      fun func1() {}
+      fun func2() {}
+    query: "filter(.type == \"Function\")"
+    output:
+      results:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "func1"
+            - type: "ParameterList"
+            - type: "Block"
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "func2"
+            - type: "ParameterList"
+            - type: "Block"
+
+  - name: find_function_names
+    input: |
+      fun myFunction() {}
+    query: "filter(.type == \"Function\")"
+    output:
+      results:
+        - type: "Function"
+          roles: ["Function", "Declaration"]
+          children:
+            - type: "Identifier"
+              roles: ["Name"]
+              token: "myFunction"
+            - type: "ParameterList"
+            - type: "Block" 
