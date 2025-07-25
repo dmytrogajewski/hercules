@@ -267,23 +267,25 @@ func (h *HalsteadAnalyzer) AnalyzeWithConfig(root *node.Node, config HalsteadCon
 
 // findFunctions finds all function nodes in the AST
 func (h *HalsteadAnalyzer) findFunctions(root *node.Node) []*node.Node {
-	var functions []*node.Node
-
 	if root == nil {
+		return []*node.Node{}
+	}
+
+	// Use DSL to find all function nodes
+	functionNodes, err := root.FindDSL("filter(.type == \"Function\" || .type == \"Method\" || .roles has \"Function\" || .roles has \"Declaration\")")
+	if err != nil {
+		// Fallback to manual traversal if DSL fails
+		var functions []*node.Node
+		if h.isFunctionNode(root) {
+			functions = append(functions, root)
+		}
+		for _, child := range root.Children {
+			functions = append(functions, h.findFunctions(child)...)
+		}
 		return functions
 	}
 
-	// Check if current node is a function
-	if h.isFunctionNode(root) {
-		functions = append(functions, root)
-	}
-
-	// Recursively search children
-	for _, child := range root.Children {
-		functions = append(functions, h.findFunctions(child)...)
-	}
-
-	return functions
+	return functionNodes
 }
 
 // calculateFunctionHalsteadMetrics calculates Halstead metrics for a single function

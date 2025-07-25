@@ -53049,9 +53049,15 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(short_var_declaration)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Variable",
 					Token: "self",
-					
+					Roles: []string{
+
+						"Variable",
+
+						"Declaration",
+
+					},
 					Children: []string{
 
 						"expression_list",
@@ -53397,9 +53403,15 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(var_declaration)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Variable",
 					
-					
+					Roles: []string{
+
+						"Variable",
+
+						"Declaration",
+
+					},
 					
 					
 				},
@@ -53411,9 +53423,15 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(var_spec)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Synthetic",
+					Type: "Variable",
 					Token: "self",
-					
+					Roles: []string{
+
+						"Variable",
+
+						"Declaration",
+
+					},
 					Children: []string{
 
 						"_type",
@@ -184411,9 +184429,15 @@ func newgoPatternMatcher() *goPatternMatcher {
 			Pattern: "(short_var_declaration)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Variable",
 				Token: "self",
-				
+				Roles: []string{
+
+					"Variable",
+
+					"Declaration",
+
+				},
 				Children: []string{
 
 					"expression_list",
@@ -184759,9 +184783,15 @@ func newgoPatternMatcher() *goPatternMatcher {
 			Pattern: "(var_declaration)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Variable",
 				
-				
+				Roles: []string{
+
+					"Variable",
+
+					"Declaration",
+
+				},
 				
 				
 			},
@@ -184773,9 +184803,15 @@ func newgoPatternMatcher() *goPatternMatcher {
 			Pattern: "(var_spec)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Synthetic",
+				Type: "Variable",
 				Token: "self",
-				
+				Roles: []string{
+
+					"Variable",
+
+					"Declaration",
+
+				},
 				Children: []string{
 
 					"_type",

@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/analyze"
+	"github.com/dmytrogajewski/hercules/pkg/analyzers/cohesion"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/complexity"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/halstead"
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
@@ -58,6 +59,7 @@ func (c *AnalyzeCommand) newService() *Service {
 		availableAnalyzers: []analyze.CodeAnalyzer{
 			&complexity.ComplexityAnalyzer{},
 			&halstead.HalsteadAnalyzer{},
+			&cohesion.CohesionAnalyzer{},
 		},
 	}
 }
