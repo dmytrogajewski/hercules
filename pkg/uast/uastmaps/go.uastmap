@@ -380,7 +380,8 @@ send_statement <- (send_statement) => uast(
 
 short_var_declaration <- (short_var_declaration) => uast(
     token: "self",
-    type: "Synthetic",
+    type: "Variable",
+    roles: "Variable", "Declaration",
     children: "expression_list"
 )
 
@@ -481,12 +482,14 @@ unary_expression <- (unary_expression) => uast(
 )
 
 var_declaration <- (var_declaration) => uast(
-    type: "Synthetic"
+    type: "Variable",
+    roles: "Variable", "Declaration"
 )
 
 var_spec <- (var_spec) => uast(
     token: "self",
-    type: "Synthetic",
+    type: "Variable",
+    roles: "Variable", "Declaration",
     children: "_type", "expression_list", "identifier"
 )
 
