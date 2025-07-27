@@ -144,7 +144,7 @@ func printStats(node *node.Node) {
 
 	iter := node.PreOrder()
 	for n := range iter {
-		stats[n.Type]++
+		stats[string(n.Type)]++
 		totalNodes++
 	}
 

@@ -273,7 +273,7 @@ func BenchmarkMemoryUsage(b *testing.B) {
 				runtime.GC()
 				var m1, m2 runtime.MemStats
 				runtime.ReadMemStats(&m1)
-				_, err := node.FindDSL("filter(.type == \"FunctionDecl\")")
+				_, err := node.FindDSL("rfilter(.type == \"FunctionDecl\")")
 				if err != nil {
 					b.Fatalf("Query failed: %v", err)
 				}

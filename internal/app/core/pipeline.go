@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/dmytrogajewski/hercules/api/proto/pb"
-	"github.com/dmytrogajewski/hercules/internal/pkg/toposort"
+	"github.com/dmytrogajewski/hercules/pkg/toposort"
 	"github.com/pkg/errors"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"

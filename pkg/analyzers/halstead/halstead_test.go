@@ -7,24 +7,31 @@ import (
 )
 
 func TestHalsteadAnalyzer_Basic(t *testing.T) {
-	analyzer := &HalsteadAnalyzer{}
+	analyzer := NewHalsteadAnalyzer()
 
 	// Test empty result
 	result, err := analyzer.Analyze(nil)
+	if err == nil {
+		t.Fatalf("Expected error for nil root, got nil")
+	}
+
+	// Test with empty root
+	emptyNode := node.New("empty", "File", "", nil, nil, nil)
+	result, err = analyzer.Analyze(emptyNode)
 	if err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}
 
-	if result["file_count"] != 0 {
-		t.Errorf("Expected file_count 0, got %v", result["file_count"])
+	if result["total_functions"] != 0 {
+		t.Errorf("Expected total_functions 0, got %v", result["total_functions"])
 	}
 }
 
 func TestHalsteadAnalyzer_SimpleFunction(t *testing.T) {
-	analyzer := &HalsteadAnalyzer{}
+	analyzer := NewHalsteadAnalyzer()
 
 	// Create a simple function node
-	functionNode := node.New("func1", "FunctionDecl", "", []node.Role{node.RoleFunction}, nil, nil)
+	functionNode := node.New("func1", "Function", "", []node.Role{node.RoleFunction, node.RoleDeclaration}, nil, map[string]string{"name": "simpleFunction"})
 	nameNode := node.New("name1", "Identifier", "simpleFunction", []node.Role{node.RoleName}, nil, map[string]string{"name": "simpleFunction"})
 
 	// Add some basic operators and operands
@@ -42,32 +49,36 @@ func TestHalsteadAnalyzer_SimpleFunction(t *testing.T) {
 		t.Fatalf("Expected no error, got %v", err)
 	}
 
-	if result["file_count"] != 1 {
-		t.Errorf("Expected file_count 1, got %v", result["file_count"])
+	if result["total_functions"] != 1 {
+		t.Errorf("Expected total_functions 1, got %v", result["total_functions"])
 	}
 
-	functions := result["functions"].(map[string]*FunctionHalsteadMetrics)
+	functions := result["functions"].([]map[string]interface{})
 	if len(functions) != 1 {
 		t.Errorf("Expected 1 function, got %d", len(functions))
 	}
 
-	funcMetrics := functions["simpleFunction"]
-	if funcMetrics == nil {
-		t.Fatal("Expected function metrics for 'simpleFunction'")
+	funcMetrics := functions[0]
+	if funcMetrics["name"] != "simpleFunction" {
+		t.Errorf("Expected function name 'simpleFunction', got %v", funcMetrics["name"])
 	}
 
 	// Check basic metrics
-	if funcMetrics.DistinctOperators < 1 {
-		t.Errorf("Expected at least 1 distinct operator, got %d", funcMetrics.DistinctOperators)
+	if volume, ok := funcMetrics["volume"].(float64); !ok || volume <= 0 {
+		t.Errorf("Expected positive volume, got %v", volume)
 	}
 
-	if funcMetrics.DistinctOperands < 2 {
-		t.Errorf("Expected at least 2 distinct operands, got %d", funcMetrics.DistinctOperands)
+	if difficulty, ok := funcMetrics["difficulty"].(float64); !ok || difficulty <= 0 {
+		t.Errorf("Expected positive difficulty, got %v", difficulty)
+	}
+
+	if effort, ok := funcMetrics["effort"].(float64); !ok || effort <= 0 {
+		t.Errorf("Expected positive effort, got %v", effort)
 	}
 }
 
 func TestHalsteadAnalyzer_CalculateMetrics(t *testing.T) {
-	analyzer := &HalsteadAnalyzer{}
+	analyzer := NewHalsteadAnalyzer()
 
 	// Test metrics calculation with known values
 	metrics := &FunctionHalsteadMetrics{
@@ -107,7 +118,7 @@ func TestHalsteadAnalyzer_CalculateMetrics(t *testing.T) {
 }
 
 func TestHalsteadAnalyzer_Thresholds(t *testing.T) {
-	analyzer := &HalsteadAnalyzer{}
+	analyzer := NewHalsteadAnalyzer()
 	thresholds := analyzer.Thresholds()
 
 	// Check that thresholds exist
@@ -149,20 +160,61 @@ func TestHalsteadAnalyzer_Thresholds(t *testing.T) {
 	}
 }
 
-func TestHalsteadAnalyzer_Configuration(t *testing.T) {
-	analyzer := &HalsteadAnalyzer{}
-	config := analyzer.DefaultConfig()
+func TestHalsteadAnalyzer_MessageGeneration(t *testing.T) {
+	analyzer := NewHalsteadAnalyzer()
 
-	// Check default configuration
-	if !config.IncludeFunctionBreakdown {
-		t.Error("Expected IncludeFunctionBreakdown to be true by default")
+	// Test excellent complexity
+	message := analyzer.getHalsteadMessage(50, 3, 500)
+	if message == "" {
+		t.Error("Expected non-empty message for excellent complexity")
 	}
 
-	if !config.IncludeTimeEstimate {
-		t.Error("Expected IncludeTimeEstimate to be true by default")
+	// Test high complexity
+	message = analyzer.getHalsteadMessage(6000, 35, 60000)
+	if message == "" {
+		t.Error("Expected non-empty message for high complexity")
+	}
+}
+
+func TestHalsteadAnalyzer_OperatorOperandDetection(t *testing.T) {
+	analyzer := NewHalsteadAnalyzer()
+
+	// Test operator detection
+	operatorNode := node.New("op", "BinaryOp", "+", []node.Role{node.RoleOperator}, nil, map[string]string{"operator": "+"})
+	if !analyzer.isOperator(operatorNode) {
+		t.Error("Expected binary operator to be detected as operator")
 	}
 
-	if !config.IncludeBugEstimate {
-		t.Error("Expected IncludeBugEstimate to be true by default")
+	// Test operand detection
+	operandNode := node.New("var", "Identifier", "x", []node.Role{node.RoleVariable}, nil, map[string]string{"name": "x"})
+	if !analyzer.isOperand(operandNode) {
+		t.Error("Expected identifier to be detected as operand")
+	}
+
+	// Test literal operand
+	literalNode := node.New("lit", "Literal", "42", []node.Role{node.RoleLiteral}, nil, map[string]string{"value": "42"})
+	if !analyzer.isOperand(literalNode) {
+		t.Error("Expected literal to be detected as operand")
+	}
+}
+
+func TestHalsteadAnalyzer_FunctionNameExtraction(t *testing.T) {
+	analyzer := NewHalsteadAnalyzer()
+
+	// Test function with name in properties
+	functionNode := node.New("func", "FunctionDecl", "", []node.Role{node.RoleFunction}, nil, map[string]string{"name": "testFunction"})
+	name := analyzer.extractFunctionName(functionNode)
+	if name != "testFunction" {
+		t.Errorf("Expected function name 'testFunction', got '%s'", name)
+	}
+
+	// Test function with name in child identifier
+	functionNode = node.New("func", "FunctionDecl", "", []node.Role{node.RoleFunction}, nil, nil)
+	nameNode := node.New("name", "Identifier", "childFunction", []node.Role{node.RoleName}, nil, map[string]string{"name": "childFunction"})
+	functionNode.AddChild(nameNode)
+
+	name = analyzer.extractFunctionName(functionNode)
+	if name != "childFunction" {
+		t.Errorf("Expected function name 'childFunction', got '%s'", name)
 	}
 }

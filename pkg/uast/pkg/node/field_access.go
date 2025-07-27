@@ -262,7 +262,7 @@ func (p *TypeFieldProcessor) Process(node *Node, remainingFields []string) []*No
 	if len(remainingFields) > 0 {
 		return getNestedFieldValue(node.Type, remainingFields)
 	}
-	return []*Node{NewLiteralNode(node.Type)}
+	return []*Node{NewLiteralNode(string(node.Type))}
 }
 
 type PropsFieldProcessor struct{}

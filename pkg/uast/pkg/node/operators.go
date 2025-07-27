@@ -1,8 +1,6 @@
 package node
 
-import (
-	"fmt"
-)
+import "fmt"
 
 // OperatorRegistry manages operator handlers
 type OperatorRegistry struct {
@@ -60,8 +58,8 @@ func lowerLogicalOr(n *CallNode) (QueryFunc, error) {
 		for _, node := range nodes {
 			leftResult := leftFunc([]*Node{node})
 			rightResult := rightFunc([]*Node{node})
-			if (len(leftResult) > 0 && leftResult[0].Type == "Literal" && leftResult[0].Token == "true") ||
-				(len(rightResult) > 0 && rightResult[0].Type == "Literal" && rightResult[0].Token == "true") {
+			if (len(leftResult) > 0 && leftResult[0].Type == UASTLiteral && leftResult[0].Token == "true") ||
+				(len(rightResult) > 0 && rightResult[0].Type == UASTLiteral && rightResult[0].Token == "true") {
 				out = append(out, NewLiteralNode("true"))
 			} else {
 				out = append(out, NewLiteralNode("false"))
@@ -85,8 +83,8 @@ func lowerLogicalAnd(n *CallNode) (QueryFunc, error) {
 		for _, node := range nodes {
 			leftResult := leftFunc([]*Node{node})
 			rightResult := rightFunc([]*Node{node})
-			if (len(leftResult) > 0 && leftResult[0].Type == "Literal" && leftResult[0].Token == "true") &&
-				(len(rightResult) > 0 && rightResult[0].Type == "Literal" && rightResult[0].Token == "true") {
+			if (len(leftResult) > 0 && leftResult[0].Type == UASTLiteral && leftResult[0].Token == "true") &&
+				(len(rightResult) > 0 && rightResult[0].Type == UASTLiteral && rightResult[0].Token == "true") {
 				out = append(out, NewLiteralNode("true"))
 			} else {
 				out = append(out, NewLiteralNode("false"))
@@ -157,7 +155,7 @@ func lowerNot(n *CallNode) (QueryFunc, error) {
 		var out []*Node
 		for _, node := range nodes {
 			result := argFunc([]*Node{node})
-			if len(result) == 0 || result[0].Type != "Literal" || result[0].Token != "true" {
+			if len(result) == 0 || result[0].Type != UASTLiteral || result[0].Token != "true" {
 				out = append(out, NewLiteralNode("true"))
 			} else {
 				out = append(out, NewLiteralNode("false"))
@@ -169,114 +167,66 @@ func lowerNot(n *CallNode) (QueryFunc, error) {
 
 func lowerGreaterThan(n *CallNode) (QueryFunc, error) {
 	leftFunc, err := LowerDSL(n.Args[0])
+
 	if err != nil {
 		return nil, err
 	}
+
 	rightFunc, err := LowerDSL(n.Args[1])
+
 	if err != nil {
 		return nil, err
 	}
-	return func(nodes []*Node) []*Node {
-		var out []*Node
-		for _, node := range nodes {
-			l := leftFunc([]*Node{node})
-			r := rightFunc([]*Node{node})
-			if len(l) > 0 && len(r) > 0 {
-				if tokensCompare(l, r, ">") {
-					out = append(out, NewLiteralNode("true"))
-				} else {
-					out = append(out, NewLiteralNode("false"))
-				}
-			} else {
-				out = append(out, NewLiteralNode("false"))
-			}
-		}
-		return out
-	}, nil
+
+	return compareFunc(leftFunc, rightFunc, ">"), nil
 }
 
 func lowerGreaterThanOrEqual(n *CallNode) (QueryFunc, error) {
 	leftFunc, err := LowerDSL(n.Args[0])
+
 	if err != nil {
 		return nil, err
 	}
+
 	rightFunc, err := LowerDSL(n.Args[1])
+
 	if err != nil {
 		return nil, err
 	}
-	return func(nodes []*Node) []*Node {
-		var out []*Node
-		for _, node := range nodes {
-			l := leftFunc([]*Node{node})
-			r := rightFunc([]*Node{node})
-			if len(l) > 0 && len(r) > 0 {
-				if tokensCompare(l, r, ">=") {
-					out = append(out, NewLiteralNode("true"))
-				} else {
-					out = append(out, NewLiteralNode("false"))
-				}
-			} else {
-				out = append(out, NewLiteralNode("false"))
-			}
-		}
-		return out
-	}, nil
+
+	return compareFunc(leftFunc, rightFunc, ">="), nil
 }
 
 func lowerLessThan(n *CallNode) (QueryFunc, error) {
-	leftFunc, err := LowerDSL(n.Args[0])
+	l, err := LowerDSL(n.Args[0])
+
 	if err != nil {
 		return nil, err
 	}
-	rightFunc, err := LowerDSL(n.Args[1])
+
+	r, err := LowerDSL(n.Args[1])
+
 	if err != nil {
 		return nil, err
 	}
-	return func(nodes []*Node) []*Node {
-		var out []*Node
-		for _, node := range nodes {
-			l := leftFunc([]*Node{node})
-			r := rightFunc([]*Node{node})
-			if len(l) > 0 && len(r) > 0 {
-				if tokensCompare(l, r, "<") {
-					out = append(out, NewLiteralNode("true"))
-				} else {
-					out = append(out, NewLiteralNode("false"))
-				}
-			} else {
-				out = append(out, NewLiteralNode("false"))
-			}
-		}
-		return out
-	}, nil
+
+	return compareFunc(l, r, "<"), nil
 }
 
 func lowerLessThanOrEqual(n *CallNode) (QueryFunc, error) {
 	leftFunc, err := LowerDSL(n.Args[0])
+
 	if err != nil {
 		return nil, err
 	}
+
 	rightFunc, err := LowerDSL(n.Args[1])
+
 	if err != nil {
 		return nil, err
 	}
-	return func(nodes []*Node) []*Node {
-		var out []*Node
-		for _, node := range nodes {
-			l := leftFunc([]*Node{node})
-			r := rightFunc([]*Node{node})
-			if len(l) > 0 && len(r) > 0 {
-				if tokensCompare(l, r, "<=") {
-					out = append(out, NewLiteralNode("true"))
-				} else {
-					out = append(out, NewLiteralNode("false"))
-				}
-			} else {
-				out = append(out, NewLiteralNode("false"))
-			}
-		}
-		return out
-	}, nil
+
+	return compareFunc(leftFunc, rightFunc, "<="), nil
 }
 
 func lowerMembership(n *CallNode) (QueryFunc, error) {
@@ -296,4 +246,22 @@ func lowerMembership(n *CallNode) (QueryFunc, error) {
 		}
 		return out
 	}, nil
+}
+
+func compareFunc(leftFunc, rightFunc func([]*Node) []*Node, operator string) QueryFunc {
+	return func(nodes []*Node) []*Node {
+		var out []*Node
+		for _, node := range nodes {
+			l := leftFunc([]*Node{node})
+			r := rightFunc([]*Node{node})
+
+			if tokensCompare(l, r, operator) {
+				out = append(out, NewLiteralNode("true"))
+				continue
+			}
+
+			out = append(out, NewLiteralNode("false"))
+		}
+		return out
+	}
 }

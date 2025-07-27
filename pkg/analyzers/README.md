@@ -16,6 +16,9 @@ pkg/analyzers/
 ├── halstead/            # Halstead complexity measures
 │   ├── halstead.go      # Halstead analyzer (with aggregator and formatter)
 │   └── halstead_test.go
+├── comment_density/     # Comment density analysis
+│   ├── comment_density.go    # Comment density analyzer (with aggregator and formatter)
+│   └── comment_density_test.go
 └── README.md
 ```
 
@@ -29,6 +32,7 @@ Each analyzer is in its own folder and implements the `CodeAnalyzer` interface w
 
 - **ComplexityAnalyzer** (`complexity/`): Measures cyclomatic complexity
 - **HalsteadAnalyzer** (`halstead/`): Measures Halstead complexity metrics
+- **CommentDensityAnalyzer** (`comment_density/`): Measures comment density and documentation quality
 
 ### 2. Service
 High-level service that orchestrates analysis workflows:
@@ -110,6 +114,32 @@ High-level service that orchestrates analysis workflows:
   - Difficulty: Green ≤ 5, Yellow 6–15, Red > 15
   - Effort: Green ≤ 1000, Yellow 1001–10000, Red > 10000
 
+### 5. Comment Density Analysis (`comment_density/`)
+- **Purpose:** Measures the ratio of comments to code and evaluates documentation quality.
+- **Metrics:**
+
+  > **Comment Density = Comment Lines / Total Lines**
+  > **Documentation Score = (Documented Functions / Total Functions) × 0.7 + min(Density × 4, 1.0) × 0.3**
+  > **Comment Quality = Average quality score of all comments**
+
+  The analyzer evaluates:
+  - Overall comment density as a percentage of total lines
+  - Function documentation coverage (functions with preceding comments)
+  - Comment quality based on length and content patterns
+  - Different comment types (line, block, hash comments)
+
+- **Quality Assessment:**
+  - **Detailed:** Comprehensive comments with multiple sentences
+  - **Adequate:** Well-structured comments with sufficient explanation
+  - **Short:** Brief but meaningful comments
+  - **Minimal:** Very brief comments (single words)
+  - **Very Short:** Extremely brief comments (< 5 characters)
+
+- **Thresholds:**
+  - Comment Density: Green ≥ 25%, Yellow 15-25%, Red < 5%
+  - Documentation Score: Green ≥ 0.8, Yellow 0.6-0.8, Red < 0.3
+  - Comment Quality: Green ≥ 0.7, Yellow 0.5-0.7, Red < 0.2
+
 ## Usage
 
 ### Basic Usage
@@ -131,7 +161,7 @@ The analyzers are used by the `herr` command-line tool:
 uast parse main.go | herr analyze
 
 # Analyze with specific analyzers
-uast parse main.go | herr analyze --analyzers complexity,halstead
+uast parse main.go | herr analyze --analyzers complexity,halstead,comment_density
 
 # JSON output
 uast parse main.go | herr analyze --format json
@@ -185,13 +215,24 @@ uast parse main.go | herr analyze --format json
 
 ```
 {
-  "function_count": 3,
-  "functions": {
-    "foo": 2,
-    "bar": 1,
-    "baz": 4
+  "complexity": {
+    "function_count": 3,
+    "functions": {
+      "foo": 2,
+      "bar": 1,
+      "baz": 4
+    },
+    "total_complexity": 7
   },
-  "total_complexity": 7
+  "comment_density": {
+    "total_lines": 150,
+    "comment_lines": 30,
+    "comment_density": 0.2,
+    "documentation_score": 0.75,
+    "comment_quality": 0.8,
+    "total_functions": 5,
+    "documented_functions": 4
+  }
 }
 ```
 

@@ -11,12 +11,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/dmytrogajewski/hercules"
-	"github.com/dmytrogajewski/hercules/internal/pkg/config"
-	"github.com/dmytrogajewski/hercules/internal/app/core"
-	grpcserver "github.com/dmytrogajewski/hercules/internal/server/grpc"
 	"github.com/dmytrogajewski/hercules/api/proto/pb"
+	"github.com/dmytrogajewski/hercules/internal/app/core"
+	"github.com/dmytrogajewski/hercules/internal/pkg/config"
 	"github.com/dmytrogajewski/hercules/internal/pkg/leaves"
+	"github.com/dmytrogajewski/hercules/internal/pkg/version"
+	grpcserver "github.com/dmytrogajewski/hercules/internal/server/grpc"
 	"github.com/gorilla/mux"
 	"github.com/spf13/cobra"
 )
@@ -117,8 +117,8 @@ func (s *Server) healthHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(map[string]interface{}{
 		"status":    "healthy",
 		"timestamp": time.Now(),
-		"version":   hercules.BinaryVersion,
-		"hash":      hercules.BinaryGitHash,
+		"version":   version.Binary,
+		"hash":      version.BinaryGitHash,
 		"config": map[string]interface{}{
 			"server_port": s.config.Server.Port,
 			"cache_dir":   s.config.Cache.Directory,
@@ -422,7 +422,7 @@ var serverCmd = &cobra.Command{
 	Use:   "server",
 	Short: "Start Hercules as an HTTP and/or gRPC server",
 	Long: `Start Hercules as an HTTP and/or gRPC server to provide analysis capabilities via REST API and gRPC.
-	
+
 The server provides endpoints for:
 - HTTP: POST /api/v1/analyze, GET /api/v1/analyses, GET /health, GET /docs/
 - gRPC: HerculesService with Health, ListAnalyses, SubmitAnalysis, GetAnalysisStatus, StreamAnalysisProgress

@@ -154,7 +154,7 @@ func convertNodeToRawAST(n *node.Node) RawAST {
 	}
 
 	rawAST := RawAST{
-		Type: n.Type,
+		Type: string(n.Type),
 		Text: n.Token,
 	}
 

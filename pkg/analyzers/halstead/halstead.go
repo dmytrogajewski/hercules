@@ -2,16 +2,30 @@ package halstead
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"math"
 
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/analyze"
+	"github.com/dmytrogajewski/hercules/pkg/analyzers/common"
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
-	"github.com/fatih/color"
 )
 
 // HalsteadAnalyzer provides Halstead complexity measures analysis
-type HalsteadAnalyzer struct{}
+type HalsteadAnalyzer struct {
+	traverser *common.UASTTraverser
+	extractor *common.DataExtractor
+}
+
+// NewHalsteadAnalyzer creates a new HalsteadAnalyzer with common modules
+func NewHalsteadAnalyzer() *HalsteadAnalyzer {
+	return &HalsteadAnalyzer{
+		traverser: common.NewUASTTraverser(common.TraversalConfig{}),
+		extractor: common.NewDataExtractor(common.ExtractionConfig{
+			DefaultExtractors: true,
+		}),
+	}
+}
 
 // HalsteadMetrics holds all Halstead complexity measures
 type HalsteadMetrics struct {
@@ -60,7 +74,7 @@ type HalsteadConfig struct {
 }
 
 func (h *HalsteadAnalyzer) Name() string {
-	return "halstead_analysis"
+	return "halstead"
 }
 
 func (h *HalsteadAnalyzer) Thresholds() analyze.Thresholds {
@@ -90,127 +104,23 @@ func (h *HalsteadAnalyzer) CreateAggregator() analyze.ResultAggregator {
 	}
 }
 
-// FormatReport formats Halstead analysis results as human-readable text
-func (h *HalsteadAnalyzer) FormatReport(report analyze.Report, writer io.Writer) error {
-	colorWriter := color.New(color.FgBlue)
-
-	// Get thresholds for this analyzer
-	thresholds := h.Thresholds()
-
-	// Output threshold information
-	colorWriter.Fprintf(writer, "Halstead Complexity Measures:\n")
-	colorWriter.Fprintf(writer, "------------------------------\n\n")
-
-	// Volume thresholds
-	if volumeThresholds, ok := thresholds["volume"]; ok {
-		green, _ := volumeThresholds["green"].(int)
-		yellow, _ := volumeThresholds["yellow"].(int)
-		red, _ := volumeThresholds["red"].(int)
-		colorWriter.Fprintf(writer, "Volume Thresholds:\n")
-		colorWriter.Fprintf(writer, "  Green (Good): ≤ %d\n", green)
-		colorWriter.Fprintf(writer, "  Yellow (Warning): %d to %d\n", green+1, yellow)
-		colorWriter.Fprintf(writer, "  Red (High): > %d\n\n", red)
-	}
-
-	// Difficulty thresholds
-	if difficultyThresholds, ok := thresholds["difficulty"]; ok {
-		green, _ := difficultyThresholds["green"].(int)
-		yellow, _ := difficultyThresholds["yellow"].(int)
-		red, _ := difficultyThresholds["red"].(int)
-		colorWriter.Fprintf(writer, "Difficulty Thresholds:\n")
-		colorWriter.Fprintf(writer, "  Green (Good): ≤ %d\n", green)
-		colorWriter.Fprintf(writer, "  Yellow (Warning): %d to %d\n", green+1, yellow)
-		colorWriter.Fprintf(writer, "  Red (High): > %d\n\n", red)
-	}
-
-	// Effort thresholds
-	if effortThresholds, ok := thresholds["effort"]; ok {
-		green, _ := effortThresholds["green"].(int)
-		yellow, _ := effortThresholds["yellow"].(int)
-		red, _ := effortThresholds["red"].(int)
-		colorWriter.Fprintf(writer, "Effort Thresholds:\n")
-		colorWriter.Fprintf(writer, "  Green (Good): ≤ %d\n", green)
-		colorWriter.Fprintf(writer, "  Yellow (Warning): %d to %d\n", green+1, yellow)
-		colorWriter.Fprintf(writer, "  Red (High): > %d\n\n", red)
-	}
-
-	// Output metrics
-	if fileMetrics, ok := report["file_metrics"].(map[string]any); ok {
-		colorWriter.Fprintf(writer, "File-Level Metrics:\n")
-		if volume, ok := fileMetrics["volume"].(float64); ok {
-			colorWriter.Fprintf(writer, "  Volume: %.2f\n", volume)
-		}
-		if difficulty, ok := fileMetrics["difficulty"].(float64); ok {
-			colorWriter.Fprintf(writer, "  Difficulty: %.2f\n", difficulty)
-		}
-		if effort, ok := fileMetrics["effort"].(float64); ok {
-			colorWriter.Fprintf(writer, "  Effort: %.2f\n", effort)
-		}
-		if timeToProgram, ok := fileMetrics["time_to_program"].(float64); ok {
-			colorWriter.Fprintf(writer, "  Time to Program: %.2f seconds\n", timeToProgram)
-		}
-		if deliveredBugs, ok := fileMetrics["delivered_bugs"].(float64); ok {
-			colorWriter.Fprintf(writer, "  Delivered Bugs: %.2f\n", deliveredBugs)
-		}
-	}
-
-	// Output function-level metrics
-	if functions, ok := report["functions"].(map[string]any); ok {
-		if len(functions) > 0 {
-			colorWriter.Fprintf(writer, "\nFunction-Level Metrics:\n")
-			for funcName, funcData := range functions {
-				if funcMetrics, ok := funcData.(map[string]any); ok {
-					colorWriter.Fprintf(writer, "  %s:\n", funcName)
-					if volume, ok := funcMetrics["volume"].(float64); ok {
-						colorWriter.Fprintf(writer, "    Volume: %.2f\n", volume)
-					}
-					if difficulty, ok := funcMetrics["difficulty"].(float64); ok {
-						colorWriter.Fprintf(writer, "    Difficulty: %.2f\n", difficulty)
-					}
-					if effort, ok := funcMetrics["effort"].(float64); ok {
-						colorWriter.Fprintf(writer, "    Effort: %.2f\n", effort)
-					}
-					if timeToProgram, ok := funcMetrics["time_to_program"].(float64); ok {
-						colorWriter.Fprintf(writer, "    Time to Program: %.2f seconds\n", timeToProgram)
-					}
-					if deliveredBugs, ok := funcMetrics["delivered_bugs"].(float64); ok {
-						colorWriter.Fprintf(writer, "    Delivered Bugs: %.2f\n", deliveredBugs)
-					}
-				}
-			}
-		}
-	}
-
-	return nil
-}
-
-// FormatReportJSON formats Halstead analysis results as JSON
-func (h *HalsteadAnalyzer) FormatReportJSON(report analyze.Report, writer io.Writer) error {
-	encoder := json.NewEncoder(writer)
-	encoder.SetIndent("", "  ")
-	return encoder.Encode(report)
-}
-
-// DefaultConfig returns default Halstead analysis configuration
-func (h *HalsteadAnalyzer) DefaultConfig() HalsteadConfig {
-	return HalsteadConfig{
-		IncludeFunctionBreakdown: true,
-		IncludeTimeEstimate:      true,
-		IncludeBugEstimate:       true,
-	}
-}
-
+// Analyze performs Halstead analysis on the UAST
 func (h *HalsteadAnalyzer) Analyze(root *node.Node) (analyze.Report, error) {
-	return h.AnalyzeWithConfig(root, h.DefaultConfig())
-}
-
-func (h *HalsteadAnalyzer) AnalyzeWithConfig(root *node.Node, config HalsteadConfig) (analyze.Report, error) {
 	if root == nil {
-		return h.emptyResult(), nil
+		return nil, fmt.Errorf("root node is nil")
 	}
 
-	// Find all functions in the code
 	functions := h.findFunctions(root)
+
+	if len(functions) == 0 {
+		return common.NewResultBuilder().BuildCustomEmptyResult(map[string]interface{}{
+			"total_functions": 0,
+			"volume":          0.0,
+			"difficulty":      0.0,
+			"effort":          0.0,
+			"message":         "No functions found",
+		}), nil
+	}
 
 	// Calculate metrics for each function
 	functionMetrics := make(map[string]*FunctionHalsteadMetrics)
@@ -242,50 +152,195 @@ func (h *HalsteadAnalyzer) AnalyzeWithConfig(root *node.Node, config HalsteadCon
 
 	h.calculateHalsteadMetrics(fileMetrics)
 
-	// Build result
+	// Build detailed functions table for display with assessments
+	detailedFunctionsTable := make([]map[string]interface{}, 0, len(functionMetrics))
+	for _, fn := range functionMetrics {
+		// Determine assessments
+		volumeAssessment := h.getVolumeAssessment(fn.Volume)
+		difficultyAssessment := h.getDifficultyAssessment(fn.Difficulty)
+		effortAssessment := h.getEffortAssessment(fn.Effort)
+
+		detailedFunctionsTable = append(detailedFunctionsTable, map[string]interface{}{
+			"name":                  fn.Name,
+			"volume":                fn.Volume,
+			"difficulty":            fn.Difficulty,
+			"effort":                fn.Effort,
+			"delivered_bugs":        fn.DeliveredBugs,
+			"volume_assessment":     volumeAssessment,
+			"difficulty_assessment": difficultyAssessment,
+			"effort_assessment":     effortAssessment,
+		})
+	}
+
+	// Build function details for result (simplified version)
+	functionDetails := make([]map[string]interface{}, 0, len(functionMetrics))
+	for _, fn := range functionMetrics {
+		functionDetails = append(functionDetails, map[string]interface{}{
+			"name":               fn.Name,
+			"volume":             fn.Volume,
+			"difficulty":         fn.Difficulty,
+			"effort":             fn.Effort,
+			"time_to_program":    fn.TimeToProgram,
+			"delivered_bugs":     fn.DeliveredBugs,
+			"distinct_operators": fn.DistinctOperators,
+			"distinct_operands":  fn.DistinctOperands,
+		})
+	}
+
+	message := h.getHalsteadMessage(fileMetrics.Volume, fileMetrics.Difficulty, fileMetrics.Effort)
+
+	// Build the result with proper structure for common formatter
 	result := analyze.Report{
-		"file_count": len(functions),
-		"functions":  functionMetrics,
-		"file_metrics": map[string]any{
-			"distinct_operators": fileMetrics.DistinctOperators,
-			"distinct_operands":  fileMetrics.DistinctOperands,
-			"total_operators":    fileMetrics.TotalOperators,
-			"total_operands":     fileMetrics.TotalOperands,
-			"vocabulary":         fileMetrics.Vocabulary,
-			"length":             fileMetrics.Length,
-			"estimated_length":   fileMetrics.EstimatedLength,
-			"volume":             fileMetrics.Volume,
-			"difficulty":         fileMetrics.Difficulty,
-			"effort":             fileMetrics.Effort,
-			"time_to_program":    fileMetrics.TimeToProgram,
-			"delivered_bugs":     fileMetrics.DeliveredBugs,
-		},
+		"analyzer_name":      "halstead",
+		"total_functions":    len(functionDetails),
+		"functions":          detailedFunctionsTable,
+		"volume":             fileMetrics.Volume,
+		"difficulty":         fileMetrics.Difficulty,
+		"effort":             fileMetrics.Effort,
+		"time_to_program":    fileMetrics.TimeToProgram,
+		"delivered_bugs":     fileMetrics.DeliveredBugs,
+		"distinct_operators": fileMetrics.DistinctOperators,
+		"distinct_operands":  fileMetrics.DistinctOperands,
+		"total_operators":    fileMetrics.TotalOperators,
+		"total_operands":     fileMetrics.TotalOperands,
+		"vocabulary":         fileMetrics.Vocabulary,
+		"length":             fileMetrics.Length,
+		"estimated_length":   fileMetrics.EstimatedLength,
+		"message":            message,
 	}
 
 	return result, nil
 }
 
-// findFunctions finds all function nodes in the AST
-func (h *HalsteadAnalyzer) findFunctions(root *node.Node) []*node.Node {
-	if root == nil {
-		return []*node.Node{}
-	}
+// FormatReport formats the analysis report for display
+func (h *HalsteadAnalyzer) FormatReport(report analyze.Report, w io.Writer) error {
+	formatter := common.NewFormatter(common.FormatConfig{
+		ShowProgressBars: true,
+		ShowTables:       true,
+		ShowDetails:      true,
+		SkipHeader:       true,
+	})
 
-	// Use DSL to find all function nodes
-	functionNodes, err := root.FindDSL("filter(.type == \"Function\" || .type == \"Method\" || .roles has \"Function\" || .roles has \"Declaration\")")
+	formatted := formatter.FormatReport(report)
+	_, err := fmt.Fprint(w, formatted)
+	return err
+}
+
+// FormatReportJSON formats the analysis report as JSON
+func (h *HalsteadAnalyzer) FormatReportJSON(report analyze.Report, w io.Writer) error {
+	jsonData, err := json.MarshalIndent(report, "", "  ")
 	if err != nil {
-		// Fallback to manual traversal if DSL fails
-		var functions []*node.Node
-		if h.isFunctionNode(root) {
-			functions = append(functions, root)
-		}
-		for _, child := range root.Children {
-			functions = append(functions, h.findFunctions(child)...)
-		}
-		return functions
+		return err
+	}
+	_, err = fmt.Fprint(w, string(jsonData))
+	return err
+}
+
+// getHalsteadMessage returns a message based on the Halstead metrics
+func (h *HalsteadAnalyzer) getHalsteadMessage(volume, difficulty, effort float64) string {
+	if volume <= 100 && difficulty <= 5 && effort <= 1000 {
+		return "Excellent complexity - code is simple and maintainable"
+	}
+	if volume <= 1000 && difficulty <= 15 && effort <= 10000 {
+		return "Good complexity - code is reasonably complex"
+	}
+	if volume <= 5000 && difficulty <= 30 && effort <= 50000 {
+		return "Fair complexity - consider simplifying some functions"
+	}
+	return "High complexity - code should be refactored for better maintainability"
+}
+
+// getVolumeAssessment returns an assessment with emoji for volume
+func (h *HalsteadAnalyzer) getVolumeAssessment(volume float64) string {
+	if volume <= 100 {
+		return "🟢 Low"
+	}
+	if volume <= 1000 {
+		return "🟡 Medium"
+	}
+	return "🔴 High"
+}
+
+// getDifficultyAssessment returns an assessment with emoji for difficulty
+func (h *HalsteadAnalyzer) getDifficultyAssessment(difficulty float64) string {
+	if difficulty <= 5 {
+		return "🟢 Simple"
+	}
+	if difficulty <= 15 {
+		return "🟡 Moderate"
+	}
+	return "🔴 Complex"
+}
+
+// getEffortAssessment returns an assessment with emoji for effort
+func (h *HalsteadAnalyzer) getEffortAssessment(effort float64) string {
+	if effort <= 1000 {
+		return "🟢 Low"
+	}
+	if effort <= 10000 {
+		return "🟡 Medium"
+	}
+	return "🔴 High"
+}
+
+// getBugAssessment returns an assessment with emoji for delivered bugs
+func (h *HalsteadAnalyzer) getBugAssessment(bugs float64) string {
+	if bugs <= 0.1 {
+		return "🟢 Low Risk"
+	}
+	if bugs <= 0.5 {
+		return "🟡 Medium Risk"
+	}
+	return "🔴 High Risk"
+}
+
+// findFunctions finds all functions using the generic traverser
+func (h *HalsteadAnalyzer) findFunctions(root *node.Node) []*node.Node {
+	// Use common traverser to find function nodes
+	functionNodes := h.traverser.FindNodesByType(root, []string{node.UASTFunction, node.UASTMethod})
+
+	// Also find by roles for broader coverage
+	roleNodes := h.traverser.FindNodesByRoles(root, []string{node.RoleFunction})
+
+	// Combine and deduplicate
+	allNodes := make(map[*node.Node]bool)
+	for _, node := range functionNodes {
+		allNodes[node] = true
+	}
+	for _, node := range roleNodes {
+		allNodes[node] = true
 	}
 
-	return functionNodes
+	// Convert back to slice
+	var functions []*node.Node
+	for node := range allNodes {
+		if h.isFunctionNode(node) {
+			functions = append(functions, node)
+		}
+	}
+
+	return functions
+}
+
+// isFunctionNode checks if a node represents a function
+func (h *HalsteadAnalyzer) isFunctionNode(n *node.Node) bool {
+	if n == nil {
+		return false
+	}
+
+	return n.HasAnyType(node.UASTFunction, node.UASTMethod) ||
+		n.HasAllRoles(node.RoleFunction, node.RoleDeclaration)
+}
+
+// extractFunctionName extracts the function name using common extractor
+func (h *HalsteadAnalyzer) extractFunctionName(n *node.Node) string {
+	if name, ok := h.extractor.ExtractName(n, "function_name"); ok && name != "" {
+		return name
+	}
+	if name, ok := common.ExtractFunctionName(n); ok && name != "" {
+		return name
+	}
+	return ""
 }
 
 // calculateFunctionHalsteadMetrics calculates Halstead metrics for a single function
@@ -316,10 +371,10 @@ func (h *HalsteadAnalyzer) collectOperatorsAndOperands(node *node.Node, operator
 	// Determine if this node is an operator or operand
 	if h.isOperator(node) {
 		operator := h.getOperatorName(node)
-		operators[operator]++
+		operators[string(operator)]++
 	} else if h.isOperand(node) {
 		operand := h.getOperandName(node)
-		operands[operand]++
+		operands[string(operand)]++
 	}
 
 	// Recursively process children
@@ -382,87 +437,38 @@ func (h *HalsteadAnalyzer) isOperand(n *node.Node) bool {
 	return false
 }
 
-// isFunctionNode determines if a node represents a function definition
-func (h *HalsteadAnalyzer) isFunctionNode(n *node.Node) bool {
-	if n == nil {
-		return false
-	}
-
-	switch n.Type {
-	case node.UASTFunction, node.UASTFunctionDecl, node.UASTMethod,
-		node.UASTLambda:
-		return true
-	}
-
-	for _, role := range n.Roles {
-		switch role {
-		case node.RoleFunction, node.RoleDeclaration:
-			return true
-		}
-	}
-
-	return false
-}
-
 // getOperatorName extracts the operator name from a node
-func (h *HalsteadAnalyzer) getOperatorName(node *node.Node) string {
-	if node == nil {
+func (h *HalsteadAnalyzer) getOperatorName(n *node.Node) node.Type {
+	if n == nil {
 		return ""
 	}
 
 	// Try to get operator from properties
-	if op, ok := node.Props["operator"]; ok {
-		return op
+	if op, ok := n.Props["operator"]; ok {
+		return node.Type(op)
 	}
 
 	// Fall back to type
-	return node.Type
+	return n.Type
 }
 
 // getOperandName extracts the operand name from a node
-func (h *HalsteadAnalyzer) getOperandName(node *node.Node) string {
-	if node == nil {
-		return ""
-	}
-
-	// Try to get name from properties
-	if name, ok := node.Props["name"]; ok {
-		return name
-	}
-
-	if value, ok := node.Props["value"]; ok {
-		return value
-	}
-
-	// Fall back to type
-	return node.Type
-}
-
-// extractFunctionName extracts the function name from a function node
-func (h *HalsteadAnalyzer) extractFunctionName(n *node.Node) string {
+func (h *HalsteadAnalyzer) getOperandName(n *node.Node) node.Type {
 	if n == nil {
 		return ""
 	}
 
-	// Try to get function name from properties
+	// Try to get name from properties
 	if name, ok := n.Props["name"]; ok {
-		return name
+		return node.Type(name)
 	}
 
-	// Look for identifier child with name role
-	for _, child := range n.Children {
-		if child.Type == node.UASTIdentifier {
-			for _, role := range child.Roles {
-				if role == node.RoleName {
-					if name, ok := child.Props["name"]; ok {
-						return name
-					}
-				}
-			}
-		}
+	if value, ok := n.Props["value"]; ok {
+		return node.Type(value)
 	}
 
-	return ""
+	// Fall back to type
+	return n.Type
 }
 
 // calculateHalsteadMetrics calculates all Halstead complexity measures
@@ -536,28 +542,6 @@ func (h *HalsteadAnalyzer) sumMap(m map[string]int) int {
 	return sum
 }
 
-// emptyResult returns an empty result structure
-func (h *HalsteadAnalyzer) emptyResult() analyze.Report {
-	return analyze.Report{
-		"file_count": 0,
-		"functions":  make(map[string]*FunctionHalsteadMetrics),
-		"file_metrics": map[string]any{
-			"distinct_operators": 0,
-			"distinct_operands":  0,
-			"total_operators":    0,
-			"total_operands":     0,
-			"vocabulary":         0,
-			"length":             0,
-			"estimated_length":   0.0,
-			"volume":             0.0,
-			"difficulty":         0.0,
-			"effort":             0.0,
-			"time_to_program":    0.0,
-			"delivered_bugs":     0.0,
-		},
-	}
-}
-
 // HalsteadAggregator aggregates Halstead analysis results
 type HalsteadAggregator struct {
 	combinedVolume        float64
@@ -569,41 +553,53 @@ type HalsteadAggregator struct {
 }
 
 func (h *HalsteadAggregator) Aggregate(results map[string]analyze.Report) {
-	if report, ok := results["halstead_analysis"]; ok {
-		if fileMetrics, ok := report["file_metrics"].(map[string]any); ok {
-			if volume, ok := fileMetrics["volume"].(float64); ok {
-				h.combinedVolume += volume
-			}
-			if difficulty, ok := fileMetrics["difficulty"].(float64); ok {
-				h.combinedDifficulty += difficulty
-			}
-			if effort, ok := fileMetrics["effort"].(float64); ok {
-				h.combinedEffort += effort
-			}
-			if timeToProgram, ok := fileMetrics["time_to_program"].(float64); ok {
-				h.combinedTimeToProgram += timeToProgram
-			}
-			if deliveredBugs, ok := fileMetrics["delivered_bugs"].(float64); ok {
-				h.combinedDeliveredBugs += deliveredBugs
-			}
+	if report, ok := results["halstead"]; ok {
+		// Aggregate metrics directly from report
+		if volume, ok := report["volume"].(float64); ok {
+			h.combinedVolume += volume
 		}
-		if halsteadFunctions, ok := report["functions"].(map[string]any); ok {
-			for funcName, funcData := range halsteadFunctions {
-				h.combinedFunctions[funcName] = funcData
+		if difficulty, ok := report["difficulty"].(float64); ok {
+			h.combinedDifficulty += difficulty
+		}
+		if effort, ok := report["effort"].(float64); ok {
+			h.combinedEffort += effort
+		}
+		if timeToProgram, ok := report["time_to_program"].(float64); ok {
+			h.combinedTimeToProgram += timeToProgram
+		}
+		if deliveredBugs, ok := report["delivered_bugs"].(float64); ok {
+			h.combinedDeliveredBugs += deliveredBugs
+		}
+
+		// Aggregate functions
+		if functions, ok := report["functions"].([]map[string]any); ok {
+			for _, funcData := range functions {
+				if name, ok := funcData["name"].(string); ok {
+					h.combinedFunctions[name] = funcData
+				}
 			}
 		}
 	}
 }
 
 func (h *HalsteadAggregator) GetResult() analyze.Report {
+	// Convert functions map to slice for common formatter
+	var functionDetails []map[string]interface{}
+	for _, funcData := range h.combinedFunctions {
+		if funcMap, ok := funcData.(map[string]interface{}); ok {
+			functionDetails = append(functionDetails, funcMap)
+		}
+	}
+
 	return analyze.Report{
-		"file_metrics": map[string]any{
-			"volume":          h.combinedVolume,
-			"difficulty":      h.combinedDifficulty,
-			"effort":          h.combinedEffort,
-			"time_to_program": h.combinedTimeToProgram,
-			"delivered_bugs":  h.combinedDeliveredBugs,
-		},
-		"functions": h.combinedFunctions,
+		"analyzer_name":   "halstead",
+		"total_functions": len(functionDetails),
+		"functions":       functionDetails,
+		"volume":          h.combinedVolume,
+		"difficulty":      h.combinedDifficulty,
+		"effort":          h.combinedEffort,
+		"time_to_program": h.combinedTimeToProgram,
+		"delivered_bugs":  h.combinedDeliveredBugs,
+		"message":         "Halstead complexity analysis completed",
 	}
 }

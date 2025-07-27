@@ -10,8 +10,8 @@ import (
 	"unicode/utf8"
 
 	"github.com/dmytrogajewski/hercules/internal/app/core"
-	"github.com/dmytrogajewski/hercules/internal/pkg/levenshtein"
 	"github.com/dmytrogajewski/hercules/internal/pkg/mathutil"
+	"github.com/dmytrogajewski/hercules/pkg/levenshtein"
 	"github.com/sergi/go-diff/diffmatchpatch"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"

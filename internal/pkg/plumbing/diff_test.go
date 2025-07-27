@@ -5,9 +5,8 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"github.com/dmytrogajewski/hercules"
-	"github.com/dmytrogajewski/hercules/internal"
 	"github.com/dmytrogajewski/hercules/internal/app/core"
+	internal "github.com/dmytrogajewski/hercules/internal/pkg"
 	items "github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	"github.com/dmytrogajewski/hercules/internal/pkg/test"
 	"github.com/dmytrogajewski/hercules/internal/pkg/test/fixtures"

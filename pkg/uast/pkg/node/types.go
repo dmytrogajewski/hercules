@@ -122,7 +122,7 @@ type TypeFieldStrategy struct{}
 
 func (s *TypeFieldStrategy) Access(node *Node) []*Node {
 	if node.Type != "" {
-		return []*Node{NewLiteralNode(node.Type)}
+		return []*Node{NewLiteralNode(string(node.Type))}
 	}
 	return nil
 }
