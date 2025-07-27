@@ -28,7 +28,7 @@ func NewComplexityAggregator() *ComplexityAggregator {
 			messageBuilder,
 			emptyResultBuilder,
 		),
-		detailedFunctions: make([]map[string]interface{}, 0),
+		detailedFunctions: make([]map[string]any, 0),
 	}
 }
 
@@ -57,7 +57,7 @@ func (ca *ComplexityAggregator) collectDetailedFunctions(results map[string]anal
 
 // extractFunctionsFromReport extracts functions from a single report
 func (ca *ComplexityAggregator) extractFunctionsFromReport(report analyze.Report) {
-	if functions, ok := report["functions"].([]map[string]interface{}); ok {
+	if functions, ok := report["functions"].([]map[string]any); ok {
 		ca.detailedFunctions = append(ca.detailedFunctions, functions...)
 	}
 }
