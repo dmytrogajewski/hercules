@@ -71,8 +71,18 @@ type CommentBlock struct {
 
 // NewCommentsAnalyzer creates a new CommentsAnalyzer with generic components
 func NewCommentsAnalyzer() *CommentsAnalyzer {
-	// Configure UAST traverser for comments and functions
-	traversalConfig := common.TraversalConfig{
+	traversalConfig := createTraversalConfig()
+	extractionConfig := createExtractionConfig()
+
+	return &CommentsAnalyzer{
+		traverser: common.NewUASTTraverser(traversalConfig),
+		extractor: common.NewDataExtractor(extractionConfig),
+	}
+}
+
+// createTraversalConfig creates the traversal configuration for UAST analysis
+func createTraversalConfig() common.TraversalConfig {
+	return common.TraversalConfig{
 		Filters: []common.NodeFilter{
 			{
 				Types: []string{node.UASTComment},
@@ -85,26 +95,33 @@ func NewCommentsAnalyzer() *CommentsAnalyzer {
 		},
 		MaxDepth: 10,
 	}
+}
 
-	// Configure data extractor
-	extractionConfig := common.ExtractionConfig{
+// createExtractionConfig creates the extraction configuration for data analysis
+func createExtractionConfig() common.ExtractionConfig {
+	return common.ExtractionConfig{
 		DefaultExtractors: true,
 		NameExtractors: map[string]common.NameExtractor{
-			"function_name": func(n *node.Node) (string, bool) {
-				return common.ExtractFunctionName(n)
-			},
-			"comment_text": func(n *node.Node) (string, bool) {
-				if n == nil || n.Token == "" {
-					return "", false
-				}
-				return n.Token, true
-			},
+			"function_name": createFunctionNameExtractor(),
+			"comment_text":  createCommentTextExtractor(),
 		},
 	}
+}
 
-	return &CommentsAnalyzer{
-		traverser: common.NewUASTTraverser(traversalConfig),
-		extractor: common.NewDataExtractor(extractionConfig),
+// createFunctionNameExtractor creates a function name extractor
+func createFunctionNameExtractor() common.NameExtractor {
+	return func(n *node.Node) (string, bool) {
+		return common.ExtractFunctionName(n)
+	}
+}
+
+// createCommentTextExtractor creates a comment text extractor
+func createCommentTextExtractor() common.NameExtractor {
+	return func(n *node.Node) (string, bool) {
+		if n == nil || n.Token == "" {
+			return "", false
+		}
+		return n.Token, true
 	}
 }
 
@@ -116,17 +133,32 @@ func (c *CommentsAnalyzer) CreateAggregator() analyze.ResultAggregator {
 // DefaultConfig returns the default configuration for comment analysis
 func (c *CommentsAnalyzer) DefaultConfig() CommentConfig {
 	return CommentConfig{
-		RewardScore: 1.0,
-		PenaltyScores: map[string]float64{
-			node.UASTFunction:   -0.5,
-			node.UASTMethod:     -0.5,
-			node.UASTClass:      -0.3,
-			node.UASTInterface:  -0.3,
-			node.UASTStruct:     -0.3,
-			node.UASTVariable:   -0.1,
-			node.UASTAssignment: -0.1,
-			node.UASTCall:       -0.1,
-		},
-		MaxCommentLength: 500,
+		RewardScore:      getDefaultRewardScore(),
+		PenaltyScores:    getDefaultPenaltyScores(),
+		MaxCommentLength: getDefaultMaxCommentLength(),
 	}
+}
+
+// getDefaultRewardScore returns the default reward score for good comments
+func getDefaultRewardScore() float64 {
+	return 1.0
+}
+
+// getDefaultPenaltyScores returns the default penalty scores for different node types
+func getDefaultPenaltyScores() map[string]float64 {
+	return map[string]float64{
+		node.UASTFunction:   -0.5,
+		node.UASTMethod:     -0.5,
+		node.UASTClass:      -0.3,
+		node.UASTInterface:  -0.3,
+		node.UASTStruct:     -0.3,
+		node.UASTVariable:   -0.1,
+		node.UASTAssignment: -0.1,
+		node.UASTCall:       -0.1,
+	}
+}
+
+// getDefaultMaxCommentLength returns the default maximum comment length
+func getDefaultMaxCommentLength() int {
+	return 500
 }
