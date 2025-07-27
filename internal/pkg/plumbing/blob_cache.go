@@ -6,8 +6,8 @@ import (
 	"io"
 	"io/ioutil"
 
-	"github.com/dmytrogajewski/hercules/internal"
 	"github.com/dmytrogajewski/hercules/internal/app/core"
+	internal "github.com/dmytrogajewski/hercules/internal/pkg"
 	"github.com/pkg/errors"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/config"

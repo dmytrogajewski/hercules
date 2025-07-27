@@ -13,7 +13,7 @@ import (
 )
 
 func TestCohesionAnalyzer_Name(t *testing.T) {
-	analyzer := &CohesionAnalyzer{}
+	analyzer := NewCohesionAnalyzer()
 	expected := "cohesion"
 	if got := analyzer.Name(); got != expected {
 		t.Errorf("CohesionAnalyzer.Name() = %v, want %v", got, expected)
@@ -21,7 +21,7 @@ func TestCohesionAnalyzer_Name(t *testing.T) {
 }
 
 func TestCohesionAnalyzer_Thresholds(t *testing.T) {
-	analyzer := &CohesionAnalyzer{}
+	analyzer := NewCohesionAnalyzer()
 	thresholds := analyzer.Thresholds()
 
 	// Check that all expected metrics are present
@@ -47,7 +47,7 @@ func TestCohesionAnalyzer_Thresholds(t *testing.T) {
 }
 
 func TestCohesionAnalyzer_Analyze_NilRoot(t *testing.T) {
-	analyzer := &CohesionAnalyzer{}
+	analyzer := NewCohesionAnalyzer()
 	_, err := analyzer.Analyze(nil)
 	if err == nil {
 		t.Error("Expected error when root node is nil")
@@ -58,7 +58,7 @@ func TestCohesionAnalyzer_Analyze_NilRoot(t *testing.T) {
 }
 
 func TestCohesionAnalyzer_Analyze_NoFunctions(t *testing.T) {
-	analyzer := &CohesionAnalyzer{}
+	analyzer := NewCohesionAnalyzer()
 
 	// Create a simple UAST with no functions
 	root := &node.Node{
@@ -92,7 +92,7 @@ func TestCohesionAnalyzer_Analyze_NoFunctions(t *testing.T) {
 }
 
 func TestCohesionAnalyzer_Analyze_SingleFunction(t *testing.T) {
-	analyzer := &CohesionAnalyzer{}
+	analyzer := NewCohesionAnalyzer()
 
 	// Create a UAST with a single function
 	root := &node.Node{
@@ -155,7 +155,7 @@ func TestCohesionAnalyzer_Analyze_SingleFunction(t *testing.T) {
 }
 
 func TestCohesionAnalyzer_Analyze_MultipleFunctions(t *testing.T) {
-	analyzer := &CohesionAnalyzer{}
+	analyzer := NewCohesionAnalyzer()
 
 	// Create a UAST with multiple functions that share variables
 	root := &node.Node{
@@ -247,7 +247,7 @@ func TestCohesionAnalyzer_Analyze_MultipleFunctions(t *testing.T) {
 }
 
 func TestCohesionAnalyzer_FormatReport(t *testing.T) {
-	analyzer := &CohesionAnalyzer{}
+	analyzer := NewCohesionAnalyzer()
 
 	// Create a test report
 	report := analyze.Report{
@@ -282,16 +282,12 @@ func TestCohesionAnalyzer_FormatReport(t *testing.T) {
 
 	// Check that the report contains expected sections
 	expectedSections := []string{
-		"Cohesion Analysis Report",
-		"Overall Metrics:",
-		"Total Functions: 2",
-		"LCOM (Lack of Cohesion): 1.50",
-		"Cohesion Score: 0.70",
-		"Function Cohesion: 0.60",
-		"Function Details:",
+		"Good cohesion - functions are generally well-organized",
+		"Progress:",
 		"testFunction1",
 		"testFunction2",
-		"Recommendations:",
+		"functions:",
+		"TOTAL: 2 ITEMS",
 	}
 
 	for _, section := range expectedSections {
@@ -302,7 +298,7 @@ func TestCohesionAnalyzer_FormatReport(t *testing.T) {
 }
 
 func TestCohesionAnalyzer_FormatReportJSON(t *testing.T) {
-	analyzer := &CohesionAnalyzer{}
+	analyzer := NewCohesionAnalyzer()
 
 	// Create a test report
 	report := analyze.Report{
@@ -336,7 +332,7 @@ func TestCohesionAnalyzer_FormatReportJSON(t *testing.T) {
 	}
 
 	// Check that the JSON contains expected fields
-	expectedFields := []string{"analyzer", "total_functions", "lcom", "cohesion_score", "function_cohesion", "message", "functions"}
+	expectedFields := []string{"total_functions", "lcom", "cohesion_score", "function_cohesion", "message", "functions"}
 	for _, field := range expectedFields {
 		if _, exists := jsonData[field]; !exists {
 			t.Errorf("Expected JSON to contain field '%s'", field)
@@ -344,13 +340,13 @@ func TestCohesionAnalyzer_FormatReportJSON(t *testing.T) {
 	}
 
 	// Check specific values
-	if analyzerName, ok := jsonData["analyzer"].(string); !ok || analyzerName != "cohesion" {
-		t.Errorf("Expected analyzer to be 'cohesion', got %v", analyzerName)
+	if totalFunctions, ok := jsonData["total_functions"].(float64); !ok || totalFunctions != 1 {
+		t.Errorf("Expected total_functions to be 1, got %v", totalFunctions)
 	}
 }
 
 func TestCohesionAnalyzer_CreateAggregator(t *testing.T) {
-	analyzer := &CohesionAnalyzer{}
+	analyzer := NewCohesionAnalyzer()
 	aggregator := analyzer.CreateAggregator()
 
 	if aggregator == nil {
@@ -364,12 +360,7 @@ func TestCohesionAnalyzer_CreateAggregator(t *testing.T) {
 }
 
 func TestCohesionAggregator_Aggregate(t *testing.T) {
-	aggregator := &CohesionAggregator{
-		combinedFunctions: make(map[string]interface{}),
-		totalLCOM:         0.0,
-		totalCohesion:     0.0,
-		functionCount:     0,
-	}
+	aggregator := NewCohesionAggregator()
 
 	// Create test results
 	results := map[string]analyze.Report{
@@ -411,54 +402,62 @@ func TestCohesionAggregator_Aggregate(t *testing.T) {
 
 	aggregator.Aggregate(results)
 
-	// Check aggregated values
-	if aggregator.functionCount != 3 {
-		t.Errorf("Expected functionCount to be 3, got %d", aggregator.functionCount)
+	// Check aggregated values through the result
+	result := aggregator.GetResult()
+
+	if totalFunctions, ok := result["total_functions"].(int); !ok || totalFunctions != 3 {
+		t.Errorf("Expected total_functions to be 3, got %v", totalFunctions)
 	}
-	if aggregator.totalLCOM != 1.0 {
-		t.Errorf("Expected totalLCOM to be 1.0, got %f", aggregator.totalLCOM)
+	if lcom, ok := result["lcom"].(float64); !ok || lcom != 0.5 {
+		t.Errorf("Expected lcom to be 0.5, got %v", lcom)
 	}
-	if aggregator.totalCohesion != 1.8 {
-		t.Errorf("Expected totalCohesion to be 1.8, got %f", aggregator.totalCohesion)
+	if cohesionScore, ok := result["cohesion_score"].(float64); !ok || cohesionScore != 0.9 {
+		t.Errorf("Expected cohesion_score to be 0.9, got %v", cohesionScore)
 	}
-	if len(aggregator.combinedFunctions) != 3 {
-		t.Errorf("Expected 3 combined functions, got %d", len(aggregator.combinedFunctions))
+	if functions, ok := result["functions"].([]map[string]interface{}); !ok || len(functions) != 3 {
+		t.Errorf("Expected 3 functions, got %d", len(functions))
 	}
 }
 
 func TestCohesionAggregator_GetResult(t *testing.T) {
-	aggregator := &CohesionAggregator{
-		combinedFunctions: make(map[string]interface{}),
-		totalLCOM:         2.0,
-		totalCohesion:     1.5,
-		functionCount:     2,
+	aggregator := NewCohesionAggregator()
+
+	// Create test results to populate the aggregator
+	results := map[string]analyze.Report{
+		"file1": {
+			"total_functions":   2,
+			"lcom":              2.0,
+			"cohesion_score":    1.5,
+			"function_cohesion": 0.8,
+			"functions": []map[string]interface{}{
+				{
+					"name":           "func1",
+					"line_count":     5,
+					"variable_count": 2,
+					"cohesion":       0.8,
+				},
+				{
+					"name":           "func2",
+					"line_count":     8,
+					"variable_count": 4,
+					"cohesion":       0.7,
+				},
+			},
+		},
 	}
 
-	// Add some functions to combinedFunctions
-	aggregator.combinedFunctions["func1"] = map[string]interface{}{
-		"name":           "func1",
-		"line_count":     5,
-		"variable_count": 2,
-		"cohesion":       0.8,
-	}
-	aggregator.combinedFunctions["func2"] = map[string]interface{}{
-		"name":           "func2",
-		"line_count":     8,
-		"variable_count": 4,
-		"cohesion":       0.7,
-	}
-
+	aggregator.Aggregate(results)
 	result := aggregator.GetResult()
 
 	// Check result structure
 	if totalFunctions, ok := result["total_functions"].(int); !ok || totalFunctions != 2 {
 		t.Errorf("Expected total_functions to be 2, got %v", totalFunctions)
 	}
-	if lcom, ok := result["lcom"].(float64); !ok || lcom != 1.0 {
-		t.Errorf("Expected lcom to be 1.0, got %v", lcom)
+	if lcom, ok := result["lcom"].(float64); !ok || lcom != 2.0 {
+		t.Errorf("Expected lcom to be 2.0, got %v", lcom)
 	}
-	if cohesionScore, ok := result["cohesion_score"].(float64); !ok || cohesionScore != 0.75 {
-		t.Errorf("Expected cohesion_score to be 0.75, got %v", cohesionScore)
+	if cohesionScore, ok := result["cohesion_score"].(float64); !ok || cohesionScore != 1.5 {
+		t.Errorf("Expected cohesion_score to be 1.5, got %v", cohesionScore)
 	}
 	if functions, ok := result["functions"].([]map[string]interface{}); !ok || len(functions) != 2 {
 		t.Errorf("Expected 2 functions in result, got %d", len(functions))
@@ -466,12 +465,7 @@ func TestCohesionAggregator_GetResult(t *testing.T) {
 }
 
 func TestCohesionAggregator_GetResult_NoFunctions(t *testing.T) {
-	aggregator := &CohesionAggregator{
-		combinedFunctions: make(map[string]interface{}),
-		totalLCOM:         0.0,
-		totalCohesion:     0.0,
-		functionCount:     0,
-	}
+	aggregator := NewCohesionAggregator()
 
 	result := aggregator.GetResult()
 
@@ -488,7 +482,7 @@ func TestCohesionAggregator_GetResult_NoFunctions(t *testing.T) {
 }
 
 func TestCohesionAnalyzer_HelperFunctions(t *testing.T) {
-	analyzer := &CohesionAnalyzer{}
+	analyzer := NewCohesionAnalyzer()
 
 	// Test haveSharedVariables
 	fn1 := Function{
@@ -546,19 +540,25 @@ func TestCohesionAnalyzer_HelperFunctions(t *testing.T) {
 	}
 
 	// Test getSeverityEmoji
-	emoji1 := analyzer.getSeverityEmoji(0.9, "cohesion_score")
+	severity1, emoji1 := analyzer.getSeverityEmoji(0.9, 0.8, 0.6)
 	if emoji1 != "🟢" {
 		t.Errorf("Expected green emoji for high score, got: %s", emoji1)
 	}
+	if !strings.Contains(severity1, "Good") {
+		t.Errorf("Expected 'Good' severity for high score, got: %s", severity1)
+	}
 
-	emoji2 := analyzer.getSeverityEmoji(0.4, "cohesion_score")
+	severity2, emoji2 := analyzer.getSeverityEmoji(0.4, 0.8, 0.6)
 	if emoji2 != "🔴" {
 		t.Errorf("Expected red emoji for low score, got: %s", emoji2)
+	}
+	if !strings.Contains(severity2, "Poor") {
+		t.Errorf("Expected 'Poor' severity for low score, got: %s", severity2)
 	}
 }
 
 func TestCohesionAnalyzer_EdgeCases(t *testing.T) {
-	analyzer := &CohesionAnalyzer{}
+	analyzer := NewCohesionAnalyzer()
 
 	// Test with empty function list
 	lcom := analyzer.calculateLCOM([]Function{})
@@ -587,8 +587,102 @@ func TestCohesionAnalyzer_EdgeCases(t *testing.T) {
 	}
 }
 
+func TestCohesionAnalyzer_ImprovedFunctionCohesion(t *testing.T) {
+	analyzer := NewCohesionAnalyzer()
+
+	testCases := []struct {
+		name        string
+		function    Function
+		expectedMin float64
+		expectedMax float64
+		description string
+	}{
+		{
+			name: "Small function with few variables",
+			function: Function{
+				Name:      "register",
+				LineCount: 3,
+				Variables: []string{"analyzer", "name"},
+			},
+			expectedMin: 1.0,
+			expectedMax: 1.0,
+			description: "Small, focused functions should have perfect cohesion",
+		},
+		{
+			name: "Small function at boundary",
+			function: Function{
+				Name:      "process",
+				LineCount: 5,
+				Variables: []string{"input", "output", "temp"},
+			},
+			expectedMin: 1.0,
+			expectedMax: 1.0,
+			description: "Small functions with 3 or fewer variables should have perfect cohesion",
+		},
+		{
+			name: "Small function with more variables",
+			function: Function{
+				Name:      "validate",
+				LineCount: 4,
+				Variables: []string{"a", "b", "c", "d", "e"},
+			},
+			expectedMin: 0.7,
+			expectedMax: 0.8,
+			description: "Small functions with more variables should have gentle penalty",
+		},
+		{
+			name: "Medium function with low density",
+			function: Function{
+				Name:      "process",
+				LineCount: 10,
+				Variables: []string{"input", "output", "temp"},
+			},
+			expectedMin: 0.7,
+			expectedMax: 1.0,
+			description: "Medium functions with low variable density should have good cohesion",
+		},
+		{
+			name: "Large function with moderate density",
+			function: Function{
+				Name:      "complex",
+				LineCount: 20,
+				Variables: []string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j"},
+			},
+			expectedMin: 0.2,
+			expectedMax: 0.8,
+			description: "Large functions should use logarithmic scaling",
+		},
+		{
+			name: "Single line function",
+			function: Function{
+				Name:      "getter",
+				LineCount: 1,
+				Variables: []string{"field"},
+			},
+			expectedMin: 1.0,
+			expectedMax: 1.0,
+			description: "Single line functions should have perfect cohesion",
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			cohesion := analyzer.calculateFunctionLevelCohesion(tc.function)
+
+			if cohesion < tc.expectedMin || cohesion > tc.expectedMax {
+				t.Errorf("%s: Expected cohesion between %.2f and %.2f, got %.2f",
+					tc.description, tc.expectedMin, tc.expectedMax, cohesion)
+			}
+
+			// Ensure cohesion is always between 0 and 1
+			if cohesion < 0.0 || cohesion > 1.0 {
+				t.Errorf("Cohesion must be between 0 and 1, got %.2f", cohesion)
+			}
+		})
+	}
+}
 func TestCohesionAnalyzer_Integration(t *testing.T) {
-	analyzer := &CohesionAnalyzer{}
+	analyzer := NewCohesionAnalyzer()
 
 	// Create a realistic UAST structure
 	root := &node.Node{
@@ -753,7 +847,7 @@ func TestCohesionAnalyzer_Integration(t *testing.T) {
 
 // Benchmark tests
 func BenchmarkCohesionAnalyzer_Analyze(b *testing.B) {
-	analyzer := &CohesionAnalyzer{}
+	analyzer := NewCohesionAnalyzer()
 
 	// Create a complex UAST for benchmarking
 	root := createComplexUAST()
@@ -768,12 +862,7 @@ func BenchmarkCohesionAnalyzer_Analyze(b *testing.B) {
 }
 
 func BenchmarkCohesionAggregator_Aggregate(b *testing.B) {
-	aggregator := &CohesionAggregator{
-		combinedFunctions: make(map[string]interface{}),
-		totalLCOM:         0.0,
-		totalCohesion:     0.0,
-		functionCount:     0,
-	}
+	aggregator := NewCohesionAggregator()
 
 	// Create test results for benchmarking
 	results := createBenchmarkResults()

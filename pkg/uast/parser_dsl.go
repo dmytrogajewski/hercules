@@ -433,7 +433,7 @@ func (dn *DSLNode) createMappedNode(mappingRule *mapping.MappingRule, children [
 	dn.extractProperties(mappingRule, props)
 	dn.extractName(mappingRule, props)
 
-	uastNode := node.New("", mappingRule.UASTSpec.Type, dn.extractTokenText(mappingRule), roles, dn.extractPositions(), props)
+	uastNode := node.New("", node.Type(mappingRule.UASTSpec.Type), dn.extractTokenText(mappingRule), roles, dn.extractPositions(), props)
 	uastNode.Children = children
 
 	dn.extractToken(mappingRule, uastNode)
@@ -725,7 +725,7 @@ func (dn *DSLNode) createUnmappedChildNode(child sitter.Node) *DSLNode {
 
 // createIncludeUnmappedNode creates a node when IncludeUnmapped is true
 func (dn *DSLNode) createIncludeUnmappedNode(nodeType string, mappedChildren []*node.Node, props map[string]string, roles []node.Role) *node.Node {
-	node := node.New("", dn.Language+":"+nodeType, dn.Token(), roles, dn.Positions(), props)
+	node := node.New("", node.Type(dn.Language+":"+nodeType), dn.Token(), roles, dn.Positions(), props)
 	node.Children = mappedChildren
 	return node
 }

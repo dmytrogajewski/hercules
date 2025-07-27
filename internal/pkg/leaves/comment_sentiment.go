@@ -11,13 +11,13 @@ import (
 	"sort"
 	"strings"
 
+	progress "github.com/cheggaaa/pb/v3"
 	"github.com/dmytrogajewski/hercules/internal/app/core"
 	"github.com/dmytrogajewski/hercules/internal/app/core/items"
-	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	"github.com/dmytrogajewski/hercules/internal/pkg/leaves/uast_items"
+	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	"gopkg.in/bblfsh/sdk.v2/uast"
 	"gopkg.in/bblfsh/sdk.v2/uast/nodes"
-	progress "gopkg.in/cheggaaa/pb.v1"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	// sentiment "gopkg.in/vmarkovtsev/BiDiSentiment.v1" // Temporarily disabled

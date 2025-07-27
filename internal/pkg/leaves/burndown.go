@@ -15,13 +15,12 @@ import (
 
 	"encoding/json"
 
-	"github.com/dmytrogajewski/hercules/internal/pkg/burndown"
-	"github.com/dmytrogajewski/hercules/internal/app/core"
 	"github.com/dmytrogajewski/hercules/api/proto/pb"
+	"github.com/dmytrogajewski/hercules/internal/app/core"
+	"github.com/dmytrogajewski/hercules/internal/pkg/burndown"
 	items "github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/identity"
 	"github.com/dmytrogajewski/hercules/internal/pkg/rbtree"
-	"github.com/dmytrogajewski/hercules/internal/pkg/yaml"
 	"github.com/gogo/protobuf/proto"
 	"github.com/sergi/go-diff/diffmatchpatch"
 	"github.com/spf13/viper"

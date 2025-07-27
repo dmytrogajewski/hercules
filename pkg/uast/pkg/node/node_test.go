@@ -213,7 +213,7 @@ func TestPreOrder_Stream(t *testing.T) {
 	root.Children = []*Node{child1, child2}
 	var got []string
 	for n := range root.PreOrder() {
-		got = append(got, n.Type)
+		got = append(got, string(n.Type))
 	}
 	want := []string{"Root", "A", "B"}
 	if !reflect.DeepEqual(got, want) {
@@ -248,7 +248,7 @@ func TestPreOrder_Comprehensive(t *testing.T) {
 		root := &Node{Type: "A"}
 		var got []string
 		for n := range root.PreOrder() {
-			got = append(got, n.Type)
+			got = append(got, string(n.Type))
 		}
 		if len(got) != 1 || got[0] != "A" {
 			t.Errorf("expected [A], got %v", got)
@@ -266,7 +266,7 @@ func TestPreOrder_Comprehensive(t *testing.T) {
 		root.Children = []*Node{c1, c2}
 		var got []string
 		for n := range root.PreOrder() {
-			got = append(got, n.Type)
+			got = append(got, string(n.Type))
 		}
 		want := []string{"Root", "C1", "GC1", "C2", "GC2"}
 		if !reflect.DeepEqual(got, want) {
@@ -279,7 +279,7 @@ func TestPreOrder_Comprehensive(t *testing.T) {
 		root := &Node{Type: "root"}
 		curr := root
 		for i := 0; i < depth; i++ {
-			n := &Node{Type: fmt.Sprintf("n%d", i)}
+			n := &Node{Type: Type(fmt.Sprintf("n%d", i))}
 			curr.Children = []*Node{n}
 			curr = n
 		}
@@ -318,16 +318,16 @@ func TestPreOrder_Comprehensive(t *testing.T) {
 
 func TestHasRole(t *testing.T) {
 	n := &Node{Roles: []Role{"Exported", "Test"}}
-	if !n.HasRole("Exported") {
+	if !n.HasAnyRole("Exported") {
 		t.Error("HasRole should return true for present role")
 	}
-	if n.HasRole("Missing") {
+	if n.HasAnyRole("Missing") {
 		t.Error("HasRole should return false for absent role")
 	}
 
 	// Test nil node
 	var nilNode *Node
-	if nilNode.HasRole("Exported") {
+	if nilNode.HasAnyRole("Exported") {
 		t.Error("HasRole should return false for nil node")
 	}
 }
@@ -694,42 +694,42 @@ func TestNode_FindDSL_ComplexRFilterMap(t *testing.T) {
 func TestHasRole_Comprehensive(t *testing.T) {
 	t.Run("no roles", func(t *testing.T) {
 		n := &Node{}
-		if n.HasRole("Exported") {
+		if n.HasAnyRole("Exported") {
 			t.Errorf("expected false for node with no roles")
 		}
 	})
 
 	t.Run("one role, present", func(t *testing.T) {
 		n := &Node{Roles: []Role{"Exported"}}
-		if !n.HasRole("Exported") {
+		if !n.HasAnyRole("Exported") {
 			t.Errorf("expected true for present role")
 		}
 	})
 
 	t.Run("one role, not present", func(t *testing.T) {
 		n := &Node{Roles: []Role{"Test"}}
-		if n.HasRole("Exported") {
+		if n.HasAnyRole("Exported") {
 			t.Errorf("expected false for absent role")
 		}
 	})
 
 	t.Run("multiple roles, present", func(t *testing.T) {
 		n := &Node{Roles: []Role{"Exported", "Test"}}
-		if !n.HasRole("Test") {
+		if !n.HasAnyRole("Test") {
 			t.Errorf("expected true for present role")
 		}
 	})
 
 	t.Run("multiple roles, not present", func(t *testing.T) {
 		n := &Node{Roles: []Role{"Exported", "Test"}}
-		if n.HasRole("Private") {
+		if n.HasAnyRole("Private") {
 			t.Errorf("expected false for absent role")
 		}
 	})
 
 	t.Run("empty role string", func(t *testing.T) {
 		n := &Node{Roles: []Role{"Exported"}}
-		if n.HasRole("") {
+		if n.HasAnyRole("") {
 			t.Errorf("expected false for empty role string")
 		}
 	})
@@ -743,7 +743,7 @@ func TestHasRole_Comprehensive(t *testing.T) {
 		}()
 		count := 0
 		for i := range n.Roles {
-			if n.HasRole(n.Roles[i]) {
+			if n.HasAnyRole(n.Roles[i]) {
 				count++
 				n.Roles = n.Roles[:1] // mutate during check
 				break                 // avoid out-of-bounds after mutation

@@ -130,6 +130,9 @@ const (
 // Role represents a syntactic/semantic label for a node.
 type Role string
 
+// Type represents a type label for a node.
+type Type string
+
 // Positions represents the byte and line/col offsets for a node.
 // All fields are 1-based except StartOffset/EndOffset, which are byte offsets.
 type Positions struct {
@@ -154,7 +157,7 @@ type Positions struct {
 //	Children: child nodes (ordered)
 type Node struct {
 	Id       string            `json:"id,omitempty"`
-	Type     string            `json:"type,omitempty"`
+	Type     Type              `json:"type,omitempty"`
 	Token    string            `json:"token,omitempty"`
 	Roles    []Role            `json:"roles,omitempty"`
 	Pos      *Positions        `json:"pos,omitempty"`
@@ -198,8 +201,8 @@ func (b *NodeBuilder) WithID(id string) *NodeBuilder {
 }
 
 // WithType sets the node type
-func (b *NodeBuilder) WithType(nodeType string) *NodeBuilder {
-	b.node.Type = nodeType
+func (b *NodeBuilder) WithType(t Type) *NodeBuilder {
+	b.node.Type = t
 	return b
 }
 
@@ -234,7 +237,7 @@ func (b *NodeBuilder) Build() *Node {
 }
 
 // New creates a new Node from the pool and initializes it with the given values
-func New(id string, nodeType, token string, roles []Role, pos *Positions, props map[string]string) *Node {
+func New(id string, nodeType Type, token string, roles []Role, pos *Positions, props map[string]string) *Node {
 	return NewBuilder().
 		WithID(id).
 		WithType(nodeType).
@@ -246,7 +249,7 @@ func New(id string, nodeType, token string, roles []Role, pos *Positions, props 
 }
 
 // NewWithType creates a new Node with just a type
-func NewWithType(nodeType string) *Node {
+func NewWithType(nodeType Type) *Node {
 	node := nodePool.Get().(*Node)
 	node.Id = ""
 	node.Type = nodeType
@@ -259,7 +262,7 @@ func NewWithType(nodeType string) *Node {
 }
 
 // NewNodeWithToken creates a new Node with type and token
-func NewNodeWithToken(nodeType, token string) *Node {
+func NewNodeWithToken(nodeType Type, token string) *Node {
 	node := nodePool.Get().(*Node)
 	node.Id = ""
 	node.Type = nodeType
@@ -444,17 +447,50 @@ func (n *Node) determineFieldNodeInput(fieldNode *FieldNode) []*Node {
 	return n.Children
 }
 
-// HasRole checks if the node has the given role.
+// HasAnyRole checks if the node has the given role.
 // Example:
 //
-//	if uast.HasRole(node, uast.RoleFunction) {
+//	if uast.HasAnyRole(node, uast.RoleFunction) {
 //	    fmt.Println("Node is a function")
 //	}
-func (n *Node) HasRole(role Role) bool {
+func (n *Node) HasAnyRole(roles ...Role) bool {
 	if isNodeNil(n) || hasNoRoles(n) {
 		return false
 	}
-	return hasRoleInList(n.Roles, role)
+
+	for _, role := range roles {
+		if isRoleMatch(n.Roles, role) {
+			return true
+		}
+	}
+	return false
+}
+
+func HasRole(node *Node, role Role) bool {
+	if isNodeNil(node) || hasNoRoles(node) {
+		return false
+	}
+	return isRoleMatch(node.Roles, role)
+}
+
+func (n *Node) HasAllRoles(roles ...Role) bool {
+	if isNodeNil(n) || hasNoRoles(n) {
+		return false
+	}
+
+	for _, role := range roles {
+		if !isRoleMatch(n.Roles, role) {
+			return false
+		}
+	}
+	return true
+}
+
+func (n *Node) HasAnyType(nodeTypes ...Type) bool {
+	if isNodeNil(n) {
+		return false
+	}
+	return isTypeMatch(n.Type, nodeTypes)
 }
 
 // Transform mutates the tree in place using the provided function.
@@ -585,7 +621,7 @@ func nodeString(node *Node) string {
 	var buf strings.Builder
 	buf.WriteString("Node{")
 	buf.WriteString("Type:")
-	buf.WriteString(node.Type)
+	buf.WriteString(string(node.Type))
 
 	appendToken(&buf, node.Token)
 	appendRoles(&buf, node.Roles)
@@ -790,17 +826,22 @@ func hasNoRoles(node *Node) bool {
 	return len(node.Roles) == 0
 }
 
-func hasRoleInList(roles []Role, target Role) bool {
+func isRoleMatch(roles []Role, target Role) bool {
 	for _, r := range roles {
-		if isRoleMatch(r, target) {
+		if target == r {
 			return true
 		}
 	}
 	return false
 }
 
-func isRoleMatch(role, target Role) bool {
-	return role == target
+func isTypeMatch(nodeType Type, target []Type) bool {
+	for _, t := range target {
+		if nodeType == t {
+			return true
+		}
+	}
+	return false
 }
 
 func transformInPlace(root *Node, fn func(*Node) bool) {

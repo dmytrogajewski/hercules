@@ -184,9 +184,9 @@ func main() {
 		t.Fatalf("UAST is nil")
 	}
 
-	// Find all function nodes
+	// Find all function and method nodes
 	functionNodes := uast.Find(func(n *node.Node) bool {
-		return n.Type == "Function" || n.Type == "go:function" || n.Type == "FunctionDecl"
+		return n.Type == "Function" || n.Type == "go:function" || n.Type == "FunctionDecl" || n.Type == "Method"
 	})
 
 	if len(functionNodes) < 2 {
