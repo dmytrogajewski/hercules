@@ -8,6 +8,8 @@ import (
 	"strings"
 
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/analyze"
+	"github.com/dmytrogajewski/hercules/pkg/analyzers/cohesion"
+	"github.com/dmytrogajewski/hercules/pkg/analyzers/comments"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/complexity"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/halstead"
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
@@ -56,8 +58,10 @@ func (c *AnalyzeCommand) Run(cmd *cobra.Command, args []string) error {
 func (c *AnalyzeCommand) newService() *Service {
 	return &Service{
 		availableAnalyzers: []analyze.CodeAnalyzer{
-			&complexity.ComplexityAnalyzer{},
-			&halstead.HalsteadAnalyzer{},
+			complexity.NewComplexityAnalyzer(),
+			comments.NewCommentsAnalyzer(),
+			halstead.NewHalsteadAnalyzer(),
+			cohesion.NewCohesionAnalyzer(),
 		},
 	}
 }
@@ -89,13 +93,11 @@ type Service struct {
 
 // AnalyzeAndFormat runs analysis and formats the results
 func (s *Service) AnalyzeAndFormat(input io.Reader, analyzerList []string, format string, writer io.Writer) error {
-	// Run analysis
 	results, err := s.Analyze(input, analyzerList)
 	if err != nil {
 		return fmt.Errorf("analysis failed: %w", err)
 	}
 
-	// Format and output results
 	if format == "json" {
 		return s.formatJSON(results, writer)
 	} else {

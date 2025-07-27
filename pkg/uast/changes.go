@@ -34,7 +34,7 @@ func FilterChangesByType(changes []Change, changeType ChangeType) []Change {
 
 // FilterChangesByNodeType filters the given changes by the type of nodes involved.
 // Returns a slice of changes where either Before or After node matches nodeType.
-func FilterChangesByNodeType(changes []Change, nodeType string) []Change {
+func FilterChangesByNodeType(changes []Change, nodeType node.Type) []Change {
 	var filtered []Change
 	for _, change := range changes {
 		if hasNodeType(change, nodeType) {
@@ -286,7 +286,7 @@ func isChangeOfType(change Change, changeType ChangeType) bool {
 }
 
 // hasNodeType checks if a change involves a node of the specified type
-func hasNodeType(change Change, nodeType string) bool {
+func hasNodeType(change Change, nodeType node.Type) bool {
 	return (change.Before != nil && change.Before.Type == nodeType) ||
 		(change.After != nil && change.After.Type == nodeType)
 }

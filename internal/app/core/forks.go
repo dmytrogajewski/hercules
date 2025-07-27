@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"sort"
 
-	"github.com/dmytrogajewski/hercules/internal/pkg/toposort"
+	"github.com/dmytrogajewski/hercules/pkg/toposort"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
 )

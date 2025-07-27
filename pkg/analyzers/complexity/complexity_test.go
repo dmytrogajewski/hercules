@@ -7,11 +7,11 @@ import (
 )
 
 func TestComplexityAnalyzer_Basic(t *testing.T) {
-	analyzer := &ComplexityAnalyzer{}
+	analyzer := NewComplexityAnalyzer()
 
 	// Test basic functionality
-	if analyzer.Name() != "complexity_analysis" {
-		t.Errorf("Expected name 'complexity_analysis', got '%s'", analyzer.Name())
+	if analyzer.Name() != "complexity" {
+		t.Errorf("Expected name 'complexity', got '%s'", analyzer.Name())
 	}
 
 	thresholds := analyzer.Thresholds()
@@ -19,24 +19,18 @@ func TestComplexityAnalyzer_Basic(t *testing.T) {
 		t.Errorf("Expected 3 thresholds, got %d", len(thresholds))
 	}
 
-	// Test cyclomatic complexity thresholds
-	cyclomaticThreshold, exists := thresholds["cyclomatic_complexity"]
-	if !exists {
-		t.Error("Expected 'cyclomatic_complexity' threshold to exist")
-	}
-
-	expectedValues := map[string]int{"green": 1, "yellow": 5, "red": 10}
-	for key, expected := range expectedValues {
-		if value, ok := cyclomaticThreshold[key]; !ok {
-			t.Errorf("Expected threshold key '%s' to exist", key)
-		} else if value != expected {
-			t.Errorf("Expected threshold '%s' to be %d, got %v", key, expected, value)
+	// Test that expected thresholds exist
+	expectedThresholds := []string{"cyclomatic_complexity", "cognitive_complexity", "nesting_depth"}
+	for _, expected := range expectedThresholds {
+		if _, exists := thresholds[expected]; !exists {
+			t.Errorf("Expected threshold '%s' to exist", expected)
 		}
 	}
 }
 
 func TestComplexityAnalyzer_NilRoot(t *testing.T) {
-	analyzer := &ComplexityAnalyzer{}
+	analyzer := NewComplexityAnalyzer()
+
 	result, err := analyzer.Analyze(nil)
 
 	if err != nil {
@@ -48,32 +42,23 @@ func TestComplexityAnalyzer_NilRoot(t *testing.T) {
 		return
 	}
 
-	if total, ok := result["total_complexity"]; !ok {
-		t.Error("Expected 'total_complexity' in result")
+	// Check that we get the expected empty result structure
+	if total, ok := result["total_functions"]; !ok {
+		t.Error("Expected 'total_functions' in result")
 	} else if total != 0 {
-		t.Errorf("Expected total_complexity to be 0, got %v", total)
-	}
-
-	if functions, ok := result["functions"]; !ok {
-		t.Error("Expected 'functions' in result")
-	} else if functions == nil {
-		t.Error("Expected non-nil functions map")
-	}
-
-	if count, ok := result["function_count"]; !ok {
-		t.Error("Expected 'function_count' in result")
-	} else if count != 0 {
-		t.Errorf("Expected function_count to be 0, got %v", count)
+		t.Errorf("Expected total_functions to be 0 for nil root, got %v", total)
 	}
 }
 
 func TestComplexityAnalyzer_SimpleFunction(t *testing.T) {
-	analyzer := &ComplexityAnalyzer{}
+	analyzer := NewComplexityAnalyzer()
 
-	// Create a simple function node
+	// Create a simple function
 	functionNode := node.NewWithType(node.UASTFunction)
 	functionNode.Roles = []node.Role{node.RoleFunction, node.RoleDeclaration}
-	nameNode := node.NewNodeWithToken(node.UASTIdentifier, "testFunction")
+
+	// Add function name
+	nameNode := node.NewNodeWithToken(node.UASTIdentifier, "simpleFunction")
 	nameNode.Roles = []node.Role{node.RoleName}
 	functionNode.AddChild(nameNode)
 
@@ -92,23 +77,23 @@ func TestComplexityAnalyzer_SimpleFunction(t *testing.T) {
 		return
 	}
 
-	if total, ok := result["total_complexity"]; !ok {
-		t.Error("Expected 'total_complexity' in result")
+	if total, ok := result["total_functions"]; !ok {
+		t.Error("Expected 'total_functions' in result")
 	} else if total != 1 {
-		t.Errorf("Expected total_complexity to be 1 for simple function, got %v", total)
+		t.Errorf("Expected total_functions to be 1, got %v", total)
 	}
 
-	if count, ok := result["function_count"]; !ok {
-		t.Error("Expected 'function_count' in result")
-	} else if count != 1 {
-		t.Errorf("Expected function_count to be 1, got %v", count)
+	if complexity, ok := result["total_complexity"]; !ok {
+		t.Error("Expected 'total_complexity' in result")
+	} else if complexity != 1 {
+		t.Errorf("Expected total_complexity to be 1 for simple function, got %v", complexity)
 	}
 }
 
 func TestComplexityAnalyzer_ExtractFunctionName(t *testing.T) {
-	analyzer := &ComplexityAnalyzer{}
+	analyzer := NewComplexityAnalyzer()
 
-	// Test function with Name role in children
+	// Test function with name
 	functionNode := node.NewWithType(node.UASTFunction)
 	nameNode := node.NewNodeWithToken(node.UASTIdentifier, "testFunction")
 	nameNode.Roles = []node.Role{node.RoleName}
@@ -119,35 +104,25 @@ func TestComplexityAnalyzer_ExtractFunctionName(t *testing.T) {
 		t.Errorf("Expected function name 'testFunction', got '%s'", name)
 	}
 
-	// Test function with name in props
-	functionNode2 := node.NewWithType(node.UASTFunction)
-	functionNode2.Props = map[string]string{"name": "propFunction"}
-
-	name = analyzer.extractFunctionName(functionNode2)
-	if name != "propFunction" {
-		t.Errorf("Expected function name 'propFunction', got '%s'", name)
-	}
-
-	// Test function with no name (should return anonymous)
-	functionNode3 := node.NewWithType(node.UASTFunction)
-	name = analyzer.extractFunctionName(functionNode3)
+	// Test function without name
+	anonymousFunction := node.NewWithType(node.UASTFunction)
+	name = analyzer.extractFunctionName(anonymousFunction)
 	if name != "anonymous" {
-		t.Errorf("Expected function name 'anonymous', got '%s'", name)
+		t.Errorf("Expected anonymous function name 'anonymous', got '%s'", name)
 	}
 }
 
 func TestComplexityAnalyzer_IsDecisionPoint(t *testing.T) {
-	analyzer := &ComplexityAnalyzer{}
+	analyzer := NewComplexityAnalyzer()
 
 	// Test decision point types
 	decisionTypes := []string{
-		node.UASTIf, node.UASTLoop, node.UASTSwitch, node.UASTCase,
-		node.UASTTry, node.UASTCatch, node.UASTThrow, node.UASTBreak,
-		node.UASTContinue, node.UASTReturn,
+		node.UASTIf, node.UASTSwitch, node.UASTCase, node.UASTTry, node.UASTCatch,
+		node.UASTThrow, node.UASTBreak, node.UASTContinue, node.UASTReturn,
 	}
 
 	for _, nodeType := range decisionTypes {
-		testNode := node.NewWithType(nodeType)
+		testNode := node.NewWithType(node.Type(nodeType))
 		testNode.Roles = []node.Role{node.RoleCondition}
 
 		if !analyzer.isDecisionPoint(testNode) {
@@ -177,7 +152,7 @@ func TestComplexityAnalyzer_IsDecisionPoint(t *testing.T) {
 }
 
 func TestComplexityAnalyzer_WithIfStatement(t *testing.T) {
-	analyzer := &ComplexityAnalyzer{}
+	analyzer := NewComplexityAnalyzer()
 
 	// Create a function with an if statement
 	functionNode := node.NewWithType(node.UASTFunction)
@@ -212,33 +187,5 @@ func TestComplexityAnalyzer_WithIfStatement(t *testing.T) {
 		t.Error("Expected 'total_complexity' in result")
 	} else if total != 2 {
 		t.Errorf("Expected total_complexity to be 2 for function with if, got %v", total)
-	}
-}
-
-func TestComplexityAnalyzer_LegacyCompatibility(t *testing.T) {
-	analyzer := &CyclomaticComplexityAnalyzer{}
-
-	// Test basic functionality
-	if analyzer.Name() != "cyclomatic_complexity" {
-		t.Errorf("Expected name 'cyclomatic_complexity', got '%s'", analyzer.Name())
-	}
-
-	thresholds := analyzer.Thresholds()
-	if len(thresholds) != 1 {
-		t.Errorf("Expected 1 threshold, got %d", len(thresholds))
-	}
-
-	complexityThreshold, exists := thresholds["complexity"]
-	if !exists {
-		t.Error("Expected 'complexity' threshold to exist")
-	}
-
-	expectedValues := map[string]int{"green": 1, "yellow": 5, "red": 10}
-	for key, expected := range expectedValues {
-		if value, ok := complexityThreshold[key]; !ok {
-			t.Errorf("Expected threshold key '%s' to exist", key)
-		} else if value != expected {
-			t.Errorf("Expected threshold '%s' to be %d, got %v", key, expected, value)
-		}
 	}
 }

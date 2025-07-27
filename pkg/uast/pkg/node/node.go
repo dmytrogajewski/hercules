@@ -130,6 +130,9 @@ const (
 // Role represents a syntactic/semantic label for a node.
 type Role string
 
+// Type represents a type label for a node.
+type Type string
+
 // Positions represents the byte and line/col offsets for a node.
 // All fields are 1-based except StartOffset/EndOffset, which are byte offsets.
 type Positions struct {
@@ -154,7 +157,7 @@ type Positions struct {
 //	Children: child nodes (ordered)
 type Node struct {
 	Id       string            `json:"id,omitempty"`
-	Type     string            `json:"type,omitempty"`
+	Type     Type              `json:"type,omitempty"`
 	Token    string            `json:"token,omitempty"`
 	Roles    []Role            `json:"roles,omitempty"`
 	Pos      *Positions        `json:"pos,omitempty"`
@@ -181,21 +184,72 @@ type nodeTransformFrame struct {
 	newNode  *Node
 }
 
+// NodeBuilder provides a fluent interface for building Node instances
+type NodeBuilder struct {
+	node *Node
+}
+
+// NewBuilder creates a new NodeBuilder with a node from the pool
+func NewBuilder() *NodeBuilder {
+	return &NodeBuilder{node: nodePool.Get().(*Node)}
+}
+
+// WithID sets the node ID
+func (b *NodeBuilder) WithID(id string) *NodeBuilder {
+	b.node.Id = id
+	return b
+}
+
+// WithType sets the node type
+func (b *NodeBuilder) WithType(t Type) *NodeBuilder {
+	b.node.Type = t
+	return b
+}
+
+// WithToken sets the node token
+func (b *NodeBuilder) WithToken(token string) *NodeBuilder {
+	b.node.Token = token
+	return b
+}
+
+// WithRoles sets the node roles
+func (b *NodeBuilder) WithRoles(roles []Role) *NodeBuilder {
+	b.node.Roles = roles
+	return b
+}
+
+// WithPosition sets the node position
+func (b *NodeBuilder) WithPosition(pos *Positions) *NodeBuilder {
+	b.node.Pos = pos
+	return b
+}
+
+// WithProps sets the node properties
+func (b *NodeBuilder) WithProps(props map[string]string) *NodeBuilder {
+	b.node.Props = props
+	return b
+}
+
+// Build creates and returns the final Node
+func (b *NodeBuilder) Build() *Node {
+	b.node.Children = make([]*Node, 0, 4) // Pre-allocate with reasonable capacity
+	return b.node
+}
+
 // New creates a new Node from the pool and initializes it with the given values
-func New(id string, nodeType, token string, roles []Role, pos *Positions, props map[string]string) *Node {
-	node := nodePool.Get().(*Node)
-	node.Id = id
-	node.Type = nodeType
-	node.Token = token
-	node.Roles = roles
-	node.Pos = pos
-	node.Props = props
-	node.Children = make([]*Node, 0, 4) // Pre-allocate with reasonable capacity
-	return node
+func New(id string, nodeType Type, token string, roles []Role, pos *Positions, props map[string]string) *Node {
+	return NewBuilder().
+		WithID(id).
+		WithType(nodeType).
+		WithToken(token).
+		WithRoles(roles).
+		WithPosition(pos).
+		WithProps(props).
+		Build()
 }
 
 // NewWithType creates a new Node with just a type
-func NewWithType(nodeType string) *Node {
+func NewWithType(nodeType Type) *Node {
 	node := nodePool.Get().(*Node)
 	node.Id = ""
 	node.Type = nodeType
@@ -208,7 +262,7 @@ func NewWithType(nodeType string) *Node {
 }
 
 // NewNodeWithToken creates a new Node with type and token
-func NewNodeWithToken(nodeType, token string) *Node {
+func NewNodeWithToken(nodeType Type, token string) *Node {
 	node := nodePool.Get().(*Node)
 	node.Id = ""
 	node.Type = nodeType
@@ -393,17 +447,50 @@ func (n *Node) determineFieldNodeInput(fieldNode *FieldNode) []*Node {
 	return n.Children
 }
 
-// HasRole checks if the node has the given role.
+// HasAnyRole checks if the node has the given role.
 // Example:
 //
-//	if uast.HasRole(node, uast.RoleFunction) {
+//	if uast.HasAnyRole(node, uast.RoleFunction) {
 //	    fmt.Println("Node is a function")
 //	}
-func (n *Node) HasRole(role Role) bool {
+func (n *Node) HasAnyRole(roles ...Role) bool {
 	if isNodeNil(n) || hasNoRoles(n) {
 		return false
 	}
-	return hasRoleInList(n.Roles, role)
+
+	for _, role := range roles {
+		if isRoleMatch(n.Roles, role) {
+			return true
+		}
+	}
+	return false
+}
+
+func HasRole(node *Node, role Role) bool {
+	if isNodeNil(node) || hasNoRoles(node) {
+		return false
+	}
+	return isRoleMatch(node.Roles, role)
+}
+
+func (n *Node) HasAllRoles(roles ...Role) bool {
+	if isNodeNil(n) || hasNoRoles(n) {
+		return false
+	}
+
+	for _, role := range roles {
+		if !isRoleMatch(n.Roles, role) {
+			return false
+		}
+	}
+	return true
+}
+
+func (n *Node) HasAnyType(nodeTypes ...Type) bool {
+	if isNodeNil(n) {
+		return false
+	}
+	return isTypeMatch(n.Type, nodeTypes)
 }
 
 // Transform mutates the tree in place using the provided function.
@@ -534,7 +621,7 @@ func nodeString(node *Node) string {
 	var buf strings.Builder
 	buf.WriteString("Node{")
 	buf.WriteString("Type:")
-	buf.WriteString(node.Type)
+	buf.WriteString(string(node.Type))
 
 	appendToken(&buf, node.Token)
 	appendRoles(&buf, node.Roles)
@@ -607,9 +694,16 @@ func nodePopStack(stack *[]*Node) *Node {
 }
 
 func nodePushChildrenToStack(node *Node, stack *[]*Node) {
-	for i := len(node.Children) - 1; i >= 0; i-- {
-		*stack = append(*stack, node.Children[i])
+	*stack = append(*stack, getReversedChildren(node)...)
+}
+
+func getReversedChildren(node *Node) []*Node {
+	children := node.Children
+	reversed := make([]*Node, len(children))
+	for i := range children {
+		reversed[len(reversed)-1-i] = children[i]
 	}
+	return reversed
 }
 
 func estimateTreeSize(node *Node) int {
@@ -651,17 +745,20 @@ func isTargetFound(node, target *Node) bool {
 }
 
 func nodePushChildAncestors(top nodeAncestorFrame, stack *[]nodeAncestorFrame) {
-	for i := len(top.node.Children) - 1; i >= 0; i-- {
-		child := top.node.Children[i]
-		anc := buildAncestorPath(top.parent, top.node)
-		*stack = append(*stack, nodeAncestorFrame{child, anc})
+	*stack = append(*stack, createAncestorFrames(top)...)
+}
+
+func createAncestorFrames(top nodeAncestorFrame) []nodeAncestorFrame {
+	ancestorPath := buildAncestorPath(top.parent, top.node)
+	frames := make([]nodeAncestorFrame, len(top.node.Children))
+	for i := range top.node.Children {
+		frames[len(frames)-1-i] = nodeAncestorFrame{top.node.Children[i], ancestorPath}
 	}
+	return frames
 }
 
 func buildAncestorPath(parent []*Node, node *Node) []*Node {
-	anc := append([]*Node{}, parent...)
-	anc = append(anc, node)
-	return anc
+	return append(append([]*Node{}, parent...), node)
 }
 
 func transformNode(n *Node, fn func(*Node) *Node) *Node {
@@ -697,8 +794,7 @@ func nodeHasMoreChildren(top *nodeTransformFrame) bool {
 }
 
 func nodePushChildTransform(top *nodeTransformFrame, stack *[]nodeTransformFrame) {
-	child := top.node.Children[top.childIdx]
-	*stack = append(*stack, nodeTransformFrame{child, top.node, 0, nil})
+	*stack = append(*stack, nodeTransformFrame{top.node.Children[top.childIdx], top.node, 0, nil})
 }
 
 func nodeIncrementChildIndex(top *nodeTransformFrame) {
@@ -706,12 +802,16 @@ func nodeIncrementChildIndex(top *nodeTransformFrame) {
 }
 
 func nodeProcessTransformedNode(top *nodeTransformFrame, results map[*Node]*Node, fn func(*Node) *Node) {
-	copy := *top.node
-	copy.Children = make([]*Node, len(top.node.Children))
-	for i, c := range top.node.Children {
+	results[top.node] = fn(createTransformedNode(top.node, results))
+}
+
+func createTransformedNode(node *Node, results map[*Node]*Node) *Node {
+	copy := *node
+	copy.Children = make([]*Node, len(node.Children))
+	for i, c := range node.Children {
 		copy.Children[i] = results[c]
 	}
-	results[top.node] = fn(&copy)
+	return &copy
 }
 
 func nodePopTransformStack(stack *[]nodeTransformFrame) {
@@ -726,17 +826,22 @@ func hasNoRoles(node *Node) bool {
 	return len(node.Roles) == 0
 }
 
-func hasRoleInList(roles []Role, target Role) bool {
+func isRoleMatch(roles []Role, target Role) bool {
 	for _, r := range roles {
-		if isRoleMatch(r, target) {
+		if target == r {
 			return true
 		}
 	}
 	return false
 }
 
-func isRoleMatch(role, target Role) bool {
-	return role == target
+func isTypeMatch(nodeType Type, target []Type) bool {
+	for _, t := range target {
+		if nodeType == t {
+			return true
+		}
+	}
+	return false
 }
 
 func transformInPlace(root *Node, fn func(*Node) bool) {
@@ -762,8 +867,7 @@ func preOrder(node *Node) <-chan *Node {
 			return
 		}
 
-		maxAllowedDepth := 25
-		stack := make([]*Node, 0, 64)
+		stack := make([]*Node, 0, defaultStackCap)
 		stack = append(stack, node)
 
 		for len(stack) > 0 {
@@ -775,18 +879,22 @@ func preOrder(node *Node) <-chan *Node {
 			}
 
 			ch <- n
-			stack = processPreOrderChildren(n, stack, maxAllowedDepth, ch)
+			stack = processPreOrderChildren(n, stack, defaultMaxDepth, ch)
 		}
 	}()
 	return ch
 }
 
+const (
+	defaultMaxDepth = 25
+	defaultStackCap = 64
+)
+
 func initializePreOrderTraversal(node *Node) (chan *Node, []*Node, int) {
 	ch := make(chan *Node)
-	maxAllowedDepth := 25
-	stack := make([]*Node, 0, 64)
+	stack := make([]*Node, 0, defaultStackCap)
 	stack = append(stack, node)
-	return ch, stack, maxAllowedDepth
+	return ch, stack, defaultMaxDepth
 }
 
 func processPreOrderNode(n *Node, stack []*Node, maxAllowedDepth int, ch chan<- *Node) []*Node {
@@ -867,12 +975,11 @@ func postOrder(node *Node, fn func(*Node)) {
 		return
 	}
 
-	maxAllowedDepth := 25
-	stack := make([]postOrderFrame, 0, 64)
+	stack := make([]postOrderFrame, 0, defaultStackCap)
 	stack = append(stack, postOrderFrame{node: node, index: 0})
 
 	for len(stack) > 0 {
-		if len(stack) >= maxAllowedDepth {
+		if len(stack) >= defaultMaxDepth {
 			processRemainingNodesPostOrderDepthLimited(node, fn, 0, 10)
 			break
 		}
@@ -960,16 +1067,22 @@ func processRemainingNodesPostOrderDepthLimited(node *Node, fn func(*Node), dept
 	fn(node)
 }
 
+const defaultIterativeStackCap = 32
+
 // Process remaining nodes for post-order iteratively
 func processRemainingNodesPostOrderIterative(node *Node, fn func(*Node)) {
-	stack := make([]*Node, 0, 32)
-	visited := make(map[*Node]bool)
-	stack = append(stack, node)
-
+	stack, visited := initializePostOrderIterative(node)
 	for len(stack) > 0 {
 		n := stack[len(stack)-1]
 		stack = processPostOrderIterativeNode(n, stack, visited, fn)
 	}
+}
+
+func initializePostOrderIterative(node *Node) ([]*Node, map[*Node]bool) {
+	stack := make([]*Node, 0, defaultIterativeStackCap)
+	visited := make(map[*Node]bool)
+	stack = append(stack, node)
+	return stack, visited
 }
 
 func processPostOrderIterativeNode(n *Node, stack []*Node, visited map[*Node]bool, fn func(*Node)) []*Node {
@@ -1053,7 +1166,5 @@ func writeEndPosition(buf []byte, pos *Positions) {
 
 // writeChildIDToHash writes child ID to the hash
 func writeChildIDToHash(h hash.Hash, child *Node) {
-	buf := make([]byte, 8)
-	copy(buf, []byte(child.Id))
-	h.Write(buf)
+	h.Write([]byte(child.Id))
 }

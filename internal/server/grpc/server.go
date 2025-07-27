@@ -12,10 +12,10 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"github.com/dmytrogajewski/hercules"
-	"github.com/dmytrogajewski/hercules/internal/pkg/config"
-	"github.com/dmytrogajewski/hercules/internal/app/core"
 	"github.com/dmytrogajewski/hercules/api/proto/pb"
+	"github.com/dmytrogajewski/hercules/internal/app/core"
+	"github.com/dmytrogajewski/hercules/internal/pkg/config"
+	"github.com/dmytrogajewski/hercules/internal/pkg/version"
 )
 
 // Server wraps the gRPC server and job management
@@ -70,8 +70,8 @@ func (s *Server) Health(ctx context.Context, req *pb.HealthRequest) (*pb.HealthR
 	return &pb.HealthResponse{
 		Status:    "healthy",
 		Timestamp: timestamppb.Now(),
-		Version:   int32(hercules.BinaryVersion),
-		Hash:      hercules.BinaryGitHash,
+		Version:   int32(version.Binary),
+		Hash:      version.BinaryGitHash,
 		Config: map[string]string{
 			"grpc": s.addr,
 		},

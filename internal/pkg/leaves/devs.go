@@ -8,11 +8,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/dmytrogajewski/hercules/internal/app/core"
 	"github.com/dmytrogajewski/hercules/api/proto/pb"
+	"github.com/dmytrogajewski/hercules/internal/app/core"
 	items "github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/identity"
-	"github.com/dmytrogajewski/hercules/internal/pkg/yaml"
 	"github.com/gogo/protobuf/proto"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"

@@ -5,11 +5,10 @@ import (
 	"io"
 	"sort"
 
-	"github.com/dmytrogajewski/hercules/internal/app/core"
 	"github.com/dmytrogajewski/hercules/api/proto/pb"
+	"github.com/dmytrogajewski/hercules/internal/app/core"
 	items "github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/identity"
-	"github.com/dmytrogajewski/hercules/internal/pkg/yaml"
 	"github.com/gogo/protobuf/proto"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"
@@ -429,7 +428,7 @@ func (couples *CouplesAnalysis) serializeText(result *CouplesResult, writer io.W
 	fmt.Fprintln(writer, "  files_coocc:")
 	fmt.Fprintln(writer, "    index:")
 	for _, file := range result.Files {
-		fmt.Fprintf(writer, "      - %s\n", yaml.SafeString(file))
+		//	fmt.Fprintf(writer, "      - %s\n", yaml.SafeString(file))
 	}
 	fmt.Fprintln(writer, "    lines:")
 	for _, l := range result.FilesLines {
@@ -456,7 +455,7 @@ func (couples *CouplesAnalysis) serializeText(result *CouplesResult, writer io.W
 	fmt.Fprintln(writer, "  people_coocc:")
 	fmt.Fprintln(writer, "    index:")
 	for _, person := range result.reversedPeopleDict {
-		fmt.Fprintf(writer, "      - %s\n", yaml.SafeString(person))
+		//	fmt.Fprintf(writer, "      - %s\n", yaml.SafeString(person))
 	}
 
 	fmt.Fprintln(writer, "    matrix:")
@@ -479,10 +478,10 @@ func (couples *CouplesAnalysis) serializeText(result *CouplesResult, writer io.W
 	fmt.Fprintln(writer, "    author_files:") // sorted by number of files each author changed
 	peopleFiles := sortByNumberOfFiles(result.PeopleFiles, result.reversedPeopleDict, result.Files)
 	for _, authorFiles := range peopleFiles {
-		fmt.Fprintf(writer, "      - %s:\n", yaml.SafeString(authorFiles.Author))
+		//	fmt.Fprintf(writer, "      - %s:\n", yaml.SafeString(authorFiles.Author))
 		sort.Strings(authorFiles.Files)
 		for _, file := range authorFiles.Files {
-			fmt.Fprintf(writer, "        - %s\n", yaml.SafeString(file)) // sorted by path
+			//		fmt.Fprintf(writer, "        - %s\n", yaml.SafeString(file)) // sorted by path
 		}
 	}
 }

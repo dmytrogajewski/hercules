@@ -162,7 +162,7 @@ func TestDSLParser_RecursiveFunctions(t *testing.T) {
 			for _, n := range out {
 				// For filter results, use the node type; for map results, use the token
 				if strings.Contains(tc.dsl, "rfilter") && !strings.Contains(tc.dsl, "map") {
-					got = append(got, n.Type)
+					got = append(got, string(n.Type))
 				} else {
 					got = append(got, n.Token)
 				}
@@ -1019,7 +1019,7 @@ func TestDSLParser_ExecutionWithComplexQueries(t *testing.T) {
 				if strings.Contains(tc.dsl, "map") {
 					got = append(got, n.Token)
 				} else {
-					got = append(got, n.Type)
+					got = append(got, string(n.Type))
 				}
 			}
 			if len(got) != len(tc.want) {
@@ -1062,7 +1062,7 @@ func TestDSLParser_Lowering_ComplexOrQuery(t *testing.T) {
 	out := qf([]*Node{testUAST})
 	var got []string
 	for _, n := range out {
-		got = append(got, n.Type)
+		got = append(got, string(n.Type))
 	}
 	want := []string{"If", "Loop", "Switch", "Case", "Try", "Catch", "Throw"}
 	if len(got) != len(want) {

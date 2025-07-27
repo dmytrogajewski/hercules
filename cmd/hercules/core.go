@@ -1,13 +1,12 @@
-package hercules
+package main
 
 import (
 	"github.com/dmytrogajewski/hercules/internal/app/core"
+	_ "github.com/dmytrogajewski/hercules/internal/pkg/leaves"          // add burndown and other analyses
+	_ "github.com/dmytrogajewski/hercules/internal/pkg/leaves/research" // add "research" analyses
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/identity"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/uast"
-	"github.com/dmytrogajewski/hercules/internal/pkg/yaml"
-	_ "github.com/dmytrogajewski/hercules/internal/pkg/leaves"          // add burndown and other analyses
-	_ "github.com/dmytrogajewski/hercules/internal/pkg/leaves/research" // add "research" analyses
 	"github.com/spf13/pflag"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"

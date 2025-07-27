@@ -3,8 +3,8 @@ package plumbing
 import (
 	"testing"
 
-	"github.com/dmytrogajewski/hercules/internal"
 	"github.com/dmytrogajewski/hercules/internal/app/core"
+	internal "github.com/dmytrogajewski/hercules/internal/pkg"
 	"github.com/dmytrogajewski/hercules/internal/pkg/test"
 	"github.com/stretchr/testify/assert"
 	"gopkg.in/src-d/go-git.v4/plumbing"

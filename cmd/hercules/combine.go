@@ -10,11 +10,11 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/dmytrogajewski/hercules"
+	progress "github.com/cheggaaa/pb/v3"
 	"github.com/dmytrogajewski/hercules/api/proto/pb"
+	"github.com/dmytrogajewski/hercules/internal/pkg/version"
 	"github.com/gogo/protobuf/proto"
 	"github.com/spf13/cobra"
-	progress "gopkg.in/cheggaaa/pb.v1"
 )
 
 // combineCmd represents the combine command
@@ -43,7 +43,7 @@ var combineCmd = &cobra.Command{
 		var repos []string
 		allErrors := map[string][]string{}
 		mergedResults := map[string]interface{}{}
-		mergedMetadata := &hercules.CommonAnalysisResult{}
+		mergedMetadata := &CommonAnalysisResult{}
 		var fileName string
 		bar := progress.New(len(files))
 		bar.Callback = func(msg string) {
@@ -75,8 +75,8 @@ var combineCmd = &cobra.Command{
 		}
 		mergedMessage := pb.AnalysisResults{
 			Header: &pb.Metadata{
-				Version:    int32(hercules.BinaryVersion),
-				Hash:       hercules.BinaryGitHash,
+				Version:    int32(version.Binary),
+				Hash:       version.BinaryGitHash,
 				Repository: strings.Join(repos, " & "),
 			},
 			Contents: map[string][]byte{},
