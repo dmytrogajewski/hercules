@@ -65,6 +65,7 @@ type ComplexityConfig struct {
 	ComplexityThresholds       map[string]int
 }
 
+// Name returns the analyzer name
 func (c *ComplexityAnalyzer) Name() string {
 	return "complexity"
 }
@@ -141,37 +142,43 @@ func (c *ComplexityAnalyzer) DefaultConfig() ComplexityConfig {
 	}
 }
 
+// Analyze performs complexity analysis on the given UAST
 func (c *ComplexityAnalyzer) Analyze(root *node.Node) (analyze.Report, error) {
 	if root == nil {
-		return common.NewResultBuilder().BuildCustomEmptyResult(map[string]interface{}{
-			"total_functions":    0,
-			"average_complexity": 0.0,
-			"max_complexity":     0,
-			"total_complexity":   0,
-			"message":            "No functions found",
-		}), nil
+		return c.buildEmptyResult("No AST provided"), nil
 	}
 
 	config := c.DefaultConfig()
 	functions := c.findFunctions(root)
 
 	if len(functions) == 0 {
-		return common.NewResultBuilder().BuildCustomEmptyResult(map[string]interface{}{
-			"total_functions":    0,
-			"average_complexity": 0.0,
-			"max_complexity":     0,
-			"total_complexity":   0,
-			"message":            "No functions found",
-		}), nil
+		return c.buildEmptyResult("No functions found"), nil
 	}
 
-	// Calculate metrics for each function
 	functionMetrics, totals := c.calculateAllFunctionMetrics(functions, config)
+	detailedFunctionsTable := c.buildDetailedFunctionsTable(functionMetrics, config)
+	avgComplexity := c.calculateAverageComplexity(totals, len(functions))
+	message := c.getComplexityMessage(avgComplexity)
 
-	// Build detailed functions table for display with assessments
+	return c.buildResult(len(functions), avgComplexity, totals, detailedFunctionsTable, message), nil
+}
+
+// buildEmptyResult creates an empty result for cases with no functions
+func (c *ComplexityAnalyzer) buildEmptyResult(message string) analyze.Report {
+	return common.NewResultBuilder().BuildCustomEmptyResult(map[string]interface{}{
+		"total_functions":    0,
+		"average_complexity": 0.0,
+		"max_complexity":     0,
+		"total_complexity":   0,
+		"message":            message,
+	})
+}
+
+// buildDetailedFunctionsTable creates the detailed functions table for display
+func (c *ComplexityAnalyzer) buildDetailedFunctionsTable(functionMetrics map[string]FunctionMetrics, config ComplexityConfig) []map[string]interface{} {
 	detailedFunctionsTable := make([]map[string]interface{}, 0, len(functionMetrics))
+
 	for _, metrics := range functionMetrics {
-		// Determine complexity assessments
 		complexityAssessment := c.getComplexityAssessment(metrics.CyclomaticComplexity, config.ComplexityThresholds)
 		cognitiveAssessment := c.getCognitiveAssessment(metrics.CognitiveComplexity)
 		nestingAssessment := c.getNestingAssessment(metrics.NestingDepth)
@@ -188,8 +195,13 @@ func (c *ComplexityAnalyzer) Analyze(root *node.Node) (analyze.Report, error) {
 		})
 	}
 
-	// Build function details for result (simplified version)
+	return detailedFunctionsTable
+}
+
+// buildFunctionDetails creates simplified function details for result
+func (c *ComplexityAnalyzer) buildFunctionDetails(functionMetrics map[string]FunctionMetrics) []map[string]interface{} {
 	functionDetails := make([]map[string]interface{}, 0, len(functionMetrics))
+
 	for _, metrics := range functionMetrics {
 		functionDetails = append(functionDetails, map[string]interface{}{
 			"name":                  metrics.Name,
@@ -203,19 +215,22 @@ func (c *ComplexityAnalyzer) Analyze(root *node.Node) (analyze.Report, error) {
 		})
 	}
 
-	// Calculate averages
-	var avgComplexity float64
-	if len(functions) > 0 {
-		avgComplexity = float64(totals["cyclomatic"]) / float64(len(functions))
+	return functionDetails
+}
+
+// calculateAverageComplexity calculates the average complexity across all functions
+func (c *ComplexityAnalyzer) calculateAverageComplexity(totals map[string]int, functionCount int) float64 {
+	if functionCount == 0 {
+		return 0.0
 	}
+	return float64(totals["cyclomatic"]) / float64(functionCount)
+}
 
-	// Build message
-	message := c.getComplexityMessage(avgComplexity)
-
-	// Build the result with proper structure for common formatter
-	result := analyze.Report{
+// buildResult constructs the final analysis result
+func (c *ComplexityAnalyzer) buildResult(functionCount int, avgComplexity float64, totals map[string]int, detailedFunctionsTable []map[string]interface{}, message string) analyze.Report {
+	return analyze.Report{
 		"analyzer_name":        "complexity",
-		"total_functions":      len(functions),
+		"total_functions":      functionCount,
 		"average_complexity":   avgComplexity,
 		"max_complexity":       totals["max"],
 		"total_complexity":     totals["cyclomatic"],
@@ -225,19 +240,13 @@ func (c *ComplexityAnalyzer) Analyze(root *node.Node) (analyze.Report, error) {
 		"functions":            detailedFunctionsTable,
 		"message":              message,
 	}
-
-	return result, nil
 }
 
 // findFunctions finds all functions in the UAST using common traverser
 func (c *ComplexityAnalyzer) findFunctions(root *node.Node) []*node.Node {
-	// Use common traverser to find function nodes
 	functionNodes := c.traverser.FindNodesByType(root, []string{node.UASTFunction, node.UASTMethod})
-
-	// Also find by roles for broader coverage
 	roleNodes := c.traverser.FindNodesByRoles(root, []string{node.RoleFunction})
 
-	// Combine and deduplicate
 	allNodes := make(map[*node.Node]bool)
 	for _, node := range functionNodes {
 		allNodes[node] = true
@@ -246,7 +255,6 @@ func (c *ComplexityAnalyzer) findFunctions(root *node.Node) []*node.Node {
 		allNodes[node] = true
 	}
 
-	// Convert back to slice
 	var functions []*node.Node
 	for node := range allNodes {
 		if c.isFunctionNode(node) {
@@ -267,51 +275,74 @@ func (c *ComplexityAnalyzer) isFunctionNode(n *node.Node) bool {
 		n.HasAllRoles(node.RoleFunction, node.RoleDeclaration)
 }
 
+// calculateAllFunctionMetrics calculates metrics for all functions
 func (c *ComplexityAnalyzer) calculateAllFunctionMetrics(functions []*node.Node, config ComplexityConfig) (map[string]FunctionMetrics, map[string]int) {
 	functionMetrics := make(map[string]FunctionMetrics)
-	totals := map[string]int{
+	totals := c.initializeTotals()
+	complexityDistribution := c.initializeComplexityDistribution()
+
+	for _, fn := range functions {
+		metrics := c.calculateFunctionMetrics(fn)
+		functionMetrics[metrics.Name] = metrics
+
+		c.updateTotals(totals, metrics)
+		c.updateComplexityDistribution(complexityDistribution, metrics, config)
+	}
+
+	c.addDistributionToTotals(totals, complexityDistribution)
+	return functionMetrics, totals
+}
+
+// initializeTotals creates a new totals map with default values
+func (c *ComplexityAnalyzer) initializeTotals() map[string]int {
+	return map[string]int{
 		"cyclomatic": 0,
 		"cognitive":  0,
 		"nesting":    0,
 		"decisions":  0,
 		"max":        0,
 	}
+}
 
-	complexityDistribution := map[string]int{
+// initializeComplexityDistribution creates a new complexity distribution map
+func (c *ComplexityAnalyzer) initializeComplexityDistribution() map[string]int {
+	return map[string]int{
 		"green":  0,
 		"yellow": 0,
 		"red":    0,
 	}
-
-	for _, fn := range functions {
-		metrics := c.calculateFunctionMetrics(fn)
-		functionMetrics[metrics.Name] = metrics
-
-		totals["cyclomatic"] += metrics.CyclomaticComplexity
-		totals["cognitive"] += metrics.CognitiveComplexity
-		totals["nesting"] += metrics.NestingDepth
-		totals["decisions"] += metrics.DecisionPoints
-
-		if metrics.CyclomaticComplexity > totals["max"] {
-			totals["max"] = metrics.CyclomaticComplexity
-		}
-
-		// Update complexity distribution
-		complexityLevel := c.getComplexityLevel(metrics.CyclomaticComplexity, config.ComplexityThresholds)
-		complexityDistribution[complexityLevel]++
-	}
-
-	totals["distribution_green"] = complexityDistribution["green"]
-	totals["distribution_yellow"] = complexityDistribution["yellow"]
-	totals["distribution_red"] = complexityDistribution["red"]
-
-	return functionMetrics, totals
 }
 
+// updateTotals updates the totals with metrics from a function
+func (c *ComplexityAnalyzer) updateTotals(totals map[string]int, metrics FunctionMetrics) {
+	totals["cyclomatic"] += metrics.CyclomaticComplexity
+	totals["cognitive"] += metrics.CognitiveComplexity
+	totals["nesting"] += metrics.NestingDepth
+	totals["decisions"] += metrics.DecisionPoints
+
+	if metrics.CyclomaticComplexity > totals["max"] {
+		totals["max"] = metrics.CyclomaticComplexity
+	}
+}
+
+// updateComplexityDistribution updates the complexity distribution
+func (c *ComplexityAnalyzer) updateComplexityDistribution(distribution map[string]int, metrics FunctionMetrics, config ComplexityConfig) {
+	complexityLevel := c.getComplexityLevel(metrics.CyclomaticComplexity, config.ComplexityThresholds)
+	distribution[complexityLevel]++
+}
+
+// addDistributionToTotals adds distribution counts to totals
+func (c *ComplexityAnalyzer) addDistributionToTotals(totals map[string]int, distribution map[string]int) {
+	totals["distribution_green"] = distribution["green"]
+	totals["distribution_yellow"] = distribution["yellow"]
+	totals["distribution_red"] = distribution["red"]
+}
+
+// calculateFunctionMetrics calculates metrics for a single function
 func (c *ComplexityAnalyzer) calculateFunctionMetrics(fn *node.Node) FunctionMetrics {
 	name := c.extractFunctionName(fn)
 
-	metrics := FunctionMetrics{
+	return FunctionMetrics{
 		Name:                 name,
 		CyclomaticComplexity: c.calculateCyclomaticComplexity(fn),
 		CognitiveComplexity:  c.calculateCognitiveComplexity(fn),
@@ -321,10 +352,9 @@ func (c *ComplexityAnalyzer) calculateFunctionMetrics(fn *node.Node) FunctionMet
 		Parameters:           c.countParameters(fn),
 		ReturnStatements:     c.countReturnStatements(fn),
 	}
-
-	return metrics
 }
 
+// calculateCyclomaticComplexity calculates cyclomatic complexity for a function
 func (c *ComplexityAnalyzer) calculateCyclomaticComplexity(fn *node.Node) int {
 	complexity := 1 // Base complexity
 
@@ -337,6 +367,7 @@ func (c *ComplexityAnalyzer) calculateCyclomaticComplexity(fn *node.Node) int {
 	return complexity
 }
 
+// calculateCognitiveComplexity calculates cognitive complexity for a function
 func (c *ComplexityAnalyzer) calculateCognitiveComplexity(fn *node.Node) int {
 	complexity := 0
 
@@ -349,6 +380,7 @@ func (c *ComplexityAnalyzer) calculateCognitiveComplexity(fn *node.Node) int {
 	return complexity
 }
 
+// calculateNestingDepth calculates the maximum nesting depth for a function
 func (c *ComplexityAnalyzer) calculateNestingDepth(fn *node.Node) int {
 	maxDepth := 0
 	currentDepth := 0
@@ -367,6 +399,7 @@ func (c *ComplexityAnalyzer) calculateNestingDepth(fn *node.Node) int {
 	return maxDepth
 }
 
+// countDecisionPoints counts the number of decision points in a function
 func (c *ComplexityAnalyzer) countDecisionPoints(fn *node.Node) int {
 	count := 0
 
@@ -379,8 +412,8 @@ func (c *ComplexityAnalyzer) countDecisionPoints(fn *node.Node) int {
 	return count
 }
 
+// estimateLinesOfCode estimates the lines of code for a function
 func (c *ComplexityAnalyzer) estimateLinesOfCode(fn *node.Node) int {
-	// Simple estimation based on node count and token length
 	loc := 0
 
 	fn.VisitPreOrder(func(n *node.Node) {
@@ -393,34 +426,33 @@ func (c *ComplexityAnalyzer) estimateLinesOfCode(fn *node.Node) int {
 	return loc
 }
 
+// countParameters counts the number of parameters in a function
 func (c *ComplexityAnalyzer) countParameters(fn *node.Node) int {
-	// Look for parameter nodes using common traverser
 	paramNodes := c.traverser.FindNodesByRoles(fn, []string{node.RoleArgument, node.RoleParameter})
 	return len(paramNodes)
 }
 
+// countReturnStatements counts the number of return statements in a function
 func (c *ComplexityAnalyzer) countReturnStatements(fn *node.Node) int {
-	// Look for return statements using common traverser
 	returnNodes := c.traverser.FindNodesByType(fn, []string{node.UASTReturn})
 	returnStmts := c.traverser.FindNodesByRoles(fn, []string{node.RoleReturn})
 	return len(returnNodes) + len(returnStmts)
 }
 
+// isDecisionPoint checks if a node represents a decision point
 func (c *ComplexityAnalyzer) isDecisionPoint(n *node.Node) bool {
-	// Check node types that are always decision points
 	if c.isAlwaysDecisionPoint(string(n.Type)) {
 		return true
 	}
 
-	// Check conditional node types
 	if c.isConditionalDecisionPoint(n) {
 		return true
 	}
 
-	// Check role-based decision points
 	return c.hasDecisionRole(n)
 }
 
+// isAlwaysDecisionPoint checks if a node type is always a decision point
 func (c *ComplexityAnalyzer) isAlwaysDecisionPoint(nodeType string) bool {
 	switch nodeType {
 	case node.UASTSwitch, node.UASTCase, node.UASTTry, node.UASTCatch,
@@ -431,6 +463,7 @@ func (c *ComplexityAnalyzer) isAlwaysDecisionPoint(nodeType string) bool {
 	}
 }
 
+// isConditionalDecisionPoint checks if a node is a conditional decision point
 func (c *ComplexityAnalyzer) isConditionalDecisionPoint(n *node.Node) bool {
 	switch n.Type {
 	case node.UASTIf:
@@ -443,10 +476,12 @@ func (c *ComplexityAnalyzer) isConditionalDecisionPoint(n *node.Node) bool {
 	return false
 }
 
+// hasLoopRole checks if a node has loop-related roles
 func (c *ComplexityAnalyzer) hasLoopRole(n *node.Node) bool {
 	return n.HasAnyRole(node.RoleCondition) || n.HasAnyRole(node.RoleLoop)
 }
 
+// hasLogicalOperator checks if a node has a logical operator
 func (c *ComplexityAnalyzer) hasLogicalOperator(n *node.Node) bool {
 	if operator, ok := n.Props["operator"]; ok {
 		return c.isLogicalOperator(operator)
@@ -454,6 +489,7 @@ func (c *ComplexityAnalyzer) hasLogicalOperator(n *node.Node) bool {
 	return false
 }
 
+// hasDecisionRole checks if a node has decision-related roles
 func (c *ComplexityAnalyzer) hasDecisionRole(n *node.Node) bool {
 	for _, role := range n.Roles {
 		if string(role) == node.RoleCondition ||
@@ -465,19 +501,16 @@ func (c *ComplexityAnalyzer) hasDecisionRole(n *node.Node) bool {
 	return false
 }
 
+// isCognitiveComplexityPoint checks if a node contributes to cognitive complexity
 func (c *ComplexityAnalyzer) isCognitiveComplexityPoint(n *node.Node) bool {
-	// Cognitive complexity includes additional constructs
 	if c.isDecisionPoint(n) {
 		return true
 	}
 
-	// Additional cognitive complexity points
 	if n.Type == node.UASTCall || n.Type == node.UASTFunction {
-		// Function calls can increase cognitive load
 		return true
 	}
 
-	// Nested expressions
 	if n.Type == node.UASTBinaryOp && len(n.Children) > 2 {
 		return true
 	}
@@ -485,16 +518,19 @@ func (c *ComplexityAnalyzer) isCognitiveComplexityPoint(n *node.Node) bool {
 	return false
 }
 
+// isNestingStart checks if a node starts a nesting level
 func (c *ComplexityAnalyzer) isNestingStart(n *node.Node) bool {
 	return n.Type == node.UASTIf || n.Type == node.UASTLoop ||
 		n.Type == node.UASTSwitch || n.Type == node.UASTTry ||
 		n.Type == node.UASTBlock || n.Type == node.UASTFunction
 }
 
+// isNestingEnd checks if a node ends a nesting level
 func (c *ComplexityAnalyzer) isNestingEnd(n *node.Node) bool {
 	return n.Type == node.UASTBlock || n.Type == node.UASTFunction
 }
 
+// isLogicalOperator checks if an operator is logical
 func (c *ComplexityAnalyzer) isLogicalOperator(operator string) bool {
 	logicalOps := map[string]bool{
 		"&&": true, "||": true, "!": true,
@@ -504,24 +540,21 @@ func (c *ComplexityAnalyzer) isLogicalOperator(operator string) bool {
 	return logicalOps[operator]
 }
 
+// extractFunctionName extracts the name of a function
 func (c *ComplexityAnalyzer) extractFunctionName(fn *node.Node) string {
-	// Try common function name extraction first
 	if name, ok := common.ExtractFunctionName(fn); ok && name != "" {
 		return name
 	}
 
-	// Try to extract name using common extractor
 	if name, ok := c.extractor.ExtractName(fn, "function_name"); ok && name != "" {
 		return name
 	}
 
-	// Check properties for name
 	name := c.extractNameFromProps(fn)
 	if name != "" {
 		return name
 	}
 
-	// For methods, try to get class name + method name
 	if fn.Type == node.UASTMethod {
 		name = c.extractMethodFullName(fn)
 		if name != "" {
@@ -529,7 +562,6 @@ func (c *ComplexityAnalyzer) extractFunctionName(fn *node.Node) string {
 		}
 	}
 
-	// Try to find identifier with name role using common traverser
 	nameNodes := c.traverser.FindNodesByRoles(fn, []string{node.RoleName})
 	if len(nameNodes) > 0 {
 		if name, ok := c.extractor.ExtractNameFromToken(nameNodes[0]); ok && name != "" {
@@ -540,6 +572,7 @@ func (c *ComplexityAnalyzer) extractFunctionName(fn *node.Node) string {
 	return "anonymous"
 }
 
+// extractNameFromProps extracts name from node properties
 func (c *ComplexityAnalyzer) extractNameFromProps(fn *node.Node) string {
 	props := []string{"name", "function_name", "method_name"}
 	for _, prop := range props {
@@ -550,6 +583,7 @@ func (c *ComplexityAnalyzer) extractNameFromProps(fn *node.Node) string {
 	return ""
 }
 
+// extractMethodFullName extracts the full name of a method including class
 func (c *ComplexityAnalyzer) extractMethodFullName(fn *node.Node) string {
 	className := c.extractClassName(fn)
 	methodName := c.extractMethodName(fn)
@@ -562,13 +596,12 @@ func (c *ComplexityAnalyzer) extractMethodFullName(fn *node.Node) string {
 	return ""
 }
 
+// extractClassName extracts the class name for a method
 func (c *ComplexityAnalyzer) extractClassName(fn *node.Node) string {
-	// Check if there's a class name in properties first
 	if className, ok := fn.Props["class_name"]; ok && className != "" {
 		return strings.TrimSpace(className)
 	}
 
-	// Try to find class name using common traverser
 	classNodes := c.traverser.FindNodesByType(fn, []string{node.UASTClass})
 	if len(classNodes) > 0 {
 		if name, ok := common.ExtractFunctionName(classNodes[0]); ok && name != "" {
@@ -576,10 +609,10 @@ func (c *ComplexityAnalyzer) extractClassName(fn *node.Node) string {
 		}
 	}
 
-	// Look for class name in ancestors
 	return c.findClassNameInAncestors(fn)
 }
 
+// findClassNameInAncestors finds class name in ancestor nodes
 func (c *ComplexityAnalyzer) findClassNameInAncestors(fn *node.Node) string {
 	ancestors := fn.Ancestors(fn)
 	for _, ancestor := range ancestors {
@@ -590,19 +623,17 @@ func (c *ComplexityAnalyzer) findClassNameInAncestors(fn *node.Node) string {
 	return ""
 }
 
+// extractMethodName extracts the method name
 func (c *ComplexityAnalyzer) extractMethodName(fn *node.Node) string {
-	// Try common function name extraction first
 	if name, ok := common.ExtractFunctionName(fn); ok && name != "" {
 		return name
 	}
 
-	// Check properties first
 	name := c.extractNameFromProps(fn)
 	if name != "" {
 		return name
 	}
 
-	// Try to find name using common traverser
 	nameNodes := c.traverser.FindNodesByRoles(fn, []string{node.RoleName})
 	if len(nameNodes) > 0 {
 		if name, ok := c.extractor.ExtractNameFromToken(nameNodes[0]); ok && name != "" {
@@ -610,10 +641,10 @@ func (c *ComplexityAnalyzer) extractMethodName(fn *node.Node) string {
 		}
 	}
 
-	// Look for method name in children
 	return c.findMethodNameInChildren(fn)
 }
 
+// findMethodNameInChildren finds method name in child nodes
 func (c *ComplexityAnalyzer) findMethodNameInChildren(fn *node.Node) string {
 	for _, child := range fn.Children {
 		if child.HasAnyRole(node.RoleName) {
@@ -623,6 +654,7 @@ func (c *ComplexityAnalyzer) findMethodNameInChildren(fn *node.Node) string {
 	return ""
 }
 
+// getComplexityLevel determines the complexity level based on thresholds
 func (c *ComplexityAnalyzer) getComplexityLevel(complexity int, thresholds map[string]int) string {
 	if complexity <= thresholds["cyclomatic_green"] {
 		return "green"

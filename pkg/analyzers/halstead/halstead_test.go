@@ -88,7 +88,7 @@ func TestHalsteadAnalyzer_CalculateMetrics(t *testing.T) {
 		TotalOperands:     8,
 	}
 
-	analyzer.calculateHalsteadMetrics(metrics)
+	analyzer.metrics.CalculateHalsteadMetrics(metrics)
 
 	// Check calculated values
 	expectedVocabulary := 7 // 3 + 4
@@ -164,13 +164,13 @@ func TestHalsteadAnalyzer_MessageGeneration(t *testing.T) {
 	analyzer := NewHalsteadAnalyzer()
 
 	// Test excellent complexity
-	message := analyzer.getHalsteadMessage(50, 3, 500)
+	message := analyzer.formatter.GetHalsteadMessage(50, 3, 500)
 	if message == "" {
 		t.Error("Expected non-empty message for excellent complexity")
 	}
 
 	// Test high complexity
-	message = analyzer.getHalsteadMessage(6000, 35, 60000)
+	message = analyzer.formatter.GetHalsteadMessage(6000, 35, 60000)
 	if message == "" {
 		t.Error("Expected non-empty message for high complexity")
 	}
@@ -181,19 +181,19 @@ func TestHalsteadAnalyzer_OperatorOperandDetection(t *testing.T) {
 
 	// Test operator detection
 	operatorNode := node.New("op", "BinaryOp", "+", []node.Role{node.RoleOperator}, nil, map[string]string{"operator": "+"})
-	if !analyzer.isOperator(operatorNode) {
+	if !analyzer.detector.IsOperator(operatorNode) {
 		t.Error("Expected binary operator to be detected as operator")
 	}
 
 	// Test operand detection
 	operandNode := node.New("var", "Identifier", "x", []node.Role{node.RoleVariable}, nil, map[string]string{"name": "x"})
-	if !analyzer.isOperand(operandNode) {
+	if !analyzer.detector.IsOperand(operandNode) {
 		t.Error("Expected identifier to be detected as operand")
 	}
 
 	// Test literal operand
 	literalNode := node.New("lit", "Literal", "42", []node.Role{node.RoleLiteral}, nil, map[string]string{"value": "42"})
-	if !analyzer.isOperand(literalNode) {
+	if !analyzer.detector.IsOperand(literalNode) {
 		t.Error("Expected literal to be detected as operand")
 	}
 }
@@ -217,4 +217,164 @@ func TestHalsteadAnalyzer_FunctionNameExtraction(t *testing.T) {
 	if name != "childFunction" {
 		t.Errorf("Expected function name 'childFunction', got '%s'", name)
 	}
+}
+
+func TestHalsteadAnalyzer_RealAggregation(t *testing.T) {
+	analyzer := NewHalsteadAnalyzer()
+
+	// Create a function with specific operators and operands
+	functionNode := node.New("func1", "Function", "", []node.Role{node.RoleFunction, node.RoleDeclaration}, nil, map[string]string{"name": "testFunction"})
+
+	// Add assignment operator
+	assignmentNode := node.New("assign1", "Assignment", "=", []node.Role{node.RoleAssignment}, nil, map[string]string{"operator": "="})
+
+	// Add binary operator
+	binaryOpNode := node.New("binary1", "BinaryOp", "+", []node.Role{node.RoleOperator}, nil, map[string]string{"operator": "+"})
+
+	// Add identifiers (operands)
+	identifier1 := node.New("id1", "Identifier", "x", []node.Role{node.RoleVariable}, nil, map[string]string{"name": "x"})
+	identifier2 := node.New("id2", "Identifier", "y", []node.Role{node.RoleVariable}, nil, map[string]string{"name": "y"})
+
+	// Add literal (operand)
+	literalNode := node.New("lit1", "Literal", "5", []node.Role{node.RoleLiteral}, nil, map[string]string{"value": "5"})
+
+	// Build the function structure
+	functionNode.AddChild(assignmentNode)
+	assignmentNode.AddChild(identifier1)
+	assignmentNode.AddChild(binaryOpNode)
+	binaryOpNode.AddChild(identifier2)
+	binaryOpNode.AddChild(literalNode)
+
+	// Analyze the function
+	result, err := analyzer.Analyze(functionNode)
+	if err != nil {
+		t.Fatalf("Expected no error, got %v", err)
+	}
+
+	// Check that we have the expected operators and operands
+	if result["distinct_operators"] != 2 { // = and +
+		t.Errorf("Expected 2 distinct operators, got %v", result["distinct_operators"])
+	}
+
+	if result["distinct_operands"] != 3 { // x, y, and 5
+		t.Errorf("Expected 3 distinct operands, got %v", result["distinct_operands"])
+	}
+
+	// Check that the aggregation worked correctly
+	if result["total_operators"] != 2 { // One assignment, one binary op
+		t.Errorf("Expected 2 total operators, got %v", result["total_operators"])
+	}
+
+	if result["total_operands"] != 3 { // x, y, 5
+		t.Errorf("Expected 3 total operands, got %v", result["total_operands"])
+	}
+
+	// Verify that the function details contain the actual operators and operands
+	functions := result["functions"].([]map[string]interface{})
+	if len(functions) != 1 {
+		t.Fatalf("Expected 1 function, got %d", len(functions))
+	}
+
+	funcData := functions[0]
+	if operators, ok := funcData["operators"].(map[string]int); ok {
+		if operators["="] != 1 {
+			t.Errorf("Expected 1 assignment operator, got %d", operators["="])
+		}
+		if operators["+"] != 1 {
+			t.Errorf("Expected 1 binary operator, got %d", operators["+"])
+		}
+	} else {
+		t.Error("Expected operators map in function data")
+	}
+
+	if operands, ok := funcData["operands"].(map[string]int); ok {
+		if operands["x"] != 1 {
+			t.Errorf("Expected 1 occurrence of 'x', got %d", operands["x"])
+		}
+		if operands["y"] != 1 {
+			t.Errorf("Expected 1 occurrence of 'y', got %d", operands["y"])
+		}
+		if operands["5"] != 1 {
+			t.Errorf("Expected 1 occurrence of '5', got %d", operands["5"])
+		}
+	} else {
+		t.Error("Expected operands map in function data")
+	}
+}
+
+func TestHalsteadAnalyzer_MultipleFunctionsAggregation(t *testing.T) {
+	analyzer := NewHalsteadAnalyzer()
+
+	// Create a root node to hold multiple functions
+	rootNode := node.New("root", "File", "", nil, nil, nil)
+
+	// Create first function with operators: =, + and operands: x, y, 5
+	function1 := node.New("func1", "Function", "", []node.Role{node.RoleFunction, node.RoleDeclaration}, nil, map[string]string{"name": "function1"})
+	assignment1 := node.New("assign1", "Assignment", "=", []node.Role{node.RoleAssignment}, nil, map[string]string{"operator": "="})
+	binaryOp1 := node.New("binary1", "BinaryOp", "+", []node.Role{node.RoleOperator}, nil, map[string]string{"operator": "+"})
+	identifier1 := node.New("id1", "Identifier", "x", []node.Role{node.RoleVariable}, nil, map[string]string{"name": "x"})
+	identifier2 := node.New("id2", "Identifier", "y", []node.Role{node.RoleVariable}, nil, map[string]string{"name": "y"})
+	literal1 := node.New("lit1", "Literal", "5", []node.Role{node.RoleLiteral}, nil, map[string]string{"value": "5"})
+
+	function1.AddChild(assignment1)
+	assignment1.AddChild(identifier1)
+	assignment1.AddChild(binaryOp1)
+	binaryOp1.AddChild(identifier2)
+	binaryOp1.AddChild(literal1)
+
+	// Create second function with operators: =, * and operands: x, z, 10
+	function2 := node.New("func2", "Function", "", []node.Role{node.RoleFunction, node.RoleDeclaration}, nil, map[string]string{"name": "function2"})
+	assignment2 := node.New("assign2", "Assignment", "=", []node.Role{node.RoleAssignment}, nil, map[string]string{"operator": "="})
+	binaryOp2 := node.New("binary2", "BinaryOp", "*", []node.Role{node.RoleOperator}, nil, map[string]string{"operator": "*"})
+	identifier3 := node.New("id3", "Identifier", "x", []node.Role{node.RoleVariable}, nil, map[string]string{"name": "x"}) // Same as function1
+	identifier4 := node.New("id4", "Identifier", "z", []node.Role{node.RoleVariable}, nil, map[string]string{"name": "z"})
+	literal2 := node.New("lit2", "Literal", "10", []node.Role{node.RoleLiteral}, nil, map[string]string{"value": "10"})
+
+	function2.AddChild(assignment2)
+	assignment2.AddChild(identifier3)
+	assignment2.AddChild(binaryOp2)
+	binaryOp2.AddChild(identifier4)
+	binaryOp2.AddChild(literal2)
+
+	// Add both functions to root
+	rootNode.AddChild(function1)
+	rootNode.AddChild(function2)
+
+	// Analyze the functions
+	result, err := analyzer.Analyze(rootNode)
+	if err != nil {
+		t.Fatalf("Expected no error, got %v", err)
+	}
+
+	// Check file-level aggregation
+	// Should have 3 distinct operators: =, +, *
+	if result["distinct_operators"] != 3 {
+		t.Errorf("Expected 3 distinct operators, got %v", result["distinct_operators"])
+	}
+
+	// Should have 5 distinct operands: x, y, 5, z, 10
+	if result["distinct_operands"] != 5 {
+		t.Errorf("Expected 5 distinct operands, got %v", result["distinct_operands"])
+	}
+
+	// Should have 4 total operators: 2 assignments + 1 addition + 1 multiplication
+	if result["total_operators"] != 4 {
+		t.Errorf("Expected 4 total operators, got %v", result["total_operators"])
+	}
+
+	// Should have 6 total operands: 2x + y + 5 + z + 10
+	if result["total_operands"] != 6 {
+		t.Errorf("Expected 6 total operands, got %v", result["total_operands"])
+	}
+
+	// Verify that the aggregation correctly counted overlapping operators and operands
+	functions := result["functions"].([]map[string]interface{})
+	if len(functions) != 2 {
+		t.Fatalf("Expected 2 functions, got %d", len(functions))
+	}
+
+	// Check that 'x' appears twice (once in each function)
+	// We need to check the file-level aggregation, not individual functions
+	// The test verifies that the real aggregation is working by checking the file-level counts
+	// which should properly merge the operators and operands from both functions
 }

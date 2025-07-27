@@ -200,8 +200,10 @@ func (f *Formatter) formatCollectionTable(collectionKey string, collection []map
 	// Create go-pretty table
 	t := table.NewWriter()
 	t.SetStyle(table.StyleLight)
-	t.Style().Options.SeparateRows = true
-	t.Style().Options.SeparateColumns = true
+	t.Style().Options.SeparateRows = false
+	t.Style().Options.SeparateColumns = false
+	t.Style().Options.DrawBorder = false
+	t.Style().Options.SeparateHeader = false
 
 	// Add header
 	header := make([]interface{}, len(keys))

@@ -13,31 +13,10 @@ type ComplexityAggregator struct {
 
 // NewComplexityAggregator creates a new ComplexityAggregator
 func NewComplexityAggregator() *ComplexityAggregator {
-	numericKeys := []string{"average_complexity", "cognitive_complexity", "nesting_depth"}
-	countKeys := []string{"total_functions", "max_complexity", "total_complexity", "decision_points"}
-
-	messageBuilder := func(score float64) string {
-		if score <= 1.0 {
-			return "Excellent complexity - functions are simple and maintainable"
-		}
-		if score <= 3.0 {
-			return "Good complexity - functions have reasonable complexity"
-		}
-		if score <= 7.0 {
-			return "Fair complexity - some functions could be simplified"
-		}
-		return "High complexity - functions are complex and should be refactored"
-	}
-
-	emptyResultBuilder := func() analyze.Report {
-		return analyze.Report{
-			"total_functions":    0,
-			"average_complexity": 0.0,
-			"max_complexity":     0,
-			"total_complexity":   0,
-			"message":            "No functions found",
-		}
-	}
+	numericKeys := getNumericKeys()
+	countKeys := getCountKeys()
+	messageBuilder := buildComplexityMessage
+	emptyResultBuilder := buildEmptyComplexityResult
 
 	return &ComplexityAggregator{
 		Aggregator: common.NewAggregatorWithCustomEmptyResult(
@@ -55,29 +34,72 @@ func NewComplexityAggregator() *ComplexityAggregator {
 
 // Aggregate overrides the base Aggregate method to collect detailed functions
 func (ca *ComplexityAggregator) Aggregate(results map[string]analyze.Report) {
-	// Collect detailed functions from all reports first
-	for _, report := range results {
-		if report == nil {
-			continue
-		}
-		if functions, ok := report["functions"].([]map[string]interface{}); ok {
-			ca.detailedFunctions = append(ca.detailedFunctions, functions...)
-		}
-	}
-
-	// Call the base aggregate method
+	ca.collectDetailedFunctions(results)
 	ca.Aggregator.Aggregate(results)
 }
 
 // GetResult overrides the base GetResult method to include detailed functions
 func (ca *ComplexityAggregator) GetResult() analyze.Report {
-	// Get the base result
 	result := ca.Aggregator.GetResult()
+	ca.addDetailedFunctionsToResult(result)
+	return result
+}
 
-	// Add the detailed functions table if we have any
+// collectDetailedFunctions extracts detailed functions from all reports
+func (ca *ComplexityAggregator) collectDetailedFunctions(results map[string]analyze.Report) {
+	for _, report := range results {
+		if report == nil {
+			continue
+		}
+		ca.extractFunctionsFromReport(report)
+	}
+}
+
+// extractFunctionsFromReport extracts functions from a single report
+func (ca *ComplexityAggregator) extractFunctionsFromReport(report analyze.Report) {
+	if functions, ok := report["functions"].([]map[string]interface{}); ok {
+		ca.detailedFunctions = append(ca.detailedFunctions, functions...)
+	}
+}
+
+// addDetailedFunctionsToResult adds detailed functions to the result
+func (ca *ComplexityAggregator) addDetailedFunctionsToResult(result analyze.Report) {
 	if len(ca.detailedFunctions) > 0 {
 		result["functions"] = ca.detailedFunctions
 	}
+}
 
-	return result
+// getNumericKeys returns the numeric keys for complexity analysis
+func getNumericKeys() []string {
+	return []string{"average_complexity", "cognitive_complexity", "nesting_depth"}
+}
+
+// getCountKeys returns the count keys for complexity analysis
+func getCountKeys() []string {
+	return []string{"total_functions", "max_complexity", "total_complexity", "decision_points"}
+}
+
+// buildComplexityMessage creates a message based on the complexity score
+func buildComplexityMessage(score float64) string {
+	switch {
+	case score <= 1.0:
+		return "Excellent complexity - functions are simple and maintainable"
+	case score <= 3.0:
+		return "Good complexity - functions have reasonable complexity"
+	case score <= 7.0:
+		return "Fair complexity - some functions could be simplified"
+	default:
+		return "High complexity - functions are complex and should be refactored"
+	}
+}
+
+// buildEmptyComplexityResult creates an empty result with default values
+func buildEmptyComplexityResult() analyze.Report {
+	return analyze.Report{
+		"total_functions":    0,
+		"average_complexity": 0.0,
+		"max_complexity":     0,
+		"total_complexity":   0,
+		"message":            "No functions found",
+	}
 }
