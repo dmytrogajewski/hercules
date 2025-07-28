@@ -8,28 +8,36 @@ endif
 PKG = $(shell go env GOOS)_$(shell go env GOARCH)
 TAGS ?=
 
-all: precompile ${GOBIN}/uast${EXE} ${GOBIN}/herr${EXE} ${GOBIN}/hercules${EXE}
+all: precompile generate-protobuf generate-plugin-source ${GOBIN}/uast${EXE} ${GOBIN}/herr${EXE} ${GOBIN}/hercules${EXE}
 
 # Show help
 .PHONY: help
 help:
 	@echo "Available targets:"
-	@echo "  all              - Build all binaries"
-	@echo "  install          - Install binaries to system PATH"
-	@echo "  test             - Run all tests"
-	@echo "  bench            - Run UAST performance benchmarks"
-	@echo "  uast-dev         - Start UAST development environment (frontend + backend)"
-	@echo "  uast-dev-stop    - Stop UAST development servers"
-	@echo "  uast-dev-status  - Check status of UAST development servers"
-	@echo "  uast-test        - Run UI tests for UAST development service"
-	@echo "  dev-service      - Start backend only (legacy)"
-	@echo "  clean            - Clean build artifacts"
+	@echo "  all                    - Build all binaries"
+	@echo "  install                - Install binaries to system PATH"
+	@echo "  test                   - Run all tests"
+	@echo "  bench                  - Run UAST performance benchmarks"
+	@echo "  uast-dev               - Start UAST development environment (frontend + backend)"
+	@echo "  uast-dev-stop          - Stop UAST development servers"
+	@echo "  uast-dev-status        - Check status of UAST development servers"
+	@echo "  uast-test              - Run UI tests for UAST development service"
+	@echo "  dev-service            - Start backend only (legacy)"
+	@echo "  clean                  - Clean build artifacts"
+	@echo "  generate-protobuf      - Generate protobuf Go files"
+	@echo "  generate-plugin-source - Generate plugin template source file"
 
 # Pre-compile UAST mappings for faster startup
 precompile:
 	@echo "Pre-compiling UAST mappings..."
 	@mkdir -p ${GOBIN}
 	@go run ./build/scripts/precompgen/precompile.go -o pkg/uast/embedded_mappings.gen.go
+
+# Generate protobuf Go files
+generate-protobuf: api/proto/pb/pb.pb.go api/proto/pb/hercules.pb.go
+
+# Generate plugin template source file
+generate-plugin-source: cmd/hercules/plugin_template_source.go
 
 # Generate UAST mappings for all languages
 uastmaps-gen:
@@ -164,6 +172,8 @@ clean:
 	rm -f *.prof
 	rm -f test/benchmarks/benchmark_results.txt
 	rm -rf benchmark_plots/
+	rm -f api/proto/pb/pb.pb.go
+	rm -f cmd/hercules/plugin_template_source.go
 
 # Stop UAST development servers
 .PHONY: uast-dev-stop
@@ -200,27 +210,25 @@ uast-test:
 	@echo "Running UAST UI Tests..."
 	@cd web && npm test -- tests/simple.spec.js tests/basic.spec.js
 
-${GOBIN}/protoc-gen-go${EXE}:
-	go build -o ${GOBIN}/protoc-gen-go${EXE} google.golang.org/protobuf/cmd/protoc-gen-go
-
-ifneq ($(OS),Windows_NT)
-api/proto/pb/pb.pb.go: api/proto/pb/pb.proto ${GOBIN}/protoc-gen-gogo
-	PATH="${PATH}:${GOBIN}" protoc --gogo_out=api/proto/pb --proto_path=api/proto/pb api/proto/pb/pb.proto
-
-api/proto/pb/hercules.pb.go: api/proto/pb/hercules.proto
-	protoc --go_out=api/proto/pb --go_opt=paths=source_relative \
-		--go-grpc_out=api/proto/pb --go-grpc_opt=paths=source_relative \
-		--proto_path=api/proto/pb api/proto/pb/hercules.proto
-else
-api/proto/pb/pb.pb.go: api/proto/pb/pb.proto ${GOBIN}/protoc-gen-gogo.exe
-	export PATH="${PATH};${GOBIN}" && \
-	protoc --gogo_out=api/proto/pb --proto_path=api/proto/pb api/proto/pb/pb.proto
+# Generate protobuf Go files
+api/proto/pb/pb.pb.go: api/proto/pb/pb.proto
+	@echo "Generating pb.pb.go..."
+	@protoc --go_out=api/proto/pb --proto_path=api/proto/pb api/proto/pb/pb.proto
+	@if [ -f api/proto/pb/github.com/dmytrogajewski/hercules/api/proto/pb/pb.pb.go ]; then \
+		mv api/proto/pb/github.com/dmytrogajewski/hercules/api/proto/pb/pb.pb.go api/proto/pb/; \
+		rm -rf api/proto/pb/github.com; \
+	fi
 
 api/proto/pb/hercules.pb.go: api/proto/pb/hercules.proto
-	protoc --go_out=api/proto/pb --go_opt=paths=source_relative \
+	@echo "Generating hercules.pb.go..."
+	@protoc --go_out=api/proto/pb --go_opt=paths=source_relative \
 		--go-grpc_out=api/proto/pb --go-grpc_opt=paths=source_relative \
 		--proto_path=api/proto/pb api/proto/pb/hercules.proto
-endif
+
+# Generate plugin template source file
+cmd/hercules/plugin_template_source.go: cmd/hercules/embed.go cmd/hercules/plugin.template
+	@echo "Generating plugin template source..."
+	@cd cmd/hercules && go generate
 
 ${GOBIN}/uast${EXE}: cmd/uast/*.go pkg/uast/*.go pkg/uast/*/*.go pkg/uast/*/*/*.go internal/pkg/*.go internal/pkg/*/*.go internal/pkg/*/*/*.go
 	LDFLAGS="-X github.com/dmytrogajewski/hercules.BinaryGitHash=$(shell git rev-parse HEAD)"; \
@@ -230,7 +238,7 @@ ${GOBIN}/herr${EXE}: cmd/herr/*.go pkg/analyzers/*/*.go internal/pkg/*.go intern
 	LDFLAGS="-X github.com/dmytrogajewski/hercules.BinaryGitHash=$(shell git rev-parse HEAD)"; \
 	CGO_ENABLED=1 go build -tags "$(TAGS)" -ldflags "$$LDFLAGS" -o ${GOBIN}/herr${EXE} ./cmd/herr
 
-${GOBIN}/hercules${EXE}: cmd/hercules/*.go internal/pkg/*.go internal/pkg/*/*.go internal/pkg/*/*/*.go pkg/analyzers/*/*.go
+${GOBIN}/hercules${EXE}: cmd/hercules/*.go internal/pkg/*.go internal/pkg/*/*.go internal/pkg/*/*/*.go pkg/analyzers/*/*.go api/proto/pb/pb.pb.go cmd/hercules/plugin_template_source.go
 	LDFLAGS="-X github.com/dmytrogajewski/hercules.BinaryGitHash=$(shell git rev-parse HEAD)"; \
 	CGO_ENABLED=1 go build -tags "$(TAGS)" -ldflags "$$LDFLAGS" -o ${GOBIN}/hercules${EXE} ./cmd/hercules
 
