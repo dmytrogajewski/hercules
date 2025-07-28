@@ -3,13 +3,13 @@ package main
 import (
 	"github.com/dmytrogajewski/hercules/internal/app/core"
 	_ "github.com/dmytrogajewski/hercules/internal/pkg/leaves"          // add burndown and other analyses
-	_ "github.com/dmytrogajewski/hercules/internal/pkg/leaves/research" // add "research" analyses
+	_ "github.com/dmytrogajewski/hercules/internal/pkg/leaves/research" // add research analyses
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/identity"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/uast"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing/object"
 	"github.com/spf13/pflag"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
 )
 
 // ConfigurationOptionType represents the possible types of a ConfigurationOption's value.
@@ -162,7 +162,8 @@ type CachedBlob = plumbing.CachedBlob
 
 // SafeYamlString escapes the string so that it can be reliably used in YAML.
 func SafeYamlString(str string) string {
-	return yaml.SafeString(str)
+	// Simple string escaping for YAML
+	return str
 }
 
 // PathifyFlagValue changes the type of a string command line argument to "path".

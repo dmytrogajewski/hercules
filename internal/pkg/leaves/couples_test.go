@@ -9,15 +9,16 @@ import (
 
 	"strconv"
 
-	"github.com/dmytrogajewski/hercules/internal/app/core"
 	"github.com/dmytrogajewski/hercules/api/proto/pb"
+	"github.com/dmytrogajewski/hercules/internal/app/core"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/identity"
 	"github.com/dmytrogajewski/hercules/internal/pkg/test"
-	"github.com/gogo/protobuf/proto"
+	"github.com/go-git/go-git/v6/plumbing"
+	gitplumbing "github.com/go-git/go-git/v6/plumbing"
+	"github.com/go-git/go-git/v6/plumbing/object"
 	"github.com/stretchr/testify/assert"
-	gitplumbing "gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
+	"google.golang.org/protobuf/proto"
 )
 
 func fixtureCouples() *CouplesAnalysis {

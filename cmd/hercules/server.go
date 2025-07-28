@@ -15,6 +15,7 @@ import (
 	"github.com/dmytrogajewski/hercules/internal/app/core"
 	"github.com/dmytrogajewski/hercules/internal/pkg/config"
 	"github.com/dmytrogajewski/hercules/internal/pkg/leaves"
+	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	"github.com/dmytrogajewski/hercules/internal/pkg/version"
 	grpcserver "github.com/dmytrogajewski/hercules/internal/server/grpc"
 	"github.com/gorilla/mux"
@@ -280,13 +281,13 @@ func (s *Server) runAnalysis(job *AnalysisJob) {
 	repository := loadRepository(job.Request.Repository, tempDir, true, "")
 
 	// Create pipeline
-	pipeline := hercules.NewPipeline(repository)
+	pipeline := core.NewPipeline(repository)
 
 	// Configure pipeline based on request
 	facts := make(map[string]interface{})
 
 	// Set defaults from config
-	facts[hercules.ConfigTickSize] = s.config.Analysis.DefaultTickSize
+	facts[plumbing.ConfigTicksSinceStartTickSize] = s.config.Analysis.DefaultTickSize
 	facts["Burndown.Granularity"] = s.config.Analysis.DefaultGranularity
 	facts["Burndown.Sampling"] = s.config.Analysis.DefaultSampling
 
@@ -295,7 +296,7 @@ func (s *Server) runAnalysis(job *AnalysisJob) {
 		switch key {
 		case "tick-size":
 			if size, err := strconv.Atoi(value); err == nil {
-				facts[hercules.ConfigTickSize] = size
+				facts[plumbing.ConfigTicksSinceStartTickSize] = size
 			}
 		case "granularity":
 			if gran, err := strconv.Atoi(value); err == nil {
@@ -309,31 +310,31 @@ func (s *Server) runAnalysis(job *AnalysisJob) {
 	}
 
 	// Deploy requested analyses
-	var deployed []hercules.LeafPipelineItem
+	var deployed []core.LeafPipelineItem
 
 	for _, analysis := range job.Request.Analyses {
 		switch analysis {
 		case "burndown":
-			item := pipeline.DeployItem(&leaves.BurndownAnalysis{}).(hercules.LeafPipelineItem)
+			item := pipeline.DeployItem(&leaves.BurndownAnalysis{}).(core.LeafPipelineItem)
 			deployed = append(deployed, item)
 		case "couples":
-			item := pipeline.DeployItem(&leaves.CouplesAnalysis{}).(hercules.LeafPipelineItem)
+			item := pipeline.DeployItem(&leaves.CouplesAnalysis{}).(core.LeafPipelineItem)
 			deployed = append(deployed, item)
 		case "devs":
-			item := pipeline.DeployItem(&leaves.DevsAnalysis{}).(hercules.LeafPipelineItem)
+			item := pipeline.DeployItem(&leaves.DevsAnalysis{}).(core.LeafPipelineItem)
 			deployed = append(deployed, item)
 		case "commits-stat":
-			item := pipeline.DeployItem(&leaves.CommitsAnalysis{}).(hercules.LeafPipelineItem)
+			item := pipeline.DeployItem(&leaves.CommitsAnalysis{}).(core.LeafPipelineItem)
 			deployed = append(deployed, item)
 		case "file-history":
-			item := pipeline.DeployItem(&leaves.FileHistoryAnalysis{}).(hercules.LeafPipelineItem)
+			item := pipeline.DeployItem(&leaves.FileHistoryAnalysis{}).(core.LeafPipelineItem)
 			deployed = append(deployed, item)
 		case "imports-per-dev":
-			item := pipeline.DeployItem(&leaves.ImportsPerDeveloper{}).(hercules.LeafPipelineItem)
+			item := pipeline.DeployItem(&leaves.ImportsPerDeveloper{}).(core.LeafPipelineItem)
 			deployed = append(deployed, item)
 		case "shotness":
-			item := pipeline.DeployItem(&leaves.ShotnessAnalysis{}).(hercules.LeafPipelineItem)
-			deployed = append(deployed, item)
+			// Shotness analysis is disabled for now
+			continue
 		}
 	}
 

@@ -11,13 +11,12 @@ import (
 	items "github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	uast_items "github.com/dmytrogajewski/hercules/internal/pkg/plumbing/uast"
 	"github.com/dmytrogajewski/hercules/pkg/levenshtein"
-	"github.com/gogo/protobuf/proto"
+	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing"
+	"github.com/go-git/go-git/v6/plumbing/object"
 	"github.com/sergi/go-diff/diffmatchpatch"
-	"gopkg.in/bblfsh/sdk.v2/uast"
-	"gopkg.in/bblfsh/sdk.v2/uast/nodes"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
+	"google.golang.org/protobuf/proto"
 )
 
 // TyposDatasetBuilder collects pairs of typo-fix in source code identifiers.
@@ -32,8 +31,6 @@ type TyposDatasetBuilder struct {
 	typos []Typo
 	// lcontext is the Context for measuring Levenshtein distance between lines.
 	lcontext *levenshtein.Context
-	// xpather filters identifiers.
-	xpather uast_items.ChangesXPather
 	// remote carries the repository remote URL (for debugging)
 	remote string
 
@@ -127,7 +124,6 @@ func (tdb *TyposDatasetBuilder) Initialize(repository *git.Repository) error {
 		tdb.MaximumAllowedDistance = DefaultMaximumAllowedTypoDistance
 	}
 	tdb.lcontext = &levenshtein.Context{}
-	tdb.xpather.XPath = "//uast:Identifier"
 	tdb.remote = core.GetSensibleRemote(repository)
 	return nil
 }
@@ -195,41 +191,36 @@ func (tdb *TyposDatasetBuilder) Consume(deps map[string]interface{}) (map[string
 		// at this point we have pairs of very similar lines
 		// we need to build the line mappings of the identifiers before/after the change
 		// we should keep only those which are present on those focused lines
-		nodesAdded, nodesRemoved := tdb.xpather.Extract([]uast_items.Change{change})
-		addedIdentifiers := map[int][]nodes.Node{}
-		removedIdentifiers := map[int][]nodes.Node{}
-		for _, n := range nodesAdded {
-			pos := uast.PositionsOf(n.(nodes.Object))
-			if pos.Start() == nil {
-				tdb.l.Warnf("repo %s commit %s file %s adds identifier %s with no position",
-					tdb.remote, commit.String(), change.Change.To.Name,
-					n.(nodes.Object)["Name"].(nodes.String))
-				continue
-			}
-			line := int(pos.Start().Line) - 1
-			if focusedLinesAfter[line] {
-				addedIdentifiers[line] = append(addedIdentifiers[line], n)
+		addedIdentifiers := map[int][]*node.Node{}
+		removedIdentifiers := map[int][]*node.Node{}
+
+		// Extract identifiers from before and after UASTs
+		if change.Before != nil {
+			identifiers := tdb.extractIdentifiers(change.Before)
+			for _, id := range identifiers {
+				if id.Pos != nil && focusedLinesBefore[int(id.Pos.StartLine)-1] {
+					line := int(id.Pos.StartLine) - 1
+					removedIdentifiers[line] = append(removedIdentifiers[line], id)
+				}
 			}
 		}
-		for _, n := range nodesRemoved {
-			pos := uast.PositionsOf(n.(nodes.Object))
-			if pos.Start() == nil {
-				tdb.l.Warnf("repo %s commit %s file %s removes identifier %s with no position",
-					tdb.remote, commit.String(), change.Change.To.Name,
-					n.(nodes.Object)["Name"].(nodes.String))
-				continue
-			}
-			line := int(pos.Start().Line) - 1
-			if focusedLinesBefore[line] {
-				removedIdentifiers[line] = append(removedIdentifiers[line], n)
+
+		if change.After != nil {
+			identifiers := tdb.extractIdentifiers(change.After)
+			for _, id := range identifiers {
+				if id.Pos != nil && focusedLinesAfter[int(id.Pos.StartLine)-1] {
+					line := int(id.Pos.StartLine) - 1
+					addedIdentifiers[line] = append(addedIdentifiers[line], id)
+				}
 			}
 		}
+
 		for _, c := range candidates {
 			nodesBefore := removedIdentifiers[c.Before]
 			nodesAfter := addedIdentifiers[c.After]
 			if len(nodesBefore) == 1 && len(nodesAfter) == 1 {
-				idBefore := string(nodesBefore[0].(nodes.Object)["Name"].(nodes.String))
-				idAfter := string(nodesAfter[0].(nodes.Object)["Name"].(nodes.String))
+				idBefore := nodesBefore[0].Token
+				idAfter := nodesAfter[0].Token
 				tdb.typos = append(tdb.typos, Typo{
 					Wrong:   idBefore,
 					Correct: idAfter,
@@ -241,6 +232,17 @@ func (tdb *TyposDatasetBuilder) Consume(deps map[string]interface{}) (map[string
 		}
 	}
 	return nil, nil
+}
+
+// extractIdentifiers extracts all identifier nodes from a UAST
+func (tdb *TyposDatasetBuilder) extractIdentifiers(root *node.Node) []*node.Node {
+	var identifiers []*node.Node
+	root.VisitPreOrder(func(n *node.Node) {
+		if n.Type == node.UASTIdentifier {
+			identifiers = append(identifiers, n)
+		}
+	})
+	return identifiers
 }
 
 // Finalize returns the result of the analysis. Further Consume() calls are not expected.
@@ -276,10 +278,10 @@ func (tdb *TyposDatasetBuilder) Serialize(result interface{}, binary bool, write
 
 func (tdb *TyposDatasetBuilder) serializeText(result *TyposResult, writer io.Writer) {
 	for _, t := range result.Typos {
-		fmt.Fprintf(writer, "  - wrong: %s\n", yaml.SafeString(t.Wrong))
-		fmt.Fprintf(writer, "    correct: %s\n", yaml.SafeString(t.Correct))
+		fmt.Fprintf(writer, "  - wrong: %s\n", t.Wrong)
+		fmt.Fprintf(writer, "    correct: %s\n", t.Correct)
 		fmt.Fprintf(writer, "    commit: %s\n", t.Commit.String())
-		fmt.Fprintf(writer, "    file: %s\n", yaml.SafeString(t.File))
+		fmt.Fprintf(writer, "    file: %s\n", t.File)
 		fmt.Fprintf(writer, "    line: %d\n", t.Line)
 	}
 }

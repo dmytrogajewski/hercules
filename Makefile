@@ -8,7 +8,22 @@ endif
 PKG = $(shell go env GOOS)_$(shell go env GOARCH)
 TAGS ?=
 
-all: precompile ${GOBIN}/uast${EXE} ${GOBIN}/herr${EXE}
+all: precompile ${GOBIN}/uast${EXE} ${GOBIN}/herr${EXE} ${GOBIN}/hercules${EXE}
+
+# Show help
+.PHONY: help
+help:
+	@echo "Available targets:"
+	@echo "  all              - Build all binaries"
+	@echo "  install          - Install binaries to system PATH"
+	@echo "  test             - Run all tests"
+	@echo "  bench            - Run UAST performance benchmarks"
+	@echo "  uast-dev         - Start UAST development environment (frontend + backend)"
+	@echo "  uast-dev-stop    - Stop UAST development servers"
+	@echo "  uast-dev-status  - Check status of UAST development servers"
+	@echo "  uast-test        - Run UI tests for UAST development service"
+	@echo "  dev-service      - Start backend only (legacy)"
+	@echo "  clean            - Clean build artifacts"
 
 # Pre-compile UAST mappings for faster startup
 precompile:
@@ -23,14 +38,16 @@ uastmaps-gen:
 
 # Install binaries to system PATH
 install: all
-	@echo "Installing uast and herr binaries..."
+	@echo "Installing uast, herr, and hercules binaries..."
 	@if [ -w /usr/local/bin ]; then \
 		cp ${GOBIN}/uast${EXE} /usr/local/bin/; \
 		cp ${GOBIN}/herr${EXE} /usr/local/bin/; \
+		cp ${GOBIN}/hercules${EXE} /usr/local/bin/; \
 		echo "Installed to /usr/local/bin"; \
 	elif [ -w $(shell go env GOPATH)/bin ]; then \
 		cp ${GOBIN}/uast${EXE} $(shell go env GOPATH)/bin/; \
 		cp ${GOBIN}/herr${EXE} $(shell go env GOPATH)/bin/; \
+		cp ${GOBIN}/hercules${EXE} $(shell go env GOPATH)/bin/; \
 		echo "Installed to $(shell go env GOPATH)/bin"; \
 	else \
 		echo "Error: Cannot write to /usr/local/bin or $(shell go env GOPATH)/bin"; \
@@ -148,8 +165,43 @@ clean:
 	rm -f test/benchmarks/benchmark_results.txt
 	rm -rf benchmark_plots/
 
-${GOBIN}/protoc-gen-gogo${EXE}:
-	go build -o ${GOBIN}/protoc-gen-gogo${EXE} github.com/gogo/protobuf/protoc-gen-gogo
+# Stop UAST development servers
+.PHONY: uast-dev-stop
+uast-dev-stop:
+	@echo "Stopping UAST development servers..."
+	@if [ -f web/.vite.pid ]; then \
+		kill $$(cat web/.vite.pid) 2>/dev/null || true; \
+		rm -f web/.vite.pid; \
+	fi
+	@if [ -f web/.backend.pid ]; then \
+		kill $$(cat web/.backend.pid) 2>/dev/null || true; \
+		rm -f web/.backend.pid; \
+	fi
+	@echo "Servers stopped."
+
+# Check UAST development server status
+.PHONY: uast-dev-status
+uast-dev-status:
+	@echo "UAST Development Server Status:"
+	@if curl -s http://localhost:3000 >/dev/null 2>&1; then \
+		echo "✓ Frontend (Vite) running on http://localhost:3000"; \
+	else \
+		echo "✗ Frontend (Vite) not running"; \
+	fi
+	@if curl -s http://localhost:8080 >/dev/null 2>&1; then \
+		echo "✓ Backend (Go) running on http://localhost:8080"; \
+	else \
+		echo "✗ Backend (Go) not running"; \
+	fi
+
+# Run UI tests
+.PHONY: uast-test
+uast-test:
+	@echo "Running UAST UI Tests..."
+	@cd web && npm test -- tests/simple.spec.js tests/basic.spec.js
+
+${GOBIN}/protoc-gen-go${EXE}:
+	go build -o ${GOBIN}/protoc-gen-go${EXE} google.golang.org/protobuf/cmd/protoc-gen-go
 
 ifneq ($(OS),Windows_NT)
 api/proto/pb.pb.go: api/proto/pb.proto ${GOBIN}/protoc-gen-gogo
@@ -177,3 +229,18 @@ ${GOBIN}/uast${EXE}: cmd/uast/*.go pkg/uast/*.go pkg/uast/*/*.go pkg/uast/*/*/*.
 ${GOBIN}/herr${EXE}: cmd/herr/*.go pkg/analyzers/*/*.go internal/pkg/*.go internal/pkg/*/*.go internal/pkg/*/*/*.go
 	LDFLAGS="-X github.com/dmytrogajewski/hercules.BinaryGitHash=$(shell git rev-parse HEAD)"; \
 	CGO_ENABLED=1 go build -tags "$(TAGS)" -ldflags "$$LDFLAGS" -o ${GOBIN}/herr${EXE} ./cmd/herr
+
+${GOBIN}/hercules${EXE}: cmd/hercules/*.go internal/pkg/*.go internal/pkg/*/*.go internal/pkg/*/*/*.go pkg/analyzers/*/*.go
+	LDFLAGS="-X github.com/dmytrogajewski/hercules.BinaryGitHash=$(shell git rev-parse HEAD)"; \
+	CGO_ENABLED=1 go build -tags "$(TAGS)" -ldflags "$$LDFLAGS" -o ${GOBIN}/hercules${EXE} ./cmd/hercules
+
+# Build the development service
+.PHONY: build-dev-service
+build-dev-service:
+	@echo "Building UAST Development Service..."
+	@cd web && go build -o ../build/uast-dev-service main.go
+
+# Start UAST Development Environment (Frontend + Backend)
+.PHONY: uast-dev
+uast-dev: install
+	@cd web && ./start-dev.sh

@@ -5,11 +5,11 @@ import (
 	"time"
 
 	"github.com/dmytrogajewski/hercules/internal/app/core"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing"
+	"github.com/go-git/go-git/v6/plumbing/object"
+	"github.com/go-git/go-git/v6/utils/merkletrie"
 	"github.com/sergi/go-diff/diffmatchpatch"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	"gopkg.in/src-d/go-git.v4/utils/merkletrie"
 )
 
 // FileDiff calculates the difference of files which were modified.

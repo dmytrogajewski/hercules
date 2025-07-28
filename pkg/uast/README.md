@@ -270,6 +270,148 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 - **[Plugins](docs/PLUGINS.md)**: Extending UAST with plugins
 - **[Recipes](docs/RECIPES.md)**: Common use cases and examples
 
+## 🔧 Custom UAST Mappings
+
+The UAST parser supports custom UAST mappings that can be passed during initialization using the option pattern. This allows you to:
+
+- Add support for custom file extensions
+- Override existing language mappings
+- Add experimental or domain-specific language support
+
+### Basic Usage
+
+```go
+// Define custom UAST mappings
+customMaps := map[string]UASTMap{
+    "my_language": {
+        Extensions: []string{".mylang", ".ml"},
+        UAST: `[language "json", extensions: ".mylang", ".ml"]
+
+_value <- (_value) => uast(
+    type: "Synthetic"
+)
+
+array <- (array) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+document <- (document) => uast(
+    type: "Synthetic"
+)
+
+object <- (object) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+pair <- (pair) => uast(
+    type: "Synthetic",
+    children: "_value", "string"
+)
+
+string <- (string) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+`,
+    },
+}
+
+// Create parser with custom mappings
+parser, err := uast.NewParser()
+if err != nil {
+    log.Fatal(err)
+}
+
+parser = parser.WithUASTMap(customMaps)
+
+// Now the parser supports .mylang and .ml files
+if parser.IsSupported("config.mylang") {
+    // Parse the file
+    node, err := parser.Parse("config.mylang", content)
+    if err != nil {
+        log.Fatal(err)
+    }
+    // Process the UAST node...
+}
+```
+
+### Multiple Custom Mappings
+
+You can add multiple custom mappings at once:
+
+```go
+customMaps := map[string]UASTMap{
+    "config_lang": {
+        Extensions: []string{".config"},
+        UAST: `[language "json", extensions: ".config"]
+// ... mapping rules ...
+`,
+    },
+    "template_lang": {
+        Extensions: []string{".tmpl", ".template"},
+        UAST: `[language "json", extensions: ".tmpl", ".template"]
+// ... mapping rules ...
+`,
+    },
+}
+
+parser = parser.WithUASTMap(customMaps)
+```
+
+### Overriding Built-in Parsers
+
+You can override built-in parsers by using the same file extensions:
+
+```go
+// Override the built-in JSON parser with custom mapping
+customMaps := map[string]UASTMap{
+    "custom_json": {
+        Extensions: []string{".json"}, // Same extension as built-in JSON parser
+        UAST: `[language "json", extensions: ".json"]
+
+_value <- (_value) => uast(
+    type: "CustomValue"
+)
+
+document <- (document) => uast(
+    type: "CustomDocument"
+)
+
+object <- (object) => uast(
+    token: "self",
+    type: "CustomObject"
+)
+
+// ... more custom mapping rules ...
+`,
+    },
+}
+
+parser = parser.WithUASTMap(customMaps)
+
+// Now .json files will use your custom parser instead of the built-in one
+node, err := parser.Parse("config.json", content)
+```
+
+### DSL Format
+
+Custom UAST mappings use the same DSL format as the embedded mappings:
+
+- **Language Declaration**: `[language "language_name", extensions: ".ext1", ".ext2"]`
+- **Mapping Rules**: `node_type <- (tree_sitter_pattern) => uast(...)`
+- **UAST Specification**: Define type, roles, children, properties, and tokens
+
+### Integration with Existing Parsers
+
+Custom mappings are loaded in addition to the embedded mappings. **Custom UAST maps have priority over built-in ones** - if a custom mapping defines extensions that conflict with existing ones, the custom mapping takes precedence and will be used instead of the built-in parser.
+
+This allows you to:
+- Override built-in language parsers with custom implementations
+- Add experimental or domain-specific language support
+- Test new UAST mapping rules without modifying the core library
+
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.

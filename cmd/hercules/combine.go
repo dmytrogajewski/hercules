@@ -12,9 +12,10 @@ import (
 
 	progress "github.com/cheggaaa/pb/v3"
 	"github.com/dmytrogajewski/hercules/api/proto/pb"
+	"github.com/dmytrogajewski/hercules/internal/app/core"
 	"github.com/dmytrogajewski/hercules/internal/pkg/version"
-	"github.com/gogo/protobuf/proto"
 	"github.com/spf13/cobra"
+	"google.golang.org/protobuf/proto"
 )
 
 // combineCmd represents the combine command
@@ -43,16 +44,11 @@ var combineCmd = &cobra.Command{
 		var repos []string
 		allErrors := map[string][]string{}
 		mergedResults := map[string]interface{}{}
-		mergedMetadata := &CommonAnalysisResult{}
+		mergedMetadata := &core.CommonAnalysisResult{}
 		var fileName string
 		bar := progress.New(len(files))
-		bar.Callback = func(msg string) {
-			os.Stderr.WriteString("\033[2K\r" + msg + " " + fileName)
-		}
-		bar.NotPrint = true
-		bar.ShowPercent = false
-		bar.ShowSpeed = false
-		bar.SetMaxWidth(80).Start()
+		// Progress bar callback removed - API changed
+		bar.Start()
 		debug.SetGCPercent(20)
 		for _, fileName = range files {
 			bar.Increment()
@@ -73,6 +69,7 @@ var combineCmd = &cobra.Command{
 		if mergedMetadata == nil {
 			return
 		}
+
 		mergedMessage := pb.AnalysisResults{
 			Header: &pb.Metadata{
 				Version:    int32(version.Binary),
@@ -84,7 +81,7 @@ var combineCmd = &cobra.Command{
 		mergedMetadata.FillMetadata(mergedMessage.Header)
 		for key, val := range mergedResults {
 			buffer := bytes.Buffer{}
-			err := hercules.Registry.Summon(key)[0].(hercules.LeafPipelineItem).Serialize(
+			err := core.Registry.Summon(key)[0].(core.LeafPipelineItem).Serialize(
 				val, true, &buffer)
 			if err != nil {
 				panic(err)
@@ -100,7 +97,8 @@ var combineCmd = &cobra.Command{
 }
 
 func loadMessage(fileName string, repos *[]string) (
-	map[string]interface{}, *hercules.CommonAnalysisResult, []string) {
+	map[string]interface{}, *core.CommonAnalysisResult, []string) {
+
 	var errs []string
 	fi, err := os.Stat(fileName)
 	if err != nil {
@@ -129,12 +127,12 @@ func loadMessage(fileName string, repos *[]string) (
 	*repos = append(*repos, message.Header.Repository)
 	results := map[string]interface{}{}
 	for key, val := range message.Contents {
-		summoned := hercules.Registry.Summon(key)
+		summoned := core.Registry.Summon(key)
 		if len(summoned) == 0 {
 			errs = append(errs, fileName+": item not found: "+key)
 			continue
 		}
-		mpi, ok := summoned[0].(hercules.ResultMergeablePipelineItem)
+		mpi, ok := summoned[0].(core.ResultMergeablePipelineItem)
 		if !ok {
 			errs = append(errs, fileName+": "+key+": ResultMergeablePipelineItem is not implemented")
 			continue
@@ -146,7 +144,7 @@ func loadMessage(fileName string, repos *[]string) (
 		}
 		results[key] = msg
 	}
-	return results, hercules.MetadataToCommonAnalysisResult(message.Header), errs
+	return results, core.MetadataToCommonAnalysisResult(message.Header), errs
 }
 
 func printErrors(allErrors map[string][]string) {
@@ -172,9 +170,9 @@ func printErrors(allErrors map[string][]string) {
 }
 
 func mergeResults(mergedResults map[string]interface{},
-	mergedCommons *hercules.CommonAnalysisResult,
+	mergedCommons *core.CommonAnalysisResult,
 	anotherResults map[string]interface{},
-	anotherCommons *hercules.CommonAnalysisResult,
+	anotherCommons *core.CommonAnalysisResult,
 	only string) []error {
 	var errors []error
 	for key, val := range anotherResults {
@@ -186,7 +184,7 @@ func mergeResults(mergedResults map[string]interface{},
 			mergedResults[key] = val
 			continue
 		}
-		item := hercules.Registry.Summon(key)[0].(hercules.ResultMergeablePipelineItem)
+		item := core.Registry.Summon(key)[0].(core.ResultMergeablePipelineItem)
 		mergedResult = item.MergeResults(mergedResult, val, mergedCommons, anotherCommons)
 		if err, isErr := mergedResult.(error); isErr {
 			errors = append(errors, fmt.Errorf("could not merge %s: %v", item.Name(), err))
@@ -204,7 +202,7 @@ func mergeResults(mergedResults map[string]interface{},
 
 func getOptionsString() string {
 	var leaves []string
-	for _, leaf := range hercules.Registry.GetLeaves() {
+	for _, leaf := range core.Registry.GetLeaves() {
 		leaves = append(leaves, leaf.Name())
 	}
 	return strings.Join(leaves, ", ")

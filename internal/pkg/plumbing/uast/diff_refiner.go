@@ -1,15 +1,14 @@
 package uast
 
 import (
+	"fmt"
 	"unicode/utf8"
 
 	"github.com/dmytrogajewski/hercules/internal/app/core"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
+	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
+	"github.com/go-git/go-git/v6"
 	"github.com/sergi/go-diff/diffmatchpatch"
-	"gopkg.in/bblfsh/client-go.v3/tools"
-	"gopkg.in/bblfsh/sdk.v2/uast"
-	"gopkg.in/bblfsh/sdk.v2/uast/nodes"
-	"gopkg.in/src-d/go-git.v4"
 )
 
 var _ core.PipelineItem = (*FileDiffRefiner)(nil)
@@ -115,12 +114,11 @@ func (ref *FileDiffRefiner) Consume(deps map[string]interface{}) (map[string]int
 			result[fileName] = oldDiff
 			continue
 		}
-		line2node := make([][]nodes.Node, oldDiff.NewLinesOfCode)
-		VisitEachNode(uastChange.After, func(node nodes.Node) {
-			if obj, ok := node.(nodes.Object); ok {
-				pos := uast.PositionsOf(obj)
-				if pos.Start() != nil && pos.End() != nil {
-					for l := pos.Start().Line; l <= pos.End().Line; l++ {
+		line2node := make([][]*node.Node, oldDiff.NewLinesOfCode)
+		VisitEachNode(uastChange.After, func(node *node.Node) {
+			if node.Pos != nil {
+				for l := node.Pos.StartLine; l <= node.Pos.EndLine; l++ {
+					if l > 0 && int(l) <= len(line2node) {
 						line2node[l-1] = append(line2node[l-1], node) // line starts with 1
 					}
 				}
@@ -178,22 +176,35 @@ func (ref *FileDiffRefiner) Fork(n int) []core.PipelineItem {
 
 // VisitEachNode is a handy routine to execute a callback on every node in the subtree,
 // including the root itself. Depth first tree traversal.
-func VisitEachNode(root nodes.Node, payload func(nodes.Node)) {
-	for child := range tools.Iterate(tools.NewIterator(root, tools.PreOrder)) {
-		if _, ok := child.(nodes.Object); ok {
-			payload(child)
-		}
-	}
+func VisitEachNode(root *node.Node, payload func(*node.Node)) {
+	root.VisitPreOrder(payload)
 }
 
-func countNodesInInterval(occupiedMap [][]nodes.Node, start, end int) int {
-	inodes := map[nodes.Comparable]bool{}
-	for i := start; i < end; i++ {
+func countNodesInInterval(occupiedMap [][]*node.Node, start, end int) int {
+	inodes := map[string]bool{}
+	for i := start; i < end && i < len(occupiedMap); i++ {
 		for _, node := range occupiedMap[i] {
-			inodes[nodes.UniqueKey(node)] = true
+			// Create a unique key for the node based on its ID and position
+			key := nodeUniqueKey(node)
+			inodes[key] = true
 		}
 	}
 	return len(inodes)
+}
+
+// nodeUniqueKey creates a unique key for a node based on its ID and position
+func nodeUniqueKey(n *node.Node) string {
+	if n == nil {
+		return ""
+	}
+
+	key := n.Id
+	if n.Pos != nil {
+		key += fmt.Sprintf(":%d:%d:%d:%d",
+			n.Pos.StartLine, n.Pos.StartCol,
+			n.Pos.EndLine, n.Pos.EndCol)
+	}
+	return key
 }
 
 func init() {

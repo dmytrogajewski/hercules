@@ -52533,13 +52533,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(import_spec_list)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Import",
+					Type: "Synthetic",
 					
-					Roles: []string{
-
-						"Import",
-
-					},
+					
 					
 					
 				},
@@ -53841,15 +53837,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(import)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Import",
+					Type: "Synthetic",
 					Token: "self",
-					Roles: []string{
-
-						"Literal",
-
-						"Import",
-
-					},
+					
 					
 					
 				},
@@ -91055,15 +91045,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(import_from_statement)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Import",
+					Type: "Synthetic",
 					Token: "self",
-					Roles: []string{
-
-						"Condition",
-
-						"Import",
-
-					},
+					
 					Children: []string{
 
 						"aliased_import",
@@ -91083,13 +91067,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(import_prefix)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Import",
+					Type: "Synthetic",
 					
-					Roles: []string{
-
-						"Import",
-
-					},
+					
 					
 					
 				},
@@ -91101,13 +91081,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(import_statement)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Import",
+					Type: "Synthetic",
 					Token: "self",
-					Roles: []string{
-
-						"Import",
-
-					},
+					
 					Children: []string{
 
 						"aliased_import",
@@ -91571,13 +91547,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(relative_import)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Import",
+					Type: "Synthetic",
 					
-					Roles: []string{
-
-						"Import",
-
-					},
+					
 					
 					
 				},
@@ -91967,13 +91939,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(wildcard_import)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Import",
+					Type: "Synthetic",
 					
-					Roles: []string{
-
-						"Import",
-
-					},
+					
 					
 					
 				},
@@ -91985,13 +91953,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(with_clause)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Import",
+					Type: "Synthetic",
 					Token: "self",
-					Roles: []string{
-
-						"Import",
-
-					},
+					
 					
 					
 				},
@@ -92501,13 +92465,9 @@ var embeddedMappingsData = []PrecompiledMapping{
 				Pattern: "(import)",
 				
 				UASTSpec: mapping.UASTSpec{
-					Type: "Import",
+					Type: "Synthetic",
 					
-					Roles: []string{
-
-						"Import",
-
-					},
+					
 					
 					
 				},
@@ -183913,13 +183873,9 @@ func newgoPatternMatcher() *goPatternMatcher {
 			Pattern: "(import_spec_list)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Import",
+				Type: "Synthetic",
 				
-				Roles: []string{
-
-					"Import",
-
-				},
+				
 				
 				
 			},
@@ -185221,15 +185177,9 @@ func newgoPatternMatcher() *goPatternMatcher {
 			Pattern: "(import)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Import",
+				Type: "Synthetic",
 				Token: "self",
-				Roles: []string{
-
-					"Literal",
-
-					"Import",
-
-				},
+				
 				
 				
 			},
@@ -223413,15 +223363,9 @@ func newpythonPatternMatcher() *pythonPatternMatcher {
 			Pattern: "(import_from_statement)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Import",
+				Type: "Synthetic",
 				Token: "self",
-				Roles: []string{
-
-					"Condition",
-
-					"Import",
-
-				},
+				
 				Children: []string{
 
 					"aliased_import",
@@ -223441,13 +223385,9 @@ func newpythonPatternMatcher() *pythonPatternMatcher {
 			Pattern: "(import_prefix)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Import",
+				Type: "Synthetic",
 				
-				Roles: []string{
-
-					"Import",
-
-				},
+				
 				
 				
 			},
@@ -223459,13 +223399,9 @@ func newpythonPatternMatcher() *pythonPatternMatcher {
 			Pattern: "(import_statement)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Import",
+				Type: "Synthetic",
 				Token: "self",
-				Roles: []string{
-
-					"Import",
-
-				},
+				
 				Children: []string{
 
 					"aliased_import",
@@ -223929,13 +223865,9 @@ func newpythonPatternMatcher() *pythonPatternMatcher {
 			Pattern: "(relative_import)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Import",
+				Type: "Synthetic",
 				
-				Roles: []string{
-
-					"Import",
-
-				},
+				
 				
 				
 			},
@@ -224325,13 +224257,9 @@ func newpythonPatternMatcher() *pythonPatternMatcher {
 			Pattern: "(wildcard_import)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Import",
+				Type: "Synthetic",
 				
-				Roles: []string{
-
-					"Import",
-
-				},
+				
 				
 				
 			},
@@ -224343,13 +224271,9 @@ func newpythonPatternMatcher() *pythonPatternMatcher {
 			Pattern: "(with_clause)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Import",
+				Type: "Synthetic",
 				Token: "self",
-				Roles: []string{
-
-					"Import",
-
-				},
+				
 				
 				
 			},
@@ -224859,13 +224783,9 @@ func newpythonPatternMatcher() *pythonPatternMatcher {
 			Pattern: "(import)",
 			
 			UASTSpec: mapping.UASTSpec{
-				Type: "Import",
+				Type: "Synthetic",
 				
-				Roles: []string{
-
-					"Import",
-
-				},
+				
 				
 				
 			},

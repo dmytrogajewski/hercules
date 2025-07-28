@@ -6,9 +6,9 @@ import (
 	"github.com/dmytrogajewski/hercules/internal/app/core"
 	internal "github.com/dmytrogajewski/hercules/internal/pkg"
 	"github.com/dmytrogajewski/hercules/internal/pkg/test"
+	"github.com/go-git/go-git/v6/plumbing"
+	"github.com/go-git/go-git/v6/plumbing/object"
 	"github.com/stretchr/testify/assert"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
 )
 
 func fixtureBlobCache() *BlobCache {

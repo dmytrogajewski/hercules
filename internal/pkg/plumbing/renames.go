@@ -12,11 +12,11 @@ import (
 	"github.com/dmytrogajewski/hercules/internal/app/core"
 	"github.com/dmytrogajewski/hercules/internal/pkg/mathutil"
 	"github.com/dmytrogajewski/hercules/pkg/levenshtein"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing"
+	"github.com/go-git/go-git/v6/plumbing/object"
+	"github.com/go-git/go-git/v6/utils/merkletrie"
 	"github.com/sergi/go-diff/diffmatchpatch"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	"gopkg.in/src-d/go-git.v4/utils/merkletrie"
 )
 
 // RenameAnalysis improves TreeDiff's results by searching for changed blobs under different
@@ -543,12 +543,7 @@ type sortableChange struct {
 type sortableChanges []sortableChange
 
 func (change *sortableChange) Less(other *sortableChange) bool {
-	for x := 0; x < 20; x++ {
-		if change.hash[x] < other.hash[x] {
-			return true
-		}
-	}
-	return false
+	return change.hash.String() < other.hash.String()
 }
 
 func (slice sortableChanges) Len() int {

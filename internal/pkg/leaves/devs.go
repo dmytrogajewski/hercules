@@ -12,10 +12,10 @@ import (
 	"github.com/dmytrogajewski/hercules/internal/app/core"
 	items "github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/identity"
-	"github.com/gogo/protobuf/proto"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing"
+	"github.com/go-git/go-git/v6/plumbing/object"
+	"google.golang.org/protobuf/proto"
 )
 
 // DevsAnalysis calculates the number of commits through time per developer.
@@ -382,7 +382,7 @@ func (devs *DevsAnalysis) serializeText(result *DevsResult, writer io.Writer) {
 	}
 	fmt.Fprintln(writer, "  people:")
 	for _, person := range result.reversedPeopleDict {
-		fmt.Fprintf(writer, "  - %s\n", yaml.SafeString(person))
+		fmt.Fprintf(writer, "  - %s\n", person)
 	}
 	fmt.Fprintln(writer, "  tick_size:", int(result.tickSize.Seconds()))
 }

@@ -1,5 +1,9 @@
 syntax = "proto3";
 
+option go_package = "github.com/dmytrogajewski/hercules/api/proto/pb;pb";
+
+import "google/protobuf/timestamp.proto";
+
 message Metadata {
     // this format is versioned
     int32 version = 1;

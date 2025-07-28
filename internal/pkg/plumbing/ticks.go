@@ -4,9 +4,9 @@ import (
 	"time"
 
 	"github.com/dmytrogajewski/hercules/internal/app/core"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing"
+	"github.com/go-git/go-git/v6/plumbing/object"
 )
 
 // TicksSinceStart provides relative tick information for every commit.
