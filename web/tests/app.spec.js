@@ -8,32 +8,19 @@ test.describe('UAST Development Service', () => {
   test('should load the main page with correct title', async ({ page }) => {
     await expect(page).toHaveTitle('UAST Mapping Development Service');
     
-    // Check main heading
-    await expect(page.locator('h1')).toContainText('UAST Mapping Development Service');
-    
-    // Check subtitle
-    await expect(page.locator('p')).toContainText('Interactive development environment for UAST mappings');
+    // Check that main sections exist
+    await expect(page.locator('text=UAST Mapping Editor')).toBeVisible();
+    await expect(page.locator('text=Code & Output')).toBeVisible();
   });
 
-  test('should display all three tabs', async ({ page }) => {
-    // Check tab buttons exist
-    await expect(page.locator('[role="tab"]')).toHaveCount(3);
-    await expect(page.locator('text=Code Editor')).toBeVisible();
-    await expect(page.locator('text=Query')).toBeVisible();
-    await expect(page.locator('text=Examples')).toBeVisible();
-  });
-
-  test('should start with Code Editor tab active', async ({ page }) => {
-    // Code Editor tab should be active by default
-    await expect(page.locator('[role="tab"][aria-selected="true"]')).toContainText('Code Editor');
-    
-    // Code Editor content should be visible
-    await expect(page.locator('text=Code Input')).toBeVisible();
-    await expect(page.locator('text=UAST Output')).toBeVisible();
+  test('should display main layout components', async ({ page }) => {
+    // Check that main sections exist
+    await expect(page.locator('text=UAST Mapping Editor')).toBeVisible();
+    await expect(page.locator('text=Code & Output')).toBeVisible();
   });
 
   test('should have language selector with Go as default', async ({ page }) => {
-    const languageSelect = page.locator('[role="combobox"]');
+    const languageSelect = page.locator('[data-testid="language-selector"]');
     await expect(languageSelect).toBeVisible();
     
     // Check that Go is selected by default
@@ -41,124 +28,127 @@ test.describe('UAST Development Service', () => {
   });
 
   test('should have code editor textarea', async ({ page }) => {
-    const codeTextarea = page.locator('textarea[id="code"]');
+    const codeTextarea = page.locator('[data-testid="code-editor"]');
     await expect(codeTextarea).toBeVisible();
     
-    // Check that it contains the default Go code
-    await expect(codeTextarea).toContainText('package main');
-    await expect(codeTextarea).toContainText('func main()');
+    // Code editor starts empty
+    await expect(codeTextarea).toHaveValue('');
   });
 
-  test('should have Parse Code button', async ({ page }) => {
-    const parseButton = page.locator('button:has-text("Parse Code")');
-    await expect(parseButton).toBeVisible();
-    await expect(parseButton).toBeEnabled();
+  test('should have query input field', async ({ page }) => {
+    const queryInput = page.locator('[data-testid="query-input"]');
+    await expect(queryInput).toBeVisible();
+    await expect(queryInput).toBeEnabled();
   });
 
-  test('should switch to Query tab when clicked', async ({ page }) => {
-    // Click on Query tab
-    await page.locator('text=Query').click();
-    
-    // Query tab should be active
-    await expect(page.locator('[role="tab"][aria-selected="true"]')).toContainText('Query');
-    
-    // Query content should be visible
-    await expect(page.locator('text=UAST Query')).toBeVisible();
-    await expect(page.locator('input[id="query"]')).toBeVisible();
-    await expect(page.locator('button:has-text("Execute Query")')).toBeVisible();
+  test('should display examples button in header', async ({ page }) => {
+    // Check that examples button exists in header
+    await expect(page.locator('button:has-text("Examples")')).toBeVisible();
   });
 
-  test('should switch to Examples tab when clicked', async ({ page }) => {
-    // Click on Examples tab
-    await page.locator('text=Examples').click();
+  test('should show examples panel when clicking examples button', async ({ page }) => {
+    // Click on examples button
+    await page.locator('button:has-text("Examples")').click();
+
+    // Check examples panel is visible
+    await expect(page.locator('text=Example Mappings')).toBeVisible();
     
-    // Examples tab should be active
-    await expect(page.locator('[role="tab"][aria-selected="true"]')).toContainText('Examples');
-    
-    // Examples content should be visible
-    await expect(page.locator('text=Example Queries')).toBeVisible();
-    
-    // Check for example query cards
-    await expect(page.locator('text=Find all Import nodes')).toBeVisible();
-    await expect(page.locator('text=Find all Function declarations')).toBeVisible();
+    // Check for example mapping buttons using button selectors
+    await expect(page.locator('button:has-text("Empty Custom Mapping")')).toBeVisible();
+    await expect(page.locator('button:has-text("Basic Function Mapping")')).toBeVisible();
+    await expect(page.locator('button:has-text("Variable Declaration Mapping")')).toBeVisible();
   });
 
   test('should change language when selected', async ({ page }) => {
+    // Wait for page to load
+    await page.waitForTimeout(2000);
+    
     // Click on language selector
-    await page.locator('[role="combobox"]').click();
+    await page.locator('[data-testid="language-selector"]').click();
     
     // Select Python
-    await page.locator('text=Python').click();
+    await page.locator('[data-testid="language-option-python"]').click();
     
     // Check that Python is selected
-    await expect(page.locator('[role="combobox"]')).toContainText('Python');
-    
-    // Check that code editor content changed to Python
-    const codeTextarea = page.locator('textarea[id="code"]');
-    await expect(codeTextarea).toContainText('def main():');
-    await expect(codeTextarea).toContainText('print("Hello, World!")');
+    await expect(page.locator('[data-testid="language-selector"]')).toContainText('Python');
   });
 
   test('should show loading state when parsing code', async ({ page }) => {
-    // Click Parse Code button
-    await page.locator('button:has-text("Parse Code")').click();
+    // Wait for page to load and mapping to be selected
+    await page.waitForTimeout(2000);
     
-    // Should show loading state
-    await expect(page.locator('button:has-text("Parsing...")')).toBeVisible();
-    await expect(page.locator('button:has-text("Parsing...")')).toBeDisabled();
+    // Check that parsing badge appears when code is being parsed
+    // This happens automatically when code is entered and mapping is selected
+    const codeTextarea = page.locator('[data-testid="code-editor"]');
+    await codeTextarea.fill('package main\n\nfunc main() {\n    println("Hello")\n}');
+    
+    // Should show parsing badge (be more specific to avoid multiple matches)
+    await expect(page.locator('text=Parse').first()).toBeVisible({ timeout: 5000 });
   });
 
   test('should show loading state when executing query', async ({ page }) => {
-    // Switch to Query tab
-    await page.locator('text=Query').click();
+    // Wait for page to load and mapping to be selected
+    await page.waitForTimeout(2000);
+    
+    // Enter some code first
+    const codeTextarea = page.locator('[data-testid="code-editor"]');
+    await codeTextarea.fill('package main\n\nfunc main() {\n    println("Hello")\n}');
+    
+    // Wait for parsing to complete
+    await expect(page.locator('text=Parse').first()).toBeVisible({ timeout: 10000 });
+    await page.waitForTimeout(3000);
     
     // Enter a query
-    await page.locator('input[id="query"]').fill('rfilter(.type == "Test")');
+    const queryInput = page.locator('[data-testid="query-input"]');
+    await queryInput.fill('filter(.type == "Test")');
     
-    // Click Execute Query button
-    await page.locator('button:has-text("Execute Query")').click();
-    
-    // Should show loading state
-    await expect(page.locator('button:has-text("Executing...")')).toBeVisible();
-    await expect(page.locator('button:has-text("Executing...")')).toBeDisabled();
+    // Should show querying badge
+    await expect(page.locator('text=Querying...')).toBeVisible({ timeout: 5000 });
   });
 
-  test('should copy example query when clicked', async ({ page }) => {
-    // Switch to Examples tab
-    await page.locator('text=Examples').click();
+  test('should create custom mapping when example is clicked', async ({ page }) => {
+    // Click on examples button
+    await page.locator('button:has-text("Examples")').click();
     
-    // Click on first example query
-    await page.locator('text=Find all Import nodes').click();
+    // Click on first example
+    await page.locator('button:has-text("Empty Custom Mapping")').click();
     
-    // Switch back to Query tab
-    await page.locator('text=Query').click();
-    
-    // Check that query was copied to input
-    await expect(page.locator('input[id="query"]')).toHaveValue('rfilter(.type == "Import")');
+    // Check that a custom mapping was created and selected
+    await expect(page.locator('[data-testid="mapping-option-empty_custom_mapping"]')).toBeVisible();
   });
 
   test('should execute query on Enter key', async ({ page }) => {
-    // Switch to Query tab
-    await page.locator('text=Query').click();
+    // Wait for page to load and mapping to be selected
+    await page.waitForTimeout(2000);
+    
+    // Enter some code first
+    const codeTextarea = page.locator('[data-testid="code-editor"]');
+    await codeTextarea.fill('package main\n\nfunc main() {\n    println("Hello")\n}');
+    
+    // Wait for parsing to complete
+    await expect(page.locator('text=Parse').first()).toBeVisible({ timeout: 10000 });
+    await page.waitForTimeout(3000);
     
     // Enter a query and press Enter
-    await page.locator('input[id="query"]').fill('rfilter(.type == "Test")');
-    await page.locator('input[id="query"]').press('Enter');
+    const queryInput = page.locator('[data-testid="query-input"]');
+    await queryInput.fill('filter(.type == "Test")');
+    await queryInput.press('Enter');
     
-    // Should show loading state
-    await expect(page.locator('button:has-text("Executing...")')).toBeVisible();
+    // Wait for query to complete and check output
+    await page.waitForTimeout(3000);
+    const uastOutput = page.locator('[data-testid="uast-output"]');
+    await expect(uastOutput).toBeVisible();
   });
 
   test('should be responsive on mobile viewport', async ({ page }) => {
     // Set mobile viewport
     await page.setViewportSize({ width: 375, height: 667 });
     
-    // Check that tabs are still accessible
-    await expect(page.locator('text=Code Editor')).toBeVisible();
-    await expect(page.locator('text=Query')).toBeVisible();
-    await expect(page.locator('text=Examples')).toBeVisible();
+    // Check that main sections are still visible
+    await expect(page.locator('text=UAST Mapping Editor')).toBeVisible();
+    await expect(page.locator('text=Code & Output')).toBeVisible();
     
-    // Check that main content is visible
-    await expect(page.locator('text=Code Input')).toBeVisible();
+    // Check that examples button is still visible
+    await expect(page.locator('button:has-text("Examples")')).toBeVisible();
   });
 }); 

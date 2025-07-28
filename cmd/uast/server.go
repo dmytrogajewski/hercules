@@ -57,6 +57,8 @@ func startServer(port, staticDir string) {
 	// API endpoints
 	http.HandleFunc("/api/parse", handleParse)
 	http.HandleFunc("/api/query", handleQuery)
+	http.HandleFunc("/api/mappings", handleGetMappingsList)
+	http.HandleFunc("/api/mappings/", handleGetMapping)
 
 	// Serve static files if directory is provided
 	if staticDir != "" {
@@ -179,6 +181,91 @@ func handleQuery(w http.ResponseWriter, r *http.Request) {
 	response.Results = string(jsonData)
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
+}
+
+func handleGetMappings(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Initialize parser to get embedded mappings
+	parser, err := uast.NewParser()
+	if err != nil {
+		http.Error(w, "Failed to initialize parser", http.StatusInternalServerError)
+		return
+	}
+
+	mappings := parser.GetEmbeddedMappings()
+	jsonData, err := json.MarshalIndent(mappings, "", "  ")
+	if err != nil {
+		http.Error(w, "Failed to marshal mappings", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
+}
+
+func handleGetMappingsList(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Initialize parser to get embedded mappings list
+	parser, err := uast.NewParser()
+	if err != nil {
+		http.Error(w, "Failed to initialize parser", http.StatusInternalServerError)
+		return
+	}
+
+	mappings := parser.GetEmbeddedMappingsList()
+	jsonData, err := json.MarshalIndent(mappings, "", "  ")
+	if err != nil {
+		http.Error(w, "Failed to marshal mappings", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
+}
+
+func handleGetMapping(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	// Extract mapping name from URL path
+	parts := strings.Split(r.URL.Path, "/")
+	if len(parts) < 3 { // e.g., /api/mappings/
+		http.Error(w, "Invalid mapping path", http.StatusBadRequest)
+		return
+	}
+	mappingName := parts[len(parts)-1]
+
+	// Initialize parser to get the specific mapping
+	parser, err := uast.NewParser()
+	if err != nil {
+		http.Error(w, "Failed to initialize parser", http.StatusInternalServerError)
+		return
+	}
+
+	mapping, err := parser.GetMapping(mappingName)
+	if err != nil {
+		http.Error(w, fmt.Sprintf("Mapping not found: %v", err), http.StatusNotFound)
+		return
+	}
+
+	jsonData, err := json.MarshalIndent(mapping, "", "  ")
+	if err != nil {
+		http.Error(w, "Failed to marshal mapping", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
 }
 
 func getFileExtension(language string) string {

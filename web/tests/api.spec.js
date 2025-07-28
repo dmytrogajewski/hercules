@@ -6,134 +6,158 @@ test.describe('API Integration Tests', () => {
   });
 
   test('should parse Go code successfully', async ({ page }) => {
-    // Wait for the page to load
-    await page.waitForLoadState('networkidle');
+    // Wait for the page to load and mapping to be selected
+    await page.waitForTimeout(2000);
     
-    // Click Parse Code button
-    await page.locator('button:has-text("Parse Code")').click();
+    // Enter some Go code
+    const codeTextarea = page.locator('[data-testid="code-editor"]');
+    await codeTextarea.fill('package main\n\nfunc main() {\n    println("Hello, World!")\n}');
     
-    // Wait for parsing to complete (button should return to normal state)
-    await expect(page.locator('button:has-text("Parse Code")')).toBeVisible({ timeout: 10000 });
+    // Wait for parsing to complete (should happen automatically)
+    await expect(page.locator('text=Parse').first()).toBeVisible({ timeout: 10000 });
+    
+    // Wait for parsing to finish
+    await page.waitForTimeout(3000);
     
     // Check that UAST output contains some content
-    const uastOutput = page.locator('pre:has-text("UAST")');
+    const uastOutput = page.locator('[data-testid="uast-output"]');
     await expect(uastOutput).toBeVisible();
     
     // The output should contain UAST structure
-    const outputText = await page.locator('pre').first().textContent();
+    const outputText = await uastOutput.textContent();
     expect(outputText).toContain('"type"');
     expect(outputText).toContain('"children"');
   });
 
   test('should show error when parsing empty code', async ({ page }) => {
+    // Wait for page to load
+    await page.waitForTimeout(2000);
+    
     // Clear the code editor
-    await page.locator('textarea[id="code"]').clear();
+    await page.locator('[data-testid="code-editor"]').clear();
     
-    // Click Parse Code button
-    await page.locator('button:has-text("Parse Code")').click();
+    // Wait a bit to see if any error appears
+    await page.waitForTimeout(2000);
     
-    // Should show error toast
-    await expect(page.locator('text=Error')).toBeVisible({ timeout: 5000 });
-    await expect(page.locator('text=Please enter some code to parse')).toBeVisible();
+    // Check if any error message appears in the output
+    const uastOutput = page.locator('[data-testid="uast-output"]');
+    const outputText = await uastOutput.textContent();
+    expect(outputText).toContain('No UAST data yet');
   });
 
   test('should execute query successfully', async ({ page }) => {
-    // First parse some code
-    await page.locator('button:has-text("Parse Code")').click();
-    await expect(page.locator('button:has-text("Parse Code")')).toBeVisible({ timeout: 10000 });
+    // Wait for page to load and mapping to be selected
+    await page.waitForTimeout(2000);
     
-    // Switch to Query tab
-    await page.locator('text=Query').click();
-    
-    // Enter a simple query
-    await page.locator('input[id="query"]').fill('rfilter(.type == "Package")');
-    
-    // Click Execute Query button
-    await page.locator('button:has-text("Execute Query")').click();
-    
-    // Wait for query to complete
-    await expect(page.locator('button:has-text("Execute Query")')).toBeVisible({ timeout: 10000 });
-    
-    // Check that query results contain some content
-    const queryOutput = page.locator('pre:has-text("results")');
-    await expect(queryOutput).toBeVisible();
-  });
-
-  test('should show error when executing query without parsing first', async ({ page }) => {
-    // Switch to Query tab
-    await page.locator('text=Query').click();
-    
-    // Enter a query
-    await page.locator('input[id="query"]').fill('rfilter(.type == "Test")');
-    
-    // Click Execute Query button
-    await page.locator('button:has-text("Execute Query")').click();
-    
-    // Should show error toast
-    await expect(page.locator('text=Error')).toBeVisible({ timeout: 5000 });
-    await expect(page.locator('text=Please parse some code first')).toBeVisible();
-  });
-
-  test('should show error when executing empty query', async ({ page }) => {
-    // First parse some code
-    await page.locator('button:has-text("Parse Code")').click();
-    await expect(page.locator('button:has-text("Parse Code")')).toBeVisible({ timeout: 10000 });
-    
-    // Switch to Query tab
-    await page.locator('text=Query').click();
-    
-    // Click Execute Query button without entering query
-    await page.locator('button:has-text("Execute Query")').click();
-    
-    // Should show error toast
-    await expect(page.locator('text=Error')).toBeVisible({ timeout: 5000 });
-    await expect(page.locator('text=Please enter a query')).toBeVisible();
-  });
-
-  test('should change language and parse different code', async ({ page }) => {
-    // Change language to Python
-    await page.locator('[role="combobox"]').click();
-    await page.locator('text=Python').click();
-    
-    // Wait for code to change
-    await expect(page.locator('textarea[id="code"]')).toContainText('def main():');
-    
-    // Parse the Python code
-    await page.locator('button:has-text("Parse Code")').click();
+    // Enter some code first
+    const codeTextarea = page.locator('[data-testid="code-editor"]');
+    await codeTextarea.fill('package main\n\nfunc main() {\n    println("Hello, World!")\n}');
     
     // Wait for parsing to complete
-    await expect(page.locator('button:has-text("Parse Code")')).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('text=Parse').first()).toBeVisible({ timeout: 10000 });
+    await page.waitForTimeout(3000);
     
-    // Check that UAST output contains content
-    const uastOutput = page.locator('pre:has-text("UAST")');
+    // Enter a simple query
+    const queryInput = page.locator('[data-testid="query-input"]');
+    await queryInput.fill('filter(.type == "Package")');
+    
+    // Wait for query to complete
+    await expect(page.locator('text=Querying...')).toBeVisible({ timeout: 10000 });
+    await page.waitForTimeout(3000);
+    
+    // Check that query results contain some content
+    const uastOutput = page.locator('[data-testid="uast-output"]');
     await expect(uastOutput).toBeVisible();
   });
 
-  test('should copy example query and execute it', async ({ page }) => {
-    // First parse some code
-    await page.locator('button:has-text("Parse Code")').click();
-    await expect(page.locator('button:has-text("Parse Code")')).toBeVisible({ timeout: 10000 });
+  test('should show error when executing query without parsing first', async ({ page }) => {
+    // Wait for page to load
+    await page.waitForTimeout(2000);
     
-    // Switch to Examples tab
-    await page.locator('text=Examples').click();
+    // Enter a query without entering code first
+    const queryInput = page.locator('[data-testid="query-input"]');
+    await queryInput.fill('filter(.type == "Test")');
     
-    // Click on an example query
-    await page.locator('text=Find all Import nodes').click();
+    // Wait a bit for any error to appear
+    await page.waitForTimeout(2000);
     
-    // Switch to Query tab
-    await page.locator('text=Query').click();
+    // Check if error message appears in output
+    const uastOutput = page.locator('[data-testid="uast-output"]');
+    const outputText = await uastOutput.textContent();
+    expect(outputText).toContain('No UAST data available');
+  });
+
+  test('should show UAST output when query is cleared', async ({ page }) => {
+    // Wait for page to load and mapping to be selected
+    await page.waitForTimeout(2000);
     
-    // Verify query was copied
-    await expect(page.locator('input[id="query"]')).toHaveValue('rfilter(.type == "Import")');
+    // Enter some code first
+    const codeTextarea = page.locator('[data-testid="code-editor"]');
+    await codeTextarea.fill('package main\n\nfunc main() {\n    println("Hello, World!")\n}');
     
-    // Execute the query
-    await page.locator('button:has-text("Execute Query")').click();
+    // Wait for parsing to complete
+    await expect(page.locator('text=Parse').first()).toBeVisible({ timeout: 10000 });
+    await page.waitForTimeout(3000);
     
-    // Wait for query to complete
-    await expect(page.locator('button:has-text("Execute Query")')).toBeVisible({ timeout: 10000 });
+    // Enter a query first
+    const queryInput = page.locator('[data-testid="query-input"]');
+    await queryInput.fill('filter(.type == "Package")');
+    await page.waitForTimeout(3000);
     
-    // Check that query results are visible
-    const queryOutput = page.locator('pre:has-text("results")');
-    await expect(queryOutput).toBeVisible();
+    // Clear query input
+    await queryInput.clear();
+    await page.waitForTimeout(2000);
+    
+    // Check that UAST output is shown instead of query results
+    const uastOutput = page.locator('[data-testid="uast-output"]');
+    const outputText = await uastOutput.textContent();
+    expect(outputText).toContain('"type"');
+    expect(outputText).toContain('"children"');
+  });
+
+  test('should change language and parse different code', async ({ page }) => {
+    // Wait for page to load
+    await page.waitForTimeout(2000);
+    
+    // Change language to Python
+    await page.locator('[data-testid="language-selector"]').click();
+    await page.locator('[data-testid="language-option-python"]').click();
+    
+    // Wait for language change to complete
+    await page.waitForTimeout(2000);
+    
+    // Enter some Python code
+    const codeTextarea = page.locator('[data-testid="code-editor"]');
+    await codeTextarea.fill('def main():\n    print("Hello, World!")');
+    
+    // Parse the Python code (should happen automatically)
+    await expect(page.locator('text=Parse').first()).toBeVisible({ timeout: 10000 });
+    await page.waitForTimeout(3000);
+    
+    // Check that UAST output contains content
+    const uastOutput = page.locator('[data-testid="uast-output"]');
+    await expect(uastOutput).toBeVisible();
+  });
+
+  test('should create custom mapping when example is clicked', async ({ page }) => {
+    // Wait for page to load and mapping to be selected
+    await page.waitForTimeout(2000);
+    
+    // Enter some code first
+    const codeTextarea = page.locator('[data-testid="code-editor"]');
+    await codeTextarea.fill('package main\n\nfunc main() {\n    println("Hello, World!")\n}');
+    
+    // Wait for parsing to complete
+    await expect(page.locator('text=Parse').first()).toBeVisible({ timeout: 10000 });
+    await page.waitForTimeout(3000);
+    
+    // Click on examples button
+    await page.locator('button:has-text("Examples")').click();
+    
+    // Click on an example
+    await page.locator('button:has-text("Empty Custom Mapping")').click();
+    
+    // Check that a custom mapping was created and selected
+    await expect(page.locator('[data-testid="mapping-option-empty_custom_mapping"]')).toBeVisible();
   });
 }); 

@@ -6,78 +6,90 @@ test.describe('API Integration - Simple Tests', () => {
   });
 
   test('should parse Go code successfully', async ({ page }) => {
-    // Wait for the page to load
-    await page.waitForLoadState('networkidle');
+    // Wait for the page to load and mapping to be selected
+    await page.waitForTimeout(2000);
     
-    // Click Parse Code button
-    await page.getByRole('button', { name: 'Parse Code' }).click();
+    // Enter some Go code
+    const codeTextarea = page.locator('[data-testid="code-editor"]');
+    await codeTextarea.fill('package main\n\nfunc main() {\n    println("Hello, World!")\n}');
     
-    // Wait for parsing to complete (button should return to normal state)
-    await expect(page.getByRole('button', { name: 'Parse Code' })).toBeVisible({ timeout: 10000 });
+    // Wait for parsing to complete (should happen automatically)
+    await expect(page.locator('text=Parse').first()).toBeVisible({ timeout: 10000 });
     
-    // Check that some output appears (any pre element)
-    const preElements = page.locator('pre');
-    await expect(preElements.first()).toBeVisible();
+    // Wait for parsing to finish
+    await page.waitForTimeout(3000);
+    
+    // Check that some output appears
+    const uastOutput = page.locator('[data-testid="uast-output"]');
+    await expect(uastOutput).toBeVisible();
     
     // The output should contain some JSON structure
-    const outputText = await preElements.first().textContent();
+    const outputText = await uastOutput.textContent();
     expect(outputText).toContain('"');
   });
 
   test('should show error when parsing empty code', async ({ page }) => {
-    // Clear the code editor
-    await page.locator('textarea[id="code"]').clear();
-    
-    // Click Parse Code button
-    await page.getByRole('button', { name: 'Parse Code' }).click();
-    
-    // Should show some error indication (toast or alert)
-    // Wait a bit for error to appear
+    // Wait for page to load
     await page.waitForTimeout(2000);
     
-    // Check if any error message appears
-    const errorElements = page.locator('[role="alert"], .error, [aria-live="assertive"]');
-    await expect(errorElements.first()).toBeVisible({ timeout: 5000 });
+    // Clear the code editor
+    await page.locator('[data-testid="code-editor"]').clear();
+    
+    // Wait a bit to see if any error appears
+    await page.waitForTimeout(2000);
+    
+    // Check if any error message appears in the output
+    const uastOutput = page.locator('[data-testid="uast-output"]');
+    const outputText = await uastOutput.textContent();
+    expect(outputText).toContain('No UAST data yet');
   });
 
   test('should execute query successfully', async ({ page }) => {
-    // First parse some code
-    await page.getByRole('button', { name: 'Parse Code' }).click();
-    await expect(page.getByRole('button', { name: 'Parse Code' })).toBeVisible({ timeout: 10000 });
+    // Wait for page to load and mapping to be selected
+    await page.waitForTimeout(2000);
     
-    // Switch to Query tab
-    await page.getByRole('tab', { name: 'Query' }).click();
+    // Enter some code first
+    const codeTextarea = page.locator('[data-testid="code-editor"]');
+    await codeTextarea.fill('package main\n\nfunc main() {\n    println("Hello, World!")\n}');
+    
+    // Wait for parsing to complete
+    await expect(page.locator('text=Parse').first()).toBeVisible({ timeout: 10000 });
+    await page.waitForTimeout(3000);
     
     // Enter a simple query
-    await page.locator('input[id="query"]').fill('rfilter(.type == "Package")');
-    
-    // Click Execute Query button
-    await page.getByRole('button', { name: 'Execute Query' }).click();
+    const queryInput = page.locator('[data-testid="query-input"]');
+    await queryInput.fill('filter(.type == "Package")');
     
     // Wait for query to complete
-    await expect(page.getByRole('button', { name: 'Execute Query' })).toBeVisible({ timeout: 10000 });
+    await expect(page.locator('text=Querying...')).toBeVisible({ timeout: 10000 });
+    await page.waitForTimeout(3000);
     
     // Check that some output appears
-    const preElements = page.locator('pre');
-    await expect(preElements.first()).toBeVisible();
+    const uastOutput = page.locator('[data-testid="uast-output"]');
+    await expect(uastOutput).toBeVisible();
   });
 
   test('should change language and parse different code', async ({ page }) => {
+    // Wait for page to load
+    await page.waitForTimeout(2000);
+    
     // Change language to Python
-    await page.locator('[role="combobox"]').click();
-    await page.locator('text=Python').click();
+    await page.locator('[data-testid="language-selector"]').click();
+    await page.locator('[data-testid="language-option-python"]').click();
     
-    // Wait for code to change
-    await expect(page.locator('textarea[id="code"]')).toContainText('def main():');
+    // Wait for language change to complete
+    await page.waitForTimeout(2000);
     
-    // Parse the Python code
-    await page.getByRole('button', { name: 'Parse Code' }).click();
+    // Enter some Python code
+    const codeTextarea = page.locator('[data-testid="code-editor"]');
+    await codeTextarea.fill('def main():\n    print("Hello, World!")');
     
-    // Wait for parsing to complete
-    await expect(page.getByRole('button', { name: 'Parse Code' })).toBeVisible({ timeout: 10000 });
+    // Parse the Python code (should happen automatically)
+    await expect(page.locator('text=Parse').first()).toBeVisible({ timeout: 10000 });
+    await page.waitForTimeout(3000);
     
     // Check that some output appears
-    const preElements = page.locator('pre');
-    await expect(preElements.first()).toBeVisible();
+    const uastOutput = page.locator('[data-testid="uast-output"]');
+    await expect(uastOutput).toBeVisible();
   });
 }); 
