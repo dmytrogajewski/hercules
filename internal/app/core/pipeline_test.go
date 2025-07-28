@@ -12,11 +12,11 @@ import (
 
 	"github.com/dmytrogajewski/hercules/api/proto/pb"
 	"github.com/dmytrogajewski/hercules/internal/pkg/test"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing"
+	"github.com/go-git/go-git/v6/plumbing/object"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
 )
 
 type testPipelineItem struct {

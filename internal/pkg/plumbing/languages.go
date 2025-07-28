@@ -3,13 +3,12 @@ package plumbing
 import (
 	"path"
 
-	"github.com/src-d/enry/v2"
-	"gopkg.in/src-d/go-git.v4/utils/merkletrie"
-
 	"github.com/dmytrogajewski/hercules/internal/app/core"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing"
+	"github.com/go-git/go-git/v6/plumbing/object"
+	"github.com/go-git/go-git/v6/utils/merkletrie"
+	"github.com/src-d/enry/v2"
 )
 
 var _ core.PipelineItem = (*LanguagesDetection)(nil)

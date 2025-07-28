@@ -1,11 +1,11 @@
 package internal
 
 import (
+	"fmt"
 	"io"
 
-	"github.com/pkg/errors"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
+	"github.com/go-git/go-git/v6/plumbing"
+	"github.com/go-git/go-git/v6/plumbing/object"
 )
 
 type dummyIO struct {
@@ -50,14 +50,14 @@ func (obj dummyEncodedObject) Reader() (io.ReadCloser, error) {
 	if !obj.Fails {
 		return dummyIO{}, nil
 	}
-	return nil, errors.New("dummy failure")
+	return nil, fmt.Errorf("dummy failure")
 }
 
 func (obj dummyEncodedObject) Writer() (io.WriteCloser, error) {
 	if !obj.Fails {
 		return dummyIO{}, nil
 	}
-	return nil, errors.New("dummy failure")
+	return nil, fmt.Errorf("dummy failure")
 }
 
 // CreateDummyBlob constructs a fake object.Blob with empty contents.

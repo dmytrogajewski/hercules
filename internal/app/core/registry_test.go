@@ -5,10 +5,10 @@ import (
 	"testing"
 
 	"github.com/dmytrogajewski/hercules/internal/pkg/test"
+	"github.com/go-git/go-git/v6"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	"github.com/stretchr/testify/assert"
-	"gopkg.in/src-d/go-git.v4"
 )
 
 func getRegistry() *PipelineItemRegistry {

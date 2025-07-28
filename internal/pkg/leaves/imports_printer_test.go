@@ -11,8 +11,8 @@ import (
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/identity"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/imports"
 	"github.com/dmytrogajewski/hercules/internal/pkg/test"
+	gitplumbing "github.com/go-git/go-git/v6/plumbing"
 	"github.com/stretchr/testify/assert"
-	gitplumbing "gopkg.in/src-d/go-git.v4/plumbing"
 )
 
 func fixtureImportsPerDev() *ImportsPerDeveloper {

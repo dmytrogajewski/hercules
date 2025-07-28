@@ -22,6 +22,7 @@ type DSLParser struct {
 	IncludeUnmapped bool
 	reader          io.Reader
 	langInfo        *mapping.LanguageInfo
+	originalDSL     string // Store the original DSL content
 }
 
 // NewDSLParser creates a new DSL-based parser with the given language and mapping rules.
@@ -32,7 +33,17 @@ func NewDSLParser(reader io.Reader) *DSLParser {
 }
 
 func (p *DSLParser) Load() error {
-	rules, langInfo, err := (&mapping.MappingParser{}).ParseMapping(p.reader)
+	// Read the content first
+	content, err := io.ReadAll(p.reader)
+	if err != nil {
+		return err
+	}
+
+	// Store the original DSL content
+	p.originalDSL = string(content)
+
+	// Parse the mapping
+	rules, langInfo, err := (&mapping.MappingParser{}).ParseMapping(strings.NewReader(p.originalDSL))
 
 	if err != nil {
 		return err
@@ -95,6 +106,11 @@ func (p *DSLParser) Parse(filename string, content []byte) (*node.Node, error) {
 // Language returns the language name for this parser.
 func (p *DSLParser) Language() string {
 	return p.langInfo.Name
+}
+
+// GetOriginalDSL returns the original DSL content that was used to create this parser
+func (p *DSLParser) GetOriginalDSL() string {
+	return p.originalDSL
 }
 
 // DSLNode wraps a Tree-sitter node for conversion to UAST using DSL mappings.

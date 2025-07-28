@@ -5,7 +5,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/dmytrogajewski/hercules/internal/pkg/rbtree"
+	"github.com/dmytrogajewski/hercules/pkg/rbtree"
 	"github.com/stretchr/testify/assert"
 )
 

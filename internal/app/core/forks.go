@@ -8,8 +8,8 @@ import (
 	"sort"
 
 	"github.com/dmytrogajewski/hercules/pkg/toposort"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
+	"github.com/go-git/go-git/v6/plumbing"
+	"github.com/go-git/go-git/v6/plumbing/object"
 )
 
 // OneShotMergeProcessor provides the convenience method to consume merges only once.

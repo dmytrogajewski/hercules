@@ -5,7 +5,7 @@ import (
 	"math"
 
 	"github.com/dmytrogajewski/hercules/internal/pkg/mathutil"
-	"github.com/dmytrogajewski/hercules/internal/pkg/rbtree"
+	"github.com/dmytrogajewski/hercules/pkg/rbtree"
 )
 
 // Updater is the function which is called back on File.Update().

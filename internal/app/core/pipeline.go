@@ -14,11 +14,11 @@ import (
 
 	"github.com/dmytrogajewski/hercules/api/proto/pb"
 	"github.com/dmytrogajewski/hercules/pkg/toposort"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing"
+	"github.com/go-git/go-git/v6/plumbing/object"
+	"github.com/go-git/go-git/v6/plumbing/storer"
 	"github.com/pkg/errors"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	"gopkg.in/src-d/go-git.v4/plumbing/storer"
 )
 
 // ConfigurationOptionType represents the possible types of a ConfigurationOption's value.
@@ -980,7 +980,7 @@ func LoadCommitsFromFile(path string, repository *git.Repository) ([]*object.Com
 	var commits []*object.Commit
 	for scanner.Scan() {
 		hash := plumbing.NewHash(scanner.Text())
-		if len(hash) != 20 {
+		if hash.IsZero() {
 			return nil, errors.New("invalid commit hash " + scanner.Text())
 		}
 		commit, err := repository.CommitObject(hash)

@@ -2,16 +2,18 @@ package imports
 
 import (
 	"runtime"
+	"strings"
 	"sync"
 
 	"github.com/dmytrogajewski/hercules/internal/app/core"
-	"github.com/dmytrogajewski/hercules/internal/pkg/extractor"
 	"github.com/dmytrogajewski/hercules/internal/pkg/importmodel"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
-	"gopkg.in/src-d/go-git.v4"
-	gitplumbing "gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	"gopkg.in/src-d/go-git.v4/utils/merkletrie"
+	"github.com/dmytrogajewski/hercules/pkg/uast"
+	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
+	"github.com/go-git/go-git/v6"
+	gitplumbing "github.com/go-git/go-git/v6/plumbing"
+	"github.com/go-git/go-git/v6/plumbing/object"
+	"github.com/go-git/go-git/v6/utils/merkletrie"
 )
 
 var _ core.PipelineItem = (*Extractor)(nil)
@@ -138,7 +140,7 @@ func (ex *Extractor) Consume(deps map[string]interface{}) (map[string]interface{
 						blob.Size, ex.MaxFileSize)
 					continue
 				}
-				file, err := extractor.Extract(change.To.TreeEntry.Name, blob.Data)
+				file, err := extractImports(change.To.TreeEntry.Name, blob.Data)
 				if err != nil {
 					ex.l.Errorf("failed to extract imports from %s %s: %v",
 						change.To.TreeEntry.Name, change.To.TreeEntry.Hash.String(), err)
@@ -171,6 +173,158 @@ func (ex *Extractor) Consume(deps map[string]interface{}) (map[string]interface{
 // Fork clones this PipelineItem.
 func (ex *Extractor) Fork(n int) []core.PipelineItem {
 	return core.ForkSamePipelineItem(ex, n)
+}
+
+// extractImports extracts imports from a file using UAST parsing
+func extractImports(filename string, content []byte) (*importmodel.File, error) {
+	// Create UAST parser
+	parser, err := uast.NewParser()
+	if err != nil {
+		return &importmodel.File{
+			Imports: []string{},
+			Lang:    "",
+			Error:   err,
+		}, nil
+	}
+
+	// Check if file is supported
+	if !parser.IsSupported(filename) {
+		return &importmodel.File{
+			Imports: []string{},
+			Lang:    "",
+			Error:   nil,
+		}, nil
+	}
+
+	// Parse file to UAST
+	uastNode, err := parser.Parse(filename, content)
+	if err != nil {
+		return &importmodel.File{
+			Imports: []string{},
+			Lang:    "",
+			Error:   err,
+		}, nil
+	}
+
+	if uastNode == nil {
+		return &importmodel.File{
+			Imports: []string{},
+			Lang:    "",
+			Error:   nil,
+		}, nil
+	}
+
+	// Extract imports from UAST
+	imports := extractImportsFromUAST(uastNode)
+
+	return &importmodel.File{
+		Imports: imports,
+		Lang:    "",
+		Error:   nil,
+	}, nil
+}
+
+// extractImportsFromUAST extracts import strings from a UAST node tree
+func extractImportsFromUAST(root *node.Node) []string {
+	var imports []string
+	seen := make(map[string]bool)
+
+	// Traverse the UAST tree to find import nodes
+	root.VisitPreOrder(func(n *node.Node) {
+		// Look for nodes with Import type or Import role
+		if n.Type == node.UASTImport || n.HasAnyRole(node.RoleImport) {
+			// Extract import path from token or children
+			if importPath := extractImportPath(n); importPath != "" {
+				// Deduplicate imports
+				if !seen[importPath] {
+					imports = append(imports, importPath)
+					seen[importPath] = true
+				}
+			}
+		}
+	})
+
+	return imports
+}
+
+// extractImportPath extracts the import path from an import node
+func extractImportPath(importNode *node.Node) string {
+	// First try to get the import path from the token
+	if importNode.Token != "" {
+		return cleanImportPath(importNode.Token)
+	}
+
+	// For JavaScript imports, look for specific patterns in children
+	if len(importNode.Children) > 0 {
+		// Look for string literals that contain import paths
+		for _, child := range importNode.Children {
+			if child.Type == node.UASTLiteral && child.Token != "" {
+				// This is likely a string literal containing the import path
+				return cleanImportPath(child.Token)
+			}
+		}
+
+		// Look for identifier nodes that might contain module names
+		for _, child := range importNode.Children {
+			if child.Type == node.UASTIdentifier && child.Token != "" {
+				// This might be a module name
+				return cleanImportPath(child.Token)
+			}
+		}
+
+		// Recursively check children for import paths
+		for _, child := range importNode.Children {
+			if path := extractImportPath(child); path != "" {
+				return path
+			}
+		}
+	}
+
+	return ""
+}
+
+// cleanImportPath cleans up an import path by removing quotes and extracting module names
+func cleanImportPath(path string) string {
+	// Remove surrounding quotes and trailing semicolons
+	path = strings.Trim(path, `"';`)
+
+	// Skip empty or invalid paths
+	if path == "" || path == "{" || path == "}" {
+		return ""
+	}
+
+	// Handle different import statement formats
+	if strings.HasPrefix(path, "import ") {
+		// Python: "import os" -> "os"
+		parts := strings.Fields(path)
+		if len(parts) >= 2 {
+			return parts[1]
+		}
+	} else if strings.HasPrefix(path, "from ") {
+		// Python: "from typing import List, Dict" -> "typing"
+		parts := strings.Fields(path)
+		if len(parts) >= 2 {
+			return parts[1]
+		}
+	} else if strings.Contains(path, " from ") {
+		// JavaScript: "React from 'react'" -> "react"
+		parts := strings.Split(path, " from ")
+		if len(parts) >= 2 {
+			return strings.Trim(parts[1], `"'`)
+		}
+	} else if strings.Contains(path, "import ") {
+		// JavaScript: "import './styles.css'" -> "./styles.css"
+		parts := strings.Split(path, "import ")
+		if len(parts) >= 2 {
+			return strings.Trim(parts[1], `"'`)
+		}
+	} else if strings.HasPrefix(path, "{") && strings.Contains(path, "}") {
+		// JavaScript destructuring: "{ useState, useEffect }" -> skip this
+		return ""
+	}
+
+	// For simple module names, just return as is
+	return path
 }
 
 func init() {

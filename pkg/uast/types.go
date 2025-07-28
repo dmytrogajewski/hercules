@@ -83,3 +83,9 @@ func getFileExtension(filename string) string {
 	}
 	return "." + parts[len(parts)-1]
 }
+
+// UASTMap represents a custom UAST mapping configuration
+type UASTMap struct {
+	Extensions []string `json:"extensions"`
+	UAST       string   `json:"uast"`
+}

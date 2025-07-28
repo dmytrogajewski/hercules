@@ -198,26 +198,6 @@ func (c *ComplexityAnalyzer) buildDetailedFunctionsTable(functionMetrics map[str
 	return detailedFunctionsTable
 }
 
-// buildFunctionDetails creates simplified function details for result
-func (c *ComplexityAnalyzer) buildFunctionDetails(functionMetrics map[string]FunctionMetrics) []map[string]interface{} {
-	functionDetails := make([]map[string]interface{}, 0, len(functionMetrics))
-
-	for _, metrics := range functionMetrics {
-		functionDetails = append(functionDetails, map[string]interface{}{
-			"name":                  metrics.Name,
-			"cyclomatic_complexity": metrics.CyclomaticComplexity,
-			"cognitive_complexity":  metrics.CognitiveComplexity,
-			"nesting_depth":         metrics.NestingDepth,
-			"decision_points":       metrics.DecisionPoints,
-			"lines_of_code":         metrics.LinesOfCode,
-			"parameters":            metrics.Parameters,
-			"return_statements":     metrics.ReturnStatements,
-		})
-	}
-
-	return functionDetails
-}
-
 // calculateAverageComplexity calculates the average complexity across all functions
 func (c *ComplexityAnalyzer) calculateAverageComplexity(totals map[string]int, functionCount int) float64 {
 	if functionCount == 0 {
@@ -369,15 +349,8 @@ func (c *ComplexityAnalyzer) calculateCyclomaticComplexity(fn *node.Node) int {
 
 // calculateCognitiveComplexity calculates cognitive complexity for a function
 func (c *ComplexityAnalyzer) calculateCognitiveComplexity(fn *node.Node) int {
-	complexity := 0
-
-	fn.VisitPreOrder(func(n *node.Node) {
-		if c.isCognitiveComplexityPoint(n) {
-			complexity++
-		}
-	})
-
-	return complexity
+	calculator := NewCognitiveComplexityCalculator()
+	return calculator.CalculateCognitiveComplexity(fn)
 }
 
 // calculateNestingDepth calculates the maximum nesting depth for a function
@@ -498,23 +471,6 @@ func (c *ComplexityAnalyzer) hasDecisionRole(n *node.Node) bool {
 			return true
 		}
 	}
-	return false
-}
-
-// isCognitiveComplexityPoint checks if a node contributes to cognitive complexity
-func (c *ComplexityAnalyzer) isCognitiveComplexityPoint(n *node.Node) bool {
-	if c.isDecisionPoint(n) {
-		return true
-	}
-
-	if n.Type == node.UASTCall || n.Type == node.UASTFunction {
-		return true
-	}
-
-	if n.Type == node.UASTBinaryOp && len(n.Children) > 2 {
-		return true
-	}
-
 	return false
 }
 

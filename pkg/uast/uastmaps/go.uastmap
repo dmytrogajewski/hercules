@@ -231,8 +231,7 @@ import_spec <- (import_spec) => uast(
 )
 
 import_spec_list <- (import_spec_list) => uast(
-    type: "Import",
-    roles: "Import"
+    type: "Synthetic"
 )
 
 inc_statement <- (inc_statement) => uast(
@@ -617,9 +616,7 @@ imaginary_literal <- (imaginary_literal) => uast(
 
 import <- (import) => uast(
     token: "self",
-    roles: "Literal",
-    type: "Import",
-    roles: "Import"
+    type: "Synthetic"
 )
 
 int_literal <- (int_literal) => uast(

@@ -16,10 +16,10 @@ import (
 	"github.com/dmytrogajewski/hercules/internal/app/core/items"
 	"github.com/dmytrogajewski/hercules/internal/pkg/leaves/uast_items"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing"
 	"gopkg.in/bblfsh/sdk.v2/uast"
 	"gopkg.in/bblfsh/sdk.v2/uast/nodes"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing"
 	// sentiment "gopkg.in/vmarkovtsev/BiDiSentiment.v1" // Temporarily disabled
 )
 

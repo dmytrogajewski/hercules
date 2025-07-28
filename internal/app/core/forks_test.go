@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	"github.com/dmytrogajewski/hercules/internal/pkg/test"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing"
 	"github.com/stretchr/testify/assert"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing"
 )
 
 type testForkPipelineItem struct {

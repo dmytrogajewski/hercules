@@ -7,9 +7,9 @@ import (
 	"strings"
 
 	"github.com/dmytrogajewski/hercules/internal/app/core"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing/object"
 	"github.com/pkg/errors"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
 )
 
 // Detector determines the author of a commit. Same person can commit under different

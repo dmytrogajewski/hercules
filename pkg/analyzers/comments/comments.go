@@ -569,10 +569,10 @@ func (c *CommentsAnalyzer) buildDetailedFunctionsTable(functions []*node.Node, m
 }
 
 // buildFunctionSummaryInterface builds the function summary interface
-func (c *CommentsAnalyzer) buildFunctionSummaryInterface(metrics CommentMetrics) map[string]interface{} {
-	functionSummaryInterface := make(map[string]interface{})
+func (c *CommentsAnalyzer) buildFunctionSummaryInterface(metrics CommentMetrics) map[string]any {
+	functionSummaryInterface := make(map[string]any)
 	for name, info := range metrics.FunctionSummary {
-		functionSummaryInterface[name] = map[string]interface{}{
+		functionSummaryInterface[name] = map[string]any{
 			"name":         info.Name,
 			"type":         info.Type,
 			"has_comment":  info.HasComment,

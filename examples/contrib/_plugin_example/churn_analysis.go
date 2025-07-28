@@ -9,8 +9,8 @@ import (
 
 	"github.com/dmytrogajewski/hercules"
 	"github.com/dmytrogajewski/hercules/internal/app/core"
-	"github.com/gogo/protobuf/proto"
 	"github.com/sergi/go-diff/diffmatchpatch"
+	"google.golang.org/protobuf/proto"
 	"gopkg.in/src-d/go-git.v4"
 	"gopkg.in/src-d/go-git.v4/plumbing"
 	"gopkg.in/src-d/go-git.v4/plumbing/object"

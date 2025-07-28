@@ -9,10 +9,10 @@ import (
 	"github.com/dmytrogajewski/hercules/internal/app/core"
 	items "github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/identity"
-	"github.com/gogo/protobuf/proto"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	"gopkg.in/src-d/go-git.v4/utils/merkletrie"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing/object"
+	"github.com/go-git/go-git/v6/utils/merkletrie"
+	"google.golang.org/protobuf/proto"
 )
 
 // CouplesAnalysis calculates the number of common commits for files and authors.
@@ -428,7 +428,7 @@ func (couples *CouplesAnalysis) serializeText(result *CouplesResult, writer io.W
 	fmt.Fprintln(writer, "  files_coocc:")
 	fmt.Fprintln(writer, "    index:")
 	for _, file := range result.Files {
-		//	fmt.Fprintf(writer, "      - %s\n", yaml.SafeString(file))
+		fmt.Fprintf(writer, "      - %s\n", file)
 	}
 	fmt.Fprintln(writer, "    lines:")
 	for _, l := range result.FilesLines {
@@ -455,7 +455,7 @@ func (couples *CouplesAnalysis) serializeText(result *CouplesResult, writer io.W
 	fmt.Fprintln(writer, "  people_coocc:")
 	fmt.Fprintln(writer, "    index:")
 	for _, person := range result.reversedPeopleDict {
-		//	fmt.Fprintf(writer, "      - %s\n", yaml.SafeString(person))
+		fmt.Fprintf(writer, "      - %s\n", person)
 	}
 
 	fmt.Fprintln(writer, "    matrix:")
@@ -481,7 +481,7 @@ func (couples *CouplesAnalysis) serializeText(result *CouplesResult, writer io.W
 		//	fmt.Fprintf(writer, "      - %s:\n", yaml.SafeString(authorFiles.Author))
 		sort.Strings(authorFiles.Files)
 		for _, file := range authorFiles.Files {
-			//		fmt.Fprintf(writer, "        - %s\n", yaml.SafeString(file)) // sorted by path
+			fmt.Fprintf(writer, "        - %s\n", file) // sorted by path
 		}
 	}
 }

@@ -9,20 +9,20 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/dmytrogajewski/hercules/internal/app/core"
 	"github.com/dmytrogajewski/hercules/api/proto/pb"
+	"github.com/dmytrogajewski/hercules/internal/app/core"
 	items "github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	uast_items "github.com/dmytrogajewski/hercules/internal/pkg/plumbing/uast"
 	uast_test "github.com/dmytrogajewski/hercules/internal/pkg/plumbing/uast/test"
 	"github.com/dmytrogajewski/hercules/internal/pkg/test"
-	"github.com/gogo/protobuf/proto"
+	"github.com/go-git/go-git/v6/plumbing"
 	"github.com/stretchr/testify/assert"
+	"google.golang.org/protobuf/proto"
 	bblfsh "gopkg.in/bblfsh/client-go.v3"
 	"gopkg.in/bblfsh/client-go.v3/tools"
 	"gopkg.in/bblfsh/sdk.v2/uast"
 	"gopkg.in/bblfsh/sdk.v2/uast/nodes"
 	"gopkg.in/bblfsh/sdk.v2/uast/query"
-	"gopkg.in/src-d/go-git.v4/plumbing"
 )
 
 func fixtureCommentSentiment() *CommentSentimentAnalysis {

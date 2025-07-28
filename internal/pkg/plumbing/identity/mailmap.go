@@ -3,7 +3,7 @@ package identity
 import (
 	"strings"
 
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
+	"github.com/go-git/go-git/v6/plumbing/object"
 )
 
 // ParseMailmap parses the contents of .mailmap and returns the mapping
