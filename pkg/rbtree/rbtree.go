@@ -6,8 +6,7 @@ import (
 	"os"
 	"sync"
 
-	"github.com/gogo/protobuf/sortkeys"
-	"gopkg.in/src-d/go-git.v4/utils/binary"
+	gitbinary "github.com/go-git/go-git/v6/utils/binary"
 )
 
 //
@@ -116,7 +115,6 @@ func (allocator *Allocator) Hibernate() {
 				gapsBuffer[i] = key
 				i++
 			}
-			sortkeys.Uint32s(gapsBuffer)
 			allocator.hibernatedData[len(buffers)] = CompressUInt32Slice(gapsBuffer)
 		}
 		allocator.gaps = nil
@@ -183,16 +181,16 @@ func (allocator *Allocator) Serialize(path string) error {
 		return err
 	}
 	defer file.Close()
-	err = binary.WriteVariableWidthInt(file, int64(allocator.hibernatedStorageLen))
+	err = gitbinary.WriteVariableWidthInt(file, int64(allocator.hibernatedStorageLen))
 	if err != nil {
 		return err
 	}
-	err = binary.WriteVariableWidthInt(file, int64(allocator.hibernatedGapsLen))
+	err = gitbinary.WriteVariableWidthInt(file, int64(allocator.hibernatedGapsLen))
 	if err != nil {
 		return err
 	}
 	for i, hse := range allocator.hibernatedData {
-		err = binary.WriteVariableWidthInt(file, int64(len(hse)))
+		err = gitbinary.WriteVariableWidthInt(file, int64(len(hse)))
 		if err != nil {
 			return err
 		}
@@ -215,18 +213,18 @@ func (allocator *Allocator) Deserialize(path string) error {
 		return err
 	}
 	defer file.Close()
-	x, err := binary.ReadVariableWidthInt(file)
+	x, err := gitbinary.ReadVariableWidthInt(file)
 	if err != nil {
 		return err
 	}
 	allocator.hibernatedStorageLen = int(x)
-	x, err = binary.ReadVariableWidthInt(file)
+	x, err = gitbinary.ReadVariableWidthInt(file)
 	if err != nil {
 		return err
 	}
 	allocator.hibernatedGapsLen = int(x)
 	for i := range allocator.hibernatedData {
-		x, err = binary.ReadVariableWidthInt(file)
+		x, err = gitbinary.ReadVariableWidthInt(file)
 		if err != nil {
 			return err
 		}

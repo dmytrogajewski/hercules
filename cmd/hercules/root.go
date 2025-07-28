@@ -10,13 +10,13 @@ import (
 	"net/http"
 	_ "net/http/pprof"
 	"os"
-	"path/filepath"
 	"plugin"
-	"regexp"
 	"runtime/pprof"
 	"strings"
 	"text/template"
 	"unicode"
+
+	"regexp"
 
 	"github.com/Masterminds/sprig"
 	progress "github.com/cheggaaa/pb/v3"
@@ -24,22 +24,21 @@ import (
 	"github.com/dmytrogajewski/hercules/internal/app/core"
 	"github.com/dmytrogajewski/hercules/internal/pkg/config"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/uast"
-	"github.com/gogo/protobuf/proto"
+	"github.com/dmytrogajewski/hercules/internal/pkg/version" // Using standard protobuf
+	"github.com/go-git/go-billy/v6/osfs"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing/cache"
+	"github.com/go-git/go-git/v6/plumbing/object"
+	"github.com/go-git/go-git/v6/plumbing/transport/ssh"
+	"github.com/go-git/go-git/v6/storage"
+	"github.com/go-git/go-git/v6/storage/filesystem"
+	"github.com/go-git/go-git/v6/storage/memory"
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
 	"golang.org/x/term"
-	sivafs "gopkg.in/src-d/go-billy-siva.v4"
-	"gopkg.in/src-d/go-billy.v4/memfs"
-	"gopkg.in/src-d/go-billy.v4/osfs"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing/cache"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	"gopkg.in/src-d/go-git.v4/plumbing/transport/ssh"
-	"gopkg.in/src-d/go-git.v4/storage"
-	"gopkg.in/src-d/go-git.v4/storage/filesystem"
-	"gopkg.in/src-d/go-git.v4/storage/memory"
+	"google.golang.org/protobuf/proto"
 	"gopkg.in/yaml.v2"
 )
 
@@ -76,6 +75,7 @@ func loadRepository(uri string, cachePath string, disableStatus bool, sshIdentit
 	var repository *git.Repository
 	var backend storage.Storer
 	var err error
+
 	if strings.Contains(uri, "://") || regexp.MustCompile("^[A-Za-z]\\w*@[A-Za-z0-9][\\w.]*:").MatchString(uri) {
 		if cachePath != "" {
 			backend = filesystem.NewStorage(osfs.New(cachePath), cache.NewObjectLRUDefault())
@@ -106,15 +106,20 @@ func loadRepository(uri string, cachePath string, disableStatus bool, sshIdentit
 			fmt.Fprint(os.Stderr, "\033[2K\r")
 		}
 	} else if stat, err2 := os.Stat(uri); err2 == nil && !stat.IsDir() {
-		localFs := osfs.New(filepath.Dir(uri))
-		tmpFs := memfs.New()
-		basePath := filepath.Base(uri)
-		fs, err2 := sivafs.NewFilesystem(localFs, basePath, tmpFs)
-		if err2 != nil {
-			log.Panicf("unable to create a siva filesystem from %s: %v", uri, err2)
-		}
-		sivaStorage := filesystem.NewStorage(fs, cache.NewObjectLRUDefault())
-		repository, err = git.Open(sivaStorage, tmpFs)
+		// Temporarily disable siva filesystem support due to go-git v6 compatibility issues
+		// if strings.HasSuffix(uri, ".siva") {
+		// 	localFs := osfs.New(filepath.Dir(uri))
+		// 	tmpFs := memfs.New()
+		// 	basePath := filepath.Base(uri)
+		// 	fs, err2 := sivafs.NewFilesystem(localFs, basePath, tmpFs)
+		// 	if err2 != nil {
+		// 		log.Panicf("unable to create a siva filesystem from %s: %v", uri, err2)
+		// 	}
+		// 	sivaStorage := filesystem.NewStorage(fs, cache.NewObjectLRUDefault())
+		// 	repository, err = git.Open(sivaStorage, tmpFs)
+		// } else {
+		log.Panicf("siva filesystem support temporarily disabled due to go-git v6 compatibility issues")
+		// }
 	} else {
 		if uri[len(uri)-1] == os.PathSeparator {
 			uri = uri[:len(uri)-1]
@@ -188,7 +193,7 @@ or several analysis targets. The list of the available targets is printed in --h
 targets can be added using the --plugin system.`,
 	Args: cobra.RangeArgs(1, 2),
 	Run: func(cmd *cobra.Command, args []string) {
-		leaves := hercules.Registry.GetLeaves()
+		leaves := core.Registry.GetLeaves()
 		flags := cmd.Flags()
 		getBool := func(name string) bool {
 			value, err := flags.GetBool(name)
@@ -242,26 +247,19 @@ targets can be added using the --plugin system.`,
 			core.GetLogger().Infof("[DEBUG] cmdlineDeployed was nil, initializing empty map.")
 			cmdlineDeployed = make(map[string]*bool)
 		}
-		pipeline := hercules.NewPipeline(repository)
+		pipeline := core.NewPipeline(repository)
 		pipeline.SetFeaturesFromFlags()
 		var bar *progress.ProgressBar
 		if !disableStatus {
 			pipeline.OnProgress = func(commit, length int, action string) {
 				if bar == nil {
 					bar = progress.New(length)
-					bar.Callback = func(msg string) {
-						os.Stderr.WriteString("\033[2K\r" + msg)
-					}
-					bar.NotPrint = true
-					bar.ShowPercent = false
-					bar.ShowSpeed = false
-					bar.SetMaxWidth(80).Start()
+					// Progress bar API changed - simplified
+					bar.Start()
 				}
-				if action == hercules.MessageFinalize {
+				if action == core.MessageFinalize {
 					bar.Finish()
 					fmt.Fprint(os.Stderr, "\033[2K\rfinalizing...")
-				} else {
-					bar.Set(commit).Postfix(" [" + action + "] ")
 				}
 			}
 		}
@@ -276,28 +274,28 @@ targets can be added using the --plugin system.`,
 				commits, err = pipeline.HeadCommit()
 			}
 		} else {
-			commits, err = hercules.LoadCommitsFromFile(commitsFile, repository)
+			commits, err = core.LoadCommitsFromFile(commitsFile, repository)
 		}
 		if err != nil {
 			log.Fatalf("failed to list the commits: %v", err)
 		}
-		cmdlineFacts[hercules.ConfigPipelineCommits] = commits
+		cmdlineFacts[core.ConfigPipelineCommits] = commits
 		if uastProvider != "" {
 			cmdlineFacts[uast.ConfigUASTProvider] = uastProvider
 		}
 		if allAnalyses {
 			repository := loadRepository(uri, cachePath, disableStatus, sshIdentity)
 			// Deploy all leaves and all plumbing items in a single pipeline
-			hercules.Registry = core.NewPipelineItemRegistry()
+			core.Registry = core.NewPipelineItemRegistry()
 			cmdlineDeployed := map[string]*bool{}
 			b := true
 			for _, leaf := range leaves {
 				cmdlineDeployed[leaf.Name()] = &b
 			}
-			pipeline := hercules.NewPipeline(repository)
+			pipeline := core.NewPipeline(repository)
 			pipeline.SetFeaturesFromFlags()
 			// Deploy all plumbing items
-			for _, item := range hercules.Registry.GetPlumbingItems() {
+			for _, item := range core.Registry.GetPlumbingItems() {
 				pipeline.DeployItem(item)
 			}
 			// Deploy all leaves
@@ -324,7 +322,7 @@ targets can be added using the --plugin system.`,
 			return
 		}
 
-		var deployed []hercules.LeafPipelineItem
+		var deployed []core.LeafPipelineItem
 		// Handle individual analysis flags
 		for _, leaf := range leaves {
 			flagName := leaf.Flag()
@@ -348,7 +346,7 @@ targets can be added using the --plugin system.`,
 		// After initialization, collect deployed leaves
 		deployed = nil
 		for _, item := range pipeline.Items() {
-			if leaf, ok := item.(hercules.LeafPipelineItem); ok {
+			if leaf, ok := item.(core.LeafPipelineItem); ok {
 				deployed = append(deployed, leaf)
 			}
 		}
@@ -382,13 +380,13 @@ targets can be added using the --plugin system.`,
 }
 
 func printResults(
-	uri string, deployed []hercules.LeafPipelineItem,
-	results map[hercules.LeafPipelineItem]interface{}) {
-	commonResult := results[nil].(*hercules.CommonAnalysisResult)
+	uri string, deployed []core.LeafPipelineItem,
+	results map[core.LeafPipelineItem]interface{}) {
+	commonResult := results[nil].(*core.CommonAnalysisResult)
 
 	fmt.Println("hercules:")
-	fmt.Printf("  version: %d\n", hercules.BinaryVersion)
-	fmt.Println("  hash:", hercules.BinaryGitHash)
+	fmt.Printf("  version: %d\n", version.Binary)
+	fmt.Println("  hash:", version.BinaryGitHash)
 	fmt.Println("  repository:", uri)
 	fmt.Println("  begin_unix_time:", commonResult.BeginTime)
 	fmt.Println("  end_unix_time:", commonResult.EndTime)
@@ -440,15 +438,15 @@ func printResults(
 }
 
 func protobufResults(
-	uri string, deployed []hercules.LeafPipelineItem,
-	results map[hercules.LeafPipelineItem]interface{}) {
+	uri string, deployed []core.LeafPipelineItem,
+	results map[core.LeafPipelineItem]interface{}) {
 
 	header := pb.Metadata{
 		Version:    2,
-		Hash:       hercules.BinaryGitHash,
+		Hash:       version.BinaryGitHash,
 		Repository: uri,
 	}
-	results[nil].(*hercules.CommonAnalysisResult).FillMetadata(&header)
+	results[nil].(*core.CommonAnalysisResult).FillMetadata(&header)
 
 	message := pb.AnalysisResults{
 		Header:   &header,
@@ -491,16 +489,16 @@ func yamlToJSONCompatible(v interface{}) interface{} {
 }
 
 func jsonResults(
-	uri string, deployed []hercules.LeafPipelineItem,
-	results map[hercules.LeafPipelineItem]interface{}) {
+	uri string, deployed []core.LeafPipelineItem,
+	results map[core.LeafPipelineItem]interface{}) {
 
-	commonResult := results[nil].(*hercules.CommonAnalysisResult)
+	commonResult := results[nil].(*core.CommonAnalysisResult)
 
 	// Create the main JSON structure
 	output := map[string]interface{}{
 		"hercules": map[string]interface{}{
-			"version":         hercules.BinaryVersion,
-			"hash":            hercules.BinaryGitHash,
+			"version":         version.Binary,
+			"hash":            version.BinaryGitHash,
 			"repository":      uri,
 			"begin_unix_time": commonResult.BeginTime,
 			"end_unix_time":   commonResult.EndTime,
@@ -564,10 +562,10 @@ func formatUsage(c *cobra.Command) error {
 	// the default UsageFunc() does some private magic c.mergePersistentFlags()
 	// this should stay on top
 	localFlags := c.LocalFlags()
-	leaves := hercules.Registry.GetLeaves()
-	plumbing := hercules.Registry.GetPlumbingItems()
-	features := hercules.Registry.GetFeaturedItems()
-	hercules.EnablePathFlagTypeMasquerade()
+	leaves := core.Registry.GetLeaves()
+	plumbing := core.Registry.GetPlumbingItems()
+	features := core.Registry.GetFeaturedItems()
+	core.EnablePathFlagTypeMasquerade()
 	filter := map[string]bool{}
 	for _, l := range leaves {
 		filter[l.Flag()] = true
@@ -659,7 +657,7 @@ var versionCmd = &cobra.Command{
 	Long:  ``,
 	Args:  cobra.MaximumNArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Printf("Version: %d\nGit:     %s\n", hercules.BinaryVersion, hercules.BinaryGitHash)
+		fmt.Printf("Version: %d\nGit:     %s\n", version.Binary, version.BinaryGitHash)
 	},
 }
 
@@ -677,7 +675,7 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	hercules.PathifyFlagValue(rootFlags.Lookup("commits"))
+	core.PathifyFlagValue(rootFlags.Lookup("commits"))
 	rootFlags.Bool("head", false, "Analyze only the latest commit.")
 	rootFlags.Bool("first-parent", false, "Follow only the first parent in the commit history - "+
 		"\"git log --first-parent\".")
@@ -688,15 +686,16 @@ func init() {
 		"Do not print status updates to stderr.")
 	rootFlags.Bool("profile", false, "Collect the profile to hercules.pprof.")
 	rootFlags.Bool("all", false, "Run all available analyses (mutually exclusive with individual analysis flags).")
+	rootFlags.String("uast-provider", "", "UAST provider to use (embedded, babelfish, etc.)")
 	rootFlags.String("ssh-identity", "", "Path to SSH identity file (e.g., ~/.ssh/id_rsa) to clone from an SSH remote.")
 	err = rootCmd.MarkFlagFilename("ssh-identity")
 	if err != nil {
 		panic(err)
 	}
-	hercules.PathifyFlagValue(rootFlags.Lookup("ssh-identity"))
+	core.PathifyFlagValue(rootFlags.Lookup("ssh-identity"))
 	rootFlags.String("log-file", "", "Path to log file. If not set, logging is disabled.")
 	rootFlags.String("log-format", "plain", "Log format: 'plain' or 'json'. Default is 'plain'.")
-	cmdlineFacts, cmdlineDeployed = hercules.Registry.AddFlags(rootFlags)
+	cmdlineFacts, cmdlineDeployed = core.Registry.AddFlags(rootFlags)
 	rootCmd.SetUsageFunc(formatUsage)
 	rootCmd.AddCommand(versionCmd)
 	versionCmd.SetUsageFunc(versionCmd.UsageFunc())

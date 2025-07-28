@@ -95,6 +95,27 @@ hercules --burndown --cache /tmp/hercules-cache https://github.com/dmytrogajewsk
 HERCULES_CACHE_BACKEND=s3 HERCULES_CACHE_S3_BUCKET=my-bucket hercules --burndown https://github.com/dmytrogajewski/hercules.git
 ```
 
+### UAST Development Server
+
+The UAST binary includes a development server for interactive UAST mapping development:
+
+```sh
+# Start the development server with web UI
+uast server --static web --port 8080
+
+# Start server without static files (API only)
+uast server --port 8080
+
+# Start with custom port
+uast server --port 9000 --static /path/to/web/files
+```
+
+The server provides:
+- **API endpoints**: `/api/parse` and `/api/query` for UAST operations
+- **Web UI**: Interactive development environment (when using `--static`)
+- **Real-time parsing**: Parse code in multiple languages
+- **Query interface**: Execute UAST queries with DSL
+
 ### Automation Example
 
 ```sh

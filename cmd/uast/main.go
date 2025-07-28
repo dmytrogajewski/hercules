@@ -34,6 +34,7 @@ func main() {
 	rootCmd.AddCommand(validateCmd())
 	rootCmd.AddCommand(mappingCmd())
 	rootCmd.AddCommand(lspCmd())
+	rootCmd.AddCommand(serverCmd())
 
 	if err := rootCmd.Execute(); err != nil {
 		fmt.Fprintf(os.Stderr, "Error: %v\n", err)

@@ -20,14 +20,14 @@ import (
 	"github.com/dmytrogajewski/hercules/internal/pkg/burndown"
 	items "github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/identity"
-	"github.com/dmytrogajewski/hercules/internal/pkg/rbtree"
-	"github.com/gogo/protobuf/proto"
+	"github.com/dmytrogajewski/hercules/pkg/rbtree"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing"
+	"github.com/go-git/go-git/v6/plumbing/object"
+	"github.com/go-git/go-git/v6/utils/merkletrie"
 	"github.com/sergi/go-diff/diffmatchpatch"
 	"github.com/spf13/viper"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
-	"gopkg.in/src-d/go-git.v4/utils/merkletrie"
+	"google.golang.org/protobuf/proto"
 )
 
 // BurndownAnalysis allows to gather the line burndown statistics for a Git repository.
@@ -1005,12 +1005,18 @@ func (analyser *BurndownAnalysis) serializeText(result *BurndownResult, writer i
 	fmt.Fprintln(writer, "  granularity:", result.granularity)
 	fmt.Fprintln(writer, "  sampling:", result.sampling)
 	fmt.Fprintln(writer, "  tick_size:", int(result.tickSize.Seconds()))
-	yaml.PrintMatrix(writer, result.GlobalHistory, 2, "project", true)
+	fmt.Fprintln(writer, "  project:")
+	for i, row := range result.GlobalHistory {
+		fmt.Fprintf(writer, "    %d: %v\n", i, row)
+	}
 	if len(result.FileHistories) > 0 {
 		fmt.Fprintln(writer, "  files:")
 		keys := sortedKeys(result.FileHistories)
 		for _, key := range keys {
-			yaml.PrintMatrix(writer, result.FileHistories[key], 4, key, true)
+			fmt.Fprintf(writer, "    %s:\n", key)
+			for i, row := range result.FileHistories[key] {
+				fmt.Fprintf(writer, "      %d: %v\n", i, row)
+			}
 		}
 		fmt.Fprintln(writer, "  files_ownership:")
 		okeys := make([]string, 0, len(result.FileOwnership))
@@ -1042,14 +1048,19 @@ func (analyser *BurndownAnalysis) serializeText(result *BurndownResult, writer i
 	if len(result.PeopleHistories) > 0 {
 		fmt.Fprintln(writer, "  people_sequence:")
 		for key := range result.PeopleHistories {
-			fmt.Fprintln(writer, "    - "+yaml.SafeString(result.reversedPeopleDict[key]))
+			fmt.Fprintf(writer, "    - %s\n", result.reversedPeopleDict[key])
 		}
 		fmt.Fprintln(writer, "  people:")
 		for key, val := range result.PeopleHistories {
-			yaml.PrintMatrix(writer, val, 4, result.reversedPeopleDict[key], true)
+			fmt.Fprintf(writer, "    %s:\n", result.reversedPeopleDict[key])
+			for i, row := range val {
+				fmt.Fprintf(writer, "      %d: %v\n", i, row)
+			}
 		}
-		fmt.Fprintln(writer, "  people_interaction: |-")
-		yaml.PrintMatrix(writer, result.PeopleMatrix, 4, "", false)
+		fmt.Fprintln(writer, "  people_interaction:")
+		for i, row := range result.PeopleMatrix {
+			fmt.Fprintf(writer, "    %d: %v\n", i, row)
+		}
 	}
 }
 

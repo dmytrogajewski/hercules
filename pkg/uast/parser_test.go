@@ -1,6 +1,7 @@
 package uast
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
@@ -425,5 +426,325 @@ func TestTreeTraversalAlgorithmEfficiency(t *testing.T) {
 			t.Logf("Post-order efficiency: %d iterations, max depth %d, %d allocations, %d nodes",
 				iterationCount, maxStackDepthReached, nodeAllocationCount, count)
 		})
+	}
+}
+
+func TestParserWithCustomUASTMap(t *testing.T) {
+	// Create a simple custom UAST mapping for testing
+	customMaps := map[string]UASTMap{
+		"custom_json": {
+			Extensions: []string{".custom"},
+			UAST: `[language "json", extensions: ".custom"]
+
+_value <- (_value) => uast(
+    type: "Synthetic"
+)
+
+array <- (array) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+document <- (document) => uast(
+    type: "Synthetic"
+)
+
+object <- (object) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+pair <- (pair) => uast(
+    type: "Synthetic",
+    children: "_value", "string"
+)
+
+string <- (string) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    token: "self",
+    roles: "Comment",
+    type: "Comment"
+)
+
+false <- (false) => uast(
+    type: "Synthetic"
+)
+
+null <- (null) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+number <- (number) => uast(
+    type: "Synthetic"
+)
+
+string_content <- (string_content) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+true <- (true) => uast(
+    type: "Synthetic"
+)
+`,
+		},
+	}
+
+	// Create parser with custom mappings
+	parser, err := NewParser()
+	if err != nil {
+		t.Fatalf("Failed to create parser: %v", err)
+	}
+
+	parser = parser.WithUASTMap(customMaps)
+
+	// Test that the custom parser is loaded
+	if !parser.IsSupported("test_file.custom") {
+		t.Error("Custom parser should support .custom files")
+	}
+
+	// Test that the parser can be retrieved
+	ext := strings.ToLower(".custom")
+	parserInstance, exists := parser.loader.LanguageParser(ext)
+	if !exists {
+		t.Error("Custom parser should be available for .custom extension")
+	}
+
+	if parserInstance.Language() != "json" {
+		t.Errorf("Expected language 'json', got '%s'", parserInstance.Language())
+	}
+
+	// Test that extensions are correctly registered
+	expectedExtensions := []string{".custom"}
+	actualExtensions := parserInstance.Extensions()
+	if len(actualExtensions) != len(expectedExtensions) {
+		t.Errorf("Expected %d extensions, got %d", len(expectedExtensions), len(actualExtensions))
+	}
+
+	for i, ext := range expectedExtensions {
+		if actualExtensions[i] != ext {
+			t.Errorf("Expected extension '%s', got '%s'", ext, actualExtensions[i])
+		}
+	}
+}
+
+func TestParserWithMultipleCustomUASTMaps(t *testing.T) {
+	// Create multiple custom UAST mappings
+	customMaps := map[string]UASTMap{
+		"custom_json1": {
+			Extensions: []string{".json1"},
+			UAST: `[language "json", extensions: ".json1"]
+
+_value <- (_value) => uast(
+    type: "Synthetic"
+)
+
+array <- (array) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+document <- (document) => uast(
+    type: "Synthetic"
+)
+
+object <- (object) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+pair <- (pair) => uast(
+    type: "Synthetic",
+    children: "_value", "string"
+)
+
+string <- (string) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+`,
+		},
+		"custom_json2": {
+			Extensions: []string{".json2", ".js2"},
+			UAST: `[language "json", extensions: ".json2", ".js2"]
+
+_value <- (_value) => uast(
+    type: "Synthetic"
+)
+
+array <- (array) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+document <- (document) => uast(
+    type: "Synthetic"
+)
+
+object <- (object) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+pair <- (pair) => uast(
+    type: "Synthetic",
+    children: "_value", "string"
+)
+
+string <- (string) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+`,
+		},
+	}
+
+	// Create parser with custom mappings
+	parser, err := NewParser()
+	if err != nil {
+		t.Fatalf("Failed to create parser: %v", err)
+	}
+
+	parser = parser.WithUASTMap(customMaps)
+
+	// Test that both custom parsers are loaded
+	testCases := []struct {
+		filename string
+		language string
+	}{
+		{"test1.json1", "json"},
+		{"test2.json2", "json"},
+		{"test3.js2", "json"},
+	}
+
+	for _, tc := range testCases {
+		if !parser.IsSupported(tc.filename) {
+			t.Errorf("Parser should support %s", tc.filename)
+		}
+
+		ext := strings.ToLower(getFileExtension(tc.filename))
+		parserInstance, exists := parser.loader.LanguageParser(ext)
+		if !exists {
+			t.Errorf("Parser should be available for %s", tc.filename)
+		}
+
+		if parserInstance.Language() != tc.language {
+			t.Errorf("Expected language '%s' for %s, got '%s'", tc.language, tc.filename, parserInstance.Language())
+		}
+	}
+}
+
+func TestParserCustomUASTMapPriority(t *testing.T) {
+	// Create a custom UAST mapping that overrides the built-in JSON parser
+	customMaps := map[string]UASTMap{
+		"custom_json": {
+			Extensions: []string{".json"}, // Same extension as built-in JSON parser
+			UAST: `[language "json", extensions: ".json"]
+
+_value <- (_value) => uast(
+    type: "CustomValue"
+)
+
+array <- (array) => uast(
+    token: "self",
+    type: "CustomArray"
+)
+
+document <- (document) => uast(
+    type: "CustomDocument"
+)
+
+object <- (object) => uast(
+    token: "self",
+    type: "CustomObject"
+)
+
+pair <- (pair) => uast(
+    type: "CustomPair",
+    children: "_value", "string"
+)
+
+string <- (string) => uast(
+    token: "self",
+    type: "CustomString"
+)
+
+comment <- (comment) => uast(
+    type: "Comment",
+    roles: "Comment"
+)
+
+false <- (false) => uast(
+    type: "CustomFalse"
+)
+
+null <- (null) => uast(
+    token: "self",
+    type: "CustomNull"
+)
+
+number <- (number) => uast(
+    type: "CustomNumber"
+)
+
+string_content <- (string_content) => uast(
+    token: "self",
+    type: "CustomStringContent"
+)
+
+true <- (true) => uast(
+    type: "CustomTrue"
+)
+`,
+		},
+	}
+
+	// Create parser with custom mappings
+	parser, err := NewParser()
+	if err != nil {
+		t.Fatalf("Failed to create parser: %v", err)
+	}
+
+	parser = parser.WithUASTMap(customMaps)
+
+	// Test that the custom parser is used instead of the built-in one
+	filename := "test.json"
+	if !parser.IsSupported(filename) {
+		t.Error("Parser should support .json files")
+	}
+
+	// Get the parser for .json extension
+	ext := strings.ToLower(".json")
+	parserInstance, exists := parser.loader.LanguageParser(ext)
+	if !exists {
+		t.Error("Parser should be available for .json extension")
+	}
+
+	// Parse some JSON content
+	content := []byte(`{"name": "test", "value": 42}`)
+	node, err := parserInstance.Parse(filename, content)
+	if err != nil {
+		t.Fatalf("Failed to parse JSON: %v", err)
+	}
+
+	// Verify that the custom parser was used by checking for custom node types
+	// The custom parser should produce nodes with "Custom" prefix in their types
+	if node.Type != "CustomDocument" {
+		t.Errorf("Expected custom parser to be used, got node type: %s", node.Type)
+	}
+
+	// Check that the parser language is still "json" (tree-sitter language)
+	if parserInstance.Language() != "json" {
+		t.Errorf("Expected language 'json', got '%s'", parserInstance.Language())
 	}
 }

@@ -10,10 +10,10 @@ import (
 	items "github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	"github.com/dmytrogajewski/hercules/internal/pkg/test"
 	"github.com/dmytrogajewski/hercules/internal/pkg/test/fixtures"
+	"github.com/go-git/go-git/v6/plumbing"
+	"github.com/go-git/go-git/v6/plumbing/object"
 	"github.com/sergi/go-diff/diffmatchpatch"
 	"github.com/stretchr/testify/assert"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
 )
 
 func TestFileDiffMeta(t *testing.T) {

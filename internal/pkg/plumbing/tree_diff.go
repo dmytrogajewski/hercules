@@ -7,12 +7,11 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/src-d/enry/v2"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
-
 	"github.com/dmytrogajewski/hercules/internal/app/core"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing"
+	"github.com/go-git/go-git/v6/plumbing/object"
+	"github.com/src-d/enry/v2"
 )
 
 // TreeDiff generates the list of changes for a commit. A change can be either one or two blobs

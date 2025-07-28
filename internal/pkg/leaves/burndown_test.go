@@ -10,18 +10,18 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dmytrogajewski/hercules/internal/pkg/burndown"
 	"github.com/dmytrogajewski/hercules/internal/app/core"
+	"github.com/dmytrogajewski/hercules/internal/pkg/burndown"
 	"github.com/dmytrogajewski/hercules/internal/pkg/test/fixtures"
+	"github.com/go-git/go-git/v6/plumbing"
+	"google.golang.org/protobuf/proto"
 
 	"github.com/dmytrogajewski/hercules/api/proto/pb"
 	items "github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/identity"
 	"github.com/dmytrogajewski/hercules/internal/pkg/test"
-	"github.com/gogo/protobuf/proto"
+	"github.com/go-git/go-git/v6/plumbing/object"
 	"github.com/stretchr/testify/assert"
-	"gopkg.in/src-d/go-git.v4/plumbing"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
 )
 
 func AddHash(t *testing.T, cache map[plumbing.Hash]*items.CachedBlob, hash string) {

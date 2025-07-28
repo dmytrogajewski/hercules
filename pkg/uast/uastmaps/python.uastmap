@@ -324,21 +324,17 @@ if_statement <- (if_statement) => uast(
 
 import_from_statement <- (import_from_statement) => uast(
     token: "self",
-    roles: "Condition",
-    type: "Import",
-    roles: "Import",
+    type: "Synthetic",
     children: "aliased_import", "dotted_name", "relative_import"
 )
 
 import_prefix <- (import_prefix) => uast(
-    type: "Import",
-    roles: "Import"
+    type: "Synthetic"
 )
 
 import_statement <- (import_statement) => uast(
     token: "self",
-    type: "Import",
-    roles: "Import",
+    type: "Synthetic",
     children: "aliased_import", "dotted_name"
 )
 
@@ -476,8 +472,7 @@ raise_statement <- (raise_statement) => uast(
 )
 
 relative_import <- (relative_import) => uast(
-    type: "Import",
-    roles: "Import"
+    type: "Synthetic"
 )
 
 return_statement <- (return_statement) => uast(
@@ -595,14 +590,12 @@ while_statement <- (while_statement) => uast(
 )
 
 wildcard_import <- (wildcard_import) => uast(
-    type: "Import",
-    roles: "Import"
+    type: "Synthetic"
 )
 
 with_clause <- (with_clause) => uast(
     token: "self",
-    roles: "Import",
-    type: "Import"
+    type: "Synthetic"
 )
 
 with_item <- (with_item) => uast(
@@ -762,8 +755,7 @@ if <- (if) => uast(
 )
 
 import <- (import) => uast(
-    type: "Import",
-    roles: "Import"
+    type: "Synthetic"
 )
 
 in <- (in) => uast(

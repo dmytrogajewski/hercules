@@ -6,18 +6,15 @@ import (
 	"sort"
 	"unicode/utf8"
 
-	"github.com/dmytrogajewski/hercules/internal/app/core"
 	"github.com/dmytrogajewski/hercules/api/proto/pb"
+	"github.com/dmytrogajewski/hercules/internal/app/core"
 	items "github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	uast_items "github.com/dmytrogajewski/hercules/internal/pkg/plumbing/uast"
-	"github.com/gogo/protobuf/proto"
+	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
+	"github.com/go-git/go-git/v6"
+	"github.com/go-git/go-git/v6/plumbing/object"
 	"github.com/sergi/go-diff/diffmatchpatch"
-	"gopkg.in/bblfsh/client-go.v3/tools"
-	"gopkg.in/bblfsh/sdk.v2/uast"
-	uast_nodes "gopkg.in/bblfsh/sdk.v2/uast/nodes"
-	"gopkg.in/bblfsh/sdk.v2/uast/query"
-	"gopkg.in/src-d/go-git.v4"
-	"gopkg.in/src-d/go-git.v4/plumbing/object"
+	"google.golang.org/protobuf/proto"
 )
 
 // ShotnessAnalysis contains the intermediate state which is mutated by Consume(). It should implement
@@ -25,8 +22,8 @@ import (
 type ShotnessAnalysis struct {
 	core.NoopMerger
 	core.OneShotMergeProcessor
-	XpathStruct string
-	XpathName   string
+	DSLStruct string
+	DSLName   string
 
 	nodes map[string]*nodeShotness
 	files map[string]map[string]*nodeShotness
@@ -35,21 +32,21 @@ type ShotnessAnalysis struct {
 }
 
 const (
-	// ConfigShotnessXpathStruct is the name of the configuration option (ShotnessAnalysis.Configure())
-	// which sets the UAST XPath to choose the analysed nodes.
-	// The format is Semantic UASTv2, see https://docs.sourced.tech/babelfish/using-babelfish/uast-querying
-	ConfigShotnessXpathStruct = "Shotness.XpathStruct"
-	// ConfigShotnessXpathName is the name of the configuration option (ShotnessAnalysis.Configure())
-	// which sets the UAST XPath to find the name of the nodes chosen by ConfigShotnessXpathStruct.
-	// The format is Semantic UASTv2, see https://docs.sourced.tech/babelfish/using-babelfish/uast-querying
-	ConfigShotnessXpathName = "Shotness.XpathName"
+	// ConfigShotnessDSLStruct is the name of the configuration option (ShotnessAnalysis.Configure())
+	// which sets the UAST DSL query to choose the analysed nodes.
+	// The format is UAST DSL, see pkg/uast/docs/DSL_SYNTAX.md
+	ConfigShotnessDSLStruct = "Shotness.DSLStruct"
+	// ConfigShotnessDSLName is the name of the configuration option (ShotnessAnalysis.Configure())
+	// which sets the UAST DSL query to find the name of the nodes chosen by ConfigShotnessDSLStruct.
+	// The format is UAST DSL, see pkg/uast/docs/DSL_SYNTAX.md
+	ConfigShotnessDSLName = "Shotness.DSLName"
 
-	// DefaultShotnessXpathStruct is the default UAST XPath to choose the analysed nodes.
+	// DefaultShotnessDSLStruct is the default UAST DSL query to choose the analysed nodes.
 	// It extracts functions.
-	DefaultShotnessXpathStruct = "//uast:FunctionGroup"
-	// DefaultShotnessXpathName is the default UAST XPath to choose the names of the analysed nodes.
-	// It looks at the current tree level and at the immediate children.
-	DefaultShotnessXpathName = "/Nodes/uast:Alias/Name"
+	DefaultShotnessDSLStruct = "filter(.roles has \"Function\")"
+	// DefaultShotnessDSLName is the default UAST DSL query to choose the names of the analysed nodes.
+	// It looks at the token field.
+	DefaultShotnessDSLName = ".token"
 )
 
 type nodeShotness struct {
@@ -98,18 +95,18 @@ func (shotness *ShotnessAnalysis) Requires() []string {
 // ListConfigurationOptions returns the list of changeable public properties of this PipelineItem.
 func (shotness *ShotnessAnalysis) ListConfigurationOptions() []core.ConfigurationOption {
 	opts := [...]core.ConfigurationOption{{
-		Name: ConfigShotnessXpathStruct,
-		Description: "Semantic UAST XPath query to use for filtering the nodes. " +
-			"Refer to https://docs.sourced.tech/babelfish/using-babelfish/uast-querying",
-		Flag:    "shotness-xpath-struct",
+		Name: ConfigShotnessDSLStruct,
+		Description: "UAST DSL query to use for filtering the nodes. " +
+			"Refer to pkg/uast/docs/DSL_SYNTAX.md",
+		Flag:    "shotness-dsl-struct",
 		Type:    core.StringConfigurationOption,
-		Default: DefaultShotnessXpathStruct}, {
-		Name: ConfigShotnessXpathName,
-		Description: "Semantic UAST XPath query to determine the names of the filtered nodes. " +
-			"Refer to https://docs.sourced.tech/babelfish/using-babelfish/uast-querying",
-		Flag:    "shotness-xpath-name",
+		Default: DefaultShotnessDSLStruct}, {
+		Name: ConfigShotnessDSLName,
+		Description: "UAST DSL query to determine the names of the filtered nodes. " +
+			"Refer to pkg/uast/docs/DSL_SYNTAX.md",
+		Flag:    "shotness-dsl-name",
 		Type:    core.StringConfigurationOption,
-		Default: DefaultShotnessXpathName},
+		Default: DefaultShotnessDSLName},
 	}
 	return opts[:]
 }
@@ -121,13 +118,13 @@ func (shotness *ShotnessAnalysis) Flag() string {
 
 // Features returns the Hercules features required to deploy this leaf.
 func (shotness *ShotnessAnalysis) Features() []string {
-	return []string{uast_items.FeatureUast}
+	return []string{"uast"}
 }
 
 // Description returns the text which explains what the analysis is doing.
 func (shotness *ShotnessAnalysis) Description() string {
 	return "Structural hotness - a fine-grained alternative to --couples. " +
-		"Given an XPath over UASTs - selecting functions by default - we build the square " +
+		"Given a DSL query over UASTs - selecting functions by default - we build the square " +
 		"co-occurrence matrix. The value in each cell equals to the number of times the pair " +
 		"of selected UAST units appeared in the same commit."
 }
@@ -137,15 +134,15 @@ func (shotness *ShotnessAnalysis) Configure(facts map[string]interface{}) error 
 	if l, exists := facts[core.ConfigLogger].(core.Logger); exists {
 		shotness.l = l
 	}
-	if val, exists := facts[ConfigShotnessXpathStruct]; exists {
-		shotness.XpathStruct = val.(string)
+	if val, exists := facts[ConfigShotnessDSLStruct]; exists {
+		shotness.DSLStruct = val.(string)
 	} else {
-		shotness.XpathStruct = DefaultShotnessXpathStruct
+		shotness.DSLStruct = DefaultShotnessDSLStruct
 	}
-	if val, exists := facts[ConfigShotnessXpathName]; exists {
-		shotness.XpathName = val.(string)
+	if val, exists := facts[ConfigShotnessDSLName]; exists {
+		shotness.DSLName = val.(string)
 	} else {
-		shotness.XpathName = DefaultShotnessXpathName
+		shotness.DSLName = DefaultShotnessDSLName
 	}
 	return nil
 }
@@ -174,9 +171,9 @@ func (shotness *ShotnessAnalysis) Consume(deps map[string]interface{}) (map[stri
 	diffs := deps[items.DependencyFileDiff].(map[string]items.FileDiffData)
 	allNodes := map[string]bool{}
 
-	addNode := func(name string, node uast_nodes.Node, fileName string) {
+	addNode := func(name string, node *node.Node, fileName string) {
 		nodeSummary := NodeSummary{
-			Type: uast.TypeOf(node),
+			Type: string(node.Type),
 			Name: name,
 			File: fileName,
 		}
@@ -266,25 +263,24 @@ func (shotness *ShotnessAnalysis) Consume(deps map[string]interface{}) (map[stri
 			continue
 		}
 		reversedNodesAfter := reverseNodeMap(nodesAfter)
-		genLine2Node := func(nodes map[string]uast_nodes.Node, linesNum int) [][]uast_nodes.Node {
-			res := make([][]uast_nodes.Node, linesNum)
-			for _, node := range nodes {
-				pos := uast.PositionsOf(node.(uast_nodes.Object))
-				if pos.Start() == nil {
+		genLine2Node := func(nodes map[string]*node.Node, linesNum int) [][]*node.Node {
+			res := make([][]*node.Node, linesNum)
+			for _, uastNode := range nodes {
+				pos := uastNode.Pos
+				if pos == nil {
 					continue
 				}
-				startLine := pos.Start().Line
-				endLine := pos.Start().Line
-				if pos.End() != nil && pos.End().Line > pos.Start().Line {
-					endLine = pos.End().Line
+				startLine := int(pos.StartLine)
+				endLine := int(pos.StartLine)
+				if pos.EndLine > pos.StartLine {
+					endLine = int(pos.EndLine)
 				} else {
-					// we need to determine pos.End().Line
-					uast_items.VisitEachNode(node, func(child uast_nodes.Node) {
-						childPos := uast.PositionsOf(child.(uast_nodes.Object))
-						if childPos.Start() != nil {
-							candidate := childPos.Start().Line
-							if childPos.End() != nil {
-								candidate = childPos.End().Line
+					// we need to determine pos.EndLine
+					uastNode.VisitPreOrder(func(child *node.Node) {
+						if child.Pos != nil {
+							candidate := int(child.Pos.StartLine)
+							if child.Pos.EndLine > child.Pos.StartLine {
+								candidate = int(child.Pos.EndLine)
 							}
 							if candidate > endLine {
 								endLine = candidate
@@ -293,12 +289,14 @@ func (shotness *ShotnessAnalysis) Consume(deps map[string]interface{}) (map[stri
 					})
 				}
 				for l := startLine; l <= endLine; l++ {
-					lineNodes := res[l-1]
-					if lineNodes == nil {
-						lineNodes = []uast_nodes.Node{}
+					if l > 0 && l <= len(res) {
+						lineNodes := res[l-1]
+						if lineNodes == nil {
+							lineNodes = []*node.Node{}
+						}
+						lineNodes = append(lineNodes, uastNode)
+						res[l-1] = lineNodes
 					}
-					lineNodes = append(lineNodes, node)
-					res[l-1] = lineNodes
 				}
 			}
 			return res
@@ -317,7 +315,7 @@ func (shotness *ShotnessAnalysis) Consume(deps map[string]interface{}) (map[stri
 					nodes := line2nodeBefore[l]
 					for _, node := range nodes {
 						// toName because we handled a possible rename before
-						addNode(reversedNodesBefore[uast_nodes.UniqueKey(node)], node, toName)
+						addNode(reversedNodesBefore[node.Id], node, toName)
 					}
 				}
 				lineNumBefore += size
@@ -325,7 +323,7 @@ func (shotness *ShotnessAnalysis) Consume(deps map[string]interface{}) (map[stri
 				for l := lineNumAfter; l < lineNumAfter+size; l++ {
 					nodes := line2nodeAfter[l]
 					for _, node := range nodes {
-						addNode(reversedNodesAfter[uast_nodes.UniqueKey(node)], node, toName)
+						addNode(reversedNodesAfter[node.Id], node, toName)
 					}
 				}
 				lineNumAfter += size
@@ -440,70 +438,76 @@ func (shotness *ShotnessAnalysis) serializeBinary(result *ShotnessResult, writer
 	return err
 }
 
-func (shotness *ShotnessAnalysis) extractNodes(root uast_nodes.Node) (map[string]uast_nodes.Node, error) {
+func (shotness *ShotnessAnalysis) extractNodes(root *node.Node) (map[string]*node.Node, error) {
 	if root == nil {
-		return map[string]uast_nodes.Node{}, nil
+		return map[string]*node.Node{}, nil
 	}
-	it, err := tools.Filter(root, shotness.XpathStruct)
+
+	// Use the local UAST DSL query functionality to find function nodes
+	structs, err := root.FindDSL(shotness.DSLStruct)
 	if err != nil {
 		return nil, err
 	}
-	structs := query.AllNodes(it)
+
 	// some structs may be inside other structs; we pick the outermost
 	// otherwise due to UAST quirks there may be false positives
-	internal := map[uast_nodes.Comparable]bool{}
-	for _, ext := range structs {
-		mainNode, ok := ext.(uast_nodes.Node)
-		if !ok || mainNode == nil {
+	internal := map[string]bool{}
+	for _, mainNode := range structs {
+		if internal[mainNode.Id] {
 			continue
 		}
-		if internal[uast_nodes.UniqueKey(mainNode)] {
-			continue
-		}
-		subs, err := tools.Filter(mainNode, shotness.XpathStruct)
+
+		// Check if this node contains other matching nodes
+		subs, err := mainNode.FindDSL(shotness.DSLStruct)
 		if err != nil {
 			return nil, err
 		}
-		for subs.Next() {
-			sub, ok := subs.Node().(uast_nodes.Node)
-			if !ok || sub == nil {
-				continue
-			}
-			if uast_nodes.UniqueKey(sub) != uast_nodes.UniqueKey(mainNode) {
-				internal[uast_nodes.UniqueKey(sub)] = true
+		for _, sub := range subs {
+			if sub.Id != mainNode.Id {
+				internal[sub.Id] = true
 			}
 		}
 	}
-	res := map[string]uast_nodes.Node{}
-	for _, ext := range structs {
-		node, ok := ext.(uast_nodes.Node)
-		if !ok || node == nil {
+
+	res := map[string]*node.Node{}
+	for _, node := range structs {
+		if internal[node.Id] {
 			continue
 		}
-		if internal[uast_nodes.UniqueKey(node)] {
-			continue
-		}
-		nodeName, err := tools.FilterNode(node, "/*"+shotness.XpathName)
+
+		// Get the name using the DSL query (e.g., ".token" for the token field)
+		nameNodes, err := node.FindDSL(shotness.DSLName)
 		if err != nil {
 			return nil, err
 		}
-		obj, ok := nodeName.(uast_nodes.Object)
-		if !ok {
-			continue
+
+		if len(nameNodes) > 0 {
+			nameNode := nameNodes[0]
+			// Use the token as the name
+			name := nameNode.Token
+			if name == "" && nameNode.Props != nil {
+				// Fallback to Name property if token is empty
+				if nameProp, exists := nameNode.Props["Name"]; exists {
+					name = nameProp
+				}
+			}
+			if name != "" {
+				res[name] = node
+			}
+		} else {
+			// If no name found via DSL, try to use the node's own token
+			if node.Token != "" {
+				res[node.Token] = node
+			}
 		}
-		nameVal, ok := obj["Name"].(uast_nodes.String)
-		if !ok {
-			continue
-		}
-		res[string(nameVal)] = node
 	}
 	return res, nil
 }
 
-func reverseNodeMap(nodes map[string]uast_nodes.Node) map[uast_nodes.Comparable]string {
-	res := map[uast_nodes.Comparable]string{}
+func reverseNodeMap(nodes map[string]*node.Node) map[string]string {
+	res := map[string]string{}
 	for key, node := range nodes {
-		res[uast_nodes.UniqueKey(node)] = key
+		res[node.Id] = key
 	}
 	return res
 }

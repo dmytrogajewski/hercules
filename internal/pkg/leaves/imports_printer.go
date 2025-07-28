@@ -14,9 +14,9 @@ import (
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/identity"
 	"github.com/dmytrogajewski/hercules/internal/pkg/plumbing/imports"
-	"github.com/gogo/protobuf/proto"
-	"gopkg.in/src-d/go-git.v4"
-	gitplumbing "gopkg.in/src-d/go-git.v4/plumbing"
+	"github.com/go-git/go-git/v6"
+	gitplumbing "github.com/go-git/go-git/v6/plumbing"
+	"google.golang.org/protobuf/proto"
 )
 
 var _ core.PipelineItem = (*ImportsPerDeveloper)(nil)
@@ -185,7 +185,7 @@ func (ipd *ImportsPerDeveloper) serializeText(result *ImportsPerDeveloperResult,
 		if err != nil {
 			log.Panicf("Could not serialize %v: %v", imps, err)
 		}
-		//	fmt.Fprintf(writer, "    %s: %s\n", yaml.SafeString(result.reversedPeopleDict[dev]), string(obj))
+		fmt.Fprintf(writer, "    %s: %s\n", result.reversedPeopleDict[dev], string(obj))
 	}
 }
 

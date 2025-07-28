@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v3.19.6
-// source: internal/pb/hercules.proto
+// source: hercules.proto
 
 package pb
 
@@ -32,7 +32,7 @@ type HealthRequest struct {
 
 func (x *HealthRequest) Reset() {
 	*x = HealthRequest{}
-	mi := &file_internal_pb_hercules_proto_msgTypes[0]
+	mi := &file_hercules_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -44,7 +44,7 @@ func (x *HealthRequest) String() string {
 func (*HealthRequest) ProtoMessage() {}
 
 func (x *HealthRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_hercules_proto_msgTypes[0]
+	mi := &file_hercules_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -57,7 +57,7 @@ func (x *HealthRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HealthRequest.ProtoReflect.Descriptor instead.
 func (*HealthRequest) Descriptor() ([]byte, []int) {
-	return file_internal_pb_hercules_proto_rawDescGZIP(), []int{0}
+	return file_hercules_proto_rawDescGZIP(), []int{0}
 }
 
 // Health check response
@@ -74,7 +74,7 @@ type HealthResponse struct {
 
 func (x *HealthResponse) Reset() {
 	*x = HealthResponse{}
-	mi := &file_internal_pb_hercules_proto_msgTypes[1]
+	mi := &file_hercules_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -86,7 +86,7 @@ func (x *HealthResponse) String() string {
 func (*HealthResponse) ProtoMessage() {}
 
 func (x *HealthResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_hercules_proto_msgTypes[1]
+	mi := &file_hercules_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -99,7 +99,7 @@ func (x *HealthResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use HealthResponse.ProtoReflect.Descriptor instead.
 func (*HealthResponse) Descriptor() ([]byte, []int) {
-	return file_internal_pb_hercules_proto_rawDescGZIP(), []int{1}
+	return file_hercules_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *HealthResponse) GetStatus() string {
@@ -146,7 +146,7 @@ type ListAnalysesRequest struct {
 
 func (x *ListAnalysesRequest) Reset() {
 	*x = ListAnalysesRequest{}
-	mi := &file_internal_pb_hercules_proto_msgTypes[2]
+	mi := &file_hercules_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -158,7 +158,7 @@ func (x *ListAnalysesRequest) String() string {
 func (*ListAnalysesRequest) ProtoMessage() {}
 
 func (x *ListAnalysesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_hercules_proto_msgTypes[2]
+	mi := &file_hercules_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -171,7 +171,7 @@ func (x *ListAnalysesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListAnalysesRequest.ProtoReflect.Descriptor instead.
 func (*ListAnalysesRequest) Descriptor() ([]byte, []int) {
-	return file_internal_pb_hercules_proto_rawDescGZIP(), []int{2}
+	return file_hercules_proto_rawDescGZIP(), []int{2}
 }
 
 // Analysis type information
@@ -186,7 +186,7 @@ type AnalysisType struct {
 
 func (x *AnalysisType) Reset() {
 	*x = AnalysisType{}
-	mi := &file_internal_pb_hercules_proto_msgTypes[3]
+	mi := &file_hercules_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -198,7 +198,7 @@ func (x *AnalysisType) String() string {
 func (*AnalysisType) ProtoMessage() {}
 
 func (x *AnalysisType) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_hercules_proto_msgTypes[3]
+	mi := &file_hercules_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -211,7 +211,7 @@ func (x *AnalysisType) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AnalysisType.ProtoReflect.Descriptor instead.
 func (*AnalysisType) Descriptor() ([]byte, []int) {
-	return file_internal_pb_hercules_proto_rawDescGZIP(), []int{3}
+	return file_hercules_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *AnalysisType) GetName() string {
@@ -246,7 +246,7 @@ type ListAnalysesResponse struct {
 
 func (x *ListAnalysesResponse) Reset() {
 	*x = ListAnalysesResponse{}
-	mi := &file_internal_pb_hercules_proto_msgTypes[4]
+	mi := &file_hercules_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -258,7 +258,7 @@ func (x *ListAnalysesResponse) String() string {
 func (*ListAnalysesResponse) ProtoMessage() {}
 
 func (x *ListAnalysesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_hercules_proto_msgTypes[4]
+	mi := &file_hercules_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -271,7 +271,7 @@ func (x *ListAnalysesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ListAnalysesResponse.ProtoReflect.Descriptor instead.
 func (*ListAnalysesResponse) Descriptor() ([]byte, []int) {
-	return file_internal_pb_hercules_proto_rawDescGZIP(), []int{4}
+	return file_hercules_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *ListAnalysesResponse) GetAnalyses() []*AnalysisType {
@@ -300,7 +300,7 @@ type SubmitAnalysisRequest struct {
 
 func (x *SubmitAnalysisRequest) Reset() {
 	*x = SubmitAnalysisRequest{}
-	mi := &file_internal_pb_hercules_proto_msgTypes[5]
+	mi := &file_hercules_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -312,7 +312,7 @@ func (x *SubmitAnalysisRequest) String() string {
 func (*SubmitAnalysisRequest) ProtoMessage() {}
 
 func (x *SubmitAnalysisRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_hercules_proto_msgTypes[5]
+	mi := &file_hercules_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -325,7 +325,7 @@ func (x *SubmitAnalysisRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SubmitAnalysisRequest.ProtoReflect.Descriptor instead.
 func (*SubmitAnalysisRequest) Descriptor() ([]byte, []int) {
-	return file_internal_pb_hercules_proto_rawDescGZIP(), []int{5}
+	return file_hercules_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *SubmitAnalysisRequest) GetRepository() string {
@@ -362,7 +362,7 @@ type SubmitAnalysisResponse struct {
 
 func (x *SubmitAnalysisResponse) Reset() {
 	*x = SubmitAnalysisResponse{}
-	mi := &file_internal_pb_hercules_proto_msgTypes[6]
+	mi := &file_hercules_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -374,7 +374,7 @@ func (x *SubmitAnalysisResponse) String() string {
 func (*SubmitAnalysisResponse) ProtoMessage() {}
 
 func (x *SubmitAnalysisResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_hercules_proto_msgTypes[6]
+	mi := &file_hercules_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -387,7 +387,7 @@ func (x *SubmitAnalysisResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SubmitAnalysisResponse.ProtoReflect.Descriptor instead.
 func (*SubmitAnalysisResponse) Descriptor() ([]byte, []int) {
-	return file_internal_pb_hercules_proto_rawDescGZIP(), []int{6}
+	return file_hercules_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *SubmitAnalysisResponse) GetStatus() string {
@@ -428,7 +428,7 @@ type GetAnalysisStatusRequest struct {
 
 func (x *GetAnalysisStatusRequest) Reset() {
 	*x = GetAnalysisStatusRequest{}
-	mi := &file_internal_pb_hercules_proto_msgTypes[7]
+	mi := &file_hercules_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -440,7 +440,7 @@ func (x *GetAnalysisStatusRequest) String() string {
 func (*GetAnalysisStatusRequest) ProtoMessage() {}
 
 func (x *GetAnalysisStatusRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_hercules_proto_msgTypes[7]
+	mi := &file_hercules_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -453,7 +453,7 @@ func (x *GetAnalysisStatusRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAnalysisStatusRequest.ProtoReflect.Descriptor instead.
 func (*GetAnalysisStatusRequest) Descriptor() ([]byte, []int) {
-	return file_internal_pb_hercules_proto_rawDescGZIP(), []int{7}
+	return file_hercules_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetAnalysisStatusRequest) GetJobId() string {
@@ -476,7 +476,7 @@ type AnalysisResult struct {
 
 func (x *AnalysisResult) Reset() {
 	*x = AnalysisResult{}
-	mi := &file_internal_pb_hercules_proto_msgTypes[8]
+	mi := &file_hercules_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -488,7 +488,7 @@ func (x *AnalysisResult) String() string {
 func (*AnalysisResult) ProtoMessage() {}
 
 func (x *AnalysisResult) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_hercules_proto_msgTypes[8]
+	mi := &file_hercules_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -501,7 +501,7 @@ func (x *AnalysisResult) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AnalysisResult.ProtoReflect.Descriptor instead.
 func (*AnalysisResult) Descriptor() ([]byte, []int) {
-	return file_internal_pb_hercules_proto_rawDescGZIP(), []int{8}
+	return file_hercules_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *AnalysisResult) GetName() string {
@@ -548,7 +548,7 @@ type GetAnalysisStatusResponse struct {
 
 func (x *GetAnalysisStatusResponse) Reset() {
 	*x = GetAnalysisStatusResponse{}
-	mi := &file_internal_pb_hercules_proto_msgTypes[9]
+	mi := &file_hercules_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -560,7 +560,7 @@ func (x *GetAnalysisStatusResponse) String() string {
 func (*GetAnalysisStatusResponse) ProtoMessage() {}
 
 func (x *GetAnalysisStatusResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_hercules_proto_msgTypes[9]
+	mi := &file_hercules_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -573,7 +573,7 @@ func (x *GetAnalysisStatusResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAnalysisStatusResponse.ProtoReflect.Descriptor instead.
 func (*GetAnalysisStatusResponse) Descriptor() ([]byte, []int) {
-	return file_internal_pb_hercules_proto_rawDescGZIP(), []int{9}
+	return file_hercules_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *GetAnalysisStatusResponse) GetStatus() string {
@@ -635,7 +635,7 @@ type StreamAnalysisProgressRequest struct {
 
 func (x *StreamAnalysisProgressRequest) Reset() {
 	*x = StreamAnalysisProgressRequest{}
-	mi := &file_internal_pb_hercules_proto_msgTypes[10]
+	mi := &file_hercules_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -647,7 +647,7 @@ func (x *StreamAnalysisProgressRequest) String() string {
 func (*StreamAnalysisProgressRequest) ProtoMessage() {}
 
 func (x *StreamAnalysisProgressRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_hercules_proto_msgTypes[10]
+	mi := &file_hercules_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -660,7 +660,7 @@ func (x *StreamAnalysisProgressRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StreamAnalysisProgressRequest.ProtoReflect.Descriptor instead.
 func (*StreamAnalysisProgressRequest) Descriptor() ([]byte, []int) {
-	return file_internal_pb_hercules_proto_rawDescGZIP(), []int{10}
+	return file_hercules_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *StreamAnalysisProgressRequest) GetJobId() string {
@@ -684,7 +684,7 @@ type StreamAnalysisProgressResponse struct {
 
 func (x *StreamAnalysisProgressResponse) Reset() {
 	*x = StreamAnalysisProgressResponse{}
-	mi := &file_internal_pb_hercules_proto_msgTypes[11]
+	mi := &file_hercules_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -696,7 +696,7 @@ func (x *StreamAnalysisProgressResponse) String() string {
 func (*StreamAnalysisProgressResponse) ProtoMessage() {}
 
 func (x *StreamAnalysisProgressResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_pb_hercules_proto_msgTypes[11]
+	mi := &file_hercules_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -709,7 +709,7 @@ func (x *StreamAnalysisProgressResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StreamAnalysisProgressResponse.ProtoReflect.Descriptor instead.
 func (*StreamAnalysisProgressResponse) Descriptor() ([]byte, []int) {
-	return file_internal_pb_hercules_proto_rawDescGZIP(), []int{11}
+	return file_hercules_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *StreamAnalysisProgressResponse) GetJobId() string {
@@ -747,11 +747,11 @@ func (x *StreamAnalysisProgressResponse) GetTimestamp() *timestamppb.Timestamp {
 	return nil
 }
 
-var File_internal_pb_hercules_proto protoreflect.FileDescriptor
+var File_hercules_proto protoreflect.FileDescriptor
 
-const file_internal_pb_hercules_proto_rawDesc = "" +
+const file_hercules_proto_rawDesc = "" +
 	"\n" +
-	"\x1ainternal/pb/hercules.proto\x12\vhercules.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x19google/protobuf/any.proto\"\x0f\n" +
+	"\x0ehercules.proto\x12\vhercules.v1\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x19google/protobuf/any.proto\"\x0f\n" +
 	"\rHealthRequest\"\x8c\x02\n" +
 	"\x0eHealthResponse\x12\x16\n" +
 	"\x06status\x18\x01 \x01(\tR\x06status\x128\n" +
@@ -817,22 +817,22 @@ const file_internal_pb_hercules_proto_rawDesc = "" +
 	"\fListAnalyses\x12 .hercules.v1.ListAnalysesRequest\x1a!.hercules.v1.ListAnalysesResponse\x12Y\n" +
 	"\x0eSubmitAnalysis\x12\".hercules.v1.SubmitAnalysisRequest\x1a#.hercules.v1.SubmitAnalysisResponse\x12b\n" +
 	"\x11GetAnalysisStatus\x12%.hercules.v1.GetAnalysisStatusRequest\x1a&.hercules.v1.GetAnalysisStatusResponse\x12s\n" +
-	"\x16StreamAnalysisProgress\x12*.hercules.v1.StreamAnalysisProgressRequest\x1a+.hercules.v1.StreamAnalysisProgressResponse0\x01B3Z1github.com/dmytrogajewski/hercules/api/proto/pb;pbb\x06proto3"
+	"\x16StreamAnalysisProgress\x12*.hercules.v1.StreamAnalysisProgressRequest\x1a+.hercules.v1.StreamAnalysisProgressResponse0\x01B4Z2github.com/dmytrogajewski/hercules/api/proto/pb;pbb\x06proto3"
 
 var (
-	file_internal_pb_hercules_proto_rawDescOnce sync.Once
-	file_internal_pb_hercules_proto_rawDescData []byte
+	file_hercules_proto_rawDescOnce sync.Once
+	file_hercules_proto_rawDescData []byte
 )
 
-func file_internal_pb_hercules_proto_rawDescGZIP() []byte {
-	file_internal_pb_hercules_proto_rawDescOnce.Do(func() {
-		file_internal_pb_hercules_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_internal_pb_hercules_proto_rawDesc), len(file_internal_pb_hercules_proto_rawDesc)))
+func file_hercules_proto_rawDescGZIP() []byte {
+	file_hercules_proto_rawDescOnce.Do(func() {
+		file_hercules_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_hercules_proto_rawDesc), len(file_hercules_proto_rawDesc)))
 	})
-	return file_internal_pb_hercules_proto_rawDescData
+	return file_hercules_proto_rawDescData
 }
 
-var file_internal_pb_hercules_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
-var file_internal_pb_hercules_proto_goTypes = []any{
+var file_hercules_proto_msgTypes = make([]protoimpl.MessageInfo, 15)
+var file_hercules_proto_goTypes = []any{
 	(*HealthRequest)(nil),                  // 0: hercules.v1.HealthRequest
 	(*HealthResponse)(nil),                 // 1: hercules.v1.HealthResponse
 	(*ListAnalysesRequest)(nil),            // 2: hercules.v1.ListAnalysesRequest
@@ -851,7 +851,7 @@ var file_internal_pb_hercules_proto_goTypes = []any{
 	(*timestamppb.Timestamp)(nil),          // 15: google.protobuf.Timestamp
 	(*anypb.Any)(nil),                      // 16: google.protobuf.Any
 }
-var file_internal_pb_hercules_proto_depIdxs = []int32{
+var file_hercules_proto_depIdxs = []int32{
 	15, // 0: hercules.v1.HealthResponse.timestamp:type_name -> google.protobuf.Timestamp
 	12, // 1: hercules.v1.HealthResponse.config:type_name -> hercules.v1.HealthResponse.ConfigEntry
 	3,  // 2: hercules.v1.ListAnalysesResponse.analyses:type_name -> hercules.v1.AnalysisType
@@ -882,26 +882,26 @@ var file_internal_pb_hercules_proto_depIdxs = []int32{
 	0,  // [0:13] is the sub-list for field type_name
 }
 
-func init() { file_internal_pb_hercules_proto_init() }
-func file_internal_pb_hercules_proto_init() {
-	if File_internal_pb_hercules_proto != nil {
+func init() { file_hercules_proto_init() }
+func file_hercules_proto_init() {
+	if File_hercules_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_internal_pb_hercules_proto_rawDesc), len(file_internal_pb_hercules_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_hercules_proto_rawDesc), len(file_hercules_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   15,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_internal_pb_hercules_proto_goTypes,
-		DependencyIndexes: file_internal_pb_hercules_proto_depIdxs,
-		MessageInfos:      file_internal_pb_hercules_proto_msgTypes,
+		GoTypes:           file_hercules_proto_goTypes,
+		DependencyIndexes: file_hercules_proto_depIdxs,
+		MessageInfos:      file_hercules_proto_msgTypes,
 	}.Build()
-	File_internal_pb_hercules_proto = out.File
-	file_internal_pb_hercules_proto_goTypes = nil
-	file_internal_pb_hercules_proto_depIdxs = nil
+	File_hercules_proto = out.File
+	file_hercules_proto_goTypes = nil
+	file_hercules_proto_depIdxs = nil
 }

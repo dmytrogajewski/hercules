@@ -3,10 +3,10 @@ Hercules plugins
 
 ### Prerequisites
 
-It is required to have [GoGo Protobuf](https://github.com/gogo/protobuf) installed:
+It is required to have [Google Protobuf](https://github.com/protocolbuffers/protobuf) installed:
 
 ```
-go get github.com/gogo/protobuf/protoc-gen-gogo
+go get google.golang.org/protobuf/cmd/protoc-gen-go
 ```
 
 There must be the `protoc` tool available in `$PATH`, version 3. Grab it from the

@@ -47,7 +47,7 @@ func (c *CognitiveComplexityCalculator) processNode(n *node.Node) {
 	}
 
 	if c.isNestingEnd(n) {
-		c.endNesting(n)
+		c.endNesting()
 	}
 }
 
@@ -210,7 +210,7 @@ func (c *CognitiveComplexityCalculator) startNesting(n *node.Node) {
 }
 
 // endNesting ends the current nesting level
-func (c *CognitiveComplexityCalculator) endNesting(n *node.Node) {
+func (c *CognitiveComplexityCalculator) endNesting() {
 	if len(c.nestingStack) > 0 {
 		c.nestingStack = c.nestingStack[:len(c.nestingStack)-1]
 		if c.currentNesting > 0 {
