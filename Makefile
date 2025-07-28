@@ -204,22 +204,22 @@ ${GOBIN}/protoc-gen-go${EXE}:
 	go build -o ${GOBIN}/protoc-gen-go${EXE} google.golang.org/protobuf/cmd/protoc-gen-go
 
 ifneq ($(OS),Windows_NT)
-api/proto/pb.pb.go: api/proto/pb.proto ${GOBIN}/protoc-gen-gogo
-	PATH="${PATH}:${GOBIN}" protoc --gogo_out=api/proto --proto_path=api/proto api/proto/pb.proto
+api/proto/pb/pb.pb.go: api/proto/pb/pb.proto ${GOBIN}/protoc-gen-gogo
+	PATH="${PATH}:${GOBIN}" protoc --gogo_out=api/proto/pb --proto_path=api/proto/pb api/proto/pb/pb.proto
 
-api/proto/hercules.pb.go: api/proto/hercules.proto
-	protoc --go_out=api/proto --go_opt=paths=source_relative \
-		--go-grpc_out=api/proto --go-grpc_opt=paths=source_relative \
-		--proto_path=api/proto api/proto/hercules.proto
+api/proto/pb/hercules.pb.go: api/proto/pb/hercules.proto
+	protoc --go_out=api/proto/pb --go_opt=paths=source_relative \
+		--go-grpc_out=api/proto/pb --go-grpc_opt=paths=source_relative \
+		--proto_path=api/proto/pb api/proto/pb/hercules.proto
 else
-api/proto/pb.pb.go: api/proto/pb.proto ${GOBIN}/protoc-gen-gogo.exe
+api/proto/pb/pb.pb.go: api/proto/pb/pb.proto ${GOBIN}/protoc-gen-gogo.exe
 	export PATH="${PATH};${GOBIN}" && \
-	protoc --gogo_out=api/proto --proto_path=api/proto api/proto/pb.proto
+	protoc --gogo_out=api/proto/pb --proto_path=api/proto/pb api/proto/pb/pb.proto
 
-api/proto/hercules.pb.go: api/proto/hercules.proto
-	protoc --go_out=api/proto --go_opt=paths=source_relative \
-		--go-grpc_out=api/proto --go-grpc_opt=paths=source_relative \
-		--proto_path=api/proto api/proto/hercules.proto
+api/proto/pb/hercules.pb.go: api/proto/pb/hercules.proto
+	protoc --go_out=api/proto/pb --go_opt=paths=source_relative \
+		--go-grpc_out=api/proto/pb --go-grpc_opt=paths=source_relative \
+		--proto_path=api/proto/pb api/proto/pb/hercules.proto
 endif
 
 ${GOBIN}/uast${EXE}: cmd/uast/*.go pkg/uast/*.go pkg/uast/*/*.go pkg/uast/*/*/*.go internal/pkg/*.go internal/pkg/*/*.go internal/pkg/*/*/*.go
