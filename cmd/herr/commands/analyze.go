@@ -57,7 +57,7 @@ func (c *AnalyzeCommand) Run(cmd *cobra.Command, args []string) error {
 // newService creates a new analyzer service
 func (c *AnalyzeCommand) newService() *Service {
 	return &Service{
-		availableAnalyzers: []analyze.CodeAnalyzer{
+		availableAnalyzers: []analyze.StaticAnalyzer{
 			complexity.NewComplexityAnalyzer(),
 			comments.NewCommentsAnalyzer(),
 			halstead.NewHalsteadAnalyzer(),
@@ -88,7 +88,7 @@ func (c *AnalyzeCommand) createOutputWriter() *os.File {
 
 // Service provides a high-level interface for running analysis
 type Service struct {
-	availableAnalyzers []analyze.CodeAnalyzer
+	availableAnalyzers []analyze.StaticAnalyzer
 }
 
 // AnalyzeAndFormat runs analysis and formats the results
@@ -142,7 +142,7 @@ func (s *Service) Analyze(input io.Reader, analyzerList []string) (map[string]an
 		}
 
 		// Run analyzers for this file
-		results, err := s.runAnalyzers(uastNode, analyzersToRun)
+		results, err := s.runAnalyzers(context.Background(), uastNode, analyzersToRun)
 		if err != nil {
 			return nil, fmt.Errorf("failed to run analyzers: %w", err)
 		}
@@ -193,13 +193,13 @@ func (s *Service) formatText(results map[string]analyze.Report, writer io.Writer
 }
 
 // runAnalyzers runs the specified analyzers on a single UAST node
-func (s *Service) runAnalyzers(uastNode *node.Node, analyzerList []string) (map[string]analyze.Report, error) {
+func (s *Service) runAnalyzers(ctx context.Context, uastNode *node.Node, analyzerList []string) (map[string]analyze.Report, error) {
 	factory := analyze.NewFactory(s.availableAnalyzers)
-	return factory.RunAnalyzers(uastNode, analyzerList)
+	return factory.RunAnalyzers(ctx, uastNode, analyzerList)
 }
 
 // findAnalyzer finds an analyzer by name
-func (s *Service) findAnalyzer(name string) analyze.CodeAnalyzer {
+func (s *Service) findAnalyzer(name string) analyze.StaticAnalyzer {
 	for _, analyzer := range s.availableAnalyzers {
 		if analyzer.Name() == name {
 			return analyzer

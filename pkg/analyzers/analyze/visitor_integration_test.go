@@ -3,6 +3,7 @@ package analyze_test
 import (
 	"io"
 	"testing"
+	"context"
 
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/analyze"
 	"github.com/dmytrogajewski/hercules/pkg/pipeline"
@@ -63,7 +64,7 @@ func TestFactory_RunAnalyzers_WithVisitor(t *testing.T) {
 
 	root := &node.Node{Type: node.UASTFile}
 	
-	reports, err := factory.RunAnalyzers(root, []string{"mock_visitor"})
+	reports, err := factory.RunAnalyzers(context.Background(), root, []string{"mock_visitor"})
 	
 	assert.NoError(t, err)
 	assert.True(t, reports["mock_visitor"]["visited"].(bool))

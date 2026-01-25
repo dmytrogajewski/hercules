@@ -155,11 +155,11 @@ Modify `Factory.RunAnalyzers` to execute registered analyzers in parallel gorout
 
 #### Definition of Done (DoD)
 
-- [ ] `RunAnalyzers` executes analyzers concurrently
-- [ ] Speedup of >= 2x when running 4+ analyzers on multi-core system
-- [ ] No race conditions (verified with `-race` flag)
-- [ ] Errors from any analyzer properly propagated
-- [ ] Context cancellation stops pending analyzers
+- [x] `RunAnalyzers` executes analyzers concurrently
+- [x] Speedup of >= 2x when running 4+ analyzers on multi-core system
+- [x] No race conditions (verified with `-race` flag)
+- [x] Errors from any analyzer properly propagated
+- [x] Context cancellation stops pending analyzers
 
 #### Test Strategy
 
