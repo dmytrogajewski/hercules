@@ -293,7 +293,6 @@ method_declaration <- (method_declaration) => uast(
 
 method_elem <- (method_elem) => uast(
     token: "child:identifier",
-    roles: "Function", "Declaration",
     type: "Method",
     roles: "Function", "Declaration", "Member",
     children: "_simple_type", "field_identifier", "parameter_list"
@@ -396,7 +395,7 @@ slice_type <- (slice_type) => uast(
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic"
+    type: "File"
 )
 
 struct_type <- (struct_type) => uast(
@@ -476,7 +475,8 @@ type_switch_statement <- (type_switch_statement) => uast(
 
 unary_expression <- (unary_expression) => uast(
     token: "self",
-    type: "Synthetic",
+    type: "UnaryOp",
+    roles: "Operator",
     children: "_expression"
 )
 
@@ -567,16 +567,18 @@ fallthrough <- (fallthrough) => uast(
 
 false <- (false) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
 field_identifier <- (field_identifier) => uast(
-    type: "Identifier"
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
 )
 
 float_literal <- (float_literal) => uast(
     token: "self",
-    roles: "Reference",
     type: "Literal",
     roles: "Literal"
 )
@@ -601,7 +603,9 @@ goto <- (goto) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "Identifier"
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
 )
 
 if <- (if) => uast(
@@ -626,7 +630,6 @@ int_literal <- (int_literal) => uast(
 
 interface <- (interface) => uast(
     token: "self",
-    roles: "Literal",
     type: "Interface",
     roles: "Interface", "Declaration"
 )
@@ -651,7 +654,9 @@ map <- (map) => uast(
 )
 
 nil <- (nil) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
 )
 
 package <- (package) => uast(
@@ -661,7 +666,9 @@ package <- (package) => uast(
 )
 
 package_identifier <- (package_identifier) => uast(
-    type: "Identifier"
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
 )
 
 range <- (range) => uast(
@@ -688,8 +695,7 @@ rune_literal <- (rune_literal) => uast(
 
 select <- (select) => uast(
     token: "self",
-    roles: "Literal",
-    type: "Literal"
+    type: "Synthetic"
 )
 
 struct <- (struct) => uast(
@@ -703,7 +709,9 @@ switch <- (switch) => uast(
 )
 
 true <- (true) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
 )
 
 type <- (type) => uast(
@@ -712,7 +720,9 @@ type <- (type) => uast(
 )
 
 type_identifier <- (type_identifier) => uast(
-    type: "Identifier"
+    token: "self",
+    type: "Identifier",
+    roles: "Name", "Type"
 )
 
 var <- (var) => uast(

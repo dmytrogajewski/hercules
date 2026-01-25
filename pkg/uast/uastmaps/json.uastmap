@@ -1,55 +1,34 @@
 [language "json", extensions: ".json"]
 
-_value <- (_value) => uast(
-    type: "Synthetic"
-)
-
-array <- (array) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
 document <- (document) => uast(
-    type: "Synthetic"
+    type: "File"
 )
 
 object <- (object) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Dict",
+    roles: "Literal",
+    children: "pair"
+)
+
+array <- (array) => uast(
+    token: "self",
+    type: "List",
+    roles: "Literal",
+    children: "_value"
 )
 
 pair <- (pair) => uast(
-    type: "Synthetic",
+    type: "KeyValue",
+    roles: "Key", "Value",
     children: "_value", "string"
 )
 
 string <- (string) => uast(
     token: "self",
-    type: "Synthetic"
-)
-
-comment <- (comment) => uast(
-    type: "Comment",
-    roles: "Comment"
-)
-
-escape_sequence <- (escape_sequence) => uast(
-    token: "self",
-    roles: "Comment",
-    type: "Comment"
-)
-
-false <- (false) => uast(
-    type: "Synthetic"
-)
-
-null <- (null) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-number <- (number) => uast(
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal",
+    children: "string_content", "escape_sequence"
 )
 
 string_content <- (string_content) => uast(
@@ -57,6 +36,41 @@ string_content <- (string_content) => uast(
     type: "Synthetic"
 )
 
+number <- (number) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
 true <- (true) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+false <- (false) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+null <- (null) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+comment <- (comment) => uast(
+    token: "self",
+    type: "Comment",
+    roles: "Comment"
+)
+
+_value <- (_value) => uast(
     type: "Synthetic"
 )

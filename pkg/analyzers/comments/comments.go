@@ -6,10 +6,12 @@ import (
 	"io"
 	"sort"
 
-	"github.com/dmytrogajewski/hercules/pkg/safeconv"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/analyze"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/common"
+	"github.com/dmytrogajewski/hercules/pkg/analyzers/common/renderer"
+	"github.com/dmytrogajewski/hercules/pkg/analyzers/common/terminal"
 	"github.com/dmytrogajewski/hercules/pkg/pipeline"
+	"github.com/dmytrogajewski/hercules/pkg/safeconv"
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
 
@@ -81,14 +83,10 @@ func (c *CommentsAnalyzer) Analyze(root *node.Node) (analyze.Report, error) {
 
 // FormatReport formats comment analysis results as human-readable text
 func (c *CommentsAnalyzer) FormatReport(report analyze.Report, w io.Writer) error {
-	formatter := common.NewFormatter(common.FormatConfig{
-		ShowProgressBars: true,
-		ShowTables:       true,
-		ShowDetails:      true,
-		SkipHeader:       true,
-	})
-	formatted := formatter.FormatReport(report)
-	_, err := fmt.Fprint(w, formatted)
+	section := NewCommentsReportSection(report)
+	config := terminal.NewConfig()
+	r := renderer.NewSectionRenderer(config.Width, false, config.NoColor)
+	_, err := fmt.Fprint(w, r.Render(section))
 	return err
 }
 
@@ -522,8 +520,8 @@ func (c *CommentsAnalyzer) buildResult(commentDetails []CommentDetail, functions
 		"overall_score":          metrics.OverallScore,
 		"total_functions":        metrics.TotalFunctions,
 		"documented_functions":   metrics.DocumentedFunctions,
-		"good_comments_ratio":    float64(metrics.GoodComments) / float64(metrics.TotalComments),
-		"documentation_coverage": float64(metrics.DocumentedFunctions) / float64(metrics.TotalFunctions),
+		"good_comments_ratio":    safeDiv(float64(metrics.GoodComments), float64(metrics.TotalComments)),
+		"documentation_coverage": safeDiv(float64(metrics.DocumentedFunctions), float64(metrics.TotalFunctions)),
 		"total_comment_details":  len(commentDetails),
 		"comment_details":        commentDetailsInterface,
 		"comments":               detailedCommentsTable,
@@ -644,4 +642,12 @@ func (c *CommentsAnalyzer) getFunctionLineCount(function *node.Node) int {
 		return safeconv.MustUintToInt(function.Pos.EndLine - function.Pos.StartLine + 1)
 	}
 	return 0
+}
+
+// safeDiv performs division, returning 0 when the divisor is 0
+func safeDiv(a, b float64) float64 {
+	if b == 0 {
+		return 0
+	}
+	return a / b
 }

@@ -1,12 +1,30 @@
 [language "properties", extensions: ".properties"]
 
-escape <- (escape) => uast(
-    type: "Synthetic"
+file <- (file) => uast(
+    type: "File"
 )
 
-file <- (file) => uast(
+comment <- (comment) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Comment",
+    roles: "Comment"
+)
+
+property <- (property) => uast(
+    type: "KeyValue",
+    roles: "Key", "Value"
+)
+
+key <- (key) => uast(
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
+)
+
+value <- (value) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
 )
 
 index <- (index) => uast(
@@ -14,32 +32,18 @@ index <- (index) => uast(
     roles: "Index"
 )
 
-key <- (key) => uast(
-    token: "self",
-    type: "Synthetic"
+substitution <- (substitution) => uast(
+    type: "Identifier",
+    roles: "Name", "Reference"
 )
 
-property <- (property) => uast(
-    type: "Property",
-    roles: "Member"
+escape <- (escape) => uast(
+    token: "self",
+    type: "Synthetic"
 )
 
 secret <- (secret) => uast(
     token: "self",
-    type: "Synthetic"
-)
-
-substitution <- (substitution) => uast(
-    type: "Synthetic",
-    children: "escape", "substitution"
-)
-
-value <- (value) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-comment <- (comment) => uast(
-    type: "Comment",
-    roles: "Comment"
+    type: "Literal",
+    roles: "Literal"
 )

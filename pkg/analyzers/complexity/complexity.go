@@ -8,6 +8,8 @@ import (
 
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/analyze"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/common"
+	"github.com/dmytrogajewski/hercules/pkg/analyzers/common/renderer"
+	"github.com/dmytrogajewski/hercules/pkg/analyzers/common/terminal"
 	"github.com/dmytrogajewski/hercules/pkg/pipeline"
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
@@ -119,15 +121,10 @@ func (c *ComplexityAnalyzer) CreateAggregator() analyze.ResultAggregator {
 
 // FormatReport formats complexity analysis results as human-readable text
 func (c *ComplexityAnalyzer) FormatReport(report analyze.Report, w io.Writer) error {
-	formatter := common.NewFormatter(common.FormatConfig{
-		ShowProgressBars: true,
-		ShowTables:       true,
-		ShowDetails:      true,
-		SkipHeader:       true,
-	})
-
-	formatted := formatter.FormatReport(report)
-	_, err := fmt.Fprint(w, formatted)
+	section := NewComplexityReportSection(report)
+	config := terminal.NewConfig()
+	r := renderer.NewSectionRenderer(config.Width, false, config.NoColor)
+	_, err := fmt.Fprint(w, r.Render(section))
 	return err
 }
 

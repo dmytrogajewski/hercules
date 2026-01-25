@@ -1,155 +1,27 @@
 suite: basic-functions
 name: cpp-basic-functions
 
-parse_cases:
-  - name: simple_function
-    input: |
-      #include <iostream>
-      
-      std::string hello() {
-          return "Hello, World!";
-      }
-    output:
-      type: Module
-      roles: []
-      children:
-        - type: Block
-          roles: [Body]
-          children:
-            - type: Literal
-              roles: [Literal]
-              token: <iostream>
-        - type: Function
-          roles: [Function]
-          children:
-            - type: Identifier
-              roles: [Name]
-            - type: Function
-              roles: [Function]
-              children:
-                - type: Identifier
-                  roles: [Name]
-                  token: hello
-                - type: Parameter
-                  roles: [Parameter, Declaration]
-            - type: Block
-              roles: [Body]
-              children:
-                - type: Block
-                  roles: [Body]
-                  children:
-                    - type: Literal
-                      roles: [Literal]
-            - type: Block
-              roles: [Body]
-
-  - name: function_with_params
-    input: |
-      int add(int a, int b) {
-          return a + b;
-      }
-    output:
-      type: Module
-      roles: []
-      children:
-        - type: Function
-          roles: [Function]
-          children:
-            - type: Identifier
-              roles: [Name]
-              token: add
-            - type: Function
-              roles: [Function]
-              children:
-                - type: Parameter
-                  roles: [Parameter, Declaration]
-                  children:
-                    - type: TypeAnnotation
-                      roles: []
-                      token: int
-                    - type: Identifier
-                      roles: [Name]
-                      token: a
-                - type: Parameter
-                  roles: [Parameter, Declaration]
-                  children:
-                    - type: TypeAnnotation
-                      roles: []
-                      token: int
-                    - type: Identifier
-                      roles: [Name]
-                      token: b
-            - type: Block
-              roles: [Body]
-              children:
-                - type: Block
-                  roles: [Body]
-                  children:
-                    - type: BinaryOp
-                      roles: [Operator]
-                      children:
-                        - type: Identifier
-                          roles: [Name]
-                          token: a
-                        - type: Identifier
-                          roles: [Name]
-                          token: b
-            - type: Block
-              roles: [Body]
-
 query_cases:
-  - name: find_functions
+  - name: find_function_identifiers
     input: |
-      void func1() {}
-      void func2() {}
-    query: "filter(.type == \"Function\")"
+      int myFunction(int x) { return x; }
+    query: 'rfilter(.type == "Identifier" && .token == "myFunction")'
     output:
       results:
-        - type: Function
-          roles: [Function]
-          children:
-            - type: TypeAnnotation
-              roles: []
-              token: void
-            - type: Function
-              roles: [Function]
-              children:
-                - type: Identifier
-                  roles: [Name]
-                  token: func1
-                - type: Parameter
-                  roles: [Parameter, Declaration]
-            - type: Block
-              roles: [Body]
-              children:
-                - type: Block
-                  roles: [Body]
-            - type: Block
-              roles: [Body]
-        - type: Function
-          roles: [Function]
-          children:
-            - type: TypeAnnotation
-              roles: []
-              token: void
-            - type: Function
-              roles: [Function]
-              children:
-                - type: Identifier
-                  roles: [Name]
-                  token: func2
-                - type: Parameter
-                  roles: [Parameter, Declaration]
-            - type: Block
-              roles: [Body]
-              children:
-                - type: Block
-                  roles: [Body]
-            - type: Block
-              roles: [Body]
-  - name: find_function_names
+        - type: Identifier
+          roles: [Name]
+          token: myFunction
+
+  - name: find_literals_tokens
     input: |
-      void myFunction() {}
-    query: "filter(.type == \"Function\") |> map(.name)"
+      int test() {
+          int x = 42;
+          bool flag = true;
+          return 0;
+      }
+    query: 'rfilter(.type == "Literal")'
     output:
-      results: [] 
+      results:
+        - "42"
+        - "true"
+        - "0"

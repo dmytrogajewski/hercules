@@ -2,7 +2,7 @@
 package node
 
 import (
-	"crypto/sha1"
+	"crypto/sha1" //nolint:gosec // SHA1 used for content fingerprinting, not security
 	"encoding/binary"
 	"fmt"
 	"hash"
@@ -148,7 +148,7 @@ type Positions struct {
 //
 // Fields:
 //
-//	Id: unique node identifier (optional)
+//	ID: unique node identifier (optional)
 //	Type: node type (e.g., "Function", "Identifier")
 //	Token: string value or token for leaf nodes
 //	Roles: semantic/syntactic roles (see Role)
@@ -156,7 +156,7 @@ type Positions struct {
 //	Props: additional properties (language-specific)
 //	Children: child nodes (ordered)
 type Node struct {
-	Id       string            `json:"id,omitempty"`
+	ID       string            `json:"id,omitempty"`
 	Type     Type              `json:"type,omitempty"`
 	Token    string            `json:"token,omitempty"`
 	Roles    []Role            `json:"roles,omitempty"`
@@ -191,12 +191,12 @@ type NodeBuilder struct {
 
 // NewBuilder creates a new NodeBuilder with a node from the pool
 func NewBuilder() *NodeBuilder {
-	return &NodeBuilder{node: nodePool.Get().(*Node)}
+	return &NodeBuilder{node: nodePool.Get().(*Node)} //nolint:errcheck // Pool only contains *Node
 }
 
 // WithID sets the node ID
 func (b *NodeBuilder) WithID(id string) *NodeBuilder {
-	b.node.Id = id
+	b.node.ID = id
 	return b
 }
 
@@ -248,23 +248,10 @@ func New(id string, nodeType Type, token string, roles []Role, pos *Positions, p
 		Build()
 }
 
-// NewWithType creates a new Node with just a type
-func NewWithType(nodeType Type) *Node {
-	node := nodePool.Get().(*Node)
-	node.Id = ""
-	node.Type = nodeType
-	node.Token = ""
-	node.Roles = nil
-	node.Pos = nil
-	node.Props = nil
-	node.Children = nil
-	return node
-}
-
 // NewNodeWithToken creates a new Node with type and token
 func NewNodeWithToken(nodeType Type, token string) *Node {
-	node := nodePool.Get().(*Node)
-	node.Id = ""
+	node := nodePool.Get().(*Node) //nolint:errcheck // Pool only contains *Node
+	node.ID = ""
 	node.Type = nodeType
 	node.Token = token
 	node.Roles = nil
@@ -282,7 +269,7 @@ func NewLiteralNode(token string) *Node {
 // Release returns a Node to the pool for reuse
 func (n *Node) Release() {
 	// Clear the node to prevent memory leaks
-	n.Id = ""
+	n.ID = ""
 	n.Type = ""
 	n.Token = ""
 	n.Roles = nil
@@ -290,13 +277,6 @@ func (n *Node) Release() {
 	n.Props = nil
 	n.Children = nil
 	nodePool.Put(n)
-}
-
-// ReleaseNodes returns multiple nodes to the pool
-func ReleaseNodes(nodes []*Node) {
-	for _, n := range nodes {
-		n.Release()
-	}
 }
 
 // Find returns all nodes in the tree (including root) for which predicate(node) is true.
@@ -466,13 +446,6 @@ func (n *Node) HasAnyRole(roles ...Role) bool {
 	return false
 }
 
-func HasRole(node *Node, role Role) bool {
-	if isNodeNil(node) || hasNoRoles(node) {
-		return false
-	}
-	return isRoleMatch(node.Roles, role)
-}
-
 func (n *Node) HasAllRoles(roles ...Role) bool {
 	if isNodeNil(n) || hasNoRoles(n) {
 		return false
@@ -533,7 +506,7 @@ func buildBaseMap(n *Node) map[string]any {
 		"type": n.Type,
 	}
 
-	addIDToMap(result, n.Id)
+	addIDToMap(result, n.ID)
 	addTokenToMap(result, n.Token)
 	addPropsToMap(result, n.Props)
 	addRolesToMap(result, n.Roles)
@@ -704,18 +677,6 @@ func getReversedChildren(node *Node) []*Node {
 		reversed[len(reversed)-1-i] = children[i]
 	}
 	return reversed
-}
-
-func estimateTreeSize(node *Node) int {
-	if node == nil {
-		return 0
-	}
-	// Estimate based on number of children and their potential children
-	size := 1
-	for _, child := range node.Children {
-		size += estimateTreeSize(child)
-	}
-	return size
 }
 
 func findAncestors(n, target *Node) []*Node {
@@ -890,22 +851,6 @@ const (
 	defaultStackCap = 64
 )
 
-func initializePreOrderTraversal(node *Node) (chan *Node, []*Node, int) {
-	ch := make(chan *Node)
-	stack := make([]*Node, 0, defaultStackCap)
-	stack = append(stack, node)
-	return ch, stack, defaultMaxDepth
-}
-
-func processPreOrderNode(n *Node, stack []*Node, maxAllowedDepth int, ch chan<- *Node) []*Node {
-	if n == nil {
-		return stack
-	}
-
-	ch <- n
-	return processPreOrderChildren(n, stack, maxAllowedDepth, ch)
-}
-
 func processPreOrderChildren(n *Node, stack []*Node, maxAllowedDepth int, ch chan<- *Node) []*Node {
 	if len(n.Children) > 0 {
 		if len(stack) >= maxAllowedDepth {
@@ -989,27 +934,11 @@ func postOrder(node *Node, fn func(*Node)) {
 	}
 }
 
-func initializePostOrderTraversal(node *Node) ([]postOrderFrame, int) {
-	maxAllowedDepth := 25
-	stack := make([]postOrderFrame, 0, 64)
-	stack = append(stack, postOrderFrame{node: node, index: 0})
-	return stack, maxAllowedDepth
-}
-
-func checkPostOrderDepthLimit(stack []postOrderFrame, node *Node, fn func(*Node)) bool {
-	if len(stack) >= 25 {
-		processRemainingNodesPostOrderDepthLimited(node, fn, 0, 10)
-		return true
-	}
-	return false
-}
-
 func processPostOrderFrame(top *postOrderFrame, stack []postOrderFrame, fn func(*Node)) []postOrderFrame {
 	if top.index == 0 {
 		return processInitialFrame(top, stack, fn)
-	} else {
-		return processCompletedFrame(top, stack, fn)
 	}
+	return processCompletedFrame(top, stack, fn)
 }
 
 func processInitialFrame(top *postOrderFrame, stack []postOrderFrame, fn func(*Node)) []postOrderFrame {
@@ -1018,10 +947,9 @@ func processInitialFrame(top *postOrderFrame, stack []postOrderFrame, fn func(*N
 		stack = pushChildrenToPostOrderStack(stack, top.node.Children)
 		top.index = 1
 		return stack
-	} else {
-		fn(top.node)
-		return stack[:len(stack)-1]
 	}
+	fn(top.node)
+	return stack[:len(stack)-1]
 }
 
 func processCompletedFrame(top *postOrderFrame, stack []postOrderFrame, fn func(*Node)) []postOrderFrame {
@@ -1089,10 +1017,9 @@ func processPostOrderIterativeNode(n *Node, stack []*Node, visited map[*Node]boo
 	if visited[n] {
 		fn(n)
 		return stack[:len(stack)-1]
-	} else {
-		visited[n] = true
-		return pushChildrenToPostOrderStackReversed(stack, n.Children)
 	}
+	visited[n] = true
+	return pushChildrenToPostOrderStackReversed(stack, n.Children)
 }
 
 func pushChildrenToPostOrderStackReversed(stack []*Node, children []*Node) []*Node {
@@ -1116,7 +1043,9 @@ func assignStableIDRecursive(node *Node) {
 		return
 	}
 
-	h := sha1.New()
+	// G401: SHA1 is used here for content-based fingerprinting to generate stable node IDs,
+	// not for security purposes. Collision resistance is not required for this use case.
+	h := sha1.New() //nolint:gosec
 	writeNodeContentToHash(h, node)
 
 	// Process children first to get their IDs
@@ -1127,7 +1056,7 @@ func assignStableIDRecursive(node *Node) {
 
 	// Use first 8 bytes of SHA1 as uint64 id
 	idBytes := h.Sum(nil)[:8]
-	node.Id = string(idBytes)
+	node.ID = string(idBytes)
 }
 
 // writeNodeContentToHash writes node content to the hash
@@ -1166,5 +1095,5 @@ func writeEndPosition(buf []byte, pos *Positions) {
 
 // writeChildIDToHash writes child ID to the hash
 func writeChildIDToHash(h hash.Hash, child *Node) {
-	h.Write([]byte(child.Id))
+	h.Write([]byte(child.ID))
 }

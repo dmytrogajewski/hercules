@@ -280,14 +280,14 @@ func TestCohesionAnalyzer_FormatReport(t *testing.T) {
 
 	output := buf.String()
 
-	// Check that the report contains expected sections
+	// Check that the report contains expected sections from SectionRenderer
 	expectedSections := []string{
-		"Good cohesion - functions are generally well-organized",
-		"Progress:",
-		"testFunction1",
-		"testFunction2",
-		"functions:",
-		"TOTAL: 2 ITEMS",
+		"COHESION",
+		"Score: 7/10",
+		"Good cohesion",
+		"Total Functions",
+		"LCOM Score",
+		"Cohesion Score",
 	}
 
 	for _, section := range expectedSections {
@@ -539,22 +539,6 @@ func TestCohesionAnalyzer_HelperFunctions(t *testing.T) {
 		t.Errorf("Expected poor message for score 0.2, got: %s", message2)
 	}
 
-	// Test getSeverityEmoji
-	severity1, emoji1 := analyzer.getSeverityEmoji(0.9, 0.8, 0.6)
-	if emoji1 != "🟢" {
-		t.Errorf("Expected green emoji for high score, got: %s", emoji1)
-	}
-	if !strings.Contains(severity1, "Good") {
-		t.Errorf("Expected 'Good' severity for high score, got: %s", severity1)
-	}
-
-	severity2, emoji2 := analyzer.getSeverityEmoji(0.4, 0.8, 0.6)
-	if emoji2 != "🔴" {
-		t.Errorf("Expected red emoji for low score, got: %s", emoji2)
-	}
-	if !strings.Contains(severity2, "Poor") {
-		t.Errorf("Expected 'Poor' severity for low score, got: %s", severity2)
-	}
 }
 
 func TestCohesionAnalyzer_EdgeCases(t *testing.T) {

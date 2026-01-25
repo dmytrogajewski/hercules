@@ -67,11 +67,7 @@ func (c *CognitiveComplexityCalculator) isConditional(n *node.Node) bool {
 		return true
 	}
 
-	if n.HasAnyRole(node.RoleCondition, node.RoleBranch) {
-		return true
-	}
-
-	return false
+	return n.HasAnyRole(node.RoleCondition, node.RoleBranch)
 }
 
 // isLoop checks if a node is a loop construct
@@ -81,11 +77,7 @@ func (c *CognitiveComplexityCalculator) isLoop(n *node.Node) bool {
 		return true
 	}
 
-	if n.HasAnyRole(node.RoleLoop) {
-		return true
-	}
-
-	return false
+	return n.HasAnyRole(node.RoleLoop)
 }
 
 // isSwitchCase checks if a node is a switch case
@@ -95,11 +87,7 @@ func (c *CognitiveComplexityCalculator) isSwitchCase(n *node.Node) bool {
 		return true
 	}
 
-	if n.HasAnyRole(node.RoleBranch) {
-		return true
-	}
-
-	return false
+	return n.HasAnyRole(node.RoleBranch)
 }
 
 // isExceptionHandling checks if a node is exception handling
@@ -109,11 +97,7 @@ func (c *CognitiveComplexityCalculator) isExceptionHandling(n *node.Node) bool {
 		return true
 	}
 
-	if n.HasAnyRole(node.RoleCatch, node.RoleFinally) {
-		return true
-	}
-
-	return false
+	return n.HasAnyRole(node.RoleCatch, node.RoleFinally)
 }
 
 // isLogicalOperator checks if a node is a logical operator
@@ -166,11 +150,7 @@ func (c *CognitiveComplexityCalculator) isNestingStart(n *node.Node) bool {
 		return true
 	}
 
-	if n.HasAnyRole(node.RoleCondition, node.RoleLoop, node.RoleTry, node.RoleCatch) {
-		return true
-	}
-
-	return false
+	return n.HasAnyRole(node.RoleCondition, node.RoleLoop, node.RoleTry, node.RoleCatch)
 }
 
 // isNestingEnd checks if a node ends a nesting level
@@ -262,14 +242,4 @@ func (c *CognitiveComplexityCalculator) getNestingTypeByRole(n *node.Node) strin
 	}
 
 	return "unknown"
-}
-
-// GetComplexity returns the current cognitive complexity
-func (c *CognitiveComplexityCalculator) GetComplexity() int {
-	return c.complexity
-}
-
-// GetNestingLevel returns the current nesting level
-func (c *CognitiveComplexityCalculator) GetNestingLevel() int {
-	return c.currentNesting
 }

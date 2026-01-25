@@ -9,38 +9,91 @@ parse_cases:
       }
     output:
       type: "File"
+      roles: []
       children:
-        - type: "Interface"
-          roles: ["Interface", "Declaration"]
+        - type: "Synthetic"
+          roles: []
           children:
-            - type: "Synthetic"
+            - type: "List"
+              token: |-
+                Reader interface {
+                    Read(p []byte) (n int, err error)
+                }
+              props:
+                name: "Reader"
+              roles: []
               children:
                 - type: "Identifier"
-                  roles: ["Name"]
-                  token: "Read"
-                - type: "Block"
-                  roles: ["Body"]
+                  token: "Reader"
+                  roles: ["Name", "Type"]
+                - type: "Interface"
+                  token: |-
+                    interface {
+                        Read(p []byte) (n int, err error)
+                    }
+                  roles: ["Interface", "Declaration"]
                   children:
-                    - type: "Parameter"
-                      roles: ["Parameter", "Declaration"]
+                    - type: "Method"
+                      props:
+                        name: "Read"
+                      roles: ["Function", "Declaration", "Member"]
                       children:
                         - type: "Identifier"
+                          token: "Read"
                           roles: ["Name"]
-                          token: "p"
-                        - type: "TypeAnnotation"
-                          roles: ["Type"]
-                - type: "Block"
-                  roles: ["Body"]
-                  children:
-                    - type: "Parameter"
-                      roles: ["Parameter", "Declaration"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "n"
-                    - type: "Parameter"
-                      roles: ["Parameter", "Declaration"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "err" 
+                        - type: "Parameter"
+                          token: "(p []byte)"
+                          roles: ["Parameter"]
+                          children:
+                            - type: "Parameter"
+                              props:
+                                name: "p"
+                              roles: ["Parameter"]
+                              children:
+                                - type: "Identifier"
+                                  token: "p"
+                                  roles: ["Name"]
+                                - type: "Slice"
+                                  token: "[]byte"
+                                  roles: []
+                                  children:
+                                    - type: "Identifier"
+                                      token: "byte"
+                                      roles: ["Name", "Type"]
+                        - type: "Parameter"
+                          token: "(n int, err error)"
+                          roles: ["Parameter"]
+                          children:
+                            - type: "Parameter"
+                              props:
+                                name: "n"
+                              roles: ["Parameter"]
+                              children:
+                                - type: "Identifier"
+                                  token: "n"
+                                  roles: ["Name"]
+                                - type: "Identifier"
+                                  token: "int"
+                                  roles: ["Name", "Type"]
+                            - type: "Parameter"
+                              props:
+                                name: "err"
+                              roles: ["Parameter"]
+                              children:
+                                - type: "Identifier"
+                                  token: "err"
+                                  roles: ["Name"]
+                                - type: "Identifier"
+                                  token: "error"
+                                  roles: ["Name", "Type"]
+
+query_cases:
+  - name: find_interfaces
+    input: |
+      type A interface {}
+      type B interface {}
+    query: 'rfilter(.type == "Interface") |> map(.type)'
+    output:
+      results:
+        - "Interface"
+        - "Interface"

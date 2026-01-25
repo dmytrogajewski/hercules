@@ -1,107 +1,60 @@
-suite: basic-structure
-name: markdown-basic-structure
+language: markdown
+tests:
+  - name: "Root is File"
+    code: |
+      # Heading
+    query: rfilter(.type == "File") |> map(.type)
+    expected:
+      - "File"
 
-parse_cases:
-  - name: simple_heading
-    input: |
-      # Main Heading
-      ## Sub Heading
-      ### Sub Sub Heading
-    output:
-      type: "File"
-      children:
-        - type: "Heading"
-          roles: ["Heading"]
-          props:
-            level: 1
-          children:
-            - type: "Text"
-              roles: ["Text"]
-              token: "Main Heading"
-        - type: "Heading"
-          roles: ["Heading"]
-          props:
-            level: 2
-          children:
-            - type: "Text"
-              roles: ["Text"]
-              token: "Sub Heading"
-        - type: "Heading"
-          roles: ["Heading"]
-          props:
-            level: 3
-          children:
-            - type: "Text"
-              roles: ["Text"]
-              token: "Sub Sub Heading"
+  - name: "Heading is Identifier"
+    code: |
+      # Main Title
+    query: rfilter(.type == "Identifier") |> map(.type)
+    expected:
+      - "Identifier"
 
-  - name: paragraph_and_list
-    input: |
+  - name: "Heading has Name role"
+    code: |
+      # Test Heading
+    query: rfilter(.type == "Identifier") |> map(.roles)
+    expected:
+      - ["Name"]
+
+  - name: "Paragraph is Literal"
+    code: |
       This is a paragraph.
-      
-      - List item 1
-      - List item 2
-        - Nested item
-    output:
-      type: "File"
-      children:
-        - type: "Paragraph"
-          roles: ["Paragraph"]
-          children:
-            - type: "Text"
-              roles: ["Text"]
-              token: "This is a paragraph."
-        - type: "List"
-          roles: ["List"]
-          children:
-            - type: "ListItem"
-              roles: ["ListItem"]
-              children:
-                - type: "Text"
-                  roles: ["Text"]
-                  token: "List item 1"
-            - type: "ListItem"
-              roles: ["ListItem"]
-              children:
-                - type: "Text"
-                  roles: ["Text"]
-                  token: "List item 2"
-                - type: "List"
-                  roles: ["List"]
-                  children:
-                    - type: "ListItem"
-                      roles: ["ListItem"]
-                      children:
-                        - type: "Text"
-                          roles: ["Text"]
-                          token: "Nested item"
+    query: rfilter(.type == "Literal") |> map(.type)
+    expected:
+      - "Literal"
+      - "Literal"
 
-query_cases:
-  - name: find_headings
-    input: |
-      # Heading 1
-      ## Heading 2
-      # Heading 3
-    query: "filter(.type == \"Heading\")"
-    output:
-      results:
-        - type: "Heading"
-          roles: ["Heading"]
-          props:
-            level: 1
-        - type: "Heading"
-          roles: ["Heading"]
-          props:
-            level: 2
-        - type: "Heading"
-          roles: ["Heading"]
-          props:
-            level: 1
+  - name: "List is List type"
+    code: |
+      - Item 1
+      - Item 2
+    query: rfilter(.type == "List") |> map(.type)
+    expected:
+      - "List"
 
-  - name: find_heading_levels
-    input: |
-      # My Heading
-    query: "filter(.type == \"Heading\") |> map(.level)"
-    output:
-      results:
-        - token: "1" 
+  - name: "List has Literal role"
+    code: |
+      - First
+      - Second
+    query: rfilter(.type == "List") |> map(.roles)
+    expected:
+      - ["Literal"]
+
+  - name: "Block quote is Block"
+    code: |
+      > This is a quote
+    query: rfilter(.type == "Block") |> map(.type)
+    expected:
+      - "Block"
+
+  - name: "Block quote has Body role"
+    code: |
+      > Quote text
+    query: rfilter(.type == "Block") |> map(.roles)
+    expected:
+      - ["Body"]

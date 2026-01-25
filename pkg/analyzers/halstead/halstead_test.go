@@ -10,14 +10,14 @@ func TestHalsteadAnalyzer_Basic(t *testing.T) {
 	analyzer := NewHalsteadAnalyzer()
 
 	// Test empty result
-	result, err := analyzer.Analyze(nil)
+	_, err := analyzer.Analyze(nil)
 	if err == nil {
 		t.Fatalf("Expected error for nil root, got nil")
 	}
 
 	// Test with empty root
 	emptyNode := node.New("empty", "File", "", nil, nil, nil)
-	result, err = analyzer.Analyze(emptyNode)
+	result, err := analyzer.Analyze(emptyNode)
 	if err != nil {
 		t.Fatalf("Expected no error, got %v", err)
 	}

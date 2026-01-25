@@ -8,15 +8,25 @@ endif
 PKG = $(shell go env GOOS)_$(shell go env GOARCH)
 TAGS ?=
 
-all: precompile ${GOBIN}/uast${EXE} ${GOBIN}/herr${EXE} ${GOBIN}/hercules${EXE}
+all: precompile ${GOBIN}/uast${EXE} ${GOBIN}/herr${EXE}
+
+# Build all binaries (alias for all)
+.PHONY: build
+build: all
 
 # Show help
 .PHONY: help
 help:
 	@echo "Available targets:"
 	@echo "  all              - Build all binaries"
+	@echo "  build            - Build all binaries (alias for all)"
 	@echo "  install          - Install binaries to system PATH"
 	@echo "  test             - Run all tests"
+	@echo "  lint             - Run linters and deadcode analysis"
+	@echo "  fmt              - Format code"
+	@echo "  deadcode         - Run deadcode analysis with detailed output"
+	@echo "  deadcode-prod    - Run deadcode analysis excluding tests"
+	@echo "  deadcode-why     - Show why a function is not dead (FUNC=name)"
 	@echo "  bench            - Run UAST performance benchmarks"
 	@echo "  uast-dev         - Start UAST development environment (frontend + backend)"
 	@echo "  uast-dev-stop    - Stop UAST development servers"
@@ -36,23 +46,18 @@ uastmaps-gen:
 	@echo "Generating UAST mappings..."
 	@python3 build/scripts/uastmapsgen/gen_uastmaps.py
 
-# Install binaries to system PATH
+# Install binaries to user's local bin directory
 install: all
-	@echo "Installing uast, herr, and hercules binaries..."
-	@if [ -w /usr/local/bin ]; then \
-		cp ${GOBIN}/uast${EXE} /usr/local/bin/; \
-		cp ${GOBIN}/herr${EXE} /usr/local/bin/; \
-		cp ${GOBIN}/hercules${EXE} /usr/local/bin/; \
-		echo "Installed to /usr/local/bin"; \
-	elif [ -w $(shell go env GOPATH)/bin ]; then \
-		cp ${GOBIN}/uast${EXE} $(shell go env GOPATH)/bin/; \
-		cp ${GOBIN}/herr${EXE} $(shell go env GOPATH)/bin/; \
-		cp ${GOBIN}/hercules${EXE} $(shell go env GOPATH)/bin/; \
-		echo "Installed to $(shell go env GOPATH)/bin"; \
-	else \
-		echo "Error: Cannot write to /usr/local/bin or $(shell go env GOPATH)/bin"; \
-		echo "Please run with sudo or ensure GOPATH/bin is in your PATH"; \
-		exit 1; \
+	@echo "Installing uast and herr binaries..."
+	@mkdir -p ~/.local/bin
+	@cp ${GOBIN}/uast${EXE} ~/.local/bin/
+	@cp ${GOBIN}/herr${EXE} ~/.local/bin/
+	@echo "Installed to ~/.local/bin"
+	@if ! echo $$PATH | grep -q "$$HOME/.local/bin"; then \
+		echo ""; \
+		echo "Note: ~/.local/bin is not in your PATH"; \
+		echo "Add it by running: export PATH=\"\$$HOME/.local/bin:\$$PATH\""; \
+		echo "Or add the above line to your ~/.bashrc or ~/.zshrc"; \
 	fi
 
 # Run all tests with CGO disabled (for cross-platform compatibility)
@@ -157,13 +162,80 @@ benchplot-timeout: all
 	python3 build/scripts/benchmark/benchmark_plot.py test/benchmarks/benchmark_results.txt
 
 clean:
-	rm -f ./hercules
 	rm -f ./uast
 	rm -f ./herr
 	rm -rf ${GOBIN}/
 	rm -f *.prof
 	rm -f test/benchmarks/benchmark_results.txt
 	rm -rf benchmark_plots/
+
+# Linting tools
+GOLINT=golangci-lint
+DEADCODE=deadcode
+
+# Package paths for linting
+INTERNAL_PKGS=./cmd/... ./pkg/...
+
+## lint: Run linters and deadcode analysis
+.PHONY: lint
+lint:
+	@echo "Running linters..."
+	@$(GOLINT) run $(INTERNAL_PKGS)
+	@echo "Running deadcode analysis..."
+	@./scripts/deadcode-filter.sh -test github.com/dmytrogajewski/hercules/cmd/... github.com/dmytrogajewski/hercules/pkg/...
+	@echo "✓ Linting complete"
+
+## deadcode: Run deadcode analysis with detailed output (requires: go install golang.org/x/tools/cmd/deadcode@latest)
+.PHONY: deadcode
+deadcode:
+	@echo "Running deadcode analysis..."
+	@echo "================================================================"
+	@$(DEADCODE) -test github.com/dmytrogajewski/hercules/cmd/... github.com/dmytrogajewski/hercules/pkg/... || echo "Note: Review any unreachable functions listed above"
+	@echo "================================================================"
+	@echo "Tip: Use 'deadcode -whylive <function>' to understand why a function is considered reachable"
+
+## deadcode-prod: Run deadcode analysis excluding tests (production-only dead code)
+.PHONY: deadcode-prod
+deadcode-prod:
+	@echo "Running deadcode analysis (production only)..."
+	@echo "================================================================"
+	@./scripts/deadcode-filter.sh github.com/dmytrogajewski/hercules/cmd/... github.com/dmytrogajewski/hercules/pkg/...
+
+## deadcode-test-only: Find functions used only by tests (requires jq)
+.PHONY: deadcode-test-only
+deadcode-test-only:
+	@echo "Finding functions that are only used by tests..."
+	@echo "This compares deadcode results with and without tests..."
+	@mkdir -p .deadcode-tmp
+	@$(DEADCODE) -json github.com/dmytrogajewski/hercules/cmd/... github.com/dmytrogajewski/hercules/pkg/... | jq -r '.[] | .Funcs[].Name' | sort > .deadcode-tmp/dead_prod.txt
+	@$(DEADCODE) -test -json github.com/dmytrogajewski/hercules/cmd/... github.com/dmytrogajewski/hercules/pkg/... | jq -r '.[] | .Funcs[].Name' | sort > .deadcode-tmp/dead_with_tests.txt
+	@echo "Functions used only by tests:"
+	@comm -23 .deadcode-tmp/dead_prod.txt .deadcode-tmp/dead_with_tests.txt || echo "No test-only functions found"
+	@rm -rf .deadcode-tmp
+
+## deadcode-json: Run deadcode analysis with JSON output
+.PHONY: deadcode-json
+deadcode-json:
+	@echo "Running deadcode analysis (JSON output)..."
+	@$(DEADCODE) -json github.com/dmytrogajewski/hercules/cmd/... github.com/dmytrogajewski/hercules/pkg/...
+
+## deadcode-why: Show why a function is not dead (usage: make deadcode-why FUNC=functionName)
+.PHONY: deadcode-why
+deadcode-why:
+	@if [ -z "$(FUNC)" ]; then \
+		echo "Usage: make deadcode-why FUNC=functionName"; \
+		echo "Example: make deadcode-why FUNC=bytes.Buffer.String"; \
+		exit 1; \
+	fi
+	@echo "Analyzing why $(FUNC) is considered live..."
+	@$(DEADCODE) -whylive="$(FUNC)" github.com/dmytrogajewski/hercules/cmd/... github.com/dmytrogajewski/hercules/pkg/...
+
+## fmt: Format code
+.PHONY: fmt
+fmt:
+	@echo "Formatting code..."
+	@go fmt $(INTERNAL_PKGS)
+	@echo "✓ Formatting complete"
 
 # Stop UAST development servers
 .PHONY: uast-dev-stop
@@ -224,17 +296,11 @@ api/proto/pb/hercules.pb.go: api/proto/pb/hercules.proto
 		--proto_path=api/proto/pb api/proto/pb/hercules.proto
 endif
 
-${GOBIN}/uast${EXE}: cmd/uast/*.go pkg/uast/*.go pkg/uast/*/*.go pkg/uast/*/*/*.go internal/pkg/*.go internal/pkg/*/*.go internal/pkg/*/*/*.go
-	LDFLAGS="-X github.com/dmytrogajewski/hercules.BinaryGitHash=$(shell git rev-parse HEAD)"; \
-	CGO_ENABLED=1 go build -tags "$(TAGS)" -ldflags "$$LDFLAGS" -o ${GOBIN}/uast${EXE} ./cmd/uast
+${GOBIN}/uast${EXE}: cmd/uast/*.go pkg/uast/*.go pkg/uast/*/*.go pkg/uast/*/*/*.go
+	CGO_ENABLED=1 go build -tags "$(TAGS)" -o ${GOBIN}/uast${EXE} ./cmd/uast
 
-${GOBIN}/herr${EXE}: cmd/herr/*.go pkg/analyzers/*/*.go internal/pkg/*.go internal/pkg/*/*.go internal/pkg/*/*/*.go
-	LDFLAGS="-X github.com/dmytrogajewski/hercules.BinaryGitHash=$(shell git rev-parse HEAD)"; \
-	CGO_ENABLED=1 go build -tags "$(TAGS)" -ldflags "$$LDFLAGS" -o ${GOBIN}/herr${EXE} ./cmd/herr
-
-${GOBIN}/hercules${EXE}: cmd/hercules/*.go internal/pkg/*.go internal/pkg/*/*.go internal/pkg/*/*/*.go pkg/analyzers/*/*.go
-	LDFLAGS="-X github.com/dmytrogajewski/hercules.BinaryGitHash=$(shell git rev-parse HEAD)"; \
-	CGO_ENABLED=1 go build -tags "$(TAGS)" -ldflags "$$LDFLAGS" -o ${GOBIN}/hercules${EXE} ./cmd/hercules
+${GOBIN}/herr${EXE}: cmd/herr/*.go cmd/herr/commands/*.go pkg/analyzers/*/*.go
+	CGO_ENABLED=1 go build -tags "$(TAGS)" -o ${GOBIN}/herr${EXE} ./cmd/herr
 
 # Build the development service
 .PHONY: build-dev-service

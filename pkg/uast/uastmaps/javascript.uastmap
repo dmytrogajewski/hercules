@@ -29,7 +29,8 @@ arguments <- (arguments) => uast(
 )
 
 array <- (array) => uast(
-    type: "List"
+    type: "List",
+    roles: "Literal"
 )
 
 array_pattern <- (array_pattern) => uast(
@@ -102,28 +103,27 @@ class <- (class) => uast(
 )
 
 class_body <- (class_body) => uast(
-    type: "Class",
-    roles: "Class", "Declaration",
+    type: "Block",
+    roles: "Body",
     children: "class_static_block", "field_definition", "method_definition"
 )
 
 class_declaration <- (class_declaration) => uast(
     token: "self",
-    roles: "Body",
     type: "Class",
     roles: "Class", "Declaration",
     children: "class_body", "decorator", "identifier"
 )
 
 class_heritage <- (class_heritage) => uast(
-    type: "Class",
-    roles: "Class", "Declaration"
+    type: "Synthetic",
+    roles: "Type"
 )
 
 class_static_block <- (class_static_block) => uast(
     token: "self",
-    type: "Class",
-    roles: "Class", "Declaration",
+    type: "Block",
+    roles: "Static", "Body",
     children: "statement_block"
 )
 
@@ -150,13 +150,16 @@ decorator <- (decorator) => uast(
 )
 
 do_statement <- (do_statement) => uast(
-    type: "Synthetic",
+    type: "Loop",
+    roles: "Loop",
+    props: "kind=do-while",
     children: "parenthesized_expression", "statement"
 )
 
 else_clause <- (else_clause) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Synthetic",
+    roles: "Body"
 )
 
 empty_statement <- (empty_statement) => uast(
@@ -169,13 +172,14 @@ export_clause <- (export_clause) => uast(
 )
 
 export_specifier <- (export_specifier) => uast(
-    type: "If",
+    type: "Synthetic",
     children: "identifier", "string"
 )
 
 export_statement <- (export_statement) => uast(
     token: "self",
     type: "Synthetic",
+    roles: "Exported",
     children: "declaration", "decorator", "expression", "string"
 )
 
@@ -200,19 +204,20 @@ for_in_statement <- (for_in_statement) => uast(
     token: "self",
     type: "Loop",
     roles: "Loop",
+    props: "kind=for-in",
     children: "array_pattern", "const", "expression", "identifier", "in", "let", "member_expression", "object_pattern", "of", "parenthesized_expression", "sequence_expression", "statement", "subscript_expression", "undefined", "var"
 )
 
 for_statement <- (for_statement) => uast(
     type: "Loop",
     roles: "Loop",
+    props: "kind=for",
     children: "empty_statement", "expression", "lexical_declaration", "sequence_expression", "statement", "variable_declaration"
 )
 
 formal_parameters <- (formal_parameters) => uast(
     token: "self",
-    roles: "Loop",
-    type: "Parameter",
+    type: "Synthetic",
     roles: "Parameter"
 )
 
@@ -224,50 +229,50 @@ function_declaration <- (function_declaration) => uast(
 
 function_expression <- (function_expression) => uast(
     token: "child:identifier",
-    roles: "Function", "Declaration",
     type: "Function",
     roles: "Function", "Declaration",
     children: "formal_parameters", "identifier", "statement_block"
 )
 
 generator_function <- (generator_function) => uast(
-    type: "Function",
-    roles: "Function", "Declaration",
+    type: "Generator",
+    roles: "Function", "Declaration", "Generator",
     children: "formal_parameters", "identifier", "statement_block"
 )
 
 generator_function_declaration <- (generator_function_declaration) => uast(
     token: "self",
-    type: "Function",
-    roles: "Function", "Declaration",
+    type: "Generator",
+    roles: "Function", "Declaration", "Generator",
     children: "formal_parameters", "identifier", "statement_block"
 )
 
 if_statement <- (if_statement) => uast(
     type: "If",
+    roles: "Condition",
     children: "else_clause", "parenthesized_expression", "statement"
 )
 
 import <- (import) => uast(
     token: "self",
-    roles: "Condition",
     type: "Import",
     roles: "Import"
 )
 
 import_attribute <- (import_attribute) => uast(
-    type: "Import",
-    roles: "Import"
+    type: "Synthetic",
+    roles: "Attribute"
 )
 
 import_clause <- (import_clause) => uast(
     token: "self",
-    type: "Import",
+    type: "Synthetic",
     roles: "Import"
 )
 
 import_specifier <- (import_specifier) => uast(
-    type: "If",
+    type: "Synthetic",
+    roles: "Import",
     children: "identifier", "string"
 )
 
@@ -285,7 +290,7 @@ jsx_attribute <- (jsx_attribute) => uast(
 
 jsx_closing_element <- (jsx_closing_element) => uast(
     token: "self",
-    type: "Attribute",
+    type: "Synthetic",
     children: "identifier", "jsx_namespace_name", "member_expression"
 )
 
@@ -322,13 +327,15 @@ labeled_statement <- (labeled_statement) => uast(
 )
 
 lexical_declaration <- (lexical_declaration) => uast(
-    type: "Synthetic",
+    type: "Variable",
+    roles: "Variable", "Declaration",
     children: "const", "let"
 )
 
 member_expression <- (member_expression) => uast(
     token: "self",
     type: "Synthetic",
+    roles: "Member",
     children: "expression", "import", "optional_chain", "private_property_identifier", "property_identifier"
 )
 
@@ -345,30 +352,31 @@ method_definition <- (method_definition) => uast(
 )
 
 named_imports <- (named_imports) => uast(
-    type: "Import",
+    type: "Synthetic",
     roles: "Import"
 )
 
 namespace_export <- (namespace_export) => uast(
     token: "self",
     type: "Namespace",
-    roles: "Module"
+    roles: "Module", "Exported"
 )
 
 namespace_import <- (namespace_import) => uast(
-    type: "Import",
+    type: "Synthetic",
     roles: "Import"
 )
 
 new_expression <- (new_expression) => uast(
     token: "self",
-    roles: "Import",
-    type: "Import",
+    type: "Call",
+    roles: "Call",
     children: "arguments", "new_expression", "primary_expression"
 )
 
 object <- (object) => uast(
-    type: "Synthetic"
+    type: "Dict",
+    roles: "Literal"
 )
 
 object_assignment_pattern <- (object_assignment_pattern) => uast(
@@ -385,7 +393,8 @@ object_pattern <- (object_pattern) => uast(
 
 pair <- (pair) => uast(
     token: "self",
-    type: "Pattern",
+    type: "KeyValue",
+    roles: "Key", "Value",
     children: "computed_property_name", "expression", "number", "private_property_identifier", "property_identifier", "string"
 )
 
@@ -397,22 +406,23 @@ pair_pattern <- (pair_pattern) => uast(
 
 parenthesized_expression <- (parenthesized_expression) => uast(
     token: "self",
-    type: "Pattern"
+    type: "Synthetic"
 )
 
 program <- (program) => uast(
-    type: "Synthetic"
+    type: "File"
 )
 
 regex <- (regex) => uast(
     token: "self",
-    type: "File",
+    type: "Literal",
+    roles: "Literal",
     children: "regex_flags", "regex_pattern"
 )
 
 rest_pattern <- (rest_pattern) => uast(
-    type: "Pattern",
-    roles: "Pattern"
+    type: "Spread",
+    roles: "Spread", "Pattern"
 )
 
 return_statement <- (return_statement) => uast(
@@ -438,29 +448,32 @@ statement_block <- (statement_block) => uast(
 
 string <- (string) => uast(
     token: "self",
-    roles: "Body",
-    type: "Block"
+    type: "Literal",
+    roles: "Literal"
 )
 
 subscript_expression <- (subscript_expression) => uast(
-    type: "Synthetic",
+    type: "Index",
+    roles: "Index",
     children: "expression", "optional_chain", "sequence_expression"
 )
 
 switch_body <- (switch_body) => uast(
     token: "self",
-    type: "Switch"
+    type: "Block",
+    roles: "Body"
 )
 
 switch_case <- (switch_case) => uast(
-    type: "Switch",
+    type: "Case",
+    roles: "Branch",
     children: "expression", "sequence_expression", "statement"
 )
 
 switch_default <- (switch_default) => uast(
     token: "self",
+    type: "Case",
     roles: "Branch",
-    type: "Switch",
     children: "statement"
 )
 
@@ -471,8 +484,8 @@ switch_statement <- (switch_statement) => uast(
 
 template_string <- (template_string) => uast(
     token: "self",
-    roles: "Branch",
-    type: "Switch"
+    type: "Literal",
+    roles: "Literal"
 )
 
 template_substitution <- (template_substitution) => uast(
@@ -481,7 +494,8 @@ template_substitution <- (template_substitution) => uast(
 
 ternary_expression <- (ternary_expression) => uast(
     token: "self",
-    type: "Synthetic",
+    type: "If",
+    roles: "Condition",
     children: "expression"
 )
 
@@ -498,14 +512,15 @@ try_statement <- (try_statement) => uast(
 )
 
 unary_expression <- (unary_expression) => uast(
-    type: "Synthetic",
+    type: "UnaryOp",
+    roles: "Operator",
     children: "delete", "expression", "typeof", "void"
 )
 
 update_expression <- (update_expression) => uast(
     token: "self",
-    roles: "Operator",
     type: "UnaryOp",
+    roles: "Operator",
     children: "expression"
 )
 
@@ -516,7 +531,6 @@ variable_declaration <- (variable_declaration) => uast(
 
 variable_declarator <- (variable_declarator) => uast(
     token: "child:identifier",
-    roles: "Variable", "Declaration",
     type: "Variable",
     roles: "Variable", "Declaration",
     children: "array_pattern", "expression", "identifier", "object_pattern"
@@ -525,13 +539,13 @@ variable_declarator <- (variable_declarator) => uast(
 while_statement <- (while_statement) => uast(
     type: "Loop",
     roles: "Loop",
+    props: "kind=while",
     children: "parenthesized_expression", "statement"
 )
 
 with_statement <- (with_statement) => uast(
     token: "self",
-    roles: "Loop",
-    type: "Loop",
+    type: "Synthetic",
     children: "parenthesized_expression", "statement"
 )
 
@@ -542,7 +556,7 @@ yield_expression <- (yield_expression) => uast(
 
 as <- (as) => uast(
     token: "self",
-    type: "Yield"
+    type: "Synthetic"
 )
 
 async <- (async) => uast(
@@ -562,8 +576,7 @@ break <- (break) => uast(
 
 case <- (case) => uast(
     token: "self",
-    type: "Case",
-    roles: "Branch"
+    type: "Synthetic"
 )
 
 catch <- (catch) => uast(
@@ -573,19 +586,19 @@ catch <- (catch) => uast(
 
 class <- (class) => uast(
     token: "self",
-    type: "Class",
-    roles: "Class", "Declaration"
+    type: "Synthetic"
 )
 
 comment <- (comment) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment"
 )
 
 const <- (const) => uast(
     token: "self",
-    roles: "Comment",
-    type: "Comment"
+    type: "Synthetic",
+    roles: "Constant"
 )
 
 continue <- (continue) => uast(
@@ -622,7 +635,8 @@ escape_sequence <- (escape_sequence) => uast(
 
 export <- (export) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Synthetic",
+    roles: "Exported"
 )
 
 extends <- (extends) => uast(
@@ -631,7 +645,8 @@ extends <- (extends) => uast(
 
 false <- (false) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
 finally <- (finally) => uast(
@@ -641,8 +656,7 @@ finally <- (finally) => uast(
 
 for <- (for) => uast(
     token: "self",
-    type: "Loop",
-    roles: "Loop"
+    type: "Synthetic"
 )
 
 from <- (from) => uast(
@@ -651,17 +665,18 @@ from <- (from) => uast(
 
 function <- (function) => uast(
     token: "self",
-    type: "Function",
-    roles: "Function", "Declaration"
+    type: "Synthetic"
 )
 
 get <- (get) => uast(
-    type: "Synthetic"
+    type: "Synthetic",
+    roles: "Getter"
 )
 
 hash_bang_line <- (hash_bang_line) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Comment",
+    roles: "Comment"
 )
 
 html_character_reference <- (html_character_reference) => uast(
@@ -675,13 +690,14 @@ html_comment <- (html_comment) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
 )
 
 if <- (if) => uast(
     token: "self",
-    roles: "Reference",
-    type: "Identifier"
+    type: "Synthetic"
 )
 
 import <- (import) => uast(
@@ -700,11 +716,13 @@ instanceof <- (instanceof) => uast(
 
 jsx_text <- (jsx_text) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
 let <- (let) => uast(
-    type: "Synthetic"
+    type: "Synthetic",
+    roles: "Mutable"
 )
 
 meta <- (meta) => uast(
@@ -718,11 +736,14 @@ new <- (new) => uast(
 
 null <- (null) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
 number <- (number) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
 )
 
 of <- (of) => uast(
@@ -736,22 +757,23 @@ optional_chain <- (optional_chain) => uast(
 
 private_property_identifier <- (private_property_identifier) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Identifier",
+    roles: "Name", "Private"
 )
 
 property_identifier <- (property_identifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
 )
 
 regex_flags <- (regex_flags) => uast(
     token: "self",
-    roles: "Reference",
-    type: "Identifier"
+    type: "Synthetic"
 )
 
 regex_pattern <- (regex_pattern) => uast(
-    type: "Pattern",
-    roles: "Pattern"
+    type: "Synthetic"
 )
 
 return <- (return) => uast(
@@ -761,25 +783,31 @@ return <- (return) => uast(
 )
 
 set <- (set) => uast(
-    type: "Set"
+    type: "Synthetic",
+    roles: "Setter"
 )
 
 shorthand_property_identifier <- (shorthand_property_identifier) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Identifier",
+    roles: "Name"
 )
 
 shorthand_property_identifier_pattern <- (shorthand_property_identifier_pattern) => uast(
-    type: "If"
+    token: "self",
+    type: "Identifier",
+    roles: "Name", "Pattern"
 )
 
 statement_identifier <- (statement_identifier) => uast(
     token: "self",
-    type: "Pattern"
+    type: "Identifier",
+    roles: "Name"
 )
 
 static <- (static) => uast(
-    type: "Synthetic"
+    type: "Synthetic",
+    roles: "Static"
 )
 
 string_fragment <- (string_fragment) => uast(
@@ -788,12 +816,14 @@ string_fragment <- (string_fragment) => uast(
 )
 
 super <- (super) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Identifier",
+    roles: "Reference"
 )
 
 switch <- (switch) => uast(
     token: "self",
-    type: "Switch"
+    type: "Synthetic"
 )
 
 target <- (target) => uast(
@@ -802,7 +832,8 @@ target <- (target) => uast(
 
 this <- (this) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Identifier",
+    roles: "Reference"
 )
 
 throw <- (throw) => uast(
@@ -812,7 +843,8 @@ throw <- (throw) => uast(
 
 true <- (true) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
 try <- (try) => uast(
@@ -826,12 +858,15 @@ typeof <- (typeof) => uast(
 )
 
 undefined <- (undefined) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
 )
 
 var <- (var) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Synthetic",
+    roles: "Mutable"
 )
 
 void <- (void) => uast(
@@ -840,8 +875,7 @@ void <- (void) => uast(
 
 while <- (while) => uast(
     token: "self",
-    type: "Loop",
-    roles: "Loop"
+    type: "Synthetic"
 )
 
 with <- (with) => uast(

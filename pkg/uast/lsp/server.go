@@ -1,6 +1,7 @@
 package lsp
 
 import (
+	"log"
 	"strings"
 	"sync"
 
@@ -62,7 +63,9 @@ func NewServer() *Server {
 
 func (s *Server) Run() {
 	srv := server.NewServer(&s.handler, "uast mapping DSL", false)
-	srv.RunStdio()
+	if err := srv.RunStdio(); err != nil {
+		log.Printf("LSP server error: %v", err)
+	}
 }
 
 func (s *Server) initialize(ctx *glsp.Context, params *protocol.InitializeParams) (any, error) {

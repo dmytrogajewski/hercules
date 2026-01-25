@@ -79,25 +79,12 @@ func flattenChildren(nodes []*Node) []*Node {
 	return out
 }
 
-func mapOverChildren(exprFunc QueryFunc, node *Node) []*Node {
-	childCount := len(node.Children)
-	out := make([]*Node, 0, childCount)
-	for _, child := range node.Children {
-		out = append(out, exprFunc([]*Node{child})...)
-	}
-	return out
-}
-
 func mapOverNodes(exprFunc QueryFunc, nodes []*Node) []*Node {
 	out := make([]*Node, 0, len(nodes))
 	for _, node := range nodes {
 		out = append(out, exprFunc([]*Node{node})...)
 	}
 	return out
-}
-
-func isSingleNodeWithChildren(nodes []*Node) bool {
-	return len(nodes) == 1 && len(nodes[0].Children) > 0
 }
 
 func calculateTotalChildren(nodes []*Node) int {

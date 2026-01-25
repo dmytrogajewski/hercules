@@ -99,7 +99,7 @@ func NewFieldAccessStrategyRegistry() *FieldAccessStrategyRegistry {
 func (r *FieldAccessStrategyRegistry) registerDefaultStrategies() {
 	r.strategies["children"] = &ChildrenFieldStrategy{}
 	r.strategies["token"] = &TokenFieldStrategy{}
-	r.strategies["id"] = &IdFieldStrategy{}
+	r.strategies["id"] = &IDFieldStrategy{}
 	r.strategies["roles"] = &RolesFieldStrategy{}
 	r.strategies["type"] = &TypeFieldStrategy{}
 	r.strategies["first"] = &FirstFieldStrategy{}
@@ -144,12 +144,12 @@ func (s *TokenFieldStrategy) Access(node *Node) []*Node {
 	return []*Node{NewLiteralNode(node.Token)}
 }
 
-// IdFieldStrategy accesses the ID of a node
-type IdFieldStrategy struct{}
+// IDFieldStrategy accesses the ID of a node
+type IDFieldStrategy struct{}
 
 // Access returns the ID of the given node as a literal node
-func (s *IdFieldStrategy) Access(node *Node) []*Node {
-	return []*Node{NewLiteralNode(fmt.Sprint(node.Id))}
+func (s *IDFieldStrategy) Access(node *Node) []*Node {
+	return []*Node{NewLiteralNode(fmt.Sprint(node.ID))}
 }
 
 // RolesFieldStrategy accesses the roles of a node
@@ -157,7 +157,7 @@ type RolesFieldStrategy struct{}
 
 // Access returns each role of the given node as a separate literal node
 func (s *RolesFieldStrategy) Access(node *Node) []*Node {
-	var out []*Node
+	out := make([]*Node, 0, len(node.Roles))
 	for _, r := range node.Roles {
 		out = append(out, NewLiteralNode(string(r)))
 	}

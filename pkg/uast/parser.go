@@ -86,6 +86,19 @@ func (p *Parser) IsSupported(filename string) bool {
 	return exists
 }
 
+// GetLanguage returns the language name for the given filename if supported, or empty string.
+func (p *Parser) GetLanguage(filename string) string {
+	ext := strings.ToLower(getFileExtension(filename))
+	if ext == "" {
+		return ""
+	}
+	parser, exists := p.loader.LanguageParser(ext)
+	if !exists {
+		return ""
+	}
+	return parser.Language()
+}
+
 // Parse parses a file and returns its UAST.
 func (p *Parser) Parse(filename string, content []byte) (*node.Node, error) {
 	// Get file extension

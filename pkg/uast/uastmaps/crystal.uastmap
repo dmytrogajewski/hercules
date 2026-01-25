@@ -1,342 +1,67 @@
 [language "crystal", extensions: ".cr"]
 
-abstract_method_def <- (abstract_method_def) => uast(
-    type: "Method",
-    roles: "Function", "Declaration", "Member",
-    children: "class_type", "constant", "double_splat_type", "forall", "generic_instance_type", "identifier", "named_tuple_type", "nilable_type", "operator", "param_list", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
+expressions <- (expressions) => uast(
+    type: "File"
 )
 
-alias <- (alias) => uast(
+identifier <- (identifier) => uast(
     token: "self",
-    type: "Synthetic",
-    children: "class_type", "constant", "double_splat_type", "generic_instance_type", "named_tuple_type", "nilable_type", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
-)
-
-alignof <- (alignof) => uast(
-    type: "Synthetic"
-)
-
-and <- (and) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-annotation <- (annotation) => uast(
-    type: "Synthetic",
-    children: "argument_list"
-)
-
-annotation_def <- (annotation_def) => uast(
-    token: "self",
-    type: "Attribute",
-    children: "constant"
-)
-
-argument_list <- (argument_list) => uast(
-    type: "List"
-)
-
-array <- (array) => uast(
-    token: "self",
-    type: "List",
-    children: "class_type", "constant", "double_splat_type", "generic_instance_type", "named_tuple_type", "nilable_type", "of", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
-)
-
-array_like <- (array_like) => uast(
-    type: "Synthetic",
-    children: "constant", "generic_instance_type", "tuple"
-)
-
-asm <- (asm) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "asm_clobbers", "asm_operands", "asm_options", "string"
-)
-
-asm_clobbers <- (asm_clobbers) => uast(
-    type: "Synthetic"
-)
-
-asm_operand <- (asm_operand) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-asm_operands <- (asm_operands) => uast(
-    type: "Synthetic"
-)
-
-asm_options <- (asm_options) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-assign <- (assign) => uast(
-    type: "Synthetic",
-    children: "abstract_method_def", "alias", "alignof", "and", "annotation", "annotation_def", "array", "array_like", "asm", "assign", "assign_call", "begin", "break", "call", "case", "chained_string", "char", "class_def", "class_var", "command", "conditional", "const_assign", "constant", "enum_def", "expressions", "extend", "false", "float", "fun_def", "generic_instance_type", "global_var", "hash", "hash_like", "heredoc_start", "identifier", "if", "include", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "lib_def", "macro_begin", "macro_def", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_def", "method_proc", "modifier_ensure", "modifier_if", "modifier_rescue", "modifier_unless", "module_def", "named_tuple", "next", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "require", "return", "select", "self", "sizeof", "special_variable", "splat", "string", "struct_def", "symbol", "true", "tuple", "type_declaration", "typeof", "underscore", "uninitialized_var", "unless", "until", "visibility_modifier", "while", "yield"
-)
-
-assign_call <- (assign_call) => uast(
-    token: "self",
-    type: "Call",
-    roles: "Call",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-begin <- (begin) => uast(
-    type: "Synthetic",
-    children: "else", "ensure", "expressions", "rescue"
-)
-
-block <- (block) => uast(
-    token: "self",
-    type: "Block",
-    roles: "Body",
-    children: "else", "ensure", "expressions", "param_list", "rescue"
-)
-
-block_argument <- (block_argument) => uast(
-    type: "Block",
-    roles: "Body"
-)
-
-block_param <- (block_param) => uast(
-    token: "self",
-    type: "Block",
-    roles: "Body",
-    children: "class_type", "class_var", "constant", "double_splat_type", "generic_instance_type", "identifier", "instance_var", "macro_var", "named_tuple_type", "nilable_type", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
-)
-
-break <- (break) => uast(
-    type: "Break",
-    roles: "Break"
-)
-
-c_struct_def <- (c_struct_def) => uast(
-    token: "self",
-    type: "Struct",
-    roles: "Struct", "Declaration",
-    children: "constant", "expressions"
-)
-
-c_struct_fields <- (c_struct_fields) => uast(
-    type: "Struct",
-    roles: "Struct", "Declaration",
-    children: "class_type", "constant", "double_splat_type", "generic_instance_type", "identifier", "named_tuple_type", "nilable_type", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
-)
-
-call <- (call) => uast(
-    token: "self",
-    type: "Call",
-    roles: "Call",
-    children: "alignof", "and", "argument_list", "array", "array_like", "asm", "assign", "begin", "block", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "operator", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-case <- (case) => uast(
-    type: "Case",
-    roles: "Branch",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-chained_string <- (chained_string) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-char <- (char) => uast(
-    type: "Synthetic"
-)
-
-class_def <- (class_def) => uast(
-    token: "self",
-    type: "Class",
-    roles: "Class", "Declaration",
-    children: "constant", "expressions", "generic_instance_type", "generic_type"
-)
-
-class_type <- (class_type) => uast(
-    type: "Class",
-    roles: "Class", "Declaration"
-)
-
-command <- (command) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-conditional <- (conditional) => uast(
-    type: "Synthetic",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-const_assign <- (const_assign) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "abstract_method_def", "alias", "alignof", "and", "annotation", "annotation_def", "array", "array_like", "asm", "assign", "begin", "break", "call", "case", "chained_string", "char", "class_def", "class_var", "command", "conditional", "const_assign", "constant", "enum_def", "expressions", "extend", "false", "float", "fun_def", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "include", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "lib_def", "macro_begin", "macro_def", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_def", "method_proc", "modifier_ensure", "modifier_if", "modifier_rescue", "modifier_unless", "module_def", "named_tuple", "next", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "require", "return", "select", "self", "sizeof", "special_variable", "string", "struct_def", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "visibility_modifier", "while", "yield"
+    type: "Identifier",
+    roles: "Name"
 )
 
 constant <- (constant) => uast(
-    type: "Synthetic"
-)
-
-double_splat <- (double_splat) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Identifier",
+    roles: "Name"
 )
 
-double_splat_param <- (double_splat_param) => uast(
-    type: "Synthetic",
-    children: "class_type", "class_var", "constant", "double_splat_type", "generic_instance_type", "identifier", "instance_var", "macro_var", "named_tuple_type", "nilable_type", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
-)
-
-double_splat_type <- (double_splat_type) => uast(
+true <- (true) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
-else <- (else) => uast(
-    type: "Synthetic",
-    children: "expressions"
-)
-
-elsif <- (elsif) => uast(
+false <- (false) => uast(
     token: "self",
-    type: "Synthetic",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "else", "elsif", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "then", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
+    type: "Literal",
+    roles: "Literal"
 )
 
-ensure <- (ensure) => uast(
-    type: "Synthetic",
-    children: "expressions"
-)
-
-enum_def <- (enum_def) => uast(
+nil <- (nil) => uast(
     token: "self",
-    type: "Enum",
-    roles: "Enum", "Declaration",
-    children: "class_type", "constant", "double_splat_type", "expressions", "generic_instance_type", "named_tuple_type", "nilable_type", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
-)
-
-expressions <- (expressions) => uast(
-    type: "Synthetic"
-)
-
-extend <- (extend) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-float <- (float) => uast(
-    type: "Synthetic"
-)
-
-forall <- (forall) => uast(
-    token: "self",
-    type: "Loop",
-    roles: "Loop"
-)
-
-fun_def <- (fun_def) => uast(
-    type: "Synthetic",
-    children: "class_type", "constant", "double_splat_type", "expressions", "generic_instance_type", "identifier", "named_tuple_type", "nilable_type", "param_list", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "string", "tuple_type", "typeof", "underscore", "union_type"
-)
-
-fun_param <- (fun_param) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "class_type", "constant", "double_splat_type", "generic_instance_type", "identifier", "named_tuple_type", "nilable_type", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
-)
-
-generic_instance_type <- (generic_instance_type) => uast(
-    type: "Synthetic",
-    children: "param_list"
-)
-
-generic_type <- (generic_type) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "param_list"
-)
-
-global_var <- (global_var) => uast(
-    type: "Synthetic",
-    children: "class_type", "constant", "double_splat_type", "generic_instance_type", "identifier", "named_tuple_type", "nilable_type", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
-)
-
-hash <- (hash) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "class_type", "constant", "double_splat_type", "generic_instance_type", "named_tuple_type", "nilable_type", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
-)
-
-hash_entry <- (hash_entry) => uast(
-    type: "Try",
-    roles: "Try"
-)
-
-hash_like <- (hash_like) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "constant", "generic_instance_type", "hash"
-)
-
-heredoc_body <- (heredoc_body) => uast(
-    type: "Synthetic"
-)
-
-if <- (if) => uast(
-    token: "self",
-    roles: "Body",
-    type: "Block",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "else", "elsif", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "then", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-implicit_object_call <- (implicit_object_call) => uast(
-    type: "Call",
-    roles: "Call",
-    children: "argument_list", "block", "identifier", "implicit_object_call", "operator"
-)
-
-in <- (in) => uast(
-    token: "self",
-    roles: "Call",
-    type: "Call",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "implicit_object_call", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-include <- (include) => uast(
-    type: "Synthetic"
-)
-
-index_call <- (index_call) => uast(
-    token: "self",
-    type: "Call",
-    roles: "Call",
-    children: "alignof", "and", "argument_list", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "operator", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-instance_alignof <- (instance_alignof) => uast(
-    type: "Synthetic"
-)
-
-instance_sizeof <- (instance_sizeof) => uast(
-    token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
 integer <- (integer) => uast(
-    type: "Synthetic"
-)
-
-interpolation <- (interpolation) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
-lib_def <- (lib_def) => uast(
-    type: "Synthetic",
-    children: "constant", "expressions", "generic_type"
+float <- (float) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+string <- (string) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+char <- (char) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+symbol <- (symbol) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
 )
 
 literal_content <- (literal_content) => uast(
@@ -345,485 +70,155 @@ literal_content <- (literal_content) => uast(
     roles: "Literal"
 )
 
-macro_begin <- (macro_begin) => uast(
-    type: "Synthetic",
-    children: "expressions"
-)
-
-macro_content <- (macro_content) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-macro_def <- (macro_def) => uast(
-    type: "Synthetic",
-    children: "expressions", "identifier", "operator", "param_list"
-)
-
-macro_else <- (macro_else) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "expressions"
-)
-
-macro_elsif <- (macro_elsif) => uast(
-    type: "If",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_else", "macro_elsif", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-macro_expression <- (macro_expression) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-macro_for <- (macro_for) => uast(
-    type: "Loop",
-    roles: "Loop",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "double_splat", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "splat", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "underscore", "unless", "until", "while", "yield"
-)
-
-macro_if <- (macro_if) => uast(
-    token: "self",
-    roles: "Loop",
-    type: "Loop",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_else", "macro_elsif", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-macro_statement <- (macro_statement) => uast(
-    type: "Synthetic"
-)
-
-macro_unless <- (macro_unless) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_else", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-macro_var <- (macro_var) => uast(
-    type: "Synthetic",
-    children: "identifier"
-)
-
-macro_verbatim <- (macro_verbatim) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "expressions"
-)
-
-method_def <- (method_def) => uast(
-    type: "Method",
-    roles: "Function", "Declaration", "Member",
-    children: "class_type", "constant", "double_splat_type", "else", "ensure", "expressions", "forall", "generic_instance_type", "identifier", "named_tuple_type", "nilable_type", "operator", "param_list", "pointer_type", "proc_type", "rescue", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
-)
-
-method_proc <- (method_proc) => uast(
-    token: "self",
-    type: "Method",
-    roles: "Function", "Declaration", "Member",
-    children: "class_var", "constant", "identifier", "instance_var", "operator", "param_list", "self"
-)
-
-modifier_ensure <- (modifier_ensure) => uast(
-    type: "If",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-modifier_if <- (modifier_if) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "abstract_method_def", "alias", "alignof", "and", "annotation", "annotation_def", "array", "array_like", "asm", "assign", "begin", "break", "call", "case", "chained_string", "char", "class_def", "class_var", "command", "conditional", "const_assign", "constant", "enum_def", "expressions", "extend", "false", "float", "fun_def", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "include", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "lib_def", "macro_begin", "macro_def", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_def", "method_proc", "modifier_ensure", "modifier_if", "modifier_rescue", "modifier_unless", "module_def", "named_tuple", "next", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "require", "return", "select", "self", "sizeof", "special_variable", "string", "struct_def", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "visibility_modifier", "while", "yield"
-)
-
-modifier_rescue <- (modifier_rescue) => uast(
-    type: "If",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-modifier_unless <- (modifier_unless) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "abstract_method_def", "alias", "alignof", "and", "annotation", "annotation_def", "array", "array_like", "asm", "assign", "begin", "break", "call", "case", "chained_string", "char", "class_def", "class_var", "command", "conditional", "const_assign", "constant", "enum_def", "expressions", "extend", "false", "float", "fun_def", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "include", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "lib_def", "macro_begin", "macro_def", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_def", "method_proc", "modifier_ensure", "modifier_if", "modifier_rescue", "modifier_unless", "module_def", "named_tuple", "next", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "require", "return", "select", "self", "sizeof", "special_variable", "string", "struct_def", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "visibility_modifier", "while", "yield"
-)
-
-module_def <- (module_def) => uast(
-    type: "Module",
-    roles: "Module",
-    children: "constant", "expressions", "generic_type"
-)
-
-named_expr <- (named_expr) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "identifier", "string"
-)
-
-named_tuple <- (named_tuple) => uast(
-    type: "Tuple"
-)
-
-named_tuple_type <- (named_tuple_type) => uast(
-    token: "self",
-    type: "Tuple"
-)
-
-named_type <- (named_type) => uast(
-    type: "Synthetic",
-    children: "identifier", "string"
-)
-
-next <- (next) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-nil <- (nil) => uast(
-    type: "Synthetic"
-)
-
-nilable_constant <- (nilable_constant) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-nilable_type <- (nilable_type) => uast(
-    type: "Synthetic"
-)
-
-not <- (not) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-offsetof <- (offsetof) => uast(
-    type: "Set"
-)
-
-op_assign <- (op_assign) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "assign_call", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-operator <- (operator) => uast(
-    type: "Synthetic"
-)
-
-or <- (or) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-out <- (out) => uast(
-    type: "Synthetic"
-)
-
-param <- (param) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_type", "class_var", "command", "conditional", "constant", "double_splat_type", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "named_tuple_type", "nil", "nilable_constant", "nilable_type", "not", "offsetof", "op_assign", "or", "pointer_type", "pointerof", "proc", "proc_type", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "splat_type", "static_array_type", "string", "symbol", "true", "tuple", "tuple_type", "type_declaration", "typeof", "underscore", "union_type", "unless", "until", "while", "yield"
-)
-
-param_list <- (param_list) => uast(
-    type: "List"
-)
-
-pointer_type <- (pointer_type) => uast(
-    token: "self",
-    type: "List"
-)
-
-pointerof <- (pointerof) => uast(
-    type: "Synthetic"
-)
-
-proc <- (proc) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "block", "class_type", "constant", "double_splat_type", "generic_instance_type", "named_tuple_type", "nilable_type", "param_list", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
-)
-
-proc_type <- (proc_type) => uast(
-    type: "Synthetic",
-    children: "class_type", "constant", "double_splat_type", "generic_instance_type", "named_tuple_type", "nilable_type", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
-)
-
-pseudo_constant <- (pseudo_constant) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-range <- (range) => uast(
-    type: "Synthetic",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "operator", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
 regex <- (regex) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
+)
+
+heredoc_start <- (heredoc_start) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+chained_string <- (chained_string) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+command <- (command) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
 )
 
 require <- (require) => uast(
-    type: "Synthetic"
-)
-
-rescue <- (rescue) => uast(
     token: "self",
-    type: "Synthetic",
-    children: "class_type", "constant", "double_splat_type", "expressions", "generic_instance_type", "identifier", "named_tuple_type", "nilable_type", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
+    type: "Import",
+    roles: "Import"
 )
 
-return <- (return) => uast(
-    type: "Return",
-    roles: "Return"
-)
-
-select <- (select) => uast(
+class_def <- (class_def) => uast(
     token: "self",
-    type: "Synthetic"
-)
-
-sizeof <- (sizeof) => uast(
-    type: "Synthetic"
-)
-
-splat <- (splat) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-splat_param <- (splat_param) => uast(
-    type: "Synthetic",
-    children: "class_type", "class_var", "constant", "double_splat_type", "generic_instance_type", "identifier", "instance_var", "macro_var", "named_tuple_type", "nilable_type", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
-)
-
-splat_type <- (splat_type) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-static_array_type <- (static_array_type) => uast(
-    type: "Synthetic"
-)
-
-string <- (string) => uast(
-    token: "self",
-    type: "Synthetic"
+    type: "Class",
+    roles: "Class", "Declaration"
 )
 
 struct_def <- (struct_def) => uast(
     type: "Struct",
-    roles: "Struct", "Declaration",
-    children: "constant", "expressions", "generic_instance_type", "generic_type"
+    roles: "Struct", "Declaration"
 )
 
-symbol <- (symbol) => uast(
-    token: "self",
-    type: "Synthetic"
+module_def <- (module_def) => uast(
+    type: "Module",
+    roles: "Module"
 )
 
-then <- (then) => uast(
-    type: "Synthetic"
-)
-
-tuple <- (tuple) => uast(
-    token: "self",
-    type: "Tuple"
-)
-
-tuple_type <- (tuple_type) => uast(
-    type: "Tuple"
-)
-
-type_declaration <- (type_declaration) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_type", "class_var", "command", "conditional", "constant", "double_splat_type", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "named_tuple_type", "nil", "nilable_constant", "nilable_type", "not", "offsetof", "op_assign", "or", "pointer_type", "pointerof", "proc", "proc_type", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "splat_type", "static_array_type", "string", "symbol", "true", "tuple", "tuple_type", "type_declaration", "typeof", "underscore", "union_type", "unless", "until", "while", "yield"
-)
-
-type_def <- (type_def) => uast(
-    type: "Synthetic",
-    children: "class_type", "constant", "double_splat_type", "generic_instance_type", "named_tuple_type", "nilable_type", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
-)
-
-typeof <- (typeof) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-uninitialized_var <- (uninitialized_var) => uast(
-    type: "Synthetic"
-)
-
-union_def <- (union_def) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "constant", "expressions"
-)
-
-union_fields <- (union_fields) => uast(
-    type: "Field",
-    roles: "Member",
-    children: "class_type", "constant", "double_splat_type", "generic_instance_type", "identifier", "named_tuple_type", "nilable_type", "pointer_type", "proc_type", "self", "splat_type", "static_array_type", "tuple_type", "typeof", "underscore", "union_type"
-)
-
-union_type <- (union_type) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-unless <- (unless) => uast(
-    type: "Synthetic",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "else", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "then", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-until <- (until) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-visibility_modifier <- (visibility_modifier) => uast(
-    type: "Synthetic",
-    children: "private", "protected"
-)
-
-when <- (when) => uast(
-    token: "self",
-    type: "Synthetic",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "implicit_object_call", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-while <- (while) => uast(
-    type: "Loop",
-    roles: "Loop",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-yield <- (yield) => uast(
-    token: "self",
-    type: "Yield",
-    roles: "Yield",
-    children: "alignof", "and", "array", "array_like", "asm", "assign", "begin", "call", "case", "chained_string", "char", "class_var", "command", "conditional", "constant", "expressions", "false", "float", "generic_instance_type", "hash", "hash_like", "heredoc_start", "identifier", "if", "index_call", "instance_alignof", "instance_sizeof", "instance_var", "integer", "macro_begin", "macro_expression", "macro_for", "macro_if", "macro_statement", "macro_unless", "macro_var", "macro_verbatim", "method_proc", "named_tuple", "nil", "nilable_constant", "not", "offsetof", "op_assign", "or", "pointerof", "proc", "pseudo_constant", "range", "regex", "select", "self", "sizeof", "special_variable", "string", "symbol", "true", "tuple", "type_declaration", "typeof", "unless", "until", "while", "yield"
-)
-
-__DIR__ <- (__DIR__) => uast(
-    type: "Synthetic"
-)
-
-__END_LINE__ <- (__END_LINE__) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-__FILE__ <- (__FILE__) => uast(
-    type: "Synthetic"
-)
-
-__LINE__ <- (__LINE__) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-abstract <- (abstract) => uast(
-    type: "Synthetic"
-)
-
-alias <- (alias) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-alignof <- (alignof) => uast(
-    type: "Synthetic"
-)
-
-annotation <- (annotation) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-asm <- (asm) => uast(
-    type: "Synthetic"
-)
-
-begin <- (begin) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-break <- (break) => uast(
-    type: "Break",
-    roles: "Break"
-)
-
-case <- (case) => uast(
-    token: "self",
-    type: "Case",
-    roles: "Branch"
-)
-
-class <- (class) => uast(
-    type: "Class",
-    roles: "Class", "Declaration"
-)
-
-class_var <- (class_var) => uast(
-    token: "self",
-    type: "Class",
-    roles: "Class", "Declaration"
-)
-
-comment <- (comment) => uast(
-    type: "Comment",
-    roles: "Comment"
-)
-
-def <- (def) => uast(
-    token: "self",
-    roles: "Comment",
-    type: "Comment"
-)
-
-do <- (do) => uast(
-    type: "Synthetic"
-)
-
-else <- (else) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-elsif <- (elsif) => uast(
-    type: "If",
-    roles: "Branch"
-)
-
-end <- (end) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-ensure <- (ensure) => uast(
-    type: "Synthetic"
-)
-
-enum <- (enum) => uast(
+enum_def <- (enum_def) => uast(
     token: "self",
     type: "Enum",
     roles: "Enum", "Declaration"
 )
 
-escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic"
+method_def <- (method_def) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
 )
 
-extend <- (extend) => uast(
+abstract_method_def <- (abstract_method_def) => uast(
+    type: "Method",
+    roles: "Function", "Declaration", "Member"
+)
+
+macro_def <- (macro_def) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+)
+
+block <- (block) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Block",
+    roles: "Body"
 )
 
-false <- (false) => uast(
-    type: "Synthetic"
+param_list <- (param_list) => uast(
+    type: "List",
+    roles: "Argument"
+)
+
+param <- (param) => uast(
+    token: "self",
+    type: "Parameter",
+    roles: "Parameter"
+)
+
+argument_list <- (argument_list) => uast(
+    type: "List",
+    roles: "Argument"
+)
+
+call <- (call) => uast(
+    token: "self",
+    type: "Call",
+    roles: "Call"
+)
+
+index_call <- (index_call) => uast(
+    token: "self",
+    type: "Index",
+    roles: "Index"
+)
+
+assign <- (assign) => uast(
+    type: "Assignment",
+    roles: "Assignment"
+)
+
+op_assign <- (op_assign) => uast(
+    token: "self",
+    type: "Assignment",
+    roles: "Assignment"
+)
+
+if <- (if) => uast(
+    token: "self",
+    type: "If",
+    roles: "Condition"
+)
+
+elsif <- (elsif) => uast(
+    token: "self",
+    type: "If",
+    roles: "Condition"
+)
+
+unless <- (unless) => uast(
+    type: "If",
+    roles: "Condition"
+)
+
+case <- (case) => uast(
+    type: "Switch",
+    roles: "Switch"
+)
+
+when <- (when) => uast(
+    token: "self",
+    type: "Case",
+    roles: "Case"
+)
+
+while <- (while) => uast(
+    type: "Loop",
+    roles: "Loop"
+)
+
+until <- (until) => uast(
+    token: "self",
+    type: "Loop",
+    roles: "Loop"
 )
 
 for <- (for) => uast(
@@ -833,54 +228,254 @@ for <- (for) => uast(
 )
 
 forall <- (forall) => uast(
+    token: "self",
     type: "Loop",
     roles: "Loop"
 )
 
-fun <- (fun) => uast(
+begin <- (begin) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Try",
+    roles: "Try"
 )
 
-heredoc_end <- (heredoc_end) => uast(
-    type: "Synthetic"
-)
-
-heredoc_start <- (heredoc_start) => uast(
+rescue <- (rescue) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Catch",
+    roles: "Catch"
 )
 
-identifier <- (identifier) => uast(
+ensure <- (ensure) => uast(
+    type: "Finally",
+    roles: "Finally"
+)
+
+return <- (return) => uast(
+    token: "self",
+    type: "Return",
+    roles: "Return"
+)
+
+break <- (break) => uast(
+    type: "Break",
+    roles: "Break"
+)
+
+next <- (next) => uast(
+    token: "self",
+    type: "Continue",
+    roles: "Continue"
+)
+
+yield <- (yield) => uast(
+    token: "self",
+    type: "Yield",
+    roles: "Yield"
+)
+
+array <- (array) => uast(
+    token: "self",
+    type: "List",
+    roles: "Literal"
+)
+
+hash <- (hash) => uast(
+    token: "self",
+    type: "Dict",
+    roles: "Literal"
+)
+
+hash_entry <- (hash_entry) => uast(
+    type: "KeyValue",
+    roles: "Key", "Value"
+)
+
+tuple <- (tuple) => uast(
+    token: "self",
+    type: "Tuple",
+    roles: "Literal"
+)
+
+named_tuple <- (named_tuple) => uast(
+    type: "Tuple",
+    roles: "Literal"
+)
+
+range <- (range) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+)
+
+proc <- (proc) => uast(
+    token: "self",
+    type: "Lambda",
+    roles: "Function"
+)
+
+comment <- (comment) => uast(
+    token: "self",
+    type: "Comment",
+    roles: "Comment"
+)
+
+annotation <- (annotation) => uast(
+    type: "Attribute",
+    roles: "Attribute"
+)
+
+annotation_def <- (annotation_def) => uast(
+    token: "self",
+    type: "Attribute",
+    roles: "Attribute"
+)
+
+not <- (not) => uast(
+    token: "self",
+    type: "UnaryOp",
+    roles: "Operator"
+)
+
+and <- (and) => uast(
+    token: "self",
+    type: "BinaryOp",
+    roles: "Operator"
+)
+
+or <- (or) => uast(
+    token: "self",
+    type: "BinaryOp",
+    roles: "Operator"
+)
+
+conditional <- (conditional) => uast(
+    type: "If",
+    roles: "Condition"
+)
+
+self <- (self) => uast(
+    token: "self",
+    type: "Identifier",
+    roles: "Reference"
+)
+
+class_var <- (class_var) => uast(
+    token: "self",
     type: "Identifier",
     roles: "Name"
 )
 
-if <- (if) => uast(
+instance_var <- (instance_var) => uast(
     token: "self",
-    roles: "Reference",
-    type: "Identifier"
+    type: "Identifier",
+    roles: "Name"
 )
 
-in <- (in) => uast(
-    type: "Synthetic"
+global_var <- (global_var) => uast(
+    type: "Identifier",
+    roles: "Name"
+)
+
+special_variable <- (special_variable) => uast(
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
+)
+
+pseudo_constant <- (pseudo_constant) => uast(
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
 )
 
 include <- (include) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Call",
+    roles: "Call"
 )
 
-instance_alignof <- (instance_alignof) => uast(
-    type: "Synthetic"
+extend <- (extend) => uast(
+    token: "self",
+    type: "Call",
+    roles: "Call"
 )
 
-instance_sizeof <- (instance_sizeof) => uast(
+alias <- (alias) => uast(
     token: "self",
     type: "Synthetic"
 )
 
-instance_var <- (instance_var) => uast(
+type_declaration <- (type_declaration) => uast(
+    token: "self",
+    type: "Variable",
+    roles: "Variable", "Declaration"
+)
+
+splat <- (splat) => uast(
+    token: "self",
+    type: "UnaryOp",
+    roles: "Operator"
+)
+
+double_splat <- (double_splat) => uast(
+    token: "self",
+    type: "UnaryOp",
+    roles: "Operator"
+)
+
+block_argument <- (block_argument) => uast(
+    type: "Block",
+    roles: "Body"
+)
+
+block_param <- (block_param) => uast(
+    token: "self",
+    type: "Parameter",
+    roles: "Parameter"
+)
+
+method_proc <- (method_proc) => uast(
+    token: "self",
+    type: "Lambda",
+    roles: "Function"
+)
+
+else <- (else) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+then <- (then) => uast(
+    type: "Synthetic"
+)
+
+do <- (do) => uast(
+    type: "Synthetic"
+)
+
+end <- (end) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+def <- (def) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+class <- (class) => uast(
+    type: "Synthetic"
+)
+
+struct <- (struct) => uast(
+    type: "Synthetic"
+)
+
+module <- (module) => uast(
+    type: "Synthetic"
+)
+
+enum <- (enum) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -889,16 +484,8 @@ lib <- (lib) => uast(
     type: "Synthetic"
 )
 
-loc_pragma_location <- (loc_pragma_location) => uast(
-    type: "Synthetic"
-)
-
-loc_pragma_pop <- (loc_pragma_pop) => uast(
+fun <- (fun) => uast(
     token: "self",
-    type: "Synthetic"
-)
-
-loc_pragma_push <- (loc_pragma_push) => uast(
     type: "Synthetic"
 )
 
@@ -907,31 +494,7 @@ macro <- (macro) => uast(
     type: "Synthetic"
 )
 
-module <- (module) => uast(
-    type: "Module",
-    roles: "Module"
-)
-
-next <- (next) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-of <- (of) => uast(
-    type: "Synthetic"
-)
-
-offsetof <- (offsetof) => uast(
-    token: "self",
-    type: "Set"
-)
-
-out <- (out) => uast(
-    type: "Synthetic"
-)
-
-pointerof <- (pointerof) => uast(
-    token: "self",
+abstract <- (abstract) => uast(
     type: "Synthetic"
 )
 
@@ -944,55 +507,21 @@ protected <- (protected) => uast(
     type: "Synthetic"
 )
 
-regex_modifier <- (regex_modifier) => uast(
-    type: "Identifier"
-)
-
-require <- (require) => uast(
+in <- (in) => uast(
     token: "self",
     type: "Synthetic"
 )
 
-rescue <- (rescue) => uast(
+of <- (of) => uast(
     type: "Synthetic"
 )
 
-return <- (return) => uast(
+out <- (out) => uast(
+    type: "Synthetic"
+)
+
+with <- (with) => uast(
     token: "self",
-    type: "Return",
-    roles: "Return"
-)
-
-select <- (select) => uast(
-    type: "Synthetic"
-)
-
-self <- (self) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-sizeof <- (sizeof) => uast(
-    type: "Synthetic"
-)
-
-special_variable <- (special_variable) => uast(
-    token: "self",
-    type: "Variable",
-    roles: "Variable", "Declaration"
-)
-
-struct <- (struct) => uast(
-    type: "Struct",
-    roles: "Struct", "Declaration"
-)
-
-then <- (then) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-true <- (true) => uast(
     type: "Synthetic"
 )
 
@@ -1001,12 +530,45 @@ type <- (type) => uast(
     type: "Synthetic"
 )
 
-typeof <- (typeof) => uast(
+union <- (union) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
-underscore <- (underscore) => uast(
+select <- (select) => uast(
     token: "self",
+    type: "Synthetic"
+)
+
+pointerof <- (pointerof) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+sizeof <- (sizeof) => uast(
+    type: "Synthetic"
+)
+
+typeof <- (typeof) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+alignof <- (alignof) => uast(
+    type: "Synthetic"
+)
+
+offsetof <- (offsetof) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+instance_sizeof <- (instance_sizeof) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+instance_alignof <- (instance_alignof) => uast(
     type: "Synthetic"
 )
 
@@ -1014,16 +576,7 @@ uninitialized <- (uninitialized) => uast(
     type: "Synthetic"
 )
 
-union <- (union) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-unless <- (unless) => uast(
-    type: "Synthetic"
-)
-
-until <- (until) => uast(
+asm <- (asm) => uast(
     token: "self",
     type: "Synthetic"
 )
@@ -1032,22 +585,329 @@ verbatim <- (verbatim) => uast(
     type: "Synthetic"
 )
 
-when <- (when) => uast(
+underscore <- (underscore) => uast(
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
+)
+
+operator <- (operator) => uast(
+    token: "self",
+    type: "Identifier",
+    roles: "Operator"
+)
+
+escape_sequence <- (escape_sequence) => uast(
+    type: "Synthetic"
+)
+
+interpolation <- (interpolation) => uast(
     token: "self",
     type: "Synthetic"
 )
 
-while <- (while) => uast(
+heredoc_body <- (heredoc_body) => uast(
+    type: "Synthetic"
+)
+
+heredoc_end <- (heredoc_end) => uast(
+    type: "Synthetic"
+)
+
+regex_modifier <- (regex_modifier) => uast(
+    type: "Synthetic"
+)
+
+visibility_modifier <- (visibility_modifier) => uast(
+    type: "Synthetic"
+)
+
+lib_def <- (lib_def) => uast(
+    type: "Block",
+    roles: "Body"
+)
+
+fun_def <- (fun_def) => uast(
+    type: "Function",
+    roles: "Function", "Declaration"
+)
+
+fun_param <- (fun_param) => uast(
+    token: "self",
+    type: "Parameter",
+    roles: "Parameter"
+)
+
+c_struct_def <- (c_struct_def) => uast(
+    token: "self",
+    type: "Struct",
+    roles: "Struct", "Declaration"
+)
+
+c_struct_fields <- (c_struct_fields) => uast(
+    type: "Block",
+    roles: "Body"
+)
+
+union_def <- (union_def) => uast(
+    token: "self",
+    type: "Struct",
+    roles: "Struct", "Declaration"
+)
+
+union_fields <- (union_fields) => uast(
+    type: "Block",
+    roles: "Body"
+)
+
+class_type <- (class_type) => uast(
+    type: "Identifier",
+    roles: "Type", "Name"
+)
+
+generic_type <- (generic_type) => uast(
+    token: "self",
+    type: "Identifier",
+    roles: "Type", "Name"
+)
+
+generic_instance_type <- (generic_instance_type) => uast(
+    type: "Identifier",
+    roles: "Type", "Name"
+)
+
+nilable_type <- (nilable_type) => uast(
+    type: "Synthetic"
+)
+
+pointer_type <- (pointer_type) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+static_array_type <- (static_array_type) => uast(
+    type: "Synthetic"
+)
+
+tuple_type <- (tuple_type) => uast(
+    type: "Synthetic"
+)
+
+named_tuple_type <- (named_tuple_type) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+union_type <- (union_type) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+proc_type <- (proc_type) => uast(
+    type: "Synthetic"
+)
+
+splat_type <- (splat_type) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+double_splat_type <- (double_splat_type) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+splat_param <- (splat_param) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+)
+
+double_splat_param <- (double_splat_param) => uast(
+    type: "Parameter",
+    roles: "Parameter"
+)
+
+nilable_constant <- (nilable_constant) => uast(
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
+)
+
+const_assign <- (const_assign) => uast(
+    token: "self",
+    type: "Assignment",
+    roles: "Assignment"
+)
+
+assign_call <- (assign_call) => uast(
+    token: "self",
+    type: "Call",
+    roles: "Call"
+)
+
+implicit_object_call <- (implicit_object_call) => uast(
+    type: "Call",
+    roles: "Call"
+)
+
+modifier_if <- (modifier_if) => uast(
+    token: "self",
+    type: "If",
+    roles: "Condition"
+)
+
+modifier_unless <- (modifier_unless) => uast(
+    token: "self",
+    type: "If",
+    roles: "Condition"
+)
+
+modifier_rescue <- (modifier_rescue) => uast(
+    type: "Catch",
+    roles: "Catch"
+)
+
+modifier_ensure <- (modifier_ensure) => uast(
+    type: "Finally",
+    roles: "Finally"
+)
+
+uninitialized_var <- (uninitialized_var) => uast(
+    type: "Variable",
+    roles: "Variable", "Declaration"
+)
+
+macro_expression <- (macro_expression) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+macro_statement <- (macro_statement) => uast(
+    type: "Synthetic"
+)
+
+macro_if <- (macro_if) => uast(
+    token: "self",
+    type: "If",
+    roles: "Condition"
+)
+
+macro_elsif <- (macro_elsif) => uast(
+    type: "If",
+    roles: "Condition"
+)
+
+macro_else <- (macro_else) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+macro_unless <- (macro_unless) => uast(
+    token: "self",
+    type: "If",
+    roles: "Condition"
+)
+
+macro_for <- (macro_for) => uast(
     type: "Loop",
     roles: "Loop"
 )
 
-with <- (with) => uast(
+macro_begin <- (macro_begin) => uast(
+    type: "Try",
+    roles: "Try"
+)
+
+macro_verbatim <- (macro_verbatim) => uast(
     token: "self",
     type: "Synthetic"
 )
 
-yield <- (yield) => uast(
-    type: "Yield",
-    roles: "Yield"
+macro_var <- (macro_var) => uast(
+    type: "Identifier",
+    roles: "Name"
+)
+
+macro_content <- (macro_content) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+named_expr <- (named_expr) => uast(
+    token: "self",
+    type: "KeyValue",
+    roles: "Key", "Value"
+)
+
+named_type <- (named_type) => uast(
+    type: "KeyValue",
+    roles: "Key", "Value"
+)
+
+type_def <- (type_def) => uast(
+    type: "Synthetic"
+)
+
+array_like <- (array_like) => uast(
+    type: "List",
+    roles: "Literal"
+)
+
+hash_like <- (hash_like) => uast(
+    token: "self",
+    type: "Dict",
+    roles: "Literal"
+)
+
+asm_operand <- (asm_operand) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+asm_operands <- (asm_operands) => uast(
+    type: "List"
+)
+
+asm_options <- (asm_options) => uast(
+    token: "self",
+    type: "List"
+)
+
+asm_clobbers <- (asm_clobbers) => uast(
+    type: "List"
+)
+
+loc_pragma_location <- (loc_pragma_location) => uast(
+    type: "Synthetic"
+)
+
+loc_pragma_push <- (loc_pragma_push) => uast(
+    type: "Synthetic"
+)
+
+loc_pragma_pop <- (loc_pragma_pop) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+__DIR__ <- (__DIR__) => uast(
+    type: "Identifier",
+    roles: "Name"
+)
+
+__FILE__ <- (__FILE__) => uast(
+    type: "Identifier",
+    roles: "Name"
+)
+
+__LINE__ <- (__LINE__) => uast(
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
+)
+
+__END_LINE__ <- (__END_LINE__) => uast(
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
 )

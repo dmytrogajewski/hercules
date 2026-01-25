@@ -411,7 +411,7 @@ func (b *BurndownHistoryAnalyzer) Hibernate() error {
 			b.hibernatedFileName = ""
 			return err
 		}
-		
+
 		err = b.shardedAllocator.Serialize(b.hibernatedFileName)
 		if err != nil {
 			b.hibernatedFileName = ""

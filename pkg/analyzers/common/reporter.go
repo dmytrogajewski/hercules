@@ -216,7 +216,7 @@ func (r *Reporter) GenerateComparisonReport(reports map[string]analyze.Report) (
 
 // generateTextComparisonReport generates a text comparison report
 func (r *Reporter) generateTextComparisonReport(reports map[string]analyze.Report) string {
-	var parts []string
+	parts := make([]string, 0, len(reports)+2)
 
 	parts = append(parts, "=== COMPARISON REPORT ===")
 
@@ -251,7 +251,7 @@ func (r *Reporter) generateJSONComparisonReport(reports map[string]analyze.Repor
 
 // generateSummaryComparisonReport generates a summary comparison report
 func (r *Reporter) generateSummaryComparisonReport(reports map[string]analyze.Report) string {
-	var parts []string
+	parts := make([]string, 0, len(reports)+2)
 
 	parts = append(parts, "Comparison Summary:")
 
@@ -369,7 +369,7 @@ func (r *Reporter) formatMetricComparison(metricKey string, values map[string]fl
 		return ""
 	}
 
-	var lines []string
+	lines := make([]string, 0, len(values)+1)
 	lines = append(lines, fmt.Sprintf("%s:", metricKey))
 
 	// Sort by value (descending)
@@ -378,7 +378,7 @@ func (r *Reporter) formatMetricComparison(metricKey string, values map[string]fl
 		Value float64
 	}
 
-	var sorted []kv
+	sorted := make([]kv, 0, len(values))
 	for k, v := range values {
 		sorted = append(sorted, kv{k, v})
 	}

@@ -6,6 +6,8 @@ import (
 
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/analyze"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/common"
+	"github.com/dmytrogajewski/hercules/pkg/analyzers/common/renderer"
+	"github.com/dmytrogajewski/hercules/pkg/analyzers/common/terminal"
 	"github.com/dmytrogajewski/hercules/pkg/pipeline"
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
@@ -241,7 +243,11 @@ func (h *HalsteadAnalyzer) Analyze(root *node.Node) (analyze.Report, error) {
 
 // FormatReport formats the analysis report for display
 func (h *HalsteadAnalyzer) FormatReport(report analyze.Report, w io.Writer) error {
-	return h.formatter.FormatReport(report, w)
+	section := NewHalsteadReportSection(report)
+	config := terminal.NewConfig()
+	r := renderer.NewSectionRenderer(config.Width, false, config.NoColor)
+	_, err := fmt.Fprint(w, r.Render(section))
+	return err
 }
 
 // FormatReportJSON formats the analysis report as JSON

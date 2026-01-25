@@ -1,101 +1,45 @@
-suite: basic-structure
-name: xml-basic-structure
+language: xml
+tests:
+  - name: "Root is File"
+    code: |
+      <root></root>
+    query: rfilter(.type == "File") |> map(.type)
+    expected:
+      - "File"
 
-parse_cases:
-  - name: simple_element
-    input: |
-      <root>
-        <name>John</name>
-        <age>30</age>
-      </root>
-    output:
-      type: "File"
-      children:
-        - type: "Element"
-          roles: ["Element"]
-          props:
-            name: "root"
-          children:
-            - type: "Element"
-              roles: ["Element"]
-              props:
-                name: "name"
-              children:
-                - type: "Text"
-                  roles: ["Text"]
-                  token: "John"
-            - type: "Element"
-              roles: ["Element"]
-              props:
-                name: "age"
-              children:
-                - type: "Text"
-                  roles: ["Text"]
-                  token: "30"
+  - name: "Element is Call"
+    code: |
+      <item>value</item>
+    query: rfilter(.type == "Call") |> map(.type)
+    expected:
+      - "Call"
 
-  - name: nested_element
-    input: |
-      <person>
-        <name>John</name>
-        <details>
-          <age>30</age>
-        </details>
-      </person>
-    output:
-      type: "File"
-      children:
-        - type: "Element"
-          roles: ["Element"]
-          props:
-            name: "person"
-          children:
-            - type: "Element"
-              roles: ["Element"]
-              props:
-                name: "name"
-              children:
-                - type: "Text"
-                  roles: ["Text"]
-                  token: "John"
-            - type: "Element"
-              roles: ["Element"]
-              props:
-                name: "details"
-              children:
-                - type: "Element"
-                  roles: ["Element"]
-                  props:
-                    name: "age"
-                  children:
-                    - type: "Text"
-                      roles: ["Text"]
-                      token: "30"
+  - name: "Call has Call role"
+    code: |
+      <element>content</element>
+    query: rfilter(.type == "Call") |> map(.roles)
+    expected:
+      - ["Call"]
 
-query_cases:
-  - name: find_elements
-    input: |
-      <root>
-        <element1>value1</element1>
-        <element2>value2</element2>
-      </root>
-    query: "filter(.type == \"Element\")"
-    output:
-      results:
-        - type: "Element"
-          roles: ["Element"]
-          props:
-            name: "element1"
-        - type: "Element"
-          roles: ["Element"]
-          props:
-            name: "element2"
+  - name: "Tag name is Identifier"
+    code: |
+      <myTag></myTag>
+    query: rfilter(.type == "Identifier") |> rfilter(.token == "myTag") |> map(.token)
+    expected:
+      - "myTag"
+      - "myTag"
 
-  - name: find_element_names
-    input: |
-      <root>
-        <my_element>value</my_element>
-      </root>
-    query: "filter(.type == \"Element\") |> map(.name)"
-    output:
-      results:
-        - token: "my_element" 
+  - name: "Content is Block"
+    code: |
+      <root><child></child></root>
+    query: rfilter(.type == "Block") |> map(.type)
+    expected:
+      - "Block"
+      - "Block"
+
+  - name: "Comment is properly typed"
+    code: |
+      <!-- comment --><root></root>
+    query: rfilter(.type == "Comment") |> map(.type)
+    expected:
+      - "Comment"

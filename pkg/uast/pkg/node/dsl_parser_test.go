@@ -8,6 +8,46 @@ import (
 	"testing"
 )
 
+// stringifyAST is a test helper that converts a DSLNode to a string representation
+func stringifyAST(n DSLNode) string {
+	if n == nil {
+		return "<nil>"
+	}
+	switch v := n.(type) {
+	case *PipelineNode:
+		parts := make([]string, 0, len(v.Stages))
+		for _, s := range v.Stages {
+			parts = append(parts, stringifyAST(s))
+		}
+		return fmt.Sprintf("Pipeline(%s)", strings.Join(parts, " | "))
+	case *MapNode:
+		return fmt.Sprintf("Map(%s)", stringifyAST(v.Expr))
+	case *FilterNode:
+		return fmt.Sprintf("Filter(%s)", stringifyAST(v.Expr))
+	case *RMapNode:
+		return fmt.Sprintf("RMap(%s)", stringifyAST(v.Expr))
+	case *RFilterNode:
+		return fmt.Sprintf("RFilter(%s)", stringifyAST(v.Expr))
+	case *ReduceNode:
+		return fmt.Sprintf("Reduce(%s)", stringifyAST(v.Expr))
+	case *FieldNode:
+		return fmt.Sprintf("Field(%s)", strings.Join(v.Fields, "."))
+	case *LiteralNode:
+		return fmt.Sprintf("Literal(%v)", v.Value)
+	case *CallNode:
+		if len(v.Args) == 0 {
+			return fmt.Sprintf("Call(%s)", v.Name)
+		}
+		args := make([]string, 0, len(v.Args))
+		for _, a := range v.Args {
+			args = append(args, stringifyAST(a))
+		}
+		return fmt.Sprintf("Call(%s, %s)", v.Name, strings.Join(args, ", "))
+	default:
+		return fmt.Sprintf("<%T>", n)
+	}
+}
+
 func TestDSLParser_Parse_Valid(t *testing.T) {
 	cases := []struct {
 		input   string
@@ -415,12 +455,12 @@ func TestPropertyAccess(t *testing.T) {
 		t.Fatalf("Failed to parse query: %v", err)
 	}
 
-	func_, err := LowerDSL(ast)
+	fn, err := LowerDSL(ast)
 	if err != nil {
 		t.Fatalf("Failed to lower DSL: %v", err)
 	}
 
-	result := func_([]*Node{node})
+	result := fn([]*Node{node})
 	if len(result) == 0 {
 		t.Fatalf("Expected result, got empty")
 	}
@@ -452,12 +492,12 @@ func TestDebugFunctionNameQuery(t *testing.T) {
 		t.Fatalf("Failed to parse query: %v", err)
 	}
 
-	func_, err := LowerDSL(ast)
+	fn, err := LowerDSL(ast)
 	if err != nil {
 		t.Fatalf("Failed to lower DSL: %v", err)
 	}
 
-	result := func_([]*Node{node})
+	result := fn([]*Node{node})
 	t.Logf("Query result: %+v", result)
 
 	if len(result) == 0 {
@@ -498,12 +538,12 @@ func TestDebugMapFunction(t *testing.T) {
 		t.Fatalf("Failed to parse query: %v", err)
 	}
 
-	func_, err := LowerDSL(ast)
+	fn, err := LowerDSL(ast)
 	if err != nil {
 		t.Fatalf("Failed to lower DSL: %v", err)
 	}
 
-	result := func_([]*Node{node})
+	result := fn([]*Node{node})
 	t.Logf("Input node: %+v", node)
 	t.Logf("Query result: %+v", result)
 
@@ -537,12 +577,12 @@ func TestDebugFilterPart(t *testing.T) {
 		t.Fatalf("Failed to parse query: %v", err)
 	}
 
-	func_, err := LowerDSL(ast)
+	fn, err := LowerDSL(ast)
 	if err != nil {
 		t.Fatalf("Failed to lower DSL: %v", err)
 	}
 
-	result := func_([]*Node{node})
+	result := fn([]*Node{node})
 	t.Logf("Filter result: %+v", result)
 
 	if len(result) == 0 {
@@ -567,12 +607,12 @@ func TestDebugMapPart(t *testing.T) {
 		t.Fatalf("Failed to parse query: %v", err)
 	}
 
-	func_, err := LowerDSL(ast)
+	fn, err := LowerDSL(ast)
 	if err != nil {
 		t.Fatalf("Failed to lower DSL: %v", err)
 	}
 
-	result := func_([]*Node{node})
+	result := fn([]*Node{node})
 	t.Logf("Map result: %+v", result)
 
 	if len(result) == 0 {
@@ -1060,7 +1100,7 @@ func TestDSLParser_Lowering_ComplexOrQuery(t *testing.T) {
 		t.Fatalf("LowerDSL failed: %v", err)
 	}
 	out := qf([]*Node{testUAST})
-	var got []string
+	got := make([]string, 0, len(out))
 	for _, n := range out {
 		got = append(got, string(n.Type))
 	}

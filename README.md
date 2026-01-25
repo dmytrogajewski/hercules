@@ -4,310 +4,221 @@
 > This project originates from [src-d/hercules](https://github.com/src-d/hercules), but follows a **completely different concept and architecture**. It is not a drop-in replacement and is maintained independently.
 
 [![CI](https://github.com/dmytrogajewski/hercules/actions/workflows/ci.yml/badge.svg)](https://github.com/dmytrogajewski/hercules/actions/workflows/ci.yml)
-[![Docker Image](https://img.shields.io/badge/docker-ready-blue)](https://github.com/dmytrogajewski/hercules/pkgs/container/hercules)
 [![Go Reference](https://pkg.go.dev/badge/github.com/dmytrogajewski/hercules.svg)](https://pkg.go.dev/github.com/dmytrogajewski/hercules)
 
-Hercules is a scalable, cloud-native Git repository analysis platform. It provides advanced analytics, REST/gRPC APIs, and supports high-scale deployments with S3-compatible caching, Kubernetes, and modern DevOps workflows.
+Hercules is a comprehensive code analysis platform providing both static analysis (via UAST) and git repository history analysis.
 
 ---
 
-## 🚀 Features
+## Features
 
-- **S3 & Multi-Backend Cache**: Pluggable cache (S3, MinIO, local, memory) for horizontal scaling and cost efficiency
-- **REST & gRPC APIs**: Run analyses via HTTP or gRPC
-- **Modern CI/CD**: GitHub Actions, multi-arch Docker, security scanning, release automation
-- **Cloud-Native**: Distroless Docker, Kubernetes, Helm, autoscaling, health checks
-- **Extensible**: Add new analyses, plug in custom cache backends
-- **Production Ready**: IAM/secret support, resource limits, observability, best practices
+- **Static Analysis**: Complexity, cohesion, comments, Halstead metrics, imports extraction
+- **History Analysis**: Burndown, couples, developer stats, file history, sentiment, shotness, typos
+- **Multi-Language UAST**: Universal Abstract Syntax Tree supporting 60+ languages via tree-sitter
+- **Flexible Output**: Text, JSON, YAML formats
+- **Extensible**: Add new analyzers easily
 
 ---
 
-## 🏗️ Quick Start
+## Quick Start
 
-### Docker (Distroless)
+### Installation
+
 ```sh
-docker build -t hercules:latest .
-docker run -p 8080:8080 hercules:latest
+go install github.com/dmytrogajewski/hercules/cmd/herr@latest
+go install github.com/dmytrogajewski/hercules/cmd/uast@latest
 ```
 
-### Docker Compose (with MinIO S3 cache)
-```sh
-docker-compose up -d
-# Hercules: http://localhost:8080
-# MinIO Console: http://localhost:9001 (minioadmin/minioadmin)
-```
+Or build from source:
 
-### Kubernetes
 ```sh
-kubectl apply -f k8s/deployment.yaml
-kubectl get pods -l app=hercules
-```
-
-### Helm
-```sh
-helm repo add hercules https://dmytrogajewski.github.io/hercules
-helm install hercules hercules/hercules
+git clone https://github.com/dmytrogajewski/hercules.git
+cd hercules
+make build
 ```
 
 ---
 
-## 🖥️ Command-Line Usage
+## Command-Line Tools
 
-Hercules can be used as a powerful CLI tool for direct repository analysis, automation, and scripting.
+Hercules provides two CLI tools:
 
-### Basic Analysis
+| Tool | Purpose |
+|------|---------|
+| `uast` | Parse source code into Universal Abstract Syntax Tree |
+| `herr` | Analyze code (static analysis and git history) |
+
+### Static Analysis
+
+Analyze source code structure and complexity:
 
 ```sh
-# Analyze a repository for burndown statistics
-hercules --burndown https://github.com/dmytrogajewski/hercules.git
+# Analyze a single file with all analyzers
+uast parse main.go | herr analyze
 
-# Multiple analyses in one run
-hercules --burndown --couples --devs https://github.com/dmytrogajewski/hercules.git
+# Specific analyzers
+uast parse main.go | herr analyze -a complexity,halstead
+
+# JSON output
+uast parse main.go | herr analyze -f json
+
+# Analyze multiple files
+uast parse *.go | herr analyze
 ```
 
-### Custom Options
+**Available static analyzers:**
+
+| Analyzer | Description |
+|----------|-------------|
+| `complexity` | Cyclomatic and cognitive complexity |
+| `cohesion` | Code cohesion metrics |
+| `comments` | Comment quality and documentation coverage |
+| `halstead` | Halstead complexity measures |
+| `imports` | Import statement extraction |
+
+### History Analysis
+
+Analyze git repository history:
 
 ```sh
-# Custom tick size, granularity, and sampling
-hercules --burndown --tick-size 12 --granularity 15 --sampling 10 https://github.com/dmytrogajewski/hercules.git
+# Burndown analysis
+herr history -a burndown .
+
+# Multiple analyzers
+herr history -a burndown,couples,devs .
+
+# Analyze only latest commit
+herr history -a devs --head .
+
+# JSON output
+herr history -a burndown -f json .
 ```
 
-### Output Formats
+**Available history analyzers:**
+
+| Analyzer | Description |
+|----------|-------------|
+| `burndown` | Line burndown statistics over time |
+| `couples` | File/developer coupling matrix |
+| `devs` | Developer activity (commits, lines added/removed) |
+| `file-history` | File change history with contributors |
+| `imports` | Import usage per developer over time |
+| `sentiment` | Comment sentiment classification |
+| `shotness` | Structural hotspots (fine-grained coupling) |
+| `typos` | Typo-fix pairs extracted from diffs |
+
+### UAST Operations
 
 ```sh
-# Output as JSON
-hercules --burndown --json https://github.com/dmytrogajewski/hercules.git > result.json
+# Parse a file to UAST
+uast parse main.go
 
-# Output as YAML
-hercules --burndown --yaml https://github.com/dmytrogajewski/hercules.git > result.yaml
+# Parse with JSON output
+uast parse main.go -f json
 
-# Output as Protobuf
-hercules --burndown --pb https://github.com/dmytrogajewski/hercules.git > result.pb
-```
+# Validate UAST mapping
+uast validate go
 
-### Caching (Local/S3)
-
-```sh
-# Use local cache directory
-hercules --burndown --cache /tmp/hercules-cache https://github.com/dmytrogajewski/hercules.git
-
-# Use S3 cache (set via config or env)
-HERCULES_CACHE_BACKEND=s3 HERCULES_CACHE_S3_BUCKET=my-bucket hercules --burndown https://github.com/dmytrogajewski/hercules.git
-```
-
-### UAST Development Server
-
-The UAST binary includes a development server for interactive UAST mapping development:
-
-```sh
-# Start the development server with web UI
-uast server --static web --port 8080
-
-# Start server without static files (API only)
+# Start development server
 uast server --port 8080
-
-# Start with custom port
-uast server --port 9000 --static /path/to/web/files
-```
-
-The server provides:
-- **API endpoints**: `/api/parse` and `/api/query` for UAST operations
-- **Web UI**: Interactive development environment (when using `--static`)
-- **Real-time parsing**: Parse code in multiple languages
-- **Query interface**: Execute UAST queries with DSL
-
-### Automation Example
-
-```sh
-# Analyze all repos in a directory
-for repo in ~/code/*/.git; do
-  hercules --burndown --devs "$(dirname "$repo")" > "$(basename "$(dirname "$repo")").json"
-done
-```
-
-### Using Config Files, Env Vars, and Flags
-
-- **Config file:** `hercules --config config.yaml --burndown ...`
-- **Environment:** `HERCULES_ANALYSIS_TIMEOUT=60m hercules --burndown ...`
-- **Flags:** `hercules --burndown --tick-size 12 ...`
-
-### Supported Analyses & Options
-
-| Flag              | Description                                 | Options (flags/env/config)         |
-|-------------------|---------------------------------------------|------------------------------------|
-| `--burndown`      | Line burndown statistics                    | `--tick-size`, `--granularity`, `--sampling` |
-| `--couples`       | File/developer coupling                     | `--tick-size`                      |
-| `--devs`          | Developer activity                          | `--tick-size`                      |
-| `--commits-stat`  | Commit statistics                           |                                    |
-| `--file-history`  | File history analysis                       |                                    |
-| `--imports-per-dev` | Import usage per developer                 |                                    |
-| `--shotness`      | Structural hotness                          |                                    |
-
-### CLI Help
-
-```sh
-hercules --help
 ```
 
 ---
 
-## ⚡️ Example API Usage
+## Examples
+
+### Complexity Analysis
 
 ```sh
-curl -X POST http://localhost:8080/api/v1/analyze \
-  -H "Content-Type: application/json" \
-  -d '{
-    "repository": "https://github.com/dmytrogajewski/hercules",
-    "analyses": ["burndown"],
-    "options": {}
-  }'
+$ uast parse pkg/uast/parser.go | herr analyze -a complexity
+
+=== COMPLEXITY ===
+High complexity - functions are complex and should be refactored
+nesting_depth: 24.00 | total_complexity: 15.00 | total_functions: 10.00
+```
+
+### Developer Statistics
+
+```sh
+$ herr history -a devs --head .
+
+hercules (v2):
+  version: 0
+Devs:
+  ticks:
+    0:
+      -1: [1, 391669, 0, 0, {Go: [325974, 0, 0], JavaScript: [1757, 0, 0], ...}]
+  tick_size: 86400
+```
+
+### Import Analysis
+
+```sh
+$ uast parse main.go | herr analyze -a imports -f json
+
+{
+  "imports": {
+    "count": 6,
+    "imports": ["fmt", "os", "strings", ...]
+  }
+}
 ```
 
 ---
 
-## 🔒 S3/MinIO/Cloud Cache
-
-- **Any S3-compatible backend**: AWS S3, MinIO, DigitalOcean Spaces, Wasabi, Backblaze, etc.
-- **Configurable via YAML, env, or CLI**
-- **IAM role or secret support**
-
-Example config:
-```yaml
-cache:
-  enabled: true
-  backend: "s3"
-  s3_bucket: "hercules-cache"
-  s3_region: "us-east-1"
-  s3_endpoint: "http://minio:9000" # for MinIO
-  s3_prefix: "hercules"
-  ttl: "168h"
-  aws_access_key_id: "minioadmin"
-  aws_secret_access_key: "minioadmin"
-```
-
----
-
-## 🛠️ Architecture
-
-- **Stateless server**: All state in cache (S3/local/memory)
-- **Async job queue**: Scalable analysis jobs
-- **Pluggable pipeline**: Add new analyses easily
-- **Modern Go**: Go 1.24+, AWS SDK v2, Gorilla Mux, Viper
-- **Distroless container**: Minimal, secure, non-root
-
-## 📁 Project Structure
-
-This project follows the [Standard Go Project Layout](https://github.com/golang-standards/project-layout):
+## Project Structure
 
 ```
 hercules/
-├── api/                    # Protocol definitions and schemas
-│   └── proto/             # Protocol buffer files
-├── build/                 # Build and CI/CD artifacts
-│   ├── bin/              # Compiled binaries
-│   ├── scripts/          # Build and maintenance scripts
-│   └── tools/            # Build tools
-├── cmd/                   # Main applications
-│   ├── herr/             # Hercules analyzer binary
-│   └── uast/             # UAST parser binary
-├── configs/               # Configuration templates
-├── deployments/           # Deployment configurations
-│   ├── docker/           # Docker configurations
-│   ├── k8s/              # Kubernetes manifests
-│   └── helm/             # Helm charts
-├── docs/                  # Documentation
-├── examples/              # Examples and plugins
-├── internal/              # Private application code
-│   ├── app/              # Application-specific code
-│   ├── pkg/              # Private libraries
-│   └── server/           # Server implementations
-├── pkg/                   # Public libraries
-│   ├── analyzers/        # Code analysis tools
-│   └── uast/             # UAST parsing and manipulation
-├── test/                  # Test data and benchmarks
-│   ├── data/             # Test data
-│   ├── fixtures/         # Test fixtures
-│   └── benchmarks/       # Benchmark results
-└── third_party/           # Third-party dependencies
-    ├── grammars/         # Language grammars
-    └── go-sitter-forest/ # Tree-sitter grammars
+├── cmd/
+│   ├── herr/             # Main analyzer CLI
+│   └── uast/             # UAST parser CLI
+├── pkg/
+│   ├── analyzers/        # All analyzers
+│   │   ├── complexity/   # Static: complexity
+│   │   ├── cohesion/     # Static: cohesion
+│   │   ├── comments/     # Static: comments
+│   │   ├── halstead/     # Static: halstead
+│   │   ├── imports/      # Static & history: imports
+│   │   ├── burndown/     # History: burndown
+│   │   ├── couples/      # History: couples
+│   │   ├── devs/         # History: devs
+│   │   ├── file_history/ # History: file-history
+│   │   ├── sentiment/    # History: sentiment
+│   │   ├── shotness/     # History: shotness
+│   │   └── typos/        # History: typos
+│   └── uast/             # UAST parsing (60+ languages)
+├── docs/                 # Documentation
+└── test/                 # Test data
 ```
 
-**Key packages:**
-- `pkg/analyzers/`: Public code analysis APIs
-- `pkg/uast/`: Universal Abstract Syntax Tree parsing and manipulation
-- `internal/app/core/`: Core application logic and pipeline
-- `internal/pkg/`: Private utility libraries
-- `cmd/herr/`: Main Hercules analyzer binary
-- `cmd/uast/`: UAST parser binary
+---
+
+## Supported Languages
+
+The UAST parser supports 60+ languages including:
+
+Go, Python, JavaScript, TypeScript, Java, Kotlin, Rust, C, C++, C#, Ruby, PHP, Swift, Scala, Haskell, Clojure, Lua, Perl, R, SQL, GraphQL, and many more.
+
+See [pkg/uast/LANGUAGE_ROADMAP.md](pkg/uast/LANGUAGE_ROADMAP.md) for the complete list.
 
 ---
 
-## 📦 Deployment
+## Documentation
 
-- [Dockerfile](./Dockerfile) (distroless, non-root)
-- [docker-compose.yml](./docker-compose.yml) (with MinIO)
-- [k8s/deployment.yaml](./k8s/deployment.yaml) (Kubernetes example)
-- [helm/hercules/](./helm/hercules/) (Helm chart)
-- [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md) (full guide)
-
----
-
-## 🧪 CI/CD
-
-- [GitHub Actions](.github/workflows/ci.yml):
-  - Lint, test, coverage, security scan
-  - Integration test with MinIO
-  - Multi-arch Docker build & push
-  - Release binaries for all major OS/arch on tag
-
----
-
-## 📚 Documentation
-
+- [Development Guide](docs/DEVELOPMENT.md)
 - [Configuration](docs/CONFIGURATION.md)
 - [API Reference](docs/API.md)
-- [Deployment Guide](docs/DEPLOYMENT.md)
-- [Recipes & Integrations](docs/RECIPES.md)
+- [UAST Language Roadmap](pkg/uast/LANGUAGE_ROADMAP.md)
 
 ---
 
-## 🏛️ Project History
+## Project History
 
-This project was originally forked from [src-d/hercules](https://github.com/src-d/hercules), but has since been **completely re-architected** for modern, cloud-native, and high-scale use cases. It is not API or feature compatible with the original src-d/hercules.
+This project was originally forked from [src-d/hercules](https://github.com/src-d/hercules), but has since been **completely re-architected**. It is not API or feature compatible with the original.
 
 ---
 
-## 📝 License
+## License
 
 [Apache 2.0](./LICENSE.md)
-
-## Embedded UAST Provider
-
-Hercules supports an **Embedded UAST Provider** as a drop-in alternative to Babelfish for UAST-based analyses. This allows you to run structural code analyses offline, in CI, or in restricted environments without a running Babelfish server.
-
-**Key points:**
-- The embedded provider uses built-in parsers (currently Go's standard library) to generate UASTs for supported languages.
-- Enable it with the CLI flag:
-  ```sh
-  ./hercules --shotness --uast-provider=embedded <repo>
-  ```
-- If a file's language is unsupported, Hercules will skip it or warn, but will not fail the analysis.
-- The default provider is still Babelfish. You can switch back at any time with `--uast-provider=babelfish`.
-
-**Supported languages:**
-- Go (via GoEmbeddedProvider)
-
-**Planned (via Tree-sitter):**
-- Java, Kotlin, Swift, JavaScript/TypeScript/React/Angular, Rust, PHP, Python
-
-**Roadmap:**
-- See `docs/UAST_PROVIDER_ROADMAP.md` for progress and planned language support.
-
-**Example usage:**
-```sh
-./hercules --shotness --uast-provider=embedded <repo>
-```
-
-If you want to contribute support for more languages, see the roadmap and open a PR!
-

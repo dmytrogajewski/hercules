@@ -5,8 +5,7 @@ checksum <- (checksum) => uast(
 )
 
 checksum_database <- (checksum_database) => uast(
-    token: "self",
-    type: "Synthetic"
+    type: "File"
 )
 
 checksum_value <- (checksum_value) => uast(
@@ -47,14 +46,15 @@ hex_number <- (hex_number) => uast(
 )
 
 module_path <- (module_path) => uast(
-    type: "Module",
-    roles: "Module"
+    token: "self",
+    type: "Import",
+    roles: "Import"
 )
 
 module_version <- (module_version) => uast(
     token: "self",
-    type: "Module",
-    roles: "Module"
+    type: "Literal",
+    roles: "Literal"
 )
 
 number <- (number) => uast(

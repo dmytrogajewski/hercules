@@ -45,50 +45,61 @@ func (r *DSLNodeLowererRegistry) Lower(node DSLNode) (QueryFunc, error) {
 }
 
 // Lowerer implementations
+// Note: Type assertions below are safe because the registry routes by node type.
+// Each lowerer is only called with nodes of the correct type.
+
 type PipelineLowerer struct{}
 
 func (l *PipelineLowerer) Lower(node DSLNode) (QueryFunc, error) {
-	return lowerPipeline(node.(*PipelineNode))
+	return lowerPipeline(node.(*PipelineNode)) //nolint:errcheck // Type guaranteed by registry routing
 }
 
 type MapLowerer struct{}
 
-func (l *MapLowerer) Lower(node DSLNode) (QueryFunc, error) { return lowerMap(node.(*MapNode)) }
+func (l *MapLowerer) Lower(node DSLNode) (QueryFunc, error) {
+	return lowerMap(node.(*MapNode)) //nolint:errcheck // Type guaranteed by registry routing
+}
 
 type FilterLowerer struct{}
 
 func (l *FilterLowerer) Lower(node DSLNode) (QueryFunc, error) {
-	return lowerFilter(node.(*FilterNode))
+	return lowerFilter(node.(*FilterNode)) //nolint:errcheck // Type guaranteed by registry routing
 }
 
 type ReduceLowerer struct{}
 
 func (l *ReduceLowerer) Lower(node DSLNode) (QueryFunc, error) {
-	return lowerReduce(node.(*ReduceNode))
+	return lowerReduce(node.(*ReduceNode)) //nolint:errcheck // Type guaranteed by registry routing
 }
 
 type FieldLowerer struct{}
 
-func (l *FieldLowerer) Lower(node DSLNode) (QueryFunc, error) { return lowerField(node.(*FieldNode)) }
+func (l *FieldLowerer) Lower(node DSLNode) (QueryFunc, error) {
+	return lowerField(node.(*FieldNode)) //nolint:errcheck // Type guaranteed by registry routing
+}
 
 type LiteralLowerer struct{}
 
 func (l *LiteralLowerer) Lower(node DSLNode) (QueryFunc, error) {
-	return lowerLiteral(node.(*LiteralNode))
+	return lowerLiteral(node.(*LiteralNode)) //nolint:errcheck // Type guaranteed by registry routing
 }
 
 type CallLowerer struct{}
 
-func (l *CallLowerer) Lower(node DSLNode) (QueryFunc, error) { return lowerCall(node.(*CallNode)) }
+func (l *CallLowerer) Lower(node DSLNode) (QueryFunc, error) {
+	return lowerCall(node.(*CallNode)) //nolint:errcheck // Type guaranteed by registry routing
+}
 
 type RMapLowerer struct{}
 
-func (l *RMapLowerer) Lower(node DSLNode) (QueryFunc, error) { return lowerRMap(node.(*RMapNode)) }
+func (l *RMapLowerer) Lower(node DSLNode) (QueryFunc, error) {
+	return lowerRMap(node.(*RMapNode)) //nolint:errcheck // Type guaranteed by registry routing
+}
 
 type RFilterLowerer struct{}
 
 func (l *RFilterLowerer) Lower(node DSLNode) (QueryFunc, error) {
-	return lowerRFilter(node.(*RFilterNode))
+	return lowerRFilter(node.(*RFilterNode)) //nolint:errcheck // Type guaranteed by registry routing
 }
 
 func lowerCall(n *CallNode) (QueryFunc, error) {

@@ -1,87 +1,79 @@
 suite: basic-functions
 name: ruby-basic-functions
 
-parse_cases:
-  - name: simple_function
-    input: |
-      def hello
-        "Hello, World!"
-      end
-    output:
-      type: "File"
-      children:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          props:
-            name: "hello"
-          children:
-            - type: "Block"
-              children:
-                - type: "Literal"
-                  roles: ["Literal"]
-                  token: '"Hello, World!"'
-
-  - name: function_with_params
-    input: |
-      def add(a, b)
-        a + b
-      end
-    output:
-      type: "File"
-      children:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          props:
-            name: "add"
-          children:
-            - type: "ParameterList"
-              children:
-                - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
-                  props:
-                    name: "a"
-                - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
-                  props:
-                    name: "b"
-            - type: "Block"
-              children:
-                - type: "BinaryExpression"
-                  roles: ["Binary"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      props:
-                        name: "a"
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      props:
-                        name: "b"
-
 query_cases:
-  - name: find_functions
+  - name: find_methods
     input: |
       def func1
       end
       def func2
       end
-    query: "filter(.type == \"Function\")"
+    query: 'rfilter(.type == "Method") |> map(.type)'
     output:
       results:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          props:
-            name: "func1"
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          props:
-            name: "func2"
+        - "Method"
+        - "Method"
 
-  - name: find_function_names
+  - name: find_method_names
     input: |
-      def my_function
+      def my_method
       end
-    query: "filter(.type == \"Function\") |> map(.name)"
+    query: 'rfilter(.type == "Method") |> map(.props.name)'
     output:
       results:
-        - token: "my_function" 
+        - "my_method"
+
+  - name: find_method_with_params
+    input: |
+      def add(a, b)
+        a + b
+      end
+    query: 'rfilter(.type == "Method") |> map(.props.name)'
+    output:
+      results:
+        - "add"
+
+  - name: find_param_identifiers
+    input: |
+      def add(a, b)
+        a + b
+      end
+    query: 'rfilter(.type == "Identifier") |> map(.token)'
+    output:
+      results:
+        - "add"
+        - "a"
+        - "b"
+        - "a"
+        - "b"
+
+  - name: find_return_statements
+    input: |
+      def calculate
+        return 42
+      end
+    query: 'rfilter(.type == "Return") |> map(.type)'
+    output:
+      results:
+        - "Return"
+
+  - name: find_binary_ops
+    input: |
+      def calc
+        1 + 2 * 3
+      end
+    query: 'rfilter(.type == "BinaryOp") |> map(.type)'
+    output:
+      results:
+        - "BinaryOp"
+        - "BinaryOp"
+
+  - name: find_body_blocks
+    input: |
+      def my_method
+        puts "hello"
+      end
+    query: 'rfilter(.type == "Block") |> map(.type)'
+    output:
+      results:
+        - "Block"

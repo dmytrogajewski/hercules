@@ -1,186 +1,144 @@
 # Configuration Guide
 
-Hercules can be configured using YAML configuration files, environment variables, or command-line flags. This guide covers all configuration options.
+## Command-Line Options
 
-## Configuration File
-
-Create a `config.yaml` file in your working directory or specify a custom path with the `--config` flag.
-
-### Basic Configuration
-
-```yaml
-server:
-  port: 8080
-  host: "0.0.0.0"
-  read_timeout: "30s"
-  write_timeout: "30s"
-  idle_timeout: "60s"
-
-grpc:
-  enabled: false
-  port: 9090
-  host: "0.0.0.0"
-
-cache:
-  enabled: true
-  backend: "local"
-  directory: "/tmp/hercules-cache"
-  ttl: "24h"
-
-analysis:
-  default_tick_size: 24
-  default_granularity: 30
-  default_sampling: 30
-  max_concurrent_analyses: 10
-  timeout: "30m"
-
-logging:
-  level: "info"
-  format: "json"
-  output: "stdout"
-
-repository:
-  clone_timeout: "10m"
-  max_file_size: "1MB"
-  allowed_protocols: ["https", "http", "ssh", "git"]
-```
-
-## Cache Configuration
-
-Hercules supports multiple cache backends for storing analysis results and improving performance.
-
-### Local Filesystem Cache
-
-The default cache backend uses the local filesystem:
-
-```yaml
-cache:
-  enabled: true
-  backend: "local"
-  directory: "/tmp/hercules-cache"
-  ttl: "24h"
-```
-
-### S3 Cache Backend
-
-For production environments with high scale, S3 caching provides shared storage across multiple instances:
-
-```yaml
-cache:
-  enabled: true
-  backend: "s3"
-  s3_bucket: "hercules-cache"
-  s3_region: "us-east-1"
-  s3_prefix: "hercules"
-  ttl: "168h"  # 1 week
-```
-
-#### S3 Configuration Options
-
-| Option | Description | Required |
-|--------|-------------|----------|
-| `s3_bucket` | S3 bucket name | Yes |
-| `s3_region` | AWS region | Yes |
-| `s3_endpoint` | Custom endpoint (for MinIO, etc.) | No |
-| `s3_prefix` | Key prefix for organization | No |
-| `aws_access_key_id` | AWS access key | No* |
-| `aws_secret_access_key` | AWS secret key | No* |
-
-*AWS credentials are optional if using IAM roles or AWS CLI configuration.
-
-#### MinIO Configuration
-
-For self-hosted S3-compatible storage:
-
-```yaml
-cache:
-  enabled: true
-  backend: "s3"
-  s3_bucket: "hercules-cache"
-  s3_region: "us-east-1"
-  s3_endpoint: "http://minio:9000"
-  s3_prefix: "hercules"
-  ttl: "24h"
-  aws_access_key_id: "minioadmin"
-  aws_secret_access_key: "minioadmin"
-```
-
-### Memory Cache
-
-For development or testing with fast, temporary storage:
-
-```yaml
-cache:
-  enabled: true
-  backend: "memory"
-  ttl: "1h"
-```
-
-## Environment Variables
-
-All configuration options can be set using environment variables with the `HERCULES_` prefix:
+### herr analyze (Static Analysis)
 
 ```bash
-export HERCULES_SERVER_PORT=8080
-export HERCULES_CACHE_ENABLED=true
-export HERCULES_CACHE_BACKEND=s3
-export HERCULES_CACHE_S3_BUCKET=hercules-cache
-export HERCULES_CACHE_S3_REGION=us-east-1
+uast parse <file> | herr analyze [flags]
 ```
 
-## Command-Line Flags
+| Flag | Description | Default |
+|------|-------------|---------|
+| `-a, --analyzers` | Analyzers to run (comma-separated) | all |
+| `-f, --format` | Output format: text or json | text |
+| `-o, --output` | Output file (default: stdout) | - |
 
-Server-specific options can be set via command-line flags:
+**Available analyzers:** complexity, cohesion, comments, halstead, imports
+
+### herr history (History Analysis)
 
 ```bash
-hercules server --port 8080 --config /path/to/config.yaml
+herr history [flags] <repository>
 ```
 
-## Configuration Validation
+| Flag | Description | Default |
+|------|-------------|---------|
+| `-a, --analyzers` | Analyzers to run (comma-separated) | required |
+| `-f, --format` | Output format: yaml or json | yaml |
+| `--head` | Analyze only latest commit | false |
+| `--first-parent` | Follow only first parent | false |
 
-Hercules validates configuration on startup and will fail with descriptive error messages for invalid settings.
+**Available analyzers:** burndown, couples, devs, file-history, imports, sentiment, shotness, typos
 
-### Common Issues
+### uast parse
 
-1. **Invalid port numbers**: Must be between 1-65535
-2. **Missing S3 bucket**: Required when using S3 backend
-3. **Invalid TTL format**: Must be parseable duration (e.g., "24h", "1h30m")
-4. **Permission errors**: Ensure cache directory is writable
-
-## Production Recommendations
-
-### For High-Scale Deployments (50k+ repos)
-
-1. **Use S3 caching**: Enables horizontal scaling
-2. **Set appropriate TTL**: Balance freshness vs performance
-3. **Configure IAM roles**: Avoid hardcoded credentials
-4. **Use regional endpoints**: Minimize latency
-
-```yaml
-cache:
-  enabled: true
-  backend: "s3"
-  s3_bucket: "hercules-cache-prod"
-  s3_region: "us-west-2"
-  s3_prefix: "hercules/v1"
-  ttl: "168h"  # 1 week
+```bash
+uast parse [flags] <file>
 ```
 
-### For Development
+| Flag | Description | Default |
+|------|-------------|---------|
+| `-f, --format` | Output format: json or yaml | json |
 
-```yaml
-cache:
-  enabled: true
-  backend: "local"
-  directory: "/tmp/hercules-cache"
-  ttl: "1h"
+### uast server
+
+```bash
+uast server [flags]
 ```
 
-### For Testing
+| Flag | Description | Default |
+|------|-------------|---------|
+| `--port` | Server port | 8080 |
+| `--static` | Path to static files for web UI | - |
 
-```yaml
-cache:
-  enabled: true
-  backend: "memory"
-  ttl: "10m"
-``` 
+## Examples
+
+### Static Analysis
+
+```bash
+# All analyzers, text output
+uast parse main.go | herr analyze
+
+# Specific analyzers
+uast parse main.go | herr analyze -a complexity,halstead
+
+# JSON output
+uast parse main.go | herr analyze -f json
+
+# Save to file
+uast parse main.go | herr analyze -f json -o report.json
+
+# Multiple files
+uast parse *.go | herr analyze
+```
+
+### History Analysis
+
+```bash
+# Single analyzer
+herr history -a burndown .
+
+# Multiple analyzers
+herr history -a burndown,couples,devs .
+
+# Latest commit only
+herr history -a devs --head .
+
+# JSON output
+herr history -a burndown -f json .
+
+# Analyze remote repository (clones locally)
+herr history -a burndown /path/to/repo
+```
+
+## Analyzer-Specific Options
+
+### Burndown Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--granularity` | Time ticks per band | 30 |
+| `--sampling` | State recording frequency | 30 |
+| `--burndown-files` | Per-file statistics | false |
+| `--burndown-people` | Per-developer statistics | false |
+
+### Couples Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--tick-size` | Hours per tick | 24 |
+
+### Devs Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--tick-size` | Hours per tick | 24 |
+| `--empty-commits` | Include empty commits | false |
+
+### Imports Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--import-goroutines` | Parallel extraction threads | 4 |
+| `--import-max-file-size` | Max file size to process | 1MB |
+
+### Shotness Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--shotness-dsl-struct` | UAST DSL query for nodes | filter(.roles has "Function") |
+| `--shotness-dsl-name` | UAST DSL query for names | .token |
+
+### Typos Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--typos-max-distance` | Max Levenshtein distance | 4 |
+
+### Sentiment Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--min-comment-len` | Minimum comment length | 20 |
+| `--sentiment-gap` | Sentiment threshold | 0.5 |

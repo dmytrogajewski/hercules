@@ -1,120 +1,50 @@
-suite: basic-structure
-name: json-basic-structure
+language: json
+tests:
+  - name: "Root is File"
+    code: |
+      {"key": "value"}
+    query: rfilter(.type == "File") |> map(.type)
+    expected:
+      - "File"
 
-parse_cases:
-  - name: simple_object
-    input: |
-      {
-        "name": "John",
-        "age": 30
-      }
-    output:
-      type: "File"
-      children:
-        - type: "Object"
-          roles: ["Object"]
-          children:
-            - type: "Property"
-              children:
-                - type: "Key"
-                  roles: ["Key"]
-                  props:
-                    name: "name"
-                - type: "Value"
-                  roles: ["Value"]
-                  children:
-                    - type: "Literal"
-                      roles: ["Literal"]
-                      token: '"John"'
-            - type: "Property"
-              children:
-                - type: "Key"
-                  roles: ["Key"]
-                  props:
-                    name: "age"
-                - type: "Value"
-                  roles: ["Value"]
-                  children:
-                    - type: "Literal"
-                      roles: ["Literal"]
-                      token: "30"
+  - name: "Object is Dict"
+    code: |
+      {"name": "John"}
+    query: rfilter(.type == "Dict") |> map(.type)
+    expected:
+      - "Dict"
 
-  - name: nested_object
-    input: |
-      {
-        "person": {
-          "name": "John",
-          "age": 30
-        }
-      }
-    output:
-      type: "File"
-      children:
-        - type: "Object"
-          roles: ["Object"]
-          children:
-            - type: "Property"
-              children:
-                - type: "Key"
-                  roles: ["Key"]
-                  props:
-                    name: "person"
-                - type: "Value"
-                  roles: ["Value"]
-                  children:
-                    - type: "Object"
-                      roles: ["Object"]
-                      children:
-                        - type: "Property"
-                          children:
-                            - type: "Key"
-                              roles: ["Key"]
-                              props:
-                                name: "name"
-                            - type: "Value"
-                              roles: ["Value"]
-                              children:
-                                - type: "Literal"
-                                  roles: ["Literal"]
-                                  token: '"John"'
-                        - type: "Property"
-                          children:
-                            - type: "Key"
-                              roles: ["Key"]
-                              props:
-                                name: "age"
-                            - type: "Value"
-                              roles: ["Value"]
-                              children:
-                                - type: "Literal"
-                                  roles: ["Literal"]
-                                  token: "30"
+  - name: "Dict has Literal role"
+    code: |
+      {"key": "value"}
+    query: rfilter(.type == "Dict") |> map(.roles)
+    expected:
+      - ["Literal"]
 
-query_cases:
-  - name: find_keys
-    input: |
-      {
-        "key1": "value1",
-        "key2": "value2"
-      }
-    query: "filter(.type == \"Key\")"
-    output:
-      results:
-        - type: "Key"
-          roles: ["Key"]
-          props:
-            name: "key1"
-        - type: "Key"
-          roles: ["Key"]
-          props:
-            name: "key2"
+  - name: "Array is List"
+    code: |
+      [1, 2, 3]
+    query: rfilter(.type == "List") |> map(.type)
+    expected:
+      - "List"
 
-  - name: find_key_names
-    input: |
-      {
-        "my_key": "my_value"
-      }
-    query: "filter(.type == \"Key\") |> map(.name)"
-    output:
-      results:
-        - token: "my_key" 
+  - name: "List has Literal role"
+    code: |
+      ["a", "b"]
+    query: rfilter(.type == "List") |> map(.roles)
+    expected:
+      - ["Literal"]
+
+  - name: "Pair is KeyValue"
+    code: |
+      {"name": "John"}
+    query: rfilter(.type == "KeyValue") |> map(.type)
+    expected:
+      - "KeyValue"
+
+  - name: "KeyValue has Key and Value roles"
+    code: |
+      {"key": "value"}
+    query: rfilter(.type == "KeyValue") |> map(.roles)
+    expected:
+      - ["Key", "Value"]

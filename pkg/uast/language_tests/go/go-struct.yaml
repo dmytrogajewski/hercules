@@ -8,93 +8,81 @@ parse_cases:
           Name string
           Age  int
       }
-      
-      func main() {
-          p := Person{Name: "John", Age: 30}
-      }
     output:
       type: "File"
+      roles: []
       children:
-        - type: "Struct"
-          roles: ["Struct", "Declaration"]
+        - type: "Synthetic"
+          roles: []
           children:
-            - type: "Block"
-              roles: ["Body"]
+            - type: "List"
+              token: |-
+                Person struct {
+                    Name string
+                    Age  int
+                }
+              props:
+                name: "Person"
+              roles: []
               children:
-                - type: "Field"
-                  roles: ["Field", "Declaration"]
-                  props:
-                    name: "Name"
+                - type: "Identifier"
+                  token: "Person"
+                  roles: ["Name", "Type"]
+                - type: "Struct"
+                  token: |-
+                    struct {
+                        Name string
+                        Age  int
+                    }
+                  roles: ["Struct", "Declaration"]
                   children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "Name"
-                - type: "Field"
-                  roles: ["Field", "Declaration"]
-                  props:
-                    name: "Age"
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "Age"
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          props:
-            name: "main"
-          token: "main"
-          children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "main"
-            - type: "Block"
-              roles: ["Body"]
-            - type: "Block"
-              roles: ["Body"]
-              children:
-                - type: "Variable"
-                  roles: ["Variable", "Declaration"]
-                  props:
-                    name: "p"
-                  children:
-                    - type: "Block"
-                      roles: ["Body"]
+                    - type: "Synthetic"
+                      token: |-
+                        {
+                            Name string
+                            Age  int
+                        }
+                      roles: []
                       children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "p"
-                    - type: "Block"
-                      roles: ["Body"]
-                      children:
-                        - type: "Literal"
-                          roles: ["Literal"]
+                        - type: "Field"
+                          props:
+                            name: "Name"
+                          roles: ["Member"]
                           children:
-                            - type: "Literal"
-                              roles: ["Literal"]
-                              children:
-                                - type: "KeyValue"
-                                  roles: ["Key", "Value"]
-                                  children:
-                                    - type: "Literal"
-                                      roles: ["Literal"]
-                                      children:
-                                        - type: "Identifier"
-                                          roles: ["Name"]
-                                          token: "Name"
-                                    - type: "Literal"
-                                      roles: ["Literal"]
-                                      children:
-                                        - type: "Literal"
-                                          roles: ["Literal"]
-                                          token: "John"
-                                - type: "KeyValue"
-                                  roles: ["Key", "Value"]
-                                  children:
-                                    - type: "Literal"
-                                      roles: ["Literal"]
-                                      children:
-                                        - type: "Identifier"
-                                          roles: ["Name"]
-                                          token: "Age"
-                                    - type: "Literal"
-                                      roles: ["Literal"]
-                                      token: "30" 
+                            - type: "Identifier"
+                              token: "Name"
+                              roles: ["Name"]
+                            - type: "Identifier"
+                              token: "string"
+                              roles: ["Name", "Type"]
+                        - type: "Field"
+                          props:
+                            name: "Age"
+                          roles: ["Member"]
+                          children:
+                            - type: "Identifier"
+                              token: "Age"
+                              roles: ["Name"]
+                            - type: "Identifier"
+                              token: "int"
+                              roles: ["Name", "Type"]
+
+query_cases:
+  - name: find_structs
+    input: |
+      type A struct {}
+      type B struct {}
+    query: 'rfilter(.type == "Struct") |> map(.type)'
+    output:
+      results:
+        - "Struct"
+        - "Struct"
+
+  - name: find_fields
+    input: |
+      type Person struct { Name string; Age int }
+    query: 'rfilter(.type == "Field") |> map(.type)'
+    output:
+      results:
+        - "Field"
+        - "Field"

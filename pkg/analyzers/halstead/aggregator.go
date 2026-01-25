@@ -19,7 +19,7 @@ func NewHalsteadAggregator() *HalsteadAggregator {
 	emptyResultBuilder := buildEmptyHalsteadResult
 
 	return &HalsteadAggregator{
-		Aggregator: common.NewAggregatorWithCustomEmptyResult(
+		Aggregator: common.NewAggregator(
 			"halstead",
 			numericKeys,
 			countKeys,

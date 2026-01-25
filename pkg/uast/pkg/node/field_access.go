@@ -242,9 +242,9 @@ type IDFieldProcessor struct{}
 
 func (p *IDFieldProcessor) Process(node *Node, remainingFields []string) []*Node {
 	if len(remainingFields) > 0 {
-		return getNestedFieldValue(node.Id, remainingFields)
+		return getNestedFieldValue(node.ID, remainingFields)
 	}
-	return []*Node{NewLiteralNode(node.Id)}
+	return []*Node{NewLiteralNode(node.ID)}
 }
 
 type RolesFieldProcessor struct{}
@@ -299,7 +299,7 @@ func (e *TokenValueExtractor) Extract(node *Node) interface{} {
 type IDValueExtractor struct{}
 
 func (e *IDValueExtractor) Extract(node *Node) interface{} {
-	return node.Id
+	return node.ID
 }
 
 type RolesValueExtractor struct{}
@@ -327,24 +327,10 @@ func (e *PropsValueExtractor) Extract(node *Node) interface{} {
 
 var globalFieldAccessRegistry = NewFieldAccessStrategyRegistry()
 
-// Helper functions for backward compatibility
+// Helper functions for production usage
 func processFieldAccess(n *FieldNode, node *Node) []*Node {
 	manager := NewFieldAccessManager()
 	return manager.ProcessFieldAccess(n, node)
-}
-
-func processSingleField(field string, node *Node) []*Node {
-	return globalFieldAccessRegistry.Access(node, field)
-}
-
-func processNestedField(fields []string, node *Node) []*Node {
-	manager := NewFieldAccessManager()
-	return manager.ProcessNestedField(fields, node)
-}
-
-func getFieldValue(node *Node, fieldName string) interface{} {
-	manager := NewFieldAccessManager()
-	return manager.GetFieldValue(node, fieldName)
 }
 
 func checkMembership(leftFunc, rightFunc QueryFunc, node *Node) string {

@@ -80,29 +80,33 @@ func queryStdin(query, output, format string, writer io.Writer) error {
 }
 
 func queryFile(file, query, output, format string, writer io.Writer) error {
-	parser, err := uast.NewParser()
-	if err != nil {
-		return fmt.Errorf("failed to initialize parser: %w", err)
-	}
 	var n *node.Node
-	if parser.IsSupported(file) {
-		code, err := os.ReadFile(file)
+	if isJSONFile(file) {
+		// Treat .json files as serialized UAST trees
+		var err error
+		n, err = loadUASTFromJSON(file)
 		if err != nil {
-			return fmt.Errorf("failed to read file %s: %w", file, err)
-		}
-		n, err = parser.Parse(file, code)
-		if err != nil {
-			return fmt.Errorf("parse error in %s: %w", file, err)
+			return fmt.Errorf("failed to query %s: %w", file, err)
 		}
 	} else {
-		f, err := os.Open(file)
+		parser, err := uast.NewParser()
 		if err != nil {
-			return fmt.Errorf("failed to open file %s: %w", file, err)
+			return fmt.Errorf("failed to initialize parser: %w", err)
 		}
-		defer f.Close()
-		dec := json.NewDecoder(f)
-		if err := dec.Decode(&n); err != nil {
-			return fmt.Errorf("failed to decode UAST from %s: %w", file, err)
+		if parser.IsSupported(file) {
+			code, err := os.ReadFile(file)
+			if err != nil {
+				return fmt.Errorf("failed to read file %s: %w", file, err)
+			}
+			n, err = parser.Parse(file, code)
+			if err != nil {
+				return fmt.Errorf("parse error in %s: %w", file, err)
+			}
+		} else {
+			n, err = loadUASTFromJSON(file)
+			if err != nil {
+				return fmt.Errorf("failed to query %s: %w", file, err)
+			}
 		}
 	}
 	results, err := n.FindDSL(query)
@@ -246,6 +250,24 @@ func printDSLHelp() {
 	fmt.Println("  filter(.type == \"Identifier\")   - Find identifiers")
 	fmt.Println("  filter(.type == \"Literal\")      - Find literals")
 	fmt.Println()
+}
+
+func isJSONFile(file string) bool {
+	return strings.HasSuffix(strings.ToLower(file), ".json")
+}
+
+func loadUASTFromJSON(file string) (*node.Node, error) {
+	f, err := os.Open(file)
+	if err != nil {
+		return nil, fmt.Errorf("failed to open file %s: %w", file, err)
+	}
+	defer f.Close()
+	var n node.Node
+	dec := json.NewDecoder(f)
+	if err := dec.Decode(&n); err != nil {
+		return nil, fmt.Errorf("failed to decode UAST from %s: %w", file, err)
+	}
+	return &n, nil
 }
 
 // Copy nodesToMap from main.go to this file for now, to resolve undefined error.

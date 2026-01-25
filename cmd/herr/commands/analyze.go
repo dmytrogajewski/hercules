@@ -1,17 +1,20 @@
 package commands
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
 	"os"
-	"strings"
 
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/analyze"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/cohesion"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/comments"
+	"github.com/dmytrogajewski/hercules/pkg/analyzers/common/renderer"
+	"github.com/dmytrogajewski/hercules/pkg/analyzers/common/terminal"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/complexity"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/halstead"
+	"github.com/dmytrogajewski/hercules/pkg/analyzers/imports"
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 	"github.com/spf13/cobra"
 )
@@ -21,6 +24,8 @@ type AnalyzeCommand struct {
 	output       string
 	format       string
 	analyzerList []string
+	verbose      bool
+	noColor      bool
 }
 
 // NewAnalyzeCommand creates and configures the analyze command
@@ -36,8 +41,10 @@ func NewAnalyzeCommand() *cobra.Command {
 
 	// Add flags
 	cobraCmd.Flags().StringVarP(&cmd.output, "output", "o", "", "Output file (default: stdout)")
-	cobraCmd.Flags().StringVarP(&cmd.format, "format", "f", "text", "Output format: text or json")
+	cobraCmd.Flags().StringVarP(&cmd.format, "format", "f", "text", "Output format: text, compact, or json")
 	cobraCmd.Flags().StringSliceVarP(&cmd.analyzerList, "analyzers", "a", []string{}, "Specific analyzers to run (comma-separated)")
+	cobraCmd.Flags().BoolVarP(&cmd.verbose, "verbose", "v", false, "Show all items without truncation")
+	cobraCmd.Flags().BoolVar(&cmd.noColor, "no-color", false, "Disable colored output")
 
 	return cobraCmd
 }
@@ -51,7 +58,7 @@ func (c *AnalyzeCommand) Run(cmd *cobra.Command, args []string) error {
 	analyzerService := c.newService()
 
 	// Run analysis and format results
-	return analyzerService.AnalyzeAndFormat(inputReader, c.analyzerList, c.format, c.createOutputWriter())
+	return analyzerService.AnalyzeAndFormat(inputReader, c.analyzerList, c.format, c.verbose, c.noColor, c.createOutputWriter())
 }
 
 // newService creates a new analyzer service
@@ -62,6 +69,7 @@ func (c *AnalyzeCommand) newService() *Service {
 			comments.NewCommentsAnalyzer(),
 			halstead.NewHalsteadAnalyzer(),
 			cohesion.NewCohesionAnalyzer(),
+			imports.NewImportsAnalyzer(),
 		},
 	}
 }
@@ -91,17 +99,27 @@ type Service struct {
 	availableAnalyzers []analyze.StaticAnalyzer
 }
 
+// Format mode constants
+const (
+	FormatText    = "text"
+	FormatCompact = "compact"
+	FormatJSON    = "json"
+)
+
 // AnalyzeAndFormat runs analysis and formats the results
-func (s *Service) AnalyzeAndFormat(input io.Reader, analyzerList []string, format string, writer io.Writer) error {
+func (s *Service) AnalyzeAndFormat(input io.Reader, analyzerList []string, format string, verbose bool, noColor bool, writer io.Writer) error {
 	results, err := s.Analyze(input, analyzerList)
 	if err != nil {
 		return fmt.Errorf("analysis failed: %w", err)
 	}
 
-	if format == "json" {
+	switch format {
+	case FormatJSON:
 		return s.formatJSON(results, writer)
-	} else {
-		return s.formatText(results, writer)
+	case FormatCompact:
+		return s.formatCompact(results, noColor, writer)
+	default:
+		return s.formatText(results, verbose, noColor, writer)
 	}
 }
 
@@ -163,33 +181,72 @@ func (s *Service) Analyze(input io.Reader, analyzerList []string) (map[string]an
 	return allResults, nil
 }
 
-// formatJSON formats all results as JSON
+// formatJSON formats all results as structured JSON using ReportSection data.
 func (s *Service) formatJSON(results map[string]analyze.Report, writer io.Writer) error {
+	sections := s.buildSections(results)
+	report := renderer.SectionsToJSON(sections)
+
 	encoder := json.NewEncoder(writer)
 	encoder.SetIndent("", "  ")
-	return encoder.Encode(results)
+	return encoder.Encode(report)
 }
 
 // formatText formats all results as human-readable text
-func (s *Service) formatText(results map[string]analyze.Report, writer io.Writer) error {
-	for analyzerName, report := range results {
-		// Write analyzer header
-		fmt.Fprintf(writer, "\n=== %s ===\n", strings.ToUpper(analyzerName))
+func (s *Service) formatText(results map[string]analyze.Report, verbose bool, noColor bool, writer io.Writer) error {
+	// Build sections in deterministic order (matching availableAnalyzers registration order)
+	sections := s.buildSections(results)
 
-		// Format the report using the analyzer's own formatter
-		analyzer := s.findAnalyzer(analyzerName)
-		if analyzer != nil {
-			if err := analyzer.FormatReport(report, writer); err != nil {
-				return fmt.Errorf("failed to format %s report: %w", analyzerName, err)
-			}
-		} else {
-			// Fallback for unknown analyzers
-			for key, value := range report {
-				fmt.Fprintf(writer, "%s: %v\n", key, value)
-			}
+	config := terminal.NewConfig()
+	if noColor {
+		config.NoColor = true
+	}
+	r := renderer.NewSectionRenderer(config.Width, verbose, config.NoColor)
+
+	// Executive summary if multiple analyzers
+	if len(sections) >= renderer.MinSectionsForSummary {
+		summary := renderer.NewExecutiveSummary(sections)
+		fmt.Fprintln(writer, r.RenderSummary(summary))
+	}
+
+	// Individual sections
+	for _, section := range sections {
+		fmt.Fprintln(writer)
+		fmt.Fprintln(writer, r.Render(section))
+	}
+
+	return nil
+}
+
+// formatCompact formats all results as single-line-per-analyzer output
+func (s *Service) formatCompact(results map[string]analyze.Report, noColor bool, writer io.Writer) error {
+	sections := s.buildSections(results)
+
+	config := terminal.NewConfig()
+	if noColor {
+		config.NoColor = true
+	}
+	r := renderer.NewSectionRenderer(config.Width, false, config.NoColor)
+
+	for _, section := range sections {
+		fmt.Fprintln(writer, r.RenderCompact(section))
+	}
+
+	return nil
+}
+
+// buildSections creates ReportSection instances from results in deterministic order.
+func (s *Service) buildSections(results map[string]analyze.Report) []analyze.ReportSection {
+	sections := make([]analyze.ReportSection, 0, len(results))
+	for _, a := range s.availableAnalyzers {
+		report, ok := results[a.Name()]
+		if !ok {
+			continue
+		}
+		if provider, ok := a.(analyze.ReportSectionProvider); ok {
+			sections = append(sections, provider.CreateReportSection(report))
 		}
 	}
-	return nil
+	return sections
 }
 
 // runAnalyzers runs the specified analyzers on a single UAST node

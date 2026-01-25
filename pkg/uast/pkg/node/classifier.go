@@ -26,17 +26,6 @@ func ClassifyDSLNode(node DSLNode) DSLNodeType {
 	}
 }
 
-// DSLNodeClassifier provides a struct-based interface for backward compatibility
-type DSLNodeClassifier struct{}
-
-func NewDSLNodeClassifier() *DSLNodeClassifier {
-	return &DSLNodeClassifier{}
-}
-
-func (c *DSLNodeClassifier) Classify(node DSLNode) DSLNodeType {
-	return ClassifyDSLNode(node)
-}
-
 // isLiteralNode checks if a node is a literal node
 func isLiteralNode(n DSLNode) bool {
 	_, ok := n.(*LiteralNode)

@@ -7,8 +7,8 @@ comment <- (comment) => uast(
 
 file_path <- (file_path) => uast(
     token: "self",
-    roles: "Comment",
-    type: "Comment"
+    type: "Import",
+    roles: "Import"
 )
 
 go_directive <- (go_directive) => uast(
@@ -27,9 +27,8 @@ interpreted_string_literal <- (interpreted_string_literal) => uast(
 
 module_path <- (module_path) => uast(
     token: "self",
-    roles: "Literal",
-    type: "Module",
-    roles: "Module"
+    type: "Import",
+    roles: "Import"
 )
 
 replace_directive <- (replace_directive) => uast(
@@ -42,12 +41,12 @@ replace_spec <- (replace_spec) => uast(
 )
 
 source_file <- (source_file) => uast(
-    type: "Synthetic"
+    type: "File"
 )
 
 use_directive <- (use_directive) => uast(
-    token: "self",
-    type: "File"
+    type: "Block",
+    roles: "Body"
 )
 
 use_spec <- (use_spec) => uast(

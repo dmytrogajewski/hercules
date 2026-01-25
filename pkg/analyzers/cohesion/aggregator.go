@@ -15,7 +15,7 @@ func NewCohesionAggregator() *CohesionAggregator {
 	config := buildAggregatorConfig()
 
 	return &CohesionAggregator{
-		Aggregator: common.NewAggregatorWithCustomEmptyResult(
+		Aggregator: common.NewAggregator(
 			"cohesion",
 			config.numericKeys,
 			config.countKeys,

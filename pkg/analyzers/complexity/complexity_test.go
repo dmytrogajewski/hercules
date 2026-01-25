@@ -54,7 +54,7 @@ func TestComplexityAnalyzer_SimpleFunction(t *testing.T) {
 	analyzer := NewComplexityAnalyzer()
 
 	// Create a simple function
-	functionNode := node.NewWithType(node.UASTFunction)
+	functionNode := &node.Node{Type: node.UASTFunction}
 	functionNode.Roles = []node.Role{node.RoleFunction, node.RoleDeclaration}
 
 	// Add function name
@@ -63,7 +63,7 @@ func TestComplexityAnalyzer_SimpleFunction(t *testing.T) {
 	functionNode.AddChild(nameNode)
 
 	// Create a root node with the function
-	root := node.NewWithType(node.UASTFile)
+	root := &node.Node{Type: node.UASTFile}
 	root.AddChild(functionNode)
 
 	result, err := analyzer.Analyze(root)
@@ -94,7 +94,7 @@ func TestComplexityAnalyzer_ExtractFunctionName(t *testing.T) {
 	analyzer := NewComplexityAnalyzer()
 
 	// Test function with name
-	functionNode := node.NewWithType(node.UASTFunction)
+	functionNode := &node.Node{Type: node.UASTFunction}
 	nameNode := node.NewNodeWithToken(node.UASTIdentifier, "testFunction")
 	nameNode.Roles = []node.Role{node.RoleName}
 	functionNode.AddChild(nameNode)
@@ -105,7 +105,7 @@ func TestComplexityAnalyzer_ExtractFunctionName(t *testing.T) {
 	}
 
 	// Test function without name
-	anonymousFunction := node.NewWithType(node.UASTFunction)
+	anonymousFunction := &node.Node{Type: node.UASTFunction}
 	name = analyzer.extractFunctionName(anonymousFunction)
 	if name != "anonymous" {
 		t.Errorf("Expected anonymous function name 'anonymous', got '%s'", name)
@@ -122,7 +122,7 @@ func TestComplexityAnalyzer_IsDecisionPoint(t *testing.T) {
 	}
 
 	for _, nodeType := range decisionTypes {
-		testNode := node.NewWithType(node.Type(nodeType))
+		testNode := &node.Node{Type: node.Type(nodeType)}
 		testNode.Roles = []node.Role{node.RoleCondition}
 
 		if !analyzer.isDecisionPoint(testNode) {
@@ -131,20 +131,20 @@ func TestComplexityAnalyzer_IsDecisionPoint(t *testing.T) {
 	}
 
 	// Test non-decision point type
-	regularNode := node.NewWithType(node.UASTIdentifier)
+	regularNode := &node.Node{Type: node.UASTIdentifier}
 	if analyzer.isDecisionPoint(regularNode) {
 		t.Error("Expected identifier node to not be a decision point")
 	}
 
 	// Test logical operators
-	logicalOpNode := node.NewWithType(node.UASTBinaryOp)
+	logicalOpNode := &node.Node{Type: node.UASTBinaryOp}
 	logicalOpNode.Props = map[string]string{"operator": "&&"}
 	if !analyzer.isDecisionPoint(logicalOpNode) {
 		t.Error("Expected binary op with '&&' to be a decision point")
 	}
 
 	// Test non-logical operator
-	arithmeticOpNode := node.NewWithType(node.UASTBinaryOp)
+	arithmeticOpNode := &node.Node{Type: node.UASTBinaryOp}
 	arithmeticOpNode.Props = map[string]string{"operator": "+"}
 	if analyzer.isDecisionPoint(arithmeticOpNode) {
 		t.Error("Expected binary op with '+' to not be a decision point")
@@ -155,7 +155,7 @@ func TestComplexityAnalyzer_WithIfStatement(t *testing.T) {
 	analyzer := NewComplexityAnalyzer()
 
 	// Create a function with an if statement
-	functionNode := node.NewWithType(node.UASTFunction)
+	functionNode := &node.Node{Type: node.UASTFunction}
 	functionNode.Roles = []node.Role{node.RoleFunction, node.RoleDeclaration}
 
 	// Add function name
@@ -164,12 +164,12 @@ func TestComplexityAnalyzer_WithIfStatement(t *testing.T) {
 	functionNode.AddChild(nameNode)
 
 	// Add if statement
-	ifNode := node.NewWithType(node.UASTIf)
+	ifNode := &node.Node{Type: node.UASTIf}
 	ifNode.Roles = []node.Role{node.RoleCondition}
 	functionNode.AddChild(ifNode)
 
 	// Create a root node with the function
-	root := node.NewWithType(node.UASTFile)
+	root := &node.Node{Type: node.UASTFile}
 	root.AddChild(functionNode)
 
 	result, err := analyzer.Analyze(root)
@@ -187,5 +187,31 @@ func TestComplexityAnalyzer_WithIfStatement(t *testing.T) {
 		t.Error("Expected 'total_complexity' in result")
 	} else if total != 2 {
 		t.Errorf("Expected total_complexity to be 2 for function with if, got %v", total)
+	}
+}
+
+func TestCognitiveComplexityCalculator_NestedStructures(t *testing.T) {
+	calculator := NewCognitiveComplexityCalculator()
+
+	// Create a function with nested if statements
+	functionNode := &node.Node{Type: node.UASTFunction}
+	functionNode.Roles = []node.Role{node.RoleFunction}
+
+	// First level if
+	ifNode1 := &node.Node{Type: node.UASTIf}
+	ifNode1.Roles = []node.Role{node.RoleCondition}
+
+	// Nested if inside first if
+	ifNode2 := &node.Node{Type: node.UASTIf}
+	ifNode2.Roles = []node.Role{node.RoleCondition}
+	ifNode1.AddChild(ifNode2)
+
+	functionNode.AddChild(ifNode1)
+
+	complexity := calculator.CalculateCognitiveComplexity(functionNode)
+
+	// Nested structures should increase complexity
+	if complexity < 2 {
+		t.Errorf("Expected complexity >= 2 for nested ifs, got %d", complexity)
 	}
 }

@@ -9,33 +9,45 @@ parse_cases:
       }
     output:
       type: "File"
+      roles: []
       children:
         - type: "Function"
-          roles: ["Function", "Declaration"]
+          token: |-
+            func Hello() string {
+                return "Hello, World!"
+            }
           props:
             name: "Hello"
-          token: "Hello"
+          roles: ["Function", "Declaration"]
           children:
             - type: "Identifier"
-              roles: ["Name"]
               token: "Hello"
+              roles: ["Name"]
+            - type: "Parameter"
+              token: "()"
+              roles: ["Parameter"]
+            - type: "Identifier"
+              token: "string"
+              roles: ["Name", "Type"]
             - type: "Block"
-              roles: ["Body"]
-            - type: "Block"
+              token: |-
+                {
+                    return "Hello, World!"
+                }
               roles: ["Body"]
               children:
                 - type: "Return"
+                  token: 'return "Hello, World!"'
                   roles: ["Return"]
                   children:
-                    - type: "Block"
-                      roles: ["Body"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "Literal"
                           roles: ["Literal"]
                           children:
                             - type: "Literal"
                               roles: ["Literal"]
-                              token: "Hello, World!"
 
   - name: function_with_params
     input: |
@@ -44,55 +56,78 @@ parse_cases:
       }
     output:
       type: "File"
+      roles: []
       children:
         - type: "Function"
-          roles: ["Function", "Declaration"]
+          token: |-
+            func Add(a int, b int) int {
+                return a + b
+            }
           props:
             name: "Add"
-          token: "Add"
+          roles: ["Function", "Declaration"]
           children:
             - type: "Identifier"
-              roles: ["Name"]
               token: "Add"
-            - type: "Block"
-              roles: ["Body"]
+              roles: ["Name"]
+            - type: "Parameter"
+              token: "(a int, b int)"
+              roles: ["Parameter"]
               children:
                 - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
+                  props:
+                    name: "a"
+                  roles: ["Parameter"]
                   children:
                     - type: "Identifier"
-                      roles: ["Name"]
                       token: "a"
+                      roles: ["Name"]
+                    - type: "Identifier"
+                      token: "int"
+                      roles: ["Name", "Type"]
                 - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
+                  props:
+                    name: "b"
+                  roles: ["Parameter"]
                   children:
                     - type: "Identifier"
-                      roles: ["Name"]
                       token: "b"
+                      roles: ["Name"]
+                    - type: "Identifier"
+                      token: "int"
+                      roles: ["Name", "Type"]
+            - type: "Identifier"
+              token: "int"
+              roles: ["Name", "Type"]
             - type: "Block"
+              token: |-
+                {
+                    return a + b
+                }
               roles: ["Body"]
               children:
                 - type: "Return"
+                  token: "return a + b"
                   roles: ["Return"]
                   children:
-                    - type: "Block"
-                      roles: ["Body"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "BinaryOp"
                           roles: ["Operator"]
                           children:
                             - type: "Identifier"
-                              roles: ["Name"]
                               token: "a"
-                            - type: "Identifier"
                               roles: ["Name"]
+                            - type: "Identifier"
                               token: "b"
+                              roles: ["Name"]
 
 query_cases:
   - name: find_function_names
     input: |
       func MyFunction() {}
-    query: "filter(.type == \"Function\") |> map(.token)"
+    query: 'rfilter(.type == "Function") |> map(.props.name)'
     output:
       results:
-        - "MyFunction" 
+        - "MyFunction"

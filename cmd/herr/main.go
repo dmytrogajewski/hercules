@@ -16,23 +16,22 @@ var (
 func main() {
 	rootCmd := &cobra.Command{
 		Use:   "herr",
-		Short: "Hercules Code Analysis - Analyze UAST output with various metrics",
-		Long: `Herr (Hercules Code Analysis) provides comprehensive code analysis tools
-that work with UAST output from the 'uast parse' command.
+		Short: "Hercules Code Analysis - Unified code analysis tool",
+		Long: `Herr (Hercules Code Analysis) provides comprehensive code analysis tools.
 
-Key features:
-  • Cyclomatic complexity analysis
-  • Halstead complexity measures
-  • Code structure metrics
-  • Performance analysis
-  • Quality assessment
+Commands:
+  analyze   Static analysis on UAST output (complexity, cohesion, comments, halstead, imports)
+  history   Git repository history analysis (burndown, couples, devs, file-history, imports, sentiment, shotness, typos)
 
-Examples:
-  uast parse main.go | herr analyze                    # Analyze single file
-  uast parse *.go | herr analyze                       # Analyze all Go files
-  uast parse main.go | herr analyze --format json     # JSON output
-  uast parse main.go | herr analyze | herr report     # Generate comprehensive report
-  uast parse --all | herr analyze | herr report       # Full codebase report`,
+Static Analysis Examples:
+  uast parse main.go | herr analyze                        # Analyze single file
+  uast parse main.go | herr analyze -a complexity,halstead # Specific analyzers
+  uast parse *.go | herr analyze -f json                   # JSON output
+
+History Analysis Examples:
+  herr history -a burndown .                               # Burndown analysis
+  herr history -a burndown,couples,devs .                  # Multiple analyzers
+  herr history -a devs --head .                            # Latest commit only`,
 		SilenceUsage:  true,
 		SilenceErrors: true,
 	}
@@ -42,6 +41,7 @@ Examples:
 
 	// Add commands
 	rootCmd.AddCommand(commands.NewAnalyzeCommand())
+	rootCmd.AddCommand(commands.NewHistoryCommand())
 	rootCmd.AddCommand(versionCmd())
 
 	if err := rootCmd.Execute(); err != nil {

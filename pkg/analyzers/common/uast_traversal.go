@@ -1,6 +1,7 @@
 package common
 
 import (
+	"github.com/dmytrogajewski/hercules/pkg/safeconv"
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
 
@@ -110,7 +111,7 @@ func (ut *UASTTraverser) CountLines(n *node.Node) int {
 
 	lineCount := 0
 	if n.Pos != nil {
-		lineCount = int(n.Pos.EndLine - n.Pos.StartLine + 1)
+		lineCount = safeconv.MustUintToInt(n.Pos.EndLine - n.Pos.StartLine + 1)
 	}
 
 	// Add lines from children
@@ -126,7 +127,7 @@ func (ut *UASTTraverser) GetNodePosition(n *node.Node) (startLine, endLine int) 
 	if n == nil || n.Pos == nil {
 		return 0, 0
 	}
-	return int(n.Pos.StartLine), int(n.Pos.EndLine)
+	return safeconv.MustUintToInt(n.Pos.StartLine), safeconv.MustUintToInt(n.Pos.EndLine)
 }
 
 // traverse performs depth-first traversal of the UAST

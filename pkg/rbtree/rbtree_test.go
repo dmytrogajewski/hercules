@@ -2,7 +2,6 @@ package rbtree
 
 import (
 	"fmt"
-	"io/ioutil"
 	"math/rand"
 	"os"
 	"sort"
@@ -198,9 +197,7 @@ func (o *oracle) Delete(key int) bool {
 	return false
 }
 
-//
 // Test iterator
-//
 type oracleIterator struct {
 	o     *oracle
 	index int
@@ -457,6 +454,116 @@ func TestAllocatorHibernateBootThreshold(t *testing.T) {
 	assert.NotNil(t, alloc.gaps)
 }
 
+// TestRBTreeAllocator tests the Allocator() accessor method.
+func TestRBTreeAllocator(t *testing.T) {
+	alloc := NewAllocator()
+	tree := NewRBTree(alloc)
+
+	// Verify Allocator() returns the same allocator
+	assert.Equal(t, alloc, tree.Allocator())
+
+	// Insert some elements and verify allocator is still accessible
+	tree.Insert(Item{5, 5})
+	tree.Insert(Item{10, 10})
+	assert.Equal(t, alloc, tree.Allocator())
+	assert.Equal(t, alloc.Used(), 3) // 1 reserved + 2 nodes
+}
+
+// TestNegativeLimit tests the NegativeLimit() iterator method.
+func TestNegativeLimit(t *testing.T) {
+	tree := testNewIntSet()
+	boolInsert(tree, 5)
+	boolInsert(tree, 10)
+	boolInsert(tree, 15)
+
+	// NegativeLimit should be before first element
+	iter := tree.NegativeLimit()
+	assert.True(t, iter.NegativeLimit())
+	assert.False(t, iter.Limit())
+
+	// Next from NegativeLimit should give first element
+	iter = iter.Next()
+	assert.False(t, iter.NegativeLimit())
+	assert.Equal(t, uint32(5), iter.Item().Key)
+
+	// Empty tree should still work
+	emptyTree := testNewIntSet()
+	emptyIter := emptyTree.NegativeLimit()
+	assert.True(t, emptyIter.NegativeLimit())
+}
+
+// TestDeleteWithIterator tests the DeleteWithIterator() method.
+func TestDeleteWithIterator(t *testing.T) {
+	tree := testNewIntSet()
+	boolInsert(tree, 5)
+	boolInsert(tree, 10)
+	boolInsert(tree, 15)
+
+	assert.Equal(t, 3, tree.Len())
+
+	// Find middle element and delete via iterator
+	iter := tree.FindGE(10)
+	assert.Equal(t, uint32(10), iter.Item().Key)
+
+	tree.DeleteWithIterator(iter)
+	assert.Equal(t, 2, tree.Len())
+	assert.Nil(t, tree.Get(10))
+
+	// Verify remaining elements
+	assert.NotNil(t, tree.Get(5))
+	assert.NotNil(t, tree.Get(15))
+
+	// Delete first element via iterator
+	minIter := tree.Min()
+	tree.DeleteWithIterator(minIter)
+	assert.Equal(t, 1, tree.Len())
+	assert.Nil(t, tree.Get(5))
+
+	// Delete last element via iterator
+	maxIter := tree.Max()
+	tree.DeleteWithIterator(maxIter)
+	assert.Equal(t, 0, tree.Len())
+	assert.Nil(t, tree.Get(15))
+}
+
+// TestIteratorMinMax tests the Iterator.Min() and Iterator.Max() methods.
+func TestIteratorMinMax(t *testing.T) {
+	tree := testNewIntSet()
+	boolInsert(tree, 5)
+	boolInsert(tree, 10)
+	boolInsert(tree, 15)
+
+	// Min iterator should have Min() == true
+	minIter := tree.Min()
+	assert.True(t, minIter.Min())
+	assert.False(t, minIter.Max())
+	assert.Equal(t, uint32(5), minIter.Item().Key)
+
+	// Max iterator should have Max() == true
+	maxIter := tree.Max()
+	assert.True(t, maxIter.Max())
+	assert.False(t, maxIter.Min())
+	assert.Equal(t, uint32(15), maxIter.Item().Key)
+
+	// Middle element should have both false
+	midIter := tree.FindGE(10)
+	assert.False(t, midIter.Min())
+	assert.False(t, midIter.Max())
+	assert.Equal(t, uint32(10), midIter.Item().Key)
+
+	// Single element tree - same element is both min and max
+	singleTree := testNewIntSet()
+	boolInsert(singleTree, 42)
+
+	singleMin := singleTree.Min()
+	assert.True(t, singleMin.Min())
+	assert.True(t, singleMin.Max())
+
+	singleMax := singleTree.Max()
+	assert.True(t, singleMax.Min())
+	assert.True(t, singleMax.Max())
+}
+
 func TestAllocatorSerializeDeserialize(t *testing.T) {
 	alloc := NewAllocator()
 	for i := 0; i < 10000; i++ {
@@ -476,7 +583,7 @@ func TestAllocatorSerializeDeserialize(t *testing.T) {
 	assert.PanicsWithValue(t, "deserialization requires the hibernated state",
 		func() { alloc.Deserialize("...") })
 	alloc.Hibernate()
-	file, err := ioutil.TempFile("", "")
+	file, err := os.CreateTemp("", "")
 	assert.Nil(t, err)
 	name := file.Name()
 	defer os.Remove(name)

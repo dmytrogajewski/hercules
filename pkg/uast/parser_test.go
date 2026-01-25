@@ -1,11 +1,31 @@
 package uast
 
 import (
+	"fmt"
 	"strings"
 	"testing"
 
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
+
+// Test helper functions for generating test content
+func generateLargeGoFile() []byte {
+	var sb strings.Builder
+	sb.WriteString("package main\n\n")
+	for i := 0; i < 50; i++ {
+		sb.WriteString(fmt.Sprintf("func function%d() {\n\tx := %d\n\t_ = x\n}\n\n", i, i))
+	}
+	return []byte(sb.String())
+}
+
+func generateVeryLargeGoFile() []byte {
+	var sb strings.Builder
+	sb.WriteString("package main\n\n")
+	for i := 0; i < 100; i++ {
+		sb.WriteString(fmt.Sprintf("func function%d() {\n\tx := %d\n\t_ = x\n}\n\n", i, i))
+	}
+	return []byte(sb.String())
+}
 
 type mockProvider struct {
 	lang      string
@@ -137,7 +157,7 @@ func world() {}`
 		t.Fatalf("DSL lowering error: %v", err)
 	}
 	out := qf(nodes)
-	var got []string
+	got := make([]string, 0, len(out))
 	for _, n := range out {
 		got = append(got, n.Token)
 	}
@@ -747,4 +767,153 @@ true <- (true) => uast(
 	if parserInstance.Language() != "json" {
 		t.Errorf("Expected language 'json', got '%s'", parserInstance.Language())
 	}
+}
+
+// TestParser_GetEmbeddedMappings tests the GetEmbeddedMappings method
+func TestParser_GetEmbeddedMappings(t *testing.T) {
+	parser, err := NewParser()
+	if err != nil {
+		t.Fatalf("Failed to create parser: %v", err)
+	}
+
+	mappings := parser.GetEmbeddedMappings()
+
+	// Should return a non-empty map
+	if len(mappings) == 0 {
+		t.Error("Expected non-empty mappings map")
+	}
+
+	// Check that known languages are present
+	knownLanguages := []string{"go", "python", "java", "javascript"}
+	for _, lang := range knownLanguages {
+		mapping, exists := mappings[lang]
+		if !exists {
+			t.Errorf("Expected language '%s' to be present in mappings", lang)
+			continue
+		}
+
+		// Each mapping should have Extensions and UAST content
+		if len(mapping.Extensions) == 0 {
+			t.Errorf("Expected language '%s' to have extensions", lang)
+		}
+
+		if mapping.UAST == "" {
+			t.Errorf("Expected language '%s' to have UAST content", lang)
+		}
+	}
+}
+
+// TestParser_GetEmbeddedMappingsList tests the GetEmbeddedMappingsList method
+func TestParser_GetEmbeddedMappingsList(t *testing.T) {
+	parser, err := NewParser()
+	if err != nil {
+		t.Fatalf("Failed to create parser: %v", err)
+	}
+
+	mappingsList := parser.GetEmbeddedMappingsList()
+
+	// Should return a non-empty map
+	if len(mappingsList) == 0 {
+		t.Error("Expected non-empty mappings list")
+	}
+
+	// Check that each entry has a "size" field
+	for lang, info := range mappingsList {
+		size, exists := info["size"]
+		if !exists {
+			t.Errorf("Expected language '%s' to have 'size' field", lang)
+			continue
+		}
+
+		// Size should be a positive integer
+		sizeInt, ok := size.(int)
+		if !ok {
+			t.Errorf("Expected 'size' to be an int for language '%s'", lang)
+			continue
+		}
+
+		if sizeInt <= 0 {
+			t.Errorf("Expected positive size for language '%s', got %d", lang, sizeInt)
+		}
+	}
+}
+
+// TestParser_GetMapping tests the GetMapping method
+func TestParser_GetMapping(t *testing.T) {
+	parser, err := NewParser()
+	if err != nil {
+		t.Fatalf("Failed to create parser: %v", err)
+	}
+
+	// Test retrieving existing language mapping
+	t.Run("existing language", func(t *testing.T) {
+		mapping, err := parser.GetMapping("go")
+		if err != nil {
+			t.Fatalf("Failed to get 'go' mapping: %v", err)
+		}
+
+		if mapping == nil {
+			t.Fatal("Expected non-nil mapping")
+		}
+
+		if len(mapping.Extensions) == 0 {
+			t.Error("Expected 'go' mapping to have extensions")
+		}
+
+		if mapping.UAST == "" {
+			t.Error("Expected 'go' mapping to have UAST content")
+		}
+
+		// Check that .go extension is present
+		hasGoExt := false
+		for _, ext := range mapping.Extensions {
+			if ext == ".go" {
+				hasGoExt = true
+				break
+			}
+		}
+		if !hasGoExt {
+			t.Errorf("Expected 'go' mapping to include .go extension, got: %v", mapping.Extensions)
+		}
+	})
+
+	// Test error case for non-existent language
+	t.Run("non-existent language", func(t *testing.T) {
+		_, err := parser.GetMapping("nonexistent_language_xyz")
+		if err == nil {
+			t.Error("Expected error for non-existent language")
+		}
+
+		if !strings.Contains(err.Error(), "not found") {
+			t.Errorf("Expected 'not found' error, got: %v", err)
+		}
+	})
+
+	// Test retrieving another language
+	t.Run("python mapping", func(t *testing.T) {
+		mapping, err := parser.GetMapping("python")
+		if err != nil {
+			t.Fatalf("Failed to get 'python' mapping: %v", err)
+		}
+
+		if mapping == nil {
+			t.Fatal("Expected non-nil mapping")
+		}
+
+		if len(mapping.Extensions) == 0 {
+			t.Error("Expected 'python' mapping to have extensions")
+		}
+
+		// Check that .py extension is present
+		hasPyExt := false
+		for _, ext := range mapping.Extensions {
+			if ext == ".py" {
+				hasPyExt = true
+				break
+			}
+		}
+		if !hasPyExt {
+			t.Errorf("Expected 'python' mapping to include .py extension, got: %v", mapping.Extensions)
+		}
+	})
 }

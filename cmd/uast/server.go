@@ -183,30 +183,6 @@ func handleQuery(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(response)
 }
 
-func handleGetMappings(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
-		return
-	}
-
-	// Initialize parser to get embedded mappings
-	parser, err := uast.NewParser()
-	if err != nil {
-		http.Error(w, "Failed to initialize parser", http.StatusInternalServerError)
-		return
-	}
-
-	mappings := parser.GetEmbeddedMappings()
-	jsonData, err := json.MarshalIndent(mappings, "", "  ")
-	if err != nil {
-		http.Error(w, "Failed to marshal mappings", http.StatusInternalServerError)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-	w.Write(jsonData)
-}
-
 func handleGetMappingsList(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)

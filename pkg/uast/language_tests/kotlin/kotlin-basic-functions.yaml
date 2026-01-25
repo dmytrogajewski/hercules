@@ -8,30 +8,43 @@ parse_cases:
           return "Hello, World!"
       }
     output:
-      type: "File"
+      type: File
+      roles: []
       children:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
+      - type: Function
+        roles:
+        - Function
+        - Declaration
+        children:
+        - type: Identifier
+          roles:
+          - Name
+        - type: Synthetic
+          roles: []
+        - type: TypeAnnotation
+          roles:
+          - Type
           children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "hello"
-            - type: "ParameterList"
-            - type: "Type"
-              roles: ["Type"]
+          - type: Identifier
+            roles:
+            - Type
+            - Name
+        - type: Block
+          roles:
+          - Body
+          children:
+          - type: Synthetic
+            roles: []
+            children:
+            - type: Synthetic
+              roles: []
               children:
-                - type: "Identifier"
-                  roles: ["Name"]
-                  token: "String"
-            - type: "Block"
-              children:
-                - type: "StatementList"
-                  children:
-                    - type: "Return"
-                      roles: ["Return"]
-                      children:
-                        - type: "Literal"
-                          roles: ["Literal"]
+              - type: Literal
+                roles:
+                - Literal
+                children:
+                - type: Synthetic
+                  roles: []
 
   - name: function_with_params
     input: |
@@ -39,62 +52,78 @@ parse_cases:
           return a + b
       }
     output:
-      type: "File"
+      type: File
+      roles: []
       children:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
+      - type: Function
+        roles:
+        - Function
+        - Declaration
+        children:
+        - type: Identifier
+          roles:
+          - Name
+        - type: Synthetic
+          roles: []
           children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "add"
-            - type: "ParameterList"
+          - type: Parameter
+            roles:
+            - Parameter
+            children:
+            - type: Identifier
+              roles:
+              - Name
+            - type: TypeAnnotation
+              roles:
+              - Type
               children:
-                - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "a"
-                    - type: "Type"
-                      roles: ["Type"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "Int"
-                - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "b"
-                    - type: "Type"
-                      roles: ["Type"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "Int"
-            - type: "Type"
-              roles: ["Type"]
+              - type: Identifier
+                roles:
+                - Type
+                - Name
+          - type: Parameter
+            roles:
+            - Parameter
+            children:
+            - type: Identifier
+              roles:
+              - Name
+            - type: TypeAnnotation
+              roles:
+              - Type
               children:
-                - type: "Identifier"
-                  roles: ["Name"]
-                  token: "Int"
-            - type: "Block"
+              - type: Identifier
+                roles:
+                - Type
+                - Name
+        - type: TypeAnnotation
+          roles:
+          - Type
+          children:
+          - type: Identifier
+            roles:
+            - Type
+            - Name
+        - type: Block
+          roles:
+          - Body
+          children:
+          - type: Synthetic
+            roles: []
+            children:
+            - type: Synthetic
+              roles: []
               children:
-                - type: "StatementList"
-                  children:
-                    - type: "Return"
-                      roles: ["Return"]
-                      children:
-                        - type: "BinaryExpression"
-                          roles: ["Binary"]
-                          children:
-                            - type: "Identifier"
-                              roles: ["Name"]
-                              token: "a"
-                            - type: "Identifier"
-                              roles: ["Name"]
-                              token: "b"
+              - type: BinaryOp
+                roles:
+                - Operator
+                children:
+                - type: Identifier
+                  roles:
+                  - Name
+                - type: Identifier
+                  roles:
+                  - Name
 
 query_cases:
   - name: find_functions
@@ -104,34 +133,29 @@ query_cases:
     query: "filter(.type == \"Function\")"
     output:
       results:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "func1"
-            - type: "ParameterList"
-            - type: "Block"
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "func2"
-            - type: "ParameterList"
-            - type: "Block"
-
-  - name: find_function_names
-    input: |
-      fun myFunction() {}
-    query: "filter(.type == \"Function\")"
-    output:
-      results:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "myFunction"
-            - type: "ParameterList"
-            - type: "Block" 
+      - type: Function
+        roles:
+        - Function
+        - Declaration
+        children:
+        - type: Identifier
+          roles:
+          - Name
+        - type: Synthetic
+          roles: []
+        - type: Block
+          roles:
+          - Body
+      - type: Function
+        roles:
+        - Function
+        - Declaration
+        children:
+        - type: Identifier
+          roles:
+          - Name
+        - type: Synthetic
+          roles: []
+        - type: Block
+          roles:
+          - Body

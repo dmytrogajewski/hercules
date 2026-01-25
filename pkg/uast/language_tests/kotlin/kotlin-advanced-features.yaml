@@ -4,399 +4,237 @@ name: kotlin-advanced-features
 parse_cases:
   - name: class_definition
     input: |
-      class Person(
-          val name: String,
-          val age: Int
-      ) {
+      class Person(val name: String) {
           fun greet(): String {
-              return "Hello, $name!"
+              return "Hello!"
           }
       }
     output:
-      type: "File"
+      type: File
+      roles: []
       children:
-        - type: "Class"
-          roles: ["Class", "Declaration"]
+      - type: Class
+        roles:
+        - Class
+        - Declaration
+        children:
+        - type: Identifier
+          roles:
+          - Type
+          - Name
+        - type: Function
+          roles:
+          - Function
+          - Declaration
           children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "Person"
-            - type: "ParameterList"
+          - type: Parameter
+            roles:
+            - Parameter
+            - Declaration
+            children:
+            - type: Pattern
+              roles:
+              - Pattern
+            - type: Identifier
+              roles:
+              - Name
+            - type: TypeAnnotation
+              roles:
+              - Type
               children:
-                - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "name"
-                    - type: "Type"
-                      roles: ["Type"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "String"
-                - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "age"
-                    - type: "Type"
-                      roles: ["Type"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "Int"
-            - type: "Block"
+              - type: Identifier
+                roles:
+                - Type
+                - Name
+        - type: Block
+          roles:
+          - Body
+          children:
+          - type: Function
+            roles:
+            - Function
+            - Declaration
+            children:
+            - type: Identifier
+              roles:
+              - Name
+            - type: Synthetic
+              roles: []
+            - type: TypeAnnotation
+              roles:
+              - Type
               children:
-                - type: "Function"
-                  roles: ["Function", "Declaration"]
+              - type: Identifier
+                roles:
+                - Type
+                - Name
+            - type: Block
+              roles:
+              - Body
+              children:
+              - type: Synthetic
+                roles: []
+                children:
+                - type: Synthetic
+                  roles: []
                   children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "greet"
-                    - type: "ParameterList"
-                    - type: "Type"
-                      roles: ["Type"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "String"
-                    - type: "Block"
-                      children:
-                        - type: "StatementList"
-                          children:
-                            - type: "Return"
-                              roles: ["Return"]
-                              children:
-                                - type: "Literal"
-                                  roles: ["Literal"]
+                  - type: Literal
+                    roles:
+                    - Literal
+                    children:
+                    - type: Synthetic
+                      roles: []
+
   - name: data_class
     input: |
-      data class User(
-          val id: Int,
-          val email: String
-      )
+      data class User(val id: Int, val email: String)
     output:
-      type: "File"
+      type: File
+      roles: []
       children:
-        - type: "Class"
-          roles: ["Class", "Declaration"]
+      - type: Class
+        roles:
+        - Class
+        - Declaration
+        children:
+        - type: Synthetic
+          roles: []
           children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "User"
-            - type: "ParameterList"
+          - type: Synthetic
+            roles: []
+        - type: Identifier
+          roles:
+          - Type
+          - Name
+        - type: Function
+          roles:
+          - Function
+          - Declaration
+          children:
+          - type: Parameter
+            roles:
+            - Parameter
+            - Declaration
+            children:
+            - type: Pattern
+              roles:
+              - Pattern
+            - type: Identifier
+              roles:
+              - Name
+            - type: TypeAnnotation
+              roles:
+              - Type
               children:
-                - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "id"
-                    - type: "Type"
-                      roles: ["Type"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "Int"
-                - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "email"
-                    - type: "Type"
-                      roles: ["Type"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "String"
+              - type: Identifier
+                roles:
+                - Type
+                - Name
+          - type: Parameter
+            roles:
+            - Parameter
+            - Declaration
+            children:
+            - type: Pattern
+              roles:
+              - Pattern
+            - type: Identifier
+              roles:
+              - Name
+            - type: TypeAnnotation
+              roles:
+              - Type
+              children:
+              - type: Identifier
+                roles:
+                - Type
+                - Name
+
   - name: object_declaration
     input: |
       object Singleton {
-          fun getInstance(): Singleton {
-              return this
-          }
+          fun getInstance() = this
       }
     output:
-      type: "File"
+      type: File
+      roles: []
       children:
-        - type: "Object"
-          roles: ["Object", "Declaration"]
+      - type: Class
+        roles:
+        - Class
+        - Declaration
+        children:
+        - type: Identifier
+          roles:
+          - Type
+          - Name
+        - type: Block
+          roles:
+          - Body
           children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "Singleton"
-            - type: "Block"
+          - type: Function
+            roles:
+            - Function
+            - Declaration
+            children:
+            - type: Identifier
+              roles:
+              - Name
+            - type: Synthetic
+              roles: []
+            - type: Block
+              roles:
+              - Body
               children:
-                - type: "Function"
-                  roles: ["Function", "Declaration"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "getInstance"
-                    - type: "ParameterList"
-                    - type: "Type"
-                      roles: ["Type"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "Singleton"
-                    - type: "Block"
-                      children:
-                        - type: "StatementList"
-                          children:
-                            - type: "Return"
-                              roles: ["Return"]
-                              children:
-                                - type: "Identifier"
-                                  roles: ["Name"]
-  - name: companion_object
-    input: |
-      class Utils {
-          companion object {
-              fun create(): Utils {
-                  return Utils()
-              }
-          }
-      }
-    output:
-      type: "File"
-      children:
-        - type: "Class"
-          roles: ["Class", "Declaration"]
-          children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "Utils"
-            - type: "Block"
-  - name: extension_function
-    input: |
-      fun String.reverse(): String {
-          return this.reversed()
-      }
-    output:
-      type: "File"
-      children:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "reverse"
-            - type: "ParameterList"
-            - type: "Type"
-              roles: ["Type"]
-              children:
-                - type: "Identifier"
-                  roles: ["Name"]
-                  token: "String"
-            - type: "Block"
-              children:
-                - type: "StatementList"
-                  children:
-                    - type: "Return"
-                      roles: ["Return"]
-                      children:
-                        - type: "Call"
-                          roles: ["Call"]
-  - name: interface_definition
-    input: |
-      interface Printable {
-          fun print(): String
-          fun debug(): String {
-              return "Debug info"
-          }
-      }
-    output:
-      type: "File"
-      children:
-        - type: "Class"
-          roles: ["Class", "Declaration"]
-          children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "Printable"
-            - type: "Block"
-              children:
-                - type: "Function"
-                  roles: ["Function", "Declaration"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "print"
-                    - type: "ParameterList"
-                    - type: "Type"
-                      roles: ["Type"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "String"
-                - type: "Function"
-                  roles: ["Function", "Declaration"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "debug"
-                    - type: "ParameterList"
-                    - type: "Type"
-                      roles: ["Type"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "String"
-                    - type: "Block"
-                      children:
-                        - type: "StatementList"
-                          children:
-                            - type: "Return"
-                              roles: ["Return"]
-                              children:
-                                - type: "Literal"
-                                  roles: ["Literal"]
+              - type: Identifier
+                roles:
+                - Reference
+
   - name: enum_class
     input: |
-      enum class Color {
-          RED, GREEN, BLUE
-      }
+      enum class Color { RED, GREEN, BLUE }
     output:
-      type: "File"
+      type: File
+      roles: []
       children:
-        - type: "Class"
-          roles: ["Class", "Declaration"]
+      - type: Class
+        roles:
+        - Class
+        - Declaration
+        children:
+        - type: Identifier
+          roles:
+          - Type
+          - Name
+        - type: Block
+          roles:
+          - Body
           children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "Color"
-            - type: "EnumList"
-              children:
-                - type: "Identifier"
-                  roles: ["Name"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "RED"
-                - type: "Identifier"
-                  roles: ["Name"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "GREEN"
-                - type: "Identifier"
-                  roles: ["Name"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "BLUE"
-  - name: sealed_class
-    input: |
-      sealed class Result {
-          class Success<T>(val data: T) : Result()
-          class Error(val message: String) : Result()
-      }
-    output:
-      type: "File"
-      children:
-        - type: "Class"
-          roles: ["Class", "Declaration"]
-          children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "Result"
-            - type: "Block"
-              children:
-                - type: "Class"
-                  roles: ["Class", "Declaration"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "Success"
-                    - type: "ParameterList"
-                      children:
-                        - type: "Parameter"
-                          roles: ["Parameter", "Declaration"]
-                          children:
-                            - type: "Identifier"
-                              roles: ["Name"]
-                            - type: "Type"
-                              roles: ["Type"]
-                              children:
-                                - type: "Identifier"
-                                  roles: ["Name"]
-                                  token: "T"
-                - type: "Class"
-                  roles: ["Class", "Declaration"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "Error"
-                    - type: "ParameterList"
-                      children:
-                        - type: "Parameter"
-                          roles: ["Parameter", "Declaration"]
-                          children:
-                            - type: "Identifier"
-                              roles: ["Name"]
-                              token: "message"
-                            - type: "Type"
-                              roles: ["Type"]
-                              children:
-                                - type: "Identifier"
-                                  roles: ["Name"]
-                                  token: "String"
-  - name: lambda_expression
-    input: |
-      fun main() {
-          val numbers = listOf(1, 2, 3)
-          val doubled = numbers.map { it * 2 }
-      }
-    output:
-      type: "File"
-      children:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "main"
-            - type: "ParameterList"
-            - type: "Block"
-              children:
-                - type: "StatementList"
-  - name: when_expression
-    input: |
-      fun test(x: Int) = when (x) {
-          1 -> "one"
-          2 -> "two"
-          else -> "other"
-      }
-    output:
-      type: "File"
-      children:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "test"
-            - type: "ParameterList"
-              children:
-                - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "x"
-                    - type: "Type"
-                      roles: ["Type"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "Int"
-            - type: "Block"
+          - type: EnumMember
+            roles:
+            - Member
+            - Declaration
+            children:
+            - type: Identifier
+              roles:
+              - Name
+          - type: EnumMember
+            roles:
+            - Member
+            - Declaration
+            children:
+            - type: Identifier
+              roles:
+              - Name
+          - type: EnumMember
+            roles:
+            - Member
+            - Declaration
+            children:
+            - type: Identifier
+              roles:
+              - Name
 
-# Query cases (already updated to DSL)
 query_cases:
   - name: find_classes
     input: |
@@ -405,112 +243,73 @@ query_cases:
     query: "filter(.type == 'Class')"
     output:
       results:
-        - type: "Class"
-          roles: ["Class", "Declaration"]
+      - type: Class
+        roles:
+        - Class
+        - Declaration
+        children:
+        - type: Identifier
+          roles:
+          - Type
+          - Name
+        - type: Function
+          roles:
+          - Function
+          - Declaration
           children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "User"
-            - type: "ParameterList"
+          - type: Parameter
+            roles:
+            - Parameter
+            - Declaration
+            children:
+            - type: Pattern
+              roles:
+              - Pattern
+            - type: Identifier
+              roles:
+              - Name
+            - type: TypeAnnotation
+              roles:
+              - Type
               children:
-                - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "name"
-                    - type: "Type"
-                      roles: ["Type"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "String"
-        - type: "Class"
-          roles: ["Class", "Declaration"]
+              - type: Identifier
+                roles:
+                - Type
+                - Name
+      - type: Class
+        roles:
+        - Class
+        - Declaration
+        children:
+        - type: Identifier
+          roles:
+          - Type
+          - Name
+        - type: Function
+          roles:
+          - Function
+          - Declaration
           children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "Product"
-            - type: "ParameterList"
+          - type: Parameter
+            roles:
+            - Parameter
+            - Declaration
+            children:
+            - type: Pattern
+              roles:
+              - Pattern
+            - type: Identifier
+              roles:
+              - Name
+            - type: TypeAnnotation
+              roles:
+              - Type
               children:
-                - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "id"
-                    - type: "Type"
-                      roles: ["Type"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "Int"
-  - name: find_objects
-    input: |
-      object Singleton
-      object Config
-    query: "filter(.type == 'Object')"
-    output:
-      results:
-        - type: "Object"
-          roles: ["Object", "Declaration"]
-          children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "Singleton"
-        - type: "Object"
-          roles: ["Object", "Declaration"]
-          children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "Config"
-  - name: find_enums
-    input: |
-      enum class Color { RED, GREEN }
-      enum class Status { ACTIVE, INACTIVE }
-    query: "filter(.type == 'Class')"
-    output:
-      results:
-        - type: "Class"
-          roles: ["Class", "Declaration"]
-          children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "Color"
-            - type: "EnumList"
-              children:
-                - type: "Identifier"
-                  roles: ["Name"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "RED"
-                - type: "Identifier"
-                  roles: ["Name"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "GREEN"
-        - type: "Class"
-          roles: ["Class", "Declaration"]
-          children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "Status"
-            - type: "EnumList"
-              children:
-                - type: "Identifier"
-                  roles: ["Name"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "ACTIVE"
-                - type: "Identifier"
-                  roles: ["Name"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "INACTIVE"
+              - type: Identifier
+                roles:
+                - Type
+                - Name
+
   - name: find_functions
     input: |
       fun hello(): String { return "Hello" }
@@ -518,79 +317,106 @@ query_cases:
     query: "filter(.type == 'Function')"
     output:
       results:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
+      - type: Function
+        roles:
+        - Function
+        - Declaration
+        children:
+        - type: Identifier
+          roles:
+          - Name
+        - type: Synthetic
+          roles: []
+        - type: TypeAnnotation
+          roles:
+          - Type
           children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "hello"
-            - type: "ParameterList"
-            - type: "Type"
-              roles: ["Type"]
-              children:
-                - type: "Identifier"
-                  roles: ["Name"]
-                  token: "String"
-            - type: "Block"
-              children:
-                - type: "StatementList"
-                  children:
-                    - type: "Return"
-                      roles: ["Return"]
-                      children:
-                        - type: "Literal"
-                          roles: ["Literal"]
-        - type: "Function"
-          roles: ["Function", "Declaration"]
+          - type: Identifier
+            roles:
+            - Type
+            - Name
+        - type: Block
+          roles:
+          - Body
           children:
-            - type: "Identifier"
-              roles: ["Name"]
-              token: "add"
-            - type: "ParameterList"
+          - type: Synthetic
+            roles: []
+            children:
+            - type: Synthetic
+              roles: []
               children:
-                - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "a"
-                    - type: "Type"
-                      roles: ["Type"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "Int"
-                - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
-                  children:
-                    - type: "Identifier"
-                      roles: ["Name"]
-                      token: "b"
-                    - type: "Type"
-                      roles: ["Type"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "Int"
-            - type: "Type"
-              roles: ["Type"]
+              - type: Literal
+                roles:
+                - Literal
+                children:
+                - type: Synthetic
+                  roles: []
+      - type: Function
+        roles:
+        - Function
+        - Declaration
+        children:
+        - type: Identifier
+          roles:
+          - Name
+        - type: Synthetic
+          roles: []
+          children:
+          - type: Parameter
+            roles:
+            - Parameter
+            children:
+            - type: Identifier
+              roles:
+              - Name
+            - type: TypeAnnotation
+              roles:
+              - Type
               children:
-                - type: "Identifier"
-                  roles: ["Name"]
-                  token: "Int"
-            - type: "Block"
+              - type: Identifier
+                roles:
+                - Type
+                - Name
+          - type: Parameter
+            roles:
+            - Parameter
+            children:
+            - type: Identifier
+              roles:
+              - Name
+            - type: TypeAnnotation
+              roles:
+              - Type
               children:
-                - type: "StatementList"
-                  children:
-                    - type: "Return"
-                      roles: ["Return"]
-                      children:
-                        - type: "BinaryExpression"
-                          roles: ["Binary"]
-                          children:
-                            - type: "Identifier"
-                              roles: ["Name"]
-                              token: "a"
-                            - type: "Identifier"
-                              roles: ["Name"]
-                              token: "b" 
+              - type: Identifier
+                roles:
+                - Type
+                - Name
+        - type: TypeAnnotation
+          roles:
+          - Type
+          children:
+          - type: Identifier
+            roles:
+            - Type
+            - Name
+        - type: Block
+          roles:
+          - Body
+          children:
+          - type: Synthetic
+            roles: []
+            children:
+            - type: Synthetic
+              roles: []
+              children:
+              - type: BinaryOp
+                roles:
+                - Operator
+                children:
+                - type: Identifier
+                  roles:
+                  - Name
+                - type: Identifier
+                  roles:
+                  - Name

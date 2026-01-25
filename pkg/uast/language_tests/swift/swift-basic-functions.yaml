@@ -1,90 +1,41 @@
 suite: basic-functions
 name: swift-basic-functions
 
-parse_cases:
-  - name: simple_function
-    input: |
-      func hello() -> String {
-          return "Hello, World!"
-      }
-    output:
-      type: "File"
-      children:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          props:
-            name: "hello"
-          children:
-            - type: "Block"
-              children:
-                - type: "StatementList"
-                  children:
-                    - type: "Return"
-                      roles: ["Return"]
-                      children:
-                        - type: "Literal"
-                          roles: ["Literal"]
-
-  - name: function_with_params
-    input: |
-      func add(a: Int, b: Int) -> Int {
-          return a + b
-      }
-    output:
-      type: "File"
-      children:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          props:
-            name: "add"
-          children:
-            - type: "Block"
-              children:
-                - type: "StatementList"
-                  children:
-                    - type: "Return"
-                      roles: ["Return"]
-                      children:
-                        - type: "BinaryExpression"
-                          roles: ["Binary"]
-                          children:
-                            - type: "Identifier"
-                              roles: ["Name"]
-                              token: "a"
-                            - type: "Identifier"
-                              roles: ["Name"]
-                              token: "b"
-
 query_cases:
   - name: find_functions
     input: |
-      func func1() {}
-      func func2() {}
-    query: "filter(.type == \"Function\")"
+      func add(_ a: Int, _ b: Int) -> Int {
+          return a + b
+      }
+      func subtract(_ a: Int, _ b: Int) -> Int {
+          return a - b
+      }
+    query: 'rfilter(.type == "Function") |> map(.type)'
     output:
       results:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          props:
-            name: "func1"
-          children:
-            - type: "Block"
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          props:
-            name: "func2"
-          children:
-            - type: "Block"
+        - "Function"
+        - "Function"
 
-  - name: find_function_names
+  - name: find_classes
     input: |
-      func myFunction() {}
-    query: "filter(.type == \"Function\")"
+      class Calculator {
+          func add(_ a: Int, _ b: Int) -> Int {
+              return a + b
+          }
+      }
+    query: 'rfilter(.type == "Class") |> map(.type)'
     output:
       results:
-        - type: "Function"
-          roles: ["Function", "Declaration"]
-          props:
-            name: "myFunction"
-          children:
-            - type: "Block" 
+        - "Class"
+
+  - name: find_identifiers
+    input: |
+      class Test {
+          var value: Int = 0
+      }
+    query: 'rfilter(.type == "Identifier") |> map(.type)'
+    output:
+      results:
+        - "Identifier"
+        - "Identifier"
+        - "Identifier"

@@ -87,9 +87,19 @@ type Change struct {
 }
 
 func detectChanges(node1, node2 *node.Node, file1, file2 string) []Change {
-	var changes []Change
+	// Use the uast package's optimized change detection
+	uastChanges := uast.DetectChanges(node1, node2)
 
-	// detect changes in structure
+	// Convert uast.Change to local Change type
+	changes := make([]Change, 0, len(uastChanges))
+	for _, c := range uastChanges {
+		changes = append(changes, Change{
+			Type:   c.Type.String(),
+			File:   file1,
+			Before: c.Before,
+			After:  c.After,
+		})
+	}
 
 	return changes
 }

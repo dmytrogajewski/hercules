@@ -11,24 +11,56 @@ parse_cases:
       }
     output:
       type: "File"
+      roles: []
       children:
         - type: "Class"
-          roles: ["Class", "Declaration"]
+          token: |-
+            public class Test {
+                public String hello() {
+                    return "Hello, World!";
+                }
+            }
           props:
             name: "Test"
+          roles: ["Class", "Declaration"]
           children:
-            - type: "Method"
-              roles: ["Method", "Declaration"]
-              props:
-                name: "hello"
+            - type: "Synthetic"
+              token: "public"
+              roles: []
+            - type: "Identifier"
+              token: "Test"
+              roles: ["Name"]
+            - type: "Class"
+              roles: ["Class", "Declaration"]
               children:
-                - type: "Block"
+                - type: "Method"
+                  props:
+                    name: "hello"
+                  roles: ["Function", "Declaration", "Member"]
                   children:
-                    - type: "Return"
+                    - type: "Synthetic"
+                      token: "public"
+                      roles: []
+                    - type: "Identifier"
+                      token: "String"
+                      roles: ["Name", "Type"]
+                    - type: "Identifier"
+                      token: "hello"
+                      roles: ["Name"]
+                    - type: "Parameter"
+                      roles: ["Parameter"]
+                    - type: "Block"
+                      roles: ["Body"]
                       children:
-                        - type: "Literal"
-                          roles: ["Literal"]
-                          token: '"Hello, World!"'
+                        - type: "Return"
+                          roles: ["Return"]
+                          children:
+                            - type: "Literal"
+                              roles: ["Literal"]
+                              children:
+                                - type: "Synthetic"
+                                  token: "Hello, World!"
+                                  roles: []
 
   - name: function_with_params
     input: |
@@ -39,42 +71,85 @@ parse_cases:
       }
     output:
       type: "File"
+      roles: []
       children:
         - type: "Class"
-          roles: ["Class", "Declaration"]
+          token: |-
+            public class Calculator {
+                public int add(int a, int b) {
+                    return a + b;
+                }
+            }
           props:
             name: "Calculator"
+          roles: ["Class", "Declaration"]
           children:
-            - type: "Method"
-              roles: ["Method", "Declaration"]
-              props:
-                name: "add"
+            - type: "Synthetic"
+              token: "public"
+              roles: []
+            - type: "Identifier"
+              token: "Calculator"
+              roles: ["Name"]
+            - type: "Class"
+              roles: ["Class", "Declaration"]
               children:
-                - type: "ParameterList"
+                - type: "Method"
+                  props:
+                    name: "add"
+                  roles: ["Function", "Declaration", "Member"]
                   children:
+                    - type: "Synthetic"
+                      token: "public"
+                      roles: []
+                    - type: "Synthetic"
+                      token: "int"
+                      roles: []
+                    - type: "Identifier"
+                      token: "add"
+                      roles: ["Name"]
                     - type: "Parameter"
-                      roles: ["Parameter", "Declaration"]
-                      props:
-                        name: "a"
-                    - type: "Parameter"
-                      roles: ["Parameter", "Declaration"]
-                      props:
-                        name: "b"
-                - type: "Block"
-                  children:
-                    - type: "Return"
+                      roles: ["Parameter"]
                       children:
-                        - type: "BinaryExpression"
-                          roles: ["Binary"]
+                        - type: "Parameter"
+                          token: "int a"
+                          props:
+                            name: "a"
+                          roles: ["Parameter"]
                           children:
+                            - type: "Synthetic"
+                              token: "int"
+                              roles: []
                             - type: "Identifier"
+                              token: "a"
                               roles: ["Name"]
-                              props:
-                                name: "a"
+                        - type: "Parameter"
+                          token: "int b"
+                          props:
+                            name: "b"
+                          roles: ["Parameter"]
+                          children:
+                            - type: "Synthetic"
+                              token: "int"
+                              roles: []
                             - type: "Identifier"
+                              token: "b"
                               roles: ["Name"]
-                              props:
-                                name: "b"
+                    - type: "Block"
+                      roles: ["Body"]
+                      children:
+                        - type: "Return"
+                          roles: ["Return"]
+                          children:
+                            - type: "BinaryOp"
+                              token: "a + b"
+                              roles: ["Operator"]
+                              children:
+                                - type: "Identifier"
+                                  token: "a"
+                                  roles: ["Name"]
+                                - type: "Identifier"
+                                  token: "b"
+                                  roles: ["Name"]
 
 query_cases:
   - name: find_methods
@@ -83,24 +158,18 @@ query_cases:
           public void method1() {}
           public void method2() {}
       }
-    query: "filter(.type == \"Method\")"
+    query: 'rfilter(.type == "Method") |> map(.props.name)'
     output:
       results:
-        - type: "Method"
-          roles: ["Method", "Declaration"]
-          props:
-            name: "method1"
-        - type: "Method"
-          roles: ["Method", "Declaration"]
-          props:
-            name: "method2"
+        - "method1"
+        - "method2"
 
   - name: find_method_names
     input: |
       public class Test {
           public void myMethod() {}
       }
-    query: "filter(.type == \"Method\") |> map(.name)"
+    query: 'rfilter(.type == "Method") |> map(.props.name)'
     output:
       results:
-        - token: "myMethod" 
+        - "myMethod"

@@ -1,42 +1,51 @@
 [language "csv", extensions: ".csv"]
 
-boolean <- (boolean) => uast(
-    type: "Synthetic"
-)
-
 document <- (document) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-field <- (field) => uast(
-    type: "Field",
-    roles: "Member"
-)
-
-float <- (float) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-number <- (number) => uast(
-    type: "Synthetic"
+    type: "File"
 )
 
 row <- (row) => uast(
-    token: "self",
-    type: "Synthetic"
+    type: "List",
+    roles: "Literal"
 )
 
-false <- (false) => uast(
-    type: "Synthetic"
+field <- (field) => uast(
+    type: "Literal",
+    roles: "Literal"
 )
 
 text <- (text) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
+)
+
+number <- (number) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+float <- (float) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+boolean <- (boolean) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
 )
 
 true <- (true) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+false <- (false) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
 )

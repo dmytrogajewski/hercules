@@ -15,10 +15,10 @@ type cohesionContext struct {
 // CohesionVisitor implements NodeVisitor for cohesion analysis
 type CohesionVisitor struct {
 	contexts []*cohesionContext
-	
+
 	// Collected functions
 	functions []Function
-	
+
 	// Helpers
 	extractor *common.DataExtractor
 }
@@ -61,7 +61,7 @@ func (v *CohesionVisitor) GetReport() analyze.Report {
 		traverser: common.NewUASTTraverser(common.TraversalConfig{}),
 		extractor: v.extractor,
 	}
-	
+
 	if len(v.functions) == 0 {
 		return analyzer.buildEmptyResult()
 	}
@@ -85,7 +85,7 @@ func (v *CohesionVisitor) pushContext(n *node.Node) {
 		traverser: common.NewUASTTraverser(common.TraversalConfig{}),
 		extractor: v.extractor,
 	}
-	
+
 	name := analyzer.extractFunctionName(n)
 	lineCount := analyzer.traverser.CountLines(n)
 
@@ -127,7 +127,7 @@ func (v *CohesionVisitor) processNode(ctx *cohesionContext, n *node.Node) {
 	analyzer := &CohesionAnalyzer{
 		extractor: v.extractor,
 	}
-	
+
 	variables := &ctx.function.Variables
 	analyzer.processVariableNode(n, variables)
 }

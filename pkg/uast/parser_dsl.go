@@ -10,6 +10,7 @@ import (
 
 	forest "github.com/alexaandru/go-sitter-forest"
 	sitter "github.com/alexaandru/go-tree-sitter-bare"
+	"github.com/dmytrogajewski/hercules/pkg/safeconv"
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/mapping"
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
@@ -61,8 +62,7 @@ func (p *DSLParser) initializeLanguage() error {
 	var lang *sitter.Language
 	func() {
 		defer func() {
-			if r := recover(); r != nil {
-				// Panic recovered, lang will remain nil
+			if r := recover(); r != nil { //nolint:staticcheck // intentionally empty - panic recovery sets lang to nil
 			}
 		}()
 		lang = forest.GetLanguage(p.langInfo.Name)
@@ -344,65 +344,43 @@ func (dn *DSLNode) evaluateCondition(expr string, captures map[string]string) bo
 	// Only support simple equality: field == "value" or field != "value"
 	expr = strings.TrimSpace(expr)
 	if strings.Contains(expr, "==") {
-		parts := strings.SplitN(expr, "==", 2)
-		if len(parts) != 2 {
-			return false
-		}
-		field := strings.TrimSpace(parts[0])
-		val := strings.Trim(strings.TrimSpace(parts[1]), "\"")
-
-		// Check captures first
-		if v, ok := captures[field]; ok {
-			return v == val
-		}
-
-		// Check field names in the AST
-		if fieldNode := dn.Root.ChildByFieldName(field); !fieldNode.IsNull() {
-			fieldText := fieldNode.Content(dn.Source)
-			return fieldText == val
-		}
-
-		// Check if field is a child type
-		for i := uint32(0); i < dn.Root.NamedChildCount(); i++ {
-			child := dn.Root.NamedChild(i)
-			if child.Type() == field {
-				childText := child.Content(dn.Source)
-				return childText == val
-			}
-		}
-
-		return false
+		return dn.evaluateComparisonOp(expr, "==", captures, func(a, b string) bool { return a == b })
 	}
 	if strings.Contains(expr, "!=") {
-		parts := strings.SplitN(expr, "!=", 2)
-		if len(parts) != 2 {
-			return false
-		}
-		field := strings.TrimSpace(parts[0])
-		val := strings.Trim(strings.TrimSpace(parts[1]), "\"")
+		return dn.evaluateComparisonOp(expr, "!=", captures, func(a, b string) bool { return a != b })
+	}
+	return false
+}
 
-		// Check captures first
-		if v, ok := captures[field]; ok {
-			return v != val
-		}
-
-		// Check field names in the AST
-		if fieldNode := dn.Root.ChildByFieldName(field); !fieldNode.IsNull() {
-			fieldText := fieldNode.Content(dn.Source)
-			return fieldText != val
-		}
-
-		// Check if field is a child type
-		for i := uint32(0); i < dn.Root.NamedChildCount(); i++ {
-			child := dn.Root.NamedChild(i)
-			if child.Type() == field {
-				childText := child.Content(dn.Source)
-				return childText != val
-			}
-		}
-
+// evaluateComparisonOp is a helper that evaluates comparison expressions with the given operator and comparator.
+func (dn *DSLNode) evaluateComparisonOp(expr, op string, captures map[string]string, compare func(a, b string) bool) bool {
+	parts := strings.SplitN(expr, op, 2)
+	if len(parts) != 2 {
 		return false
 	}
+	field := strings.TrimSpace(parts[0])
+	val := strings.Trim(strings.TrimSpace(parts[1]), "\"")
+
+	// Check captures first
+	if v, ok := captures[field]; ok {
+		return compare(v, val)
+	}
+
+	// Check field names in the AST
+	if fieldNode := dn.Root.ChildByFieldName(field); !fieldNode.IsNull() {
+		fieldText := fieldNode.Content(dn.Source)
+		return compare(fieldText, val)
+	}
+
+	// Check if field is a child type
+	for i := uint32(0); i < dn.Root.NamedChildCount(); i++ {
+		child := dn.Root.NamedChild(i)
+		if child.Type() == field {
+			childText := child.Content(dn.Source)
+			return compare(childText, val)
+		}
+	}
+
 	return false
 }
 
@@ -578,7 +556,7 @@ func (dn *DSLNode) extractDirectChildProperty(propStr string) string {
 func (dn *DSLNode) extractChildText(child sitter.Node) string {
 	start := child.StartByte()
 	end := child.EndByte()
-	if int(end) <= len(dn.Source) {
+	if safeconv.MustUintToInt(end) <= len(dn.Source) {
 		return string(dn.Source[start:end])
 	}
 	return ""
@@ -833,7 +811,7 @@ func (dn *DSLNode) Positions() *node.Positions {
 func (dn *DSLNode) extractNodeText(node sitter.Node) string {
 	start := node.StartByte()
 	end := node.EndByte()
-	if int(end) <= len(dn.Source) {
+	if safeconv.MustUintToInt(end) <= len(dn.Source) {
 		return string(dn.Source[start:end])
 	}
 	return ""

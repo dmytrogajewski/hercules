@@ -261,11 +261,3 @@ func getActualValue(data any, fieldPath string) string {
 		return fmt.Sprintf("%v", v)
 	}
 }
-
-func getCwd() string {
-	cwd, err := os.Getwd()
-	if err != nil {
-		return ""
-	}
-	return cwd
-}

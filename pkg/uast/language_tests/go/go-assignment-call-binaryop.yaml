@@ -12,105 +12,129 @@ parse_cases:
       }
     output:
       type: "File"
+      roles: []
       children:
         - type: "Function"
-          roles: ["Function", "Declaration"]
+          token: |-
+            func h(a, b int) int {
+                c := a + b
+                d := -a
+                e := f(a)
+                return c + d + e
+            }
           props:
             name: "h"
-          token: "h"
+          roles: ["Function", "Declaration"]
           children:
             - type: "Identifier"
-              roles: ["Name"]
               token: "h"
-            - type: "Block"
-              roles: ["Body"]
+              roles: ["Name"]
+            - type: "Parameter"
+              token: "(a, b int)"
+              roles: ["Parameter"]
               children:
                 - type: "Parameter"
-                  roles: ["Parameter", "Declaration"]
+                  props:
+                    name: "a"
+                  roles: ["Parameter"]
                   children:
                     - type: "Identifier"
-                      roles: ["Name"]
                       token: "a"
-                    - type: "Identifier"
                       roles: ["Name"]
+                    - type: "Identifier"
                       token: "b"
+                      roles: ["Name"]
+                    - type: "Identifier"
+                      token: "int"
+                      roles: ["Name", "Type"]
+            - type: "Identifier"
+              token: "int"
+              roles: ["Name", "Type"]
             - type: "Block"
+              token: |-
+                {
+                    c := a + b
+                    d := -a
+                    e := f(a)
+                    return c + d + e
+                }
               roles: ["Body"]
               children:
                 - type: "Variable"
+                  token: "c := a + b"
                   roles: ["Variable", "Declaration"]
-                  props:
-                    name: "c"
                   children:
-                    - type: "Block"
-                      roles: ["Body"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "Identifier"
-                          roles: ["Name"]
                           token: "c"
-                    - type: "Block"
-                      roles: ["Body"]
+                          roles: ["Name"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "BinaryOp"
                           roles: ["Operator"]
                           children:
                             - type: "Identifier"
-                              roles: ["Name"]
                               token: "a"
-                            - type: "Identifier"
                               roles: ["Name"]
+                            - type: "Identifier"
                               token: "b"
+                              roles: ["Name"]
                 - type: "Variable"
+                  token: "d := -a"
                   roles: ["Variable", "Declaration"]
-                  props:
-                    name: "d"
                   children:
-                    - type: "Block"
-                      roles: ["Body"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "Identifier"
-                          roles: ["Name"]
                           token: "d"
-                    - type: "Block"
-                      roles: ["Body"]
+                          roles: ["Name"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "UnaryOp"
+                          token: "-a"
                           roles: ["Operator"]
                           children:
                             - type: "Identifier"
-                              roles: ["Name"]
                               token: "a"
+                              roles: ["Name"]
                 - type: "Variable"
+                  token: "e := f(a)"
                   roles: ["Variable", "Declaration"]
-                  props:
-                    name: "e"
                   children:
-                    - type: "Block"
-                      roles: ["Body"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "Identifier"
-                          roles: ["Name"]
                           token: "e"
-                    - type: "Block"
-                      roles: ["Body"]
+                          roles: ["Name"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "Call"
+                          token: "f(a)"
                           roles: ["Call"]
                           children:
                             - type: "Identifier"
-                              roles: ["Name"]
                               token: "f"
-                            - type: "Block"
-                              roles: ["Body"]
+                              roles: ["Name"]
+                            - type: "List"
+                              token: "(a)"
+                              roles: []
                               children:
                                 - type: "Identifier"
-                                  roles: ["Name"]
                                   token: "a"
+                                  roles: ["Name"]
                 - type: "Return"
+                  token: "return c + d + e"
                   roles: ["Return"]
                   children:
-                    - type: "Block"
-                      roles: ["Body"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "BinaryOp"
                           roles: ["Operator"]
@@ -119,11 +143,30 @@ parse_cases:
                               roles: ["Operator"]
                               children:
                                 - type: "Identifier"
-                                  roles: ["Name"]
                                   token: "c"
-                                - type: "Identifier"
                                   roles: ["Name"]
+                                - type: "Identifier"
                                   token: "d"
+                                  roles: ["Name"]
                             - type: "Identifier"
+                              token: "e"
                               roles: ["Name"]
-                              token: "e" 
+
+query_cases:
+  - name: find_binary_ops
+    input: |
+      func f() { x := a + b * c }
+    query: 'rfilter(.type == "BinaryOp") |> map(.type)'
+    output:
+      results:
+        - "BinaryOp"
+        - "BinaryOp"
+
+  - name: find_calls
+    input: |
+      func f() { x := foo(1); y := bar(2) }
+    query: 'rfilter(.type == "Call") |> map(.type)'
+    output:
+      results:
+        - "Call"
+        - "Call"

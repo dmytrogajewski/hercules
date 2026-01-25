@@ -24,15 +24,6 @@ func ParseNodeTypes(jsonData []byte) ([]NodeTypeInfo, error) {
 	return nodes, nil
 }
 
-// BuildNodeRegistry builds a registry of node types with dependency tracking.
-func BuildNodeRegistry(nodes []NodeTypeInfo) map[string]NodeTypeInfo {
-	reg := make(map[string]NodeTypeInfo, len(nodes))
-	for _, n := range nodes {
-		reg[n.Name] = n
-	}
-	return reg
-}
-
 // ApplyHeuristicClassification applies heuristic rules to classify node types.
 func ApplyHeuristicClassification(nodes []NodeTypeInfo) []NodeTypeInfo {
 	for i := range nodes {
@@ -288,74 +279,106 @@ func contains(s, substr string) bool {
 	return len(s) >= len(substr) && (s == substr || (len(substr) > 0 && (len(s) > len(substr) && (s[:len(substr)] == substr || s[len(s)-len(substr):] == substr))) || (len(substr) > 0 && (len(s) > len(substr) && (s[len(s)-len(substr):] == substr))))
 }
 
+// writeLanguageDeclaration writes the language declaration section to the builder.
+func writeLanguageDeclaration(sb *strings.Builder, language string, extensions []string) {
+	if language == "" || len(extensions) == 0 {
+		return
+	}
+	sb.WriteString(fmt.Sprintf("[language \"%s\", extensions: ", language))
+	for i, ext := range extensions {
+		if i > 0 {
+			sb.WriteString(", ")
+		}
+		sb.WriteString(fmt.Sprintf("\"%s\"", ext))
+	}
+	sb.WriteString("]\n\n")
+}
+
+// collectChildTypes collects and returns sorted child type names from a node's children and fields.
+func collectChildTypes(n NodeTypeInfo) []string {
+	childTypes := make(map[string]struct{})
+	for _, c := range n.Children {
+		if isValidIdentifier(c.Type) {
+			childTypes[c.Type] = struct{}{}
+		}
+	}
+	for _, f := range n.Fields {
+		for _, t := range f.Types {
+			if isValidIdentifier(t) {
+				childTypes[t] = struct{}{}
+			}
+		}
+	}
+	if len(childTypes) == 0 {
+		return nil
+	}
+	keys := make([]string, 0, len(childTypes))
+	for k := range childTypes {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	return keys
+}
+
+// writeRolesSection writes the roles section if roles are present.
+func writeRolesSection(sb *strings.Builder, roles []string) {
+	if len(roles) == 0 {
+		return
+	}
+	sb.WriteString(",\n    roles: ")
+	for i, r := range roles {
+		if i > 0 {
+			sb.WriteString(", ")
+		}
+		sb.WriteString(fmt.Sprintf("\"%s\"", r))
+	}
+}
+
+// writeChildrenSection writes the children section if children are present.
+func writeChildrenSection(sb *strings.Builder, childTypes []string) {
+	if len(childTypes) == 0 {
+		return
+	}
+	sb.WriteString(",\n    children: ")
+	for i, k := range childTypes {
+		if i > 0 {
+			sb.WriteString(", ")
+		}
+		sb.WriteString(fmt.Sprintf("\"%s\"", k))
+	}
+}
+
+// writeNodeMapping writes a single node's mapping DSL to the builder.
+func writeNodeMapping(sb *strings.Builder, n NodeTypeInfo) {
+	uastType, roles := guessUASTTypeAndRoles(n.Name)
+	isLeaf := len(n.Children) == 0 && len(n.Fields) == 0
+
+	sb.WriteString(fmt.Sprintf("%s <- (%s) => uast(\n", n.Name, n.Name))
+	sb.WriteString(fmt.Sprintf("    type: \"%s\"", uastType))
+
+	if isLeaf {
+		if token := guessTokenField(n); token != "" {
+			sb.WriteString(fmt.Sprintf(",\n    token: \"%s\"", token))
+		}
+	}
+
+	writeRolesSection(sb, roles)
+	writeChildrenSection(sb, collectChildTypes(n))
+
+	sb.WriteString("\n)\n\n")
+}
+
 // GenerateMappingDSL emits mapping DSL for a set of node types, using canonical UAST types/roles.
 func GenerateMappingDSL(nodes []NodeTypeInfo, language string, extensions []string) string {
 	var sb strings.Builder
 
-	// Add language declaration if provided
-	if language != "" && len(extensions) > 0 {
-		sb.WriteString(fmt.Sprintf("[language \"%s\", extensions: ", language))
-		for i, ext := range extensions {
-			if i > 0 {
-				sb.WriteString(", ")
-			}
-			sb.WriteString(fmt.Sprintf("\"%s\"", ext))
-		}
-		sb.WriteString("]\n\n")
-	}
+	writeLanguageDeclaration(&sb, language, extensions)
 
 	for _, n := range nodes {
 		if !isValidIdentifier(n.Name) {
 			continue
 		}
-		uastType, roles := guessUASTTypeAndRoles(n.Name)
-		isLeaf := len(n.Children) == 0 && len(n.Fields) == 0
-		sb.WriteString(fmt.Sprintf("%s <- (%s) => uast(\n", n.Name, n.Name))
-		sb.WriteString(fmt.Sprintf("    type: \"%s\"", uastType))
-		if isLeaf {
-			token := guessTokenField(n)
-			if token != "" {
-				sb.WriteString(fmt.Sprintf(",\n    token: \"%s\"", token))
-			}
-		}
-		if len(roles) > 0 {
-			sb.WriteString(",\n    roles: ")
-			for i, r := range roles {
-				if i > 0 {
-					sb.WriteString(", ")
-				}
-				sb.WriteString(fmt.Sprintf("\"%s\"", r))
-			}
-		}
-		// Collect children from both n.Children and n.Fields
-		childTypes := map[string]struct{}{}
-		for _, c := range n.Children {
-			if isValidIdentifier(c.Type) {
-				childTypes[c.Type] = struct{}{}
-			}
-		}
-		for _, f := range n.Fields {
-			for _, t := range f.Types {
-				if isValidIdentifier(t) {
-					childTypes[t] = struct{}{}
-				}
-			}
-		}
-		if len(childTypes) > 0 {
-			var keys []string
-			for k := range childTypes {
-				keys = append(keys, k)
-			}
-			sort.Strings(keys)
-			sb.WriteString(",\n    children: ")
-			for i, k := range keys {
-				if i > 0 {
-					sb.WriteString(", ")
-				}
-				sb.WriteString(fmt.Sprintf("\"%s\"", k))
-			}
-		}
-		sb.WriteString("\n)\n\n")
+		writeNodeMapping(&sb, n)
 	}
 	return sb.String()
 }

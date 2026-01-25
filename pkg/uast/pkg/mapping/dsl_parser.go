@@ -15,18 +15,6 @@ type LanguageInfo struct {
 	Files      []string `json:"files"`
 }
 
-// ParseLanguageDeclaration parses a language declaration from mapping DSL content using AST.
-func ParseLanguageDeclaration(content string) (*LanguageInfo, error) {
-	// Use the DSL parser to parse the content
-	ast, err := parseMappingDSL(content)
-	if err != nil {
-		return nil, fmt.Errorf("failed to parse DSL: %w", err)
-	}
-
-	// Extract language declaration from AST
-	return extractLanguageDeclarationFromAST(ast)
-}
-
 // extractLanguageDeclarationFromAST extracts language declaration from the parsed AST
 func extractLanguageDeclarationFromAST(ast interface{}) (*LanguageInfo, error) {
 	var langInfo *LanguageInfo
@@ -128,93 +116,61 @@ func extractLanguageDeclaration(node *node32) (*LanguageInfo, error) {
 	}, nil
 }
 
-// parseExtensionsFromText parses extensions from the extensions part of language declaration
-func parseExtensionsFromText(extText string) []string {
-	extText = strings.TrimSpace(extText)
-	extText = strings.Trim(extText, "[]")
+// parseQuotedList parses a comma-separated list of quoted strings.
+// It handles both single and double quotes, and trims whitespace.
+func parseQuotedList(text string) []string {
+	text = strings.TrimSpace(text)
+	text = strings.Trim(text, "[]")
+	// Also remove trailing comma if present
+	text = strings.TrimRight(text, ",")
 
-	var extensions []string
+	var items []string
 	var current strings.Builder
 	inQuotes := false
-	for i := 0; i < len(extText); i++ {
-		c := extText[i]
+	for i := 0; i < len(text); i++ {
+		c := text[i]
 		if c == '"' || c == '\'' {
 			if inQuotes {
-				// End of quoted extension
+				// End of quoted item
 				inQuotes = false
 				if current.Len() > 0 {
-					ext := current.String()
-					if ext := strings.TrimSpace(ext); ext != "" {
-						extensions = append(extensions, ext)
+					item := current.String()
+					if item := strings.TrimSpace(item); item != "" {
+						items = append(items, item)
 					}
 					current.Reset()
 				}
 			} else {
-				// Start of quoted extension
+				// Start of quoted item
 				inQuotes = true
 			}
 			continue
 		}
 		if c == ',' && !inQuotes {
-			// End of unquoted extension
-			if ext := strings.TrimSpace(current.String()); ext != "" {
-				extensions = append(extensions, ext)
+			// End of unquoted item
+			if item := strings.TrimSpace(current.String()); item != "" {
+				items = append(items, item)
 			}
 			current.Reset()
 			continue
 		}
 		current.WriteByte(c)
 	}
-	// Add last extension
-	if ext := strings.TrimSpace(current.String()); ext != "" {
-		extensions = append(extensions, ext)
+	// Add last item
+	if item := strings.TrimSpace(current.String()); item != "" {
+		items = append(items, item)
 	}
-	return extensions
+	return items
+}
+
+// parseExtensionsFromText parses extensions from the extensions part of language declaration
+func parseExtensionsFromText(extText string) []string {
+	return parseQuotedList(extText)
 }
 
 // parseFilesFromText parses files from the files part of language declaration
 func parseFilesFromText(filesText string) []string {
-	filesText = strings.TrimSpace(filesText)
-	// Remove trailing bracket and comma if present
-	filesText = strings.TrimRight(filesText, "],")
-
-	var files []string
-	var current strings.Builder
-	inQuotes := false
-	for i := 0; i < len(filesText); i++ {
-		c := filesText[i]
-		if c == '"' || c == '\'' {
-			if inQuotes {
-				// End of quoted file
-				inQuotes = false
-				if current.Len() > 0 {
-					file := current.String()
-					if file := strings.TrimSpace(file); file != "" {
-						files = append(files, file)
-					}
-					current.Reset()
-				}
-			} else {
-				// Start of quoted file
-				inQuotes = true
-			}
-			continue
-		}
-		if c == ',' && !inQuotes {
-			// End of unquoted file
-			if file := strings.TrimSpace(current.String()); file != "" {
-				files = append(files, file)
-			}
-			current.Reset()
-			continue
-		}
-		current.WriteByte(c)
-	}
-	// Add last file
-	if file := strings.TrimSpace(current.String()); file != "" {
-		files = append(files, file)
-	}
-	return files
+	return parseQuotedList(filesText)
 }
 
 // MappingParser parses the mapping DSL and returns validated mapping rules.
@@ -255,7 +211,7 @@ func (p *MappingParser) ParseMapping(reader io.Reader) ([]MappingRule, *Language
 func parseMappingDSL(input string) (any, error) {
 	nodeTextBuffer = input
 	parser := &MappingDSL{Buffer: input}
-	parser.Init()
+	parser.Init() //nolint:errcheck // Init does not return an error in this PEG parser implementation
 	if err := parser.Parse(); err != nil {
 		return nil, fmt.Errorf("mapping DSL parse error: %w", err)
 	}
@@ -308,24 +264,27 @@ func buildMappingRulesFromAST(ast interface{}) ([]MappingRule, error) {
 	return rules, nil
 }
 
+// findInheritanceNode searches for an inheritance comment node in or after the rule node.
+// It first looks among direct children, then checks the sibling node.
+func findInheritanceNode(ruleNode *node32) *node32 {
+	for child := ruleNode.up; child != nil; child = child.next {
+		if child.pegRule == ruleInheritanceComment {
+			return child
+		}
+	}
+	if ruleNode.next != nil && ruleNode.next.pegRule == ruleInheritanceComment {
+		return ruleNode.next
+	}
+	return nil
+}
+
 func extractMappingRule(ruleNode *node32) (MappingRule, error) {
 	var rule MappingRule
 	nameNode := findChild(ruleNode, ruleIdentifier)
 	patternNode := findChild(ruleNode, rulePattern)
 	uastSpecNode := findChild(ruleNode, ruleUASTSpec)
 	whenNode := findChild(ruleNode, ruleConditionList)
-
-	var inheritanceNode *node32
-	for child := ruleNode.up; child != nil; child = child.next {
-		if child.pegRule == ruleInheritanceComment {
-			inheritanceNode = child
-			break
-		}
-	}
-
-	if inheritanceNode == nil && ruleNode.next != nil && ruleNode.next.pegRule == ruleInheritanceComment {
-		inheritanceNode = ruleNode.next
-	}
+	inheritanceNode := findInheritanceNode(ruleNode)
 
 	extends := ""
 	inheritanceConditions := []Condition{}

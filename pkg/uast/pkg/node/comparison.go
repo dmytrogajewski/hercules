@@ -2,13 +2,6 @@ package node
 
 import "fmt"
 
-func tokensEqual(left, right []*Node) bool {
-	if len(left) == 0 || len(right) == 0 {
-		return false
-	}
-	return left[0].Token == right[0].Token
-}
-
 func tokensCompare(left, right []*Node, op string) bool {
 	if len(left) == 0 || len(right) == 0 {
 		return false

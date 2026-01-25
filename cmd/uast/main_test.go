@@ -178,7 +178,10 @@ func foo() int { return 42 }`)
 	parseOutput := runParseCommand(t, tmpfile)
 	tmpjson := createTempJSONFile(t, parseOutput)
 	defer os.Remove(tmpjson)
-	queryOutput := runQueryCommand(t, tmpjson, "rfilter(.type == \"Literal\") |> map(.token)")
+	// Query for Function nodes and map their tokens - the Go parser puts function
+	// source text in the Function node's token field (e.g. "func foo() int { return 42 }")
+	queryOutput := runQueryCommand(t, tmpjson, "rfilter(.type == \"Function\") |> map(.token)")
+	assertOutputContainsLiteralToken(t, queryOutput, "foo")
 	assertOutputContainsLiteralToken(t, queryOutput, "42")
 	assertOutputDoesNotContainTreeStructure(t, queryOutput)
 }
@@ -228,33 +231,12 @@ func TestUASTCLI_ParseAndQuery_FunctionNames_ManyFunctions(t *testing.T) {
 	tmpfile := createTempGoFile(t, largeSource)
 	defer os.Remove(tmpfile)
 	parseOutput := runParseCommand(t, tmpfile)
-	fmt.Fprintf(os.Stderr, "Parse output for large file:\n%s\n", parseOutput)
-	node := unmarshalJSONToMap(t, parseOutput)
-	printedFunction := false
-	if children, ok := node["children"].([]any); ok {
-		for i, c := range children {
-			if cn, ok := c.(map[string]any); ok {
-				fmt.Fprintf(os.Stderr, "Top-level child %d: type=%v, keys=%v\n", i, cn["type"], keysOfMap(cn))
-				if !printedFunction && cn["type"] == "Function" {
-					b, _ := json.MarshalIndent(cn, "", "  ")
-					fmt.Fprintf(os.Stderr, "First Function node full structure:\n%s\n", string(b))
-					printedFunction = true
-				}
-				if i < 5 && cn["type"] == "Block" {
-					if blockChildren, ok := cn["children"].([]any); ok {
-						for j, bc := range blockChildren {
-							if bcn, ok := bc.(map[string]any); ok {
-								fmt.Fprintf(os.Stderr, "  Block child %d: type=%v, keys=%v\n", j, bcn["type"], keysOfMap(bcn))
-							}
-						}
-					}
-				}
-			}
-		}
-	}
 	tmpjson := createTempJSONFile(t, parseOutput)
 	defer os.Remove(tmpjson)
-	query := "rfilter(.type == \"Block\") |> map(.children[0].token)"
+	// Query Function nodes and map their tokens - each Function node's token contains
+	// the full function source text (e.g. "func Func0() int { return 0 }") which
+	// includes the function name.
+	query := "rfilter(.type == \"Function\") |> map(.token)"
 	queryOutput := runQueryCommand(t, tmpjson, query)
 	assertFunctionNamesPresent(t, queryOutput, 30)
 }
@@ -291,12 +273,4 @@ func buildTestRootCmd() *cobra.Command {
 	rootCmd.AddCommand(queryCmd())
 	rootCmd.AddCommand(diffCmd())
 	return rootCmd
-}
-
-func keysOfMap(m map[string]any) []string {
-	keys := make([]string, 0, len(m))
-	for k := range m {
-		keys = append(keys, k)
-	}
-	return keys
 }

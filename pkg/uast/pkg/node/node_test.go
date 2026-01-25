@@ -29,13 +29,13 @@ func makeTestTree() *Node {
 	//   c1 c2  c3
 	//  /      /  \
 	// gc1   gc2 gc3
-	root := &Node{Id: "1", Type: "Root"}
-	c1 := &Node{Id: "2", Type: "Child", Token: "c1"}
-	c2 := &Node{Id: "3", Type: "Child", Token: "c2"}
-	c3 := &Node{Id: "4", Type: "Child", Token: "c3"}
-	gc1 := &Node{Id: "5", Type: "Grandchild", Token: "gc1"}
-	gc2 := &Node{Id: "6", Type: "Grandchild", Token: "gc2"}
-	gc3 := &Node{Id: "7", Type: "Grandchild", Token: "gc3"}
+	root := &Node{ID: "1", Type: "Root"}
+	c1 := &Node{ID: "2", Type: "Child", Token: "c1"}
+	c2 := &Node{ID: "3", Type: "Child", Token: "c2"}
+	c3 := &Node{ID: "4", Type: "Child", Token: "c3"}
+	gc1 := &Node{ID: "5", Type: "Grandchild", Token: "gc1"}
+	gc2 := &Node{ID: "6", Type: "Grandchild", Token: "gc2"}
+	gc3 := &Node{ID: "7", Type: "Grandchild", Token: "gc3"}
 	c1.Children = []*Node{gc1}
 	c3.Children = []*Node{gc2, gc3}
 	root.Children = []*Node{c1, c2, c3}
@@ -47,7 +47,7 @@ func TestNodeFind(t *testing.T) {
 	tests := []struct {
 		name      string
 		predicate func(*Node) bool
-		expectIds []string
+		expectIDs []string
 	}{
 		{"Find all", func(n *Node) bool { return true }, []string{"1", "2", "5", "3", "4", "6", "7"}},
 		{"Find children", func(n *Node) bool { return n.Type == "Child" }, []string{"2", "3", "4"}},
@@ -58,10 +58,10 @@ func TestNodeFind(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			var got []string
 			for _, n := range tree.Find(tt.predicate) {
-				got = append(got, n.Id)
+				got = append(got, n.ID)
 			}
-			if !reflect.DeepEqual(got, tt.expectIds) {
-				t.Errorf("Find: got %v, want %v", got, tt.expectIds)
+			if !reflect.DeepEqual(got, tt.expectIDs) {
+				t.Errorf("Find: got %v, want %v", got, tt.expectIDs)
 			}
 		})
 	}
@@ -70,7 +70,7 @@ func TestNodeFind(t *testing.T) {
 func TestNodePreOrder(t *testing.T) {
 	tree := makeTestTree()
 	var got []string
-	tree.VisitPreOrder(func(n *Node) { got = append(got, n.Id) })
+	tree.VisitPreOrder(func(n *Node) { got = append(got, n.ID) })
 	want := []string{"1", "2", "5", "3", "4", "6", "7"}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("PreOrder: got %v, want %v", got, want)
@@ -80,7 +80,7 @@ func TestNodePreOrder(t *testing.T) {
 func TestNodePostOrder(t *testing.T) {
 	tree := makeTestTree()
 	var got []string
-	tree.VisitPostOrder(func(n *Node) { got = append(got, n.Id) })
+	tree.VisitPostOrder(func(n *Node) { got = append(got, n.ID) })
 	want := []string{"5", "2", "3", "6", "7", "4", "1"}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("PostOrder: got %v, want %v", got, want)
@@ -91,16 +91,16 @@ func TestNodeAncestors(t *testing.T) {
 	tree := makeTestTree()
 	gc2 := tree.Children[2].Children[0] // gc2
 	anc := tree.Ancestors(gc2)
-	var got []string
+	got := make([]string, 0, len(anc))
 	for _, n := range anc {
-		got = append(got, n.Id)
+		got = append(got, n.ID)
 	}
 	want := []string{"1", "4"}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("Ancestors: got %v, want %v", got, want)
 	}
 	// Not found
-	fake := &Node{Id: "999"}
+	fake := &Node{ID: "999"}
 	anc = tree.Ancestors(fake)
 	if len(anc) != 0 {
 		t.Errorf("Ancestors: expected empty for not found, got %v", anc)
@@ -157,7 +157,7 @@ func TestNodeNavigationEdgeCases(t *testing.T) {
 	if called != 1 {
 		t.Errorf("PostOrder on single node should call once")
 	}
-	anc := empty.Ancestors(&Node{Id: "999"})
+	anc := empty.Ancestors(&Node{ID: "999"})
 	if len(anc) != 0 {
 		t.Errorf("Ancestors on single node should be empty")
 	}
@@ -211,7 +211,7 @@ func TestPreOrder_Stream(t *testing.T) {
 	child1 := &Node{Type: "A"}
 	child2 := &Node{Type: "B"}
 	root.Children = []*Node{child1, child2}
-	var got []string
+	got := make([]string, 0, 3)
 	for n := range root.PreOrder() {
 		got = append(got, string(n.Type))
 	}

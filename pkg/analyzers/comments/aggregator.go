@@ -21,7 +21,7 @@ func NewCommentsAggregator() *CommentsAggregator {
 	emptyResultBuilder := buildEmptyResult
 
 	return &CommentsAggregator{
-		Aggregator: common.NewAggregatorWithCustomEmptyResult(
+		Aggregator: common.NewAggregator(
 			"comments",
 			numericKeys,
 			countKeys,

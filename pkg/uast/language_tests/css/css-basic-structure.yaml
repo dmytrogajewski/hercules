@@ -1,132 +1,79 @@
-suite: basic-structure
-name: css-basic-structure
+language: css
+tests:
+  - name: "Root is File"
+    code: |
+      .button { color: red; }
+    query: rfilter(.type == "File") |> map(.type)
+    expected:
+      - "File"
 
-parse_cases:
-  - name: simple_rule
-    input: |
-      .container {
-        color: red;
-        font-size: 16px;
-      }
-    output:
-      type: "File"
-      children:
-        - type: "Rule"
-          roles: ["Rule"]
-          children:
-            - type: "Selector"
-              roles: ["Selector"]
-              props:
-                name: ".container"
-            - type: "Block"
-              roles: ["Block"]
-              children:
-                - type: "Declaration"
-                  roles: ["Declaration"]
-                  children:
-                    - type: "Property"
-                      roles: ["Property"]
-                      props:
-                        name: "color"
-                    - type: "Value"
-                      roles: ["Value"]
-                      children:
-                        - type: "Literal"
-                          roles: ["Literal"]
-                          token: "red"
-                - type: "Declaration"
-                  roles: ["Declaration"]
-                  children:
-                    - type: "Property"
-                      roles: ["Property"]
-                      props:
-                        name: "font-size"
-                    - type: "Value"
-                      roles: ["Value"]
-                      children:
-                        - type: "Literal"
-                          roles: ["Literal"]
-                          token: "16px"
+  - name: "Declaration block is Block"
+    code: |
+      .button { color: red; }
+    query: rfilter(.type == "Block") |> map(.type)
+    expected:
+      - "Block"
 
-  - name: multiple_rules
-    input: |
-      .header {
-        background: blue;
-      }
-      .footer {
-        background: green;
-      }
-    output:
-      type: "File"
-      children:
-        - type: "Rule"
-          roles: ["Rule"]
-          children:
-            - type: "Selector"
-              roles: ["Selector"]
-              props:
-                name: ".header"
-            - type: "Block"
-              roles: ["Block"]
-              children:
-                - type: "Declaration"
-                  roles: ["Declaration"]
-                  children:
-                    - type: "Property"
-                      roles: ["Property"]
-                      props:
-                        name: "background"
-                    - type: "Value"
-                      roles: ["Value"]
-                      children:
-                        - type: "Literal"
-                          roles: ["Literal"]
-                          token: "blue"
-        - type: "Rule"
-          roles: ["Rule"]
-          children:
-            - type: "Selector"
-              roles: ["Selector"]
-              props:
-                name: ".footer"
-            - type: "Block"
-              roles: ["Block"]
-              children:
-                - type: "Declaration"
-                  roles: ["Declaration"]
-                  children:
-                    - type: "Property"
-                      roles: ["Property"]
-                      props:
-                        name: "background"
-                    - type: "Value"
-                      roles: ["Value"]
-                      children:
-                        - type: "Literal"
-                          roles: ["Literal"]
-                          token: "green"
+  - name: "Block has Body role"
+    code: |
+      .button { color: red; }
+    query: rfilter(.type == "Block") |> map(.roles)
+    expected:
+      - ["Body"]
 
-query_cases:
-  - name: find_selectors
-    input: |
-      .selector1 { color: red; }
-      .selector2 { color: blue; }
-    query: "filter(.type == \"Selector\")"
-    output:
-      results:
-        - type: "Selector"
-          roles: ["Selector"]
-          props:
-            name: ".selector1"
-        - type: "Selector"
-          roles: ["Selector"]
-          props:
-            name: ".selector2"
+  - name: "Property declaration is KeyValue"
+    code: |
+      .button { color: red; }
+    query: rfilter(.type == "KeyValue") |> map(.type)
+    expected:
+      - "KeyValue"
 
-  - name: find_selector_names
-    input: |
-      .my-selector { color: red; }
-    query: "filter(.type == \"Selector\") |> map(.name)"
-    output:
-      results:
-        - token: ".my-selector" 
+  - name: "KeyValue has Key and Value roles"
+    code: |
+      .button { color: red; }
+    query: rfilter(.type == "KeyValue") |> map(.roles)
+    expected:
+      - ["Key", "Value"]
+
+  - name: "Property name is Identifier with Member role"
+    code: |
+      .button { color: red; }
+    query: rfilter(.type == "Identifier" and .roles contains "Member") |> map(.token)
+    expected:
+      - "color"
+
+  - name: "Value is Literal"
+    code: |
+      .button { color: red; }
+    query: rfilter(.type == "Literal" and .token == "red") |> map(.token)
+    expected:
+      - "red"
+
+  - name: "Class name is Identifier with Class role"
+    code: |
+      .button { color: red; }
+    query: rfilter(.type == "Identifier" and .roles contains "Class") |> map(.token)
+    expected:
+      - "button"
+
+  - name: "Multiple declarations parsed correctly"
+    code: |
+      .button { color: red; font-size: 14px; }
+    query: rfilter(.type == "KeyValue") |> map(.type)
+    expected:
+      - "KeyValue"
+      - "KeyValue"
+
+  - name: "Color value is Literal"
+    code: |
+      .button { background: #fff; }
+    query: rfilter(.type == "Literal" and .token == "#fff") |> map(.token)
+    expected:
+      - "#fff"
+
+  - name: "Integer value with unit is Literal"
+    code: |
+      .button { font-size: 16px; }
+    query: rfilter(.type == "Literal" and .token == "16px") |> map(.token)
+    expected:
+      - "16px"

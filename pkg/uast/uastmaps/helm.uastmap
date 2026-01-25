@@ -86,8 +86,7 @@ selector_expression <- (selector_expression) => uast(
 )
 
 template <- (template) => uast(
-    token: "self",
-    type: "Synthetic"
+    type: "File"
 )
 
 template_action <- (template_action) => uast(
@@ -154,7 +153,9 @@ false <- (false) => uast(
 )
 
 field_identifier <- (field_identifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
 )
 
 float_literal <- (float_literal) => uast(
@@ -165,7 +166,9 @@ float_literal <- (float_literal) => uast(
 )
 
 identifier <- (identifier) => uast(
-    type: "If"
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
 )
 
 if <- (if) => uast(
@@ -207,9 +210,7 @@ rune_literal <- (rune_literal) => uast(
     roles: "Literal"
 )
 
-template <- (template) => uast(
-    type: "Synthetic"
-)
+
 
 true <- (true) => uast(
     token: "self",

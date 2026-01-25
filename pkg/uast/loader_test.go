@@ -14,10 +14,17 @@ func TestNewLoader(t *testing.T) {
 func TestLoader_LoadProvider(t *testing.T) {
 	loader := NewLoader(nil)
 
-	// Test loading a provider (this will fail since we don't have actual embed.FS)
-	_, exists := loader.LanguageParser("go")
+	// With embedded mappings, LanguageParser uses extension-based lookup.
+	// "go" is a language name, not an extension — so lookup by extension ".go" should succeed.
+	_, exists := loader.LanguageParser(".go")
 	if !exists {
-		t.Errorf("expected error when loading provider without embed.FS")
+		t.Errorf("expected parser to exist for .go extension")
+	}
+
+	// Non-existent extension should not exist
+	_, exists = loader.LanguageParser(".nonexistent")
+	if exists {
+		t.Errorf("expected parser to not exist for .nonexistent extension")
 	}
 }
 
@@ -34,9 +41,10 @@ func TestLoader_LoadAllProviders(t *testing.T) {
 func TestLoader_loadDSLMapping(t *testing.T) {
 	loader := NewLoader(nil)
 
-	// Test loading DSL mapping (this will fail since we don't have actual embed.FS)
-	_, exists := loader.LanguageParser("go")
+	// With embedded mappings, parsers are loaded from pre-compiled cache.
+	// Extension-based lookup should work for known languages.
+	_, exists := loader.LanguageParser(".go")
 	if !exists {
-		t.Errorf("expected error when loading DSL mapping without embed.FS")
+		t.Errorf("expected parser to exist for .go via embedded mappings")
 	}
 }

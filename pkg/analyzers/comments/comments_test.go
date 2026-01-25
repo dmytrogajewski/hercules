@@ -55,7 +55,7 @@ func TestCommentsAnalyzer_DefaultConfig(t *testing.T) {
 
 func TestCommentsAnalyzer_Analyze_EmptyTree(t *testing.T) {
 	analyzer := NewCommentsAnalyzer()
-	root := node.NewWithType(node.UASTFile)
+	root := &node.Node{Type: node.UASTFile}
 
 	result, err := analyzer.Analyze(root)
 	require.NoError(t, err)
@@ -72,10 +72,10 @@ func TestCommentsAnalyzer_Analyze_GoodCommentPlacement(t *testing.T) {
 	analyzer := NewCommentsAnalyzer()
 
 	// Create a tree with a good comment above a function
-	root := node.NewWithType(node.UASTFile)
+	root := &node.Node{Type: node.UASTFile}
 
 	// Add a comment
-	comment := node.NewWithType(node.UASTComment)
+	comment := &node.Node{Type: node.UASTComment}
 	comment.Token = "// This is a good comment"
 	comment.Pos = &node.Positions{
 		StartLine: 1,
@@ -84,14 +84,14 @@ func TestCommentsAnalyzer_Analyze_GoodCommentPlacement(t *testing.T) {
 	root.AddChild(comment)
 
 	// Add a function
-	function := node.NewWithType(node.UASTFunction)
+	function := &node.Node{Type: node.UASTFunction}
 	function.Pos = &node.Positions{
 		StartLine: 2,
 		EndLine:   4,
 	}
 
 	// Add function name
-	name := node.NewWithType(node.UASTIdentifier)
+	name := &node.Node{Type: node.UASTIdentifier}
 	name.Token = "testFunction"
 	name.Roles = []node.Role{node.RoleName}
 	function.AddChild(name)
@@ -123,30 +123,30 @@ func TestCommentsAnalyzer_Analyze_BadCommentPlacement(t *testing.T) {
 	analyzer := NewCommentsAnalyzer()
 
 	// Create a tree with a bad comment (inside function body)
-	root := node.NewWithType(node.UASTFile)
+	root := &node.Node{Type: node.UASTFile}
 
 	// Add a function
-	function := node.NewWithType(node.UASTFunction)
+	function := &node.Node{Type: node.UASTFunction}
 	function.Pos = &node.Positions{
 		StartLine: 1,
 		EndLine:   5,
 	}
 
 	// Add function name
-	name := node.NewWithType(node.UASTIdentifier)
+	name := &node.Node{Type: node.UASTIdentifier}
 	name.Token = "testFunction"
 	name.Roles = []node.Role{node.RoleName}
 	function.AddChild(name)
 
 	// Add function body
-	body := node.NewWithType(node.UASTBlock)
+	body := &node.Node{Type: node.UASTBlock}
 	body.Pos = &node.Positions{
 		StartLine: 2,
 		EndLine:   4,
 	}
 
 	// Add a comment inside the function body (bad placement)
-	comment := node.NewWithType(node.UASTComment)
+	comment := &node.Node{Type: node.UASTComment}
 	comment.Token = "// This is a bad comment"
 	comment.Pos = &node.Positions{
 		StartLine: 3,
@@ -172,10 +172,10 @@ func TestCommentsAnalyzer_Analyze_MixedCommentPlacement(t *testing.T) {
 	analyzer := NewCommentsAnalyzer()
 
 	// Create a tree with both good and bad comments
-	root := node.NewWithType(node.UASTFile)
+	root := &node.Node{Type: node.UASTFile}
 
 	// Add a good comment above first function
-	goodComment := node.NewWithType(node.UASTComment)
+	goodComment := &node.Node{Type: node.UASTComment}
 	goodComment.Token = "// Good comment above function"
 	goodComment.Pos = &node.Positions{
 		StartLine: 1,
@@ -184,33 +184,33 @@ func TestCommentsAnalyzer_Analyze_MixedCommentPlacement(t *testing.T) {
 	root.AddChild(goodComment)
 
 	// Add first function
-	func1 := node.NewWithType(node.UASTFunction)
+	func1 := &node.Node{Type: node.UASTFunction}
 	func1.Pos = &node.Positions{
 		StartLine: 2,
 		EndLine:   4,
 	}
 
-	name1 := node.NewWithType(node.UASTIdentifier)
+	name1 := &node.Node{Type: node.UASTIdentifier}
 	name1.Token = "function1"
 	name1.Roles = []node.Role{node.RoleName}
 	func1.AddChild(name1)
 	root.AddChild(func1)
 
 	// Add second function without comment
-	func2 := node.NewWithType(node.UASTFunction)
+	func2 := &node.Node{Type: node.UASTFunction}
 	func2.Pos = &node.Positions{
 		StartLine: 6,
 		EndLine:   8,
 	}
 
-	name2 := node.NewWithType(node.UASTIdentifier)
+	name2 := &node.Node{Type: node.UASTIdentifier}
 	name2.Token = "function2"
 	name2.Roles = []node.Role{node.RoleName}
 	func2.AddChild(name2)
 	root.AddChild(func2)
 
 	// Add a bad comment after second function
-	badComment := node.NewWithType(node.UASTComment)
+	badComment := &node.Node{Type: node.UASTComment}
 	badComment.Token = "// Bad comment after function"
 	badComment.Pos = &node.Positions{
 		StartLine: 9,
@@ -233,10 +233,10 @@ func TestCommentsAnalyzer_Analyze_ClassWithMethod(t *testing.T) {
 	analyzer := NewCommentsAnalyzer()
 
 	// Create a tree with a class and method
-	root := node.NewWithType(node.UASTFile)
+	root := &node.Node{Type: node.UASTFile}
 
 	// Add a good comment above class
-	classComment := node.NewWithType(node.UASTComment)
+	classComment := &node.Node{Type: node.UASTComment}
 	classComment.Token = "// This is a class"
 	classComment.Pos = &node.Positions{
 		StartLine: 1,
@@ -245,19 +245,19 @@ func TestCommentsAnalyzer_Analyze_ClassWithMethod(t *testing.T) {
 	root.AddChild(classComment)
 
 	// Add a class
-	class := node.NewWithType(node.UASTClass)
+	class := &node.Node{Type: node.UASTClass}
 	class.Pos = &node.Positions{
 		StartLine: 2,
 		EndLine:   8,
 	}
 
-	className := node.NewWithType(node.UASTIdentifier)
+	className := &node.Node{Type: node.UASTIdentifier}
 	className.Token = "TestClass"
 	className.Roles = []node.Role{node.RoleName}
 	class.AddChild(className)
 
 	// Add a good comment above method
-	methodComment := node.NewWithType(node.UASTComment)
+	methodComment := &node.Node{Type: node.UASTComment}
 	methodComment.Token = "// This is a method"
 	methodComment.Pos = &node.Positions{
 		StartLine: 4,
@@ -266,13 +266,13 @@ func TestCommentsAnalyzer_Analyze_ClassWithMethod(t *testing.T) {
 	class.AddChild(methodComment)
 
 	// Add a method
-	method := node.NewWithType(node.UASTMethod)
+	method := &node.Node{Type: node.UASTMethod}
 	method.Pos = &node.Positions{
 		StartLine: 5,
 		EndLine:   7,
 	}
 
-	methodName := node.NewWithType(node.UASTIdentifier)
+	methodName := &node.Node{Type: node.UASTIdentifier}
 	methodName.Token = "testMethod"
 	methodName.Roles = []node.Role{node.RoleName}
 	method.AddChild(methodName)
@@ -295,10 +295,10 @@ func TestCommentsAnalyzer_Analyze_UnassociatedComment(t *testing.T) {
 	analyzer := NewCommentsAnalyzer()
 
 	// Create a tree with an unassociated comment
-	root := node.NewWithType(node.UASTFile)
+	root := &node.Node{Type: node.UASTFile}
 
 	// Add a comment without any function/class
-	comment := node.NewWithType(node.UASTComment)
+	comment := &node.Node{Type: node.UASTComment}
 	comment.Token = "// This comment is not associated with anything"
 	comment.Pos = &node.Positions{
 		StartLine: 1,
@@ -321,16 +321,16 @@ func TestCommentsAnalyzer_FindComments(t *testing.T) {
 	analyzer := NewCommentsAnalyzer()
 
 	// Create a tree with comments at different levels
-	root := node.NewWithType(node.UASTFile)
+	root := &node.Node{Type: node.UASTFile}
 
 	// Add comment at root level
-	comment1 := node.NewWithType(node.UASTComment)
+	comment1 := &node.Node{Type: node.UASTComment}
 	comment1.Token = "// Root comment"
 	root.AddChild(comment1)
 
 	// Add a function with comment
-	function := node.NewWithType(node.UASTFunction)
-	comment2 := node.NewWithType(node.UASTComment)
+	function := &node.Node{Type: node.UASTFunction}
+	comment2 := &node.Node{Type: node.UASTComment}
 	comment2.Token = "// Function comment"
 	function.AddChild(comment2)
 	root.AddChild(function)
@@ -345,22 +345,22 @@ func TestCommentsAnalyzer_FindFunctions(t *testing.T) {
 	analyzer := NewCommentsAnalyzer()
 
 	// Create a tree with different function types
-	root := node.NewWithType(node.UASTFile)
+	root := &node.Node{Type: node.UASTFile}
 
 	// Add a function
-	function := node.NewWithType(node.UASTFunction)
+	function := &node.Node{Type: node.UASTFunction}
 	root.AddChild(function)
 
 	// Add a method
-	method := node.NewWithType(node.UASTMethod)
+	method := &node.Node{Type: node.UASTMethod}
 	root.AddChild(method)
 
 	// Add a class
-	class := node.NewWithType(node.UASTClass)
+	class := &node.Node{Type: node.UASTClass}
 	root.AddChild(class)
 
 	// Add a variable (should not be included)
-	variable := node.NewWithType(node.UASTVariable)
+	variable := &node.Node{Type: node.UASTVariable}
 	root.AddChild(variable)
 
 	functions := analyzer.findFunctions(root)
@@ -374,8 +374,8 @@ func TestCommentsAnalyzer_ExtractTargetName(t *testing.T) {
 	analyzer := NewCommentsAnalyzer()
 
 	// Test with Name role
-	function := node.NewWithType(node.UASTFunction)
-	name := node.NewWithType(node.UASTIdentifier)
+	function := &node.Node{Type: node.UASTFunction}
+	name := &node.Node{Type: node.UASTIdentifier}
 	name.Token = "testFunction"
 	name.Roles = []node.Role{node.RoleName}
 	function.AddChild(name)
@@ -384,15 +384,15 @@ func TestCommentsAnalyzer_ExtractTargetName(t *testing.T) {
 	assert.Equal(t, "testFunction", result)
 
 	// Test with props
-	function2 := node.NewWithType(node.UASTFunction)
+	function2 := &node.Node{Type: node.UASTFunction}
 	function2.Props = map[string]string{"name": "functionFromProps"}
 
 	result2 := analyzer.extractTargetName(function2)
 	assert.Equal(t, "functionFromProps", result2)
 
 	// Test fallback to first identifier
-	function3 := node.NewWithType(node.UASTFunction)
-	identifier := node.NewWithType(node.UASTIdentifier)
+	function3 := &node.Node{Type: node.UASTFunction}
+	identifier := &node.Node{Type: node.UASTIdentifier}
 	identifier.Token = "fallbackName"
 	function3.AddChild(identifier)
 
@@ -400,7 +400,7 @@ func TestCommentsAnalyzer_ExtractTargetName(t *testing.T) {
 	assert.Equal(t, "fallbackName", result3)
 
 	// Test unknown case
-	function4 := node.NewWithType(node.UASTFunction)
+	function4 := &node.Node{Type: node.UASTFunction}
 	result4 := analyzer.extractTargetName(function4)
 	assert.Equal(t, "unknown", result4)
 }
@@ -409,13 +409,13 @@ func TestCommentsAnalyzer_IsCommentProperlyPlaced(t *testing.T) {
 	analyzer := NewCommentsAnalyzer()
 
 	// Test properly placed comment (directly above)
-	comment := node.NewWithType(node.UASTComment)
+	comment := &node.Node{Type: node.UASTComment}
 	comment.Pos = &node.Positions{
 		StartLine: 1,
 		EndLine:   1,
 	}
 
-	target := node.NewWithType(node.UASTFunction)
+	target := &node.Node{Type: node.UASTFunction}
 	target.Pos = &node.Positions{
 		StartLine: 2,
 		EndLine:   4,
@@ -424,13 +424,13 @@ func TestCommentsAnalyzer_IsCommentProperlyPlaced(t *testing.T) {
 	assert.True(t, analyzer.isCommentProperlyPlaced(comment, target))
 
 	// Test comment with gap
-	comment2 := node.NewWithType(node.UASTComment)
+	comment2 := &node.Node{Type: node.UASTComment}
 	comment2.Pos = &node.Positions{
 		StartLine: 1,
 		EndLine:   1,
 	}
 
-	target2 := node.NewWithType(node.UASTFunction)
+	target2 := &node.Node{Type: node.UASTFunction}
 	target2.Pos = &node.Positions{
 		StartLine: 4,
 		EndLine:   6,
@@ -439,13 +439,13 @@ func TestCommentsAnalyzer_IsCommentProperlyPlaced(t *testing.T) {
 	assert.False(t, analyzer.isCommentProperlyPlaced(comment2, target2))
 
 	// Test comment below target
-	comment3 := node.NewWithType(node.UASTComment)
+	comment3 := &node.Node{Type: node.UASTComment}
 	comment3.Pos = &node.Positions{
 		StartLine: 3,
 		EndLine:   3,
 	}
 
-	target3 := node.NewWithType(node.UASTFunction)
+	target3 := &node.Node{Type: node.UASTFunction}
 	target3.Pos = &node.Positions{
 		StartLine: 1,
 		EndLine:   2,
@@ -454,8 +454,8 @@ func TestCommentsAnalyzer_IsCommentProperlyPlaced(t *testing.T) {
 	assert.False(t, analyzer.isCommentProperlyPlaced(comment3, target3))
 
 	// Test with missing position info
-	comment4 := node.NewWithType(node.UASTComment)
-	target4 := node.NewWithType(node.UASTFunction)
+	comment4 := &node.Node{Type: node.UASTComment}
+	target4 := &node.Node{Type: node.UASTFunction}
 
 	assert.False(t, analyzer.isCommentProperlyPlaced(comment4, target4))
 }
@@ -510,10 +510,10 @@ func TestCommentsAnalyzer_DebugOutput(t *testing.T) {
 	analyzer := NewCommentsAnalyzer()
 
 	// Create a tree with a good comment above a function
-	root := node.NewWithType(node.UASTFile)
+	root := &node.Node{Type: node.UASTFile}
 
 	// Add a comment
-	comment := node.NewWithType(node.UASTComment)
+	comment := &node.Node{Type: node.UASTComment}
 	comment.Token = "// This is a good comment"
 	comment.Pos = &node.Positions{
 		StartLine: 1,
@@ -522,14 +522,14 @@ func TestCommentsAnalyzer_DebugOutput(t *testing.T) {
 	root.AddChild(comment)
 
 	// Add a function
-	function := node.NewWithType(node.UASTFunction)
+	function := &node.Node{Type: node.UASTFunction}
 	function.Pos = &node.Positions{
 		StartLine: 2,
 		EndLine:   4,
 	}
 
 	// Add function name
-	name := node.NewWithType(node.UASTIdentifier)
+	name := &node.Node{Type: node.UASTIdentifier}
 	name.Token = "testFunction"
 	name.Roles = []node.Role{node.RoleName}
 	function.AddChild(name)
@@ -559,10 +559,10 @@ func TestCommentsAnalyzer_FormatReport(t *testing.T) {
 	analyzer := NewCommentsAnalyzer()
 
 	// Create a tree with a good comment above a function
-	root := node.NewWithType(node.UASTFile)
+	root := &node.Node{Type: node.UASTFile}
 
 	// Add a comment
-	comment := node.NewWithType(node.UASTComment)
+	comment := &node.Node{Type: node.UASTComment}
 	comment.Token = "// This is a good comment"
 	comment.Pos = &node.Positions{
 		StartLine: 1,
@@ -571,14 +571,14 @@ func TestCommentsAnalyzer_FormatReport(t *testing.T) {
 	root.AddChild(comment)
 
 	// Add a function
-	function := node.NewWithType(node.UASTFunction)
+	function := &node.Node{Type: node.UASTFunction}
 	function.Pos = &node.Positions{
 		StartLine: 2,
 		EndLine:   4,
 	}
 
 	// Add function name
-	name := node.NewWithType(node.UASTIdentifier)
+	name := &node.Node{Type: node.UASTIdentifier}
 	name.Token = "testFunction"
 	name.Roles = []node.Role{node.RoleName}
 	function.AddChild(name)
@@ -596,21 +596,23 @@ func TestCommentsAnalyzer_FormatReport(t *testing.T) {
 	formatted := buf.String()
 	t.Logf("Formatted Report:\n%s", formatted)
 
-	// Verify the output contains expected sections
+	// Verify the output contains expected sections from SectionRenderer
+	assert.Contains(t, formatted, "COMMENTS")
+	assert.Contains(t, formatted, "Score: 10/10")
 	assert.Contains(t, formatted, "Excellent comment quality and placement")
-	assert.Contains(t, formatted, "overall_score: 1.00")
-	assert.Contains(t, formatted, "good_comments_ratio: 1.00")
-	assert.Contains(t, formatted, "documentation_coverage: 1.00")
+	assert.Contains(t, formatted, "Total Comments")
+	assert.Contains(t, formatted, "Doc Coverage")
+	assert.Contains(t, formatted, "100.0%")
 }
 
 func TestCommentsAnalyzer_FormatReport_Complex(t *testing.T) {
 	analyzer := NewCommentsAnalyzer()
 
 	// Create a tree with multiple functions and comments
-	root := node.NewWithType(node.UASTFile)
+	root := &node.Node{Type: node.UASTFile}
 
 	// Add a good comment above first function
-	goodComment := node.NewWithType(node.UASTComment)
+	goodComment := &node.Node{Type: node.UASTComment}
 	goodComment.Token = "// This is a well-documented function"
 	goodComment.Pos = &node.Positions{
 		StartLine: 1,
@@ -619,49 +621,49 @@ func TestCommentsAnalyzer_FormatReport_Complex(t *testing.T) {
 	root.AddChild(goodComment)
 
 	// Add first function (well documented)
-	func1 := node.NewWithType(node.UASTFunction)
+	func1 := &node.Node{Type: node.UASTFunction}
 	func1.Pos = &node.Positions{
 		StartLine: 2,
 		EndLine:   5,
 	}
-	name1 := node.NewWithType(node.UASTIdentifier)
+	name1 := &node.Node{Type: node.UASTIdentifier}
 	name1.Token = "wellDocumentedFunction"
 	name1.Roles = []node.Role{node.RoleName}
 	func1.AddChild(name1)
 	root.AddChild(func1)
 
 	// Add second function without comment (missing documentation)
-	func2 := node.NewWithType(node.UASTFunction)
+	func2 := &node.Node{Type: node.UASTFunction}
 	func2.Pos = &node.Positions{
 		StartLine: 7,
 		EndLine:   10,
 	}
-	name2 := node.NewWithType(node.UASTIdentifier)
+	name2 := &node.Node{Type: node.UASTIdentifier}
 	name2.Token = "undocumentedFunction"
 	name2.Roles = []node.Role{node.RoleName}
 	func2.AddChild(name2)
 	root.AddChild(func2)
 
 	// Add a bad comment (inside function body)
-	func3 := node.NewWithType(node.UASTFunction)
+	func3 := &node.Node{Type: node.UASTFunction}
 	func3.Pos = &node.Positions{
 		StartLine: 12,
 		EndLine:   16,
 	}
-	name3 := node.NewWithType(node.UASTIdentifier)
+	name3 := &node.Node{Type: node.UASTIdentifier}
 	name3.Token = "functionWithBadComment"
 	name3.Roles = []node.Role{node.RoleName}
 	func3.AddChild(name3)
 
 	// Add function body
-	body := node.NewWithType(node.UASTBlock)
+	body := &node.Node{Type: node.UASTBlock}
 	body.Pos = &node.Positions{
 		StartLine: 13,
 		EndLine:   15,
 	}
 
 	// Add a comment inside the function body (bad placement)
-	badComment := node.NewWithType(node.UASTComment)
+	badComment := &node.Node{Type: node.UASTComment}
 	badComment.Token = "// This comment is in the wrong place"
 	badComment.Pos = &node.Positions{
 		StartLine: 14,
@@ -682,21 +684,24 @@ func TestCommentsAnalyzer_FormatReport_Complex(t *testing.T) {
 	formatted := buf.String()
 	t.Logf("Complex Formatted Report:\n%s", formatted)
 
-	// Verify the output contains expected sections
-	assert.Contains(t, formatted, "Fair comment quality - consider improving placement")
-	assert.Contains(t, formatted, "overall_score: 0.50")
-	assert.Contains(t, formatted, "good_comments_ratio: 0.50")
-	assert.Contains(t, formatted, "documentation_coverage: 0.33")
+	// Verify the output contains expected sections from SectionRenderer
+	assert.Contains(t, formatted, "COMMENTS")
+	assert.Contains(t, formatted, "Score: 5/10")
+	assert.Contains(t, formatted, "Fair comment quality")
+	assert.Contains(t, formatted, "Total Comments")
+	assert.Contains(t, formatted, "Doc Coverage")
+	assert.Contains(t, formatted, "33.3%")
+	assert.Contains(t, formatted, "Top Issues")
 }
 
 func TestCommentsAnalyzer_RealFile(t *testing.T) {
 	analyzer := NewCommentsAnalyzer()
 
 	// Parse a real Go file
-	root := node.NewWithType(node.UASTFile)
+	root := &node.Node{Type: node.UASTFile}
 
 	// Add a real comment
-	comment := node.NewWithType(node.UASTComment)
+	comment := &node.Node{Type: node.UASTComment}
 	comment.Token = "// This is a real comment"
 	comment.Pos = &node.Positions{
 		StartLine: 1,
@@ -705,12 +710,12 @@ func TestCommentsAnalyzer_RealFile(t *testing.T) {
 	root.AddChild(comment)
 
 	// Add a real function
-	funcNode := node.NewWithType(node.UASTFunction)
+	funcNode := &node.Node{Type: node.UASTFunction}
 	funcNode.Pos = &node.Positions{
 		StartLine: 2,
 		EndLine:   5,
 	}
-	name := node.NewWithType(node.UASTIdentifier)
+	name := &node.Node{Type: node.UASTIdentifier}
 	name.Token = "realFunction"
 	name.Roles = []node.Role{node.RoleName}
 	funcNode.AddChild(name)

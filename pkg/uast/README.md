@@ -262,13 +262,10 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ## 📚 Documentation
 
-- **[API Reference](docs/API.md)**: Complete Go API documentation
-- **[DSL Syntax](docs/DSL_SYNTAX.md)**: Query language reference
-- **[Language Mapping](docs/MAPPING_FORMAT.md)**: How to add new languages
-- **[Configuration](docs/CONFIGURATION.md)**: Setup and configuration options
-- **[Deployment](docs/DEPLOYMENT.md)**: Production deployment guide
-- **[Plugins](docs/PLUGINS.md)**: Extending UAST with plugins
-- **[Recipes](docs/RECIPES.md)**: Common use cases and examples
+- **[Language Roadmap](LANGUAGE_ROADMAP.md)**: Supported languages and status
+- **[UAST Spec](pkg/spec/SPEC.md)**: UAST node types and roles specification
+- **[Development Guide](../../docs/DEVELOPMENT.md)**: Setup and contribution guide
+- **[Configuration](../../docs/CONFIGURATION.md)**: CLI options and configuration
 
 ## 🔧 Custom UAST Mappings
 

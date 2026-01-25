@@ -48,7 +48,8 @@ annotated_type <- (annotated_type) => uast(
 )
 
 annotation <- (annotation) => uast(
-    type: "Synthetic",
+    type: "Attribute",
+    roles: "Attribute", "Annotation",
     children: "annotation_argument_list", "identifier", "scoped_identifier"
 )
 
@@ -78,7 +79,9 @@ argument_list <- (argument_list) => uast(
 )
 
 array_access <- (array_access) => uast(
-    type: "Synthetic",
+    token: "self",
+    type: "Index",
+    roles: "Index",
     children: "expression", "primary_expression"
 )
 
@@ -115,7 +118,8 @@ asterisk <- (asterisk) => uast(
 
 binary_expression <- (binary_expression) => uast(
     token: "self",
-    type: "Synthetic",
+    type: "BinaryOp",
+    roles: "Operator",
     children: "expression"
 )
 
@@ -126,7 +130,6 @@ block <- (block) => uast(
 
 break_statement <- (break_statement) => uast(
     token: "self",
-    roles: "Body",
     type: "Break",
     roles: "Break"
 )
@@ -151,7 +154,6 @@ catch_formal_parameter <- (catch_formal_parameter) => uast(
 
 catch_type <- (catch_type) => uast(
     token: "self",
-    roles: "Parameter",
     type: "Catch",
     roles: "Catch"
 )
@@ -163,7 +165,6 @@ class_body <- (class_body) => uast(
 
 class_declaration <- (class_declaration) => uast(
     token: "self",
-    roles: "Body",
     type: "Class",
     roles: "Class", "Declaration",
     children: "class_body", "identifier", "permits", "super_interfaces", "superclass", "type_parameters"
@@ -176,7 +177,6 @@ class_literal <- (class_literal) => uast(
 
 compact_constructor_declaration <- (compact_constructor_declaration) => uast(
     token: "self",
-    roles: "Literal",
     type: "Struct",
     roles: "Struct", "Declaration",
     children: "block", "identifier"
@@ -244,13 +244,12 @@ enum_body <- (enum_body) => uast(
 
 enum_body_declarations <- (enum_body_declarations) => uast(
     token: "self",
-    roles: "Body",
     type: "Enum",
     roles: "Enum", "Declaration"
 )
 
 enum_constant <- (enum_constant) => uast(
-    type: "Enum",
+    type: "EnumMember",
     roles: "Enum", "Declaration",
     children: "argument_list", "class_body", "identifier"
 )
@@ -349,7 +348,6 @@ import_declaration <- (import_declaration) => uast(
 
 inferred_parameters <- (inferred_parameters) => uast(
     token: "self",
-    roles: "Import",
     type: "Parameter",
     roles: "Parameter"
 )
@@ -371,7 +369,6 @@ interface_body <- (interface_body) => uast(
 
 interface_declaration <- (interface_declaration) => uast(
     token: "self",
-    roles: "Body",
     type: "Interface",
     roles: "Interface", "Declaration",
     children: "identifier", "interface_body", "permits", "type_parameters"
@@ -396,7 +393,8 @@ local_variable_declaration <- (local_variable_declaration) => uast(
 
 marker_annotation <- (marker_annotation) => uast(
     token: "child:identifier",
-    type: "Synthetic",
+    type: "Attribute",
+    roles: "Attribute", "Annotation",
     children: "identifier", "scoped_identifier"
 )
 
@@ -430,7 +428,6 @@ module_body <- (module_body) => uast(
 
 module_declaration <- (module_declaration) => uast(
     token: "self",
-    roles: "Body",
     type: "Module",
     roles: "Module",
     children: "identifier", "module_body", "scoped_identifier"
@@ -473,8 +470,7 @@ permits <- (permits) => uast(
 )
 
 program <- (program) => uast(
-    token: "self",
-    type: "Synthetic"
+    type: "File"
 )
 
 provides_module_directive <- (provides_module_directive) => uast(
@@ -507,7 +503,6 @@ record_pattern_body <- (record_pattern_body) => uast(
 
 record_pattern_component <- (record_pattern_component) => uast(
     token: "self",
-    roles: "Body",
     type: "Pattern",
     roles: "Pattern"
 )
@@ -540,8 +535,8 @@ return_statement <- (return_statement) => uast(
 
 scoped_identifier <- (scoped_identifier) => uast(
     token: "self",
-    roles: "Return",
-    type: "Return",
+    type: "Identifier",
+    roles: "Name",
     children: "identifier", "scoped_identifier"
 )
 
@@ -551,9 +546,8 @@ scoped_type_identifier <- (scoped_type_identifier) => uast(
 
 spread_parameter <- (spread_parameter) => uast(
     token: "self",
-    roles: "Reference",
-    type: "Parameter",
-    roles: "Parameter"
+    type: "Spread",
+    roles: "Spread", "Parameter"
 )
 
 static_initializer <- (static_initializer) => uast(
@@ -572,7 +566,6 @@ string_literal <- (string_literal) => uast(
 
 super_interfaces <- (super_interfaces) => uast(
     token: "self",
-    roles: "Literal",
     type: "Interface",
     roles: "Interface", "Declaration"
 )
@@ -669,7 +662,6 @@ type_parameter <- (type_parameter) => uast(
 
 type_parameters <- (type_parameters) => uast(
     token: "self",
-    roles: "Parameter",
     type: "Parameter",
     roles: "Parameter"
 )
@@ -681,7 +673,8 @@ type_pattern <- (type_pattern) => uast(
 
 unary_expression <- (unary_expression) => uast(
     token: "self",
-    type: "Pattern",
+    type: "UnaryOp",
+    roles: "Operator",
     children: "expression"
 )
 
@@ -735,9 +728,8 @@ binary_integer_literal <- (binary_integer_literal) => uast(
 
 block_comment <- (block_comment) => uast(
     token: "self",
-    roles: "Literal",
-    type: "Block",
-    roles: "Body"
+    type: "Comment",
+    roles: "Comment"
 )
 
 boolean_type <- (boolean_type) => uast(
@@ -777,7 +769,6 @@ character_literal <- (character_literal) => uast(
 
 class <- (class) => uast(
     token: "self",
-    roles: "Literal",
     type: "Class",
     roles: "Class", "Declaration"
 )
@@ -800,8 +791,7 @@ decimal_integer_literal <- (decimal_integer_literal) => uast(
 
 default <- (default) => uast(
     token: "self",
-    roles: "Literal",
-    type: "Literal"
+    type: "Synthetic"
 )
 
 do <- (do) => uast(
@@ -840,7 +830,8 @@ extends <- (extends) => uast(
 
 false <- (false) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
 final <- (final) => uast(
@@ -870,12 +861,12 @@ hex_floating_point_literal <- (hex_floating_point_literal) => uast(
 
 hex_integer_literal <- (hex_integer_literal) => uast(
     token: "self",
-    roles: "Literal",
     type: "Literal",
     roles: "Literal"
 )
 
 identifier <- (identifier) => uast(
+    token: "self",
     type: "Identifier",
     roles: "Name"
 )
@@ -941,7 +932,6 @@ null_literal <- (null_literal) => uast(
 
 octal_integer_literal <- (octal_integer_literal) => uast(
     token: "self",
-    roles: "Literal",
     type: "Literal",
     roles: "Literal"
 )
@@ -1064,7 +1054,8 @@ transitive <- (transitive) => uast(
 
 true <- (true) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
 try <- (try) => uast(
@@ -1074,7 +1065,8 @@ try <- (try) => uast(
 
 type_identifier <- (type_identifier) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Identifier",
+    roles: "Name", "Type"
 )
 
 underscore_pattern <- (underscore_pattern) => uast(

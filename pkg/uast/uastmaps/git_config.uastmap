@@ -1,68 +1,79 @@
 [language "git_config", extensions: ".gitconfig"]
 
+config <- (config) => uast(
+    type: "File"
+)
+
 comment <- (comment) => uast(
+    token: "self",
     type: "Comment",
     roles: "Comment"
 )
 
-config <- (config) => uast(
-    token: "self",
-    roles: "Comment",
-    type: "Comment"
-)
-
 section <- (section) => uast(
-    type: "Synthetic"
+    type: "Dict",
+    roles: "Literal"
 )
 
 section_header <- (section_header) => uast(
-    token: "self",
-    type: "Synthetic"
+    type: "Identifier",
+    roles: "Name"
 )
 
-shell_command <- (shell_command) => uast(
-    type: "Synthetic"
-)
-
-string <- (string) => uast(
+section_name <- (section_name) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Identifier",
+    roles: "Name"
 )
 
 subsection_name <- (subsection_name) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
 )
 
 variable <- (variable) => uast(
-    token: "self",
-    type: "Variable",
-    roles: "Variable", "Declaration",
-    children: "false", "integer", "string", "true"
-)
-
-escape_sequence <- (escape_sequence) => uast(
-    type: "Synthetic"
-)
-
-false <- (false) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-integer <- (integer) => uast(
-    type: "Synthetic"
+    type: "KeyValue",
+    roles: "Key", "Value"
 )
 
 name <- (name) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Identifier",
+    roles: "Name"
 )
 
-section_name <- (section_name) => uast(
-    type: "Synthetic"
+string <- (string) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+integer <- (integer) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
 )
 
 true <- (true) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+false <- (false) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+shell_command <- (shell_command) => uast(
+    token: "self",
+    type: "Call",
+    roles: "Call"
+)
+
+escape_sequence <- (escape_sequence) => uast(
     token: "self",
     type: "Synthetic"
 )

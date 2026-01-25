@@ -1,100 +1,7 @@
 [language "css", extensions: ".css"]
 
-adjacent_sibling_selector <- (adjacent_sibling_selector) => uast(
-    type: "Synthetic"
-)
-
-arguments <- (arguments) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-at_rule <- (at_rule) => uast(
-    type: "Synthetic"
-)
-
-attribute_name <- (attribute_name) => uast(
-    token: "self",
-    type: "Attribute",
-    roles: "Attribute"
-)
-
-attribute_selector <- (attribute_selector) => uast(
-    type: "Attribute",
-    roles: "Attribute"
-)
-
-binary_expression <- (binary_expression) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-binary_query <- (binary_query) => uast(
-    type: "Synthetic"
-)
-
-block <- (block) => uast(
-    token: "self",
-    type: "Block",
-    roles: "Body"
-)
-
-call_expression <- (call_expression) => uast(
-    type: "Call",
-    roles: "Call"
-)
-
-charset_statement <- (charset_statement) => uast(
-    token: "self",
-    roles: "Call",
-    type: "Set"
-)
-
-child_selector <- (child_selector) => uast(
-    type: "Synthetic"
-)
-
-class_name <- (class_name) => uast(
-    token: "self",
-    type: "Class",
-    roles: "Class", "Declaration"
-)
-
-class_selector <- (class_selector) => uast(
-    type: "Class",
-    roles: "Class", "Declaration"
-)
-
-color_value <- (color_value) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-declaration <- (declaration) => uast(
-    type: "Synthetic"
-)
-
-descendant_selector <- (descendant_selector) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-feature_query <- (feature_query) => uast(
-    type: "Synthetic"
-)
-
-float_value <- (float_value) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-grid_value <- (grid_value) => uast(
-    type: "Synthetic"
-)
-
-id_selector <- (id_selector) => uast(
-    token: "self",
-    type: "Synthetic"
+stylesheet <- (stylesheet) => uast(
+    type: "File"
 )
 
 import_statement <- (import_statement) => uast(
@@ -102,100 +9,155 @@ import_statement <- (import_statement) => uast(
     roles: "Import"
 )
 
-integer_value <- (integer_value) => uast(
+comment <- (comment) => uast(
     token: "self",
-    roles: "Import",
-    type: "Import"
+    type: "Comment",
+    roles: "Comment"
 )
 
-keyframe_block <- (keyframe_block) => uast(
-    type: "Block",
-    roles: "Body"
-)
-
-keyframe_block_list <- (keyframe_block_list) => uast(
+js_comment <- (js_comment) => uast(
     token: "self",
-    roles: "Body",
-    type: "Block",
-    roles: "Body"
+    type: "Comment",
+    roles: "Comment"
 )
 
-keyframes_statement <- (keyframes_statement) => uast(
-    type: "Synthetic"
-)
-
-media_statement <- (media_statement) => uast(
+identifier <- (identifier) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Identifier",
+    roles: "Name"
 )
 
-namespace_selector <- (namespace_selector) => uast(
-    type: "Namespace",
-    roles: "Module"
-)
-
-namespace_statement <- (namespace_statement) => uast(
+class_name <- (class_name) => uast(
     token: "self",
-    type: "Namespace",
-    roles: "Module"
+    type: "Identifier",
+    roles: "Name", "Class"
 )
 
-parenthesized_query <- (parenthesized_query) => uast(
-    type: "Synthetic"
-)
-
-parenthesized_value <- (parenthesized_value) => uast(
+id_name <- (id_name) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Identifier",
+    roles: "Name"
 )
 
-postcss_statement <- (postcss_statement) => uast(
-    type: "Synthetic"
-)
-
-pseudo_class_selector <- (pseudo_class_selector) => uast(
+tag_name <- (tag_name) => uast(
     token: "self",
-    type: "Class",
-    roles: "Class", "Declaration"
+    type: "Identifier",
+    roles: "Name"
 )
 
-pseudo_element_selector <- (pseudo_element_selector) => uast(
-    type: "Synthetic"
-)
-
-rule_set <- (rule_set) => uast(
+property_name <- (property_name) => uast(
     token: "self",
-    type: "Set"
+    type: "Identifier",
+    roles: "Name", "Member"
 )
 
-selector_query <- (selector_query) => uast(
-    type: "Synthetic"
-)
-
-selectors <- (selectors) => uast(
+function_name <- (function_name) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Identifier",
+    roles: "Name", "Function"
 )
 
-sibling_selector <- (sibling_selector) => uast(
-    type: "Synthetic"
+keyframes_name <- (keyframes_name) => uast(
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
+)
+
+namespace_name <- (namespace_name) => uast(
+    token: "self",
+    type: "Identifier",
+    roles: "Name", "Module"
+)
+
+feature_name <- (feature_name) => uast(
+    token: "self",
+    type: "Identifier",
+    roles: "Name"
+)
+
+attribute_name <- (attribute_name) => uast(
+    token: "self",
+    type: "Identifier",
+    roles: "Name", "Attribute"
 )
 
 string_value <- (string_value) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
-stylesheet <- (stylesheet) => uast(
-    type: "Synthetic"
-)
-
-supports_statement <- (supports_statement) => uast(
+string_content <- (string_content) => uast(
     token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+integer_value <- (integer_value) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+float_value <- (float_value) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+color_value <- (color_value) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+plain_value <- (plain_value) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+unit <- (unit) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+grid_value <- (grid_value) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+rule_set <- (rule_set) => uast(
     type: "Synthetic"
 )
 
-unary_query <- (unary_query) => uast(
+selectors <- (selectors) => uast(
+    type: "Synthetic"
+)
+
+block <- (block) => uast(
+    type: "Block",
+    roles: "Body"
+)
+
+declaration <- (declaration) => uast(
+    type: "KeyValue",
+    roles: "Key", "Value"
+)
+
+important <- (important) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+class_selector <- (class_selector) => uast(
+    type: "Synthetic"
+)
+
+id_selector <- (id_selector) => uast(
     type: "Synthetic"
 )
 
@@ -204,7 +166,62 @@ universal_selector <- (universal_selector) => uast(
     type: "Synthetic"
 )
 
-and <- (and) => uast(
+attribute_selector <- (attribute_selector) => uast(
+    type: "Synthetic"
+)
+
+pseudo_class_selector <- (pseudo_class_selector) => uast(
+    type: "Synthetic"
+)
+
+pseudo_element_selector <- (pseudo_element_selector) => uast(
+    type: "Synthetic"
+)
+
+child_selector <- (child_selector) => uast(
+    type: "Synthetic"
+)
+
+descendant_selector <- (descendant_selector) => uast(
+    type: "Synthetic"
+)
+
+adjacent_sibling_selector <- (adjacent_sibling_selector) => uast(
+    type: "Synthetic"
+)
+
+sibling_selector <- (sibling_selector) => uast(
+    type: "Synthetic"
+)
+
+namespace_selector <- (namespace_selector) => uast(
+    type: "Synthetic"
+)
+
+nesting_selector <- (nesting_selector) => uast(
+    token: "self",
+    type: "Synthetic"
+)
+
+call_expression <- (call_expression) => uast(
+    type: "Call",
+    roles: "Call"
+)
+
+arguments <- (arguments) => uast(
+    type: "Synthetic"
+)
+
+parenthesized_value <- (parenthesized_value) => uast(
+    type: "Synthetic"
+)
+
+binary_expression <- (binary_expression) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+)
+
+at_rule <- (at_rule) => uast(
     type: "Synthetic"
 )
 
@@ -213,69 +230,74 @@ at_keyword <- (at_keyword) => uast(
     type: "Synthetic"
 )
 
-comment <- (comment) => uast(
-    type: "Comment",
-    roles: "Comment"
-)
-
-escape_sequence <- (escape_sequence) => uast(
-    token: "self",
-    roles: "Comment",
-    type: "Comment"
-)
-
-feature_name <- (feature_name) => uast(
+media_statement <- (media_statement) => uast(
     type: "Synthetic"
 )
 
-from <- (from) => uast(
-    token: "self",
+keyframes_statement <- (keyframes_statement) => uast(
     type: "Synthetic"
 )
 
-function_name <- (function_name) => uast(
-    type: "Function",
-    roles: "Function", "Declaration"
+keyframe_block <- (keyframe_block) => uast(
+    type: "Block",
+    roles: "Body"
 )
 
-id_name <- (id_name) => uast(
-    token: "self",
+keyframe_block_list <- (keyframe_block_list) => uast(
+    type: "Block",
+    roles: "Body"
+)
+
+charset_statement <- (charset_statement) => uast(
     type: "Synthetic"
 )
 
-identifier <- (identifier) => uast(
-    type: "If"
+namespace_statement <- (namespace_statement) => uast(
+    type: "Namespace",
+    roles: "Module"
 )
 
-important <- (important) => uast(
-    token: "self",
-    roles: "Reference",
-    type: "Import",
-    roles: "Import"
+supports_statement <- (supports_statement) => uast(
+    type: "Synthetic"
 )
 
-js_comment <- (js_comment) => uast(
-    type: "Comment",
-    roles: "Comment"
+postcss_statement <- (postcss_statement) => uast(
+    type: "Synthetic"
 )
 
-keyframes_name <- (keyframes_name) => uast(
-    token: "self",
-    roles: "Comment",
-    type: "Comment"
+binary_query <- (binary_query) => uast(
+    type: "BinaryOp",
+    roles: "Operator"
+)
+
+unary_query <- (unary_query) => uast(
+    type: "UnaryOp",
+    roles: "Operator"
+)
+
+selector_query <- (selector_query) => uast(
+    type: "Synthetic"
+)
+
+feature_query <- (feature_query) => uast(
+    type: "Synthetic"
+)
+
+parenthesized_query <- (parenthesized_query) => uast(
+    type: "Synthetic"
 )
 
 keyword_query <- (keyword_query) => uast(
     type: "Synthetic"
 )
 
-namespace_name <- (namespace_name) => uast(
+and <- (and) => uast(
     token: "self",
-    type: "Namespace",
-    roles: "Module"
+    type: "Synthetic"
 )
 
-nesting_selector <- (nesting_selector) => uast(
+or <- (or) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
@@ -284,48 +306,34 @@ not <- (not) => uast(
     type: "Synthetic"
 )
 
-of <- (of) => uast(
-    type: "Synthetic"
-)
-
 only <- (only) => uast(
     token: "self",
     type: "Synthetic"
 )
 
-or <- (or) => uast(
-    type: "Synthetic"
-)
-
-plain_value <- (plain_value) => uast(
+from <- (from) => uast(
     token: "self",
-    type: "Synthetic"
-)
-
-property_name <- (property_name) => uast(
-    type: "Property",
-    roles: "Member"
-)
-
-selector <- (selector) => uast(
-    token: "self",
-    type: "Synthetic"
-)
-
-string_content <- (string_content) => uast(
-    type: "Synthetic"
-)
-
-tag_name <- (tag_name) => uast(
-    token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
 to <- (to) => uast(
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+of <- (of) => uast(
+    token: "self",
     type: "Synthetic"
 )
 
-unit <- (unit) => uast(
+escape_sequence <- (escape_sequence) => uast(
     token: "self",
+    type: "Literal",
+    roles: "Literal"
+)
+
+selector <- (selector) => uast(
     type: "Synthetic"
 )

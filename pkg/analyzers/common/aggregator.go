@@ -20,22 +20,6 @@ func NewAggregator(
 	numericKeys, countKeys []string,
 	collectionKey, identifierKey string,
 	messageBuilder func(float64) string,
-) *Aggregator {
-	return &Aggregator{
-		metricsProcessor: NewMetricsProcessor(numericKeys, countKeys),
-		dataCollector:    NewDataCollector(collectionKey, identifierKey),
-		resultBuilder:    NewResultBuilder(),
-		analyzerName:     analyzerName,
-		messageBuilder:   messageBuilder,
-	}
-}
-
-// NewAggregatorWithCustomEmptyResult creates a new Aggregator with custom empty result builder
-func NewAggregatorWithCustomEmptyResult(
-	analyzerName string,
-	numericKeys, countKeys []string,
-	collectionKey, identifierKey string,
-	messageBuilder func(float64) string,
 	emptyResultBuilder func() analyze.Report,
 ) *Aggregator {
 	return &Aggregator{

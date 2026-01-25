@@ -4,207 +4,196 @@ name: go-index-slice-keyvalue
 parse_cases:
   - name: index_slice_keyvalue
     input: |
-      func i() {
+      func f() {
           arr := []int{1, 2, 3}
           x := arr[0]
-          y := arr[1:3]
-          m := map[string]int{"a": 1, "b": 2}
-          z := m["a"]
-          _, _, _, _, _ = arr, x, y, m, z
+          y := arr[1:2]
+          m := map[string]int{"a": 1}
       }
     output:
       type: "File"
+      roles: []
       children:
         - type: "Function"
-          roles: ["Function", "Declaration"]
+          token: |-
+            func f() {
+                arr := []int{1, 2, 3}
+                x := arr[0]
+                y := arr[1:2]
+                m := map[string]int{"a": 1}
+            }
           props:
-            name: "i"
-          token: "i"
+            name: "f"
+          roles: ["Function", "Declaration"]
           children:
             - type: "Identifier"
+              token: "f"
               roles: ["Name"]
-              token: "i"
+            - type: "Parameter"
+              token: "()"
+              roles: ["Parameter"]
             - type: "Block"
-              roles: ["Body"]
-            - type: "Block"
+              token: |-
+                {
+                    arr := []int{1, 2, 3}
+                    x := arr[0]
+                    y := arr[1:2]
+                    m := map[string]int{"a": 1}
+                }
               roles: ["Body"]
               children:
                 - type: "Variable"
+                  token: "arr := []int{1, 2, 3}"
                   roles: ["Variable", "Declaration"]
-                  props:
-                    name: "arr"
                   children:
-                    - type: "Block"
-                      roles: ["Body"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "Identifier"
-                          roles: ["Name"]
                           token: "arr"
-                    - type: "Block"
-                      roles: ["Body"]
+                          roles: ["Name"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "Literal"
                           roles: ["Literal"]
                           children:
-                            - type: "TypeAnnotation"
-                              roles: ["Type"]
+                            - type: "Slice"
+                              token: "[]int"
+                              roles: []
+                              children:
+                                - type: "Identifier"
+                                  token: "int"
+                                  roles: ["Name", "Type"]
                             - type: "Literal"
                               roles: ["Literal"]
                               children:
                                 - type: "Literal"
-                                  roles: ["Literal"]
                                   token: "1"
-                                - type: "Literal"
                                   roles: ["Literal"]
+                                  children:
+                                    - type: "Literal"
+                                      roles: ["Literal"]
+                                - type: "Literal"
                                   token: "2"
-                                - type: "Literal"
                                   roles: ["Literal"]
+                                  children:
+                                    - type: "Literal"
+                                      roles: ["Literal"]
+                                - type: "Literal"
                                   token: "3"
+                                  roles: ["Literal"]
+                                  children:
+                                    - type: "Literal"
+                                      roles: ["Literal"]
                 - type: "Variable"
+                  token: "x := arr[0]"
                   roles: ["Variable", "Declaration"]
-                  props:
-                    name: "x"
                   children:
-                    - type: "Block"
-                      roles: ["Body"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "Identifier"
-                          roles: ["Name"]
                           token: "x"
-                    - type: "Block"
-                      roles: ["Body"]
+                          roles: ["Name"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "Index"
                           roles: ["Index"]
                           children:
                             - type: "Identifier"
-                              roles: ["Name"]
                               token: "arr"
+                              roles: ["Name"]
+                            - type: "Literal"
+                              roles: ["Literal"]
                 - type: "Variable"
+                  token: "y := arr[1:2]"
                   roles: ["Variable", "Declaration"]
-                  props:
-                    name: "y"
                   children:
-                    - type: "Block"
-                      roles: ["Body"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "Identifier"
-                          roles: ["Name"]
                           token: "y"
-                    - type: "Block"
-                      roles: ["Body"]
+                          roles: ["Name"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "Slice"
-                          roles: ["Index"]
+                          roles: []
                           children:
                             - type: "Identifier"
-                              roles: ["Name"]
                               token: "arr"
+                              roles: ["Name"]
+                            - type: "Literal"
+                              roles: ["Literal"]
+                            - type: "Literal"
+                              roles: ["Literal"]
                 - type: "Variable"
+                  token: 'm := map[string]int{"a": 1}'
                   roles: ["Variable", "Declaration"]
-                  props:
-                    name: "m"
                   children:
-                    - type: "Block"
-                      roles: ["Body"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "Identifier"
-                          roles: ["Name"]
                           token: "m"
-                    - type: "Block"
-                      roles: ["Body"]
+                          roles: ["Name"]
+                    - type: "List"
+                      roles: []
                       children:
                         - type: "Literal"
                           roles: ["Literal"]
                           children:
-                            - type: "TypeAnnotation"
-                              roles: ["Type"]
+                            - type: "Synthetic"
+                              token: "map[string]int"
+                              roles: []
+                              children:
+                                - type: "Identifier"
+                                  token: "string"
+                                  roles: ["Name", "Type"]
+                                - type: "Identifier"
+                                  token: "int"
+                                  roles: ["Name", "Type"]
                             - type: "Literal"
                               roles: ["Literal"]
                               children:
                                 - type: "KeyValue"
-                                  roles: ["Key", "Value"]
+                                  token: '"a": 1'
+                                  roles: ["Key"]
                                   children:
                                     - type: "Literal"
+                                      token: '"a"'
                                       roles: ["Literal"]
                                       children:
                                         - type: "Literal"
                                           roles: ["Literal"]
-                                          token: "a"
+                                          children:
+                                            - type: "Literal"
+                                              roles: ["Literal"]
                                     - type: "Literal"
-                                      roles: ["Literal"]
                                       token: "1"
-                                - type: "KeyValue"
-                                  roles: ["Key", "Value"]
-                                  children:
-                                    - type: "Literal"
                                       roles: ["Literal"]
                                       children:
                                         - type: "Literal"
                                           roles: ["Literal"]
-                                          token: "b"
-                                    - type: "Literal"
-                                      roles: ["Literal"]
-                                      token: "2"
-                - type: "Variable"
-                  roles: ["Variable", "Declaration"]
-                  props:
-                    name: "z"
-                  children:
-                    - type: "Block"
-                      roles: ["Body"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "z"
-                    - type: "Block"
-                      roles: ["Body"]
-                      children:
-                        - type: "Index"
-                          roles: ["Index"]
-                          children:
-                            - type: "Identifier"
-                              roles: ["Name"]
-                              token: "m"
-                            - type: "Literal"
-                              roles: ["Literal"]
-                              token: "a"
-                - type: "Assignment"
-                  roles: ["Assignment"]
-                  children:
-                    - type: "Block"
-                      roles: ["Body"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "_"
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "_"
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "_"
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "_"
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "_"
-                    - type: "Block"
-                      roles: ["Body"]
-                      children:
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "arr"
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "x"
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "y"
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "m"
-                        - type: "Identifier"
-                          roles: ["Name"]
-                          token: "z" 
+
+query_cases:
+  - name: find_index
+    input: |
+      func f() { x := arr[0]; y := arr[1] }
+    query: 'rfilter(.type == "Index") |> map(.type)'
+    output:
+      results:
+        - "Index"
+        - "Index"
+
+  - name: find_keyvalue
+    input: |
+      func f() { m := map[string]int{"a": 1, "b": 2} }
+    query: 'rfilter(.type == "KeyValue") |> map(.type)'
+    output:
+      results:
+        - "KeyValue"
+        - "KeyValue"

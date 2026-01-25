@@ -131,7 +131,6 @@ class_definition <- (class_definition) => uast(
 
 class_pattern <- (class_pattern) => uast(
     token: "self",
-    roles: "Declaration",
     type: "Class",
     roles: "Class", "Declaration"
 )
@@ -200,13 +199,14 @@ dictionary <- (dictionary) => uast(
 )
 
 dictionary_comprehension <- (dictionary_comprehension) => uast(
-    type: "Dict",
+    type: "Comprehension",
     children: "pair"
 )
 
 dictionary_splat <- (dictionary_splat) => uast(
     token: "self",
-    type: "Dict"
+    type: "Spread",
+    roles: "Spread"
 )
 
 dictionary_splat_pattern <- (dictionary_splat_pattern) => uast(
@@ -230,7 +230,8 @@ else_clause <- (else_clause) => uast(
 )
 
 except_clause <- (except_clause) => uast(
-    type: "Synthetic",
+    type: "Catch",
+    roles: "Catch",
     children: "expression"
 )
 
@@ -290,7 +291,6 @@ function_definition <- (function_definition) => uast(
 
 future_import_statement <- (future_import_statement) => uast(
     token: "self",
-    roles: "Function", "Declaration",
     type: "Import",
     roles: "Import",
     children: "aliased_import", "dotted_name"
@@ -324,7 +324,8 @@ if_statement <- (if_statement) => uast(
 
 import_from_statement <- (import_from_statement) => uast(
     token: "self",
-    type: "Synthetic",
+    type: "Import",
+    roles: "Import",
     children: "aliased_import", "dotted_name", "relative_import"
 )
 
@@ -334,7 +335,8 @@ import_prefix <- (import_prefix) => uast(
 
 import_statement <- (import_statement) => uast(
     token: "self",
-    type: "Synthetic",
+    type: "Import",
+    roles: "Import",
     children: "aliased_import", "dotted_name"
 )
 
@@ -377,7 +379,7 @@ list <- (list) => uast(
 
 list_comprehension <- (list_comprehension) => uast(
     token: "self",
-    type: "List",
+    type: "Comprehension",
     children: "expression"
 )
 
@@ -387,7 +389,8 @@ list_pattern <- (list_pattern) => uast(
 
 list_splat <- (list_splat) => uast(
     token: "self",
-    type: "List"
+    type: "Spread",
+    roles: "Spread"
 )
 
 list_splat_pattern <- (list_splat_pattern) => uast(
@@ -406,9 +409,7 @@ member_type <- (member_type) => uast(
 )
 
 module <- (module) => uast(
-    token: "self",
-    type: "Module",
-    roles: "Module"
+    type: "File"
 )
 
 named_expression <- (named_expression) => uast(
@@ -428,7 +429,8 @@ not_operator <- (not_operator) => uast(
 
 pair <- (pair) => uast(
     token: "self",
-    type: "Synthetic",
+    type: "KeyValue",
+    roles: "Key", "Value",
     children: "expression"
 )
 
@@ -467,7 +469,8 @@ print_statement <- (print_statement) => uast(
 
 raise_statement <- (raise_statement) => uast(
     token: "self",
-    type: "Synthetic",
+    type: "Throw",
+    roles: "Throw",
     children: "expression"
 )
 
@@ -477,7 +480,6 @@ relative_import <- (relative_import) => uast(
 
 return_statement <- (return_statement) => uast(
     token: "self",
-    roles: "Import",
     type: "Return",
     roles: "Return"
 )
@@ -488,7 +490,7 @@ set <- (set) => uast(
 
 set_comprehension <- (set_comprehension) => uast(
     token: "self",
-    type: "Set",
+    type: "Comprehension",
     children: "expression"
 )
 
@@ -508,7 +510,8 @@ splat_type <- (splat_type) => uast(
 
 string <- (string) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
 string_content <- (string_content) => uast(
@@ -517,7 +520,8 @@ string_content <- (string_content) => uast(
 
 subscript <- (subscript) => uast(
     token: "self",
-    type: "Synthetic",
+    type: "Index",
+    roles: "Index",
     children: "expression", "primary_expression", "slice"
 )
 
@@ -560,7 +564,6 @@ typed_default_parameter <- (typed_default_parameter) => uast(
 
 typed_parameter <- (typed_parameter) => uast(
     token: "self",
-    roles: "Parameter",
     type: "Parameter",
     roles: "Parameter",
     children: "type"
@@ -716,7 +719,9 @@ exec <- (exec) => uast(
 )
 
 false <- (false) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
 )
 
 finally <- (finally) => uast(
@@ -726,7 +731,9 @@ finally <- (finally) => uast(
 )
 
 float <- (float) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
 )
 
 for <- (for) => uast(
@@ -745,6 +752,7 @@ global <- (global) => uast(
 )
 
 identifier <- (identifier) => uast(
+    token: "self",
     type: "Identifier",
     roles: "Name"
 )
@@ -764,7 +772,9 @@ in <- (in) => uast(
 )
 
 integer <- (integer) => uast(
-    type: "Synthetic"
+    token: "self",
+    type: "Literal",
+    roles: "Literal"
 )
 
 is <- (is) => uast(
@@ -789,7 +799,8 @@ match <- (match) => uast(
 
 none <- (none) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
 nonlocal <- (nonlocal) => uast(
@@ -835,7 +846,8 @@ string_start <- (string_start) => uast(
 
 true <- (true) => uast(
     token: "self",
-    type: "Synthetic"
+    type: "Literal",
+    roles: "Literal"
 )
 
 try <- (try) => uast(

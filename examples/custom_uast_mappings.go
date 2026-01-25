@@ -205,7 +205,7 @@ string <- (string) => uast(
 }
 
 func main() {
-	fmt.Println("=== Custom UAST Mappings Example ===\n")
+	fmt.Println("=== Custom UAST Mappings Example ===")
 
 	fmt.Println("1. Single Custom Mapping:")
 	ExampleCustomMappings()
