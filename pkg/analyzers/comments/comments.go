@@ -6,14 +6,36 @@ import (
 	"io"
 	"sort"
 
+	"github.com/dmytrogajewski/hercules/pkg/safeconv"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/analyze"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/common"
+	"github.com/dmytrogajewski/hercules/pkg/pipeline"
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
 
 // Name returns the analyzer name
 func (c *CommentsAnalyzer) Name() string {
 	return "comments"
+}
+
+// Flag returns the CLI flag for the analyzer
+func (c *CommentsAnalyzer) Flag() string {
+	return "comments-analysis"
+}
+
+// Description returns the analyzer description
+func (c *CommentsAnalyzer) Description() string {
+	return "Analyzes code comments and documentation coverage."
+}
+
+// ListConfigurationOptions returns the configuration options for the analyzer
+func (c *CommentsAnalyzer) ListConfigurationOptions() []pipeline.ConfigurationOption {
+	return []pipeline.ConfigurationOption{}
+}
+
+// Configure configures the analyzer
+func (c *CommentsAnalyzer) Configure(facts map[string]interface{}) error {
+	return nil
 }
 
 // Thresholds returns the quality thresholds for this analyzer
@@ -136,8 +158,8 @@ func (c *CommentsAnalyzer) createCommentBlocks(sortedComments []*node.Node) []Co
 			continue
 		}
 
-		commentStart := int(comment.Pos.StartLine)
-		commentEnd := int(comment.Pos.EndLine)
+		commentStart := safeconv.MustUintToInt(comment.Pos.StartLine)
+		commentEnd := safeconv.MustUintToInt(comment.Pos.EndLine)
 
 		if c.shouldStartNewBlock(currentBlock, commentStart) {
 			blocks = c.addBlockIfValid(blocks, currentBlock)
@@ -204,15 +226,15 @@ func (c *CommentsAnalyzer) createBlockNode(block CommentBlock) *node.Node {
 		Type:  node.UASTComment,
 		Token: block.FullText,
 		Pos: &node.Positions{
-			StartLine: uint(block.StartLine),
-			EndLine:   uint(block.EndLine),
+			StartLine: safeconv.MustIntToUint(block.StartLine),
+			EndLine:   safeconv.MustIntToUint(block.EndLine),
 		},
 	}
 }
 
 // createCommentDetails creates comment details for all comments in a block
 func (c *CommentsAnalyzer) createCommentDetails(block CommentBlock, blockDetail CommentDetail) []CommentDetail {
-	var details []CommentDetail
+	details := make([]CommentDetail, 0, len(block.Comments))
 	for _, comment := range block.Comments {
 		detail := CommentDetail{
 			Type:       string(comment.Type),
@@ -222,7 +244,7 @@ func (c *CommentsAnalyzer) createCommentDetails(block CommentBlock, blockDetail 
 			TargetType: blockDetail.TargetType,
 			TargetName: blockDetail.TargetName,
 			Position:   blockDetail.Position,
-			LineNumber: int(comment.Pos.StartLine),
+			LineNumber: safeconv.MustUintToInt(comment.Pos.StartLine),
 		}
 		details = append(details, detail)
 	}
@@ -247,7 +269,7 @@ func (c *CommentsAnalyzer) analyzeSingleComment(comment *node.Node, functions []
 // getCommentLineNumber gets the line number of a comment
 func (c *CommentsAnalyzer) getCommentLineNumber(comment *node.Node) int {
 	if comment.Pos != nil {
-		return int(comment.Pos.StartLine)
+		return safeconv.MustUintToInt(comment.Pos.StartLine)
 	}
 	return 0
 }
@@ -296,7 +318,7 @@ func (c *CommentsAnalyzer) getPenaltyScore(target *node.Node, config CommentConf
 // findClosestTarget finds the closest function/class to a comment
 func (c *CommentsAnalyzer) findClosestTarget(comment *node.Node, functions []*node.Node) *node.Node {
 	var closest *node.Node
-	var minDistance int = -1
+	minDistance := -1
 
 	for _, function := range functions {
 		distance := c.calculateDistance(comment, function)
@@ -315,8 +337,8 @@ func (c *CommentsAnalyzer) calculateDistance(comment *node.Node, target *node.No
 		return 999
 	}
 
-	commentEndLine := int(comment.Pos.EndLine)
-	targetLine := int(target.Pos.StartLine)
+	commentEndLine := safeconv.MustUintToInt(comment.Pos.EndLine)
+	targetLine := safeconv.MustUintToInt(target.Pos.StartLine)
 
 	if commentEndLine < targetLine {
 		return targetLine - commentEndLine
@@ -331,9 +353,9 @@ func (c *CommentsAnalyzer) isCommentProperlyPlaced(comment *node.Node, target *n
 		return false
 	}
 
-	commentStartLine := int(comment.Pos.StartLine)
-	commentEndLine := int(comment.Pos.EndLine)
-	targetLine := int(target.Pos.StartLine)
+	commentStartLine := safeconv.MustUintToInt(comment.Pos.StartLine)
+	commentEndLine := safeconv.MustUintToInt(comment.Pos.EndLine)
+	targetLine := safeconv.MustUintToInt(target.Pos.StartLine)
 
 	if commentEndLine >= targetLine {
 		return false
@@ -357,16 +379,17 @@ func (c *CommentsAnalyzer) determinePosition(comment *node.Node, target *node.No
 		return "unknown"
 	}
 
-	commentEndLine := int(comment.Pos.EndLine)
-	targetLine := int(target.Pos.StartLine)
+	commentEndLine := safeconv.MustUintToInt(comment.Pos.EndLine)
+	targetLine := safeconv.MustUintToInt(target.Pos.StartLine)
 
 	if commentEndLine < targetLine {
 		return "above"
-	} else if int(comment.Pos.StartLine) > targetLine {
-		return "below"
-	} else {
-		return "inline"
 	}
+	commentStartLine := safeconv.MustUintToInt(comment.Pos.StartLine)
+	if commentStartLine > targetLine {
+		return "below"
+	}
+	return "inline"
 }
 
 // extractTargetName extracts the name of a target node using generic extractor
@@ -618,7 +641,7 @@ func (c *CommentsAnalyzer) getFunctionType(function *node.Node) string {
 // getFunctionLineCount gets the line count of a function
 func (c *CommentsAnalyzer) getFunctionLineCount(function *node.Node) int {
 	if function.Pos != nil {
-		return int(function.Pos.EndLine - function.Pos.StartLine + 1)
+		return safeconv.MustUintToInt(function.Pos.EndLine - function.Pos.StartLine + 1)
 	}
 	return 0
 }

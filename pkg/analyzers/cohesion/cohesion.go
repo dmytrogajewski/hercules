@@ -7,12 +7,33 @@ import (
 
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/analyze"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/common"
+	"github.com/dmytrogajewski/hercules/pkg/pipeline"
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
 
 // Name returns the analyzer name
 func (c *CohesionAnalyzer) Name() string {
 	return "cohesion"
+}
+
+// Flag returns the CLI flag for the analyzer
+func (c *CohesionAnalyzer) Flag() string {
+	return "cohesion-analysis"
+}
+
+// Description returns the analyzer description
+func (c *CohesionAnalyzer) Description() string {
+	return "Calculates LCOM and cohesion metrics."
+}
+
+// ListConfigurationOptions returns the configuration options for the analyzer
+func (c *CohesionAnalyzer) ListConfigurationOptions() []pipeline.ConfigurationOption {
+	return []pipeline.ConfigurationOption{}
+}
+
+// Configure configures the analyzer
+func (c *CohesionAnalyzer) Configure(facts map[string]interface{}) error {
+	return nil
 }
 
 // Thresholds returns the color-coded thresholds for cohesion metrics
@@ -34,6 +55,11 @@ func (c *CohesionAnalyzer) Thresholds() analyze.Thresholds {
 			"green":  0.7,
 		},
 	}
+}
+
+// CreateVisitor creates a new visitor for cohesion analysis
+func (c *CohesionAnalyzer) CreateVisitor() analyze.AnalysisVisitor {
+	return NewCohesionVisitor()
 }
 
 // Analyze performs cohesion analysis on the UAST
@@ -153,17 +179,6 @@ func (c *CohesionAnalyzer) getCohesionMessage(score float64) string {
 		return "Fair cohesion - some functions could be more focused"
 	}
 	return "Poor cohesion - functions lack focus and should be refactored"
-}
-
-// getSeverityEmoji returns severity and emoji based on score and thresholds
-func (c *CohesionAnalyzer) getSeverityEmoji(score, greenThreshold, yellowThreshold float64) (string, string) {
-	if score >= greenThreshold {
-		return "Good", "🟢"
-	}
-	if score >= yellowThreshold {
-		return "Fair", "🟡"
-	}
-	return "Poor", "🔴"
 }
 
 // getCohesionAssessment returns an assessment with emoji for cohesion

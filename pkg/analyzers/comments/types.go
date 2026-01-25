@@ -130,6 +130,11 @@ func (c *CommentsAnalyzer) CreateAggregator() analyze.ResultAggregator {
 	return NewCommentsAggregator()
 }
 
+// CreateVisitor creates a new visitor for comments analysis
+func (c *CommentsAnalyzer) CreateVisitor() analyze.AnalysisVisitor {
+	return NewCommentsVisitor()
+}
+
 // DefaultConfig returns the default configuration for comment analysis
 func (c *CommentsAnalyzer) DefaultConfig() CommentConfig {
 	return CommentConfig{
