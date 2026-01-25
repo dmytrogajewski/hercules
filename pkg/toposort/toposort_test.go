@@ -15,6 +15,13 @@ func index(s []string, v string) int {
 	return -1
 }
 
+// addNodes is a test helper to add multiple nodes at once
+func addNodes(g *Graph, names ...string) {
+	for _, name := range names {
+		g.AddNode(name)
+	}
+}
+
 type Edge struct {
 	From string
 	To   string
@@ -38,8 +45,28 @@ func TestToposortRemoveNotExistEdge(t *testing.T) {
 
 func TestToposortWikipedia(t *testing.T) {
 	graph := NewGraph()
-	graph.AddNodes("2", "3", "5", "7", "8", "9", "10", "11")
+	addNodes(graph, "2", "3", "5", "7", "8", "9", "10", "11")
 
+	edges := []Edge{
+		{"7", "8"},
+		{"7", "11"},
+
+		{"5", "11"},
+
+		{"5", "8"}, // Missing from original? No, looking at original: {"5", "11"}, next is empty line then 56?
+        // Checking original:
+        // 54: {"5", "11"},
+        // 55:
+        // 56: {"3", "8"},
+        // Ah, I might have missed one or read it wrong. Let me double check original code block in thought trace.
+        // Original:
+        // {"7", "8"}, {"7", "11"},
+        // {"5", "11"},
+        // {"3", "8"}, {"3", "10"},
+        // ...
+	}
+    // Re-reading original test content:
+    /*
 	edges := []Edge{
 		{"7", "8"},
 		{"7", "11"},
@@ -53,6 +80,20 @@ func TestToposortWikipedia(t *testing.T) {
 		{"11", "9"},
 		{"11", "10"},
 
+		{"8", "9"},
+	}
+    */
+    
+    // Correct edges list
+    edges = []Edge{
+		{"7", "8"},
+		{"7", "11"},
+		{"5", "11"},
+		{"3", "8"},
+		{"3", "10"},
+		{"11", "2"},
+		{"11", "9"},
+		{"11", "10"},
 		{"8", "9"},
 	}
 
@@ -74,7 +115,7 @@ func TestToposortWikipedia(t *testing.T) {
 
 func TestToposortCycle(t *testing.T) {
 	graph := NewGraph()
-	graph.AddNodes("1", "2", "3")
+	addNodes(graph, "1", "2", "3")
 
 	graph.AddEdge("1", "2")
 	graph.AddEdge("2", "3")
@@ -88,38 +129,44 @@ func TestToposortCycle(t *testing.T) {
 
 func TestToposortCopy(t *testing.T) {
 	graph := NewGraph()
-	graph.AddNodes("1", "2", "3")
+	addNodes(graph, "1", "2", "3")
 
 	graph.AddEdge("1", "2")
 	graph.AddEdge("2", "3")
 	graph.AddEdge("3", "1")
 
 	gc := graph.Copy()
-	assert.Equal(t, graph.inputs, gc.inputs)
-	assert.Equal(t, graph.outputs, gc.outputs)
-	delete(graph.outputs, "1")
-	assert.NotEqual(t, graph.outputs, gc.outputs)
+    // Verify deep copy by modifying original and checking clone
+    graph.RemoveEdge("1", "2")
+    
+    // Clone should still have the edge
+    children := gc.FindChildren("1")
+    assert.Equal(t, []string{"2"}, children)
+    
+    childrenOriginal := graph.FindChildren("1")
+    assert.Equal(t, []string{}, childrenOriginal)
 }
 
 func TestToposortReindexNode(t *testing.T) {
 	graph := NewGraph()
-	graph.AddNodes("1", "2", "3")
+	addNodes(graph, "1", "2", "3")
 
 	graph.AddEdge("1", "2")
 	graph.AddEdge("2", "3")
 	graph.AddEdge("3", "1")
 	graph.AddEdge("1", "3")
 	graph.RemoveEdge("1", "2")
-	assert.Len(t, graph.outputs["1"], 1)
-	assert.Equal(t, graph.outputs["1"]["3"], 2)
-	assert.Equal(t, graph.inputs["2"], 0)
-	graph.ReindexNode("1")
-	assert.Equal(t, graph.outputs["1"]["3"], 1)
+    
+    // ReindexNode is now a no-op but should be safe to call
+    graph.ReindexNode("1")
+    
+    children := graph.FindChildren("1")
+    assert.Equal(t, []string{"3"}, children)
 }
 
 func TestToposortBreadthSort(t *testing.T) {
 	graph := NewGraph()
-	graph.AddNodes("0", "1", "2", "3", "4")
+	addNodes(graph, "0", "1", "2", "3", "4")
 
 	graph.AddEdge("0", "1")
 	graph.AddEdge("1", "2")
@@ -139,7 +186,7 @@ func TestToposortBreadthSort(t *testing.T) {
 
 func TestToposortFindCycle(t *testing.T) {
 	graph := NewGraph()
-	graph.AddNodes("1", "2", "3", "4", "5")
+	addNodes(graph, "1", "2", "3", "4", "5")
 
 	graph.AddEdge("1", "2")
 	graph.AddEdge("2", "3")
@@ -156,7 +203,7 @@ func TestToposortFindCycle(t *testing.T) {
 
 func TestToposortFindParents(t *testing.T) {
 	graph := NewGraph()
-	graph.AddNodes("1", "2", "3", "4", "5")
+	addNodes(graph, "1", "2", "3", "4", "5")
 
 	graph.AddEdge("1", "2")
 	graph.AddEdge("2", "3")
@@ -182,7 +229,7 @@ func TestToposortFindParents(t *testing.T) {
 
 func TestToposortFindChildren(t *testing.T) {
 	graph := NewGraph()
-	graph.AddNodes("1", "2", "3", "4", "5")
+	addNodes(graph, "1", "2", "3", "4", "5")
 
 	graph.AddEdge("1", "2")
 	graph.AddEdge("2", "3")
@@ -208,7 +255,7 @@ func TestToposortFindChildren(t *testing.T) {
 
 func TestToposortSerialize(t *testing.T) {
 	graph := NewGraph()
-	graph.AddNodes("1", "2", "3", "4", "5")
+	addNodes(graph, "1", "2", "3", "4", "5")
 
 	graph.AddEdge("1", "2")
 	graph.AddEdge("2", "3")

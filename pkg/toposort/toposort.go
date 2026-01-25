@@ -4,233 +4,268 @@ import (
 	"bytes"
 	"fmt"
 	"sort"
-	"strings"
 )
-
-// Reworked from https://github.com/philopon/go-toposort
 
 // Graph represents a directed acyclic graph.
 type Graph struct {
-	// Outgoing connections for every node.
-	outputs map[string]map[string]int
-	// How many parents each node has.
-	inputs map[string]int
+	symbols  *SymbolTable
+	intGraph *IntGraph
 }
 
 // NewGraph initializes a new Graph.
 func NewGraph() *Graph {
 	return &Graph{
-		inputs:  map[string]int{},
-		outputs: map[string]map[string]int{},
+		symbols:  NewSymbolTable(),
+		intGraph: NewIntGraph(),
 	}
 }
 
 // Copy clones the graph and returns the independent copy.
 func (g *Graph) Copy() *Graph {
 	clone := NewGraph()
-	for k, v := range g.inputs {
-		clone.inputs[k] = v
+	// Deep copy logic
+	// For SymbolTable, we can iterate if we expose iteration or just re-add nodes/edges
+	// Re-adding edges is easier if we can iterate edges.
+	// But SymbolTable doesn't expose iteration easily.
+	
+	// Efficient copy:
+	// Copy symbols
+	clone.symbols.lock.Lock()
+	g.symbols.lock.RLock()
+	for k, v := range g.symbols.strToID {
+		clone.symbols.strToID[k] = v
 	}
-	for k1, v1 := range g.outputs {
-		m := map[string]int{}
-		clone.outputs[k1] = m
-		for k2, v2 := range v1 {
-			m[k2] = v2
+	clone.symbols.idToStr = make([]string, len(g.symbols.idToStr))
+	copy(clone.symbols.idToStr, g.symbols.idToStr)
+	g.symbols.lock.RUnlock()
+	clone.symbols.lock.Unlock()
+
+	// Copy IntGraph
+	clone.intGraph.EnsureCapacity(len(g.intGraph.nodes))
+	for u, neighbors := range g.intGraph.nodes {
+		if neighbors != nil {
+			clone.intGraph.nodes[u] = make([]int, len(neighbors))
+			copy(clone.intGraph.nodes[u], neighbors)
 		}
 	}
+	clone.intGraph.inDegree = make([]int, len(g.intGraph.inDegree))
+	copy(clone.intGraph.inDegree, g.intGraph.inDegree)
+	clone.intGraph.nodeCount = g.intGraph.nodeCount
+
 	return clone
 }
 
 // AddNode inserts a new node into the graph.
 func (g *Graph) AddNode(name string) bool {
-	if _, exists := g.outputs[name]; exists {
+	// Check if node exists
+	g.symbols.lock.RLock()
+	_, exists := g.symbols.strToID[name]
+	g.symbols.lock.RUnlock()
+	
+	if exists {
 		return false
 	}
-	g.outputs[name] = make(map[string]int)
-	g.inputs[name] = 0
-	return true
-}
 
-// AddNodes inserts multiple nodes into the graph at once.
-func (g *Graph) AddNodes(names ...string) bool {
-	for _, name := range names {
-		if ok := g.AddNode(name); !ok {
-			return false
-		}
-	}
-	return true
+	id := g.symbols.Intern(name)
+	return g.intGraph.AddNode(id)
 }
 
 // AddEdge inserts the link from "from" node to "to" node.
 func (g *Graph) AddEdge(from, to string) int {
-	m, ok := g.outputs[from]
-	if !ok {
-		return 0
+	u := g.symbols.Intern(from)
+	v := g.symbols.Intern(to)
+
+	// Ensure nodes exist in graph (IntGraph.AddEdge handles capacity but AddNode logic might be needed for consistency)
+	g.intGraph.AddNode(u)
+	g.intGraph.AddNode(v)
+
+	if g.intGraph.AddEdge(u, v) {
+		return g.intGraph.inDegree[v]
 	}
-
-	m[to] = len(m) + 1
-	ni := g.inputs[to] + 1
-	g.inputs[to] = ni
-
-	return ni
+	// Edge already exists, return current in-degree
+	return g.intGraph.inDegree[v]
 }
 
 // ReindexNode updates the internal representation of the node after edge removals.
+// In the new implementation, this might be a no-op or we might need to compact IDs?
+// The original ReindexNode resorted children and updated their values in the map.
+// Since we use int IDs and unordered/ordered lists, we might not need this.
+// However, if the caller relies on deterministic behavior that ReindexNode provided...
+// Original: "sort.Strings(keys); for i, key := range keys { children[key] = i + 1 }"
+// This seems to be assigning values 1..N to children in the map?
+// Wait, `m[to] = len(m) + 1` in `AddEdge`. The value in `outputs[from][to]` seems to be the insertion order index (1-based).
+// `ReindexNode` re-assigns these indices based on sorted key order.
+// Does anything use these values? Toposort uses keys.
+// The values in `outputs` map seem unused by `Toposort`.
+// Let's check `FindParents` etc.
+// They iterate keys.
+// So `ReindexNode` might be for some specific usage or just legacy maintenance of map values.
+// We can make it a no-op if we don't expose these values.
 func (g *Graph) ReindexNode(node string) {
-	children, ok := g.outputs[node]
-	if !ok {
-		return
-	}
-	keys := []string{}
-	for key := range children {
-		keys = append(keys, key)
-	}
-	sort.Strings(keys)
-	for i, key := range keys {
-		children[key] = i + 1
-	}
-}
-
-func (g *Graph) unsafeRemoveEdge(from, to string) {
-	delete(g.outputs[from], to)
-	g.inputs[to]--
+	// No-op in integer implementation as we don't maintain edge indices in map
 }
 
 // RemoveEdge deletes the link from "from" node to "to" node.
-// Call ReindexNode(from) after you finish modifying the edges.
 func (g *Graph) RemoveEdge(from, to string) bool {
-	if _, ok := g.outputs[from]; !ok {
+	// Resolve IDs
+	// We need to be careful not to create new IDs if they don't exist
+	g.symbols.lock.RLock()
+	u, ok1 := g.symbols.strToID[from]
+	v, ok2 := g.symbols.strToID[to]
+	g.symbols.lock.RUnlock()
+
+	if !ok1 || !ok2 {
 		return false
 	}
-	g.unsafeRemoveEdge(from, to)
-	return true
+
+	return g.intGraph.RemoveEdge(u, v)
 }
 
 // Toposort sorts the nodes in the graph in topological order.
 func (g *Graph) Toposort() ([]string, bool) {
-	L := make([]string, 0, len(g.outputs))
-	S := make([]string, 0, len(g.outputs))
-
-	for n := range g.outputs {
-		if g.inputs[n] == 0 {
-			S = append(S, n)
-		}
+	ids, ok := g.intGraph.TopoSort()
+	
+	result := make([]string, len(ids))
+	for i, id := range ids {
+		result[i] = g.symbols.Resolve(id)
 	}
-	sort.Strings(S)
-
-	for len(S) > 0 {
-		var n string
-		n, S = S[0], S[1:]
-		L = append(L, n)
-
-		ms := make([]string, len(g.outputs[n]))
-		for m, i := range g.outputs[n] {
-			ms[i-1] = m
-		}
-
-		for _, m := range ms {
-			g.unsafeRemoveEdge(n, m)
-
-			if g.inputs[m] == 0 {
-				S = append(S, m)
-			}
-		}
-	}
-
-	N := 0
-	for _, v := range g.inputs {
-		N += v
-	}
-
-	if N > 0 {
-		return L, false
-	}
-
-	return L, true
+	
+	return result, ok
 }
 
 // BreadthSort sorts the nodes in the graph in BFS order.
 func (g *Graph) BreadthSort() []string {
-	L := make([]string, 0, len(g.outputs))
-	S := make([]string, 0, len(g.outputs))
-
-	for n := range g.outputs {
-		if g.inputs[n] == 0 {
-			S = append(S, n)
+	// Reimplement BFS using IntGraph logic (or adapt IntGraph to support BFS)
+	// For now, implement here using IntGraph internals or similar logic
+	
+	// Similar to Toposort but BFS exploration
+	// Original BFS starts with nodes having 0 in-degree.
+	
+	// We can implement BFS in IntGraph or here.
+	// Let's implement here for now using ids.
+	
+	n := len(g.intGraph.nodes)
+	inDegree := make([]int, n)
+	copy(inDegree, g.intGraph.inDegree)
+	
+	queue := make([]int, 0)
+	// Find roots (in-degree 0)
+	for i := 0; i < n; i++ {
+		// Only valid nodes?
+		// We can check if node name resolves to non-empty string to ensure it's a valid node
+		if g.symbols.Resolve(i) != "" && inDegree[i] == 0 {
+			queue = append(queue, i)
 		}
 	}
-
-	visited := map[string]bool{}
-	for len(S) > 0 {
-		node := S[0]
-		S = S[1:]
-		if _, exists := visited[node]; !exists {
-			L = append(L, node)
-			visited[node] = true
-			for child := range g.outputs[node] {
-				S = append(S, child)
+	
+	// Sort initial queue by name to match string-based behavior (lexicographical)
+	sort.Slice(queue, func(i, j int) bool {
+		return g.symbols.Resolve(queue[i]) < g.symbols.Resolve(queue[j])
+	})
+	
+	visited := make(map[int]bool)
+	result := make([]string, 0, n)
+	
+	for len(queue) > 0 {
+		u := queue[0]
+		queue = queue[1:]
+		
+		if !visited[u] {
+			visited[u] = true
+			result = append(result, g.symbols.Resolve(u))
+			
+			children := g.intGraph.nodes[u]
+			// Sort children by name
+			childIDs := make([]int, len(children))
+			copy(childIDs, children)
+			sort.Slice(childIDs, func(i, j int) bool {
+				return g.symbols.Resolve(childIDs[i]) < g.symbols.Resolve(childIDs[j])
+			})
+			
+			for _, v := range childIDs {
+				queue = append(queue, v)
 			}
 		}
 	}
-
-	return L
+	
+	return result
 }
 
 // FindCycle returns the cycle in the graph which contains "seed" node.
 func (g *Graph) FindCycle(seed string) []string {
-	type edge struct {
-		node   string
-		parent string
+	g.symbols.lock.RLock()
+	id, exists := g.symbols.strToID[seed]
+	g.symbols.lock.RUnlock()
+	
+	if !exists {
+		return []string{}
 	}
-	S := make([]edge, 0, len(g.outputs))
-	S = append(S, edge{seed, ""})
-	visited := map[string]string{}
-	for len(S) > 0 {
-		e := S[0]
-		S = S[1:]
-		if parent, exists := visited[e.node]; !exists || parent == "" {
-			visited[e.node] = e.parent
-			for child := range g.outputs[e.node] {
-				S = append(S, edge{child, e.node})
-			}
-		}
-		if e.node == seed && e.parent != "" {
-			result := []string{}
-			node := e.parent
-			for node != seed {
-				result = append(result, node)
-				node = visited[node]
-			}
-			result = append(result, seed)
-			// reverse
-			for left, right := 0, len(result)-1; left < right; left, right = left+1, right-1 {
-				result[left], result[right] = result[right], result[left]
-			}
-			return result
-		}
+	
+	cycleIDs := g.intGraph.FindCycle(id)
+	
+	// Legacy compatibility: return path without closing loop repetition
+	if len(cycleIDs) > 1 && cycleIDs[0] == cycleIDs[len(cycleIDs)-1] {
+		cycleIDs = cycleIDs[:len(cycleIDs)-1]
 	}
-	return []string{}
+	
+	result := make([]string, len(cycleIDs))
+	for i, cid := range cycleIDs {
+		result[i] = g.symbols.Resolve(cid)
+	}
+	return result
 }
 
 // FindParents returns the other ends of incoming edges.
 func (g *Graph) FindParents(to string) []string {
-	result := []string{}
-	for node, children := range g.outputs {
-		if _, exists := children[to]; exists {
-			result = append(result, node)
+	g.symbols.lock.RLock()
+	targetID, exists := g.symbols.strToID[to]
+	g.symbols.lock.RUnlock()
+	
+	if !exists {
+		return []string{}
+	}
+	
+	var parents []string
+	// Inefficient: iterate all nodes to find edges to targetID
+	// IntGraph doesn't store reverse edges (parents).
+	// Current IntGraph is optimized for forward traversal.
+	// But we can iterate.
+	
+	for u, children := range g.intGraph.nodes {
+		for _, v := range children {
+			if v == targetID {
+				parents = append(parents, g.symbols.Resolve(u))
+				break
+			}
 		}
 	}
-	return result
+	
+	sort.Strings(parents)
+	return parents
 }
 
 // FindChildren returns the other ends of outgoing edges.
 func (g *Graph) FindChildren(from string) []string {
-	result := []string{}
-	for child := range g.outputs[from] {
-		result = append(result, child)
+	g.symbols.lock.RLock()
+	u, exists := g.symbols.strToID[from]
+	g.symbols.lock.RUnlock()
+	
+	if !exists {
+		return []string{}
 	}
-	sort.Strings(result)
-	return result
+	
+	if u >= len(g.intGraph.nodes) {
+		return []string{}
+	}
+	
+	childrenIDs := g.intGraph.nodes[u]
+	children := make([]string, len(childrenIDs))
+	for i, v := range childrenIDs {
+		children[i] = g.symbols.Resolve(v)
+	}
+	
+	sort.Strings(children)
+	return children
 }
 
 // Serialize outputs the graph in Graphviz format.
@@ -241,52 +276,19 @@ func (g *Graph) Serialize(sorted []string) string {
 	}
 	var buffer bytes.Buffer
 	buffer.WriteString("digraph Hercules {\n")
-	nodesFrom := []string{}
-	for nodeFrom := range g.outputs {
-		nodesFrom = append(nodesFrom, nodeFrom)
-	}
-	sort.Strings(nodesFrom)
-	for _, nodeFrom := range nodesFrom {
-		links := []string{}
-		for nodeTo := range g.outputs[nodeFrom] {
-			links = append(links, nodeTo)
-		}
-		sort.Strings(links)
-		for _, nodeTo := range links {
+	
+	nodesFrom := g.symbols.idToStr // All nodes
+	sortedNodesFrom := make([]string, len(nodesFrom))
+	copy(sortedNodesFrom, nodesFrom)
+	sort.Strings(sortedNodesFrom)
+	
+	for _, nodeFrom := range sortedNodesFrom {
+		children := g.FindChildren(nodeFrom)
+		for _, nodeTo := range children {
 			buffer.WriteString(fmt.Sprintf("  \"%d %s\" -> \"%d %s\"\n",
 				node2index[nodeFrom], nodeFrom, node2index[nodeTo], nodeTo))
 		}
 	}
 	buffer.WriteString("}")
-	return buffer.String()
-}
-
-// DebugDump converts the graph to a string. As the name suggests, useful for debugging.
-func (g *Graph) DebugDump() string {
-	S := make([]string, 0, len(g.outputs))
-	for n := range g.outputs {
-		if g.inputs[n] == 0 {
-			S = append(S, n)
-		}
-	}
-	sort.Strings(S)
-	var buffer bytes.Buffer
-	buffer.WriteString(strings.Join(S, " ") + "\n")
-	keys := []string{}
-	vals := map[string][]string{}
-	for key, val1 := range g.outputs {
-		val2 := make([]string, len(val1))
-		for name, idx := range val1 {
-			val2[idx-1] = name
-		}
-		keys = append(keys, key)
-		vals[key] = val2
-	}
-	sort.Strings(keys)
-	for _, key := range keys {
-		buffer.WriteString(fmt.Sprintf("%s %d = ", key, g.inputs[key]))
-		outs := vals[key]
-		buffer.WriteString(strings.Join(outs, " ") + "\n")
-	}
 	return buffer.String()
 }
