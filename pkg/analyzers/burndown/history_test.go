@@ -382,11 +382,20 @@ func TestBurndownHistoryAnalyzer_Hibernate_Boot(t *testing.T) {
 	b.newFile(shard, gitplumbing.ZeroHash, "test.txt", 0, 0, 10)
 	
 	err := b.Hibernate()
-	// Should fail with "not supported" for now
-	if err == nil {
-		// t.Fatalf("Hibernate failed: %v", err)
+	if err != nil {
+		t.Fatalf("Hibernate failed: %v", err)
 	}
-	// ... rest of test depends on implementation
+	if b.hibernatedFileName == "" {
+		t.Fatal("expected hibernated file name")
+	}
+	
+	err = b.Boot()
+	if err != nil {
+		t.Fatalf("Boot failed: %v", err)
+	}
+	if b.hibernatedFileName != "" {
+		t.Error("expected hibernated file name cleared")
+	}
 }
 
 func TestBurndownHistoryAnalyzer_Fork(t *testing.T) {

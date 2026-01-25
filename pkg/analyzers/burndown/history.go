@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"hash/fnv"
 	"io"
+	"io/ioutil"
+	"os"
 	"sort"
 	"sync"
 	"time"
@@ -54,13 +56,13 @@ type BurndownHistoryAnalyzer struct {
 	Ticks     *plumbing.TicksSinceStart
 
 	// State
-	repository         *git.Repository
-	globalHistory      sparseHistory
-	peopleHistories    []sparseHistory
-	
-	shardedAllocator   *rbtree.ShardedAllocator
-	shards             []*BurndownShard
-	GlobalMu           sync.Mutex
+	repository      *git.Repository
+	globalHistory   sparseHistory
+	peopleHistories []sparseHistory
+
+	shardedAllocator *rbtree.ShardedAllocator
+	shards           []*BurndownShard
+	GlobalMu         sync.Mutex
 
 	hibernatedFileName string
 	mergedFiles        map[string]bool
@@ -71,7 +73,7 @@ type BurndownHistoryAnalyzer struct {
 	tick               int
 	previousTick       int
 	reversedPeopleDict []string
-	
+
 	// Internal
 	l interface {
 		Warnf(format string, args ...interface{})
@@ -235,12 +237,12 @@ func (b *BurndownHistoryAnalyzer) Initialize(repository *git.Repository) error {
 	}
 	b.repository = repository
 	b.globalHistory = sparseHistory{}
-	
+
 	if b.PeopleNumber < 0 {
 		return fmt.Errorf("PeopleNumber is negative: %d", b.PeopleNumber)
 	}
 	b.peopleHistories = make([]sparseHistory, b.PeopleNumber)
-	
+
 	b.shardedAllocator = rbtree.NewShardedAllocator(b.Goroutines, b.HibernationThreshold)
 	b.shards = make([]*BurndownShard, b.Goroutines)
 	allocators := b.shardedAllocator.Shards()
@@ -251,7 +253,7 @@ func (b *BurndownHistoryAnalyzer) Initialize(repository *git.Repository) error {
 			allocator:     allocators[i],
 		}
 	}
-	
+
 	b.mergedFiles = map[string]bool{}
 	b.mergedAuthor = identity.AuthorMissing
 	b.renames = map[string]string{}
@@ -282,11 +284,11 @@ func (b *BurndownHistoryAnalyzer) Consume(ctx *analyze.Context) error {
 	// Hibernation state is managed by ShardedAllocator mostly.
 	// But b.shards[0].files is map.
 	// Original check: if b.fileAllocator.Size() == 0 && len(b.files) > 0
-	
+
 	// We can check one shard or ShardedAllocator
 	// ShardedAllocator doesn't expose total size easily.
 	// Assume consistent state.
-	
+
 	author := b.Identity.AuthorID
 	tick := b.Ticks.Tick
 	isMerge := ctx.IsMerge
@@ -307,39 +309,39 @@ func (b *BurndownHistoryAnalyzer) Consume(ctx *analyze.Context) error {
 	// Group changes by shard
 	shardChanges := make([][]*object.Change, b.Goroutines)
 	renames := make([]*object.Change, 0)
-	
+
 	for _, change := range treeDiffs {
 		action, _ := change.Action()
-		
+
 		if action == merkletrie.Modify && change.From.Name != change.To.Name {
 			renames = append(renames, change)
 			continue
 		}
-		
+
 		name := change.To.Name
 		if action == merkletrie.Delete {
 			name = change.From.Name
 		}
-		
+
 		idx := b.getShardIndex(name)
 		shardChanges[idx] = append(shardChanges[idx], change)
 	}
-	
+
 	// Process shards in parallel
 	var wg sync.WaitGroup
 	errs := make([]error, b.Goroutines)
-	
+
 	for i := 0; i < b.Goroutines; i++ {
 		changes := shardChanges[i]
 		if len(changes) == 0 {
 			continue
 		}
-		
+
 		wg.Add(1)
 		go func(idx int, changes []*object.Change) {
 			defer wg.Done()
 			shard := b.shards[idx]
-			
+
 			for _, change := range changes {
 				action, _ := change.Action()
 				var err error
@@ -358,15 +360,15 @@ func (b *BurndownHistoryAnalyzer) Consume(ctx *analyze.Context) error {
 			}
 		}(i, changes)
 	}
-	
+
 	wg.Wait()
-	
+
 	for _, err := range errs {
 		if err != nil {
 			return err
 		}
 	}
-	
+
 	// Process renames sequentially
 	for _, change := range renames {
 		// Renames involve modifications too
@@ -393,16 +395,27 @@ func (b *BurndownHistoryAnalyzer) Merge(branches []analyze.HistoryAnalyzer) {
 func (b *BurndownHistoryAnalyzer) Hibernate() error {
 	b.shardedAllocator.Hibernate()
 	if b.HibernationToDisk {
-		// Serialization needs update to handle shards
-		// Original: b.fileAllocator.Serialize(filename)
-		// Now we have N shards.
-		// We can serialize each to filename.i
-		// But Serialize takes path.
+		file, err := ioutil.TempFile(b.HibernationDirectory, "*-hercules.bin")
+		if err != nil {
+			return err
+		}
+		b.hibernatedFileName = file.Name()
+		err = file.Close()
+		if err != nil {
+			b.hibernatedFileName = ""
+			return err
+		}
+		// Clean up the temp file as Serialize will create its own files with suffix
+		err = os.Remove(b.hibernatedFileName)
+		if err != nil {
+			b.hibernatedFileName = ""
+			return err
+		}
 		
-		// This needs proper implementation in ShardedAllocator.
-		// For now, disable hibernation to disk or panic.
-		if b.HibernationToDisk {
-			return fmt.Errorf("HibernationToDisk not supported with ShardedAllocator yet")
+		err = b.shardedAllocator.Serialize(b.hibernatedFileName)
+		if err != nil {
+			b.hibernatedFileName = ""
+			return err
 		}
 	}
 	return nil
@@ -410,7 +423,18 @@ func (b *BurndownHistoryAnalyzer) Hibernate() error {
 
 func (b *BurndownHistoryAnalyzer) Boot() error {
 	if b.hibernatedFileName != "" {
-		return fmt.Errorf("Boot not supported with ShardedAllocator yet")
+		err := b.shardedAllocator.Deserialize(b.hibernatedFileName)
+		if err != nil {
+			return err
+		}
+		// Cleanup happens implicitly if user deletes the files?
+		// Or we should clean up here?
+		// The original code: err = os.Remove(b.hibernatedFileName)
+		// Now we have .shard.N files.
+		for i := 0; i < len(b.shards); i++ {
+			_ = os.Remove(fmt.Sprintf("%s.shard.%d", b.hibernatedFileName, i))
+		}
+		b.hibernatedFileName = ""
 	}
 	b.shardedAllocator.Boot()
 	return nil
@@ -420,7 +444,7 @@ func (b *BurndownHistoryAnalyzer) Finalize() (analyze.Report, error) {
 	globalHistory, lastTick := b.groupSparseHistory(b.globalHistory, -1)
 	fileHistories := map[string]DenseHistory{}
 	fileOwnership := map[string]map[int]int{}
-	
+
 	// Iterate over all shards to collect files
 	for _, shard := range b.shards {
 		for key, history := range shard.fileHistories {
@@ -446,7 +470,7 @@ func (b *BurndownHistoryAnalyzer) Finalize() (analyze.Report, error) {
 			})
 		}
 	}
-	
+
 	peopleHistories := make([]DenseHistory, b.PeopleNumber)
 	for i, history := range b.peopleHistories {
 		if len(history) > 0 {
@@ -508,7 +532,7 @@ func (b *BurndownHistoryAnalyzer) Serialize(result analyze.Report, binary bool, 
 		if len(globalHistory) > 0 {
 			message.Project = pb.ToBurndownSparseMatrix(globalHistory, "project")
 		}
-		
+
 		if len(fileHistories) > 0 {
 			message.Files = make([]*pb.BurndownSparseMatrix, len(fileHistories))
 			message.FilesOwnership = make([]*pb.FilesOwnership, len(fileHistories))
@@ -712,7 +736,7 @@ func (b *BurndownHistoryAnalyzer) handleInsertion(shard *BurndownShard, change *
 	// But deletions[name] is only accessed when processing 'name'.
 	// So if we shard deletions map...
 	// For now, lock GlobalMu.
-	
+
 	b.GlobalMu.Lock()
 	delete(b.deletions, name)
 	if b.tick == burndown.TreeMergeMark {
@@ -739,23 +763,23 @@ func (b *BurndownHistoryAnalyzer) handleDeletion(shard *BurndownShard, change *o
 		return fmt.Errorf("previous version of %s unexpectedly became binary", name)
 	}
 	tick := b.tick
-	
+
 	b.GlobalMu.Lock()
 	isDeletion := b.deletions[name]
 	b.deletions[name] = true
 	b.GlobalMu.Unlock()
-	
+
 	if b.tick == burndown.TreeMergeMark && !isDeletion {
 		tick = 0
 	}
-	
+
 	file.Update(b.packPersonWithTick(author, tick), 0, 0, lines)
 	file.Delete()
 	delete(shard.files, name)
 	delete(shard.fileHistories, name)
-	
+
 	stack := []string{name}
-	
+
 	b.GlobalMu.Lock()
 	for len(stack) > 0 {
 		head := stack[len(stack)-1]
@@ -771,7 +795,7 @@ func (b *BurndownHistoryAnalyzer) handleDeletion(shard *BurndownShard, change *o
 		b.mergedFiles[name] = false
 	}
 	b.GlobalMu.Unlock()
-	
+
 	return nil
 }
 
@@ -782,7 +806,7 @@ func (b *BurndownHistoryAnalyzer) handleModification(shard *BurndownShard, chang
 		b.mergedFiles[change.To.Name] = true
 	}
 	b.GlobalMu.Unlock()
-	
+
 	file, exists := shard.files[change.From.Name]
 	if !exists {
 		return b.handleInsertion(shard, change, author, cache)
@@ -813,13 +837,13 @@ func (b *BurndownHistoryAnalyzer) handleModification(shard *BurndownShard, chang
 func (b *BurndownHistoryAnalyzer) handleModificationRename(change *object.Change, author int, cache map[gitplumbing.Hash]*pkgplumbing.CachedBlob, diffs map[string]pkgplumbing.FileDiffData) error {
 	// Handles modification WITH rename (From != To)
 	// This runs sequentially, so we can access shards safely if we look them up
-	
+
 	b.GlobalMu.Lock()
 	if b.tick == burndown.TreeMergeMark {
 		b.mergedFiles[change.To.Name] = true
 	}
 	b.GlobalMu.Unlock()
-	
+
 	shardFrom := b.getShard(change.From.Name)
 	file, exists := shardFrom.files[change.From.Name]
 	if !exists {
@@ -918,15 +942,15 @@ func (b *BurndownHistoryAnalyzer) handleRename(from, to string) error {
 	if from == to {
 		return nil
 	}
-	
+
 	shardFrom := b.getShard(from)
 	file, exists := shardFrom.files[from]
 	if !exists {
 		return fmt.Errorf("file %s > %s does not exist", from, to)
 	}
-	
+
 	shardTo := b.getShard(to)
-	
+
 	if shardFrom == shardTo {
 		delete(shardFrom.files, from)
 		shardFrom.files[to] = file
@@ -944,7 +968,7 @@ func (b *BurndownHistoryAnalyzer) handleRename(from, to string) error {
 		shardTo.files[to] = newFile
 		file.Delete()
 		delete(shardFrom.files, from)
-		
+
 		if b.TrackFiles {
 			history := shardFrom.fileHistories[from]
 			if history == nil {
@@ -954,7 +978,7 @@ func (b *BurndownHistoryAnalyzer) handleRename(from, to string) error {
 			shardTo.fileHistories[to] = history
 		}
 	}
-	
+
 	b.GlobalMu.Lock()
 	delete(b.deletions, to)
 	if b.tick == burndown.TreeMergeMark {

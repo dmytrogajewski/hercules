@@ -1,6 +1,7 @@
 package rbtree
 
 import (
+	"fmt"
 	"hash/fnv"
 	"sync"
 )
@@ -18,10 +19,6 @@ func NewShardedAllocator(n int, hibernationThreshold int) *ShardedAllocator {
 	shards := make([]*Allocator, n)
 	for i := 0; i < n; i++ {
 		shards[i] = NewAllocator()
-		shards[i].HibernationThreshold = hibernationThreshold / n // Distribute threshold?
-		// Or keep threshold per shard? Threshold is usually for "when to hibernate".
-		// If we split data, we should probably scale threshold or keep it same if it's "min size to bother compressing".
-		// Let's keep it proportionate or just copy. If it's 0, it's 0.
 		if hibernationThreshold > 0 {
 			shards[i].HibernationThreshold = hibernationThreshold / n
 			if shards[i].HibernationThreshold == 0 {
@@ -55,7 +52,11 @@ func (s *ShardedAllocator) Hibernate() {
 	for _, shard := range s.shards {
 		go func(a *Allocator) {
 			defer wg.Done()
+			// Force hibernation even if below threshold by temporarily setting threshold to 0
+			originalThreshold := a.HibernationThreshold
+			a.HibernationThreshold = 0
 			a.Hibernate()
+			a.HibernationThreshold = originalThreshold
 		}(shard)
 	}
 	wg.Wait()
@@ -74,9 +75,61 @@ func (s *ShardedAllocator) Boot() {
 	wg.Wait()
 }
 
-// Serialize serializes all shards.
-// Note: This needs a strategy for filenames. Currently Allocator.Serialize takes a path.
-// We probably need to manage paths outside or add index to filename.
-// But Allocator.Serialize is what we call.
-// This method might not be needed if caller handles iteration, but convenient.
-// We'll leave it to caller or implement later if needed by Burndown.
+// Serialize serializes all shards to disk.
+// It uses basePath as a prefix and appends ".shard.N".
+// Only hibernated shards are serialized (empty shards are skipped).
+func (s *ShardedAllocator) Serialize(basePath string) error {
+	var errs []error
+	var mu sync.Mutex
+	wg := sync.WaitGroup{}
+	wg.Add(len(s.shards))
+
+	for i, shard := range s.shards {
+		go func(idx int, a *Allocator) {
+			defer wg.Done()
+			// Only serialize if hibernated (storage == nil)
+			if a.storage != nil {
+				// Skip non-hibernated shards (they're likely empty and below threshold)
+				return
+			}
+			path := fmt.Sprintf("%s.shard.%d", basePath, idx)
+			if err := a.Serialize(path); err != nil {
+				mu.Lock()
+				errs = append(errs, err)
+				mu.Unlock()
+			}
+		}(i, shard)
+	}
+	wg.Wait()
+
+	if len(errs) > 0 {
+		return fmt.Errorf("failed to serialize shards: %v", errs)
+	}
+	return nil
+}
+
+// Deserialize reads all shards from disk.
+func (s *ShardedAllocator) Deserialize(basePath string) error {
+	var errs []error
+	var mu sync.Mutex
+	wg := sync.WaitGroup{}
+	wg.Add(len(s.shards))
+
+	for i, shard := range s.shards {
+		go func(idx int, a *Allocator) {
+			defer wg.Done()
+			path := fmt.Sprintf("%s.shard.%d", basePath, idx)
+			if err := a.Deserialize(path); err != nil {
+				mu.Lock()
+				errs = append(errs, err)
+				mu.Unlock()
+			}
+		}(i, shard)
+	}
+	wg.Wait()
+
+	if len(errs) > 0 {
+		return fmt.Errorf("failed to deserialize shards: %v", errs)
+	}
+	return nil
+}
