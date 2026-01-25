@@ -107,6 +107,10 @@ func (d *OperatorOperandDetector) GetOperatorName(n *node.Node) node.Type {
 		return ""
 	}
 
+	if n.Token != "" {
+		return node.Type(n.Token)
+	}
+
 	if op, ok := n.Props["operator"]; ok {
 		return node.Type(op)
 	}
@@ -118,6 +122,10 @@ func (d *OperatorOperandDetector) GetOperatorName(n *node.Node) node.Type {
 func (d *OperatorOperandDetector) GetOperandName(n *node.Node) node.Type {
 	if n == nil {
 		return ""
+	}
+
+	if n.Token != "" {
+		return node.Type(n.Token)
 	}
 
 	if name, ok := n.Props["name"]; ok {

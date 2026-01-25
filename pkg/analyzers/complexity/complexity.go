@@ -8,6 +8,7 @@ import (
 
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/analyze"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/common"
+	"github.com/dmytrogajewski/hercules/pkg/pipeline"
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
 
@@ -68,6 +69,26 @@ type ComplexityConfig struct {
 // Name returns the analyzer name
 func (c *ComplexityAnalyzer) Name() string {
 	return "complexity"
+}
+
+// Flag returns the CLI flag for the analyzer
+func (c *ComplexityAnalyzer) Flag() string {
+	return "complexity-analysis"
+}
+
+// Description returns the analyzer description
+func (c *ComplexityAnalyzer) Description() string {
+	return "Analyzes code complexity including cyclomatic and cognitive complexity."
+}
+
+// ListConfigurationOptions returns the configuration options for the analyzer
+func (c *ComplexityAnalyzer) ListConfigurationOptions() []pipeline.ConfigurationOption {
+	return []pipeline.ConfigurationOption{}
+}
+
+// Configure configures the analyzer
+func (c *ComplexityAnalyzer) Configure(facts map[string]interface{}) error {
+	return nil
 }
 
 // Thresholds returns the color-coded thresholds for complexity metrics
@@ -140,6 +161,11 @@ func (c *ComplexityAnalyzer) DefaultConfig() ComplexityConfig {
 			"nesting_red":       5,
 		},
 	}
+}
+
+// CreateVisitor creates a new visitor for complexity analysis
+func (c *ComplexityAnalyzer) CreateVisitor() analyze.AnalysisVisitor {
+	return NewComplexityVisitor()
 }
 
 // Analyze performs complexity analysis on the given UAST
@@ -614,11 +640,11 @@ func (c *ComplexityAnalyzer) findMethodNameInChildren(fn *node.Node) string {
 func (c *ComplexityAnalyzer) getComplexityLevel(complexity int, thresholds map[string]int) string {
 	if complexity <= thresholds["cyclomatic_green"] {
 		return "green"
-	} else if complexity <= thresholds["cyclomatic_yellow"] {
-		return "yellow"
-	} else {
-		return "red"
 	}
+	if complexity <= thresholds["cyclomatic_yellow"] {
+		return "yellow"
+	}
+	return "red"
 }
 
 // getComplexityMessage returns a message based on the average complexity score

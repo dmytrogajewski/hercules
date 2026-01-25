@@ -6,6 +6,7 @@ import (
 
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/analyze"
 	"github.com/dmytrogajewski/hercules/pkg/analyzers/common"
+	"github.com/dmytrogajewski/hercules/pkg/pipeline"
 	"github.com/dmytrogajewski/hercules/pkg/uast/pkg/node"
 )
 
@@ -166,6 +167,26 @@ func (h *HalsteadAnalyzer) Name() string {
 	return "halstead"
 }
 
+// Flag returns the CLI flag for the analyzer
+func (h *HalsteadAnalyzer) Flag() string {
+	return "halstead-analysis"
+}
+
+// Description returns the analyzer description
+func (h *HalsteadAnalyzer) Description() string {
+	return "Calculates Halstead complexity metrics."
+}
+
+// ListConfigurationOptions returns the configuration options for the analyzer
+func (h *HalsteadAnalyzer) ListConfigurationOptions() []pipeline.ConfigurationOption {
+	return []pipeline.ConfigurationOption{}
+}
+
+// Configure configures the analyzer
+func (h *HalsteadAnalyzer) Configure(facts map[string]interface{}) error {
+	return nil
+}
+
 // Thresholds returns the color-coded thresholds for Halstead metrics
 func (h *HalsteadAnalyzer) Thresholds() analyze.Thresholds {
 	return analyze.Thresholds{
@@ -190,6 +211,11 @@ func (h *HalsteadAnalyzer) Thresholds() analyze.Thresholds {
 // CreateAggregator returns a new aggregator for Halstead analysis
 func (h *HalsteadAnalyzer) CreateAggregator() analyze.ResultAggregator {
 	return NewHalsteadAggregator()
+}
+
+// CreateVisitor creates a new visitor for Halstead analysis
+func (h *HalsteadAnalyzer) CreateVisitor() analyze.AnalysisVisitor {
+	return NewHalsteadVisitor()
 }
 
 // Analyze performs Halstead analysis on the UAST
@@ -397,7 +423,7 @@ func (h *HalsteadAnalyzer) findFunctions(root *node.Node) []*node.Node {
 	}
 
 	// Convert back to slice
-	var functions []*node.Node
+	functions := make([]*node.Node, 0, len(allNodes))
 	for node := range allNodes {
 		functions = append(functions, node)
 	}
